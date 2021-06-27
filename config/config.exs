@@ -7,6 +7,13 @@
 # General application configuration
 use Mix.Config
 
+config :elixirika, Elixirika.Repo,
+  adapter: Ecto.Adapters.MyXQL,
+  database: "elixirika_repo",
+  username: "root",
+  password: "",
+  hostname: "127.0.0.1"
+
 config :elixirika,
   ecto_repos: [Elixirika.Repo]
 

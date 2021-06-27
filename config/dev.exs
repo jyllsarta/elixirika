@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :elixirika, Elixirika.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("MYSQL_USERNAME"),
+  password: System.get_env("MYSQL_PASSWORD"),
   database: "elixirika_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
