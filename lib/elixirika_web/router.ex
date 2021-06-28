@@ -17,6 +17,7 @@ defmodule ElixirikaWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/games", PageController, :games
   end
 
   # Other scopes may use custom stacks.

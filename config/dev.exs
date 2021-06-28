@@ -61,7 +61,8 @@ config :elixirika, ElixirikaWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/elixirika_web/(live|views)/.*(ex)$",
-      ~r"lib/elixirika_web/templates/.*(eex)$"
+      ~r"lib/elixirika_web/templates/.*(eex)$",
+      ~r{lib/elixirika_web/templates/.*(slim|slime)$},
     ]
   ]
 
