@@ -1,25 +1,24 @@
-doctype html
-html lang="en"
+html
   head
-    meta charset="utf-8"
-    meta content="IE=edge" http-equiv="X-UA-Compatible"
-    meta content="width=device-width, initial-scale=1" name="viewport"
-    title Elixirika · Phoenix Framework
-    link rel="stylesheet" href="#{Routes.static_path(@conn, "/css/app.css")}"
-
+    title
+      | さーたはうす
   body
     header
-      section.container
-        nav role="navigation"
-          ul
-            li
-              a href="https://hexdocs.pm/phoenix/overview.html" Get Started
-        a.phx-logo href="http://phoenixframework.org/"
-          img src="#{ Routes.static_path(@conn, "/images/phoenix.png") }" alt="Phoenix Framework Logo"
-
-    main.container role="main"
-      p.alert.alert-info role="alert"= get_flash(@conn, :info)
-      p.alert.alert-danger role="alert"= get_flash(@conn, :error)
+      a[href="/"]
+        #top_banner
+          img.left_siroko src="/images/top_siroko.png"
+          img.top_banner_text src="/images/top_banner_text.png"
+          img.right_siroko src="/images/top_siroko_right.png"
+      #nav_menu
+        a.menu_item[href="/index"]
+          | Top
+        a.menu_item[href="/index#about"]
+          | About
+        a.menu_item[href="/games"]
+          | Game
+        a.menu_item[href="/illusts"]
+          | Illust
+        a.menu_item[href="/works"]
+          | Works
+    .main
       = render @view_module, @view_template, assigns
-
-    script type="text/javascript" src="#{Routes.static_path(@conn, "/js/app.js")}"

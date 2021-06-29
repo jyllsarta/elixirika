@@ -18,6 +18,7 @@ defmodule ElixirikaWeb.Router do
 
     get "/", PageController, :index
     get "/games", PageController, :games
+    get "/twitter_webhook", PageController, :twitter_webhook
   end
 
   # Other scopes may use custom stacks.

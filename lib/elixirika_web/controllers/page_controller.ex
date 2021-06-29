@@ -6,6 +6,13 @@ defmodule ElixirikaWeb.PageController do
   end
 
   def games(conn, _params) do
-    render(conn, "games.html")
+    conn
+    |> put_layout(false)
+    |> render("games.html")
+  end
+
+  def twitter_webhook(conn, _params) do
+    conn
+    |> render("twitter_webhook.html")
   end
 end
