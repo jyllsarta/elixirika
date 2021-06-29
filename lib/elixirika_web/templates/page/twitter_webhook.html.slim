@@ -52,3 +52,6 @@ section
     br
     |  廃止予定がなく、代用できるAPIがあったみたいです。 通知が受信できないこと、鍵アカウントを対象に含められないことなど制約はありますが、とりあえずの対策としては有効かもしれません。 
 //  = render 'twitter_link', {text: "なぜtwitterはUserStreamを停止したがるのか", link_to: twitter_webhook_url}
+
+script type="text/javascript" src="#{Routes.static_path(@conn, "/js/twitter_webhook.js")}"
+link href="#{Routes.static_path(@conn, "/css/twitter_webhook.css")}" rel="stylesheet"
