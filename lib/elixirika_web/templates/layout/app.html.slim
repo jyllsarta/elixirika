@@ -22,3 +22,5 @@ html
           | Works
     .main
       = @inner_content
+    script type="text/javascript" src="#{Routes.static_path(@conn, "/js/app.js")}"
+    link href="#{Routes.static_path(@conn, "/css/app.css")}" rel="stylesheet"

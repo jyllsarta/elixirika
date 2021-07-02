@@ -7,12 +7,17 @@ defmodule ElixirikaWeb.PageController do
 
   def games(conn, _params) do
     conn
-    |> put_layout(false)
+    # |> put_layout(false)
     |> render("games.html")
   end
 
   def twitter_webhook(conn, _params) do
     conn
     |> render("twitter_webhook.html")
+  end
+
+  def airryr_introduction(conn, _params) do
+    conn
+    |> render("airryr_introduction.html")
   end
 end
