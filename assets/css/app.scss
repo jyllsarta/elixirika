@@ -1,3 +1,33 @@
+// reset
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+a{
+    text-decoration: none;
+    padding: 0px 0px;
+}
+
+// honpen
+
 
 $main-color: #4b4f61;
 $gray1: #dad9f3;
@@ -93,6 +123,7 @@ a:hover{
 a:visited{
   color: $link-color-visited;
 }
+
 
 .menu_item{
   display: block;
@@ -233,6 +264,7 @@ dd{
   opacity: 0.5;
 }
 
+
 .screenshots{
   width: 100%;
   display: flex;
@@ -253,22 +285,4 @@ dd{
 .play{
   font-size: 18px;
   text-decoration: underline;
-}
-
-.title_image{
-  width: 640px;
-}
-.title_image:hover{
-  filter: brightness(130%);
-}
-
-.screenshot{
-  width: 180px;
-}
-.screenshot:hover{
-  filter: brightness(130%);
-}
-
-.screenshot_box{
-  margin-left: 30px;
 }
