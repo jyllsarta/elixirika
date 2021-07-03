@@ -1,0 +1,13 @@
+/- provide :title, "Illusts"
+h2
+  | イラスト
+p
+  a[href="/rakugaki"]
+    | らくがき
+  | もあります。そちらは眠いときにちゃちゃっと描いたものです。
+#illustBox
+  / - @image_filenames.reverse.each do |filename|
+  /   = render 'illust_thumbnail', {filename: filename, thumbnail_path: "illust_thumbnails", original_path: "illust_all"}
+
+p
+  | TODO: illustBoxの順次描画

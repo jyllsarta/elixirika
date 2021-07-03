@@ -1,0 +1,12 @@
+/- provide :title, "Illusts"
+h1
+  | らくがき
+p
+  | ちゃんとした絵は
+  a[href="/illusts"]
+    | イラスト
+  | を見てね。
+section
+  #illustBox
+/     - @image_filenames.reverse.each do |filename|
+/       = render 'illust_thumbnail', {filename: filename, thumbnail_path: "rakugaki", original_path: "rakugaki"}

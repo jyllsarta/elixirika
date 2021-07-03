@@ -17,9 +17,22 @@ defmodule ElixirikaWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/index", PageController, :index
     get "/games", PageController, :games
+    get "/ika", PageController, :ika
+    get "/illusts", PageController, :illusts
+    get "/rakugaki", PageController, :rakugaki
+    get "/works", PageController, :works
     get "/twitter_webhook", PageController, :twitter_webhook
     get "/airryr_introduction", PageController, :airryr_introduction
+    get "/sainokawara", PageController, :sainokawara
+    get "/samusugi", PageController, :samusugi
+
+    get "/neko", PageController, :neko
+    get "/nekomanual", PageController, :nekomanual
+    get "/neko2", PageController, :neko2
+    get "/snipon", PageController, :snipon
+    get "/touzoku", PageController, :touzoku
   end
 
   # Other scopes may use custom stacks.
