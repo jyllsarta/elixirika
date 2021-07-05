@@ -31,8 +31,16 @@ defmodule ElixirikaWeb.PageController do
   end
 
   def airryr_introduction(conn, _params) do
+    custom_og = %{
+      description: "センサーを置いて監視させていると、空気が悪くなったらtwitterでbotからリプライが飛んでくる仕組みを作りました。換気の目安になって捗ります。",
+      title: "部屋の空気が悪くなるとtwitterで通知を送ってくれるbotを作った話",
+      url: "https://jyllsarta.net/airryr_introduction",
+      image: "https://user-images.githubusercontent.com/5991227/70609922-feb7c900-1c45-11ea-8f1f-13d1750c052e.jpg",
+      site_name: "さーたはうす",
+    }
+
     conn
-    |> render("airryr_introduction.html", title: title("部屋の空気が悪くなるとtwitterで通知を送ってくれるbotを作った話"), og: default_og())
+    |> render("airryr_introduction.html", title: title("部屋の空気が悪くなるとtwitterで通知を送ってくれるbotを作った話"), og: custom_og)
   end
 
   def rakugaki(conn, _params) do
