@@ -235,16 +235,6 @@ dd{
   width: 70%;
 }
 
-.wide_thumb{
-  width: 380px;
-  height: 100px;
-  background-size: 400px;
-  background-position: center;
-  background-repeat: no-repeat;
-  box-shadow:inset -1px -1px 2px 3px rgba(242,240,255,2);
-  filter: brightness(105%);
-}
-
 #illustBox{
   display: flex;
   width: 100%;
@@ -253,6 +243,22 @@ dd{
   .thumb{
     width: 248px;
     height: 248px;
+    background-size: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow:inset -1px -1px 2px 3px rgba(242,240,255,2);
+    filter: brightness(105%);
+  }
+}
+
+#illustBoxWide{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap; 
+  .thumb{
+    width: 380px;
+    height: 100px;
     background-size: 400px;
     background-position: center;
     background-repeat: no-repeat;

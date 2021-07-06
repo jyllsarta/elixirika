@@ -209,10 +209,8 @@ p
     | illust
   | で全部見れます。
 
-ul#illustBox
-  / - @image_filenames.reverse.take(18).each do |filename|
-  /   li
-  /     = render 'illust_thumbnail', {filename: filename, thumbnail_path: "illust_thumbnails", original_path: "illust_all"}
-
-p 
-  | TODO: illustBoxの描画ができるようにする
+ul#illustBoxWide
+  = for i <- (Enum.to_list(131..151) |> Enum.reverse) do
+    - istr = i |> Integer.to_string |> String.rjust(3, ?0)
+    a[href="/images/illust_all/#{istr}.png"]
+      div.thumb[style="background-image: url('/images/illust_thumbnails/#{istr}.png')"]
