@@ -7,5 +7,7 @@ p
   | を見てね。
 section
   #illustBox
-/     - @image_filenames.reverse.each do |filename|
-/       = render 'illust_thumbnail', {filename: filename, thumbnail_path: "rakugaki", original_path: "rakugaki"}
+    = for i <- (Enum.to_list(1..4) |> Enum.reverse) do
+      - istr = i |> Integer.to_string |> String.rjust(3, ?0)
+      a[href="/images/rakugaki/#{istr}.png"]
+        div.thumb[style="background-image: url('/images/rakugaki/#{istr}.png')"]

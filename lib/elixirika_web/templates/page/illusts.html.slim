@@ -5,8 +5,10 @@ p
     | らくがき
   | もあります。そちらは眠いときにちゃちゃっと描いたものです。
 #illustBox
-  / - @image_filenames.reverse.each do |filename|
-  /   = render 'illust_thumbnail', {filename: filename, thumbnail_path: "illust_thumbnails", original_path: "illust_all"}
+  = for i <- (Enum.to_list(1..151) |> Enum.reverse) do
+    - istr = i |> Integer.to_string |> String.rjust(3, ?0)
+    a[href="/images/illust_all/#{istr}.png"]
+      div.thumb[style="background-image: url('/images/illust_all/#{istr}.png')"]
 
 p
   | TODO: illustBoxの順次描画
