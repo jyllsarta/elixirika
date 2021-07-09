@@ -9,8 +9,5 @@ head
   meta name="twitter:card" content="summary"
   meta name="twitter:site" content="@jyll"
 
-/= javascript_pack_tag 'ika/packs/loadIka'
-/= stylesheet_pack_tag 'ika/packs/loadIka'
-
-p 
-  | イカのページ(TODO: Vueを復帰)
+script type="text/javascript" src="#{Routes.static_path(@conn, "/js/loadIka.js")}"
+link href="#{Routes.static_path(@conn, "/css/loadIka.css")}" rel="stylesheet"

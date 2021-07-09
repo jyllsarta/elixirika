@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const VueLoaderPlugin = require("vue-loader/lib/plugin")
 
 module.exports = (env, options) => {
   const devMode = options.mode !== 'production';
@@ -18,6 +19,7 @@ module.exports = (env, options) => {
     },
     entry: {
       'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
+      'loadIka': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/ika/packs/loadIka.js']),
     },
     output: {
       filename: '[name].js',
@@ -27,6 +29,59 @@ module.exports = (env, options) => {
     devtool: devMode ? 'eval-cheap-module-source-map' : undefined,
     module: {
       rules: [
+        {
+          test: /\.vue$/,
+          use: [
+            {
+              loader: "vue-loader",
+              options: { sourceMap: true },
+            },
+          ]
+        },
+        {
+          test: /\.js$/,
+          use: [
+            {
+              loader: "babel-loader",
+              options: {
+                presets: [
+                  "@babel/preset-env"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          test: /\.ts$/,
+          use: [
+            {
+              loader: "babel-loader",
+              options: {
+                presets: [
+                  "@babel/preset-env"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            "vue-style-loader",
+            {
+              loader: "css-loader",
+              options: { sourceMap: true },
+            },
+            {
+              loader: "sass-loader",
+              options: { sourceMap: true },
+            },
+          ],
+        },
+        { 
+          test: /\.pug$/,
+          loader: 'pug-plain-loader'
+        },
         {
           test: /\.js$/,
           exclude: /node_modules/,
@@ -45,7 +100,8 @@ module.exports = (env, options) => {
       ]
     },
     plugins: [
-      new MiniCssExtractPlugin({ filename: '../css/app.css' }),
+      new VueLoaderPlugin(),
+      new MiniCssExtractPlugin({ filename: '../css/[name].css' }),
       new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
     ]
     .concat(devMode ? [new HardSourceWebpackPlugin()] : [])

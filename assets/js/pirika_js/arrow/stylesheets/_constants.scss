@@ -1,0 +1,32 @@
+// arrow の 共通定数をまとめるところ
+
+$field-width: 600px;
+$field-height: 600px;
+$ball-size: 30px;
+$pointer-size: 30px;
+
+$main-font-size: 60px;
+
+$main-color: rgba(33, 47, 52, 0.7);
+$light-gray: #ededf5;
+
+$accent-color: rgba(238, 100, 47, 0.7);
+
+$blight: #87c3e1;
+
+$ball-colors: (
+        0:  (
+                color1: rgba(48, 45, 76, 0.7),
+        ),
+        1:  (
+                color1: rgba(33, 47, 52, 0.7),
+        ),
+        2:  (
+                color1: rgba(29, 87, 93, 0.7),
+        ),
+);
+@each $idx, $property in $ball-colors{
+  .color_#{$idx} {
+    background-color: map-get($property, color1);
+  }
+}
