@@ -27,6 +27,7 @@ defmodule ElixirikaWeb.Router do
     get "/airryr_introduction", PageController, :airryr_introduction
     get "/sainokawara", PageController, :sainokawara
     get "/samusugi", PageController, :samusugi
+    get "/match_illust", PageController, :match_illust
 
     get "/neko", PageController, :neko
     get "/nekomanual", PageController, :nekomanual

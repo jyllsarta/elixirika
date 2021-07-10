@@ -58,6 +58,19 @@ defmodule ElixirikaWeb.PageController do
     |> render("samusugi.html", title: title("寒すぎて%sになった"), og: default_og())
   end
 
+  def match_illust(conn, _params) do
+    custom_og = %{
+      description: "画像の加工具合をお手本に合わせて調整するゲームです。ブラウザですぐ遊べます。",
+      title: "css filterプロパティ完全に理解した",
+      url: "https://jyllsarta.net/match_illust",
+      image: "https://jyllsarta.github.io/images/tile/ogp_image.png",
+      site_name: "さーたはうす",
+    }
+
+    conn
+    |> render("match_illust.html", title: title("css filterプロパティ完全に理解した"), og: default_og())
+  end
+
   # layout falses
 
   def neko(conn, _params) do
