@@ -44,3 +44,11 @@ config :phoenix, :template_engines,
   slimleex: PhoenixSlime.LiveViewEngine # If you want to use LiveView
 
 config :phoenix_slime, :use_slim_extension, true
+
+config :yacto, :databases,
+  %{
+    default: %{
+      module: Yacto.DB.Single,
+      repo: Elixirika.Repo,
+    },
+  }
