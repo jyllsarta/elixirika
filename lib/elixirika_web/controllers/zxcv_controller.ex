@@ -34,6 +34,13 @@ defmodule ElixirikaWeb.ZxcvController do
     |> render("index.html", title: title("ZXCV"), og: default_og())
   end
 
+  def ranking(conn, _params) do
+    require Ecto.Query
+    ranking = Ecto.Query.from(score in Elixirika.ZxcvScore, order_by: [desc: score.total_score]) |> Ecto.Query.limit(5) |> Elixirika.Repo.all
+    conn
+    |> render("ranking.json", ranking: ranking)
+  end
+
   # デフォルトのogタグとtitleを出力
   defp title do
     default_title
