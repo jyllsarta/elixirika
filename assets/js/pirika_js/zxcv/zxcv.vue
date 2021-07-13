@@ -387,7 +387,7 @@
       sendResult: function(){
         axios.post(location.href,
           {
-            authenticity_token: $("meta[name=csrf-token]").attr("content"),
+            _csrf_token: $("meta[name=csrf-token]").attr("content"),
             username: this.username,
             speed_score: this.speedScore,
             score: this.score,

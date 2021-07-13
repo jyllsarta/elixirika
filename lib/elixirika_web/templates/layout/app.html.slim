@@ -9,6 +9,7 @@ html
     meta name="twitter:card" content="summary"
     meta name="twitter:site" content="@jyll"
     meta name="viewport" content="width=device-width,initial-scale=1"
+    meta name="csrf-token" content="#{Phoenix.Controller.get_csrf_token()}"
     title
       | #{@title}
   body
