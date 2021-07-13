@@ -41,6 +41,7 @@ defmodule ElixirikaWeb.Router do
 
     get "/zxcv", ZxcvController, :index
     get "/zxcv/ranking", ZxcvController, :ranking
+    get "/zxcv/high_score", ZxcvController, :high_score
 
   end
 

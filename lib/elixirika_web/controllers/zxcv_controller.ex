@@ -41,6 +41,18 @@ defmodule ElixirikaWeb.ZxcvController do
     |> render("ranking.json", ranking: ranking)
   end
 
+  def high_score(conn, params) do
+    require Ecto.Query
+    high_score_record = Ecto.Query.from(score in Elixirika.ZxcvScore, order_by: [desc: score.total_score])
+                  |> Ecto.Query.limit(1)
+                  |> Ecto.Query.where(username: ^params["username"])
+                  |> Elixirika.Repo.one
+    # モデルに生やすべきなんだろうけど一旦動作優先で横着しちゃう
+    total_score = if high_score_record != nil, do: high_score_record.total_score, else: 0
+    conn
+    |> render("high_score.json", high_score: total_score)
+  end
+
   # デフォルトのogタグとtitleを出力
   defp title do
     default_title
