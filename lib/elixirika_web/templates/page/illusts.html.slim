@@ -6,6 +6,6 @@ p
   | もあります。そちらは眠いときにちゃちゃっと描いたものです。
 #illustBox
   = for i <- (Enum.to_list(1..151) |> Enum.reverse) do
-    - istr = i |> Integer.to_string |> String.rjust(3, ?0)
+    - istr = i |> Integer.to_string |> String.pad_leading(3, "0")
     a[href="/images/illust_all/#{istr}.png"]
       div.thumb[style="background-image: url('/images/illust_all/#{istr}.png')"]
