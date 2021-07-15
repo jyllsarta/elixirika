@@ -16,9 +16,10 @@ defmodule ElixirikaWeb.ZxcvController do
 
   def ranking(conn, _params) do
     require Ecto.Query
-    ranking = Ecto.Query.from(score in Elixirika.ZxcvScore, order_by: [desc: score.total_score]) |> Ecto.Query.limit(5) |> Elixirika.Repo.all
+    ranking = Ecto.Query.from(score in Elixirika.ZxcvScore, order_by: [desc: score.total_score]) |> Ecto.Query.limit(1000) |> Elixirika.Repo.all
+    distinct_ranking = Enum.uniq_by(ranking, &(&1.username)) |> Enum.take(10)
     conn
-    |> render("ranking.json", ranking: ranking)
+    |> render("ranking.json", ranking: distinct_ranking)
   end
 
   def high_score(conn, params) do
