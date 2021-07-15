@@ -141,6 +141,7 @@
 <style lang='scss' scoped>
   @import "stylesheets/constants";
 
+
   div{
     font-family: 'Kanit', sans-serif;
   }
@@ -154,7 +155,7 @@
     opacity: $transparent_normal;
     font-size: $title_font_size;
     text-align: center;
-    color: $black;
+    color: $letter_color;
   }
 
   .game_over{
@@ -176,6 +177,7 @@
     text-align: center;
     opacity: $transparent_normal;
     font-size: $title_font_size;
+    color: $letter_color;
   }
 
   .r_to_reset{

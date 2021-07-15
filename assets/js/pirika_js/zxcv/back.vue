@@ -11,7 +11,7 @@
     ],
     computed: {
       noteBackground(){
-        return `color_${Math.floor((this.initialNoteCount - this.notes.length) / 100) + 1}`;
+        return `b_color_${Math.floor((this.initialNoteCount - this.notes.length) / 100) + 1}`;
       },
     },
   }
@@ -24,7 +24,7 @@
   $shadow_colors: #2a2a34 #233134 #2b2616 #282128 #0b0b0c #7d7a81;
 
   @for $i from 1 through length($colors) {
-    .color_#{$i} {
+    .b_color_#{$i} {
       background: linear-gradient(to bottom, nth($colors, $i) 66%, nth($shadow_colors, $i));
     }
   }
