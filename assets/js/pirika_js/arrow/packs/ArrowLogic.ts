@@ -1,9 +1,9 @@
-import Ball from "./Ball"
-import Pointer from "./Pointer"
-import GameState from "./GameState"
-import SoundManager from "./SoundManager"
-import Constants from "./Constants"
-import OnlineRanking from "./OnlineRanking"
+import Ball from "./Ball.ts"
+import Pointer from "./Pointer.ts"
+import GameState from "./GameState.ts"
+import SoundManager from "./SoundManager.ts"
+import Constants from "./Constants.ts"
+import OnlineRanking from "./OnlineRanking.ts"
 
 
 class ArrowLogic{

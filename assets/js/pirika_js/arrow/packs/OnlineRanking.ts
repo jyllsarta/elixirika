@@ -8,11 +8,11 @@ class OnlineRanking{
 
   public submit(username: string, score: number, remove_score: number, time_score: number, callback: (results) => void){
     axios.post(this.scoreSubmitUrl,{
-              authenticity_token: document.querySelector("meta[name=csrf-token]").attributes["content"].textContent,
+              _csrf_token: document.querySelector("meta[name=csrf-token]").attributes["content"].textContent,
               username: username,
               score: score,
-              remove_score: remove_score,
-              time_score: time_score,
+              remove_score: Math.floor(remove_score),
+              time_score: Math.floor(time_score),
           }
         )
         .then((results) => {

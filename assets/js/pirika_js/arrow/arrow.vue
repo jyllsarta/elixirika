@@ -82,20 +82,21 @@
 
 </template>
 
-<script lang="ts">
-    import ArrowLogic from "./packs/ArrowLogic";
-    import GameState from "./packs/GameState";
+<script lang="typescript">
+    import ArrowLogic from "./packs/ArrowLogic.ts";
+    import GameState from "./packs/GameState.ts";
     import Ball from "./Ball.vue";
     import Pointer from "./Pointer.vue";
     import GameStartButton from "./GameStartButton.vue";
     import ResetButton from "./ResetButton.vue";
-    import Constants from "./packs/Constants"
-    import Timer from "./packs/Timer"
+    import Constants from "./packs/Constants.ts"
+    import Timer from "./packs/Timer.ts"
     import NameInputArea from "./NameInputArea.vue";
     import RemoveScore from "./RemoveScore.vue";
     import Ranking from "./Ranking.vue";
+    import Vue from 'vue'
 
-    export default {
+    export default Vue.extend({
     components: {
       Ball,
       Pointer,
@@ -140,7 +141,7 @@
         this.logic.update(timeDelta);
         requestAnimationFrame(() => {this.update();});
       },
-      updatePointerPosition(e: MouseEvent){
+      updatePointerPosition(e){
         this.latestMouseMoveEvent = e;
       },
       startGame(){
@@ -156,7 +157,7 @@
       onMouseUp(){
         this.logic.onMouseUp();
       },
-      setName(name: string){
+      setName(name){
         this.logic.setName(name);
       },
       showRanking(){
@@ -187,7 +188,7 @@
         return Constants.gameWindowPixelSizeY;
       },
     }
-  }
+  })
 </script>
 
 <style lang='scss' scoped>

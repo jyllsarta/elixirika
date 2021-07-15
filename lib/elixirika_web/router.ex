@@ -44,6 +44,13 @@ defmodule ElixirikaWeb.Router do
     get "/zxcv/ranking", ZxcvController, :ranking
     get "/zxcv/high_score", ZxcvController, :high_score
 
+    # Arrow
+
+    get "/arrow", ArrowController, :index
+    post "/arrow", ArrowController, :create
+    get "/arrow/ranking", ArrowController, :ranking
+    get "/arrow/high_score", ArrowController, :high_score
+
   end
 
   # Other scopes may use custom stacks.

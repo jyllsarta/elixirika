@@ -8,9 +8,9 @@
     input.name_input_box(type="text", @blur="onBlur", v-model="rawName", v-if="inputting" ref="name_input_box" maxlength=6)
 </template>
 
-<script lang="ts">
+<script lang="js">
 import Vue from "vue";
-import jsSHA from "jssha";
+import jsSHA from "jssha"; // こいつがjsじゃないと動かないのでこのファイルだけjsにする
 export default {
   name: "NameInputArea",
   data: function() {

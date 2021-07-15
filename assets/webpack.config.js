@@ -21,6 +21,7 @@ module.exports = (env, options) => {
       'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
       'loadIka': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/ika/packs/loadIka.js']),
       'loadZxcv': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/zxcv/packs/loadZxcv.js']),
+      'loadArrow': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/arrow/packs/loadArrow.ts']),
     },
     output: {
       filename: '[name].js',
@@ -61,6 +62,12 @@ module.exports = (env, options) => {
                 presets: [
                   "@babel/preset-env"
                 ]
+              }
+            },
+            {
+              loader: 'ts-loader',
+              options: {
+                  appendTsSuffixTo: [/\.vue$/]
               }
             }
           ]
