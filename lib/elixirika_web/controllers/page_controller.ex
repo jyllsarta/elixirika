@@ -21,8 +21,15 @@ defmodule ElixirikaWeb.PageController do
   end
 
   def ika(conn, _params) do
+    custom_og = %{
+      description: "イカを当てよう！",
+      title: "キャベツを我慢するフグ",
+      url: "https://jyllsarta.net/ika",
+      image: "https://jyllsarta.net/images/ika/fugu.png",
+      site_name: "さーたはうす",
+    }
     conn
-    |> render("ika.html", title: title("キャベツを我慢するフグ"), og: default_og())
+    |> render("ika.html", title: title("キャベツを我慢するフグ"), og: custom_og)
   end
 
   def illusts(conn, _params) do
