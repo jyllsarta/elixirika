@@ -1,7 +1,7 @@
 import {
   log as glog,
   warn as warn
-} from './logsystem';
+} from './logsystem.js';
 
 // ゲームロジック全般
 class PlayLog {

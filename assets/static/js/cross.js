@@ -1,7 +1,7 @@
 import {
   log as log,
   warn as warn
-} from './logsystem';
+} from './logsystem.js';
 
 
 // 概念クラス クリックされたところから上下左右に探したブロック4つ

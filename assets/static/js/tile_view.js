@@ -3,11 +3,11 @@
 // (このファイルがこんなに苦しいならフロントのライブラリを使うべきでは...?)
 //
 
-import ColorTile from './colortile';
+import ColorTile from './colortile.js';
 import {
   log as log,
   warn as warn
-} from './logsystem';
+} from './logsystem.js';
 
 // qiitaのanimate謎拡張
 // https://qiita.com/waterada/items/bb73f3850f05d854dc6e

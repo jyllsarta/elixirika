@@ -1,6 +1,6 @@
-import Cross from './cross';
-import Panel from './panel';
-import { log as log, warn as warn } from './logsystem';
+import Cross from './cross.js';
+import Panel from './panel.js';
+import { log as log, warn as warn } from './logsystem.js';
 
 class Board {
   constructor(boardJSON) {

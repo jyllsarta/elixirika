@@ -2,7 +2,7 @@
 // api.js railsのAPI叩く
 //
 
-import { log as log, warn as warn } from './logsystem';
+import { log as log, warn as warn } from './logsystem.js';
 
 class ColorTileAPI {
   static getNewBoard(callback) {

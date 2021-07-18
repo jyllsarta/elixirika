@@ -1,0 +1,117 @@
+head
+  title
+    | 盗賊ちゃんクリッカー
+  link href="https://fonts.googleapis.com/css?family=Kosugi+Maru&amp;subset=japanese" rel="stylesheet"
+body 
+  .main
+    .game_screen
+      .start
+        img.title_image src="images/tile/title.png"
+        .namearea
+          span.namelabel
+            | おなまえ(なまえ#任意の文字列 の形式で入力すると名札📛がつきます)
+          div.fixed_username
+            span.text_username
+            span.change_username
+              | 変更
+          input.username.hidden type="text" name="username" cols="30" rows="1" maxlength=20
+        a.to_how_to_play href="/tile/howto"
+          | あそびかた
+        a.to_ranking href="/tile/results"
+          | ランキング
+        .click_to_start#easy
+          .difficulty
+            .label
+              | かんたん
+          .highscore
+            img.score_icon src="images/tile/highscore.png"
+            span.highscore_value
+              | -
+          .best_time
+            img.score_icon src="images/tile/time.png"
+            span.highscore_time
+              | -
+        .click_to_start#normal
+          .difficulty
+            .label
+              | ふつう
+          .highscore
+            img.score_icon src="images/tile/highscore.png"
+            span.highscore_value
+              | -
+          .best_time
+            img.score_icon src="images/tile/time.png"
+            span.highscore_time
+              | -
+        .click_to_start#hard
+          .difficulty
+            .label
+              | やばみ
+          .highscore
+            img.score_icon src="images/tile/highscore.png"
+            span.highscore_value
+              | -
+          .best_time
+            img.score_icon src="images/tile/time.png"
+            span.highscore_time
+              | -
+      .ui
+        .time_base
+        .time
+        .scorebox
+        .score
+          | 0
+        #effects
+      .end.hidden
+        .background
+        img.result_siroko.siroko_good.hidden src="images/tile/good.png"
+        img.result_siroko.siroko_normal.hidden src="images/tile/normal.png"
+        img.result_siroko.siroko_bad.hidden src="images/tile/bad.png"
+        .final_score_label
+          | スコア
+        .final_score_updated_label
+          | 更新！
+        .final_score
+        .remain_time_label
+          | のこりタイム
+        .remain_time_updated_label
+          | 更新！
+        .remain_time
+        .restart.button
+          | リスタート
+        .back_to_title.button
+          | タイトル
+        .tweet
+          img.twitter src="images/tile/twitter.png"
+      .board
+        = for y <- (Enum.to_list(0..@column-1)) do
+          .row
+          = for x <- (Enum.to_list(0..@row-1)) do
+            .panel x=x y=y
+              .block.hidden
+
+  .colors.removed
+      div[class="color_sample1"]
+      div[class="color_sample2"]
+      div[class="color_sample3"]
+      div[class="color_sample4"]
+      div[class="color_sample5"]
+      div[class="color_sample6"]
+      div[class="color_sample7"]
+      div[class="color_sample8"]
+      div[class="color_sample9"]
+      div[class="color_sample10"]
+      div[class="color_sample11"]
+      div[class="color_sample12"]
+
+
+  link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"
+  link href="/css/colortile.css" rel="stylesheet"
+  script type="text/javascript" src="/js/jquery-3.3.1.min.js"
+  script type="text/javascript" src="/js/ga.js"
+  script type="text/javascript" src="/js/jquery.cookie.js"
+  script type="text/javascript" src="/js/jquery.easing.1.3.js"
+  script type="text/javascript" src="/js/jquery-numerator.js"
+  script type="text/javascript" src="/js/sha256.js"
+  script type="module" src="/js/colortile.js"
+  script type="module" src="/js/tile_view.js"

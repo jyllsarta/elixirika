@@ -1,7 +1,7 @@
 import {
   log as log,
   warn as warn
-} from './logsystem';
+} from './logsystem.js';
 
 
 // パネル1マス

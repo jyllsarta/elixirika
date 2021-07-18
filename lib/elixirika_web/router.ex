@@ -51,6 +51,15 @@ defmodule ElixirikaWeb.Router do
     get "/arrow/ranking", ArrowController, :ranking
     get "/arrow/high_score", ArrowController, :high_score
 
+    # Tile
+
+    get "/tile", TileController, :index
+    get "/tile/new", TileController, :new
+    get "/tile/howto", TileController, :howto
+    get "/tile/results", TileController, :result_index
+    post "/tile/results/create", TileController, :create
+    get "/tile/:user_name/high_score", TileController, :high_score
+
   end
 
   # Other scopes may use custom stacks.

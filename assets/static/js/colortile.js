@@ -1,11 +1,11 @@
-import Board from './board';
-import GameMode from './gamemodes';
-import PlayLog from './playlog';
-import ColorTileAPI from './api';
+import Board from './board.js';
+import GameMode from './gamemodes.js';
+import PlayLog from './playlog.js';
+import ColorTileAPI from './api.js';
 import {
   log as log,
   warn as warn
-} from './logsystem';
+} from './logsystem.js';
 
 // ゲームロジック全般
 class ColorTile {
