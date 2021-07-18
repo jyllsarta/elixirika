@@ -2,18 +2,16 @@ defmodule ElixirikaWeb.ArrowController do
   use ElixirikaWeb, :controller
 
   def index(conn, _params) do
-
-    # todo impl
     custom_og = %{
-      description: "流れてくるノーツを自分のペースでひたすら打ち込み続けるゲームです。ブラウザですぐ遊べます。",
-      title: "ZXCV",
-      url: "https://jyllsarta.net/zxcv",
+      description: "ひたすら避けるゲームなのです。ブラウザですぐ遊べます。",
+      title: "ICE BREAK",
+      url: "https://jyllsarta.net/arrow",
       image: "https://jyllsarta.github.io/images/tile/ogp_image.png",
       site_name: "さーたはうす",
     }
 
     conn
-    |> render("index.html", title: title("Arrow"), og: default_og())
+    |> render("index.html", title: title("ICE BREAK"), og: custom_og)
   end
 
   def ranking(conn, _params) do
