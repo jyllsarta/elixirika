@@ -58,7 +58,7 @@ defmodule ElixirikaWeb.Router do
     get "/tile/howto", TileController, :howto
     get "/tile/results", TileController, :result_index
     post "/tile/results/create", TileController, :create
-    get "/tile/:user_name/high_score", TileController, :high_score
+    get "/tile/:user_name/highscore", TileController, :high_score
 
   end
 

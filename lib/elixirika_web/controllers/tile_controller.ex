@@ -7,8 +7,29 @@ defmodule ElixirikaWeb.TileController do
     |> render("index.html", title: title("しろこのカラータイル"), og: custom_og(), row: 20, column: 10)
   end
 
+  def new(conn, _params) do
+    board = File.read!("assets/static/etc/board.json")
+      |> Jason.decode!
+    conn
+      |> render("new.json", board: board)
+  end
+
+  def high_score(conn, _params) do
+    # TODO: impl
+    high_score = %{
+      score_easy: 100,
+      score_normal: 200,
+      score_hard: 300,
+      time_easy: nil,
+      time_normal: nil,
+      time_hard: nil,
+    }
+    conn
+      |> render("high_score.json", high_score: high_score)
+  end
+
   defp title(title) do
-    title <> " - " <> default_title    
+    title <> " - " <> default_title()
   end
   defp default_title() do
     "さーたはうす"

@@ -86,9 +86,9 @@ body
       .board
         = for y <- (Enum.to_list(0..@column-1)) do
           .row
-          = for x <- (Enum.to_list(0..@row-1)) do
-            .panel x=x y=y
-              .block.hidden
+            = for x <- (Enum.to_list(0..@row-1)) do
+              .panel x=x y=y
+                .block.hidden
 
   .colors.removed
       div[class="color_sample1"]
