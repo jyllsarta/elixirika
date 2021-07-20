@@ -8,7 +8,8 @@ defmodule ElixirikaWeb.TileController do
   end
 
   def new(conn, _params) do
-    board = File.read!("assets/static/etc/board.json")
+    # rubyコマンドは若干重い...
+    board = :os.cmd('cd lib/ruby/; ruby tile_cli.rb')
       |> Jason.decode!
     conn
       |> render("new.json", board: board)
