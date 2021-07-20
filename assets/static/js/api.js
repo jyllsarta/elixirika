@@ -34,7 +34,7 @@ class ColorTileAPI {
         timeout: 10000,
         dataType: "json",
         data: {
-          authenticity_token: $("meta[name=csrf-token]").attr("content"),
+          _csrf_token: $("meta[name=csrf-token]").attr("content"),
           playlog: logjson,
           username: username,
           difficulty: difficulty,
