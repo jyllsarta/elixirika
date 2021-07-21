@@ -37,8 +37,8 @@ class ColorTileAPI {
           _csrf_token: $("meta[name=csrf-token]").attr("content"),
           playlog: logjson,
           username: username,
-          difficulty: difficulty,
-          remain_time: remainTime,
+          difficulty: parseInt(difficulty),
+          remain_time: parseInt(remainTime),
         },
       })
         .done(function (response, textStatus, jqXHR) {

@@ -3,11 +3,12 @@ defmodule Elixirika.TileScore do
   @derive {Jason.Encoder, only: [:score, :username, :difficulty, :remain_time]}
 
   schema @auto_source do
-    field :seed,        :integer, default: 0,  meta: [null: false]
-    field :score,       :integer, default: 0,  meta: [null: false]
-    field :username,    :string,  default: "", meta: [null: false]
-    field :playlog,     :integer, default: 0,  meta: [null: false]
-    field :difficulty,  :integer, default: 0,  meta: [null: false]
-    field :remain_time, :integer, default: 0,  meta: [null: false]
+    field :seed,        :integer, default: 0,     meta: [null: false]
+    field :score,       :integer, default: 0,     meta: [null: false]
+    field :username,    :string,  default: "",    meta: [null: false]
+    field :playlog,     :string,  default: "",    meta: [null: false, size: 15000] # TODO TEXT型にしたい
+    field :difficulty,  :integer, default: 0,     meta: [null: false]
+    field :remain_time, :integer, default: 0,     meta: [null: false]
+    field :extinct,     :boolean, default: false, meta: [null: false]    
   end
 end

@@ -29,7 +29,7 @@ defmodule ElixirikaWeb.TileController do
       |> render("high_score.json", high_score: high_score)
   end
 
-  def create(conn, _params) do
+  def create(conn, params) do
     """
       seed = params[:playlog][:seed].to_i
       clicklogs = params[:playlog][:messages] ? params[:playlog][:messages][:click] : {}
@@ -58,6 +58,18 @@ defmodule ElixirikaWeb.TileController do
       )
       render json: {score: score, is_high_score: is_high_score, is_best_time: is_best_time, time: remain_time, extinct: extinct}
     """
+
+    require Ecto.Query
+    score = %Elixirika.TileScore{
+              seed: params["seed"], # TODO params[:playlog][:seed].to_i にする
+              username: params["username"],
+              score: 123,
+              playlog: "{}",
+              difficulty: params["difficulty"] |> String.to_integer,
+              extinct: false,
+            }
+    Elixirika.Repo.insert(score)
+
     score = 100
     is_high_score = false
     is_best_time = false
@@ -75,7 +87,7 @@ defmodule ElixirikaWeb.TileController do
     "さーたはうす"
   end
   defp custom_og() do
-     %{
+    %{
       description: "かりかりタイルを剥がしていくミニゲームです。ブラウザですぐ遊べます。",
       title: "しろこのカラータイル",
       url: "https://jyllsarta.net/tile",
