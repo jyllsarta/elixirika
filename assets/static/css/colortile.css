@@ -52,6 +52,8 @@ body {
   z-index: 1000;
   display: flex;
   justify-content: center; }
+  .start .disabled {
+    opacity: 0.4; }
   .start .title_image {
     height: 360px; }
   .start .click_to_start {
@@ -357,6 +359,8 @@ body {
     position: absolute;
     bottom: 50px;
     left: 50px; }
+  .end .disabled {
+    opacity: 0.4; }  
   .end .back_to_title {
     position: absolute;
     width: 140px;

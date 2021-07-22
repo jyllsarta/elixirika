@@ -35,6 +35,7 @@ class View {
     this.hitSFX = new Audio("/game/tile/sounds/sfx/hit.wav");
     this.hitSFX2 = new Audio("/game/tile/sounds/sfx/hit2.wav");
     this.setDefaultUsername();
+    this.updateBoardButton();
     this.defaultUsername = "ななしろこ";
   }
 
@@ -312,6 +313,17 @@ class View {
       rounding: 0,
       toValue: g_tile.getCurrentScore(),
     });
+  }
+
+  updateBoardButton() {
+    if(!g_tile.nextBoard || g_tile.nextBoard.isPlayed){
+      $(".restart").addClass("disabled");
+      $(".click_to_start").addClass("disabled");
+    }
+    else{
+      $(".restart").removeClass("disabled");
+      $(".click_to_start").removeClass("disabled");  
+    }
   }
 
   finish() {

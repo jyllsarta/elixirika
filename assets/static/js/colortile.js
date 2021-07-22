@@ -99,6 +99,7 @@ class ColorTile {
     log("received new board");
     this.nextBoard = new Board(boardJSON);
     this.nextBoard.isPlayed = false;
+    this.view.updateBoardButton();
   }
 
   startGame() {
@@ -118,6 +119,7 @@ class ColorTile {
     this.gameMode = GameMode.PLAYING;
     this.startedTimePoint = Date.now();
     this.view.startGameHandler();
+    this.view.updateBoardButton();
     this.playlog = new PlayLog(this.board);
     this.clearTime = 0;
   }
