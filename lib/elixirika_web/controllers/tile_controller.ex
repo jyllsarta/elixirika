@@ -1,5 +1,6 @@
 defmodule ElixirikaWeb.TileController do
   use ElixirikaWeb, :controller
+  require IEx; 
 
   def index(conn, _params) do
     conn
@@ -30,52 +31,37 @@ defmodule ElixirikaWeb.TileController do
   end
 
   def create(conn, params) do
-    """
-      seed = params[:playlog][:seed].to_i
-      clicklogs = params[:playlog][:messages] ? params[:playlog][:messages][:click] : {}
-      w = params[:playlog][:w].to_i
-      h = params[:playlog][:h].to_i
-      colors = params[:playlog][:colors].to_i
-      pairs = params[:playlog][:pairs].to_i
-      difficulty = params[:difficulty].to_i
-      remain_time = params[:remain_time].to_f.round(3)
-      username = params[:username]
-      sim = ColorTileLogic::ColorTileSimulator.new(seed, clicklogs, w, h, colors, pairs, difficulty)
-      score = sim.score
-      extinct = sim.extinct?
-
-      is_high_score = Result.high_score?(username, difficulty, score)
-      is_best_time = extinct && Result.best_time?(username, difficulty, remain_time)
-
-      Result.create!(
-        seed: seed,
-        score: score,
-        username: username,
-        playlog: clicklogs.try(:permit!).try(:to_h) || {},
-        difficulty: difficulty,
-        remain_time: remain_time,
-        extinct: extinct || false
-      )
-      render json: {score: score, is_high_score: is_high_score, is_best_time: is_best_time, time: remain_time, extinct: extinct}
-    """
-
     require Ecto.Query
+
+    seed       = params["playlog"]["seed"]       |> String.to_integer
+    w          = params["playlog"]["w"]          |> String.to_integer
+    h          = params["playlog"]["h"]          |> String.to_integer
+    colors     = params["playlog"]["colors"]     |> String.to_integer
+    pairs      = params["playlog"]["pairs"]      |> String.to_integer
+    difficulty = params["difficulty"]            |> String.to_integer
+    clicklogs  = params["playlog"]["messages"]["click"] |> Jason.encode!
+    remain_time = params["remain_time"] |> Float.parse |> elem(0) |> Float.round(3)
+
+    arg = [seed, "'" <> clicklogs <> "'", w, h, colors, pairs, difficulty] |> Enum.map(&to_charlist/1) |> :string.join(' ')
+    sim = :os.cmd('cd lib/ruby/; ruby tile_result_cli.rb ' ++ arg)
+    |> Jason.decode!
+
     score = %Elixirika.TileScore{
-              seed: params["seed"], # TODO params[:playlog][:seed].to_i にする
+              seed: seed,
+              remain_time: remain_time,
               username: params["username"],
-              score: 123,
-              playlog: "{}",
+              score: sim["score"],
+              playlog: params["playlog"] |> Jason.encode!,
               difficulty: params["difficulty"] |> String.to_integer,
-              extinct: false,
+              extinct: sim["extinct"],
             }
     Elixirika.Repo.insert(score)
-
-    score = 100
-    is_high_score = false
-    is_best_time = false
-    remain_time = nil
-    extinct = false
-    result = %{score: score, is_high_score: is_high_score, is_best_time: is_best_time, time: remain_time, extinct: extinct}
+ 
+    is_high_score = false # TODO: impl
+    is_best_time = false # TODO: impl
+    extinct = false # TODO: impl
+ 
+    result = %{score: sim["score"], is_high_score: is_high_score, is_best_time: is_best_time, time: remain_time, extinct: sim["extinct"]}
     conn
       |> render("create.json", result: result)
   end

@@ -31,14 +31,14 @@ class ColorTileAPI {
       $.ajax({
         type: "POST",
         url: (location.hostname === 'localhost' ? "http://" : "https://") + location.host + "/tile/results/create",
-        timeout: 10000,
+        timeout: 1000000,
         dataType: "json",
         data: {
           _csrf_token: $("meta[name=csrf-token]").attr("content"),
           playlog: logjson,
           username: username,
           difficulty: parseInt(difficulty),
-          remain_time: parseInt(remainTime),
+          remain_time: remainTime,
         },
       })
         .done(function (response, textStatus, jqXHR) {

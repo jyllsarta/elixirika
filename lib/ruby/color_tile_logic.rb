@@ -292,7 +292,7 @@ module ColorTileLogic
 
     def find_first_block(panels)
       panels.each do |panel|
-        return panel if !panel.try(:color_id).nil? && panel.try(:color_id) != 0
+        return panel if panel&.color_id != 0
       end
       nil
     end
