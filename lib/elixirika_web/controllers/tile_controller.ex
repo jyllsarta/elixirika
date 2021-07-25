@@ -52,14 +52,14 @@ defmodule ElixirikaWeb.TileController do
               username: params["username"],
               score: sim["score"],
               playlog: params["playlog"] |> Jason.encode!,
-              difficulty: params["difficulty"] |> String.to_integer,
+              difficulty: difficulty,
               extinct: sim["extinct"],
             }
     Elixirika.Repo.insert(score)
  
-    is_high_score = false # TODO: impl
-    is_best_time = false # TODO: impl
-    extinct = false # TODO: impl
+    is_high_score =  Elixirika.TileScore.high_score?(params["username"], difficulty, sim["score"])
+    is_best_time = Elixirika.TileScore.best_time?(params["username"], difficulty, remain_time)
+    extinct = sim["extinct"]
  
     result = %{score: sim["score"], is_high_score: is_high_score, is_best_time: is_best_time, time: remain_time, extinct: sim["extinct"]}
     conn
