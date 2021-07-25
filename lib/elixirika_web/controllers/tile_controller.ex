@@ -8,6 +8,12 @@ defmodule ElixirikaWeb.TileController do
     |> render("index.html", title: title("しろこのカラータイル"), og: custom_og(), row: 20, column: 10)
   end
 
+  def howto(conn, _params) do
+    conn
+    |> put_layout(false)
+    |> render("howto.html", title: title("しろこのカラータイル"), og: custom_og(), row: 20, column: 10)
+  end
+
   def new(conn, _params) do
     # rubyコマンドは若干重い...
     board = :os.cmd('cd lib/ruby/; ruby tile_cli.rb')
