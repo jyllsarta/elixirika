@@ -36,4 +36,20 @@ defmodule Elixirika.TileScore do
       best_record.remain_time < compare_time
     end
   end
+
+  def ranking(difficulty) do
+    ranking = Ecto.Query.from(score in Elixirika.TileScore, order_by: [desc: score.score])
+                |> Ecto.Query.limit(1000)
+                |> Ecto.Query.where(difficulty: ^difficulty)
+                |> Elixirika.Repo.all
+    Enum.uniq_by(ranking, &(&1.username)) |> Enum.take(10)
+  end
+  def time_ranking(difficulty) do
+    ranking = Ecto.Query.from(score in Elixirika.TileScore, order_by: [desc: score.remain_time])
+                |> Ecto.Query.limit(1000)
+                |> Ecto.Query.where(difficulty: ^difficulty)
+                |> Ecto.Query.where(extinct: true)
+                |> Elixirika.Repo.all
+    Enum.uniq_by(ranking, &(&1.username)) |> Enum.take(10)
+  end
 end

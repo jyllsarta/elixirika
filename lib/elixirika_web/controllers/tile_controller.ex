@@ -36,6 +36,20 @@ defmodule ElixirikaWeb.TileController do
       |> render("high_score.json", high_score: high_score)
   end
 
+  def result_index(conn, _params) do
+    ranking = %{
+      score_rank_easy:   Elixirika.TileScore.ranking(1),
+      score_rank_normal: Elixirika.TileScore.ranking(2),
+      score_rank_hard:   Elixirika.TileScore.ranking(3),
+      time_rank_easy:    Elixirika.TileScore.time_ranking(1),
+      time_rank_normal:  Elixirika.TileScore.time_ranking(2),
+      time_rank_hard:    Elixirika.TileScore.time_ranking(3),
+    }
+    conn
+      |> put_layout(false)
+      |> render("result_index.html", og: custom_og(), ranking: ranking)
+  end
+
   def create(conn, params) do
     require Ecto.Query
 
@@ -62,11 +76,11 @@ defmodule ElixirikaWeb.TileController do
               extinct: sim["extinct"],
             }
     Elixirika.Repo.insert(score)
- 
-    is_high_score =  Elixirika.TileScore.high_score?(params["username"], difficulty, sim["score"])
+
+    is_high_score = Elixirika.TileScore.high_score?(params["username"], difficulty, sim["score"])
     is_best_time = Elixirika.TileScore.best_time?(params["username"], difficulty, remain_time)
     extinct = sim["extinct"]
- 
+
     result = %{score: sim["score"], is_high_score: is_high_score, is_best_time: is_best_time, time: remain_time, extinct: sim["extinct"]}
     conn
       |> render("create.json", result: result)

@@ -1,0 +1,101 @@
+head
+  title
+    | ランキング | しろこのカラータイル
+  meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+  link href="https://fonts.googleapis.com/css?family=Kosugi+Maru&amp;subset=japanese" rel="stylesheet"
+
+.main
+  h1
+    | ランキング
+  p
+    a href="/tile"
+      | しろこのカラータイルにもどる
+  h2
+    | スコアランキング
+  .score_ranking.rank_table
+    .indice
+      .header
+        .cell
+          | 順位
+      = for i <- (Enum.to_list(1..10)) do
+        .rank
+          .cell
+            = i
+    .ranking
+      .header
+        .cell
+          | かんたん
+      = for score <- (@ranking.score_rank_easy) do
+        .rank
+          .value
+            = score.score
+          .name
+            = score.username
+    .ranking
+      .header
+        .cell
+          | ふつう
+      = for score <- (@ranking.score_rank_normal) do
+        .rank
+          .value
+            = score.score
+          .name
+            = score.username
+    .ranking
+      .header
+        .cell
+          | やばみ
+      = for score <- (@ranking.score_rank_hard) do
+        .rank
+          .value
+            = score.score
+          .name
+            = score.username
+
+  h2
+    | クリアタイム(全消し時に記録されます)
+  .time_ranking.rank_table
+    .indice
+      .header
+        .cell
+          | 順位
+      = for i <- (Enum.to_list(1..10)) do
+        .rank
+          .cell
+            = i
+    .ranking
+      .header
+        .cell
+          | かんたん
+      = for score <- (@ranking.time_rank_easy) do
+        .rank
+          .value
+            = score.score
+          .name
+            = score.username
+    .ranking
+      .header
+        .cell
+          | ふつう
+      = for score <- (@ranking.time_rank_normal) do
+        .rank
+          .value
+            = score.score
+          .name
+            = score.username
+    .ranking
+      .header
+        .cell
+          | やばみ
+      = for score <- (@ranking.time_rank_hard) do
+        .rank
+          .value
+            = score.score
+          .name
+            = score.username
+
+  link href="/css/colortile.css" rel="stylesheet"
+  script type="text/javascript" src="/js/jquery-3.3.1.min.js"
+  script type="text/javascript" src="/js/jquery.cookie.js"
+  script type="text/javascript" src="/js/sha256.js"
+  script type="module" src="/js/ranking.js"
