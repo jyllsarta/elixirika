@@ -22,16 +22,8 @@ defmodule ElixirikaWeb.TileController do
       |> render("new.json", board: board)
   end
 
-  def high_score(conn, _params) do
-    # TODO: impl
-    high_score = %{
-      score_easy: 100,
-      score_normal: 200,
-      score_hard: 300,
-      time_easy: nil,
-      time_normal: nil,
-      time_hard: nil,
-    }
+  def high_score(conn, params) do
+    high_score = Elixirika.TileScore.high_scores(params["username"])
     conn
       |> render("high_score.json", high_score: high_score)
   end
