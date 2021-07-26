@@ -361,7 +361,7 @@ module ColorTileLogic
       @board = Board.new(@w, @h, @colors, @pairs, @seed)
       @board.apply_difficulty(@difficulty)
       sum = 0
-      @clicklogs.each do |_, click|
+      @clicklogs.sort_by{|k| k[0].to_s.to_i}.each do |_, click|
         x,y = click[:message].split(",").map(&:to_i)
         click_score = @board.score_by_click(x, y) * score_rate(@difficulty)
         @board.click!(x, y) if click_score > 0
