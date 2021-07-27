@@ -17,7 +17,10 @@ defmodule ElixirikaWeb.PageController do
 
   def twitter_webhook(conn, _params) do
     conn
-    |> render("twitter_webhook.html", title: title("なぜTwitterはUserStreamを廃止したがるのか"), og: default_og())
+    |> render("twitter_webhook.html",
+      title: title("なぜTwitterはUserStreamを廃止したがるのか"),
+      og: default_og()
+    )
   end
 
   def ika(conn, _params) do
@@ -26,8 +29,9 @@ defmodule ElixirikaWeb.PageController do
       title: "キャベツを我慢するフグ",
       url: "https://jyllsarta.net/ika",
       image: "https://jyllsarta.net/images/ika/fugu.png",
-      site_name: "さーたはうす",
+      site_name: "さーたはうす"
     }
+
     conn
     |> render("ika.html", title: title("キャベツを我慢するフグ"), og: custom_og)
   end
@@ -42,12 +46,16 @@ defmodule ElixirikaWeb.PageController do
       description: "センサーを置いて監視させていると、空気が悪くなったらtwitterでbotからリプライが飛んでくる仕組みを作りました。換気の目安になって捗ります。",
       title: "部屋の空気が悪くなるとtwitterで通知を送ってくれるbotを作った話",
       url: "https://jyllsarta.net/airryr_introduction",
-      image: "https://user-images.githubusercontent.com/5991227/70609922-feb7c900-1c45-11ea-8f1f-13d1750c052e.jpg",
-      site_name: "さーたはうす",
+      image:
+        "https://user-images.githubusercontent.com/5991227/70609922-feb7c900-1c45-11ea-8f1f-13d1750c052e.jpg",
+      site_name: "さーたはうす"
     }
 
     conn
-    |> render("airryr_introduction.html", title: title("部屋の空気が悪くなるとtwitterで通知を送ってくれるbotを作った話"), og: custom_og)
+    |> render("airryr_introduction.html",
+      title: title("部屋の空気が悪くなるとtwitterで通知を送ってくれるbotを作った話"),
+      og: custom_og
+    )
   end
 
   def rakugaki(conn, _params) do
@@ -71,7 +79,7 @@ defmodule ElixirikaWeb.PageController do
       title: "css filterプロパティ完全に理解した",
       url: "https://jyllsarta.net/match_illust",
       image: "https://jyllsarta.github.io/images/tile/ogp_image.png",
-      site_name: "さーたはうす",
+      site_name: "さーたはうす"
     }
 
     conn
@@ -85,21 +93,25 @@ defmodule ElixirikaWeb.PageController do
     |> put_layout(false)
     |> render("neko.html")
   end
+
   def nekomanual(conn, _params) do
     conn
     |> put_layout(false)
     |> render("nekomanual.html")
   end
+
   def neko2(conn, _params) do
     conn
     |> put_layout(false)
     |> render("neko2.html")
   end
+
   def snipon(conn, _params) do
     conn
     |> put_layout(false)
     |> render("snipon.html")
   end
+
   def touzoku(conn, _params) do
     conn
     |> put_layout(false)
@@ -110,19 +122,22 @@ defmodule ElixirikaWeb.PageController do
   defp title do
     default_title
   end
+
   defp title(title) do
-    title <> " - " <> default_title    
+    title <> " - " <> default_title
   end
+
   defp default_title() do
     "さーたはうす"
   end
+
   defp default_og() do
     %{
       description: "じぃるの制作物をまとめるサイトです。ブラウザゲーとお絵かきログを置いてます。",
       title: "さーたはうす",
       url: "https://jyllsarta.net/",
       image: "https://jyllsarta.github.io/images/icon/ogp_image.png",
-      site_name: "さーたはうす",
+      site_name: "さーたはうす"
     }
   end
 end

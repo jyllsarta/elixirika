@@ -47,7 +47,7 @@ defmodule Elixirika.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:phoenix_slime, "~> 0.13.1"},
-      {:yacto, "~> 2.0"},
+      {:yacto, "~> 2.0"}
     ]
   end
 

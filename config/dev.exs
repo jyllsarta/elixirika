@@ -62,7 +62,7 @@ config :elixirika, ElixirikaWeb.Endpoint,
       ~r"priv/gettext/.*(po)$",
       ~r"lib/elixirika_web/(live|views)/.*(ex)$",
       ~r"lib/elixirika_web/templates/.*(eex)$",
-      ~r{lib/elixirika_web/templates/.*(slim|slime)$},
+      ~r{lib/elixirika_web/templates/.*(slim|slime)$}
     ]
   ]
 

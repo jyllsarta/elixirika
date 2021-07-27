@@ -3,9 +3,9 @@ defmodule Elixirika.ZxcvScore do
   @derive {Jason.Encoder, only: [:score, :speed_score, :total_score, :username]}
 
   schema @auto_source do
-    field :score,       :integer, default: 0,  meta: [null: false]
-    field :speed_score, :integer, default: 0,  meta: [null: false]
-    field :total_score, :integer, default: 0,  meta: [null: false]
-    field :username,    :string,  default: "", meta: [null: false]
+    field :score, :integer, default: 0, meta: [null: false]
+    field :speed_score, :integer, default: 0, meta: [null: false]
+    field :total_score, :integer, default: 0, meta: [null: false]
+    field :username, :string, default: "", meta: [null: false]
   end
 end

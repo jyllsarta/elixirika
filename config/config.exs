@@ -41,14 +41,14 @@ import_config "#{Mix.env()}.exs"
 config :phoenix, :template_engines,
   slim: PhoenixSlime.Engine,
   slime: PhoenixSlime.Engine,
-  slimleex: PhoenixSlime.LiveViewEngine # If you want to use LiveView
+  # If you want to use LiveView
+  slimleex: PhoenixSlime.LiveViewEngine
 
 config :phoenix_slime, :use_slim_extension, true
 
-config :yacto, :databases,
-  %{
-    default: %{
-      module: Yacto.DB.Single,
-      repo: Elixirika.Repo,
-    },
+config :yacto, :databases, %{
+  default: %{
+    module: Yacto.DB.Single,
+    repo: Elixirika.Repo
   }
+}
