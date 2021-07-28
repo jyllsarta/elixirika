@@ -7,8 +7,7 @@ defmodule Elixirika.TileScore do
     field :seed, :integer, default: 0, meta: [null: false]
     field :score, :integer, default: 0, meta: [null: false]
     field :username, :string, default: "", meta: [null: false]
-    # TODO TEXT型にしたい
-    field :playlog, :string, default: "", meta: [null: false, size: 15000]
+    field :playlog, :string, default: "", meta: [null: false, type: :text]
     field :difficulty, :integer, default: 0, meta: [null: false]
     field :remain_time, :float, default: 0.0, meta: [null: false]
     field :extinct, :boolean, default: false, meta: [null: false]
