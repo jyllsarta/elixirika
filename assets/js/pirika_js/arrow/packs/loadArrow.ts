@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint no-console: 0 */
 // Run this example by adding <%= javascript_pack_tag 'hello_vue' %> (and
 // <%= stylesheet_pack_tag 'hello_vue' %> if you have styles in your component)
