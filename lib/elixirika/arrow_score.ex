@@ -7,5 +7,6 @@ defmodule Elixirika.ArrowScore do
     field :remove_score, :integer, default: 0, meta: [null: false]
     field :time_score, :integer, default: 0, meta: [null: false]
     field :username, :string, default: "", meta: [null: false]
+    timestamps()
   end
 end

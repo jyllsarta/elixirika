@@ -11,6 +11,7 @@ defmodule Elixirika.TileScore do
     field :difficulty, :integer, default: 0, meta: [null: false]
     field :remain_time, :float, default: 0.0, meta: [null: false]
     field :extinct, :boolean, default: false, meta: [null: false]
+    timestamps()
   end
 
   def high_score?(username, difficulty, compare_score) do

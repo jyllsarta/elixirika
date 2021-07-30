@@ -7,5 +7,6 @@ defmodule Elixirika.ZxcvScore do
     field :speed_score, :integer, default: 0, meta: [null: false]
     field :total_score, :integer, default: 0, meta: [null: false]
     field :username, :string, default: "", meta: [null: false]
+    timestamps()
   end
 end
