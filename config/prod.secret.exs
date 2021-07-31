@@ -23,7 +23,8 @@ secret_key_base =
     You can generate one by calling: mix phx.gen.secret
     """
 
-config :elixirika, ElixirikaWeb.Endpoint, server: true
+config :elixirika, ElixirikaWeb.Endpoint,
+  server: true,
   http: [
     port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
