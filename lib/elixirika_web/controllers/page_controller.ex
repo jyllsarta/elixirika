@@ -6,8 +6,11 @@ defmodule ElixirikaWeb.PageController do
   end
 
   def games(conn, _params) do
+    require Ecto.Query
+    zxcv_count = Ecto.Query.from(score in Elixirika.ZxcvScore, select: count()) |>  Elixirika.Repo.one()
+    tile_count = Ecto.Query.from(score in Elixirika.TileScore, select: count()) |>  Elixirika.Repo.one()
     conn
-    |> render("games.html", title: title("Games"), og: default_og())
+    |> render("games.html", title: title("Games"), og: default_og(), zxcv_count: zxcv_count, tile_count: tile_count)
   end
 
   def works(conn, _params) do
