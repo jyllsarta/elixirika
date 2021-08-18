@@ -88,7 +88,7 @@ defmodule ElixirikaWeb.TileController do
       is_high_score: is_high_score,
       is_best_time: is_best_time,
       time: remain_time,
-      extinct: sim["extinct"]
+      extinct: extinct
     }
 
     conn

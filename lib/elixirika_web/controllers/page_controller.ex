@@ -2,15 +2,25 @@ defmodule ElixirikaWeb.PageController do
   use ElixirikaWeb, :controller
 
   def index(conn, _params) do
-    render(conn, "index.html", title: title, og: default_og())
+    render(conn, "index.html", title: title(), og: default_og())
   end
 
   def games(conn, _params) do
     require Ecto.Query
-    zxcv_count = Ecto.Query.from(score in Elixirika.ZxcvScore, select: count()) |>  Elixirika.Repo.one()
-    tile_count = Ecto.Query.from(score in Elixirika.TileScore, select: count()) |>  Elixirika.Repo.one()
+
+    zxcv_count =
+      Ecto.Query.from(score in Elixirika.ZxcvScore, select: count()) |> Elixirika.Repo.one()
+
+    tile_count =
+      Ecto.Query.from(score in Elixirika.TileScore, select: count()) |> Elixirika.Repo.one()
+
     conn
-    |> render("games.html", title: title("Games"), og: default_og(), zxcv_count: zxcv_count, tile_count: tile_count)
+    |> render("games.html",
+      title: title("Games"),
+      og: default_og(),
+      zxcv_count: zxcv_count,
+      tile_count: tile_count
+    )
   end
 
   def works(conn, _params) do
@@ -86,7 +96,7 @@ defmodule ElixirikaWeb.PageController do
     }
 
     conn
-    |> render("match_illust.html", title: title("css filterプロパティ完全に理解した"), og: default_og())
+    |> render("match_illust.html", title: title("css filterプロパティ完全に理解した"), og: custom_og)
   end
 
   # layout falses
@@ -123,11 +133,11 @@ defmodule ElixirikaWeb.PageController do
 
   # デフォルトのogタグとtitleを出力
   defp title do
-    default_title
+    default_title()
   end
 
   defp title(title) do
-    title <> " - " <> default_title
+    title <> " - " <> default_title()
   end
 
   defp default_title() do
