@@ -2,7 +2,7 @@ defmodule ElixirikaWeb.PageController do
   use ElixirikaWeb, :controller
 
   def index(conn, _params) do
-    render(conn, "index.html", title: title(), og: default_og())
+    render(conn, "index.html", title: title(), og: default_og(), extra: %{})
   end
 
   def games(conn, _params) do
@@ -19,20 +19,22 @@ defmodule ElixirikaWeb.PageController do
       title: title("Games"),
       og: default_og(),
       zxcv_count: zxcv_count,
-      tile_count: tile_count
+      tile_count: tile_count,
+      extra: %{},
     )
   end
 
   def works(conn, _params) do
     conn
-    |> render("works.html", title: title("Works"), og: default_og())
+    |> render("works.html", title: title("Works"), og: default_og(), extra: %{})
   end
 
   def twitter_webhook(conn, _params) do
     conn
     |> render("twitter_webhook.html",
       title: title("なぜTwitterはUserStreamを廃止したがるのか"),
-      og: default_og()
+      og: default_og(),
+      extra: %{}
     )
   end
 
@@ -46,12 +48,12 @@ defmodule ElixirikaWeb.PageController do
     }
 
     conn
-    |> render("ika.html", title: title("キャベツを我慢するフグ"), og: custom_og)
+    |> render("ika.html", title: title("キャベツを我慢するフグ"), og: custom_og, extra: %{})
   end
 
   def illusts(conn, _params) do
     conn
-    |> render("illusts.html", title: title("Illusts"), og: default_og())
+    |> render("illusts.html", title: title("Illusts"), og: default_og(), extra: %{})
   end
 
   def airryr_introduction(conn, _params) do
@@ -67,23 +69,24 @@ defmodule ElixirikaWeb.PageController do
     conn
     |> render("airryr_introduction.html",
       title: title("部屋の空気が悪くなるとtwitterで通知を送ってくれるbotを作った話"),
-      og: custom_og
+      og: custom_og,
+      extra: %{},
     )
   end
 
   def rakugaki(conn, _params) do
     conn
-    |> render("rakugaki.html", title: title("Illusts(rakugeki)"), og: default_og())
+    |> render("rakugaki.html", title: title("Illusts(rakugeki)"), og: default_og(), extra: %{})
   end
 
   def sainokawara(conn, _params) do
     conn
-    |> render("sainokawara.html", title: title("賽の河原"), og: default_og())
+    |> render("sainokawara.html", title: title("賽の河原"), og: default_og(),extra: %{})
   end
 
   def samusugi(conn, _params) do
     conn
-    |> render("samusugi.html", title: title("寒すぎて%sになった"), og: default_og())
+    |> render("samusugi.html", title: title("寒すぎて%sになった"), og: default_og(), extra: %{})
   end
 
   def match_illust(conn, _params) do
@@ -96,7 +99,7 @@ defmodule ElixirikaWeb.PageController do
     }
 
     conn
-    |> render("match_illust.html", title: title("css filterプロパティ完全に理解した"), og: custom_og)
+    |> render("match_illust.html", title: title("css filterプロパティ完全に理解した"), og: custom_og, extra: %{})
   end
 
   # layout falses

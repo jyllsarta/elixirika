@@ -11,7 +11,7 @@ defmodule ElixirikaWeb.ZxcvController do
     }
  
     conn
-    |> render("index.html", title: title("ZXCV"), og: custom_og)
+    |> render("index.html", title: title("ZXCV"), og: custom_og, extra: %{})
   end
 
   def ranking(conn, _params) do

@@ -11,7 +11,7 @@ defmodule ElixirikaWeb.ArrowController do
     }
 
     conn
-    |> render("index.html", title: title("ICE BREAK"), og: custom_og)
+    |> render("index.html", title: title("ICE BREAK"), og: custom_og, extra: %{additional_header: "arrow_header.html"})
   end
 
   def ranking(conn, _params) do
