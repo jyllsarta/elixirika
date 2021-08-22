@@ -59,6 +59,10 @@ defmodule ElixirikaWeb.Router do
     get "/tile/results", TileController, :result_index
     post "/tile/results/create", TileController, :create
     get "/tile/:user_name/highscore", TileController, :high_score
+
+    # Square
+    get "/square", SquareController, :index
+
   end
 
   # Other scopes may use custom stacks.
