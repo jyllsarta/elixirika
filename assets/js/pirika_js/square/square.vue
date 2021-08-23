@@ -2,24 +2,31 @@
   #app
     h1
       | すくえあ！
-    p
-      | {{ logic.deck }}
+    p(v-for="card in model.deck.cards")
+      | {{ card.number }} | {{ card.suit }}
 
 </template>
 
 <script lang="typescript">
     import Vue from 'vue';
-    import Logic from "./packs/logic";
+    import Initiator from "./packs/initiator";
+    import Model from "./packs/model";
 
     export default Vue.extend({
     components: {
     },
     mounted(){
-      this.logic = new Logic();
+      this.initiate();
+    },
+    methods: {
+      initiate(){
+        const initiator = new Initiator();
+        this.model = initiator.getModel();
+      }
     },
     data(){
       return {
-        logic: {},
+        model: null,
       };
     },
   })
