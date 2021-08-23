@@ -22,6 +22,7 @@ module.exports = (env, options) => {
       'loadIka': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/ika/packs/loadIka.js']),
       'loadZxcv': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/zxcv/packs/loadZxcv.js']),
       'loadArrow': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/arrow/packs/loadArrow.ts']),
+      'loadSquare': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/square/packs/loadSquare.js']),
     },
     output: {
       filename: '[name].js',
