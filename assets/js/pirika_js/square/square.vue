@@ -37,7 +37,10 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/constants";
+  body{
+    margin: 0;
+  }
   h1 {
-    background-color: aquamarine;
+    font-size: 30px;
   }
 </style>
