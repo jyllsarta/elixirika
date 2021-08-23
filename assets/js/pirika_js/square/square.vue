@@ -2,8 +2,9 @@
   #app
     h1
       | すくえあ！
-    p(v-for="card in model.deck.cards")
-      | {{ card.number }} | {{ card.suit }}
+    .field(v-if="model")
+      Card(v-for="card in model.deck.cards", :number="card.number", :suit="card.suit", :key="card.id")
+        
 
 </template>
 
@@ -11,9 +12,11 @@
     import Vue from 'vue';
     import Initiator from "./packs/initiator";
     import Model from "./packs/model";
+    import Card from "./Card.vue";
 
     export default Vue.extend({
     components: {
+      Card,
     },
     mounted(){
       this.initiate();
@@ -34,4 +37,7 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/constants";
+  h1 {
+    background-color: aquamarine;
+  }
 </style>
