@@ -2,9 +2,13 @@
   #app
     h1
       | すくえあ！
-    .field(v-if="model")
-      Card(v-for="card in model.deck.cards", :number="card.number", :suit="card.suit", :key="card.id")
-        
+    .game(v-if="model")
+      Position(:field="model.deck.field", :name="'Deck'")
+      Position(v-for="field in model.board.fields" :field="field", :name="'Board'")
+      Position(:field="model.graveyard.field", :name="'Grav'")
+      Position(:field="model.hand.field", :name="'Hand'")
+      Position(:field="model.selecting.field", :name="'Selecting'")
+      Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette'")
 
 </template>
 
@@ -13,10 +17,12 @@
     import Initiator from "./packs/initiator";
     import Model from "./packs/model";
     import Card from "./Card.vue";
+    import Position from "./Position.vue";
 
     export default Vue.extend({
     components: {
       Card,
+      Position,
     },
     mounted(){
       this.initiate();
