@@ -21,6 +21,10 @@ module.exports = class Controller {
 
   sendHandToBoard(handIndex, boardIndex){
     const card = this.model.hand.field.cards[handIndex];
+    if(!this.model.board.isStackable(card, boardIndex)){
+      console.error("cannot stack this card!");
+      return;
+    }
     this.model.hand.field.sendCardById(card.id, this.model.board.fields[boardIndex]);
   }
 };

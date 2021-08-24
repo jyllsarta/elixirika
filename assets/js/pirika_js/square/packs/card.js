@@ -5,4 +5,14 @@ module.exports = class Card {
     this.category = category;
     this.id = Math.floor(Math.random() * 1000000000);
   }
+
+  color(){
+    if(this.suit == "s" || this.suit == "c"){
+      return "b"
+    }
+    if(this.suit == "h" || this.suit == "d"){
+      return "w"
+    }
+    return "?"
+  }
 };

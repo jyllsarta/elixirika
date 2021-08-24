@@ -40,6 +40,10 @@ module.exports = class Field {
 
   sendCardById(cardId, toField){
     let sendCard = this.cards.find(card=>card.id==cardId)
+    if(!sendCard || !toField){
+      console.error(`sendCard ${cardId} or toField ${toField} is not valid`);
+      return;
+    }
     this.cards = this.cards.filter(card=>card!=sendCard)
     toField.addCard(sendCard);
   }
