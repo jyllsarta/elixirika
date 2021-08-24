@@ -16,6 +16,7 @@
     import Vue from 'vue';
     import Initiator from "./packs/initiator";
     import Model from "./packs/model";
+    import Controller from "./packs/controller";
     import Card from "./Card.vue";
     import Position from "./Position.vue";
 
@@ -31,11 +32,14 @@
       initiate(){
         const initiator = new Initiator();
         this.model = initiator.getModel();
+        this.controller = new Controller();
+        this.controller.setModel(this.model);
       }
     },
     data(){
       return {
         model: null,
+        controller: null,
       };
     },
   })

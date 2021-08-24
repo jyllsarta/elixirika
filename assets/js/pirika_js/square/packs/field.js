@@ -24,4 +24,16 @@ module.exports = class Field {
     }
     this.cards = list;
   }
+
+  sendAllCardTo(toField){
+    toField.cards = toField.cards.concat(this.cards);
+    this.cards = [];
+  }
+
+  draw(){
+    if(this.cards.length == 0){
+      console.warn("trying to draw from empty field");
+    }
+    return this.cards.shift(0);
+  }
 };
