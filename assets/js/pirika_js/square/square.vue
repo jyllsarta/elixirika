@@ -8,7 +8,7 @@
       Position(:field="model.graveyard.field", :name="'Grav'")
       Position(:field="model.hand.field", :name="'Hand'")
       Position(:field="model.selecting.field", :name="'Selecting'")
-      Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette'")
+      Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette field(s)'")
 
 </template>
 

@@ -47,4 +47,8 @@ module.exports = class Field {
     this.cards = this.cards.filter(card=>card!=sendCard)
     toField.addCard(sendCard);
   }
+
+  getLastCard(){
+    return this.cards.slice(-1)[0];
+  }
 };

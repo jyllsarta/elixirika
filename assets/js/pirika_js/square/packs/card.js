@@ -15,4 +15,8 @@ module.exports = class Card {
     }
     return "?"
   }
+
+  isSenderCard(){
+    return this.category === "sender";
+  }
 };

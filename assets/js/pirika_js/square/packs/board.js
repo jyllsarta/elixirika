@@ -21,7 +21,7 @@ module.exports = class Board {
     if(field.cards.length === 0){
       return true;
     }
-    const lastCard = field.cards.slice(-1)[0];
+    const lastCard = field.getLastCard();
     if(lastCard.color() == card.color()){
       return false;
     }
@@ -29,5 +29,14 @@ module.exports = class Board {
       return false;
     }
     return true;
+  }
+
+  // ボードからのsend == 星座盤への投入
+  isSendable(fieldIndex){
+    const lastCard = this.fields[fieldIndex]?.getLastCard();
+    if(!lastCard){
+      return false;
+    }
+    return lastCard.isSenderCard();
   }
 };

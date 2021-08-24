@@ -1,3 +1,4 @@
+const Field = require("./field");
 let Model = require("./model");
 
 module.exports = class Controller {
@@ -19,6 +20,7 @@ module.exports = class Controller {
     }
   }
 
+  // 手札からボードへの提出 基本アクション
   sendHandToBoard(handIndex, boardIndex){
     const card = this.model.hand.field.cards[handIndex];
     if(!this.model.board.isStackable(card, boardIndex)){
@@ -27,4 +29,16 @@ module.exports = class Controller {
     }
     this.model.hand.field.sendCardById(card.id, this.model.board.fields[boardIndex]);
   }
+
+  // ∞カード(ようは絵札) が積まれているボードを指定し、星座盤へ送る
+  commitSenderCard(fieldIndex){
+    if(!this.model.board.isSendable(fieldIndex)){
+      console.error("cannot send");
+      return;
+    }
+    let newField = new Field();
+    this.model.board.fields[fieldIndex].sendAllCardTo(newField);
+    this.model.starPalette.fields.push(newField);
+  }
+  
 };
