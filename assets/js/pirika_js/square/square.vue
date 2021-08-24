@@ -9,21 +9,21 @@
       Position(:field="model.hand.field", :name="'Hand'")
       Position(:field="model.selecting.field", :name="'Selecting'")
       Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette field(s)'", :key="field.id")
-
+    KeyHandler(:controller="controller")
 </template>
 
 <script lang="typescript">
     import Vue from 'vue';
-    import Initiator from "./packs/initiator";
-    import Model from "./packs/model";
     import Controller from "./packs/controller";
     import Card from "./Card.vue";
     import Position from "./Position.vue";
+    import KeyHandler from "./KeyHandler.vue";
 
     export default Vue.extend({
     components: {
       Card,
       Position,
+      KeyHandler,
     },
     mounted(){
       this.initiate();
@@ -32,7 +32,7 @@
       initiate(){
         this.controller = new Controller();
         this.controller.startGame();
-      }
+      },
     },
     data(){
       return {
