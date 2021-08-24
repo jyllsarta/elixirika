@@ -30,18 +30,21 @@
     },
     methods: {
       initiate(){
-        const initiator = new Initiator();
-        this.model = initiator.getModel();
         this.controller = new Controller();
-        this.controller.setModel(this.model);
+        this.controller.startGame();
       }
     },
     data(){
       return {
-        model: null,
         controller: null,
       };
     },
+    computed: {
+      model(){
+        // イーーーー ES2020使えないらしい
+        return this.controller ? this.controller.model : null;
+      }
+    }
   })
 </script>
 

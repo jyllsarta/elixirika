@@ -7,8 +7,9 @@ module.exports = class Controller {
     window.contoller = this;
   }
 
-  setModel(model){
-    this.model = model;
+  startGame(){
+    this.model = new Model();
+    return this.model;
   }
 
   // 手札の引き直し
