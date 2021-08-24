@@ -18,4 +18,9 @@ module.exports = class Controller {
       this.model.hand.field.addCard(this.model.deck.field.draw());
     }
   }
+
+  sendHandToBoard(handIndex, boardIndex){
+    const card = this.model.hand.field.cards[handIndex];
+    this.model.hand.field.sendCardById(card.id, this.model.board.fields[boardIndex]);
+  }
 };

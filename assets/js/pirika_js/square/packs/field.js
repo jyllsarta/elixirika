@@ -1,5 +1,6 @@
 // カードが積まれる場所
 // Ex. 手札 星座盤の1~8+それぞれ ボードの4箇所 デッキ 墓地 選択中カード
+// 「カードを送っていいかどうか」はここでは扱わない。そのバリデーションは一個上の層で行う。こっちは実エンティティ操作の低レベルAPIみたいな想定
 module.exports = class Field {
   constructor() {
     this.truncate();
@@ -35,5 +36,11 @@ module.exports = class Field {
       console.warn("trying to draw from empty field");
     }
     return this.cards.shift(0);
+  }
+
+  sendCardById(cardId, toField){
+    let sendCard = this.cards.find(card=>card.id==cardId)
+    this.cards = this.cards.filter(card=>card!=sendCard)
+    toField.addCard(sendCard);
   }
 };
