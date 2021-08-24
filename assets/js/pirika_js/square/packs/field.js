@@ -4,6 +4,7 @@
 module.exports = class Field {
   constructor() {
     this.truncate();
+    this.id = Math.floor(Math.random() * 1000000000);
   }
 
   addCard(card){

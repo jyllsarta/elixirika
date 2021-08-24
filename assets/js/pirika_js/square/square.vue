@@ -4,11 +4,11 @@
       | すくえあ！
     .game(v-if="model")
       Position(:field="model.deck.field", :name="'Deck'")
-      Position(v-for="field in model.board.fields" :field="field", :name="'Board'")
+      Position(v-for="field in model.board.fields" :field="field", :name="'Board'", :key="field.id")
       Position(:field="model.graveyard.field", :name="'Grav'")
       Position(:field="model.hand.field", :name="'Hand'")
       Position(:field="model.selecting.field", :name="'Selecting'")
-      Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette field(s)'")
+      Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette field(s)'", :key="field.id")
 
 </template>
 
@@ -41,8 +41,7 @@
     },
     computed: {
       model(){
-        // イーーーー ES2020使えないらしい
-        return this.controller ? this.controller.model : null;
+        return this.controller?.model;
       }
     }
   })
