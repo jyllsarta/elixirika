@@ -15,6 +15,7 @@ module.exports = class Controller {
   // 手札の引き直し
   // 手札を全て墓地に送る・デッキから引けるだけ引く
   fillDraw(){
+    this.model.hand.disselectAllCard();
     this.model.hand.field.sendAllCardTo(this.model.graveyard.field)
     for(let i=0; i<4; ++i){
       this.model.hand.field.addCard(this.model.deck.field.draw());
@@ -30,6 +31,10 @@ module.exports = class Controller {
       return;
     }
     this.model.hand.field.sendCardById(card.id, this.model.board.fields[boardIndex]);
+    if(card.isSenderCard()){
+      console.log("auto commit");
+      this.commitSenderCard(boardIndex);
+    }
   }
 
   // ∞カード(ようは絵札) が積まれているボードを指定し、星座盤へ送る
