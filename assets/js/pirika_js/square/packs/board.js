@@ -22,6 +22,9 @@ module.exports = class Board {
       return true;
     }
     const lastCard = field.getLastCard();
+    if(lastCard.isSenderCard()){
+      return false;
+    }
     if(lastCard.color() == card.color()){
       return false;
     }
