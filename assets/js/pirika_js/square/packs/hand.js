@@ -9,4 +9,8 @@ module.exports = class Hand {
   initiate(){
     this.field = new Field();
   }
+
+  disselectAllCard(){
+    this.field.cards.map(card=>card.setSelected(false));
+  }
 };

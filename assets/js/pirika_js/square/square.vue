@@ -4,7 +4,7 @@
       | すくえあ！
     .game(v-if="model")
       Position(:field="model.deck.field", :name="'Deck'")
-      Position(v-for="field in model.board.fields" :field="field", :name="'Board'", :key="field.id")
+      Position(v-for="field, index in model.board.fields" :field="field", :name="`Board(${index + 1})`", :key="field.id")
       Position(:field="model.graveyard.field", :name="'Grav'")
       Position(:field="model.hand.field", :name="'Hand'")
       Position(:field="model.selecting.field", :name="'Selecting'")

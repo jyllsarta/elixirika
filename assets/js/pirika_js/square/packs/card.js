@@ -4,6 +4,7 @@ module.exports = class Card {
     this.suit = suit;
     this.category = category;
     this.id = Math.floor(Math.random() * 1000000000);
+    this.selected = false;
   }
 
   color(){
@@ -18,5 +19,13 @@ module.exports = class Card {
 
   isSenderCard(){
     return this.category === "sender";
+  }
+
+  setSelected(state){
+    this.selected = state;
+  }
+
+  isSelected(){
+    return this.selected;
   }
 };

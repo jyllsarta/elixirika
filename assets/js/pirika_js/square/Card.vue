@@ -1,5 +1,5 @@
 <template lang="pug">
-  .card
+  .card(:class="selected ? 'bold' : ''")
     .brak
       | [
     .number
@@ -17,6 +17,7 @@
     props: {
       number: Number,
       suit: String,
+      selected: Boolean,
     },
   })
 </script>
@@ -45,5 +46,8 @@
     .h{
       background-color: rgb(255, 211, 218);
     }
+  }
+  .bold{
+    font-weight: bold;
   }
 </style>

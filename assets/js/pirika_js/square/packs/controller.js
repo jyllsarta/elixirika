@@ -24,6 +24,7 @@ module.exports = class Controller {
   // 手札からボードへの提出 基本アクション
   sendHandToBoard(handIndex, boardIndex){
     const card = this.model.hand.field.cards[handIndex];
+    card.setSelected(false);
     if(!this.model.board.isStackable(card, boardIndex)){
       console.error("cannot stack this card!");
       return;
@@ -41,5 +42,9 @@ module.exports = class Controller {
     this.model.board.fields[fieldIndex].sendAllCardTo(newField);
     this.model.starPalette.fields.push(newField);
   }
-  
+
+  selectHand(handIndex){
+    this.model.hand.disselectAllCard();
+    this.model.hand.field.cards[handIndex]?.setSelected(true);
+  }
 };

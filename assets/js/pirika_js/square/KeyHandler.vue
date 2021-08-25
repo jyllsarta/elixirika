@@ -47,16 +47,16 @@
             this.currentBoardId = 3;
             break;
           case "a":
-            this.controller.sendHandToBoard(0, this.currentBoardId);
+            this.selectOrSend(0);
             break;
           case "s":
-            this.controller.sendHandToBoard(1, this.currentBoardId);
+            this.selectOrSend(1);
             break;
           case "d":
-            this.controller.sendHandToBoard(2, this.currentBoardId);
+            this.selectOrSend(2);
             break;
           case "f":
-            this.controller.sendHandToBoard(3, this.currentBoardId);
+            this.selectOrSend(3);
             break;
           case "c":
             this.controller.commitSenderCard(this.currentBoardId);
@@ -66,6 +66,14 @@
             break;
         }
       },
+      selectOrSend(idx){
+        if(this.controller.model.hand.field.cards[idx]?.isSelected()){
+          this.controller.sendHandToBoard(idx, this.currentBoardId);
+        }
+        else{
+          this.controller.selectHand(idx);
+        }
+      }
     },
     data(){
       return {
