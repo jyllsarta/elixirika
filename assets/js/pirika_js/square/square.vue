@@ -3,7 +3,9 @@
     h1
       | すくえあ！
     .game(v-if="model")
+      StarPaletteStatus(:starPalette="model.starPalette")
       Position(v-for="field, index in model.board.fields" :field="field", :name="`Board(${index + 1})`", :nameBold="index == model.selectingBoardIndex", :key="field.id")
+      hr
       Position(:field="model.hand.field", :name="'Hand'", :nameBold="false")
       hr
       Position(:field="model.deck.field", :name="'Deck'", :nameBold="false")
@@ -18,12 +20,14 @@
     import Card from "./Card.vue";
     import Position from "./Position.vue";
     import KeyHandler from "./KeyHandler.vue";
+    import StarPaletteStatus from "./StarPaletteStatus.vue";
 
     export default Vue.extend({
     components: {
       Card,
       Position,
       KeyHandler,
+      StarPaletteStatus,
     },
     mounted(){
       this.initiate();

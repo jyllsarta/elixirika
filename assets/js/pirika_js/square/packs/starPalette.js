@@ -9,4 +9,10 @@ module.exports = class StarPalette {
   initiate(){
     this.fields = [];
   }
+
+  status(){
+    let status = [];
+    this.fields.map(field=>status[Math.min(field.cards.length, 8)]=true);
+    return status;
+  }
 };
