@@ -3,12 +3,12 @@
     h1
       | すくえあ！
     .game(v-if="model")
-      Position(:field="model.deck.field", :name="'Deck'")
-      Position(v-for="field, index in model.board.fields" :field="field", :name="`Board(${index + 1})`", :key="field.id")
-      Position(:field="model.graveyard.field", :name="'Grav'")
-      Position(:field="model.hand.field", :name="'Hand'")
-      Position(:field="model.selecting.field", :name="'Selecting'")
-      Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette field(s)'", :key="field.id")
+      Position(v-for="field, index in model.board.fields" :field="field", :name="`Board(${index + 1})`", :nameBold="index == model.selectingBoardIndex", :key="field.id")
+      Position(:field="model.hand.field", :name="'Hand'", :nameBold="false")
+      hr
+      Position(:field="model.deck.field", :name="'Deck'", :nameBold="false")
+      Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette field(s)'", :key="field.id", :nameBold="false")
+      Position(:field="model.graveyard.field", :name="'Grav'", :nameBold="false")
     KeyHandler(:controller="controller")
 </template>
 
@@ -50,7 +50,7 @@
 <style lang='scss' scoped>
   @import "stylesheets/constants";
   body{
-    margin: 0;
+    margin: 20px;
   }
   h1 {
     font-size: 30px;

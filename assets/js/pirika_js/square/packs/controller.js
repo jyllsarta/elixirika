@@ -47,4 +47,12 @@ module.exports = class Controller {
     this.model.hand.disselectAllCard();
     this.model.hand.field.cards[handIndex]?.setSelected(true);
   }
+
+  selectBoard(boardIndex){
+    if(!this.model.board.fields[boardIndex]){
+      console.error(`no board field ${boardIndex}`);
+      return;
+    }
+    this.model.selectingBoardIndex = boardIndex;
+  }
 };

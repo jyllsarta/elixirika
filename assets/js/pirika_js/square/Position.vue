@@ -1,7 +1,9 @@
 <template lang="pug">
   .position
-    .index
+    .index(:class="nameBold ? 'bold' : ''")
       | {{name}}
+    .count
+      | {{field.cards.length}}
     .field
       Card(v-for="card in field.cards", :number="card.number", :suit="card.suit", :selected="card.selected", :key="card.id")
 
@@ -18,6 +20,7 @@
     props: {
       field: Object,
       name: String,
+      nameBold: Boolean,
     },
   })
 </script>
@@ -29,8 +32,15 @@
     .index{
       width: 200px;
     }
+    .count{
+      width: 30px;
+      margin-right: 10px;
+    }
     .field{
       width: 500px;
     }
+  }
+  .bold{
+    font-weight: bold;
   }
 </style>

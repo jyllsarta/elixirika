@@ -1,7 +1,7 @@
 <template lang="pug">
   .key_helper
-    .current_board
-      | CurrentBoard: {{currentBoardId}}
+    .current_board(v-if="controller")
+      | CurrentBoard: {{controller.model.selectingBoardIndex}}
 </template>
 
 <script lang="typescript">
@@ -11,7 +11,7 @@
 
     export default Vue.extend({
     props: {
-      controller: Controller      
+      controller: Controller
     },
     mounted(){
       this.initiate();
@@ -35,16 +35,16 @@
             this.controller.fillDraw();
             break;
           case "1":
-            this.currentBoardId = 0;
+            this.controller.selectBoard(0);
             break;
           case "2":
-            this.currentBoardId = 1;
+            this.controller.selectBoard(1);
             break;
           case "3":
-            this.currentBoardId = 2;
+            this.controller.selectBoard(2);
             break;
           case "4":
-            this.currentBoardId = 3;
+            this.controller.selectBoard(3);
             break;
           case "a":
             this.selectOrSend(0);
@@ -59,16 +59,21 @@
             this.selectOrSend(3);
             break;
           case "c":
-            this.controller.commitSenderCard(this.currentBoardId);
+            this.controller.commitSenderCard(this.controller.model.selectingBoardIndex);
             break;
-          
+          case "ArrowUp":
+            this.controller.selectBoard(this.controller.model.selectingBoardIndex - 1);
+            break;
+          case "ArrowDown":
+            this.controller.selectBoard(this.controller.model.selectingBoardIndex + 1);
+            break;
           default:
             break;
         }
       },
       selectOrSend(idx){
         if(this.controller.model.hand.field.cards[idx]?.isSelected()){
-          this.controller.sendHandToBoard(idx, this.currentBoardId);
+          this.controller.sendHandToBoard(idx, this.controller.model.selectingBoardIndex);
         }
         else{
           this.controller.selectHand(idx);
@@ -78,7 +83,6 @@
     data(){
       return {
         keyboard: null,
-        currentBoardId : 0,
       };
     },
   })
