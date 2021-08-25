@@ -34,6 +34,9 @@
           case "r":
             this.controller.fillDraw();
             break;
+          case "x":
+            this.controller.fillDraw();
+            break;
           case "1":
             this.controller.selectBoard(0);
             break;
