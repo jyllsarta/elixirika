@@ -1,6 +1,6 @@
 <template lang="pug">
-  .position
-    .index(:class="nameBold ? 'bold' : ''")
+  .position(:class="nameBold ? 'bold' : ''")
+    .index
       | {{name}}
     .count
       | {{field.cards.length}}

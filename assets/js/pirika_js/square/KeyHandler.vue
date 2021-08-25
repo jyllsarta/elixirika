@@ -32,10 +32,17 @@
             this.controller.startGame();
             break;
           case "r":
+            // rは強制
             this.controller.fillDraw();
             break;
           case "x":
+            // xはやさしい、事故防止付き
+            if(this.controller.model.hand.field.cards.length === 4){
+              return;
+            }
             this.controller.fillDraw();
+            // xはやさしい、左端選択付き
+            this.controller.selectHand(0);
             break;
           case "1":
             this.controller.selectBoard(0);
