@@ -25,11 +25,11 @@ module.exports = class Controller {
   // 手札からボードへの提出 基本アクション
   sendHandToBoard(handIndex, boardIndex){
     const card = this.model.hand.field.cards[handIndex];
-    card.setSelected(false);
     if(!this.model.board.isStackable(card, boardIndex)){
       console.error("cannot stack this card!");
       return;
     }
+    card.setSelected(false);
     this.model.hand.field.sendCardById(card.id, this.model.board.fields[boardIndex]);
     if(card.isSenderCard()){
       console.log("auto commit");

@@ -13,4 +13,8 @@ module.exports = class Hand {
   disselectAllCard(){
     this.field.cards.map(card=>card.setSelected(false));
   }
+
+  isNoCardSelected(){
+    return !this.field.cards.some(card=>card.isSelected());
+  }
 };

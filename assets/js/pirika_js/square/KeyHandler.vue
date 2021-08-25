@@ -61,6 +61,23 @@
           case "c":
             this.controller.commitSenderCard(this.controller.model.selectingBoardIndex);
             break;
+          case "z":
+            const index = this.currentCardIndex();
+            const handCount = this.controller.model.hand.field.cards.length;
+            if(index === -1){
+              return;
+            }
+            this.controller.sendHandToBoard(index, this.controller.model.selectingBoardIndex);
+            if(this.controller.model.hand.field.cards.length < handCount){
+              this.selectOrSend(Math.max(index - 1, 0));                        
+            }
+            break;
+          case "ArrowRight":
+            this.turnRight();
+            break;
+          case "ArrowLeft":
+            this.turnLeft();
+            break;
           case "ArrowUp":
             this.controller.selectBoard(this.controller.model.selectingBoardIndex - 1);
             break;
@@ -78,7 +95,35 @@
         else{
           this.controller.selectHand(idx);
         }
-      }
+      },
+      turnRight(){
+        const cardIndex = this.currentCardIndex();
+        const lastHandIndex = this.controller.model.hand.field.cards.length -1;
+        if(cardIndex === lastHandIndex){
+          return;
+        }
+        if(cardIndex === -1){
+          this.selectOrSend(lastHandIndex);
+        }
+        else{
+          this.selectOrSend(cardIndex + 1);
+        }
+      },
+      turnLeft(){
+        const cardIndex = this.currentCardIndex();
+        if(cardIndex === 0){
+          return;
+        }
+        if(cardIndex === -1){
+          this.selectOrSend(0);
+        }
+        else{
+          this.selectOrSend(cardIndex - 1);
+        }
+      },
+      currentCardIndex(){
+        return this.controller.model.hand.field.cards.findIndex(card=>card.isSelected());
+      },
     },
     data(){
       return {
