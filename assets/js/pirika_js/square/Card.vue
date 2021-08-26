@@ -46,6 +46,9 @@
     .h{
       background-color: rgb(255, 211, 218);
     }
+    .X{
+      background-color: rgb(255, 219, 118);
+    }
   }
   .bold{
     font-weight: bold;

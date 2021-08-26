@@ -22,6 +22,9 @@ module.exports = class Board {
       return true;
     }
     const lastCard = field.getLastCard();
+    if(lastCard.isSpecialCard() || card.isSpecialCard()){
+      return true;
+    }
     if(lastCard.isSenderCard()){
       return false;
     }

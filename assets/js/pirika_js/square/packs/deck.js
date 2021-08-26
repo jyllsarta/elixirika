@@ -17,14 +17,16 @@ module.exports = class Deck {
 
   setDefault(){
     for(let i = 1; i <= 10; ++i){
-      for(let suit of ["s", "d", "c", "h"]){
+      for(let suit of ["s", "s", "h", "h"]){
         this.field.addCard(new Card(i, suit, "normal"));
       }
     }
     for(let i = 11; i <= 13; ++i){
-      for(let suit of ["s", "d", "c", "h"]){
+      for(let suit of ["s", "s", "h", "h"]){
         this.field.addCard(new Card(i, suit, "sender"));
       }
     }
+    this.field.addCard(new Card( 0, "X", "special"));
+    this.field.addCard(new Card( 0, "X", "special"));
   }
 };

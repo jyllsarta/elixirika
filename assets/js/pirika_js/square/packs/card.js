@@ -21,6 +21,10 @@ module.exports = class Card {
     return this.category === "sender";
   }
 
+  isSpecialCard(){
+    return this.category === "special";
+  }
+
   setSelected(state){
     this.selected = state;
   }
