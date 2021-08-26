@@ -4,17 +4,31 @@ let Model = require("./model");
 module.exports = class Controller {
   constructor() {
     this.model = null;
-    window.contoller = this;
+    window.controller = this;
+  }
+
+  dumpOperaionHistory(){
+    return JSON.stringify(this.operationHistory);
+  }
+
+  loadOperationHistory(historyString){
+    operations = JSON.parse(historyString);
+    console.log(history);
+    for(let operation of operations){
+      this[operation.name](...operation.arguments);
+    }
   }
 
   startGame(){
     this.model = new Model();
+    this.operationHistory = [];
     return this.model;
   }
 
   // 手札の引き直し
   // 手札を全て墓地に送る・デッキから引けるだけ引く
   fillDraw(){
+    this.operationHistory.push({arguments: Object.values(arguments), name: arguments.callee.name})
     this.model.hand.disselectAllCard();
     this.model.hand.field.sendAllCardTo(this.model.graveyard.field)
     for(let i=0; i<4; ++i){
@@ -24,6 +38,7 @@ module.exports = class Controller {
 
   // 手札からボードへの提出 基本アクション
   sendHandToBoard(handIndex, boardIndex){
+    this.operationHistory.push({arguments: Object.values(arguments), name: arguments.callee.name})
     const card = this.model.hand.field.cards[handIndex];
     if(!this.model.board.isStackable(card, boardIndex)){
       console.error("cannot stack this card!");
@@ -39,6 +54,7 @@ module.exports = class Controller {
 
   // ∞カード(ようは絵札) が積まれているボードを指定し、星座盤へ送る
   commitSenderCard(fieldIndex){
+    this.operationHistory.push({arguments: Object.values(arguments), name: arguments.callee.name})
     if(!this.model.board.isSendable(fieldIndex)){
       console.error("cannot send");
       return;
@@ -49,11 +65,13 @@ module.exports = class Controller {
   }
 
   selectHand(handIndex){
+    this.operationHistory.push({arguments: Object.values(arguments), name: arguments.callee.name})
     this.model.hand.disselectAllCard();
     this.model.hand.field.cards[handIndex]?.setSelected(true);
   }
 
   selectBoard(boardIndex){
+    this.operationHistory.push({arguments: Object.values(arguments), name: arguments.callee.name})
     if(!this.model.board.fields[boardIndex]){
       console.error(`no board field ${boardIndex}`);
       return;
