@@ -8,19 +8,29 @@ module.exports = class Controller {
   }
 
   dumpOperaionHistory(){
-    return JSON.stringify(this.operationHistory);
+    const history = {
+      operationHistory: this.operationHistory,
+      seed: this.seed,
+    }
+    return JSON.stringify(history);
   }
 
   loadOperationHistory(historyString){
     operations = JSON.parse(historyString);
     console.log(history);
-    for(let operation of operations){
+
+    this.model = new Model();
+    this.model.deck.shuffle(operations.seed);
+    
+    for(let operation of operations.operationHistory){
       this[operation.name](...operation.arguments);
     }
   }
 
-  startGame(){
+  newGame(){
     this.model = new Model();
+    this.seed = Math.floor(Math.random() * 1000000000);
+    this.model.deck.shuffle(this.seed);
     this.operationHistory = [];
     return this.model;
   }

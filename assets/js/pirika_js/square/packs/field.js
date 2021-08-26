@@ -1,3 +1,5 @@
+let SeededRandom = require("./seededRandom");
+
 // カードが積まれる場所
 // Ex. 手札 星座盤の1~8+それぞれ ボードの4箇所 デッキ 墓地 選択中カード
 // 「カードを送っていいかどうか」はここでは扱わない。そのバリデーションは一個上の層で行う。こっちは実エンティティ操作の低レベルAPIみたいな想定
@@ -15,10 +17,11 @@ module.exports = class Field {
     this.cards = [];
   }
 
-  shuffle(){
+  shuffle(seed){
+    seed = new SeededRandom(seed);
     let list = this.cards;
     for (var i = list.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
+      var j = seed.randInt(0, i);
       if (i == j) continue;
       var k = list[i];
       list[i] = list[j];

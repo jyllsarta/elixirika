@@ -35,7 +35,7 @@
     methods: {
       initiate(){
         this.controller = new Controller();
-        this.controller.startGame();
+        this.controller.newGame();
       },
     },
     data(){

@@ -29,7 +29,7 @@
         console.log(keyCode);
         switch(keyCode){
           case "p":
-            this.controller.startGame();
+            this.controller.newGame();
             break;
           case "r":
             // rは強制

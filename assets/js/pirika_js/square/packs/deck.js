@@ -10,7 +10,10 @@ module.exports = class Deck {
     this.field = new Field();
     this.field.truncate();
     this.setDefault();
-    this.field.shuffle();
+  }
+  
+  shuffle(seed){
+    this.field.shuffle(seed);
   }
 
   // private
