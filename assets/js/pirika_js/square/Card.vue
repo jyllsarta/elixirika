@@ -1,11 +1,11 @@
 <template lang="pug">
-  .card(:class="selected ? 'bold' : ''")
+  .card(:class="card.selected ? 'bold' : ''")
     .brak
       | [
-    .number
-      | {{ number }}
-    .suit(:class="suit")
-      | {{ suit }}
+    .number(:class="card.category !== 'normal' ? card.suit : ''")
+      | {{ card.number }}
+    .suit(:class="card.suit")
+      | {{ card.suit }}
     .brak
       | ]
 
@@ -13,11 +13,10 @@
 
 <script lang="typescript">
   import Vue from 'vue';
+  import Card from './packs/card';
   export default Vue.extend({
     props: {
-      number: Number,
-      suit: String,
-      selected: Boolean,
+      card: Card
     },
   })
 </script>

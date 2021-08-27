@@ -55,4 +55,8 @@ module.exports = class Field {
   getLastCard(){
     return this.cards.slice(-1)[0];
   }
+
+  score(){
+    return Math.min(this.cards.length * this.cards.reduce((x,y)=>x+y.number, 0), 999);
+  }
 };

@@ -26,7 +26,7 @@ module.exports = class Deck {
     }
     for(let i = 11; i <= 13; ++i){
       for(let suit of ["s", "s", "h", "h"]){
-        this.field.addCard(new Card(i, suit, "sender"));
+        this.field.addCard(new Card(11, suit, "sender"));
       }
     }
     this.field.addCard(new Card( 0, "X", "special"));

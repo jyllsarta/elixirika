@@ -4,8 +4,10 @@
       | {{name}}
     .count
       | {{field.cards.length}}
+    .score
+      | {{field.score()}}
     .field
-      Card(v-for="card in field.cards", :number="card.number", :suit="card.suit", :selected="card.selected", :key="card.id")
+      Card(v-for="card in field.cards", :card="card", :key="card.id")
 
 </template>
 
@@ -34,6 +36,10 @@
     }
     .count{
       width: 30px;
+      margin-right: 10px;
+    }
+    .score{
+      width: 50px;
       margin-right: 10px;
     }
     .field{
