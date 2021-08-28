@@ -15,6 +15,12 @@ defmodule ElixirikaWeb.SquareController do
     |> render("index.html")
   end
 
+  def register_log(conn, params) do
+    # TODO: 検証とログの記録
+    conn
+    |> render("register_log.json", %{})
+  end
+
   defp title(title) do
     title <> " - さーたはうす"
   end
