@@ -15,4 +15,8 @@ module.exports = class StarPalette {
     this.fields.map(field=>status[Math.min(field.cards.length, 8)]=true);
     return status;
   }
+
+  score(){
+    return this.fields.reduce((x,y)=>x+y.score(), 0)
+  }
 };

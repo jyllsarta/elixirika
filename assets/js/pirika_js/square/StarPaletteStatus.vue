@@ -1,5 +1,7 @@
 <template lang="pug">
   .status(v-if="starPalette")
+    .score
+      | Score: {{ starPalette.score() }}
     .brak
       | [
     .body(v-for="index in [1,2,3,4,5,6,7]" :class="starPalette.status()[index] ? 'present' : 'nothing'")
@@ -23,6 +25,10 @@
 <style lang='scss' scoped>
   @import "stylesheets/constants";
   .status{
+    .score{
+      display: inline-block;
+      margin-right: 10px;
+    }
     .brak, .body{
       display: inline-block;
       width: 2ch;
