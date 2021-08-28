@@ -28,6 +28,9 @@
       triggerKeyboardEvents(keyCode){
         console.log(keyCode);
         switch(keyCode){
+          case "o":
+            this.controller.sendPlayLog();
+            break;
           case "p":
             this.controller.newGame();
             break;

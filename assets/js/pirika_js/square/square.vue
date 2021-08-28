@@ -3,6 +3,7 @@
     h1
       | すくえあ！
     .game(v-if="model")
+      NameArea
       StarPaletteStatus(:starPalette="model.starPalette")
       Position(v-for="field, index in model.board.fields" :field="field", :name="`Board(${index + 1})`", :nameBold="index == model.selectingBoardIndex", :key="field.id")
       hr
@@ -21,6 +22,7 @@
     import Position from "./Position.vue";
     import KeyHandler from "./KeyHandler.vue";
     import StarPaletteStatus from "./StarPaletteStatus.vue";
+    import NameArea from "./NameArea.vue";
 
     export default Vue.extend({
     components: {
@@ -28,6 +30,7 @@
       Position,
       KeyHandler,
       StarPaletteStatus,
+      NameArea,
     },
     mounted(){
       this.initiate();

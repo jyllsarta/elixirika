@@ -88,4 +88,22 @@ module.exports = class Controller {
     }
     this.model.selectingBoardIndex = boardIndex;
   }
+
+  sendPlayLog(){
+    let axios =  require("axios");
+    axios.post("/square/register_log",{
+              _csrf_token: document.querySelector("meta[name=csrf-token]").attributes["content"].textContent,
+              username: localStorage.rawNameSquare,
+              log: this.dumpOperaionHistory(),
+          }
+        )
+        .then((results) => {
+          console.log(results);
+          console.log("OK");
+        })
+        .catch((results) => {
+          console.warn(results);
+          console.warn("NG");
+        })
+  }  
 };

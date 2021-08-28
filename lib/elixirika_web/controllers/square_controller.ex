@@ -12,7 +12,7 @@ defmodule ElixirikaWeb.SquareController do
  
     conn
     |> put_layout(false)
-    |> render("index.html", title: title("SquarE"), og: custom_og, extra: %{})
+    |> render("index.html")
   end
 
   defp title(title) do
