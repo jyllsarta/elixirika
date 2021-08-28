@@ -4,20 +4,27 @@ let Model = require("./model");
 module.exports = class Controller {
   constructor() {
     this.model = null;
-    window.controller = this;
+    this.operationHistory = [];
+    // TODO: nodeじゃないならこれを有効にするみたいな処理
+    //window.controller = this;
   }
 
   dumpOperaionHistory(){
-    const history = {
+    const logs = {
       operationHistory: this.operationHistory,
       seed: this.seed,
     }
-    return JSON.stringify(history);
+    return JSON.stringify(logs);
+  }
+
+  getStatus(){
+    return {
+      score: this.model.starPalette.score(),
+    }
   }
 
   loadOperationHistory(historyString){
-    operations = JSON.parse(historyString);
-    console.log(history);
+    const operations = JSON.parse(historyString);
 
     this.model = new Model();
     this.model.deck.shuffle(operations.seed);
@@ -38,7 +45,7 @@ module.exports = class Controller {
   // 手札の引き直し
   // 手札を全て墓地に送る・デッキから引けるだけ引く
   fillDraw(){
-    this.operationHistory.push({arguments: Object.values(arguments), name: arguments.callee.name})
+    this.operationHistory.push({arguments: Object.values(arguments), name: "fillDraw"})
     this.model.hand.disselectAllCard();
     this.model.hand.field.sendAllCardTo(this.model.graveyard.field)
     for(let i=0; i<4; ++i){
@@ -48,7 +55,7 @@ module.exports = class Controller {
 
   // 手札からボードへの提出 基本アクション
   sendHandToBoard(handIndex, boardIndex){
-    this.operationHistory.push({arguments: Object.values(arguments), name: arguments.callee.name})
+    this.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToBoard"})
     const card = this.model.hand.field.cards[handIndex];
     if(!this.model.board.isStackable(card, boardIndex)){
       console.error("cannot stack this card!");
@@ -64,7 +71,7 @@ module.exports = class Controller {
 
   // ∞カード(ようは絵札) が積まれているボードを指定し、星座盤へ送る
   commitSenderCard(fieldIndex){
-    this.operationHistory.push({arguments: Object.values(arguments), name: arguments.callee.name})
+    this.operationHistory.push({arguments: Object.values(arguments), name: "commitSenderCard"})
     if(!this.model.board.isSendable(fieldIndex)){
       console.error("cannot send");
       return;
@@ -75,13 +82,13 @@ module.exports = class Controller {
   }
 
   selectHand(handIndex){
-    this.operationHistory.push({arguments: Object.values(arguments), name: arguments.callee.name})
+    this.operationHistory.push({arguments: Object.values(arguments), name: "selectHand"})
     this.model.hand.disselectAllCard();
     this.model.hand.field.cards[handIndex]?.setSelected(true);
   }
 
   selectBoard(boardIndex){
-    this.operationHistory.push({arguments: Object.values(arguments), name: arguments.callee.name})
+    this.operationHistory.push({arguments: Object.values(arguments), name: "selectBoard"})
     if(!this.model.board.fields[boardIndex]){
       console.error(`no board field ${boardIndex}`);
       return;
