@@ -9,7 +9,7 @@ defmodule ElixirikaWeb.ZxcvController do
       image: "https://jyllsarta.github.io/images/tile/ogp_image.png",
       site_name: "さーたはうす"
     }
- 
+
     conn
     |> render("index.html", title: title("ZXCV"), og: custom_og, extra: %{})
   end

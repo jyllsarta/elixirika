@@ -11,15 +11,17 @@ defmodule ElixirikaWeb.SquareController do
     log = Jason.encode!(params["log"])
     cmd = ~s(cd assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
     :os.cmd(to_charlist(cmd))
-    result = File.read!("/tmp/square_result_#{params["seed"]}.json") |> Jason.decode!
+    result = File.read!("/tmp/square_result_#{params["seed"]}.json") |> Jason.decode!()
 
     score = %Elixirika.SquareScore{
       username: params["username"],
       score: result["score"],
-      playlog: log,
+      playlog: log
     }
+
     Elixirika.Repo.insert(score)
     File.rm("/tmp/square_result_#{params["seed"]}.json")
+
     conn
     |> render("register_log.json", %{})
   end

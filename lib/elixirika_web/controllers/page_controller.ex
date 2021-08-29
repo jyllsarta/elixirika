@@ -20,7 +20,7 @@ defmodule ElixirikaWeb.PageController do
       og: default_og(),
       zxcv_count: zxcv_count,
       tile_count: tile_count,
-      extra: %{},
+      extra: %{}
     )
   end
 
@@ -70,7 +70,7 @@ defmodule ElixirikaWeb.PageController do
     |> render("airryr_introduction.html",
       title: title("部屋の空気が悪くなるとtwitterで通知を送ってくれるbotを作った話"),
       og: custom_og,
-      extra: %{},
+      extra: %{}
     )
   end
 
@@ -81,7 +81,7 @@ defmodule ElixirikaWeb.PageController do
 
   def sainokawara(conn, _params) do
     conn
-    |> render("sainokawara.html", title: title("賽の河原"), og: default_og(),extra: %{})
+    |> render("sainokawara.html", title: title("賽の河原"), og: default_og(), extra: %{})
   end
 
   def samusugi(conn, _params) do
@@ -99,7 +99,11 @@ defmodule ElixirikaWeb.PageController do
     }
 
     conn
-    |> render("match_illust.html", title: title("css filterプロパティ完全に理解した"), og: custom_og, extra: %{})
+    |> render("match_illust.html",
+      title: title("css filterプロパティ完全に理解した"),
+      og: custom_og,
+      extra: %{}
+    )
   end
 
   # layout falses
