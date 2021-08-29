@@ -5,8 +5,9 @@ module.exports = class Controller {
   constructor() {
     this.model = null;
     this.operationHistory = [];
-    // TODO: nodeじゃないならこれを有効にするみたいな処理
-    //window.controller = this;
+    if(typeof window !== 'undefined' && process.env.NODE_ENV !== 'production'){
+      window.controller = this;
+    }
   }
 
   dumpOperaionHistory(){
