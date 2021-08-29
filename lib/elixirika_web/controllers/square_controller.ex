@@ -2,21 +2,24 @@ defmodule ElixirikaWeb.SquareController do
   use ElixirikaWeb, :controller
 
   def index(conn, _params) do
-    custom_og = %{
-      description: "",
-      title: "SquarE RooT",
-      url: "https://jyllsarta.net/square",
-      image: "https://jyllsarta.github.io/images/tile/ogp_image.png",
-      site_name: "さーたはうす"
-    }
- 
     conn
     |> put_layout(false)
     |> render("index.html")
   end
 
   def register_log(conn, params) do
-    # TODO: 検証とログの記録
+    log = Jason.encode!(params["log"])
+    cmd = ~s(cd assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
+    :os.cmd(to_charlist(cmd))
+    result = File.read!("/tmp/square_result_#{params["seed"]}.json") |> Jason.decode!
+
+    score = %Elixirika.SquareScore{
+      username: params["username"],
+      score: result["score"],
+      playlog: log,
+    }
+    Elixirika.Repo.insert(score)
+    File.rm("/tmp/square_result_#{params["seed"]}.json")
     conn
     |> render("register_log.json", %{})
   end

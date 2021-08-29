@@ -15,7 +15,7 @@ module.exports = class Controller {
       operationHistory: this.operationHistory,
       seed: this.seed,
     }
-    return JSON.stringify(logs);
+    return logs;
   }
 
   getStatus(){
@@ -103,6 +103,7 @@ module.exports = class Controller {
               _csrf_token: document.querySelector("meta[name=csrf-token]").attributes["content"].textContent,
               username: localStorage.rawNameSquare,
               log: this.dumpOperaionHistory(),
+              seed: this.seed,
           }
         )
         .then((results) => {
