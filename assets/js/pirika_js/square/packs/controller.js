@@ -26,9 +26,8 @@ module.exports = class Controller {
 
   loadOperationHistory(historyString){
     const operations = JSON.parse(historyString);
-
-    this.model = new Model();
-    this.model.deck.shuffle(operations.seed);
+    const characterId = 1; // TODO: キャラID指定できる場所作る
+    this.model = new Model(characterId, operations.seed);
     
     for(let operation of operations.operationHistory){
       this[operation.name](...operation.arguments);
@@ -36,9 +35,9 @@ module.exports = class Controller {
   }
 
   newGame(){
-    this.model = new Model();
+    const characterId = 1; // TODO: キャラID指定できる場所作る
     this.seed = Math.floor(Math.random() * 1000000000);
-    this.model.deck.shuffle(this.seed);
+    this.model = new Model(characterId, this.seed);
     this.operationHistory = [];
     return this.model;
   }

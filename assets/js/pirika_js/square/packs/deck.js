@@ -29,7 +29,5 @@ module.exports = class Deck {
         this.field.addCard(new Card(11, suit, "sender"));
       }
     }
-    this.field.addCard(new Card( 0, "X", "special"));
-    this.field.addCard(new Card( 0, "X", "special"));
   }
 };
