@@ -12,6 +12,7 @@
       Position(:field="model.deck.field", :name="'Deck'", :nameBold="false")
       Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette field(s)'", :key="field.id", :nameBold="false")
       Position(:field="model.graveyard.field", :name="'Grav'", :nameBold="false")
+    LeaderBoard
     KeyHandler(:controller="controller")
 </template>
 
@@ -21,6 +22,7 @@
     import Card from "./Card.vue";
     import Position from "./Position.vue";
     import KeyHandler from "./KeyHandler.vue";
+    import LeaderBoard from "./LeaderBoard.vue";
     import StarPaletteStatus from "./StarPaletteStatus.vue";
     import NameArea from "./NameArea.vue";
 
@@ -30,6 +32,7 @@
       Position,
       KeyHandler,
       StarPaletteStatus,
+      LeaderBoard,
       NameArea,
     },
     mounted(){

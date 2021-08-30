@@ -6,4 +6,8 @@ defmodule ElixirikaWeb.SquareView do
       status: "succeeded"
     }
   end
+
+  def render("status.json", %{status: status}) do
+    status
+  end
 end

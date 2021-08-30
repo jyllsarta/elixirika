@@ -7,6 +7,17 @@ defmodule ElixirikaWeb.SquareController do
     |> render("index.html")
   end
 
+  def status(conn, params) do
+    username = params["username"]
+
+    status = %{
+      high_score: Elixirika.SquareScore.high_score(username)
+    }
+
+    conn
+    |> render("status.json", status: status)
+  end
+
   def register_log(conn, params) do
     log = Jason.encode!(params["log"])
     cmd = ~s(cd assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
