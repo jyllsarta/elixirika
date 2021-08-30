@@ -12,7 +12,7 @@
   export default Vue.extend({
     data: ()=>{
       return {
-        high_score: 0
+        high_score: 0,
       }
     },
     mounted(){
@@ -30,8 +30,8 @@
           console.warn(results);
           console.warn("NG");
         })
-      }  
-    }
+      },
+    },
   })
 </script>
 

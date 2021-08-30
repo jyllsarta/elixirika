@@ -11,6 +11,7 @@
 
 <script>
 import Vue from 'vue';
+import LeaderBoard from './LeaderBoard.vue';
 import jsSHA from 'jssha'
 
 export default {
@@ -20,13 +21,15 @@ export default {
       inputting: false,
     };
   },
+  props: {
+    leaderBoard: LeaderBoard,
+  },
+
   name: "nameInputArea",
   mounted: function(){
     if(localStorage.rawNameSquare){
       this.rawName = localStorage.rawNameSquare;
     }
-    console.log("loaded name!");
-    this.setName();
   },
   computed: {
     fullName: function(){
@@ -46,21 +49,14 @@ export default {
     onBlur: function(){
       this.inputting = false;
       localStorage.rawNameSquare = this.rawName;
-      this.$emit("inputStateChanged", false);
-      this.setName();
+      this.leaderBoard.fetchMyScore();
     },
     setInputMode: function(){
       this.inputting = true;
-      this.$emit("inputStateChanged", true);
-      // inputtingをオンにしても次のフレームまで待たないとまだ入力欄は作られない
       Vue.nextTick(()=>{
         this.$refs.focusTarget.focus();
       });
-      console.log(this.$refs)
     },
-    setName: function(){
-      this.$emit("setName", this.fullName);
-    }
   },
 };
 </script>

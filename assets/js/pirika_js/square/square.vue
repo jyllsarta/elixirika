@@ -3,7 +3,7 @@
     h1
       | すくえあ！
     .game(v-if="model")
-      NameArea
+      NameArea(:leaderBoard="$refs.leaderBoard")
       StarPaletteStatus(:starPalette="model.starPalette")
       Position(v-for="field, index in model.board.fields" :field="field", :name="`Board(${index + 1})`", :nameBold="index == model.selectingBoardIndex", :key="field.id")
       hr
@@ -12,7 +12,7 @@
       Position(:field="model.deck.field", :name="'Deck'", :nameBold="false")
       Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette field(s)'", :key="field.id", :nameBold="false")
       Position(:field="model.graveyard.field", :name="'Grav'", :nameBold="false")
-    LeaderBoard
+    LeaderBoard(ref="leaderBoard")
     KeyHandler(:controller="controller")
 </template>
 
@@ -52,7 +52,10 @@
     computed: {
       model(){
         return this.controller?.model;
-      }
+      },
+      username(){
+        return localStorage.username;
+      },
     }
   })
 </script>
