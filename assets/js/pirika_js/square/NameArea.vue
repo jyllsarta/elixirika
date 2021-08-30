@@ -11,7 +11,6 @@
 
 <script>
 import Vue from 'vue';
-import LeaderBoard from './LeaderBoard.vue';
 import jsSHA from 'jssha'
 
 export default {
@@ -22,7 +21,7 @@ export default {
     };
   },
   props: {
-    leaderBoard: LeaderBoard,
+    titleRefs: Object,
   },
 
   name: "nameInputArea",
@@ -46,12 +45,13 @@ export default {
     },
   },
   methods: {
-    onBlur: function(){
+    onBlur(){
       this.inputting = false;
       localStorage.rawNameSquare = this.rawName;
-      this.leaderBoard.fetchMyScore();
+      console.log(this.leaderBoard);
+      this.titleRefs.leaderBoard.fetchMyScore();
     },
-    setInputMode: function(){
+    setInputMode(){
       this.inputting = true;
       Vue.nextTick(()=>{
         this.$refs.focusTarget.focus();

@@ -14,6 +14,7 @@ module.exports = class Controller {
     const logs = {
       operationHistory: this.operationHistory,
       seed: this.seed,
+      characterId: this.characterId,
     }
     return logs;
   }
@@ -26,18 +27,17 @@ module.exports = class Controller {
 
   loadOperationHistory(historyString){
     const operations = JSON.parse(historyString);
-    const characterId = 1; // TODO: キャラID指定できる場所作る
-    this.model = new Model(characterId, operations.seed);
+    this.model = new Model(operations.characterId, operations.seed);
     
     for(let operation of operations.operationHistory){
       this[operation.name](...operation.arguments);
     }
   }
 
-  newGame(){
-    const characterId = 1; // TODO: キャラID指定できる場所作る
+  newGame(characterId){
     this.seed = Math.floor(Math.random() * 1000000000);
     this.model = new Model(characterId, this.seed);
+    this.characterId = characterId;
     this.operationHistory = [];
     return this.model;
   }
