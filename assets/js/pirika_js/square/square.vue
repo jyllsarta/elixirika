@@ -5,55 +5,34 @@
     .title(v-if="gameState == 'title'")
       TitleScene(@characterSelected="onCharacterSelected")
     .game(v-if="gameState == 'inGame'")
-      StarPaletteStatus(:starPalette="model.starPalette")
-      Position(v-for="field, index in model.board.fields" :field="field", :name="`Board(${index + 1})`", :nameBold="index == model.selectingBoardIndex", :key="field.id")
-      hr
-      Position(:field="model.hand.field", :name="'Hand'", :nameBold="false")
-      hr
-      Position(:field="model.deck.field", :name="'Deck'", :nameBold="false")
-      Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette field(s)'", :key="field.id", :nameBold="false")
-      Position(:field="model.graveyard.field", :name="'Grav'", :nameBold="false")
-      KeyHandler(:controller="controller")
+      InGameScene(:characterId="characterId")
 </template>
 
 <script lang="typescript">
     import Vue from 'vue';
-    import Controller from "./packs/controller";
-    import Card from "./Card.vue";
-    import Position from "./Position.vue";
-    import KeyHandler from "./KeyHandler.vue";
-    import StarPaletteStatus from "./StarPaletteStatus.vue";
     import TitleScene from "./TitleScene.vue";
+    import InGameScene from "./InGameScene.vue";
 
     export default Vue.extend({
     components: {
-      Card,
-      Position,
-      KeyHandler,
-      StarPaletteStatus,
       TitleScene,
+      InGameScene,
     },
     methods: {
       onCharacterSelected(characterId){
         this.startGame(characterId)
       },
       startGame(characterId){
-        this.controller = new Controller();
-        this.controller.newGame(characterId);
         this.gameState = "inGame";
+        this.characterId = characterId;
       },
     },
     data(){
       return {
         gameState: "title",
-        controller: null,
+        characterId: -1,
       };
     },
-    computed: {
-      model(){
-        return this.controller?.model;
-      },
-    }
   })
 </script>
 
