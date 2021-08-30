@@ -9,6 +9,8 @@
     Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette field(s)'", :key="field.id", :nameBold="false")
     Position(:field="model.graveyard.field", :name="'Grav'", :nameBold="false")
     KeyHandler(:controller="controller")
+    .end_game(@click="endGame")
+      | ゲームをおわる
 </template>
 
 <script lang="typescript">
@@ -39,6 +41,9 @@
         this.controller = new Controller();
         this.controller.newGame(characterId);
       },
+      endGame(){
+        this.$emit("endGame");
+      }
     },
     data(){
       return {

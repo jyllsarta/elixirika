@@ -5,7 +5,7 @@
     .title(v-if="gameState == 'title'")
       TitleScene(@characterSelected="onCharacterSelected")
     .game(v-if="gameState == 'inGame'")
-      InGameScene(:characterId="characterId")
+      InGameScene(:characterId="characterId", @endGame="onEndGame")
 </template>
 
 <script lang="typescript">
@@ -25,6 +25,12 @@
       startGame(characterId){
         this.gameState = "inGame";
         this.characterId = characterId;
+      },
+      onEndGame(){
+        this.backToTitle();
+      },
+      backToTitle(){
+        this.gameState = "title";
       },
     },
     data(){
