@@ -67,14 +67,8 @@ export default {
   .name_input_area {
     display: flex;
     margin-bottom: 10px;
-    .prefix{
-    }
     .fixed_name{
       margin-right: 10px;
-    }
-    .name_input_box{
-    }
-    .change_button{
     }
   }
 </style>
