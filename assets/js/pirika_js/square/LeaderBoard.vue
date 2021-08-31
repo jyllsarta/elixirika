@@ -1,7 +1,9 @@
 <template lang="pug">
   .high_score
     .index
-      | ハイスコア： {{high_score}}
+      | ピリカのハイスコア： {{high_score.pirika}}
+    .index
+      | ミズハのハイスコア： {{high_score.mizuha}}
 
 </template>
 

@@ -26,6 +26,7 @@ defmodule ElixirikaWeb.SquareController do
 
     score = %Elixirika.SquareScore{
       username: params["username"],
+      character_id: params["log"]["characterId"],
       score: result["score"],
       playlog: log
     }

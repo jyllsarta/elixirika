@@ -11,12 +11,12 @@ module.exports = class Controller {
   }
 
   dumpOperaionHistory(){
-    const logs = {
+    const operations = {
       operationHistory: this.operationHistory,
       seed: this.seed,
       characterId: this.model.characterId,
     }
-    return logs;
+    return operations;
   }
 
   getStatus(){
