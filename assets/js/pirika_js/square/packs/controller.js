@@ -14,7 +14,7 @@ module.exports = class Controller {
     const logs = {
       operationHistory: this.operationHistory,
       seed: this.seed,
-      characterId: this.characterId,
+      characterId: this.model.characterId,
     }
     return logs;
   }
@@ -28,6 +28,7 @@ module.exports = class Controller {
   loadOperationHistory(historyString){
     const operations = JSON.parse(historyString);
     this.model = new Model(operations.characterId, operations.seed);
+    this.operationHistory = [];
     
     for(let operation of operations.operationHistory){
       this[operation.name](...operation.arguments);
@@ -37,7 +38,6 @@ module.exports = class Controller {
   newGame(characterId){
     this.seed = Math.floor(Math.random() * 1000000000);
     this.model = new Model(characterId, this.seed);
-    this.characterId = characterId;
     this.operationHistory = [];
     return this.model;
   }
