@@ -1,5 +1,5 @@
 let CharacterPirika = require("./characterPirika");
-let CharacterMizuha = require("./CharacterMizuha");
+let CharacterMizuha = require("./characterMizuha");
 
 module.exports = class CharacterFactory {
   getCharacterById(characterId){
