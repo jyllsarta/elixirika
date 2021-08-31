@@ -12,8 +12,8 @@ module.exports = class Deck {
     this.setDefault();
   }
   
-  shuffle(seed){
-    this.field.shuffle(seed);
+  shuffle(seededRandom){
+    this.field.shuffle(seededRandom);
   }
 
   // private

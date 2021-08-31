@@ -32,7 +32,7 @@
             this.controller.sendPlayLog();
             break;
           case "p":
-            this.controller.newGame();
+            this.controller.newGame(this.controller.model.characterId);
             break;
           case "r":
             // rは強制
