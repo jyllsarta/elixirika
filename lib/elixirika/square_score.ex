@@ -17,7 +17,7 @@ defmodule Elixirika.SquareScore do
       select: %{character_id: score.character_id, score: max(score.score)},
       group_by: [score.character_id]
     )
-    |> Ecto.Query.where(username: "ペクチン")
+    |> Ecto.Query.where(username: ^username)
     |> Elixirika.Repo.all()
   end
 end

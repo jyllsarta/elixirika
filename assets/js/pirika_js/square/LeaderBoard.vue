@@ -24,7 +24,10 @@
     },
     methods: {
       fetchMyScore(){
-        axios.get(`/square/status?username=${localStorage.rawNameSquare || ''}`)
+        const params = {
+          username: localStorage.rawNameSquare
+        }
+        axios.get(`/square/status`, {params: params})
         .then((results) => {
           console.log(results);
           console.log("OK");
