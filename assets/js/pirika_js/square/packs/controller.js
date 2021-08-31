@@ -47,8 +47,9 @@ module.exports = class Controller {
   fillDraw(){
     this.operationHistory.push({arguments: Object.values(arguments), name: "fillDraw"})
     this.model.hand.disselectAllCard();
-    this.model.hand.field.sendAllCardTo(this.model.graveyard.field)
-    for(let i=0; i<4; ++i){
+    this.model.hand.field.sendAllCardTo(this.model.graveyard.field);
+    const drawNum = Math.min(this.model.deck.field.cards.length, 4);
+    for(let i = 0; i < drawNum; ++i){
       this.model.hand.field.addCard(this.model.deck.field.draw());
     }
   }
@@ -113,5 +114,5 @@ module.exports = class Controller {
           console.warn(results);
           console.warn("NG");
         })
-  }  
+  }
 };

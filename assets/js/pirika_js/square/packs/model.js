@@ -31,4 +31,10 @@ module.exports = class Model {
     this.deck.shuffle(this.seededRandom);
     this.character.onGameStart(this);
   }
+
+  // 手詰まり == デッキ枚数がゼロ && すべての手札がどこにも出せない
+  isStaleMate(){
+    // TODO impl
+    return false;
+  }
 };
