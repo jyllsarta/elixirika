@@ -22,7 +22,11 @@ defmodule ElixirikaWeb.SquareController do
     log = Jason.encode!(params["log"])
     cmd = ~s(cd assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
     :os.cmd(to_charlist(cmd))
-    result = File.read!("/tmp/square_result_#{params["seed"]}.json") |> Jason.decode!()
+    {ret_status, content} = File.read("/tmp/square_result_#{params["seed"]}.json")
+    # Elixirにおいてこれくらいの用事で例外を使うべきかどうかは議論がありそうだが、個人的にこれだけ簡単にエラー処理を定義できるのは利益が大きいと思う
+    if ret_status != :ok, do: raise ElixirikaWeb.InvalidOperationError
+
+    result = content |> Jason.decode!()
 
     score = %Elixirika.SquareScore{
       username: params["username"],
