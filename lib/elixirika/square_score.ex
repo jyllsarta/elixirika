@@ -12,22 +12,12 @@ defmodule Elixirika.SquareScore do
   end
 
   def high_score(username) do
-    # TODO: キャラ増えるのに対して何かしらの対処をする
-    pirika =
-      Ecto.Query.from(score in Elixirika.SquareScore, order_by: [desc: score.score])
-      |> Ecto.Query.limit(1)
-      |> Ecto.Query.where(username: ^username, character_id: 1)
-      |> Elixirika.Repo.one()
-
-    mizuha =
-      Ecto.Query.from(score in Elixirika.SquareScore, order_by: [desc: score.score])
-      |> Ecto.Query.limit(1)
-      |> Ecto.Query.where(username: ^username, character_id: 2)
-      |> Elixirika.Repo.one()
-
-    %{
-      pirika: if(pirika != nil, do: pirika.score, else: 0),
-      mizuha: if(mizuha != nil, do: mizuha.score, else: 0)
-    }
+    Ecto.Query.from(score in Elixirika.SquareScore,
+      order_by: [desc: score.score],
+      select: %{character_id: score.character_id, score: max(score.score)},
+      group_by: [score.character_id]
+    )
+    |> Ecto.Query.where(username: "ペクチン")
+    |> Elixirika.Repo.all()
   end
 end

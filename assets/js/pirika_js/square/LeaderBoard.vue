@@ -1,9 +1,9 @@
 <template lang="pug">
   .high_score
     .index
-      | ピリカのハイスコア： {{high_score.pirika}}
+      | ピリカのハイスコア： {{pirikaHighScore}}
     .index
-      | ミズハのハイスコア： {{high_score.mizuha}}
+      | ミズハのハイスコア： {{mizuhaHighScore}}
 
 </template>
 
@@ -14,7 +14,9 @@
   export default Vue.extend({
     data: ()=>{
       return {
-        high_score: 0,
+        status: {
+          high_score: []
+        },
       }
     },
     mounted(){
@@ -26,12 +28,20 @@
         .then((results) => {
           console.log(results);
           console.log("OK");
-          this.high_score = results.data.high_score;
+          this.status = results.data;
         })
         .catch((results) => {
           console.warn(results);
           console.warn("NG");
         })
+      },
+    },
+    computed: {
+      pirikaHighScore(){
+        return this.status.high_score.find(score=>score.character_id==1)?.score || 0;
+      },
+      mizuhaHighScore(){
+        return this.status.high_score.find(score=>score.character_id==2)?.score || 0;
       },
     },
   })
