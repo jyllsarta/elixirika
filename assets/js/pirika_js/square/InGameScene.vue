@@ -8,6 +8,7 @@
     Position(:field="model.deck.field", :name="'Deck'", :nameBold="false")
     Position(v-for="field in model.starPalette.fields" :field="field", :name="'StarPalette field(s)'", :key="field.id", :nameBold="false")
     Position(:field="model.graveyard.field", :name="'Grav'", :nameBold="false")
+    GameEndPopup(:model="model")
     KeyHandler(:controller="controller")
     .end_game(@click="endGame")
       | ゲームをおわる
@@ -20,6 +21,7 @@
     import Position from "./Position.vue";
     import KeyHandler from "./KeyHandler.vue";
     import StarPaletteStatus from "./StarPaletteStatus.vue";
+    import GameEndPopup from "./GameEndPopup.vue";
     import TitleScene from "./TitleScene.vue";
 
     export default Vue.extend({
@@ -28,6 +30,7 @@
       Position,
       KeyHandler,
       StarPaletteStatus,
+      GameEndPopup,
       TitleScene,
     },
     props: {

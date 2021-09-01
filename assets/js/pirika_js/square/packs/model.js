@@ -34,7 +34,17 @@ module.exports = class Model {
 
   // 手詰まり == デッキ枚数がゼロ && すべての手札がどこにも出せない
   isStaleMate(){
-    // TODO impl
-    return false;
+    // 本当はこっちが先
+    if(this.deck.field.cards.length !== 0){
+      return false;
+    }
+    for(let handCard of this.hand.field.cards){
+      for(let fieldIndex in this.board.fields){
+        if(this.board.isStackable(handCard, fieldIndex)){
+          return false;
+        }
+      }
+    }
+    return true;
   }
 };
