@@ -34,7 +34,6 @@ module.exports = class Model {
 
   // 手詰まり == デッキ枚数がゼロ && すべての手札がどこにも出せない
   isStaleMate(){
-    // 本当はこっちが先
     if(this.deck.field.cards.length !== 0){
       return false;
     }
