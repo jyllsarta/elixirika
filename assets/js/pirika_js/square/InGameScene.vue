@@ -43,6 +43,8 @@
       startGame(characterId){
         this.controller = new Controller();
         this.controller.newGame(characterId);
+        this.controller.fillDraw();
+        this.controller.selectHand(0);
       },
       endGame(){
         this.$emit("endGame");

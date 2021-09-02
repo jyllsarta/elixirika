@@ -33,6 +33,8 @@
             break;
           case "p":
             this.controller.newGame(this.controller.model.characterId);
+            this.controller.fillDraw();
+            this.controller.selectHand(0);
             break;
           case "r":
             // rは強制
