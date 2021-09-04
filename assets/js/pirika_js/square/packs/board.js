@@ -14,30 +14,6 @@ module.exports = class Board {
     }
   }
 
-  isStackable(card, fieldIndex){
-    const field = this.fields[fieldIndex];
-    if(!field){
-      return false;
-    }
-    if(field.cards.length === 0){
-      return true;
-    }
-    const lastCard = field.getLastCard();
-    if(lastCard.isSpecialCard() || card.isSpecialCard()){
-      return true;
-    }
-    if(lastCard.isSenderCard()){
-      return false;
-    }
-    if(lastCard.color() == card.color()){
-      return false;
-    }
-    if(lastCard.number > card.number){
-      return false;
-    }
-    return true;
-  }
-
   // ボードからのsend == 星座盤への投入
   isSendable(fieldIndex){
     const lastCard = this.fields[fieldIndex]?.getLastCard();

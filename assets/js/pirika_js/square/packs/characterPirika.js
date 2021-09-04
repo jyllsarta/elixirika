@@ -8,4 +8,29 @@ module.exports = class CharacterPirika {
     // デッキに混ぜ物をしたので再シャッフルが必須
     model.deck.shuffle(model.seededRandom);
   }
+
+  // model の状況では、 field の末尾に cardを積むことができる？
+  canStack(card, field, model){
+    if(!field){
+      return false;
+    }
+    if(field.cards.length === 0){
+      return true;
+    }
+    const lastCard = field.getLastCard();
+    // X のカードはどのカードにも重ねられるし、どのカードも重ねることができる
+    if(lastCard.isSpecialCard() || card.isSpecialCard()){
+      return true;
+    }
+    if(lastCard.isSenderCard()){
+      return false;
+    }
+    if(lastCard.color() == card.color()){
+      return false;
+    }
+    if(lastCard.number > card.number){
+      return false;
+    }
+    return true;
+  }
 };
