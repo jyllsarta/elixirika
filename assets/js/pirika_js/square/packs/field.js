@@ -1,10 +1,12 @@
+let Constants = require("./constants");
+
 // カードが積まれる場所
 // Ex. 手札 星座盤の1~8+それぞれ ボードの4箇所 デッキ 墓地 選択中カード
 // 「カードを送っていいかどうか」はここでは扱わない。そのバリデーションは一個上の層で行う。こっちは実エンティティ操作の低レベルAPIみたいな想定
 module.exports = class Field {
   constructor() {
     this.truncate();
-    this.id = Math.floor(Math.random() * 1000000000);
+    this.id = Math.floor(Math.random() * Constants.maxRandomSeed);
   }
 
   addCard(card){
@@ -54,6 +56,6 @@ module.exports = class Field {
   }
 
   score(){
-    return Math.min(this.cards.length * this.cards.reduce((x,y)=>x+y.number, 0), 999);
+    return Math.min(this.cards.length * this.cards.reduce((x,y)=>x+y.number, 0), Constants.maxScorePerField);
   }
 };

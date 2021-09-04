@@ -1,5 +1,6 @@
 let Card = require("./card");
 let Field = require("./field");
+const Constants = require("./constants");
 
 module.exports = class Deck {
   constructor() {
@@ -19,14 +20,14 @@ module.exports = class Deck {
   // private
 
   setDefault(){
-    for(let i = 1; i <= 10; ++i){
+    for(let i = 1; i <= Constants.normalCardPerSuit; ++i){
       for(let suit of ["s", "s", "h", "h"]){
         this.field.addCard(new Card(i, suit, "normal"));
       }
     }
-    for(let i = 11; i <= 13; ++i){
+    for(let i = 1; i <= Constants.senderCardPerSuit; ++i){
       for(let suit of ["s", "s", "h", "h"]){
-        this.field.addCard(new Card(11, suit, "sender"));
+        this.field.addCard(new Card(Constants.senderCardRank, suit, "sender"));
       }
     }
   }

@@ -1,5 +1,6 @@
 let Card = require("./card");
 let Field = require("./field");
+const Constants = require("./constants");
 
 module.exports = class Board {
   constructor() {
@@ -8,7 +9,7 @@ module.exports = class Board {
 
   initiate(){
     this.fields = [];
-    for(let i = 0; i < 4; ++i ){
+    for(let i = 0; i < Constants.fieldCardNumber; ++i ){
       this.fields.push(new Field());
     }
   }
