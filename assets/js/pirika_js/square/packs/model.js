@@ -38,8 +38,8 @@ module.exports = class Model {
       return false;
     }
     for(let handCard of this.hand.field.cards){
-      for(let fieldIndex in this.board.fields){
-        if(this.board.isStackable(handCard, fieldIndex)){
+      for(let field of this.board.fields){
+        if(this.character.canStack(handCard, field, this)){
           return false;
         }
       }
