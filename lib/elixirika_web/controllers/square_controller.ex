@@ -8,10 +8,12 @@ defmodule ElixirikaWeb.SquareController do
   end
 
   def status(conn, params) do
-    username = params["username"]
+    user_id = Elixirika.SquareUser.find_by(params["username"])
+    # HACK: user_id: nil で検索はできないので、AUTO INCREMENT 的にuser_id: 0は入らないことを悪用して検索を空振らせている
+    user_id = if user_id == nil, do: 0, else: user_id
 
     status = %{
-      high_score: Elixirika.SquareScore.high_score(username)
+      high_score: Elixirika.SquareScore.high_score(user_id)
     }
 
     conn
@@ -28,8 +30,11 @@ defmodule ElixirikaWeb.SquareController do
 
     result = content |> Jason.decode!()
 
+    # TODO: result["challenges"] をもとに実積のクリアを判定する
+
+    user_id = Elixirika.SquareUser.find_or_create_by(params["username"])
     score = %Elixirika.SquareScore{
-      username: params["username"],
+      user_id: user_id,
       character_id: params["log"]["characterId"],
       score: result["score"],
       playlog: log
