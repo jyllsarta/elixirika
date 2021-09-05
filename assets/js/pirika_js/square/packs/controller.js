@@ -1,5 +1,6 @@
 const Field = require("./field");
 let Model = require("./model");
+let Challenge = require("./challenge");
 
 module.exports = class Controller {
   constructor() {
@@ -20,8 +21,10 @@ module.exports = class Controller {
   }
 
   getStatus(){
+    const challenge = new Challenge();
     return {
       score: this.model.starPalette.score(),
+      challenges: challenge.clearedChallengeIds(this.model),
     }
   }
 
