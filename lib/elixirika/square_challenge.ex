@@ -11,6 +11,7 @@ defmodule Elixirika.SquareChallenge do
     index [:user_id, :challenge_id, :character_id], unique: true, name: "challenge_uniqueness"
   end
 
+  # NOTE: 空振ったINSERTが AUTO INCREMENT カウンターを増やすみたいな挙動をして若干気持ち悪い
   def register!(user_id, character_id, challenge_id) do
     score = %Elixirika.SquareChallenge{
       user_id: user_id,
