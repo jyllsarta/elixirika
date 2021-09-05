@@ -10,7 +10,7 @@ module.exports = class CharacterPirika {
   }
 
   // model の状況では、 field の末尾に cardを積むことができる？
-  canStack(card, field, model){
+  cardStackRule(card, field, model){
     if(!field){
       return false;
     }

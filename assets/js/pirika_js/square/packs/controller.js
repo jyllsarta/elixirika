@@ -62,7 +62,7 @@ module.exports = class Controller {
     this.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToBoard"})
     const card = this.model.hand.field.cards[handIndex];
     const field = this.model.board.fields[boardIndex];
-    if(!this.model.character.canStack(card, field, this.model)){
+    if(!this.model.cardStackRule(card, field, this.model)){
       console.error("cannot stack this card!");
       return;
     }

@@ -23,6 +23,7 @@ module.exports = class Model {
     this.starPalette = new StarPalette();
     this.seededRandom = new SeededRandom(seed);
     this.selectingBoardIndex = 0;
+    this.cardStackRule = this.character.cardStackRule;
 
     this.onGameStart();
   }
@@ -39,7 +40,7 @@ module.exports = class Model {
     }
     for(let handCard of this.hand.field.cards){
       for(let field of this.board.fields){
-        if(this.character.canStack(handCard, field, this)){
+        if(this.cardStackRule(handCard, field, this)){
           return false;
         }
       }
