@@ -30,12 +30,15 @@ defmodule ElixirikaWeb.SquareController do
 
     result = content |> Jason.decode!()
 
-    # TODO: result["challenges"] をもとに実積のクリアを判定する
-
     user_id = Elixirika.SquareUser.find_or_create_by(params["username"])
+    character_id = params["log"]["characterId"]
+
+    # TODO: クリアした実績数でNクエリ走るのでBULK INSERTにしたい
+    Enum.map(result["challenges"], &(Elixirika.SquareChallenge.register!(user_id, character_id, &1)))
+
     score = %Elixirika.SquareScore{
       user_id: user_id,
-      character_id: params["log"]["characterId"],
+      character_id: character_id,
       score: result["score"],
       playlog: log
     }
