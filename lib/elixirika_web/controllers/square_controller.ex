@@ -8,9 +8,8 @@ defmodule ElixirikaWeb.SquareController do
   end
 
   def status(conn, params) do
-    user_id = Elixirika.SquareUser.find_by(params["username"])
     # HACK: user_id: nil で検索はできないので、AUTO INCREMENT 的にuser_id: 0は入らないことを悪用して検索を空振らせている
-    user_id = if user_id == nil, do: 0, else: user_id
+    user_id = Elixirika.SquareUser.find_by(params["username"] || "") || 0
 
     status = %{
       high_score: Elixirika.SquareScore.high_score(user_id)
