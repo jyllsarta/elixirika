@@ -1,9 +1,9 @@
 <template lang="pug">
   .high_score
     .index
-      | ピリカのハイスコア： {{pirikaHighScore}}
+      | ピリカのハイスコア： {{pirikaHighScore}} / チャレンジ： {{pirikaChallenges}}
     .index
-      | ミズハのハイスコア： {{mizuhaHighScore}}
+      | ミズハのハイスコア： {{mizuhaHighScore}} / チャレンジ: {{mizuhaChallenges}}
 
 </template>
 
@@ -15,7 +15,11 @@
     data: ()=>{
       return {
         status: {
-          high_score: []
+          high_score: [],
+          challenges: {
+            "1": [],
+            "2": [],
+          },
         },
       }
     },
@@ -46,6 +50,12 @@
       mizuhaHighScore(){
         return this.status.high_score.find(score=>score.character_id==2)?.score || 0;
       },
+      pirikaChallenges(){
+        return this.status.challenges[1] || [];
+      },
+      mizuhaChallenges(){
+        return this.status.challenges[2] || [];
+      },
     },
   })
 </script>
@@ -54,7 +64,7 @@
   @import "stylesheets/constants";
   .high_score{
     .index{
-      width: 200px;
+      width: 500px;
     }
   }
 </style>

@@ -12,7 +12,8 @@ defmodule ElixirikaWeb.SquareController do
     user_id = Elixirika.SquareUser.find_by(params["username"] || "") || 0
 
     status = %{
-      high_score: Elixirika.SquareScore.high_score(user_id)
+      high_score: Elixirika.SquareScore.high_score(user_id),
+      challenges: Elixirika.SquareChallenge.status(user_id)
     }
 
     conn
@@ -24,8 +25,9 @@ defmodule ElixirikaWeb.SquareController do
     cmd = ~s(cd assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
     :os.cmd(to_charlist(cmd))
     {ret_status, content} = File.read("/tmp/square_result_#{params["seed"]}.json")
+
     # Elixirにおいてこれくらいの用事で例外を使うべきかどうかは議論がありそうだが、個人的にこれだけ簡単にエラー処理を定義できるのは利益が大きいと思う
-    if ret_status != :ok, do: raise ElixirikaWeb.InvalidOperationError
+    if ret_status != :ok, do: raise(ElixirikaWeb.InvalidOperationError)
 
     result = content |> Jason.decode!()
 
@@ -33,7 +35,10 @@ defmodule ElixirikaWeb.SquareController do
     character_id = params["log"]["characterId"]
 
     # TODO: クリアした実績数でNクエリ走るのでBULK INSERTにしたい
-    Enum.map(result["challenges"], &(Elixirika.SquareChallenge.register!(user_id, character_id, &1)))
+    Enum.map(
+      result["challenges"],
+      &Elixirika.SquareChallenge.register!(user_id, character_id, &1)
+    )
 
     score = %Elixirika.SquareScore{
       user_id: user_id,
