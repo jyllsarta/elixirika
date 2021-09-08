@@ -5,7 +5,6 @@ let Challenge = require("./challenge");
 module.exports = class Controller {
   constructor() {
     this.model = null;
-    this.operationHistory = [];
     if(typeof window !== 'undefined' && process.env.NODE_ENV !== 'production'){
       window.controller = this;
     }
@@ -13,7 +12,7 @@ module.exports = class Controller {
 
   dumpOperaionHistory(){
     const operations = {
-      operationHistory: this.operationHistory,
+      operationHistory: this.model.operationHistory,
       seed: this.seed,
       characterId: this.model.characterId,
     }
@@ -31,7 +30,6 @@ module.exports = class Controller {
   loadOperationHistory(historyString){
     const operations = JSON.parse(historyString);
     this.model = new Model(operations.characterId, operations.seed);
-    this.operationHistory = [];
     
     for(let operation of operations.operationHistory){
       this[operation.name](...operation.arguments);
@@ -41,14 +39,13 @@ module.exports = class Controller {
   newGame(characterId){
     this.seed = Math.floor(Math.random() * 1000000000);
     this.model = new Model(characterId, this.seed);
-    this.operationHistory = [];
     return this.model;
   }
 
   // 手札の引き直し
   // 手札を全て墓地に送る・デッキから引けるだけ引く
   fillDraw(){
-    this.operationHistory.push({arguments: Object.values(arguments), name: "fillDraw"})
+    this.model.operationHistory.push({arguments: Object.values(arguments), name: "fillDraw"})
     this.model.hand.disselectAllCard();
     this.model.hand.field.sendAllCardTo(this.model.graveyard.field);
     const drawNum = Math.min(this.model.deck.field.cards.length, 4);
@@ -59,7 +56,7 @@ module.exports = class Controller {
 
   // 手札からボードへの提出 基本アクション
   sendHandToBoard(handIndex, boardIndex){
-    this.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToBoard"})
+    this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToBoard"})
     const card = this.model.hand.field.cards[handIndex];
     const field = this.model.board.fields[boardIndex];
     if(!this.model.cardStackRule(card, field, this.model)){
@@ -76,7 +73,7 @@ module.exports = class Controller {
 
   // ∞カード(ようは絵札) が積まれているボードを指定し、星座盤へ送る
   commitSenderCard(fieldIndex){
-    this.operationHistory.push({arguments: Object.values(arguments), name: "commitSenderCard"})
+    this.model.operationHistory.push({arguments: Object.values(arguments), name: "commitSenderCard"})
     if(!this.model.board.isSendable(fieldIndex)){
       console.error("cannot send");
       return;
@@ -87,13 +84,13 @@ module.exports = class Controller {
   }
 
   selectHand(handIndex){
-    this.operationHistory.push({arguments: Object.values(arguments), name: "selectHand"})
+    this.model.operationHistory.push({arguments: Object.values(arguments), name: "selectHand"})
     this.model.hand.disselectAllCard();
     this.model.hand.field.cards[handIndex]?.setSelected(true);
   }
 
   selectBoard(boardIndex){
-    this.operationHistory.push({arguments: Object.values(arguments), name: "selectBoard"})
+    this.model.operationHistory.push({arguments: Object.values(arguments), name: "selectBoard"})
     if(!this.model.board.fields[boardIndex]){
       console.error(`no board field ${boardIndex}`);
       return;

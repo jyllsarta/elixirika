@@ -24,6 +24,7 @@ module.exports = class Model {
     this.seededRandom = new SeededRandom(seed);
     this.selectingBoardIndex = 0;
     this.cardStackRule = this.character.cardStackRule;
+    this.operationHistory = [];
 
     this.onGameStart();
   }
