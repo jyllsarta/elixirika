@@ -55,7 +55,11 @@ module.exports = class Field {
     return this.cards.slice(-1)[0];
   }
 
+  lengthBonus(){
+    return this.cards.length >= Constants.cardCountScoreBonusThreshold  ? 2 : 1;
+  }
+
   score(){
-    return Math.min(this.cards.length * this.cards.reduce((x,y)=>x+y.number, 0), Constants.maxScorePerField);
+    return Math.min(Math.floor(this.lengthBonus() * this.cards.reduce((x,y)=>x+y.number, 0)), Constants.maxScorePerField);
   }
 };
