@@ -1,20 +1,67 @@
 # Elixirika
 
-To start your Phoenix server:
+さーたはうす のwebサイトです
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+# 環境構築
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## ツールのインストール
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+.tool-versions にあるものをインストールしてください。asdf があるときっとはやい
+歴史的な理由でtool-versions にはありませんが ruby も必要です。 3.0.0 で動作確認していますが、どれでもきっと動きます。
 
-## Learn more
+## MySQLのインストール
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+localhost:3306 に MySQL 5.7 が立っている状態にしてください。
+
+## 依存のインストール
+
+```
+mix deps.get
+mix compile
+```
+
+## 環境変数のセット
+
+direnv が便利ですが、下記のものが適切にセットされていれば特にツールの指定はありません
+
+```
+mv .env.example .env
+vim .env # DBの接続情報を入力
+```
+
+## DBのセットアップ
+
+```
+mix ecto.create
+mix yacto.migrate
+```
+
+## (Square ゲーム用) マスターデータのリンク
+
+Square というゲームが https://github.com/jyllsarta/elixirika_masterdata を利用しています。
+マスターデータのディレクトリを参照できるようにシンボリックリンクを張ります
+以下はelixirika, elixirika_masterdata ともにホームディレクトリにある前提のサンプルです。
+
+```
+cd ~
+git clone git@github.com:jyllsarta/elixirika_masterdata.git
+cd ~/elixirika/assets/js/pirika_js/square
+ln -s ~/elixirika_masterdata/js masterdata
+```
+
+## アセットの構築
+
+```
+cd ~/elixirika/assets
+npm install
+```
+
+これで環境構築は完了です。
+
+# サーバ起動
+
+```
+./local_server.sh
+```
+
+localhost:4000 にサーバが立ちます。  `PORT=4001 ./local_server.sh` で起動ポートを変更できます。

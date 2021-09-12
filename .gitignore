@@ -35,3 +35,7 @@ npm-debug.log
 
 # dotenv contains secrets
 .env
+
+# Square masterdata directory
+
+/assets/js/pirika_js/square/masterdata
