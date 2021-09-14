@@ -1,14 +1,18 @@
 <template lang="pug">
   .game
-    | あらたなインゲームのシーンなの
+    p
+      | あらたなインゲームのシーンなの
+    SupportCharacter
 
 </template>
 
 <script lang="typescript">
     import Vue from 'vue';
+    import SupportCharacter from "./SupportCharacter.vue"
 
     export default Vue.extend({
     components: {
+      SupportCharacter
     },
     props: {
     },
