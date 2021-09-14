@@ -1,20 +1,22 @@
 <template lang="pug">
   #app
-    h1
-      | すくえあ！
-    .title(v-if="gameState == 'title'")
-      TitleScene(@characterSelected="onCharacterSelected")
-    .game(v-if="gameState == 'inGame'")
-      InGameScene(:characterId="characterId", @endGame="onEndGame")
+    Header
+    .game
+      .title(v-if="gameState == 'title'")
+        TitleScene(@characterSelected="onCharacterSelected")
+      .in_game(v-if="gameState == 'inGame'")
+        InGameScene(:characterId="characterId", @endGame="onEndGame")
 </template>
 
 <script lang="typescript">
     import Vue from 'vue';
+    import Header from "./Header.vue";
     import TitleScene from "./TitleScene.vue";
     import InGameScene from "./InGameScene.vue";
 
     export default Vue.extend({
     components: {
+      Header,
       TitleScene,
       InGameScene,
     },
@@ -45,9 +47,15 @@
 <style lang='scss' scoped>
   @import "stylesheets/constants";
   body{
-    margin: 20px;
+    margin: 0;
   }
-  h1 {
-    font-size: 30px;
+  #app {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(44, 44, 59);
+    .game{
+      width: 1024px;
+      margin: auto;
+    }
   }
 </style>
