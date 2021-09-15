@@ -1,8 +1,7 @@
 const path = require('path');
 const glob = require('glob');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const VueLoaderPlugin = require("vue-loader/lib/plugin")
 
@@ -13,7 +12,7 @@ module.exports = (env, options) => {
     optimization: {
       minimizer: [
         new TerserPlugin({ cache: true, parallel: true, sourceMap: devMode }),
-        new OptimizeCSSAssetsPlugin({})
+        new CssMinimizerPlugin(),
       ]
     },
     entry: {
@@ -97,19 +96,10 @@ module.exports = (env, options) => {
             loader: 'babel-loader'
           }
         },
-        {
-          test: /\.[s]?css$/,
-          use: [
-            MiniCssExtractPlugin.loader,
-            'css-loader',
-            'sass-loader',
-          ],
-        }
       ]
     },
     plugins: [
       new VueLoaderPlugin(),
-      new MiniCssExtractPlugin({ filename: '../css/[name].css' }),
       new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
     ]
   }
