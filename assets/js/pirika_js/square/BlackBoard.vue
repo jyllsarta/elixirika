@@ -1,0 +1,19 @@
+<template lang="pug">
+  .area
+    | BlackBoard
+</template>
+
+<script lang="typescript">
+  import Vue from 'vue';
+
+  export default Vue.extend({
+  })
+</script>
+
+<style lang='scss' scoped>
+  @import "stylesheets/constants";
+  .area{
+    width: 300px;
+    height: 300px;
+  }
+</style>

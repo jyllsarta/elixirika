@@ -24,6 +24,10 @@ export default Vue.extend({
         this.$emit("characterSelected", characterId);
       }
     },
+    mounted(){
+      // しばらく自動的にインゲームシーンから開始させるようにする
+      this.$emit("characterSelected", 1);
+    }
   })
 </script>
 
