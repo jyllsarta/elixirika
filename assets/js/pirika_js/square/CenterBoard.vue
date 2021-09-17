@@ -1,6 +1,8 @@
 <template lang="pug">
   .area
-    | CenterBoard
+    .fields
+      .field(v-for="field_id in [1,2,3,4]")
+        | field # {{field_id}}
 </template>
 
 <script lang="typescript">
@@ -13,7 +15,20 @@
 <style lang='scss' scoped>
   @import "stylesheets/constants";
   .area{
-    width: 512px;
-    height: 256px;
+    width: 800px;
+    height: 350px;
+    .fields{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      .field{
+        width: 160px;
+        height: 250px;
+        border: 1px solid #80ffc6;
+      }
+    }
   }
 </style>

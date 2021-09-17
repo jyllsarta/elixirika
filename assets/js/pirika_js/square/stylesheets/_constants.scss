@@ -1,1 +1,10 @@
-// 
+//
+
+$font-size-normal: 16px;
+
+@mixin centering($height){
+  height: $height - $font-size-normal;
+  padding-top: (($height - $font-size-normal) / 2);
+  line-height: 100%;
+  text-align: center;
+}

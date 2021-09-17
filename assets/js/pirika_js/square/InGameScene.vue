@@ -63,9 +63,10 @@
     outline: 1px solid #7cffc4;
   }
   .game{
-    width: 1024px;
-    height: 600px;
-    background-color: azure;
+    width: 100%;
+    height: 100%;
+    color: rgb(238, 255, 255);
+    background-color: rgb(63, 69, 82);
     position: relative;
     .object{
       position: absolute;
@@ -83,12 +84,12 @@
       left: 0px;
     }
     .center_board{
-      top: 200px;
+      top: 80px;
       left: 200px;
     }
     .hands{
       bottom: 0px;
-      left: 0px;
+      left: 150px;
     }
     .black_board{
       top: 100px;
