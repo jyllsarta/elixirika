@@ -13,7 +13,7 @@
 </script>
 
 <style lang='scss' scoped>
-  @import "stylesheets/constants";
+  @import "stylesheets/global_settings";
   .area{
     width: 800px;
     height: 350px;
@@ -23,11 +23,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: $space-m;
       .field{
         width: 160px;
         height: 250px;
-        border: 1px solid #80ffc6;
+        border: 1px solid $main-color;
       }
     }
   }

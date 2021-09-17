@@ -58,15 +58,15 @@
 </script>
 
 <style lang='scss' scoped>
-  @import "stylesheets/constants";
+  @import "stylesheets/global_settings";
   * {
-    outline: 1px solid #7cffc4;
+    outline: 1px solid #d8d08b;
   }
   .game{
     width: 100%;
     height: 100%;
-    color: rgb(238, 255, 255);
-    background-color: rgb(63, 69, 82);
+    color: $white;
+    background-color: $ingame-background;
     position: relative;
     .object{
       position: absolute;

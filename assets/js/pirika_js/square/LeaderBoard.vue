@@ -61,7 +61,7 @@
 </script>
 
 <style lang='scss' scoped>
-  @import "stylesheets/constants";
+  @import "stylesheets/global_settings";
   .high_score{
     .index{
       width: 500px;

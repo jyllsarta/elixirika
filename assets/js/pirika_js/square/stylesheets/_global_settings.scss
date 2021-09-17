@@ -1,0 +1,24 @@
+// 各種スペーシング・サイズ定義
+
+$font-size-normal: 16px;
+$space-ll: 16px;
+$space-l: 12px;
+$space-m: 8px;
+$space-s: 4px;
+$space-ss: 2px;
+
+// いろいろなところで使える色そのものの定義
+$white: #e1e7e4;
+$light-green: #8bffcb;
+
+// 意味のある単位
+$main-color: $light-green;
+$ingame-background: #2d2b35;
+$frame-background: #202024;
+
+@mixin centering($height){
+  height: $height;
+  padding-top: (($height - $font-size-normal) / 2);
+  line-height: 100%;
+  text-align: center;
+}

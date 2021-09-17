@@ -23,7 +23,7 @@
 </script>
 
 <style lang='scss' scoped>
-  @import "stylesheets/constants";
+  @import "stylesheets/global_settings";
   .status{
     .score{
       display: inline-block;

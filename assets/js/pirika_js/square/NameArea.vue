@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-  @import "stylesheets/constants";
+  @import "stylesheets/global_settings";
 
   .name_input_area {
     display: flex;

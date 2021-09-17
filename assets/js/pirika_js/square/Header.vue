@@ -12,11 +12,11 @@
 </script>
 
 <style lang='scss' scoped>
-  @import "stylesheets/constants";
+  @import "stylesheets/global_settings";
   h1{
     padding: 10px;
     font-size: 30px;
-    color: white;
+    color: $white;
     width: 100%;
     text-align: center;
   }

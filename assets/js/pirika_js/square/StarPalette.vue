@@ -13,7 +13,7 @@
 </script>
 
 <style lang='scss' scoped>
-  @import "stylesheets/constants";
+  @import "stylesheets/global_settings";
   .area{
     width: 1200px;
     height: 80px;
@@ -23,9 +23,9 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      gap: 10px;
+      gap: $space-ss;
       .star{
-        border: 1px solid #99fff6;
+        border: 1px solid $main-color;
         @include centering($height: 50px);
         width: 50px;
       }

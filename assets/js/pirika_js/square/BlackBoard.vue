@@ -11,7 +11,7 @@
 </script>
 
 <style lang='scss' scoped>
-  @import "stylesheets/constants";
+  @import "stylesheets/global_settings";
   .area{
     width: 300px;
     height: 300px;

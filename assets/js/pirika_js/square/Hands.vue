@@ -18,7 +18,7 @@
 </script>
 
 <style lang='scss' scoped>
-  @import "stylesheets/constants";
+  @import "stylesheets/global_settings";
   .area{
     width: 900px;
     height: 200px;
@@ -28,11 +28,11 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      gap: 10px;
+      gap: $space-m;
       .hand{
         @include centering($height: 50px);
         width: 100px;
-        border: 1px solid #96ffd0;
+        border: 1px solid $main-color;
       }
     }
   }

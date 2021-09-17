@@ -22,7 +22,7 @@
 </script>
 
 <style lang='scss' scoped>
-  @import "stylesheets/constants";
+  @import "stylesheets/global_settings";
   .card{
     display: inline-block;
     width: 5ch;

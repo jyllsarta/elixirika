@@ -45,7 +45,8 @@
 </script>
 
 <style lang='scss'>
-  @import "stylesheets/constants";
+  @import "stylesheets/global_settings";
+
   // このリセットを効かせたいのでここだけ scoped を外している
   html, body, div, span, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -66,9 +67,10 @@
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
+    box-sizing: border-box;
   }
 
-  a {
+a {
     text-decoration: none;
     padding: 0px 0px;
   }
@@ -76,7 +78,7 @@
   #app {
     width: 100%;
     height: 100%;
-    background-color: rgb(44, 44, 59);
+    background-color: $frame-background;
     .game{
       width: 1200px;
       height: 600px;
