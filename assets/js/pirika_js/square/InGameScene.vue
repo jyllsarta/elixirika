@@ -7,14 +7,14 @@
     .support_character_message.object
       SupportCharacterMessage
     .center_board.object
-      CenterBoard
+      CenterBoard(:board="model.board")
     .hand.object
       Hand(:hand="model.hand")
     .black_board.object
       BlackBoard
     .card_game_panel.object
       CardGamePanel
-
+    KeyHandler(:controller="controller")
 </template>
 
 <script lang="typescript">
@@ -27,6 +27,7 @@
     import BlackBoard from "./BlackBoard.vue"
     import CardGamePanel from "./CardGamePanel.vue"
     import Controller from "./packs/controller"
+    import KeyHandler from "./KeyHandler.vue"
 
     export default Vue.extend({
     components: {
@@ -37,6 +38,7 @@
       Hand,
       BlackBoard,
       CardGamePanel,
+      KeyHandler,
     },
     props: {
       characterId: Number,

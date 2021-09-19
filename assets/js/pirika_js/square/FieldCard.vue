@@ -1,12 +1,16 @@
 <template lang="pug">
   .card
-    | card
+    | {{card.stringExpression()}}
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import Card from "./packs/card"
 
   export default Vue.extend({
+    props: {
+      card: Card
+    }
   })
 </script>
 

@@ -1,13 +1,17 @@
 <template lang="pug">
   .field
-    FieldCard(v-for="card in [1,2,3]" :key="card")
+    FieldCard(v-for="card in field.cards" :key="card.id", :card="card")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import FieldCard from "./FieldCard.vue"
+  import Field from './packs/field';
 
   export default Vue.extend({
+    props: {
+      field: Field
+    },
     components: {
       FieldCard
     }

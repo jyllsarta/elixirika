@@ -1,14 +1,18 @@
 <template lang="pug">
   .area
     .fields
-      Field(v-for="field_id in [1,2,3,4]", :key="field_id")
+      Field(v-for="field_id in [0,1,2,3]", :key="field_id", :field="board.fields[field_id]")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import Field from "./Field.vue"
+  import Board from "./packs/board"
 
   export default Vue.extend({
+    props: {
+      board: Board
+    },
     components: {
       Field
     }
