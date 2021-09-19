@@ -18,7 +18,7 @@
     // かつてあった CUI ... ていうかテキストベースでのインゲームシーンの跡地
     import Vue from 'vue';
     import Controller from "./packs/controller";
-    import Card from "./Card.vue";
+    import CUICard from "./CUICard.vue";
     import Position from "./Position.vue";
     import KeyHandler from "./KeyHandler.vue";
     import StarPaletteStatus from "./StarPaletteStatus.vue";
@@ -27,7 +27,7 @@
 
     export default Vue.extend({
     components: {
-      Card,
+      CUICard,
       Position,
       KeyHandler,
       StarPaletteStatus,

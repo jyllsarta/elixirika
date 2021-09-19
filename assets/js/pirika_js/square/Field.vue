@@ -1,26 +1,24 @@
 <template lang="pug">
-  .hand
-    | 5s
+  .field
+    FieldCard(v-for="card in [1,2,3]" :key="card")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import FieldCard from "./FieldCard.vue"
 
   export default Vue.extend({
-    computed: {
+    components: {
+      FieldCard
     }
   })
 </script>
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .area{
-    width: 200px;
-    height: 50px;
-    .hand{
-      width: 100%;
-      @include centering($height: 50px);
-      border: 1px solid $main-color;
-    }
+  .field{
+    width: 160px;
+    height: 250px;
+    border: 1px solid $main-color;
   }
 </style>

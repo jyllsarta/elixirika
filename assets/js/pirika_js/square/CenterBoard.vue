@@ -1,14 +1,17 @@
 <template lang="pug">
   .area
     .fields
-      .field(v-for="field_id in [1,2,3,4]")
-        | field # {{field_id}}
+      Field(v-for="field_id in [1,2,3,4]", :key="field_id")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import Field from "./Field.vue"
 
   export default Vue.extend({
+    components: {
+      Field
+    }
   })
 </script>
 
@@ -24,11 +27,6 @@
       justify-content: center;
       align-items: center;
       gap: $space-m;
-      .field{
-        width: 160px;
-        height: 250px;
-        border: 1px solid $main-color;
-      }
     }
   }
 </style>

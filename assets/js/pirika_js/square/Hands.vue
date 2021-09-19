@@ -1,14 +1,17 @@
 <template lang="pug">
   .area
     .hands
-      .hand(v-for="hand in hands")
-        | {{hand}}
+      Card(v-for="hand in hands" :key="hand")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import Card from "./Card.vue"
 
   export default Vue.extend({
+    components: {
+      Card
+    },
     computed: {
       hands(){
         return ["1s", "2h", "0X", "10d"]
@@ -29,11 +32,6 @@
       align-items: flex-end;
       justify-content: center;
       gap: $space-m;
-      .hand{
-        @include centering($height: 50px);
-        width: 100px;
-        border: 1px solid $main-color;
-      }
     }
   }
 </style>

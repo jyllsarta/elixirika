@@ -7,17 +7,17 @@
     .score
       | {{field.score()}}
     .field
-      Card(v-for="card in field.cards", :card="card", :key="card.id")
+      CUICard(v-for="card in field.cards", :card="card", :key="card.id")
 
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
-  import Card from "./Card.vue";
+  import CUICard from "./CUICard.vue";
 
   export default Vue.extend({
     components: {
-      Card,
+      CUICard,
     },
     props: {
       field: Object,
