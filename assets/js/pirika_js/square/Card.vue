@@ -1,12 +1,16 @@
 <template lang="pug">
-  .hand
-    | 5s
+  .card
+    | {{card.stringExpression()}}
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import Card from "./packs/card"
 
   export default Vue.extend({
+    props: {
+      card: Card,
+    },
     computed: {
     }
   })
@@ -14,13 +18,9 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .area{
-    width: 200px;
-    height: 50px;
-    .hand{
-      width: 100%;
-      @include centering($height: 50px);
-      border: 1px solid $main-color;
-    }
+  .card{
+    width: 100%;
+    @include centering($height: 50px);
+    border: 1px solid $main-color;
   }
 </style>

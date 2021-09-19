@@ -9,6 +9,10 @@ module.exports = class Card {
     this.selected = false;
   }
 
+  stringExpression(){
+    return `${this.number}${this.suit}`; 
+  }
+
   color(){
     if(this.suit == "s" || this.suit == "c"){
       return "b"

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .game
+  .game(v-if="model")
     .support_character.object
       SupportCharacter
     .star_palette.object
@@ -8,8 +8,8 @@
       SupportCharacterMessage
     .center_board.object
       CenterBoard
-    .hands.object
-      Hands
+    .hand.object
+      Hand(:hand="model.hand")
     .black_board.object
       BlackBoard
     .card_game_panel.object
@@ -23,9 +23,10 @@
     import StarPalette from "./StarPalette.vue"
     import SupportCharacterMessage from "./SupportCharacterMessage.vue"
     import CenterBoard from "./CenterBoard.vue"
-    import Hands from "./Hands.vue"
+    import Hand from "./Hand.vue"
     import BlackBoard from "./BlackBoard.vue"
     import CardGamePanel from "./CardGamePanel.vue"
+    import Controller from "./packs/controller"
 
     export default Vue.extend({
     components: {
@@ -33,13 +34,16 @@
       StarPalette,
       SupportCharacterMessage,
       CenterBoard,
-      Hands,
+      Hand,
       BlackBoard,
       CardGamePanel,
     },
     props: {
+      characterId: Number,
     },
     mounted(){
+      this.controller = new Controller();
+      this.controller.newGame(this.characterId);
     },
     methods: {
       endGame(){
@@ -48,10 +52,12 @@
     },
     data(){
       return {
+        controller: null,
       };
     },
     computed: {
       model(){
+        return this.controller?.model;
       },
     }
   })
@@ -87,7 +93,7 @@
       top: 80px;
       left: 200px;
     }
-    .hands{
+    .hand{
       bottom: 0px;
       left: 150px;
     }

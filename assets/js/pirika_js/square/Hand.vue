@@ -1,20 +1,24 @@
 <template lang="pug">
   .area
-    .hands
-      Card(v-for="hand in hands" :key="hand")
+    .hand
+      Card(v-for="card in cards" :key="card.id", :card="card")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import Card from "./Card.vue"
+  import Hand from "./packs/hand"
 
   export default Vue.extend({
+    props: {
+      hand: Hand,
+    },
     components: {
       Card
     },
     computed: {
-      hands(){
-        return ["1s", "2h", "0X", "10d"]
+      cards(){
+        return this.hand.field.cards;
       }
     }
   })
@@ -25,7 +29,7 @@
   .area{
     width: 900px;
     height: 200px;
-    .hands{
+    .hand{
       width: 100%;
       height: 100%;
       display: flex;
