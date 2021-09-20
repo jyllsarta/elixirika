@@ -1,6 +1,7 @@
 const Field = require("./field");
 let Model = require("./model");
 let Challenge = require("./challenge");
+const Constants = require("./constants");
 
 module.exports = class Controller {
   constructor() {
@@ -44,14 +45,18 @@ module.exports = class Controller {
 
   // 手札の引き直し
   // 手札を全て墓地に送る・デッキから引けるだけ引く
-  fillDraw(){
+  fillDraw(force=false){
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "fillDraw"})
+    if(!force && this.model.hand.field.cards.length >= Constants.handCardNumber){
+      return;
+    }
     this.model.hand.disselectAllCard();
     this.model.hand.field.sendAllCardTo(this.model.graveyard.field);
     const drawNum = Math.min(this.model.deck.field.cards.length, 4);
     for(let i = 0; i < drawNum; ++i){
       this.model.hand.field.addCard(this.model.deck.field.draw());
     }
+    this.selectHand(0);
   }
 
   // 手札からボードへの提出 基本アクション

@@ -16,6 +16,10 @@ module.exports = class StarPalette {
     return status;
   }
 
+  statusAt(index){
+    return this.status()[index] || false;
+  }
+
   score(){
     return this.fields.reduce((x,y)=>x+y.score(), 0)
   }

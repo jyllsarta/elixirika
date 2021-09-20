@@ -3,7 +3,7 @@
     .support_character.object
       SupportCharacter
     .star_palette.object
-      StarPalette
+      StarPalette(:starPalette="model.starPalette")
     .support_character_message.object
       SupportCharacterMessage
     .center_board.object
@@ -13,7 +13,7 @@
     .black_board.object
       BlackBoard
     .card_game_panel.object
-      CardGamePanel
+      CardGamePanel(:controller="controller")
     KeyHandler(:controller="controller")
 </template>
 
