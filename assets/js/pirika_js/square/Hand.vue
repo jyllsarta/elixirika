@@ -1,24 +1,34 @@
 <template lang="pug">
   .area
-    .hand
-      Card(v-for="card in cards" :key="card.id", :card="card")
+    draggable.hand(@end="onDragEnd")
+      Card(:card="card" v-for="card in cards" :key="card.id")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import Card from "./Card.vue"
   import Hand from "./packs/hand"
+  import draggable from 'vuedraggable'
 
   export default Vue.extend({
     props: {
       hand: Hand,
     },
     components: {
+      draggable,
       Card
     },
     computed: {
       cards(){
         return this.hand.field.cards;
+      },
+    },
+    methods: {
+      onDragEnd(event){
+        console.log(event);
+        const fieldIndex = parseInt(event.originalEvent.target?.id?.split("field-")?.at(1) || -1);
+        const cardId = parseInt(event.item?.id?.split("card-")?.at(1) || -1);
+        console.log(fieldIndex,cardId);
       }
     }
   })

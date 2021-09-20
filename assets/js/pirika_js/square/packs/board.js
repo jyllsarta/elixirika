@@ -10,7 +10,7 @@ module.exports = class Board {
   initiate(){
     this.fields = [];
     for(let i = 0; i < Constants.fieldCardNumber; ++i ){
-      this.fields.push(new Field());
+      this.fields.push(new Field(i));
     }
   }
 

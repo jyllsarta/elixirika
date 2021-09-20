@@ -4,9 +4,10 @@ let Constants = require("./constants");
 // Ex. 手札 星座盤の1~8+それぞれ ボードの4箇所 デッキ 墓地 選択中カード
 // 「カードを送っていいかどうか」はここでは扱わない。そのバリデーションは一個上の層で行う。こっちは実エンティティ操作の低レベルAPIみたいな想定
 module.exports = class Field {
-  constructor() {
+  constructor(index=null) {
     this.truncate();
     this.id = Math.floor(Math.random() * Constants.maxRandomSeed);
+    this.index = index;
   }
 
   addCard(card){

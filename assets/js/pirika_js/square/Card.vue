@@ -1,5 +1,5 @@
 <template lang="pug">
-  .card
+  .card(:id="`card-${card.id}`")
     | {{card.stringExpression()}}
 </template>
 

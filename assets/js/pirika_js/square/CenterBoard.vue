@@ -1,7 +1,7 @@
 <template lang="pug">
   .area
     .fields
-      Field(v-for="field_id in [0,1,2,3]", :key="field_id", :field="board.fields[field_id]")
+      Field(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]")
 </template>
 
 <script lang="typescript">
@@ -11,10 +11,10 @@
 
   export default Vue.extend({
     props: {
-      board: Board
+      board: Board,
     },
     components: {
-      Field
+      Field,
     }
   })
 </script>
