@@ -13,7 +13,7 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .area{
-    width: 300px;
+    width: 200px;
     height: 300px;
   }
 </style>

@@ -28,7 +28,7 @@
   @import "stylesheets/global_settings";
   .area{
     width: 900px;
-    height: 200px;
+    height: 100px;
     .hand{
       width: 100%;
       height: 100%;

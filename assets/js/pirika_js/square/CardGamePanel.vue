@@ -1,7 +1,13 @@
 <template lang="pug">
   .area(v-if="controller")
-    .draw(@click="draw()")
-      | ドロー
+    .controls
+      .draw(@click="draw()")
+        | ドロー
+    .informations
+      .deck
+        | 山： {{controller.model.deck.field.cards.length}}
+      .grav
+        | 捨： {{controller.model.graveyard.field.cards.length}}
 
 </template>
 
@@ -25,14 +31,14 @@
 <style lang="scss" scoped>
   @import "stylesheets/global_settings";
   .area{
-    width: 300px;
+    width: 200px;
     height: 150px;
     .draw {
       width: 100px;
       @include centering($height: 50px);
       border: 1px solid $light-green;
       background-color: $light-green-o;
-      :hover{
+      &:hover{
         filter: brightness(140%);
       }
     }
