@@ -25,10 +25,12 @@
     },
     methods: {
       onDragEnd(event){
-        console.log(event);
         const fieldIndex = parseInt(event.originalEvent.target?.id?.split("field-")?.at(1) || -1);
         const cardId = parseInt(event.item?.id?.split("card-")?.at(1) || -1);
-        console.log(fieldIndex,cardId);
+        if(fieldIndex === -1 || cardId === -1){
+          console.warn("invalid drag!");
+        }
+        this.$emit("guiEvent", {type: "sendCard", fieldIndex: fieldIndex, cardId: cardId});
       }
     }
   })

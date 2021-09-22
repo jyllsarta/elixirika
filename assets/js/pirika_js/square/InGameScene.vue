@@ -9,12 +9,13 @@
     .center_board.object
       CenterBoard(:board="model.board")
     .hand.object
-      Hand(:hand="model.hand")
+      Hand(:hand="model.hand" @guiEvent="onGuiEvent")
     .black_board.object
       BlackBoard
     .card_game_panel.object
       CardGamePanel(:controller="controller")
     KeyHandler(:controller="controller")
+    GuiHandler(:controller="controller" @initiate="registerGuiHandler")
 </template>
 
 <script lang="typescript">
@@ -28,6 +29,7 @@
     import CardGamePanel from "./CardGamePanel.vue"
     import Controller from "./packs/controller"
     import KeyHandler from "./KeyHandler.vue"
+    import GuiHandler from "./GuiHandler.vue"
 
     export default Vue.extend({
     components: {
@@ -39,6 +41,7 @@
       BlackBoard,
       CardGamePanel,
       KeyHandler,
+      GuiHandler,
     },
     props: {
       characterId: Number,
@@ -50,11 +53,20 @@
     methods: {
       endGame(){
         this.$emit("endGame");
-      }
+      },
+      registerGuiHandler(guiHandler){
+        console.log("register!");
+        this.guiHandler = guiHandler;
+      },
+      onGuiEvent(args){
+        console.log(args)
+        this.guiHandler[args.type](args);
+      },
     },
     data(){
       return {
         controller: null,
+        guiHandler: null,
       };
     },
     computed: {

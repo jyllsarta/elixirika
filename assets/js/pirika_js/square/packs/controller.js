@@ -59,7 +59,7 @@ module.exports = class Controller {
     this.selectHand(0);
   }
 
-  // 手札からボードへの提出 基本アクション
+  // 手札からボードへの提出 基本アクション(deprecated: CUI版用)
   sendHandToBoard(handIndex, boardIndex){
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToBoard"})
     const card = this.model.hand.field.cards[handIndex];
