@@ -10,8 +10,10 @@
       .row(v-for="characterId, index in [1,2,1,2]", :key="index")
         .character
           CharacterBanner(:character="characters[characterId]")
-        .tile(v-for="tileIndex, index in [1,2,3,4]", :key="index")
-          ClearStateTile(:index="index")
+        .tile(v-for="tileIndex in [1,2,3,4]", :key="tileIndex")
+          ClearStateTile(:index="tileIndex" :character="characters[characterId]" @selected="onTileSelected")
+    .main_menu_detail_dialog(v-if="showsDetailDialog")
+      MainMenuDetailDialog(:character="selectedCharacter" :chapter-id="selectedChapterId")
 
 </template>
 
@@ -19,12 +21,14 @@
   import Vue from 'vue';
   import CharacterBanner from "./CharacterBanner.vue";
   import ClearStateTile from "./ClearStateTile.vue";
+  import MainMenuDetailDialog from "./MainMenuDetailDialog.vue";
   import CharacterFactory from "./packs/characterFactory"
 
 export default Vue.extend({
     components: {
       CharacterBanner,
       ClearStateTile,
+      MainMenuDetailDialog,
     },
     data(){
       // methods は頻繁に呼ばれちゃい、キャラファクトリからまいどまいど生成するのはどう考えても高コスト
@@ -33,16 +37,34 @@ export default Vue.extend({
       
       return {
         characters: [1,2].reduce((iter, x)=>{const c=characterFactory.getCharacterById(x); iter[c.id]=c; return iter}, {}),
+        showsDetailDialog: false,
+        selectedCharacterId: -1,
+        selectedChapterId: -1,
       }
     },
     methods: {
-      onClick(characterId){
+      onTileSelected(params){
+        const {characterId: characterId, chapterId: chapterId} = params;
+        this.selectedCharacterId = characterId;
+        this.selectedChapterId = chapterId;
+        this.showsDetailDialog = true;
+      },
+      hideDetailDialog(){
+        this.showsDetailDialog = false;
+      },
+      // TODO: 遷移復帰まち
+      startGame(characterId){
         this.$emit("loadScene", {sceneName: "inGame", params: {characterId: characterId, chapterId: -1}});
       },
     },
     mounted(){
+      // ダイアログの実装中は一発でこの画面まで飛ぶ
+      this.onTileSelected({characterId: 1, chapterId: 2});
     },
     computed: {
+      selectedCharacter(){
+        return this.characters[this.selectedCharacterId];
+      }
     }
   })
 </script>
@@ -50,6 +72,7 @@ export default Vue.extend({
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .main_menu{
+    position: relative;
     width: 100%;
     height: 100%;
     color: $white;
@@ -73,7 +96,7 @@ export default Vue.extend({
       gap: $space-m;
       .row{
         display: flex;
-        gap: $space-m;
+        gap: $space-m; 
         .character{
           width: 300px;
           height: 100px;
@@ -83,6 +106,14 @@ export default Vue.extend({
           height: 100px;
         }
       }
+    }
+    .main_menu_detail_dialog{
+      position: absolute;
+      width: 70%;
+      height: 70%;
+      top: 15%;
+      left: 15%;
+      z-index: 100;
     }
   }
 </style>

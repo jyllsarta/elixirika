@@ -1,5 +1,5 @@
 <template lang="pug">
-  .clear_state_tile
+  .clear_state_tile(@click="$emit('selected', {chapterId: index, characterId: character.id})")
     .flake1.flake
     .flake2.flake.cleared
     .flake3.flake
