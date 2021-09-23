@@ -1,7 +1,11 @@
 module.exports = class CharacterMizuha {
+  constructor(){
+    this.imageName = "faily2";
+    this.defaultMessage = "はい、ミズハです。\n今回も頑張っていきましょうね"
+  }
+
   onGameStart(model){
     console.log("ミズハですー");
-    // ミズハは一旦何もしない
   }
 
   // model の状況では、 field の末尾に cardを積むことができる？

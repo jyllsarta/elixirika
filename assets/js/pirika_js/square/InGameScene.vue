@@ -1,11 +1,11 @@
 <template lang="pug">
   .game(v-if="model")
     .support_character.object
-      SupportCharacter
+      SupportCharacter(:characterId="characterId")
     .star_palette.object
       StarPalette(:starPalette="model.starPalette")
     .support_character_message.object
-      SupportCharacterMessage
+      SupportCharacterMessage(:characterId="characterId")
     .center_board.object
       CenterBoard(:board="model.board")
     .hand.object
@@ -48,7 +48,7 @@
     },
     mounted(){
       this.controller = new Controller();
-      this.controller.newGame(this.sceneParameter.characterId);
+      this.controller.newGame(this.characterId);
     },
     methods: {
       endGame(){
@@ -72,6 +72,9 @@
       model(){
         return this.controller?.model;
       },
+      characterId(){
+         return this.sceneParameter.characterId;
+      }
     }
   })
 </script>
@@ -99,8 +102,8 @@
       left: 0px;
     }
     .support_character_message{
-      top: 50px;
-      left: 0px;
+      top: 100px;
+      left: 20px;
     }
     .center_board{
       top: 80px;

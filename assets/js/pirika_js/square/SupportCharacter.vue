@@ -1,13 +1,28 @@
 <template lang="pug">
-  .character
-    img(src="/images/square/characters/faily.png")
+  .character(v-if="characterId")
+    img(:src="`/images/square/characters/${character.imageName}.png`")
 
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import CharacterFactory from "./packs/characterFactory";
 
   export default Vue.extend({
+    props: {
+      characterId: Number,
+    },
+    data(){
+      const characterFactory = new CharacterFactory();
+      return {
+        characterFactory: characterFactory,
+      }
+    },
+    computed: {
+      character(){
+        return this.characterFactory.getCharacterById(this.characterId);
+      }
+    }
   })
 </script>
 

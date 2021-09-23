@@ -1,6 +1,12 @@
 let Card = require("./card");
 
 module.exports = class CharacterPirika {
+  constructor(){
+    // TODO: 今後キャラマスタ・セリフマスタに移動していく
+    this.imageName = "faily";
+    this.defaultMessage = "はーい！こんにちは\nまずはカード出してみてね";
+  }
+
   onGameStart(model){
     console.log("ピリカだよー");
     model.deck.field.addCard(new Card( 0, "X", "special"));
