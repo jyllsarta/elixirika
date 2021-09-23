@@ -3,7 +3,7 @@ let challengeMaster = require("../masterdata/challenge.js")
 module.exports = class Challenge {
   // マスタの仕組みができるまでベタ打ち
   getAll(){
-    return challengeMaster
+    return challengeMaster;
   }
 
   // model の状態を解析してクリアした実積のIDのリストを返す

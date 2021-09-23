@@ -36,14 +36,15 @@
     },
     props: {
       characterId: Number,
+      chapterId: Number,
     },
     mounted(){
-      this.startGame(this.characterId);
+      this.startGame(this.characterId, this.chapterId);
     },
     methods: {
       startGame(characterId){
         this.controller = new Controller();
-        this.controller.newGame(characterId);
+        this.controller.newGame(characterId, 1); //FIXME: CUIモードはチャプターをサポートしない
         this.controller.fillDraw();
         this.controller.selectHand(0);
       },

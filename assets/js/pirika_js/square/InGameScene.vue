@@ -48,7 +48,7 @@
     },
     mounted(){
       this.controller = new Controller();
-      this.controller.newGame(this.characterId);
+      this.controller.newGame(this.characterId, this.chapterId);
     },
     methods: {
       endGame(){
@@ -74,7 +74,10 @@
       },
       characterId(){
          return this.sceneParameter.characterId;
-      }
+      },
+      chapterId(){
+         return this.sceneParameter.chapterId;
+      },
     }
   })
 </script>

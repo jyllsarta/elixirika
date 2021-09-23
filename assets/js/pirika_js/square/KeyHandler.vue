@@ -32,6 +32,7 @@
             this.controller.sendPlayLog();
             break;
           case "p":
+            // FIXME: シード再抽選など色々追加措置必要
             this.controller.newGame(this.controller.model.characterId);
             this.controller.fillDraw();
             this.controller.selectHand(0);

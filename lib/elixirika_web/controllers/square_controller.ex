@@ -33,16 +33,17 @@ defmodule ElixirikaWeb.SquareController do
 
     user_id = Elixirika.SquareUser.find_or_create_by(params["username"])
     character_id = params["log"]["characterId"]
+    chapter_id = params["log"]["chapterId"]
 
     # TODO: クリアした実績数でNクエリ走るのでBULK INSERTにしたい
     Enum.map(
       result["challenges"],
-      &Elixirika.SquareChallenge.register!(user_id, character_id, &1)
+      &Elixirika.SquareChallenge.register!(user_id, &1, chapter_id)
     )
 
     score = %Elixirika.SquareScore{
       user_id: user_id,
-      character_id: character_id,
+      chapter_id: chapter_id,
       score: result["score"],
       playlog: log
     }

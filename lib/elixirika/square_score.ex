@@ -5,7 +5,7 @@ defmodule Elixirika.SquareScore do
 
   schema @auto_source do
     field :score, :integer, default: 0, meta: [null: false]
-    field :character_id, :integer, default: 0, meta: [null: false]
+    field :chapter_id, :integer, default: 0, meta: [null: false]
     field :user_id, :integer, meta: [null: false]
     field :playlog, :string, meta: [type: :text]
     timestamps()
@@ -14,8 +14,8 @@ defmodule Elixirika.SquareScore do
   def high_score(user_id) do
     Ecto.Query.from(score in Elixirika.SquareScore,
       order_by: [desc: score.score],
-      select: %{character_id: score.character_id, score: max(score.score)},
-      group_by: [score.character_id]
+      select: %{chapter_id: score.chapter_id, score: max(score.score)},
+      group_by: [score.chapter_id]
     )
     |> Ecto.Query.where(user_id: ^user_id)
     |> Elixirika.Repo.all()

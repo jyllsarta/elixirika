@@ -7,14 +7,15 @@ let CharacterFactory = require("./characterFactory");
 let SeededRandom = require("./seededRandom");
 
 module.exports = class Model {
-  constructor(characterId, seed) {
-    this.initiate(characterId, seed);
+  constructor(characterId, chapterId, seed) {
+    this.initiate(characterId, chapterId, seed);
   }
 
-  initiate(characterId, seed){
+  initiate(characterId, chapterId, seed){
     const characterFactory = new CharacterFactory();
     this.character = characterFactory.getCharacterById(characterId);
     this.characterId = characterId;
+    this.chapterId = chapterId;
     this.seed = seed;
     this.deck = new Deck();
     this.board = new Board();
