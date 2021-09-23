@@ -9,57 +9,34 @@
         .shadow
         .sheet2(:style="{backgroundImage: `url(/images/square/characters/${character.imageName}.png`}")
       .chapter_title
-        | 妖精の村に案内だ！
+        | {{chapter.title}}
       .chapter_description
-        | はい、はじめまして。すくえあ！の遊び方を確認しつつ私ミズハの素敵な力をお見せしちゃいますね
+        | {{chapter.description}}
       .texts
         .extra_info
           .title
             | 特殊効果
           .description
-            | ・エネルギー逓減速度増加
-            | ・エネルギーをすべて失う、もしくは最大値を超えてしまった場合即座に終了
-            | ・ミズハの領域 +1
+            | {{chapter.extra_effect_description}}
         .challenge_info
           .challenges
             .title
               | チャレンジ
-            .challenge
+            .challenge(v-for="challenge, index in challenges")
               .icon
                 | ■
               .rank
-                | I
+                | {{["I","II","III","IV"].at(index)}}
               .description
-                | ポイントを200点獲得する。
-            .challenge
-              .icon
-                | ■
-              .rank
-                | II
-              .description
-                | ポイントを600点獲得する。
-            .challenge
-              .icon
-                | ■
-              .rank
-                | III
-              .description
-                | ゲームを最後までプレイする。
-            .challenge
-              .icon
-                | ■
-              .rank
-                | IV
-              .description
-                | エネルギーの横溢を発生させる。
+                | {{challenge.title}}
       .chapter_name
-        | ミズハ - III
+        | {{character.name}} - {{["", "I","II","III","IV"].at(chapter.index)}}
       .start(@click="$emit('start')")
         .background
         .text
           | スタート
         .high_score
-          | ハイスコア：8874
+          | ハイスコア：{{highScore}}
         
 </template>
 
@@ -73,9 +50,21 @@
       character: Object,
       chapter: Object,
       challengeClearState: Array,
+      challengeMaster: Object,
+      highScore: Number,
     },
     components: {
       ClearStateTile,
+    },
+    computed: {
+      challenges(){
+        return this.chapter.challenge_ids.map(x=>this.challengeMaster.idTable[x]);
+      }
+    },
+    methods: {
+      challenge(challengeId){
+        return this.challengeMaster.idTable[challengeId] || {};
+      }
     }
   })
 </script>

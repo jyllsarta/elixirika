@@ -1,6 +1,10 @@
 let challengeMaster = require("../masterdata/challenges.js")
 
 module.exports = class Challenge {
+  constructor(){
+    this.idTable = this.getAll().reduce((iter, x)=>{iter[x.id]=x; return iter}, {});
+  }
+
   getAll(){
     return challengeMaster;
   }

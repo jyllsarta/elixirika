@@ -22,6 +22,8 @@
         :character="selectedCharacter"
         :chapter="selectedChapter"
         :challenge-clear-state="challengeClearState(selectedChapter)"
+        :high-score="highScore(selectedChapter)"
+        :challenge-master="challengeMaster"
         @cancel="showsDetailDialog = false"
         @start="startGame"
       )
@@ -35,6 +37,7 @@
   import MainMenuDetailDialog from "./MainMenuDetailDialog.vue";
   import CharacterFactory from "./packs/characterFactory";
   import Chapter from "./packs/chapter";
+  import Challenge from "./packs/challenge";
   import axios from "axios";
 
   export default Vue.extend({
@@ -48,9 +51,11 @@
       // このシーンではマスタの取得結果をストアしちゃう
       const characterFactory = new CharacterFactory();
       const chapterMaster = new Chapter();
+      const challengeMaster = new Challenge();
       return {
         characters: [1,2].reduce((iter, x)=>{const c=characterFactory.getCharacterById(x); iter[c.id]=c; return iter}, {}),
         chapterMaster: chapterMaster,
+        challengeMaster: challengeMaster,
         showsDetailDialog: false,
         selectedCharacterId: -1,
         selectedChapterId: -1,
@@ -79,6 +84,9 @@
       },
       challengeClearState(chapter){
         return this.userStatus.challenges[chapter.id] || [];
+      },
+      highScore(chapter){
+        return this.userStatus.high_score[chapter.id] || 0;
       },
       fetchMyScore(){
         const params = {
