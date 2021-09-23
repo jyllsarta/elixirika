@@ -23,6 +23,7 @@ defmodule ElixirikaWeb.SquareController do
   def register_log(conn, params) do
     log = Jason.encode!(params["log"])
     cmd = ~s(cd assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
+    IO.puts(cmd)
     :os.cmd(to_charlist(cmd))
     {ret_status, content} = File.read("/tmp/square_result_#{params["seed"]}.json")
 

@@ -10,6 +10,6 @@ module.exports = class Chapter {
   }
 
   getByCharacterId(characterId){
-    return this.getAll().filter(x=>x.characterId===characterId);
+    return this.getAll().filter(x=>x.character_id===characterId);
   }
 };

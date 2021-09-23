@@ -1,12 +1,12 @@
 <template lang="pug">
-  .clear_state_tile(@click="$emit('selected', {chapterId: index, characterId: character.id})")
+  .clear_state_tile(@click="$emit('selected', {chapterId: chapter.id, characterId: character.id})")
     .flake1.flake
-    .flake2.flake.cleared
-    .flake3.flake
-    .flake4.flake
-    .flake5.flake
+    .flake2.flake(:class="isCleared(0) ? 'cleared' : ''")
+    .flake3.flake(:class="isCleared(1) ? 'cleared' : ''")
+    .flake4.flake(:class="isCleared(2) ? 'cleared' : ''")
+    .flake5.flake(:class="isCleared(3) ? 'cleared' : ''")
     .number
-      | {{index}}
+      | {{chapter.index}}
 </template>
 
 <script lang="typescript">
@@ -16,9 +16,15 @@
     props: {
       // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
       character: Object,
-      // TODO: 今後 プレイヤー進捗をpropsでもらう
-      index: Number,
+      chapter: Object,
+      challengeClearState: Array,
     },
+    methods: {
+      isCleared(challengeIndex){
+        const challengeId = this.chapter.challenge_ids[challengeIndex];
+        return this.challengeClearState.some(x=>x===challengeId);
+      }
+    }
   })
 </script>
 

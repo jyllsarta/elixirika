@@ -3,7 +3,7 @@
     .back(@click="$emit('cancel')")
     .dialog
       .tile
-        ClearStateTile(:character="character", :index="chapterId")
+        ClearStateTile(:character="character", :chapter="chapter", :challenge-clear-state="challengeClearState")
       .dialog_background
         .sheet(:style="{backgroundImage: `url(/images/square/characters/${character.imageName}.png`}")
         .shadow
@@ -71,7 +71,8 @@
     props: {
       // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
       character: Object,
-      chapterId: Number,
+      chapter: Object,
+      challengeClearState: Array,
     },
     components: {
       ClearStateTile,

@@ -10,12 +10,18 @@
       .row(v-for="characterId, index in [1,2,1,2]", :key="index")
         .character
           CharacterBanner(:character="characters[characterId]")
-        .tile(v-for="tileIndex in [1,2,3,4]", :key="tileIndex")
-          ClearStateTile(:index="tileIndex" :character="characters[characterId]" @selected="onTileSelected")
+        .tile(v-for="chapter in chapters(characterId)", :key="chapter.id")
+          ClearStateTile(
+            :chapter="chapter"
+            :character="characters[characterId]"
+            @selected="onTileSelected",
+            :challenge-clear-state="challengeClearState(chapter)"
+          )
     .main_menu_detail_dialog(v-if="showsDetailDialog")
       MainMenuDetailDialog(
         :character="selectedCharacter"
-        :chapter-id="selectedChapterId"
+        :chapter="selectedChapter"
+        :challenge-clear-state="challengeClearState(selectedChapter)"
         @cancel="showsDetailDialog = false"
         @start="startGame"
       )
@@ -27,9 +33,11 @@
   import CharacterBanner from "./CharacterBanner.vue";
   import ClearStateTile from "./ClearStateTile.vue";
   import MainMenuDetailDialog from "./MainMenuDetailDialog.vue";
-  import CharacterFactory from "./packs/characterFactory"
+  import CharacterFactory from "./packs/characterFactory";
+  import Chapter from "./packs/chapter";
+  import axios from "axios";
 
-export default Vue.extend({
+  export default Vue.extend({
     components: {
       CharacterBanner,
       ClearStateTile,
@@ -37,14 +45,19 @@ export default Vue.extend({
     },
     data(){
       // methods は頻繁に呼ばれちゃい、キャラファクトリからまいどまいど生成するのはどう考えても高コスト
-      // このシーンではキャラマスタの取得結果をストアしちゃう
+      // このシーンではマスタの取得結果をストアしちゃう
       const characterFactory = new CharacterFactory();
-      
+      const chapterMaster = new Chapter();
       return {
         characters: [1,2].reduce((iter, x)=>{const c=characterFactory.getCharacterById(x); iter[c.id]=c; return iter}, {}),
+        chapterMaster: chapterMaster,
         showsDetailDialog: false,
         selectedCharacterId: -1,
         selectedChapterId: -1,
+        userStatus: {
+          challenges: [],
+          high_score: []
+        },
       }
     },
     methods: {
@@ -61,14 +74,48 @@ export default Vue.extend({
         this.hideDetailDialog();
         this.$emit("loadScene", {sceneName: "inGame", params: {characterId: this.selectedCharacterId, chapterId: this.selectedChapterId}});
       },
+      chapters(characterId){
+        return this.chapterMaster.getByCharacterId(characterId).sort(x=>x.index);
+      },
+      challengeClearState(chapter){
+        return this.userStatus.challenges[chapter.id] || [];
+      },
+      fetchMyScore(){
+        const params = {
+          username: localStorage.rawNameSquare
+        }
+        axios.get(`/square/status`, {params: params})
+        .then((results) => {
+          console.log(results);
+          this.userStatus = this.constructUserStatus(results.data);
+          console.log("OK");
+        })
+        .catch((results) => {
+          console.warn(results);
+          console.warn("NG");
+        })
+      },
+      constructUserStatus(apiResponse){
+        const {high_score: high_scores, challenges: challenge_records} = apiResponse;
+        // chapter_id: score の形にしちゃう
+        const highScoreIdTable = high_scores.reduce((iter, x)=>{iter[x.chapter_id]=x.score; return iter}, {})
+        // chapter_id: [challenge_ids(NOT sorted)] の形にしちゃう
+        const challengeIdTable = challenge_records.reduce((iter, x)=>{iter[x.chapter_id]=(iter[x.chapter_id] ? iter[x.chapter_id].concat(x.challenge_id) : [x.challenge_id]); return iter}, {})
+        return {
+          high_score: highScoreIdTable,
+          challenges: challengeIdTable,
+        }
+      },
     },
     mounted(){
-      // ダイアログの実装中は一発でこの画面まで飛ぶ
-      this.onTileSelected({characterId: 1, chapterId: 2});
+      this.fetchMyScore();
     },
     computed: {
       selectedCharacter(){
         return this.characters[this.selectedCharacterId];
+      },
+      selectedChapter(){
+        return this.chapterMaster.idTable[this.selectedChapterId];
       }
     }
   })
