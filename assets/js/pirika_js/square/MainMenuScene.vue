@@ -11,22 +11,20 @@
         .character
           CharacterBanner(:character="characters[characterId]")
         .tile(v-for="tileIndex, index in [1,2,3,4]", :key="index")
-          | タイル{{tileIndex}}
+          ClearStateTile(:index="index")
 
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
-  import LeaderBoard from "./LeaderBoard.vue";
-  import NameArea from "./NameArea.vue";
   import CharacterBanner from "./CharacterBanner.vue";
+  import ClearStateTile from "./ClearStateTile.vue";
   import CharacterFactory from "./packs/characterFactory"
 
 export default Vue.extend({
     components: {
-      NameArea,
-      LeaderBoard,
       CharacterBanner,
+      ClearStateTile,
     },
     data(){
       // methods は頻繁に呼ばれちゃい、キャラファクトリからまいどまいど生成するのはどう考えても高コスト
