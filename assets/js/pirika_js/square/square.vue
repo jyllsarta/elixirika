@@ -2,10 +2,10 @@
   #app
     Header
     .game
-      .title(v-if="gameState == 'title'")
-        TitleScene(@characterSelected="onCharacterSelected")
-      .in_game(v-if="gameState == 'inGame'")
-        InGameScene(:characterId="characterId", @endGame="onEndGame")
+      .title(v-if="sceneName == 'title'")
+        TitleScene(@loadScene="loadScene")
+      .in_game(v-if="sceneName == 'inGame'")
+        InGameScene(:sceneParameter="sceneParameter.inGame", @loadScene="loadScene")
 </template>
 
 <script lang="typescript">
@@ -21,24 +21,21 @@
       InGameScene,
     },
     methods: {
-      onCharacterSelected(characterId){
-        this.startGame(characterId)
-      },
-      startGame(characterId){
-        this.gameState = "inGame";
-        this.characterId = characterId;
-      },
-      onEndGame(){
-        this.backToTitle();
-      },
-      backToTitle(){
-        this.gameState = "title";
+      loadScene(parameter){
+        const {sceneName: sceneName, params: params} = parameter;
+        this.sceneName = sceneName;
+        this.sceneParameter[sceneName] = params || {};
       },
     },
     data(){
       return {
-        gameState: "title",
-        characterId: -1,
+        sceneName: "title",
+        sceneParameter: {
+          inGame: {
+            characterId: -1,
+            chapterId: -1,
+          }
+        }
       };
     },
   })

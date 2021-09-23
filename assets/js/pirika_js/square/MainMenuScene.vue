@@ -21,17 +21,16 @@ export default Vue.extend({
     },
     methods: {
       onClick(characterId){
-        this.$emit("loadScene", {sceneName: "inGame", params: {characterId: characterId, chapterId: -1}});
+        this.$emit("characterSelected", characterId);
       }
     },
     mounted(){
+      // しばらく自動的にインゲームシーンから開始させるようにする
+      this.$emit("characterSelected", 1);
     }
   })
 </script>
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .title{
-    color: $white;
-  }
 </style>

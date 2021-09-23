@@ -44,18 +44,17 @@
       GuiHandler,
     },
     props: {
-      characterId: Number,
+      sceneParameter: Object,
     },
     mounted(){
       this.controller = new Controller();
-      this.controller.newGame(this.characterId);
+      this.controller.newGame(this.sceneParameter.characterId);
     },
     methods: {
       endGame(){
-        this.$emit("endGame");
+        this.$emit("loadScene", {sceneName: "title"});
       },
       registerGuiHandler(guiHandler){
-        console.log("register!");
         this.guiHandler = guiHandler;
       },
       onGuiEvent(args){
