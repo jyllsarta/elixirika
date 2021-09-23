@@ -13,7 +13,12 @@
         .tile(v-for="tileIndex in [1,2,3,4]", :key="tileIndex")
           ClearStateTile(:index="tileIndex" :character="characters[characterId]" @selected="onTileSelected")
     .main_menu_detail_dialog(v-if="showsDetailDialog")
-      MainMenuDetailDialog(:character="selectedCharacter" :chapter-id="selectedChapterId")
+      MainMenuDetailDialog(
+        :character="selectedCharacter"
+        :chapter-id="selectedChapterId"
+        @cancel="showsDetailDialog = false"
+        @start="startGame"
+      )
 
 </template>
 
@@ -52,9 +57,9 @@ export default Vue.extend({
       hideDetailDialog(){
         this.showsDetailDialog = false;
       },
-      // TODO: 遷移復帰まち
-      startGame(characterId){
-        this.$emit("loadScene", {sceneName: "inGame", params: {characterId: characterId, chapterId: -1}});
+      startGame(){
+        this.hideDetailDialog();
+        this.$emit("loadScene", {sceneName: "inGame", params: {characterId: this.selectedCharacterId, chapterId: this.selectedChapterId}});
       },
     },
     mounted(){
