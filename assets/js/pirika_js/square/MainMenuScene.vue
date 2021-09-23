@@ -1,11 +1,17 @@
 <template lang="pug">
   .main_menu
-    LeaderBoard(ref="leaderBoard")
-    NameArea(:title-refs="$refs")
-    .start(@click="onClick(1)")
-      | ピリカではじめる
-    .start(@click="onClick(2)")
-      | ミズハではじめる
+    .header
+      .title
+        | メインメニュー
+      .description
+        | タイルをクリックすると詳細を確認できます。
+    .content
+      // TODO: 本番用マスタ投入タイミングで[1,2,3,4] を読み込む
+      .row(v-for="characterId, index in [1,2,1,2]", :key="index")
+        .character
+          CharacterBanner(:character="characters[characterId]")
+        .tile(v-for="tileIndex, index in [1,2,3,4]", :key="index")
+          | タイル{{tileIndex}}
 
 </template>
 
@@ -13,18 +19,32 @@
   import Vue from 'vue';
   import LeaderBoard from "./LeaderBoard.vue";
   import NameArea from "./NameArea.vue";
+  import CharacterBanner from "./CharacterBanner.vue";
+  import CharacterFactory from "./packs/characterFactory"
 
 export default Vue.extend({
     components: {
       NameArea,
       LeaderBoard,
+      CharacterBanner,
+    },
+    data(){
+      // methods は頻繁に呼ばれちゃい、キャラファクトリからまいどまいど生成するのはどう考えても高コスト
+      // このシーンではキャラマスタの取得結果をストアしちゃう
+      const characterFactory = new CharacterFactory();
+      
+      return {
+        characters: [1,2].reduce((iter, x)=>{const c=characterFactory.getCharacterById(x); iter[c.id]=c; return iter}, {}),
+      }
     },
     methods: {
       onClick(characterId){
         this.$emit("loadScene", {sceneName: "inGame", params: {characterId: characterId, chapterId: -1}});
-      }
+      },
     },
     mounted(){
+    },
+    computed: {
     }
   })
 </script>
@@ -35,6 +55,36 @@ export default Vue.extend({
     width: 100%;
     height: 100%;
     color: $white;
-    border: 1px solid $light-green;
+    padding: $space-m;
+    .title{
+      font-size: $font-size-large;
+    }
+    .description{
+      font-size: $font-size-normal;
+      border-bottom: 1px solid $gray2;
+    }
+    .content{
+      margin-left: 10%;
+      margin-top: $space-m;
+      width: 80%;
+      height: 80%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: $space-m;
+      .row{
+        display: flex;
+        gap: $space-m;
+        .character{
+          width: 300px;
+          height: 100px;
+        }
+        .tile{
+          width: 100px;
+          height: 100px;
+        }
+      }
+    }
   }
 </style>

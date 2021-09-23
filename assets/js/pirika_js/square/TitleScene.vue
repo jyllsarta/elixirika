@@ -19,6 +19,8 @@ export default Vue.extend({
       }
     },
     mounted(){
+      // タイトルシーンは開発中は飛ばす
+      this.onClick();
     }
   })
 </script>

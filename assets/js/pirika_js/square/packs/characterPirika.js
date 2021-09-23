@@ -3,6 +3,8 @@ let Card = require("./card");
 module.exports = class CharacterPirika {
   constructor(){
     // TODO: 今後キャラマスタ・セリフマスタに移動していく
+    this.id = 1;
+    this.name = "ピリカ";
     this.imageName = "faily";
     this.defaultMessage = "はーい！こんにちは\nまずはカード出してみてね";
   }
