@@ -1,14 +1,13 @@
-let challengeMaster = require("../masterdata/challenge.js")
+let challengeMaster = require("../masterdata/challenges.js")
 
 module.exports = class Challenge {
-  // マスタの仕組みができるまでベタ打ち
   getAll(){
     return challengeMaster;
   }
 
   // model の状態を解析してクリアした実積のIDのリストを返す
-  clearedChallengeIds(model){
-    const challenges = this.getAll();
+  clearedChallengeIds(model, targetChallengeIds){
+    const challenges = this.getAll().filter(x=>targetChallengeIds.some(challengeId=>challengeId===x.id));
     const pointChallenges = this.clearedPointChallengeIds(model, challenges.filter(challenge=>challenge.type=="point"));
     const starPaletteKindChallenges = this.clearedstarPaletteKindChallengeIds(model, challenges.filter(challenge=>challenge.type=="starPaletteKind"));
     return pointChallenges.concat(starPaletteKindChallenges);

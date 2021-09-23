@@ -1,6 +1,7 @@
 const Field = require("./field");
 let Model = require("./model");
 let Challenge = require("./challenge");
+let Chapter = require("./chapter");
 const Constants = require("./constants");
 
 module.exports = class Controller {
@@ -23,15 +24,16 @@ module.exports = class Controller {
 
   getStatus(){
     const challenge = new Challenge();
+    const chapter = new Chapter().getAll().find(x=>x.id==this.model.chapterId);
     return {
       score: this.model.starPalette.score(),
-      challenges: challenge.clearedChallengeIds(this.model),
+      challenges: challenge.clearedChallengeIds(this.model, chapter.challenge_ids)
     }
   }
 
   loadOperationHistory(historyString){
     const operations = JSON.parse(historyString);
-    this.model = new Model(operations.characterId, operations.chapterid, operations.seed);
+    this.model = new Model(operations.characterId, operations.chapterId, operations.seed);
     
     for(let operation of operations.operationHistory){
       this[operation.name](...operation.arguments);
@@ -79,7 +81,8 @@ module.exports = class Controller {
 
   // ∞カード(ようは絵札) が積まれているボードを指定し、星座盤へ送る
   commitSenderCard(fieldIndex){
-    this.model.operationHistory.push({arguments: Object.values(arguments), name: "commitSenderCard"})
+    //sendHandToBoard 側で操作が記録されているのでこれを積む必要がない
+    //this.model.operationHistory.push({arguments: Object.values(arguments), name: "commitSenderCard"})
     if(!this.model.board.isSendable(fieldIndex)){
       console.error("cannot send");
       return;
