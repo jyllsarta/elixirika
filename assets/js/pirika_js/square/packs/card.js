@@ -1,11 +1,12 @@
 const Constants = require("./constants");
+const GlobalIdFactory = require("./globalIdFactory");
 
 module.exports = class Card {
   constructor(number, suit, category) {
     this.number = number;
     this.suit = suit;
     this.category = category;
-    this.id = Math.floor(Math.random() * Constants.maxRandomSeed);
+    this.id = GlobalIdFactory.next();
     this.selected = false;
   }
 

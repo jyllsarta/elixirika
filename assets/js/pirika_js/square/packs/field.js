@@ -1,4 +1,6 @@
 let Constants = require("./constants");
+const GlobalIdFactory = require("./globalIdFactory");
+
 
 // カードが積まれる場所
 // Ex. 手札 星座盤の1~8+それぞれ ボードの4箇所 デッキ 墓地 選択中カード
@@ -6,7 +8,7 @@ let Constants = require("./constants");
 module.exports = class Field {
   constructor(index=null) {
     this.truncate();
-    this.id = Math.floor(Math.random() * Constants.maxRandomSeed);
+    this.id = GlobalIdFactory.next();
     this.index = index;
   }
 
