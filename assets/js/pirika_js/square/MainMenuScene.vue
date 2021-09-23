@@ -1,5 +1,5 @@
 <template lang="pug">
-  .title
+  .main_menu
     LeaderBoard(ref="leaderBoard")
     NameArea(:title-refs="$refs")
     .start(@click="onClick(1)")
@@ -21,16 +21,20 @@ export default Vue.extend({
     },
     methods: {
       onClick(characterId){
-        this.$emit("characterSelected", characterId);
+        this.$emit("loadScene", {sceneName: "inGame", params: {characterId: characterId, chapterId: -1}});
       }
     },
     mounted(){
-      // しばらく自動的にインゲームシーンから開始させるようにする
-      this.$emit("characterSelected", 1);
     }
   })
 </script>
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
+  .main_menu{
+    width: 100%;
+    height: 100%;
+    color: $white;
+    border: 1px solid $light-green;
+  }
 </style>

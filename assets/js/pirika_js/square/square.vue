@@ -3,7 +3,9 @@
     Header
     .game
       .title(v-if="sceneName == 'title'")
-        TitleScene(@loadScene="loadScene")
+        TitleScene(:sceneParameter="sceneParameter.title", @loadScene="loadScene")
+      .main_menu(v-if="sceneName == 'mainMenu'")
+        MainMenuScene(:sceneParameter="sceneParameter.mainMenu", @loadScene="loadScene")
       .in_game(v-if="sceneName == 'inGame'")
         InGameScene(:sceneParameter="sceneParameter.inGame", @loadScene="loadScene")
 </template>
@@ -12,12 +14,14 @@
     import Vue from 'vue';
     import Header from "./Header.vue";
     import TitleScene from "./TitleScene.vue";
+    import MainMenuScene from "./MainMenuScene.vue";
     import InGameScene from "./InGameScene.vue";
 
     export default Vue.extend({
     components: {
       Header,
       TitleScene,
+      MainMenuScene,
       InGameScene,
     },
     methods: {
@@ -28,13 +32,19 @@
       },
     },
     data(){
+      const defaultScene = "title";
+
       return {
-        sceneName: "title",
+        sceneName: defaultScene,
         sceneParameter: {
+          title: {
+          },
+          mainMenu: {
+          },
           inGame: {
             characterId: -1,
             chapterId: -1,
-          }
+          },
         }
       };
     },

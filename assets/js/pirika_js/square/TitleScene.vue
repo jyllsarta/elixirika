@@ -1,27 +1,21 @@
 <template lang="pug">
-  .title
-    LeaderBoard(ref="leaderBoard")
-    NameArea(:title-refs="$refs")
-    .start(@click="onClick(1)")
-      | ピリカではじめる
-    .start(@click="onClick(2)")
-      | ミズハではじめる
+  .title(@click="onClick")
+    .logo
+      | すくえあ！
+    .start
+      | クリックしてはじめる
 
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
-  import LeaderBoard from "./LeaderBoard.vue";
-  import NameArea from "./NameArea.vue";
 
 export default Vue.extend({
     components: {
-      NameArea,
-      LeaderBoard,
     },
     methods: {
-      onClick(characterId){
-        this.$emit("loadScene", {sceneName: "inGame", params: {characterId: characterId, chapterId: -1}});
+      onClick(){
+        this.$emit("loadScene", {sceneName: "mainMenu"});
       }
     },
     mounted(){
@@ -33,5 +27,19 @@ export default Vue.extend({
   @import "stylesheets/global_settings";
   .title{
     color: $white;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $light-green;
+    .logo{
+      width: 100%;
+      text-align: center;
+      font-size: $font-size-xlarge;
+      margin-bottom: $space-m;
+    }
+    .start{
+      width: 100%;
+      text-align: center;
+      font-size: $font-size-medium;
+    }
   }
 </style>
