@@ -1,17 +1,22 @@
 <template lang="pug">
   .title(@click="onClick")
-    .logo
-      | すくえあ！
-    .start
-      | クリックしてはじめる
-
+    .tops
+      .logo
+        | すくえあ！
+      .start
+        | クリックしてはじめる
+    .bottoms
+      .name_area(@click.stop)
+        NameArea
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import NameArea from "./NameArea.vue"
 
 export default Vue.extend({
     components: {
+      NameArea,
     },
     methods: {
       onClick(){
@@ -20,7 +25,7 @@ export default Vue.extend({
     },
     mounted(){
       // タイトルシーンは開発中は飛ばす
-      this.onClick();
+      //this.onClick();
     }
   })
 </script>
@@ -31,17 +36,32 @@ export default Vue.extend({
     color: $white;
     width: 100%;
     height: 100%;
-    border: 1px solid $light-green;
-    .logo{
-      width: 100%;
-      text-align: center;
-      font-size: $font-size-xlarge;
-      margin-bottom: $space-m;
+    border: 1px solid $gray2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .tops{
+      .logo{
+        width: 100%;
+        text-align: center;
+        font-size: $font-size-xlarge;
+        margin-bottom: $space-m;
+      }
+      .start{
+        width: 100%;
+        text-align: center;
+        font-size: $font-size-medium;
+      }
     }
-    .start{
-      width: 100%;
-      text-align: center;
-      font-size: $font-size-medium;
+    .bottoms{
+      .name_area{
+        width: 60%;
+        margin-left: 20%;
+        text-align: center;
+        border-top: 1px solid $gray2;
+        border-bottom: 1px solid $gray2;
+        padding: $space-m;
+      }
     }
   }
 </style>

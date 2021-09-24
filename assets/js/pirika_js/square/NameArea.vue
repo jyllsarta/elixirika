@@ -20,11 +20,6 @@ export default {
       inputting: false,
     };
   },
-  props: {
-    titleRefs: Object,
-  },
-
-  name: "nameInputArea",
   mounted: function(){
     if(localStorage.rawNameSquare){
       this.rawName = localStorage.rawNameSquare;
@@ -48,8 +43,6 @@ export default {
     onBlur(){
       this.inputting = false;
       localStorage.rawNameSquare = this.rawName;
-      console.log(this.leaderBoard);
-      this.titleRefs.leaderBoard.fetchMyScore();
     },
     setInputMode(){
       this.inputting = true;
@@ -65,8 +58,7 @@ export default {
   @import "stylesheets/global_settings";
 
   .name_input_area {
-    display: flex;
-    margin-bottom: 10px;
+    display: inline-flex;
     .fixed_name{
       margin-right: 10px;
     }
