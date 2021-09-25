@@ -1,12 +1,16 @@
 <template lang="pug">
   .area
-    | BlackBoard
+    .score
+      | スコア：{{score}}
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
 
   export default Vue.extend({
+    props: {
+      score: Number,
+    }
   })
 </script>
 

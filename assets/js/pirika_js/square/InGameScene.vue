@@ -11,7 +11,7 @@
     .hand.object
       Hand(:hand="model.hand" @guiEvent="onGuiEvent")
     .black_board.object
-      BlackBoard
+      BlackBoard(:score="controller.model.starPalette.score()")
     .card_game_panel.object
       CardGamePanel(:controller="controller")
     KeyHandler(:controller="controller")
