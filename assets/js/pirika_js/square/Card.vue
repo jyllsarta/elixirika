@@ -20,6 +20,7 @@
   @import "stylesheets/global_settings";
   .card{
     width: 100%;
+    max-width: 160px;
     @include centering($height: 50px);
     border: 1px solid $main-color;
     &:hover{

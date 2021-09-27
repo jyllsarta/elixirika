@@ -212,6 +212,7 @@
           text-align: center;
           font-size: $font-size-large;
           color: $extra-light-purple;
+          pointer-events: none;
         }
         .high_score{
           position: absolute;
@@ -220,6 +221,7 @@
           width: 200px;
           text-align: center;
           color: $extra-light-purple;
+          pointer-events: none;
         }
       }
     }
