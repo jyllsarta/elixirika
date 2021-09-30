@@ -79,6 +79,18 @@ module.exports = class Controller {
     }
   }
 
+  sendHandToStagedField(handIndex){
+    this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToStagedField"})
+    const card = this.model.hand.field.cards[handIndex];
+    const stagedField = this.model.stagedField;
+    if(!stagedField.isSendable()){
+      console.error("cannot stack this card!");
+      return;
+    }
+    card.setSelected(false);
+    this.model.hand.field.sendCardById(card.id, stagedField.field);
+  }
+
   // ∞カード(ようは絵札) が積まれているボードを指定し、星座盤へ送る
   commitSenderCard(fieldIndex){
     //sendHandToBoard 側で操作が記録されているのでこれを積む必要がない

@@ -1,5 +1,6 @@
 let Deck = require("./deck");
 let Board = require("./board");
+let StagedField = require("./stagedField");
 let Graveyard = require("./graveyard");
 let Hand = require("./hand");
 let StarPalette = require("./starPalette");
@@ -19,6 +20,7 @@ module.exports = class Model {
     this.seed = seed;
     this.deck = new Deck();
     this.board = new Board();
+    this.stagedField = new StagedField();
     this.graveyard = new Graveyard();
     this.hand = new Hand();
     this.starPalette = new StarPalette();

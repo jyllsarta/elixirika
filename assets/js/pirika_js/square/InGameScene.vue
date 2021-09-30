@@ -8,6 +8,8 @@
       SupportCharacterMessage(:characterId="characterId")
     .center_board.object
       CenterBoard(:board="model.board")
+    .staged_field.object
+      StagedField(:stagedField="model.stagedField")
     .hand.object
       Hand(:hand="model.hand" @guiEvent="onGuiEvent")
     .black_board.object
@@ -24,6 +26,7 @@
     import StarPalette from "./StarPalette.vue"
     import SupportCharacterMessage from "./SupportCharacterMessage.vue"
     import CenterBoard from "./CenterBoard.vue"
+    import StagedField from "./StagedField.vue"
     import Hand from "./Hand.vue"
     import BlackBoard from "./BlackBoard.vue"
     import CardGamePanel from "./CardGamePanel.vue"
@@ -37,6 +40,7 @@
       StarPalette,
       SupportCharacterMessage,
       CenterBoard,
+      StagedField,
       Hand,
       BlackBoard,
       CardGamePanel,
@@ -110,6 +114,10 @@
     .center_board{
       top: 80px;
       left: 200px;
+    }
+    .staged_field{
+      bottom: 100px;
+      left: calc((1200px - 160px) / 2);
     }
     .hand{
       bottom: 0px;

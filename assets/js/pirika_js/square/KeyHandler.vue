@@ -63,21 +63,6 @@
           case "4":
             this.controller.selectBoard(3);
             break;
-          case "a":
-            this.selectOrSend(0);
-            break;
-          case "s":
-            this.selectOrSend(1);
-            break;
-          case "d":
-            this.selectOrSend(2);
-            break;
-          case "f":
-            this.selectOrSend(3);
-            break;
-          case "c":
-            this.controller.commitSenderCard(this.controller.model.selectingBoardIndex);
-            break;
           case "z":
             const index = this.currentCardIndex();
             const handCount = this.controller.model.hand.field.cards.length;
@@ -88,6 +73,13 @@
             if(this.controller.model.hand.field.cards.length < handCount){
               this.selectOrSend(Math.max(index - 1, 0));                        
             }
+            break;
+          case "s":
+            const handIndex = this.currentCardIndex();
+            if(handIndex === -1){
+              return;
+            }
+            this.controller.sendHandToStagedField(handIndex);
             break;
           case "ArrowRight":
             this.turnRight();
