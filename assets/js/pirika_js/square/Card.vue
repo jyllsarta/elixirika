@@ -1,5 +1,5 @@
 <template lang="pug">
-  .card(:id="`card-${card.id}`")
+  .card(:id="`card-${card.id}`" :class="card.selected ? 'selected' : ''" @mouseover="onHover")
     | {{card.stringExpression()}}
 </template>
 
@@ -11,7 +11,10 @@
     props: {
       card: Card,
     },
-    computed: {
+    methods: {
+      onHover(){
+        this.$emit("hover", this.card);
+      }
     }
   })
 </script>
@@ -23,10 +26,12 @@
     max-width: 160px;
     @include centering($height: 50px);
     border: 1px solid $main-color;
-    &:hover{
-      transition: transform 0.15s;
-      transform: scale(1.3);
+    &.selected{
+      transition: transform 0.1s;
+      transform: scale(1.2);
       transform-origin: bottom;
+      border: 2px solid $white;
+      font-weight: bold;
     }
   }
 </style>

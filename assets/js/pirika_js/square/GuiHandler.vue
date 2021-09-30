@@ -21,6 +21,11 @@
         const card = this.controller.model.hand.field.cards.find(card=>card.id==cardId);
         const cardIndex = this.controller.model.hand.field.cards.indexOf(card);
         this.controller.sendHandToBoard(cardIndex, fieldIndex);
+      },
+      selectCard(args){
+        const {card: card} = args;
+        const cardIndex = this.controller.model.hand.field.cards.indexOf(card);
+        this.controller.selectHand(cardIndex);
       }
     },
   })

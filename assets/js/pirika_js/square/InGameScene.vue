@@ -58,7 +58,6 @@
         this.guiHandler = guiHandler;
       },
       onGuiEvent(args){
-        console.log(args)
         this.guiHandler[args.type](args);
       },
     },

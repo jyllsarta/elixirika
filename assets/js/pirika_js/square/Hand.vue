@@ -1,7 +1,7 @@
 <template lang="pug">
   .area
     draggable.hand(@end="onDragEnd")
-      Card(:card="card" v-for="card in cards" :key="card.id")
+      Card(:card="card" v-for="card in cards" :key="card.id", @hover="onCardHover")
 </template>
 
 <script lang="typescript">
@@ -31,6 +31,9 @@
           console.warn("invalid drag!");
         }
         this.$emit("guiEvent", {type: "sendCard", fieldIndex: fieldIndex, cardId: cardId});
+      },
+      onCardHover(card){
+        this.$emit("guiEvent", {type: "selectCard", card: card});
       }
     }
   })
