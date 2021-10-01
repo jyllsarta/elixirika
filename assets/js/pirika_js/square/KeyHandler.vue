@@ -26,8 +26,26 @@
         this.keyboard.addKeyboardEvent(this.triggerKeyboardEvents);
         this.keyboard.addKeyboardEventKeyUp(this.triggerKeyboardEventsKeyUp);
       },
+      gameStatus(){
+        if(this.controller.model.stagedField.isStaged()){
+          return "staged";
+        }
+        return "selectHand";
+      },
       triggerKeyboardEvents(keyCode){
-        console.log(keyCode);
+        switch(this.gameStatus()){
+          case "staged":
+            this.onKeyDownStaged(keyCode);
+            break;
+          case "selectHand":
+            this.onKeyDownSelectHand(keyCode);
+            break;
+          default:
+            console.warn("no handler mode selected!");
+            break;
+        }
+      },
+      onKeyDownSelectHand(keyCode){
         switch(keyCode){
           case "o":
             this.controller.sendPlayLog();
@@ -98,10 +116,42 @@
             break;
         }
       },
+      onKeyDownStaged(keyCode){
+        switch(keyCode){
+          case "ArrowDown":
+            this.controller.unstageStagedCard();
+            break;
+        }
+      },
       triggerKeyboardEventsKeyUp(keyCode){
+        switch(this.gameStatus()){
+          case "staged":
+            this.onKeyUpStaged(keyCode);
+            break;
+          case "selectHand":
+            this.onKeyUpSelectHand(keyCode);
+            break;
+          default:
+            console.warn("no handler mode selected!");
+            break;
+        }
+      },
+      onKeyUpSelectHand(keyCode){
+        switch(keyCode){
+          default:
+            break;
+        }
+      },
+      onKeyUpStaged(keyCode){
         switch(keyCode){
           case "s":
-            this.controller.unstageStagedCard();
+            //TODO: ここにコミット処理をかく
+            break;
+          case "ArrowRight":
+            this.controller.selectBoard(this.controller.model.selectingBoardIndex + 1);
+            break;
+          case "ArrowLeft":
+            this.controller.selectBoard(this.controller.model.selectingBoardIndex - 1);
             break;
           default:
             break;

@@ -88,6 +88,7 @@ module.exports = class Controller {
       return;
     }
     card.setSelected(false);
+    this.selectBoard(handIndex);
     stagedField.memoryStagedCardIsFrom(handIndex);
     this.model.hand.field.sendCardById(card.id, stagedField.field);
   }

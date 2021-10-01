@@ -1,19 +1,34 @@
 <template lang="pug">
   .area
-    Card(:card="stagedField.field.cards[0]" v-if="stagedField.field.cards[0]")
+    .card_container(:style="{left: leftGap}")
+      Card(:card="stagedField.field.cards[0]" v-if="stagedField.field.cards[0]")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import Card from "./Card.vue"
-  import StagedField from "./packs/stagedField"
+  import StagedField from "./packs/stagedField";
+  import Model from "./packs/model";
+  import Constants from "./packs/constants";
 
   export default Vue.extend({
+    data(){
+      return {
+        gap: 120,
+      }
+    },
     props: {
       stagedField: StagedField,
+      model: Model,
     },
     components: {
       Card,
+    },
+    computed: {
+      leftGap(){
+        const px = (this.model.selectingBoardIndex - 1.5) * this.gap;
+        return px + "px";
+      }
     }
   })
 </script>
@@ -23,13 +38,11 @@
   .area{
     width: 160px;
     height: 100px;
-    .fields{
+    .card_container{
+      position: absolute;
+      top: 0px;
       width: 100%;
       height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: $space-m;
     }
   }
 </style>

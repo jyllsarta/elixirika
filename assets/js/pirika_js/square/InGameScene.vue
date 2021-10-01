@@ -9,7 +9,7 @@
     .center_board.object
       CenterBoard(:board="model.board")
     .staged_field.object
-      StagedField(:stagedField="model.stagedField")
+      StagedField(:stagedField="model.stagedField", :model="model")
     .hand.object
       Hand(:hand="model.hand" @guiEvent="onGuiEvent")
     .black_board.object
