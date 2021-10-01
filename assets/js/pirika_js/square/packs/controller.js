@@ -88,7 +88,20 @@ module.exports = class Controller {
       return;
     }
     card.setSelected(false);
+    stagedField.memoryStagedCardIsFrom(handIndex);
     this.model.hand.field.sendCardById(card.id, stagedField.field);
+  }
+
+  unstageStagedCard(){
+    this.model.operationHistory.push({arguments: Object.values(arguments), name: "unstageStagedCard"})
+    const stagedField = this.model.stagedField;
+    if(!stagedField.isStaged()){
+      return;
+    }
+    const handIndex = stagedField.stagedCardIsFromIndex;
+    const card = stagedField.field.cards[0];
+    stagedField.field.sendCardById(card.id, this.model.hand.field, {index: handIndex})
+    card.setSelected(true);
   }
 
   // ∞カード(ようは絵札) が積まれているボードを指定し、星座盤へ送る

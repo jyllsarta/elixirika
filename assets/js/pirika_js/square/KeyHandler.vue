@@ -24,6 +24,7 @@
         this.keyboard = new Keyboard();
         this.keyboard.mount();
         this.keyboard.addKeyboardEvent(this.triggerKeyboardEvents);
+        this.keyboard.addKeyboardEventKeyUp(this.triggerKeyboardEventsKeyUp);
       },
       triggerKeyboardEvents(keyCode){
         console.log(keyCode);
@@ -92,6 +93,15 @@
             break;
           case "ArrowDown":
             this.controller.selectBoard(this.controller.model.selectingBoardIndex + 1);
+            break;
+          default:
+            break;
+        }
+      },
+      triggerKeyboardEventsKeyUp(keyCode){
+        switch(keyCode){
+          case "s":
+            this.controller.unstageStagedCard();
             break;
           default:
             break;

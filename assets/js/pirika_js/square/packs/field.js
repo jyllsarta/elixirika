@@ -12,8 +12,13 @@ module.exports = class Field {
     this.index = index;
   }
 
-  addCard(card){
-    this.cards.push(card);
+  addCard(card, options){
+    if(options?.index !== undefined){
+      this.cards.splice(options.index, 0, card);
+    }
+    else{
+      this.cards.push(card);
+    }
   }
 
   truncate(){
@@ -44,14 +49,14 @@ module.exports = class Field {
     return this.cards.shift(0);
   }
 
-  sendCardById(cardId, toField){
+  sendCardById(cardId, toField, options){
     let sendCard = this.cards.find(card=>card.id==cardId);
     if(!sendCard || !toField){
       console.error(`sendCard ${cardId} or toField ${toField} is not valid`);
       return;
     }
     this.cards = this.cards.filter(card=>card!=sendCard)
-    toField.addCard(sendCard);
+    toField.addCard(sendCard, options);
   }
 
   getLastCard(){

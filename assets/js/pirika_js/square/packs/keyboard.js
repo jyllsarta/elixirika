@@ -6,13 +6,17 @@ class Keyboard {
             this.keyboard[String.fromCharCode(i)] = 0;
         }
         this.events = {
-            // 今後 keyUpとかもつかうことになるかもしれない...
             keyDown: [],
+            keyUp: [],
         };
     }
 
     addKeyboardEvent(func){
         this.events.keyDown.push(func);
+    }
+
+    addKeyboardEventKeyUp(func){
+        this.events.keyUp.push(func);
     }
 
     mount(){
@@ -34,6 +38,12 @@ class Keyboard {
         }
     }
 
+    triggerKeyUpEvents(keyCode){
+        for(let event of this.events.keyUp){
+            event(keyCode);
+        }
+    }
+
     // handlers
     handleKeydown(e) {
         // keyboard は 押されたら1 押しっぱなしだとそれ以上 の値が入っている
@@ -48,6 +58,7 @@ class Keyboard {
 
     handleKeyup(e) {
         this.keyboard[e.key] = 0;
+        this.triggerKeyUpEvents(e.key);
     }
 }
 
