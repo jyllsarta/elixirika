@@ -62,7 +62,7 @@ module.exports = class Controller {
     this.selectHand(0);
   }
 
-  // 手札からボードへの提出 基本アクション(deprecated: CUI版用)
+  // TODO: これはStagedと比較していい感じにロジック統一できそう
   sendHandToBoard(handIndex, boardIndex){
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToBoard"})
     const card = this.model.hand.field.cards[handIndex];
@@ -73,6 +73,23 @@ module.exports = class Controller {
     }
     card.setSelected(false);
     this.model.hand.field.sendCardById(card.id, this.model.board.fields[boardIndex]);
+    if(card.isSenderCard()){
+      console.log("auto commit");
+      this.commitSenderCard(boardIndex);
+    }
+  }
+
+  sendStagedCardToBoard(boardIndex){
+    this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendStagedCardToBoard"})
+    const card = this.model.stagedField.field.cards[0];
+    const field = this.model.board.fields[boardIndex];
+    if(!this.model.cardStackRule(card, field, this.model)){
+      console.error("cannot stack this card!");
+      this.unstageStagedCard();
+      return;
+    }
+    card.setSelected(false);
+    this.model.stagedField.field.sendCardById(card.id, this.model.board.fields[boardIndex]);
     if(card.isSenderCard()){
       console.log("auto commit");
       this.commitSenderCard(boardIndex);

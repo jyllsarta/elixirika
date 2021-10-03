@@ -14,7 +14,7 @@
   export default Vue.extend({
     data(){
       return {
-        gap: 120,
+        gap: 155,
       }
     },
     props: {

@@ -145,7 +145,13 @@
       onKeyUpStaged(keyCode){
         switch(keyCode){
           case "s":
-            //TODO: ここにコミット処理をかく
+            this.controller.sendStagedCardToBoard(this.controller.model.selectingBoardIndex);
+            if(this.controller.model.hand.field.cards.every(card=>!card.isSelected())){
+              const handCount = this.controller.model.hand.field.cards.length;
+              const boardIndex = this.controller.model.selectingBoardIndex;
+              const nearby = Math.min(handCount - 1, boardIndex);
+              this.selectOrSend(nearby);                        
+            }
             break;
           case "ArrowRight":
             this.controller.selectBoard(this.controller.model.selectingBoardIndex + 1);
