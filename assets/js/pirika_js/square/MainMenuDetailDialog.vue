@@ -22,7 +22,7 @@
           .challenges
             .title
               | チャレンジ
-            .challenge(v-for="challenge, index in challenges")
+            .challenge(v-for="challenge, index in challenges" :class="isCleared(challenge.id) ? 'cleared' : 'not_cleared'")
               .icon
                 | ■
               .rank
@@ -64,6 +64,9 @@
     methods: {
       challenge(challengeId){
         return this.challengeMaster.idTable[challengeId] || {};
+      },
+      isCleared(challengeId){
+        return this.challengeClearState.some(x=>x===challengeId);
       }
     }
   })
@@ -174,6 +177,12 @@
               .rank{
                 width: 30px;
                 text-align: center;
+              }
+              &.cleared{
+                color: $extra-light-purple;
+              }
+              &.not_cleared{
+                opacity: $disabled-opacity;
               }
             }
           }

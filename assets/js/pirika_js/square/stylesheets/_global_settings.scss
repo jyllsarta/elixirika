@@ -31,6 +31,10 @@ $main-color: $light-green;
 $ingame-background: #2d2b35;
 $frame-background: #202024;
 
+// 色でも長さでもない定数
+
+$disabled-opacity: 0.5;
+
 @mixin centering($height){
   height: $height;
   padding-top: (($height - $font-size-normal) / 2);
