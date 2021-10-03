@@ -70,18 +70,6 @@
             // xはやさしい、左端選択付き
             this.controller.selectHand(0);
             break;
-          case "1":
-            this.controller.selectBoard(0);
-            break;
-          case "2":
-            this.controller.selectBoard(1);
-            break;
-          case "3":
-            this.controller.selectBoard(2);
-            break;
-          case "4":
-            this.controller.selectBoard(3);
-            break;
           case "z":
             const index = this.currentCardIndex();
             const handCount = this.controller.model.hand.field.cards.length;
@@ -94,11 +82,10 @@
             }
             break;
           case "s":
-            const handIndex = this.currentCardIndex();
-            if(handIndex === -1){
-              return;
-            }
-            this.controller.sendHandToStagedField(handIndex);
+            this.stageCard();
+            break;
+          case "ArrowUp":
+            this.stageCard();
             break;
           case "ArrowRight":
             this.turnRight();
@@ -106,18 +93,21 @@
           case "ArrowLeft":
             this.turnLeft();
             break;
-          case "ArrowUp":
-            this.controller.selectBoard(this.controller.model.selectingBoardIndex - 1);
-            break;
-          case "ArrowDown":
-            this.controller.selectBoard(this.controller.model.selectingBoardIndex + 1);
-            break;
           default:
             break;
         }
       },
       onKeyDownStaged(keyCode){
         switch(keyCode){
+          case "ArrowUp":
+            this.sendStagedCard();
+            break;
+          case "ArrowRight":
+            this.controller.selectBoard(this.controller.model.selectingBoardIndex + 1);
+            break;
+          case "ArrowLeft":
+            this.controller.selectBoard(this.controller.model.selectingBoardIndex - 1);
+            break;
           case "ArrowDown":
             this.controller.unstageStagedCard();
             break;
@@ -145,19 +135,7 @@
       onKeyUpStaged(keyCode){
         switch(keyCode){
           case "s":
-            this.controller.sendStagedCardToBoard(this.controller.model.selectingBoardIndex);
-            if(this.controller.model.hand.field.cards.every(card=>!card.isSelected())){
-              const handCount = this.controller.model.hand.field.cards.length;
-              const boardIndex = this.controller.model.selectingBoardIndex;
-              const nearby = Math.min(handCount - 1, boardIndex);
-              this.selectOrSend(nearby);                        
-            }
-            break;
-          case "ArrowRight":
-            this.controller.selectBoard(this.controller.model.selectingBoardIndex + 1);
-            break;
-          case "ArrowLeft":
-            this.controller.selectBoard(this.controller.model.selectingBoardIndex - 1);
+            this.sendStagedCard();
             break;
           default:
             break;
@@ -199,6 +177,22 @@
       currentCardIndex(){
         return this.controller.model.hand.field.cards.findIndex(card=>card.isSelected());
       },
+      stageCard(){
+        const handIndex = this.currentCardIndex();
+        if(handIndex === -1){
+          return;
+        }
+        this.controller.sendHandToStagedField(handIndex);
+      },
+      sendStagedCard(){
+        this.controller.sendStagedCardToBoard(this.controller.model.selectingBoardIndex);
+        if(this.controller.model.hand.field.cards.every(card=>!card.isSelected())){
+          const handCount = this.controller.model.hand.field.cards.length;
+          const boardIndex = this.controller.model.selectingBoardIndex;
+          const nearby = Math.min(handCount - 1, boardIndex);
+          this.selectOrSend(nearby);                        
+        }
+      }
     },
     data(){
       return {
