@@ -1,5 +1,5 @@
 <template lang="pug">
-  .card
+  .card(:class="card.viewClass()")
     | {{card.stringExpression()}}
 </template>
 
@@ -17,9 +17,18 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .card{
-    box-sizing: border-box; // こいつの危機が怪しい
+    box-sizing: border-box;
     width: 100%;
     @include centering($height: 20px);
     border: 1px solid $main-color;
+    &.h{
+      border: 1px solid $extra-light-purple;
+    }
+    &.s{
+      border: 1px solid $light-green;
+    }
+    &.special{
+      border: 1px solid $yellow;
+    }
   }
 </style>

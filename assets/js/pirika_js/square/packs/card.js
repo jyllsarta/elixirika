@@ -14,6 +14,25 @@ module.exports = class Card {
     return `${this.number}${this.suit}`; 
   }
 
+  viewClass(){
+    let classes = [];
+    if(this.isSelected()){
+      classes.push("selected");
+    }
+
+    if(this.suit === "h"){
+      classes.push("h");
+    }
+    else if(this.suit === "s"){
+      classes.push("s");
+    }
+    else {
+      classes.push("special");
+    }
+
+    return classes.join(" ");
+  }
+
   color(){
     if(this.suit == "s" || this.suit == "c"){
       return "b"
