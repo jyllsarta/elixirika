@@ -37,9 +37,12 @@ module.exports = class Model {
     this.character.onGameStart(this);
   }
 
-  // 手詰まり == デッキ枚数がゼロ && すべての手札がどこにも出せない
+  // 手詰まり == デッキ枚数がゼロ && ステージングにもなし && すべての手札がどこにも出せない
   isStaleMate(){
     if(this.deck.field.cards.length !== 0){
+      return false;
+    }
+    if(this.stagedField.field.cards.length !== 0){
       return false;
     }
     for(let handCard of this.hand.field.cards){

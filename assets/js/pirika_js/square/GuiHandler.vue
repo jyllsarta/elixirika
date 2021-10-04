@@ -4,7 +4,6 @@
 
 <script lang="typescript">
     import Vue from 'vue';
-    import Keyboard from "./packs/keyboard";
     import Controller from "./packs/controller";
 
     export default Vue.extend({
@@ -26,6 +25,10 @@
         const {card: card} = args;
         const cardIndex = this.controller.model.hand.field.cards.indexOf(card);
         this.controller.selectHand(cardIndex);
+      },
+      endGame(_args){
+        this.controller.sendPlayLog();
+        this.$emit("loadScene", {sceneName: "mainMenu"});
       }
     },
   })

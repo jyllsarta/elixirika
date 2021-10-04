@@ -16,8 +16,10 @@
       BlackBoard(:score="controller.model.starPalette.score()")
     .card_game_panel.object
       CardGamePanel(:controller="controller")
+    .game_end_popup.object
+      GameEndPopup(:model="model" @guiEvent="onGuiEvent")
     KeyHandler(:controller="controller")
-    GuiHandler(:controller="controller" @initiate="registerGuiHandler")
+    GuiHandler(:controller="controller" @initiate="registerGuiHandler"  @loadScene="loadScene")
 </template>
 
 <script lang="typescript">
@@ -30,6 +32,7 @@
     import Hand from "./Hand.vue"
     import BlackBoard from "./BlackBoard.vue"
     import CardGamePanel from "./CardGamePanel.vue"
+    import GameEndPopup from "./GameEndPopup.vue"
     import Controller from "./packs/controller"
     import KeyHandler from "./KeyHandler.vue"
     import GuiHandler from "./GuiHandler.vue"
@@ -44,6 +47,7 @@
       Hand,
       BlackBoard,
       CardGamePanel,
+      GameEndPopup,
       KeyHandler,
       GuiHandler,
     },
@@ -64,6 +68,9 @@
       onGuiEvent(args){
         this.guiHandler[args.type](args);
       },
+      loadScene(args){
+        this.$emit("loadScene", args);
+      }
     },
     data(){
       return {
@@ -130,6 +137,10 @@
     .card_game_panel{
       top: 400px;
       right: 0px;
+    }
+    .game_end_popup{
+      top: 200px;
+      left: 300px;
     }
   }
 </style>
