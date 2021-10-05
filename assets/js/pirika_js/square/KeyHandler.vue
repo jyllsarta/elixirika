@@ -59,7 +59,7 @@
             break;
           case "r":
             // rは強制
-            this.controller.fillDraw();
+            this.controller.fillDraw(true);
             break;
           case "x":
             // xはやさしい、事故防止付き
@@ -71,17 +71,6 @@
             this.controller.selectHand(0);
             break;
           case "z":
-            const index = this.currentCardIndex();
-            const handCount = this.controller.model.hand.field.cards.length;
-            if(index === -1){
-              return;
-            }
-            this.controller.sendHandToBoard(index, this.controller.model.selectingBoardIndex);
-            if(this.controller.model.hand.field.cards.length < handCount){
-              this.selectOrSend(Math.max(index - 1, 0));                        
-            }
-            break;
-          case "s":
             this.stageCard();
             break;
           case "ArrowUp":
@@ -134,7 +123,7 @@
       },
       onKeyUpStaged(keyCode){
         switch(keyCode){
-          case "s":
+          case "z":
             this.sendStagedCard();
             break;
           default:
