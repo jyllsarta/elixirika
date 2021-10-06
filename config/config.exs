@@ -23,7 +23,8 @@ config :elixirika, ElixirikaWeb.Endpoint,
   secret_key_base: "0CHyZ5HZ73OOZEdv9Ef+Nl0UoktTcgL4YDCRXoGTqqI/Hp5IskWcWX/uTq1Wk5RF",
   render_errors: [view: ElixirikaWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Elixirika.PubSub,
-  live_view: [signing_salt: "qRtniQMS"]
+  live_view: [signing_salt: "qRtniQMS"],
+  http: [protocol_options: [max_request_line_length: 65536, max_header_value_length: 65536]]
 
 # Configures Elixir's Logger
 config :logger, :console,
