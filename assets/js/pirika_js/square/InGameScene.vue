@@ -15,7 +15,7 @@
     .black_board.object
       BlackBoard(:score="controller.model.starPalette.score()")
     .card_game_panel.object
-      CardGamePanel(:controller="controller")
+      CardGamePanel(:model="model" @guiEvent="onGuiEvent")
     .game_end_popup.object
       GameEndPopup(:model="model" @guiEvent="onGuiEvent")
     KeyHandler(:controller="controller")

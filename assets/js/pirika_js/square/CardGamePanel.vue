@@ -1,28 +1,27 @@
 <template lang="pug">
-  .area(v-if="controller")
+  .area(v-if="model")
     .controls
       .draw(@click="draw()")
         | ドロー
     .informations
       .deck
-        | 山： {{controller.model.deck.field.cards.length}}
+        | 山： {{model.deck.field.cards.length}}
       .grav
-        | 捨： {{controller.model.graveyard.field.cards.length}}
+        | 捨： {{model.graveyard.field.cards.length}}
 
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
-  import Constants from './packs/constants';
-  import Controller from './packs/controller';
+  import Model from './packs/model';
 
   export default Vue.extend({
     props: {
-      controller: Controller
+      model: Model
     },
     methods: {
       draw(){
-        this.controller.fillDraw();
+        this.$emit("guiEvent", {type: "fillDraw"});
       }
     }
   })

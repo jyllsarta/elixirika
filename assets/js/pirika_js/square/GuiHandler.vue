@@ -29,6 +29,9 @@
       endGame(_args){
         this.controller.sendPlayLog();
         this.$emit("loadScene", {sceneName: "mainMenu"});
+      },
+      fillDraw(_args){
+        this.controller.fillDraw(true);
       }
     },
   })
