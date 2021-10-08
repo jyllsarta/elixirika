@@ -6,22 +6,12 @@
 
 <script lang="typescript">
   import Vue from 'vue';
-  import CharacterFactory from "./packs/characterFactory";
 
   export default Vue.extend({
     props: {
-      characterId: Number,
-    },
-    data(){
-      const characterFactory = new CharacterFactory();
-      return {
-        characterFactory: characterFactory,
-      }
+      character: Object,
     },
     computed: {
-      character(){
-        return this.characterFactory.getCharacterById(this.characterId);
-      },
       message(){
         return this.character.defaultMessage;
       }

@@ -1,11 +1,11 @@
 <template lang="pug">
   .game(v-if="model")
     .support_character.object
-      SupportCharacter(:characterId="characterId")
+      SupportCharacter(:character="model.character")
     .star_palette.object
       StarPalette(:starPalette="model.starPalette")
     .support_character_message.object
-      SupportCharacterMessage(:characterId="characterId")
+      SupportCharacterMessage(:character="model.character")
     .center_board.object
       CenterBoard(:board="model.board")
     .staged_field.object
