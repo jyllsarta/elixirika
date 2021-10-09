@@ -6,6 +6,8 @@
       StarPalette(:starPalette="model.starPalette")
     .support_character_message.object
       SupportCharacterMessage(:character="model.character")
+    .support_character_ability.object
+      SupportCharacterAbility(:character="model.character" @guiEvent="onGuiEvent")
     .center_board.object
       CenterBoard(:board="model.board")
     .staged_field.object
@@ -27,6 +29,7 @@
     import SupportCharacter from "./SupportCharacter.vue"
     import StarPalette from "./StarPalette.vue"
     import SupportCharacterMessage from "./SupportCharacterMessage.vue"
+    import SupportCharacterAbility from "./SupportCharacterAbility.vue"
     import CenterBoard from "./CenterBoard.vue"
     import StagedField from "./StagedField.vue"
     import Hand from "./Hand.vue"
@@ -42,6 +45,7 @@
       SupportCharacter,
       StarPalette,
       SupportCharacterMessage,
+      SupportCharacterAbility,
       CenterBoard,
       StagedField,
       Hand,
@@ -116,6 +120,10 @@
     }
     .support_character_message{
       top: 100px;
+      left: 20px;
+    }
+    .support_character_ability{
+      bottom: 150px;
       left: 20px;
     }
     .center_board{
