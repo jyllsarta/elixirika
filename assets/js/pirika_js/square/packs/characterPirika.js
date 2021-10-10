@@ -7,14 +7,40 @@ module.exports = class CharacterPirika {
     this.name = "ピリカ";
     this.imageName = "faily";
     this.defaultMessage = "はーい！こんにちは\nまずはカード出してみてね";
+
+    this.uniqueParameters = {
+      // X X 11s 11h を追加する事ができる残り回数
+      restAbilityCount: [1, 1, 1, 1]
+    }
   }
 
   onGameStart(model){
     console.log("ピリカだよー");
-    model.deck.field.addCard(new Card( 0, "X", "special"));
-    model.deck.field.addCard(new Card( 0, "X", "special"));
-    // デッキに混ぜ物をしたので再シャッフルが必須
-    model.deck.shuffle(model.seededRandom);
+  }
+
+  igniteAbility(model, params){
+    const abilityIndex = params;
+    if(this.uniqueParameters.restAbilityCount[abilityIndex] <= 0){
+      console.warn(`cannot ignite ability. rest count: ${this.uniqueParameters.restAbilityCount} / index:${abilityIndex}`)
+      return;
+    }
+    this.uniqueParameters.restAbilityCount[abilityIndex] -= 1;
+    switch(abilityIndex){
+      case 0:
+        model.hand.field.addCard(new Card( 0, "X", "special"));
+        break;
+      case 1:
+        model.hand.field.addCard(new Card( 0, "X", "special"));
+        break;
+      case 2:
+        model.hand.field.addCard(new Card( 11, "s", "sender"));
+        break;
+      case 3:
+        model.hand.field.addCard(new Card( 11, "h", "sender"));
+        break;
+      default:
+        break;
+    }
   }
 
   // model の状況では、 field の末尾に cardを積むことができる？

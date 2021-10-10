@@ -4,10 +4,15 @@ module.exports = class CharacterMizuha {
     this.name = "ミズハ";
     this.imageName = "faily2";
     this.defaultMessage = "はい、ミズハです。\n今回も頑張っていきましょうね";
+    this.uniqueParameters = {};
   }
 
   onGameStart(model){
     console.log("ミズハですー");
+  }
+
+  igniteAbility(model, params){
+    console.warn("わ、私は固有スキル持ってません...");
   }
 
   // model の状況では、 field の末尾に cardを積むことができる？

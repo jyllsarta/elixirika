@@ -150,6 +150,11 @@ module.exports = class Controller {
     this.model.selectingBoardIndex = boardIndex;
   }
 
+  igniteSupportAbility(args){
+    this.model.operationHistory.push({arguments: Object.values(arguments), name: "igniteSupportAbility"})
+    this.model.character.igniteAbility(this.model, args);
+  }
+
   sendPlayLog(){
     let axios =  require("axios");
     axios.post("/square/register_log",{

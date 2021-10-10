@@ -36,7 +36,7 @@
       igniteSupportAbility(args){
         const {vars: vars} = args;
         console.log(`character: ${this.controller.model.character.name} のアビリティ ${vars} 発動`);
-        // TODO impl
+        this.controller.igniteSupportAbility(vars);
       },
     },
   })
