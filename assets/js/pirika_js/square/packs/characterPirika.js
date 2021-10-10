@@ -24,7 +24,8 @@ module.exports = class CharacterPirika {
       console.warn(`cannot ignite ability. rest count: ${this.uniqueParameters.restAbilityCount} / index:${abilityIndex}`)
       return;
     }
-    this.uniqueParameters.restAbilityCount[abilityIndex] -= 1;
+    // Vue の監視しているArray なので、更新をかける場合は splice を使う
+    this.uniqueParameters.restAbilityCount.splice(abilityIndex, 1, this.uniqueParameters.restAbilityCount[abilityIndex] - 1);
     switch(abilityIndex){
       case 0:
         model.hand.field.addCard(new Card( 0, "X", "special"));
