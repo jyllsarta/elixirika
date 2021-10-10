@@ -22,13 +22,8 @@
           .challenges
             .title
               | チャレンジ
-            .challenge(v-for="challenge, index in challenges" :class="isCleared(challenge.id) ? 'cleared' : 'not_cleared'")
-              .icon
-                | ■
-              .rank
-                | {{["I","II","III","IV"].at(index)}}
-              .description
-                | {{challenge.title}}
+            ChallengeText(v-for="challenge, index in challenges" :is-cleared="isCleared(challenge.id)", :index="index", :challenge="challenge" :key="index")
+
       .chapter_name
         | {{character.name}} - {{["", "I","II","III","IV"].at(chapter.index)}}
       .start(@click="$emit('start')")
@@ -43,6 +38,7 @@
 <script lang="typescript">
   import Vue from 'vue';
   import ClearStateTile from "./ClearStateTile.vue";
+  import ChallengeText from "./ChallengeText.vue";
 
   export default Vue.extend({
     props: {
@@ -55,10 +51,11 @@
     },
     components: {
       ClearStateTile,
+      ChallengeText,
     },
     computed: {
       challenges(){
-        return this.chapter.challenge_ids.map(x=>this.challengeMaster.idTable[x]);
+        return this.challengeMaster.getByChallengeIds(this.chapter.challenge_ids);
       }
     },
     methods: {

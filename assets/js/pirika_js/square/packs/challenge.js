@@ -9,9 +9,13 @@ module.exports = class Challenge {
     return challengeMaster;
   }
 
+  getByChallengeIds(challengeIds){
+    return this.getAll().filter(x=>challengeIds.some(challengeId=>challengeId===x.id))
+  }
+
   // model の状態を解析してクリアした実積のIDのリストを返す
   clearedChallengeIds(model, targetChallengeIds){
-    const challenges = this.getAll().filter(x=>targetChallengeIds.some(challengeId=>challengeId===x.id));
+    const challenges = this.getByChallengeIds(targetChallengeIds);
     const pointChallenges = this.clearedPointChallengeIds(model, challenges.filter(challenge=>challenge.type=="point"));
     const starPaletteKindChallenges = this.clearedstarPaletteKindChallengeIds(model, challenges.filter(challenge=>challenge.type=="starPaletteKind"));
     return pointChallenges.concat(starPaletteKindChallenges);

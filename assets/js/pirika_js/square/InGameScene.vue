@@ -15,7 +15,7 @@
     .hand.object
       Hand(:hand="model.hand" @guiEvent="onGuiEvent")
     .black_board.object
-      BlackBoard(:score="controller.model.starPalette.score()")
+      BlackBoard(:model="model")
     .card_game_panel.object
       CardGamePanel(:model="model" @guiEvent="onGuiEvent")
     .game_end_popup.object
