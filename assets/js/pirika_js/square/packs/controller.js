@@ -23,11 +23,10 @@ module.exports = class Controller {
   }
 
   getStatus(){
-    const challenge = new Challenge();
-    const chapter = new Chapter().getAll().find(x=>x.id==this.model.chapterId);
+    this.model.checkAndUpdateClearedChallenges();
     return {
       score: this.model.starPalette.score(),
-      challenges: challenge.clearedChallengeIds(this.model, chapter.challenge_ids)
+      challenges: this.model.clearedChallenges
     }
   }
 
@@ -77,6 +76,7 @@ module.exports = class Controller {
       console.log("auto commit");
       this.commitSenderCard(boardIndex);
     }
+    this.model.checkAndUpdateClearedChallenges();
   }
 
   sendStagedCardToBoard(boardIndex){
@@ -94,6 +94,7 @@ module.exports = class Controller {
       console.log("auto commit");
       this.commitSenderCard(boardIndex);
     }
+    this.model.checkAndUpdateClearedChallenges();
   }
 
   sendHandToStagedField(handIndex){

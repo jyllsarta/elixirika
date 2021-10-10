@@ -6,6 +6,8 @@ let Hand = require("./hand");
 let StarPalette = require("./starPalette");
 let CharacterFactory = require("./characterFactory");
 let SeededRandom = require("./seededRandom");
+let Chapter = require("./chapter");
+const Challenge = require("./challenge");
 
 module.exports = class Model {
   constructor(characterId, chapterId, seed) {
@@ -16,7 +18,9 @@ module.exports = class Model {
     const characterFactory = new CharacterFactory();
     this.character = characterFactory.getCharacterById(characterId);
     this.characterId = characterId;
+    this.chapter = new Chapter().getById(chapterId);
     this.chapterId = chapterId;
+    this.challenge = new Challenge();
     this.seed = seed;
     this.deck = new Deck();
     this.board = new Board();
@@ -28,8 +32,13 @@ module.exports = class Model {
     this.selectingBoardIndex = 0;
     this.cardStackRule = this.character.cardStackRule;
     this.operationHistory = [];
+    this.clearedChallenges = [];
 
     this.onGameStart();
+  }
+
+  checkAndUpdateClearedChallenges(){
+    this.clearedChallenges = this.challenge.clearedChallengeIds(this, this.chapter.challenge_ids);
   }
 
   onGameStart(){

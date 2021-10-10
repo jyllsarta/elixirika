@@ -9,6 +9,10 @@ module.exports = class Chapter {
     return master;
   }
 
+  getById(chapterId){
+    return this.idTable[chapterId];
+  }
+
   getByCharacterId(characterId){
     return this.getAll().filter(x=>x.character_id===characterId);
   }
