@@ -61,40 +61,40 @@ module.exports = class Controller {
     this.selectHand(0);
   }
 
-  // TODO: これはStagedと比較していい感じにロジック統一できそう
   sendHandToBoard(handIndex, boardIndex){
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToBoard"})
     const card = this.model.hand.field.cards[handIndex];
-    const field = this.model.board.fields[boardIndex];
-    if(!this.model.cardStackRule(card, field, this.model)){
-      console.error("cannot stack this card!");
-      return;
-    }
-    card.setSelected(false);
-    this.model.hand.field.sendCardById(card.id, this.model.board.fields[boardIndex]);
-    if(card.isSenderCard()){
-      console.log("auto commit");
-      this.commitSenderCard(boardIndex);
-    }
-    this.model.checkAndUpdateClearedChallenges();
+    const toField = this.model.board.fields[boardIndex];
+    this._doSendCardToBoard(card, this.model.hand.field, toField);
   }
 
   sendStagedCardToBoard(boardIndex){
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendStagedCardToBoard"})
     const card = this.model.stagedField.field.cards[0];
-    const field = this.model.board.fields[boardIndex];
-    if(!this.model.cardStackRule(card, field, this.model)){
+    const toField = this.model.board.fields[boardIndex];
+    this._doSendCardToBoard(card, this.model.stagedField.field, toField);
+  }
+
+  _doSendCardToBoard(card, fromField, toField){
+    if(!this.model.cardStackRule(card, toField, this.model)){
       console.error("cannot stack this card!");
       this.unstageStagedCard();
       return;
     }
     card.setSelected(false);
-    this.model.stagedField.field.sendCardById(card.id, this.model.board.fields[boardIndex]);
+
+    fromField.sendCardById(card.id, toField)
+
     if(card.isSenderCard()){
-      console.log("auto commit");
-      this.commitSenderCard(boardIndex);
+      this._commitSenderCard(toField);
     }
     this.model.checkAndUpdateClearedChallenges();
+  }
+
+  _commitSenderCard(toField){
+    let newField = new Field();
+    toField.sendAllCardTo(newField);
+    this.model.starPalette.fields.push(newField);
   }
 
   sendHandToStagedField(handIndex){
@@ -112,28 +112,15 @@ module.exports = class Controller {
   }
 
   unstageStagedCard(){
-    this.model.operationHistory.push({arguments: Object.values(arguments), name: "unstageStagedCard"})
     const stagedField = this.model.stagedField;
     if(!stagedField.isStaged()){
       return;
     }
+    this.model.operationHistory.push({arguments: Object.values(arguments), name: "unstageStagedCard"})
     const handIndex = stagedField.stagedCardIsFromIndex;
     const card = stagedField.field.cards[0];
     stagedField.field.sendCardById(card.id, this.model.hand.field, {index: handIndex})
     card.setSelected(true);
-  }
-
-  // ∞カード(ようは絵札) が積まれているボードを指定し、星座盤へ送る
-  commitSenderCard(fieldIndex){
-    //sendHandToBoard 側で操作が記録されているのでこれを積む必要がない
-    //this.model.operationHistory.push({arguments: Object.values(arguments), name: "commitSenderCard"})
-    if(!this.model.board.isSendable(fieldIndex)){
-      console.error("cannot send");
-      return;
-    }
-    let newField = new Field();
-    this.model.board.fields[fieldIndex].sendAllCardTo(newField);
-    this.model.starPalette.fields.push(newField);
   }
 
   selectHand(handIndex){
