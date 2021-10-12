@@ -76,7 +76,7 @@ module.exports = class Controller {
   }
 
   _doSendCardToBoard(card, fromField, toField){
-    if(!this.model.cardStackRule(card, toField, this.model)){
+    if(!this.model.cardStackRule(this.model.character, this.model, card, toField)){
       console.error("cannot stack this card!");
       this.unstageStagedCard();
       return;
@@ -140,7 +140,8 @@ module.exports = class Controller {
 
   igniteSupportAbility(args){
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "igniteSupportAbility"})
-    this.model.character.igniteAbility(this.model, args);
+    const callback = this.model.character.getCallback("igniteAbility", this.model.chapterId);
+    callback(this.model.character, this.model, args);
   }
 
   sendPlayLog(){
