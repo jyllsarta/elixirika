@@ -16,6 +16,7 @@ module.exports = class Challenge {
   // model の状態を解析してクリアした実積のIDのリストを返す
   clearedChallengeIds(model, targetChallengeIds){
     const challenges = this.getByChallengeIds(targetChallengeIds);
+    // TODO: challenges.each で switch したほうがトータルコストやすそう
     const pointChallenges = this.clearedPointChallengeIds(model, challenges.filter(challenge=>challenge.type=="point"));
     const starPaletteKindChallenges = this.clearedstarPaletteKindChallengeIds(model, challenges.filter(challenge=>challenge.type=="starPaletteKind"));
     return pointChallenges.concat(starPaletteKindChallenges);

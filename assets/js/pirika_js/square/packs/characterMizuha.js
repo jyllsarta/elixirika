@@ -1,6 +1,6 @@
 module.exports = class CharacterMizuha {
   constructor(){
-    this.id = 2;
+    this.id = 3;
     this.name = "ミズハ";
     this.imageName = "faily2";
     this.defaultMessage = "はい、ミズハです。\n今回も頑張っていきましょうね";

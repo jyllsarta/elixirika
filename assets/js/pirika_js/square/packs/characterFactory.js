@@ -5,7 +5,7 @@ module.exports = class CharacterFactory {
   getCharacterById(characterId){
     const characterMaster = {
       1: CharacterPirika,
-      2: CharacterMizuha,
+      3: CharacterMizuha,
     }
 
     return new characterMaster[characterId];

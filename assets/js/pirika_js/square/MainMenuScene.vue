@@ -7,7 +7,7 @@
         | タイルをクリックすると詳細を確認できます。
     .content
       // TODO: 本番用マスタ投入タイミングで[1,2,3,4] を読み込む
-      .row(v-for="characterId, index in [1,2,1,2]", :key="index")
+      .row(v-for="characterId, index in [1,3,1,3]", :key="index")
         .character
           CharacterBanner(:character="characters[characterId]")
         .tile(v-for="chapter in chapters(characterId)", :key="chapter.id")
@@ -53,7 +53,7 @@
       const chapterMaster = new Chapter();
       const challengeMaster = new Challenge();
       return {
-        characters: [1,2].reduce((iter, x)=>{const c=characterFactory.getCharacterById(x); iter[c.id]=c; return iter}, {}),
+        characters: [1,3].reduce((iter, x)=>{const c=characterFactory.getCharacterById(x); iter[c.id]=c; return iter}, {}),
         chapterMaster: chapterMaster,
         challengeMaster: challengeMaster,
         showsDetailDialog: false,
