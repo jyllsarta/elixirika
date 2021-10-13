@@ -2,7 +2,7 @@
   .area
     .abilities(v-if="character.id === 1")
       SupportCharacterAbilityPirika(:character="character" @guiEvent="eventsUp")
-    .abilities(v-if="character.id === 2")
+    .abilities(v-if="character.id === 3")
       SupportCharacterAbilityMizuha(:character="character" @guiEvent="eventsUp")
 
 </template>

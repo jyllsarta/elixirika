@@ -3,7 +3,7 @@
     .support_character.object
       SupportCharacter(:character="model.character")
     .star_palette.object
-      StarPalette(:starPalette="model.starPalette")
+      StarPalette(:model="model")
     .support_character_message.object
       SupportCharacterMessage(:character="model.character")
     .support_character_ability.object

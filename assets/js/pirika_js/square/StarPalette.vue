@@ -1,17 +1,24 @@
 <template lang="pug">
   .area
-    .container
-      .star(v-for="x in [1,2,3,4,5,6,7,8]", :class="starPalette.statusAt(x) ?  'enabled' : 'disabled'")
-        | {{x}}
+    .palette(v-if="model.character.id === 1")
+      StarPalettePirika(:model="model")
+    .palette(v-if="model.character.id === 3")
+      StarPaletteMizuha(:model="model")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
-  import StarPalette from "./packs/starPalette"
+  import Model from "./packs/model"
+  import StarPalettePirika from "./StarPalettePirika.vue";
+  import StarPaletteMizuha from "./StarPaletteMizuha.vue";
 
   export default Vue.extend({
     props: {
-      starPalette: StarPalette
+      model: Model,
+    },
+    components: {
+      StarPalettePirika,
+      StarPaletteMizuha
     }
   })
 </script>
@@ -21,24 +28,9 @@
   .area{
     width: 1200px;
     height: 80px;
-    .container{
+    .palette{
       width: 100%;
       height: 100%;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      gap: $space-ss;
-      .star{
-        border: 1px solid $main-color;
-        @include centering($height: 50px);
-        width: 50px;
-      }
-      .enabled{
-        background-color: $light-green-o;
-      }
-      .disabled{
-        color: $white-o
-      }
     }
   }
 </style>
