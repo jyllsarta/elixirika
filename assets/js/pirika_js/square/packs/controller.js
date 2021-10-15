@@ -140,7 +140,7 @@ module.exports = class Controller {
 
   igniteSupportAbility(args){
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "igniteSupportAbility"})
-    const callback = this.model.character.getCallback("igniteAbility", this.model.chapterId);
+    const callback = this.model.character.getCallback("igniteAbility", this.model.chapter.index);
     callback(this.model.character, this.model, args);
   }
 

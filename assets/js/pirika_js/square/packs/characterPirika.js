@@ -1,4 +1,8 @@
 let PirikaDefault = require("./callbacks/pirikaDefault");
+let Pirika1 = require("./callbacks/pirika1");
+let Pirika2 = require("./callbacks/pirika2");
+let Pirika3 = require("./callbacks/pirika3");
+let Pirika4 = require("./callbacks/pirika4");
 
 module.exports = class CharacterPirika {
   constructor(){
@@ -13,10 +17,16 @@ module.exports = class CharacterPirika {
       restAbilityCount: [1, 1, 1, 1]
     }
     this.defaultCallback = new PirikaDefault();
+    this.callbacks = {
+      1: new Pirika1(),
+      2: new Pirika2(),
+      3: new Pirika3(),
+      4: new Pirika4()
+    }
   }
 
-  getCallback(callbackName, _chapterId){
-    // TODO: chapterId をみて defaultCallback 以外の特殊コールバックが存在しないかチェックし、あるならそれ、ないならデフォルトを返させる
-    return this.defaultCallback[callbackName];
+  getCallback(callbackName, index){
+    console.log(callbackName, index)
+    return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
   }
 };

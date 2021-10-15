@@ -30,7 +30,7 @@ module.exports = class Model {
     this.starPalette = new StarPalette();
     this.seededRandom = new SeededRandom(seed);
     this.selectingBoardIndex = 0;
-    this.cardStackRule = this.character.getCallback("cardStackRule", chapterId);
+    this.cardStackRule = this.character.getCallback("cardStackRule", this.chapter.index);
     this.operationHistory = [];
     this.clearedChallenges = [];
 
@@ -43,7 +43,7 @@ module.exports = class Model {
 
   onGameStart(){
     this.deck.shuffle(this.seededRandom);
-    this.character.getCallback("onGameStart")(this, this.chapterId);
+    this.character.getCallback("onGameStart", this.chapter.index)(this.character, this);
   }
 
   // 手詰まり == デッキ枚数がゼロ && ステージングにもなし && すべての手札がどこにも出せない
