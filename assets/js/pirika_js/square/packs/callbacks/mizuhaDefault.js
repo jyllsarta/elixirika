@@ -7,6 +7,10 @@ module.exports = class MizuhaDefault {
     console.warn("わ、私は固有スキル持ってません...");
   }
 
+  starPaletteParameter(){
+    return [2,3,4,5,6,7,8,9];
+  }
+
   // model の状況では、 field の末尾に cardを積むことができる？
   cardStackRule(character, model, card, field){
     if(!field){

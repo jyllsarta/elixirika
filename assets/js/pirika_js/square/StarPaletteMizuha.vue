@@ -1,6 +1,6 @@
 <template lang="pug">
   .container
-    .star(v-for="x in [1,2,3,4,5,6,7,8]", :class="model.starPalette.statusAt(x) ?  'enabled' : 'disabled'")
+    .star(v-for="x in params", :class="model.starPalette.statusAt(x) ?  'enabled' : 'disabled'")
       | {{x}}
 </template>
 
@@ -11,6 +11,14 @@
   export default Vue.extend({
     props: {
       model: Model,
+    },
+    data(){
+      return { 
+        params: null,
+      }
+    },
+    mounted(){
+      this.params = this.model.character.getCallback("starPaletteParameter", this.model.chapter.index)();
     }
   })
 </script>

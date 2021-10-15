@@ -31,6 +31,10 @@ module.exports = class PirikaDefault {
     }
   }
 
+  starPaletteParameter(){
+    return [1,2,3,4,5,6,7,8];
+  }
+
   // character, model の状況では、field の末尾に cardを積むことができる？
   cardStackRule(character, model, card, field){
     if(!field){
