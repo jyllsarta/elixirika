@@ -16,23 +16,32 @@ module.exports = class Challenge {
   // model の状態を解析してクリアした実積のIDのリストを返す
   clearedChallengeIds(model, targetChallengeIds){
     const challenges = this.getByChallengeIds(targetChallengeIds);
-    // TODO: challenges.each で switch したほうがトータルコストやすそう
-    const pointChallenges = this.clearedPointChallengeIds(model, challenges.filter(challenge=>challenge.type=="point"));
-    const starPaletteKindChallenges = this.clearedstarPaletteKindChallengeIds(model, challenges.filter(challenge=>challenge.type=="starPaletteKind"));
-    return pointChallenges.concat(starPaletteKindChallenges);
+    return challenges.filter(challenge=>this.isCleared(challenge, model)).map(challenge=>challenge.id)    
   }
 
-  clearedPointChallengeIds(model, challenges){
+  isCleared(challenge, model){
+    switch(challenge.type){
+      case "point":
+        return this.isClearedPoint(challenge, model);
+        break;
+      case "starPaletteKind":
+        return this.isClearedStarPaletteKind(challenge, model);
+        break;
+      default:
+        console.warn(`unknown challenge type: ${challenge.type}`)
+        return false;
+        break;
+    }
+  }
+
+  isClearedPoint(challenge, model){
     const score = model.starPalette.score();
-    return challenges
-      .filter(challenge=>challenge.value1<=score)
-      .map(challenge=>challenge.id)
+    return challenge.value1 <= score
   }
 
-  clearedstarPaletteKindChallengeIds(model, challenges){
+  isClearedStarPaletteKind(challenge, model){
+    // TODO: starPaletteParameter を参照してキャラごとに別々のパレット状況を参照する
     const kindCount = model.starPalette.status().filter(status=>status).length;
-    return challenges
-      .filter(challenge=>challenge.value1<=kindCount)
-      .map(challenge=>challenge.id)
+    return challenge.value1 <= kindCount
   }
 };
