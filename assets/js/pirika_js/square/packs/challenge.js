@@ -49,8 +49,12 @@ module.exports = class Challenge {
   }
 
   isClearedStarPaletteKind(challenge, model){
-    // TODO: starPaletteParameter を参照してキャラごとに別々のパレット状況を参照する
-    const kindCount = model.starPalette.status().filter(status=>status).length;
+    const neededKinds = model.character.getCallback("starPaletteParameter", model.chapter.index)()?.kinds;
+    if(!neededKinds){
+      console.warn("neededKinds was not found");
+      return;
+    }
+    const kindCount = neededKinds.filter(kind=>model.starPalette.statusAt(kind)).length;
     return challenge.value1 <= kindCount
   }
 

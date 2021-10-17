@@ -1,6 +1,3 @@
-let Card = require("./card");
-let Field = require("./field");
-
 module.exports = class StarPalette {
   constructor() {
     this.initiate();
@@ -12,11 +9,16 @@ module.exports = class StarPalette {
 
   status(){
     let status = [];
-    this.fields.map(field=>status[Math.min(field.cards.length, 8)]=true);
+    this.fields.map(field=>status[field.cards.length]=true);
     return status;
   }
 
   statusAt(index){
+    // 1, 5, "8+" みたいな特殊条件が書いてあることがある
+    if(typeof(index) === "string" && index.slice(-1) === "+"){
+      const threshold = parseInt(index.split("+")[0]) || Infinity;
+      return this.fields.some(field=>threshold<=field.cards.length);
+    }
     return this.status()[index] || false;
   }
 

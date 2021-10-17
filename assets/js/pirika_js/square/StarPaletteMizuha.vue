@@ -18,7 +18,7 @@
       }
     },
     mounted(){
-      this.params = this.model.character.getCallback("starPaletteParameter", this.model.chapter.index)();
+      this.params = this.model.character.getCallback("starPaletteParameter", this.model.chapter.index)()?.kinds;
     }
   })
 </script>

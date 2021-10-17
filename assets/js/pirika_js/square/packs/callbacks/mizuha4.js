@@ -1,5 +1,7 @@
 module.exports = class Mizuha4 {
   starPaletteParameter(){
-    return [7, 7, 7, 7, 7, 7, 7];
+    return {
+      kinds: [7, 7, 7, 7, 7, 7, 7]
+    };
   }
 };
