@@ -70,4 +70,16 @@ module.exports = class Field {
   score(){
     return Math.min(Math.floor(this.lengthBonus() * this.cards.reduce((x,y)=>x+y.number, 0)), Constants.maxScorePerField);
   }
+
+  minusTrickCount(){
+    let count = 0;
+    let prevCardNmber = 0;
+    for(let card of this.cards){
+      if(card.number < prevCardNmber){
+        count++;
+      }
+      prevCardNmber = card.number;
+    }
+    return count;
+  }
 };

@@ -27,6 +27,15 @@ module.exports = class Challenge {
       case "starPaletteKind":
         return this.isClearedStarPaletteKind(challenge, model);
         break;
+      case "discardCount":
+        return this.isClearedDiscardCount(challenge, model);
+        break;
+      case "minusTrickCount":
+        return this.isClearedMinusTrickCount(challenge, model);
+        break;
+      case "biggestStack":
+        return this.isClearedBiggestStack(challenge, model);
+        break;
       default:
         console.warn(`unknown challenge type: ${challenge.type}`)
         return false;
@@ -43,5 +52,19 @@ module.exports = class Challenge {
     // TODO: starPaletteParameter を参照してキャラごとに別々のパレット状況を参照する
     const kindCount = model.starPalette.status().filter(status=>status).length;
     return challenge.value1 <= kindCount
+  }
+
+  isClearedDiscardCount(challenge, model){
+    return model.isStaleMate() && model.graveyard.field.cards.length <= challenge.value1;
+  }
+
+  isClearedMinusTrickCount(challenge, model){
+    const tricks = model.board.fields.reduce((sum, field)=>sum+field.minusTrickCount(), 0) + model.starPalette.fields.reduce((sum, field)=>sum+field.minusTrickCount(), 0);
+    return challenge.value1 <= tricks;
+  }
+
+  isClearedBiggestStack(challenge, model){
+    const maxStackSize = Math.max(...(model.starPalette.fields.map(field=>field.cards.length)));
+    return challenge.value1 <= maxStackSize;
   }
 };
