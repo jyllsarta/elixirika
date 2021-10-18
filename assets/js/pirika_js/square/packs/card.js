@@ -26,6 +26,9 @@ module.exports = class Card {
     else if(this.suit === "s"){
       classes.push("s");
     }
+    else if(this.suit === "j"){
+      classes.push("j");
+    }
     else {
       classes.push("special");
     }
@@ -39,6 +42,9 @@ module.exports = class Card {
     }
     if(this.suit == "h" || this.suit == "d"){
       return "w"
+    }
+    if(this.suit == "j"){
+      return "j"
     }
     return "?"
   }

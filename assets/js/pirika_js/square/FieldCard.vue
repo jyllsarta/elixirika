@@ -27,6 +27,9 @@
     &.s{
       border: 1px solid $light-green;
     }
+    &.j{
+      border: 1px solid $blue;
+    }
     &.special{
       border: 1px solid $yellow;
     }
