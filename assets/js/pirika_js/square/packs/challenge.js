@@ -36,6 +36,9 @@ module.exports = class Challenge {
       case "biggestStack":
         return this.isClearedBiggestStack(challenge, model);
         break;
+      case "getAllTreasure":
+        return this.isClearedGetAllTreasure(challenge, model);
+        break;
       default:
         console.warn(`unknown challenge type: ${challenge.type}`)
         return false;
@@ -70,5 +73,19 @@ module.exports = class Challenge {
   isClearedBiggestStack(challenge, model){
     const maxStackSize = Math.max(...(model.starPalette.fields.map(field=>field.cards.length)));
     return challenge.value1 <= maxStackSize;
+  }
+
+  // 「すべての j を回収している」とは「ゲーム終了時、手札にも捨札にもボードにも j がない状態」である
+  isClearedGetAllTreasure(challenge, model){
+    return model.isStaleMate() && 
+      this.hasNoJewelCard(model.graveyard.field) && 
+      this.hasNoJewelCard(model.hand.field) && 
+      model.board.fields.every(field => this.hasNoJewelCard(field));
+  }
+
+  // private
+
+  hasNoJewelCard(field){
+    return field.cards.every(card => card.suit !== "j")
   }
 };
