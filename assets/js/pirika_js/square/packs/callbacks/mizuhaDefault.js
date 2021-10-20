@@ -9,7 +9,16 @@ module.exports = class MizuhaDefault {
 
   starPaletteParameter(){
     return {
-      kinds: [1,2,3,4,5,6,7,"8+"]
+      kinds: [
+        {value: 1, order: 1},
+        {value: 2, order: 1},
+        {value: 3, order: 1},
+        {value: 4, order: 1},
+        {value: 5, order: 1},
+        {value: 6, order: 1},
+        {value: 7, order: 1},
+        {value: 8, order: 1, upper: true},
+      ]
     };
   }
 

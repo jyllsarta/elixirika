@@ -20,7 +20,6 @@
     },
     mounted(){
       this.params = this.model.character.getCallback("starPaletteParameter", this.model.chapter.index)()?.kinds;
-      console.log(this.params)
     },
     methods: {
       stringExpression(param){

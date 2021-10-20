@@ -1,7 +1,8 @@
 <template lang="pug">
-  .container
-    .star(v-for="param in params", :class="model.starPalette.isSatisfied(param) ?  'enabled' : 'disabled'")
-      | {{x}}
+  .area
+    .container
+      .star(v-for="param in params", :class="model.starPalette.isSatisfied(param) ?  'enabled' : 'disabled'")
+        | {{stringExpression(param)}}
 </template>
 
 <script lang="typescript">
@@ -19,7 +20,13 @@
     },
     mounted(){
       this.params = this.model.character.getCallback("starPaletteParameter", this.model.chapter.index)()?.kinds;
-    }
+    },
+    methods: {
+      stringExpression(param){
+        return param.upper ? param.value + "+" : param.value;
+      }
+    },
+
   })
 </script>
 

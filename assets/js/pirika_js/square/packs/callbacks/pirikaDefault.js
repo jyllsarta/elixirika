@@ -35,7 +35,7 @@ module.exports = class PirikaDefault {
     return {
       kinds: [
         {value: 1, order: 1},
-        {value: 2, order: 2},
+        {value: 2, order: 1},
         {value: 3, order: 1},
         {value: 4, order: 1},
         {value: 5, order: 1},
