@@ -1,6 +1,6 @@
 <template lang="pug">
   .container
-    .star(v-for="x in params", :class="model.starPalette.statusAt(x) ?  'enabled' : 'disabled'")
+    .star(v-for="param in params", :class="model.starPalette.isSatisfied(param) ?  'enabled' : 'disabled'")
       | {{x}}
 </template>
 

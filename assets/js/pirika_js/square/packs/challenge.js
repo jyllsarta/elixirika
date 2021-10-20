@@ -52,12 +52,12 @@ module.exports = class Challenge {
   }
 
   isClearedStarPaletteKind(challenge, model){
-    const neededKinds = model.character.getCallback("starPaletteParameter", model.chapter.index)()?.kinds;
-    if(!neededKinds){
-      console.warn("neededKinds was not found");
+    const kinds = model.character.getCallback("starPaletteParameter", model.chapter.index)()?.kinds;
+    if(!kinds){
+      console.warn("starPaletteParameter.kinds was not found");
       return;
     }
-    const kindCount = neededKinds.filter(kind=>model.starPalette.statusAt(kind)).length;
+    const kindCount = kinds.filter(kind=>model.starPalette.isSatisfied(kind)).length;
     return challenge.value1 <= kindCount
   }
 
