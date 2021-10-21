@@ -1,4 +1,15 @@
+let Card = require("../card");
+
 module.exports = class Pirika3 {
+  onGameStart(character, model){
+    console.log("よわピリカです...");
+    character.uniqueParameters = {
+      // X X 11s 11h を追加する事ができる残り回数
+      restAbilityCount: [1, 0, 1, 1]
+    }
+    model.deck.field.addCard(new Card(0, "X", "special"));
+    model.deck.shuffle(model.seededRandom);
+  }
   starPaletteParameter(){
     return {
       kinds: [

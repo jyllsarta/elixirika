@@ -21,6 +21,7 @@
     width: 100%;
     @include centering($height: 20px);
     border: 1px solid $main-color;
+    pointer-events: none;
     &.h{
       border: 1px solid $extra-light-purple;
     }
