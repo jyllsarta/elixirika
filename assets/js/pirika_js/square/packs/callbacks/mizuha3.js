@@ -7,7 +7,6 @@ module.exports = class Mizuha3 {
         {value: 5, order: 1},
         {value: 7, order: 1},
         {value: 11, order: 1},
-        {value: 13, order: 1},
       ]
     };
   }
