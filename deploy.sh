@@ -19,10 +19,12 @@ echo "##### create release"
 
 MIX_ENV=prod mix release
 
-echo "##### (skip) DB migration"
+echo "##### DB migration"
 
-#_build/prod/rel/my_app/bin/my_app eval "MyApp.Release.migrate"
+mix yacto.migrate
 
 echo "##### start server daemon"
+echo "##### if first time, try _build/prod/rel/elixirika/bin/elixirika daemon"
 
 _build/prod/rel/elixirika/bin/elixirika restart
+
