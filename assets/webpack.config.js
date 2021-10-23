@@ -1,6 +1,5 @@
 const path = require('path');
 const glob = require('glob');
-const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const VueLoaderPlugin = require("vue-loader/lib/plugin")
@@ -11,7 +10,6 @@ module.exports = (env, options) => {
   return {
     optimization: {
       minimizer: [
-        new TerserPlugin({ cache: true, parallel: true, sourceMap: devMode }),
         new CssMinimizerPlugin(),
       ]
     },
