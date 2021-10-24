@@ -1,6 +1,5 @@
 <template lang="pug">
   #app
-    Header
     .game
       .title(v-if="sceneName == 'title'")
         TitleScene(:sceneParameter="sceneParameter.title", @loadScene="loadScene")
@@ -12,14 +11,12 @@
 
 <script lang="typescript">
     import Vue from 'vue';
-    import Header from "./Header.vue";
     import TitleScene from "./TitleScene.vue";
     import MainMenuScene from "./MainMenuScene.vue";
     import InGameScene from "./InGameScene.vue";
 
     export default Vue.extend({
     components: {
-      Header,
       TitleScene,
       MainMenuScene,
       InGameScene,
@@ -87,8 +84,10 @@ a {
     height: 100%;
     background-color: $frame-background;
     .game{
-      width: 1200px;
-      height: 600px;
+      width: 100%;
+      height: 100%;
+      min-width: 1200px;
+      min-height: 540px;
       margin: auto;
     }
   }
