@@ -1,4 +1,4 @@
-module.exports = class Mizuha2 {
+module.exports = class Character3_2 {
   starPaletteParameter(){
     return {
       kinds: [

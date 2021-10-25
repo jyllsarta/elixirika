@@ -1,10 +1,11 @@
-let PirikaDefault = require("./callbacks/pirikaDefault");
-let Pirika1 = require("./callbacks/pirika1");
-let Pirika2 = require("./callbacks/pirika2");
-let Pirika3 = require("./callbacks/pirika3");
-let Pirika4 = require("./callbacks/pirika4");
+let Character1_Default = require("./callbacks/character1_default");
+let Character1_1 = require("./callbacks/character1_1");
+let Character1_2 = require("./callbacks/character1_2");
+let Character1_3 = require("./callbacks/character1_3");
+let Character1_4 = require("./callbacks/character1_4");
 
-module.exports = class CharacterPirika {
+
+module.exports = class Character1 {
   constructor(){
     // TODO: 今後キャラマスタ・セリフマスタに移動していく
     this.id = 1;
@@ -16,12 +17,12 @@ module.exports = class CharacterPirika {
       // X X 11s 11h を追加する事ができる残り回数
       restAbilityCount: [1, 1, 1, 1]
     }
-    this.defaultCallback = new PirikaDefault();
+    this.defaultCallback = new Character1_Default();
     this.callbacks = {
-      1: new Pirika1(),
-      2: new Pirika2(),
-      3: new Pirika3(),
-      4: new Pirika4()
+      1: new Character1_1(),
+      2: new Character1_2(),
+      3: new Character1_3(),
+      4: new Character1_4()
     }
   }
 

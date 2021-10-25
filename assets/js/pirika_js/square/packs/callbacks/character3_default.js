@@ -1,4 +1,4 @@
-module.exports = class MizuhaDefault {
+module.exports = class Character3_Default {
   onGameStart(character, model){
     console.log("ミズハですー");
   }

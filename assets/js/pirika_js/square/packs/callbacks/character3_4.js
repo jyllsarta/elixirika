@@ -1,10 +1,29 @@
 let Card = require("../card");
 
-module.exports = class PirikaDefault {
+module.exports = class Character3_4 {
   onGameStart(character, model){
-    console.log("ピリカだよー");
+    console.log("最強ミズハさんです");
+    character.uniqueParameters = {
+      // X X 11s 11h を追加する事ができる残り回数
+      restAbilityCount: [1, 1, 1, 1, 1, 1]
+    }
   }
 
+  starPaletteParameter(){
+    return {
+      kinds: [
+        {value: 7, order: 1, upper: true},
+        {value: 7, order: 2, upper: true},
+        {value: 7, order: 3, upper: true},
+        {value: 7, order: 4, upper: true},
+        {value: 7, order: 5, upper: true},
+        {value: 7, order: 6, upper: true},
+        {value: 7, order: 7, upper: true},
+      ]
+    };
+  }
+
+  // ミズハ4はピリカのアビリティも使える
   igniteAbility(character, model, params){
     const abilityIndex = params;
     if(character.uniqueParameters.restAbilityCount[abilityIndex] <= 0){
@@ -26,24 +45,15 @@ module.exports = class PirikaDefault {
       case 3:
         model.hand.field.addCard(new Card( 11, "h", "sender"));
         break;
+      case 4:
+        model.hand.field.addCard(new Card( 11, "s", "sender"));
+        break;
+      case 5:
+        model.hand.field.addCard(new Card( 11, "h", "sender"));
+        break;
       default:
         break;
     }
-  }
-
-  starPaletteParameter(){
-    return {
-      kinds: [
-        {value: 1, order: 1},
-        {value: 2, order: 1},
-        {value: 3, order: 1},
-        {value: 4, order: 1},
-        {value: 5, order: 1},
-        {value: 6, order: 1},
-        {value: 7, order: 1},
-        {value: 8, order: 1, upper: true},
-      ]
-    };
   }
 
   // character, model の状況では、field の末尾に cardを積むことができる？
@@ -65,7 +75,9 @@ module.exports = class PirikaDefault {
     if(lastCard.color() == card.color()){
       return false;
     }
-    if(lastCard.number > card.number){
+    // ミズハ の チャプター4だけ更に特別で、マイナス2まで乗せられる
+    // 3 の上に 1 を乗せるのが合法
+    if(lastCard.number - 2 > card.number){
       return false;
     }
     return true;

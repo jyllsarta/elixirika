@@ -1,6 +1,6 @@
 let Card = require("../card");
 
-module.exports = class Pirika3 {
+module.exports = class Character1_3 {
   onGameStart(character, model){
     console.log("よわピリカです...");
     character.uniqueParameters = {

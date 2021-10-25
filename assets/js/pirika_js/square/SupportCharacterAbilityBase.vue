@@ -1,21 +1,21 @@
 <template lang="pug">
   .area
     .abilities(v-if="character.id === 1")
-      SupportCharacterAbilityPirika(:character="character" @guiEvent="eventsUp")
+      SupportCharacterAbilityCharacter1(:character="character" @guiEvent="eventsUp")
     .abilities(v-if="character.id === 3")
-      SupportCharacterAbilityMizuha(:character="character" @guiEvent="eventsUp")
+      SupportCharacterAbilityCharacter3(:character="character" @guiEvent="eventsUp")
 
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
-  import SupportCharacterAbilityPirika from "./SupportCharacterAbilityPirika.vue"
-  import SupportCharacterAbilityMizuha from "./SupportCharacterAbilityMizuha.vue"
+  import SupportCharacterAbilityCharacter1 from "./SupportCharacterAbilityCharacter1.vue"
+  import SupportCharacterAbilityCharacter3 from "./SupportCharacterAbilityCharacter3.vue"
 
   export default Vue.extend({
     components: {
-      SupportCharacterAbilityPirika,
-      SupportCharacterAbilityMizuha,
+      SupportCharacterAbilityCharacter1,
+      SupportCharacterAbilityCharacter3,
     },
     props: {
       character: Object,
