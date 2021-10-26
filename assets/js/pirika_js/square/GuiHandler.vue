@@ -27,8 +27,11 @@
         this.controller.selectHand(cardIndex);
       },
       endGame(_args){
-        this.controller.sendPlayLog();
-        this.$emit("loadScene", {sceneName: "mainMenu"});
+        this.controller.sendPlayLog()
+        .then((_) => {
+          console.log("send end");
+          this.$emit("loadScene", {sceneName: "mainMenu"});
+        });
       },
       fillDraw(_args){
         this.controller.fillDraw(true);

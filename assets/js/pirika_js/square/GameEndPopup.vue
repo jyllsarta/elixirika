@@ -1,5 +1,5 @@
 <template lang="pug">
-  .game_end(v-if="isStaleMate" @click="endGame")
+  .game_end(v-if="isStaleMate" @click="endGame" :class="{sending: sending}")
     .stalemate
       | 手詰まり！クリックでメイン画面に戻ります
 
@@ -45,5 +45,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    &.sending{
+      opacity: 0.5;
+    }
   }
 </style>

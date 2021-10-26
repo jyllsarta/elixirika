@@ -47,6 +47,7 @@ module.exports = class Model {
   }
 
   // 手詰まり == デッキ枚数がゼロ && ステージングにもなし && すべての手札がどこにも出せない
+  // TODO: 「スキルを全部使用済み」もやる必要あり 
   isStaleMate(){
     if(this.deck.field.cards.length !== 0){
       return false;

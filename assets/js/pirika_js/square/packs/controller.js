@@ -146,20 +146,20 @@ module.exports = class Controller {
 
   sendPlayLog(){
     let axios =  require("axios");
-    axios.post("/square/register_log",{
-              _csrf_token: document.querySelector("meta[name=csrf-token]").attributes["content"].textContent,
-              username: localStorage.rawNameSquare,
-              log: this.dumpOperaionHistory(),
-              seed: this.seed,
-          }
-        )
-        .then((results) => {
-          console.log(results);
-          console.log("OK");
-        })
-        .catch((results) => {
-          console.warn(results);
-          console.warn("NG");
-        })
+    return axios.post("/square/register_log",{
+                  _csrf_token: document.querySelector("meta[name=csrf-token]").attributes["content"].textContent,
+                  username: localStorage.rawNameSquare,
+                  log: this.dumpOperaionHistory(),
+                  seed: this.seed,
+              }
+            )
+            .then((results) => {
+              console.log(results);
+              console.log("OK");
+            })
+            .catch((results) => {
+              console.warn(results);
+              console.warn("NG");
+            })
   }
 };
