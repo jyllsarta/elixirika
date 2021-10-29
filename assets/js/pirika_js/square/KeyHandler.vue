@@ -1,7 +1,5 @@
 <template lang="pug">
   .key_helper
-    .current_board(v-if="controller")
-      | CurrentBoard: {{controller.model.selectingBoardIndex}}
 </template>
 
 <script lang="typescript">
