@@ -25,7 +25,7 @@ module.exports = class Controller {
   getStatus(){
     this.model.checkAndUpdateClearedChallenges();
     return {
-      score: this.model.starPalette.score(),
+      score: this.model.currentScore(),
       challenges: this.model.clearedChallenges
     }
   }

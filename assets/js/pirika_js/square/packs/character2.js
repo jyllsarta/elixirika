@@ -14,6 +14,7 @@ module.exports = class Character2 {
 
     this.uniqueParameters = {
       energy: 50,
+      score: 0,
     }
     this.defaultCallback = new Character2_Default();
     this.callbacks = {

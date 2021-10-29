@@ -1,7 +1,7 @@
 <template lang="pug">
   .area
     .score
-      | スコア：{{model.starPalette.score()}}
+      | スコア：{{model.currentScore()}}
     .challenges()
       ChallengeText(
         v-for="challenge, index in challenges"

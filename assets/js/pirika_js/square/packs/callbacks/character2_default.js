@@ -5,13 +5,20 @@ module.exports = class Character2_Default {
     console.log("すずらんですー");
   }
 
-  onSendToStarPalette(character, model, field){
-    character.uniqueParameters.energy += field.score();
+  onSendToStarPalette = (character, model, field) => {
+    const { maxEnergy } = model.character.getCallback("starPaletteParameter", model.chapter.index)();
+    this.fluctuateEnergy(character, maxEnergy, field.score())
   }
 
-  onSendCard(character, model, card){
-    const { consumptionPerCard } = model.character.getCallback("starPaletteParameter", model.chapter.index)()
-    character.uniqueParameters.energy -= consumptionPerCard;
+  // class 内で this 使うとコールバックで発動したときは this が windowになってるシチュエーションがあるので、 function ではなく アロー関数で定義を行う
+  onSendCard = (character, model, card) => {
+    const { consumptionPerCard, scoreRanges, maxEnergy } = model.character.getCallback("starPaletteParameter", model.chapter.index)();
+    this.addScore(character, model, scoreRanges);
+    this.fluctuateEnergy(character, maxEnergy, -consumptionPerCard)
+  }
+
+  calculateScore(character, model){
+    return character.uniqueParameters.score;
   }
 
   igniteAbility(character, model, params){
@@ -44,6 +51,10 @@ module.exports = class Character2_Default {
     return {
       consumptionPerCard: 3,
       maxEnergy: 100,
+      scoreRanges: [
+        {min: 40, max: 60, score: 5},
+        {min: 20, max: 80, score: 3},
+      ]
     };
   }
 
@@ -70,5 +81,33 @@ module.exports = class Character2_Default {
       return false;
     }
     return true;
+  }
+
+  // private
+
+  addScore = (character, model, scoreRanges) => {
+    for(scoreRange of scoreRanges){
+      console.log(scoreRange)
+      if(this.inRange(character.uniqueParameters.energy, scoreRange)){
+        console.log(scoreRange.score)
+        character.uniqueParameters.score += scoreRange.score;
+        return;
+      }
+    }
+  }
+
+  // 上位評価に対して引っかかりやすくゆるめに評価するためにrangeは両側を含ませる
+  inRange = (value, scoreRange) => {
+    return scoreRange.min <= value && value <= scoreRange.max;
+  }
+
+  fluctuateEnergy = (character, maxEnergy, delta) => {
+    character.uniqueParameters.energy += delta;
+    if(character.uniqueParameters.energy < 0){
+      character.uniqueParameters.energy = 0;
+    }
+    if(character.uniqueParameters.energy > maxEnergy){
+      character.uniqueParameters.energy = maxEnergy;
+    }
   }
 };

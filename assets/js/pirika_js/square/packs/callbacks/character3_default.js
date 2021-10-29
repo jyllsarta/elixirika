@@ -9,6 +9,10 @@ module.exports = class Character3_Default {
   onSendToStarPalette(character, model, field){
   }
 
+  calculateScore(character, model){
+    return model.starPalette.score();
+  }
+
   igniteAbility(character, model, params){
     console.warn("わ、私は固有スキル持ってません...");
   }

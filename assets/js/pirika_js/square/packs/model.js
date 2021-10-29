@@ -46,6 +46,10 @@ module.exports = class Model {
     this.character.getCallback("onGameStart", this.chapter.index)(this.character, this);
   }
 
+  currentScore(){
+    return this.character.getCallback("calculateScore", this.chapter.index)(this.character, this);
+  }
+
   // 手詰まり == デッキ枚数がゼロ && ステージングにもなし && すべての手札がどこにも出せない
   // TODO: 「スキルを全部使用済み」もやる必要あり 
   isStaleMate(){

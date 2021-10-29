@@ -11,6 +11,10 @@ module.exports = class Character1_Default {
   onSendToStarPalette(character, model, field){
   }
 
+  calculateScore(character, model){
+    return model.starPalette.score();
+  }
+
   igniteAbility(character, model, params){
     const abilityIndex = params;
     if(character.uniqueParameters.restAbilityCount[abilityIndex] <= 0){
