@@ -98,6 +98,7 @@ module.exports = class Controller {
     let newField = new Field();
     toField.sendAllCardTo(newField);
     this.model.starPalette.fields.push(newField);
+    this.model.character.getCallback("onSendToStarPalette", this.model.chapter.index)(this.model.character, this.model, newField);
   }
 
   sendHandToStagedField(handIndex){

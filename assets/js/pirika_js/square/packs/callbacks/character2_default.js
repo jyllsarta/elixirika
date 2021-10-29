@@ -5,6 +5,10 @@ module.exports = class Character2_Default {
     console.log("すずらんですー");
   }
 
+  onSendToStarPalette(character, model, field){
+    character.uniqueParameters.energy += field.score();
+  }
+
   onSendCard(character, model, card){
     const { consumptionPerCard } = model.character.getCallback("starPaletteParameter", model.chapter.index)()
     character.uniqueParameters.energy -= consumptionPerCard;

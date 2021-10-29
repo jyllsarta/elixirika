@@ -6,6 +6,9 @@ module.exports = class Character3_Default {
   onSendCard(character, model, card){
   }
 
+  onSendToStarPalette(character, model, field){
+  }
+
   igniteAbility(character, model, params){
     console.warn("わ、私は固有スキル持ってません...");
   }

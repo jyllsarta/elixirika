@@ -8,6 +8,9 @@ module.exports = class Character2_Default {
   onSendCard(character, model, card){
   }
 
+  onSendToStarPalette(character, model, field){
+  }
+
   igniteAbility(character, model, params){
     const abilityIndex = params;
     if(character.uniqueParameters.restAbilityCount[abilityIndex] <= 0){
