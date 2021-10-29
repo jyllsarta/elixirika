@@ -3,6 +3,9 @@ module.exports = class Character3_Default {
     console.log("ミズハですー");
   }
 
+  onSendCard(character, model, card){
+  }
+
   igniteAbility(character, model, params){
     console.warn("わ、私は固有スキル持ってません...");
   }

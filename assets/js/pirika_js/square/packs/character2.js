@@ -13,8 +13,7 @@ module.exports = class Character2 {
     this.defaultMessage = "ふええ";
 
     this.uniqueParameters = {
-      // X X 11s 11h を追加する事ができる残り回数
-      restAbilityCount: [1, 1, 1, 1]
+      energy: 50,
     }
     this.defaultCallback = new Character2_Default();
     this.callbacks = {

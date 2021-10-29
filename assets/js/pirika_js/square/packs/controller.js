@@ -88,6 +88,9 @@ module.exports = class Controller {
     if(card.isSenderCard()){
       this._commitSenderCard(toField);
     }
+
+    this.model.character.getCallback("onSendCard", this.model.chapter.index)(this.model.character, this.model, card);
+
     this.model.checkAndUpdateClearedChallenges();
   }
 

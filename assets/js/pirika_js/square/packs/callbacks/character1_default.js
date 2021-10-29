@@ -5,6 +5,9 @@ module.exports = class Character1_Default {
     console.log("ピリカだよー");
   }
 
+  onSendCard(character, model, card){
+  }
+
   igniteAbility(character, model, params){
     const abilityIndex = params;
     if(character.uniqueParameters.restAbilityCount[abilityIndex] <= 0){

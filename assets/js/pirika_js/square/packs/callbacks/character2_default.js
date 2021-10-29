@@ -5,6 +5,11 @@ module.exports = class Character2_Default {
     console.log("すずらんですー");
   }
 
+  onSendCard(character, model, card){
+    const { consumptionPerCard } = model.character.getCallback("starPaletteParameter", model.chapter.index)()
+    character.uniqueParameters.energy -= consumptionPerCard;
+  }
+
   igniteAbility(character, model, params){
     const abilityIndex = params;
     if(character.uniqueParameters.restAbilityCount[abilityIndex] <= 0){
@@ -33,16 +38,8 @@ module.exports = class Character2_Default {
 
   starPaletteParameter(){
     return {
-      kinds: [
-        {value: 1, order: 1},
-        {value: 2, order: 1},
-        {value: 3, order: 1},
-        {value: 4, order: 1},
-        {value: 5, order: 1},
-        {value: 6, order: 1},
-        {value: 7, order: 1},
-        {value: 8, order: 1, upper: true},
-      ]
+      consumptionPerCard: 3,
+      maxEnergy: 100,
     };
   }
 

@@ -1,8 +1,7 @@
 <template lang="pug">
   .area
-    .container
-      .star(v-for="param in params", :class="model.starPalette.isSatisfied(param) ?  'enabled' : 'disabled'")
-        | {{stringExpression(param)}}
+    .spp
+      | EN: {{model.character.uniqueParameters.energy}}
 </template>
 
 <script lang="typescript">
