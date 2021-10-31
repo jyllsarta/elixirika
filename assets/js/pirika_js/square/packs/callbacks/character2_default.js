@@ -60,7 +60,7 @@ module.exports = class Character2_Default {
   // private
 
   addScore = (character, model, scoreRanges) => {
-    for(scoreRange of scoreRanges){
+    for(let scoreRange of scoreRanges){
       console.log(scoreRange)
       if(this.inRange(character.uniqueParameters.energy, scoreRange)){
         console.log(scoreRange.score)

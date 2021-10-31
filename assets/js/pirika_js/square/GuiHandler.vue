@@ -23,7 +23,9 @@
       },
       sendToAbility(args){
         const { cardId } = args;
-        this.controller.sendHandToEmptyPocketAbility(cardId);
+        const card = this.controller.model.hand.field.cards.find(card=>card.id==cardId);
+        const cardIndex = this.controller.model.hand.field.cards.indexOf(card);
+        this.controller.sendHandToEmptyPocketAbility(cardIndex);
       },
       selectCard(args){
         const {card: card} = args;

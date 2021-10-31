@@ -127,18 +127,17 @@ module.exports = class Controller {
     card.setSelected(true);
   }
 
-  sendHandToEmptyPocketAbility(cardId){
+  sendHandToEmptyPocketAbility(handIndex){
     const emptyPocket = this.model.character.uniqueParameters.abilities.find(ability=>ability.category === "cardPocket" && ability.card === null)
     if(!emptyPocket){
       console.warn("no empty pocket!");
       return;
     }
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToEmptyPocketAbility"})
-    const card = this.model.hand.field.cards.find(card=>card.id==cardId);
+    const card = this.model.hand.field.cards[handIndex];
     card.selected = false;
-    const cardIndex = this.model.hand.field.cards.indexOf(card);
     emptyPocket.card = card;
-    this.model.hand.field.cards.splice(cardIndex, 1);
+    this.model.hand.field.cards.splice(handIndex, 1);
   }
 
   selectHand(handIndex){
