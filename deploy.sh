@@ -6,6 +6,10 @@ echo "##### checkout latest"
 #git clean -f
 git pull
 
+echo "##### pull masterdata"
+
+(cd ~/elixirika_masterdata; git pull)
+
 echo "##### resolve deps"
 
 mix deps.get --only prod
