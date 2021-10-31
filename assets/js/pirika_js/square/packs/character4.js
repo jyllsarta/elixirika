@@ -3,7 +3,7 @@ let Character4_1 = require("./callbacks/character4_1");
 let Character4_2 = require("./callbacks/character4_2");
 let Character4_3 = require("./callbacks/character4_3");
 let Character4_4 = require("./callbacks/character4_4");
-let AbilityAddCard = require("./AbilityAddCard");
+let AbilityAddCard = require("./abilityAddCard");
 let Card = require("./card");
 
 

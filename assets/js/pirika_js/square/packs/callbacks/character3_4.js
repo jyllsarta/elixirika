@@ -1,5 +1,5 @@
 let Card = require("../card");
-let AbilityAddCard = require("../AbilityAddCard");
+let AbilityAddCard = require("../abilityAddCard");
 
 module.exports = class Character3_4 {
   onGameStart(character, model){
