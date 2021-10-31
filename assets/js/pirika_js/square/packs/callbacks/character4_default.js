@@ -15,10 +15,6 @@ module.exports = class Character2_Default {
     return model.starPalette.score();
   }
 
-  igniteAbility(character, model, params){
-    console.warn("わ、私は固有スキル持ってません...");
-  }
-
   starPaletteParameter(){
     return {
       kinds: [

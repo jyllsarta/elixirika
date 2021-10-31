@@ -144,8 +144,17 @@ module.exports = class Controller {
 
   igniteSupportAbility(args){
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "igniteSupportAbility"})
-    const callback = this.model.character.getCallback("igniteAbility", this.model.chapter.index);
-    callback(this.model.character, this.model, args);
+    const character = this.model.character;
+    const { index } = args;
+    const ability = character.uniqueParameters.abilities[index];
+    if(!ability){
+      console.warn(`cannot ignite ability!`)
+      return;
+    }
+    if(ability.isRemovedAfterIgnite){
+      character.uniqueParameters.abilities.splice(index, 1);
+    }
+    ability.ignite(character, this.model);
   }
 
   sendPlayLog(){

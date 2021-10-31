@@ -7,7 +7,7 @@
     .buttons(v-if="character.uniqueParameters.abilities")
       .button(
         v-for="(ability, index) in character.uniqueParameters.abilities"
-        @click="$emit('guiEvent', {type: 'igniteSupportAbility', vars: index})"
+        @click="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
         :class="ability.card.suit"
       )
         | {{ability.stringExpression()}}

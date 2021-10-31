@@ -29,6 +29,7 @@
         const cardId = parseInt(event.item?.id?.split("card-")?.at(1) || -1);
         if(fieldIndex === -1 || cardId === -1){
           console.warn("invalid drag!");
+          return;
         }
         this.$emit("guiEvent", {type: "sendCard", fieldIndex: fieldIndex, cardId: cardId});
       },

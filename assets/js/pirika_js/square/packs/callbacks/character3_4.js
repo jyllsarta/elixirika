@@ -26,18 +26,6 @@ module.exports = class Character3_4 {
     };
   }
 
-  // ミズハ4はピリカのアビリティも使える
-  igniteAbility(character, model, params){
-    const abilityIndex = params;
-    if(!character.uniqueParameters.abilities[abilityIndex]){
-      console.warn(`cannot ignite ability. rest abilities: ${character.uniqueParameters.abilities} / index:${abilityIndex}`)
-      return;
-    }
-    // Vue の監視しているArray なので、更新をかける場合は splice を使う
-    const ability = character.uniqueParameters.abilities.splice(abilityIndex, 1)[0];
-    ability.ignite(character, model);
-  }
-
   // character, model の状況では、field の末尾に cardを積むことができる？
   cardStackRule(character, model, card, field){
     if(!field){

@@ -21,17 +21,6 @@ module.exports = class Character2_Default {
     return character.uniqueParameters.score;
   }
 
-  igniteAbility(character, model, params){
-    const abilityIndex = params;
-    if(!character.uniqueParameters.abilities[abilityIndex]){
-      console.warn(`cannot ignite ability. rest abilities: ${character.uniqueParameters.abilities} / index:${abilityIndex}`)
-      return;
-    }
-    // Vue の監視しているArray なので、更新をかける場合は splice を使う
-    const ability = character.uniqueParameters.abilities.splice(abilityIndex, 1)[0];
-    ability.ignite(character, model);
-  }
-
   starPaletteParameter(){
     return {
       consumptionPerCard: 3,

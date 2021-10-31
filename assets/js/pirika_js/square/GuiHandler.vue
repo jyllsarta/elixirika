@@ -37,9 +37,9 @@
         this.controller.fillDraw(true);
       },
       igniteSupportAbility(args){
-        const {vars: vars} = args;
-        console.log(`character: ${this.controller.model.character.name} のアビリティ ${vars} 発動`);
-        this.controller.igniteSupportAbility(vars);
+        const { index } = args;
+        console.log(`character: ${this.controller.model.character.name} のアビリティ ${index} 発動`);
+        this.controller.igniteSupportAbility(args);
       },
     },
   })
