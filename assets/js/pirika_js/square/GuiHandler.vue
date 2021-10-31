@@ -21,6 +21,10 @@
         const cardIndex = this.controller.model.hand.field.cards.indexOf(card);
         this.controller.sendHandToBoard(cardIndex, fieldIndex);
       },
+      sendToAbility(args){
+        const { cardId } = args;
+        this.controller.sendHandToEmptyPocketAbility(cardId);
+      },
       selectCard(args){
         const {card: card} = args;
         const cardIndex = this.controller.model.hand.field.cards.indexOf(card);

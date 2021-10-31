@@ -6,7 +6,7 @@
       .button(
         v-for="(ability, index) in character.uniqueParameters.abilities"
         @click="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
-        :class="ability.card.suit"
+        :class="abilityClass(ability)"
       )
         | {{ability.stringExpression()}}
 
@@ -24,9 +24,15 @@
       character: Object,
     },
     methods: {
-      cardClass(){
-        return ;
-      }
+      abilityClass(ability){
+        switch(ability.category){
+          case "addCard":
+            return ability.card?.suit || "";
+          case "cardPocket":
+            return "o";
+        }
+        return "";
+      },
     },
   })
 </script>
@@ -57,6 +63,10 @@
       &.h{
         border: 1px solid $extra-light-purple;
         background-color: $extra-light-purple-o;
+      }
+      &.o{
+        border: 1px dashed $gray1;
+        background-color: $gray3;
       }
     }
   }

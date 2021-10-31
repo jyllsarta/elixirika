@@ -3,7 +3,7 @@ let Character2_1 = require("./callbacks/character2_1");
 let Character2_2 = require("./callbacks/character2_2");
 let Character2_3 = require("./callbacks/character2_3");
 let Character2_4 = require("./callbacks/character2_4");
-let AbilityAddCard = require("./AbilityAddCard");
+let AbilityCardPocket = require("./AbilityCardPocket");
 let Card = require("./card");
 
 module.exports = class Character2 {
@@ -17,10 +17,8 @@ module.exports = class Character2 {
       energy: 50,
       score: 0,
       abilities: [
-        new AbilityAddCard(new Card( 0, "X", "special")),
-        new AbilityAddCard(new Card( 0, "X", "special")),
-        new AbilityAddCard(new Card( 11, "s", "sender")),
-        new AbilityAddCard(new Card( 11, "h", "sender")),
+        new AbilityCardPocket(),
+        new AbilityCardPocket(),
       ]
     }
     this.defaultCallback = new Character2_Default();

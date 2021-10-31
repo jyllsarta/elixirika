@@ -25,12 +25,27 @@
     },
     methods: {
       onDragEnd(event){
+        console.log(event)
         const fieldIndex = parseInt(event.originalEvent.target?.id?.split("field-")?.at(1) || -1);
+        const isToAbility = event.originalEvent.target?.id === "support-character";
         const cardId = parseInt(event.item?.id?.split("card-")?.at(1) || -1);
-        if(fieldIndex === -1 || cardId === -1){
+        if(cardId === -1){
           console.warn("invalid drag!");
           return;
         }
+        if(isToAbility){
+          this.sendToAbility(cardId);
+          return;
+        }
+        if(fieldIndex !== -1){
+          this.sendToBoard(fieldIndex, cardId);
+          return;
+        }
+      },
+      sendToAbility(cardId){
+        this.$emit("guiEvent", {type: "sendToAbility", cardId: cardId});
+      },
+      sendToBoard(fieldIndex, cardId){
         this.$emit("guiEvent", {type: "sendCard", fieldIndex: fieldIndex, cardId: cardId});
       },
       onCardHover(card){
