@@ -1,12 +1,15 @@
 let Card = require("../card");
+let AbilityAddCard = require("../AbilityAddCard");
 
 module.exports = class Character3_4 {
   onGameStart(character, model){
     console.log("最強ミズハさんです");
-    character.uniqueParameters = {
-      // X X 11s 11h を追加する事ができる残り回数
-      restAbilityCount: [1, 1, 1, 1, 1, 1]
-    }
+    character.uniqueParameters.abilities = [
+      new AbilityAddCard(new Card( 0, "X", "special")),
+      new AbilityAddCard(new Card( 0, "X", "special")),
+      new AbilityAddCard(new Card( 11, "s", "sender")),
+      new AbilityAddCard(new Card( 11, "h", "sender")),
+    ]
   }
 
   starPaletteParameter(){
@@ -26,34 +29,13 @@ module.exports = class Character3_4 {
   // ミズハ4はピリカのアビリティも使える
   igniteAbility(character, model, params){
     const abilityIndex = params;
-    if(character.uniqueParameters.restAbilityCount[abilityIndex] <= 0){
-      console.warn(`cannot ignite ability. rest count: ${character.uniqueParameters.restAbilityCount} / index:${abilityIndex}`)
+    if(!character.uniqueParameters.abilities[abilityIndex]){
+      console.warn(`cannot ignite ability. rest abilities: ${character.uniqueParameters.abilities} / index:${abilityIndex}`)
       return;
     }
     // Vue の監視しているArray なので、更新をかける場合は splice を使う
-    character.uniqueParameters.restAbilityCount.splice(abilityIndex, 1, character.uniqueParameters.restAbilityCount[abilityIndex] - 1);
-    switch(abilityIndex){
-      case 0:
-        model.hand.field.addCard(new Card( 0, "X", "special"));
-        break;
-      case 1:
-        model.hand.field.addCard(new Card( 0, "X", "special"));
-        break;
-      case 2:
-        model.hand.field.addCard(new Card( 11, "s", "sender"));
-        break;
-      case 3:
-        model.hand.field.addCard(new Card( 11, "h", "sender"));
-        break;
-      case 4:
-        model.hand.field.addCard(new Card( 11, "s", "sender"));
-        break;
-      case 5:
-        model.hand.field.addCard(new Card( 11, "h", "sender"));
-        break;
-      default:
-        break;
-    }
+    const ability = character.uniqueParameters.abilities.splice(abilityIndex, 1)[0];
+    ability.ignite(character, model);
   }
 
   // character, model の状況では、field の末尾に cardを積むことができる？

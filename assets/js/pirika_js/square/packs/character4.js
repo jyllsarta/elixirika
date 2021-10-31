@@ -3,6 +3,8 @@ let Character4_1 = require("./callbacks/character4_1");
 let Character4_2 = require("./callbacks/character4_2");
 let Character4_3 = require("./callbacks/character4_3");
 let Character4_4 = require("./callbacks/character4_4");
+let AbilityAddCard = require("./AbilityAddCard");
+let Card = require("./card");
 
 
 module.exports = class Character2 {
@@ -13,8 +15,12 @@ module.exports = class Character2 {
     this.defaultMessage = "ふええええ！";
 
     this.uniqueParameters = {
-      // X X 11s 11h を追加する事ができる残り回数
-      restAbilityCount: [1, 1, 1, 1]
+      abilities: [
+        new AbilityAddCard(new Card( 0, "X", "special")),
+        new AbilityAddCard(new Card( 0, "X", "special")),
+        new AbilityAddCard(new Card( 11, "s", "sender")),
+        new AbilityAddCard(new Card( 11, "h", "sender")),
+      ]
     }
     this.defaultCallback = new Character4_Default();
     this.callbacks = {

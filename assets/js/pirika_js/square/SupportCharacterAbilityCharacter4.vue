@@ -4,11 +4,11 @@
       | あかねのスキル
     .buttons
       .button(
-        v-for="(_value, index) in character.uniqueParameters.restAbilityCount"
+        v-for="(ability, index) in character.uniqueParameters.abilities"
         @click="$emit('guiEvent', {type: 'igniteSupportAbility', vars: index})"
-        :class="cardClass(index)"
+        :class="ability.card.suit"
       )
-        | {{texts[index]}}
+        | {{ability.stringExpression()}}
 
 </template>
 
@@ -18,30 +18,12 @@
   export default Vue.extend({
     data(){
       return {
-        texts: [
-          "0X",
-          "0X",
-          "11s",
-          "11h",
-        ]
       };
     },
     props: {
       character: Object,
     },
     methods: {
-      cardClass(index){
-        let classes = [];
-        classes.push(`card_${index}`);
-
-        if(this.character.uniqueParameters.restAbilityCount[index]){
-          classes.push("enabled");
-        }
-        else{
-          classes.push("disabled");
-        }
-        return classes.join(" ");
-      }
     },
   })
 </script>
@@ -58,25 +40,18 @@
     }
     .button{
       padding: $space-m;
-      &:hover.enabled{
+      &:hover{
         transform: scale(1.2);
       }
-      &.disabled{
-        opacity: $disabled-opacity;
-      }
-      &.card_0{
+      &.X{
         border: 1px solid $yellow;
         background-color: $yellow-o;
       }
-      &.card_1{
-        border: 1px solid $yellow;
-        background-color: $yellow-o;
-      }
-      &.card_2{
+      &.s{
         border: 1px solid $light-green;
         background-color: $light-green-o;
       }
-      &.card_3{
+      &.h{
         border: 1px solid $extra-light-purple;
         background-color: $extra-light-purple-o;
       }

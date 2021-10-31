@@ -3,7 +3,8 @@ let Character1_1 = require("./callbacks/character1_1");
 let Character1_2 = require("./callbacks/character1_2");
 let Character1_3 = require("./callbacks/character1_3");
 let Character1_4 = require("./callbacks/character1_4");
-
+let AbilityAddCard = require("./AbilityAddCard");
+let Card = require("./card");
 
 module.exports = class Character1 {
   constructor(){
@@ -15,8 +16,14 @@ module.exports = class Character1 {
 
     this.uniqueParameters = {
       // X X 11s 11h を追加する事ができる残り回数
-      restAbilityCount: [1, 1, 1, 1]
+      abilities: [
+        new AbilityAddCard(new Card( 0, "X", "special")),
+        new AbilityAddCard(new Card( 0, "X", "special")),
+        new AbilityAddCard(new Card( 11, "s", "sender")),
+        new AbilityAddCard(new Card( 11, "h", "sender")),
+      ]
     }
+
     this.defaultCallback = new Character1_Default();
     this.callbacks = {
       1: new Character1_1(),

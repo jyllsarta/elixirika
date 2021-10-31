@@ -1,5 +1,3 @@
-let Card = require("../card");
-
 module.exports = class Character1_Default {
   onGameStart(character, model){
     console.log("ピリカだよー");
@@ -17,28 +15,13 @@ module.exports = class Character1_Default {
 
   igniteAbility(character, model, params){
     const abilityIndex = params;
-    if(character.uniqueParameters.restAbilityCount[abilityIndex] <= 0){
-      console.warn(`cannot ignite ability. rest count: ${character.uniqueParameters.restAbilityCount} / index:${abilityIndex}`)
+    if(!character.uniqueParameters.abilities[abilityIndex]){
+      console.warn(`cannot ignite ability. rest abilities: ${character.uniqueParameters.abilities} / index:${abilityIndex}`)
       return;
     }
     // Vue の監視しているArray なので、更新をかける場合は splice を使う
-    character.uniqueParameters.restAbilityCount.splice(abilityIndex, 1, character.uniqueParameters.restAbilityCount[abilityIndex] - 1);
-    switch(abilityIndex){
-      case 0:
-        model.hand.field.addCard(new Card( 0, "X", "special"));
-        break;
-      case 1:
-        model.hand.field.addCard(new Card( 0, "X", "special"));
-        break;
-      case 2:
-        model.hand.field.addCard(new Card( 11, "s", "sender"));
-        break;
-      case 3:
-        model.hand.field.addCard(new Card( 11, "h", "sender"));
-        break;
-      default:
-        break;
-    }
+    const ability = character.uniqueParameters.abilities.splice(abilityIndex, 1)[0];
+    ability.ignite(character, model);
   }
 
   starPaletteParameter(){
