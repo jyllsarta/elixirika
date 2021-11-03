@@ -8,6 +8,9 @@
     .bottoms
       .name_area(@click.stop)
         NameArea
+      p
+        | 今のすくえあは完全に隠しページで動作確認中フェーズなので、いっさいの説明はありません。マウスでもキーボードでも遊べますが、自己責任かつご自由におたのしみください！
+
 </template>
 
 <script lang="typescript">
