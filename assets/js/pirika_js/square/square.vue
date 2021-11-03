@@ -79,10 +79,13 @@ a {
     padding: 0px 0px;
   }
 
+  body{
+    background-color: $frame-background;
+  }
+
   #app {
     width: 100%;
     height: 100%;
-    background-color: $frame-background;
     .game{
       width: 100%;
       height: 100%;

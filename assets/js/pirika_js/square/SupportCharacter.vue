@@ -22,8 +22,8 @@
   @import "stylesheets/global_settings";
   #support-character{
     img{
-      width: 256px;
-      height: 512px;
+      width: 200px;
+      height: 400px;
       transform: scale(-1, 1);
       pointer-events: none;
     }
