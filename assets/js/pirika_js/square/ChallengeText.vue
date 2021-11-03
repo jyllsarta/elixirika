@@ -3,7 +3,7 @@
     .icon
       | ■
     .rank
-      | {{["I","II","III","IV"].at(index)}}
+      | {{["I","II","III","IV"][index]}}
     .description
       | {{challenge.title}}
         
