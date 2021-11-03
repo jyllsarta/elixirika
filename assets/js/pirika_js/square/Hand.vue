@@ -32,12 +32,11 @@
       },
       onDragStart(event){
         console.log("start")
-        const cardId = parseInt(event.item?.id?.split("card-")?.at(1) || -1);
+        const cardId = parseInt(event.item?.id?.split("card-")[1] || -1);
         if(cardId === -1){
           console.warn("invalid drag!");
           return;
         }
-        this.$emit("guiEvent", {type: "unSelectCard"});
       },
       onDragEnd(event){
         if(event.originalEvent.dataTransfer){
@@ -48,7 +47,7 @@
         }
       },
       onDragEndMouse(event){
-        const fieldIndex = parseInt(event.originalEvent.target?.id?.split("field-")?.at(1) || -1);
+        const fieldIndex = parseInt(event.originalEvent.target?.id?.split("field-")[1] || -1);
         const isToAbility = event.originalEvent.target?.id === "support-character";
         const cardId = parseInt(event.item?.id?.split("card-")?.at(1) || -1);
         this.doSend(fieldIndex, isToAbility, cardId);
@@ -59,7 +58,7 @@
         const fieldIndex = Math.floor(clientX * 4 / 1200);
         // TODO: タッチでもスズランにカードを渡せるようにする
         const isToAbility = false;
-        const cardId = parseInt(event.item?.id?.split("card-")?.at(1) || -1);
+        const cardId = parseInt(event.item?.id?.split("card-")[1] || -1);
         this.doSend(fieldIndex, isToAbility, cardId);
       },
       doSend(fieldIndex, isToAbility, cardId){
