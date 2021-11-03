@@ -1,5 +1,5 @@
 <template lang="pug">
-  draggable.field(:id="`field-${field.index}`")
+  draggable.field(:id="`field-${field.index}`" :group="'top'")
     FieldCard(v-for="card in field.cards" :key="card.id", :card="card")
 </template>
 

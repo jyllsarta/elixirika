@@ -1,6 +1,6 @@
 <template lang="pug">
   .area
-    draggable.hand(@end="onDragEnd")
+    draggable.hand(:list="cards" @end="onDragEnd" @start="onDragStart" :move="checkMove" :sort="false" :group="'top'")
       Card(:card="card" v-for="card in cards" :key="card.id", @hover="onCardHover")
 </template>
 
@@ -24,11 +24,45 @@
       },
     },
     methods: {
+      checkMove(event){
+        console.log(event);
+        // TODO: ドラッグ開始タイミングで偽draggableオブジェクトを配置し、タッチ位置の変更を追跡してどこに落ちる予定なのかを把握できるようにする
+        // draggable ネイティブの勝手なリソース移動は禁止するためにかならず false をリターンする
+        return false;
+      },
+      onDragStart(event){
+        console.log("start")
+        const cardId = parseInt(event.item?.id?.split("card-")?.at(1) || -1);
+        if(cardId === -1){
+          console.warn("invalid drag!");
+          return;
+        }
+        this.$emit("guiEvent", {type: "unSelectCard"});
+      },
       onDragEnd(event){
-        console.log(event)
+        if(event.originalEvent.dataTransfer){
+          this.onDragEndMouse(event);
+        }
+        else{
+          this.onDragEndTouch(event);
+        }
+      },
+      onDragEndMouse(event){
         const fieldIndex = parseInt(event.originalEvent.target?.id?.split("field-")?.at(1) || -1);
         const isToAbility = event.originalEvent.target?.id === "support-character";
         const cardId = parseInt(event.item?.id?.split("card-")?.at(1) || -1);
+        this.doSend(fieldIndex, isToAbility, cardId);
+      },
+      onDragEndTouch(event){
+        const {clientX, clitntY} = event.originalEvent.changedTouches[0];
+        // TODO: 1200 決め打ちが気持ち悪い
+        const fieldIndex = Math.floor(clientX * 4 / 1200);
+        // TODO: タッチでもスズランにカードを渡せるようにする
+        const isToAbility = false;
+        const cardId = parseInt(event.item?.id?.split("card-")?.at(1) || -1);
+        this.doSend(fieldIndex, isToAbility, cardId);
+      },
+      doSend(fieldIndex, isToAbility, cardId){
         if(cardId === -1){
           console.warn("invalid drag!");
           return;
@@ -41,6 +75,7 @@
           this.sendToBoard(fieldIndex, cardId);
           return;
         }
+        console.warn("no drag target!");
       },
       sendToAbility(cardId){
         this.$emit("guiEvent", {type: "sendToAbility", cardId: cardId});
