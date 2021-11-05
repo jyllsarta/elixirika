@@ -127,7 +127,7 @@ module.exports = class Controller {
   }
 
   sendHandToEmptyPocketAbility(handIndex){
-    const emptyPocket = this.model.character.uniqueParameters.abilities.find(ability=>ability.category === "cardPocket" && ability.card === null)
+    const emptyPocket = this.model.character.uniqueParameters.abilities?.find(ability=>ability.category === "cardPocket" && ability.card === null)
     if(!emptyPocket){
       console.warn("no empty pocket!");
       return;
