@@ -9,7 +9,7 @@
     .support_character_ability.object
       SupportCharacterAbilityBase(:character="model.character" @guiEvent="onGuiEvent")
     .center_board.object
-      CenterBoard(:board="model.board")
+      CenterBoard(:board="model.board", :model="model")
     .staged_field.object
       StagedField(:stagedField="model.stagedField", :model="model")
     .hand.object

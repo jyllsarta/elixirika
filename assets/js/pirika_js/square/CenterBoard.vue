@@ -4,17 +4,19 @@
       .index(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]")
         | {{board.fields[index].cards.length}}
     .fields
-      Field(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]")
+      Field(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]" :selected="model.selectingBoardIndex === index")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import Field from "./Field.vue"
   import Board from "./packs/board"
+  import Model from "./packs/model"
 
   export default Vue.extend({
     props: {
       board: Board,
+      model: Model,
     },
     components: {
       Field,

@@ -123,6 +123,7 @@ module.exports = class Controller {
     const handIndex = stagedField.stagedCardIsFromIndex;
     const card = stagedField.field.cards[0];
     stagedField.field.sendCardById(card.id, this.model.hand.field, {index: handIndex})
+    this.model.selectingBoardIndex = -1;
     card.setSelected(true);
   }
 

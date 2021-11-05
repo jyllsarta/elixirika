@@ -1,5 +1,5 @@
 <template lang="pug">
-  draggable.field(:id="`field-${field.index}`" :group="'top'")
+  draggable.field(:id="`field-${field.index}`" :group="'top'" :class="{selected: selected}")
     FieldCard(v-for="card in field.cards" :key="card.id", :card="card")
 </template>
 
@@ -11,7 +11,8 @@
 
   export default Vue.extend({
     props: {
-      field: Field
+      field: Field,
+      selected: Boolean,
     },
     components: {
       FieldCard,
@@ -26,8 +27,14 @@
     width: 160px;
     height: 250px;
     border: 1px solid $main-color;
+    transition: all 0.2s;
     &:hover{
-      transform: scale(1.05);
+      border: 1px solid $gray1;
+      transform: scale(1.15);
+    }
+    &.selected{
+      border: 1px solid $gray1;
+      transform: scale(1.15);      
     }
   }
 </style>
