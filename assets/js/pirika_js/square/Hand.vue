@@ -2,6 +2,7 @@
   .area
     draggable.hand(:list="cards" @end="onDragEnd" @start="onDragStart" :move="checkMove" :sort="false" :group="'top'")
       Card(:card="card" v-for="card in cards" :key="card.id", @hover="onCardHover")
+    draggable.pseudo_draggable(v-if="touchDragging" :group="'top'")
 </template>
 
 <script lang="typescript">
@@ -10,10 +11,12 @@
   import Hand from "./packs/hand"
   import draggable from 'vuedraggable'
   import Constants from './packs/constants';
+  import Model from './packs/model';
 
   export default Vue.extend({
     props: {
       hand: Hand,
+      model: Model
     },
     components: {
       draggable,
@@ -24,22 +27,44 @@
         return this.hand.field.cards;
       },
     },
+    data(){
+      return {
+        touchDragging: false,
+      }
+    },
     methods: {
       checkMove(event){
-        console.log(event);
-        // TODO: ドラッグ開始タイミングで偽draggableオブジェクトを配置し、タッチ位置の変更を追跡してどこに落ちる予定なのかを把握できるようにする
+        //console.log(event);
+        const {clientX, clientY} = event.originalEvent;
+        //console.log(clientX, clientY)
+        if(!clientX){
+          return false;
+        }
+        const target = this.findTargetFromTouchEvent(clientX, clientY);
+        if(typeof(target) === "number" && this.model.selectingBoardIndex !== target){
+          this.$emit("guiEvent", {type: "selectBoard", index: target});
+        }
+        if(target === "cancel" && this.model.selectingBoardIndex !== target){
+          this.$emit("guiEvent", {type: "selectBoard", index: -1});
+        }
         // draggable ネイティブの勝手なリソース移動は禁止するためにかならず false をリターンする
         return false;
       },
       onDragStart(event){
-        console.log("start")
         const cardId = parseInt(event.item?.id?.split("card-")[1] || -1);
         if(cardId === -1){
           console.warn("invalid drag!");
           return;
         }
+        if(event.originalEvent.pointerType === "touch"){
+          this.touchDragging = true;
+        }
+        else{
+          console.log("mouse drag!")
+        }
       },
       onDragEnd(event){
+        this.touchDragging = false;
         if(event.originalEvent.dataTransfer){
           this.onDragEndMouse(event);
         }
@@ -51,16 +76,21 @@
         const fieldIndex = parseInt(event.originalEvent.target?.id?.split("field-")[1] || -1);
         const isToAbility = event.originalEvent.target?.id === "support-character";
         const cardId = parseInt(event.item?.id?.split("card-")[1] || -1);
-        this.doSend(fieldIndex, isToAbility, cardId);
+        if(isToAbility){
+          this.doSend("ability", cardId);
+        }
+        else{
+          this.doSend(fieldIndex, cardId);
+        }
       },
       onDragEndTouch(event){
-        const target = this.findTargetFromTouchEvent(event)
+        console.log(event)
+        const {clientX, clientY} = event.originalEvent.changedTouches[0];
+        const target = this.findTargetFromTouchEvent(clientX, clientY)
         const cardId = parseInt(event.item?.id?.split("card-")[1] || -1);
         this.doSend(target, cardId);
       },
-      findTargetFromTouchEvent(event){
-        console.log(event)
-        const {clientX, clientY} = event.originalEvent.changedTouches[0];
+      findTargetFromTouchEvent(clientX, clientY){
         const aspectRatio = window.screen.width / window.screen.height;
         const width = Math.max(window.screen.width, Constants.defaultWindowWidth);
         const virtualHeight = width / aspectRatio;
@@ -82,10 +112,11 @@
           return;
         }
         switch(target){
+          case 0:
           case 1:
           case 2:
           case 3:
-          case 4:
+            console.log(target, cardId)
             this.sendToBoard(target, cardId);
             break;  
           case "cancel":
@@ -124,6 +155,13 @@
       align-items: flex-end;
       justify-content: center;
       gap: $space-m;
+    }
+    .pseudo_draggable{
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
     }
   }
 </style>

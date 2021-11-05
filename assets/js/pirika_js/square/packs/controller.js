@@ -148,7 +148,8 @@ module.exports = class Controller {
 
   selectBoard(boardIndex){
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "selectBoard"})
-    if(!this.model.board.fields[boardIndex]){
+    // 非選択状態にするために -1 だけ例外で許可する
+    if(boardIndex !== -1 && !this.model.board.fields[boardIndex]){
       console.error(`no board field ${boardIndex}`);
       return;
     }

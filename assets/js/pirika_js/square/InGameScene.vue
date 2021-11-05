@@ -13,7 +13,7 @@
     .staged_field.object
       StagedField(:stagedField="model.stagedField", :model="model")
     .hand.object
-      Hand(:hand="model.hand" @guiEvent="onGuiEvent")
+      Hand(:hand="model.hand" @guiEvent="onGuiEvent", :model="model")
     .black_board.object
       BlackBoard(:model="model")
     .card_game_panel.object

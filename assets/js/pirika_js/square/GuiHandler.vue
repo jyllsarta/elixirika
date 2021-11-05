@@ -20,6 +20,7 @@
         const card = this.controller.model.hand.field.cards.find(card=>card.id==cardId);
         const cardIndex = this.controller.model.hand.field.cards.indexOf(card);
         this.controller.sendHandToBoard(cardIndex, fieldIndex);
+        this.controller.selectBoard(-1);        
       },
       sendToAbility(args){
         const { cardId } = args;
@@ -31,6 +32,10 @@
         const {card: card} = args;
         const cardIndex = this.controller.model.hand.field.cards.indexOf(card);
         this.controller.selectHand(cardIndex);
+      },
+      selectBoard(args){
+        const {index: index} = args;
+        this.controller.selectBoard(index);
       },
       endGame(_args){
         this.controller.sendPlayLog()

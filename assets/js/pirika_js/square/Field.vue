@@ -27,14 +27,14 @@
     width: 160px;
     height: 250px;
     border: 1px solid $main-color;
-    transition: all 0.2s;
+    transition: all 0.1s;
     &:hover{
       border: 1px solid $gray1;
-      transform: scale(1.15);
+      transform: scale(1.05);
     }
     &.selected{
-      border: 1px solid $gray1;
-      transform: scale(1.15);      
+      border: 1px solid red;
+      transform: scale(1.05);      
     }
   }
 </style>
