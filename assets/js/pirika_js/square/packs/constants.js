@@ -8,5 +8,6 @@ const constants = {
   maxScorePerField: 999,
   maxRandomSeed: 1000000000,
   cardCountScoreBonusThreshold: 8,
+  defaultWindowWidth: 1200,
 }
 module.exports = constants;

@@ -9,6 +9,7 @@
   import Card from "./Card.vue"
   import Hand from "./packs/hand"
   import draggable from 'vuedraggable'
+  import Constants from './packs/constants';
 
   export default Vue.extend({
     props: {
@@ -53,28 +54,50 @@
         this.doSend(fieldIndex, isToAbility, cardId);
       },
       onDragEndTouch(event){
-        const {clientX, clitntY} = event.originalEvent.changedTouches[0];
-        // TODO: 1200 決め打ちが気持ち悪い
-        const fieldIndex = Math.floor(clientX * 4 / 1200);
-        // TODO: タッチでもスズランにカードを渡せるようにする
-        const isToAbility = false;
+        const target = this.findTargetFromTouchEvent(event)
         const cardId = parseInt(event.item?.id?.split("card-")[1] || -1);
-        this.doSend(fieldIndex, isToAbility, cardId);
+        this.doSend(target, cardId);
       },
-      doSend(fieldIndex, isToAbility, cardId){
+      findTargetFromTouchEvent(event){
+        console.log(event)
+        const {clientX, clientY} = event.originalEvent.changedTouches[0];
+        const aspectRatio = window.screen.width / window.screen.height;
+        const width = Math.max(window.screen.width, Constants.defaultWindowWidth);
+        const virtualHeight = width / aspectRatio;
+        const fieldIndex = Math.floor(clientX * 4 / width);
+        const isFloorPart = clientY > (virtualHeight / 2);
+        // 画面下半分かつ左端に出したときはアビリティ宛にする
+        if(fieldIndex === 0 && isFloorPart){
+          return "ability"
+        }
+        // 画面下半分かつ左端でもない場合にはキャンセル扱いにする
+        if(fieldIndex !== 0 && isFloorPart){
+          return "cancel";
+        }
+        return fieldIndex;
+      },
+      doSend(target, cardId){
         if(cardId === -1){
           console.warn("invalid drag!");
           return;
         }
-        if(isToAbility){
-          this.sendToAbility(cardId);
-          return;
+        switch(target){
+          case 1:
+          case 2:
+          case 3:
+          case 4:
+            this.sendToBoard(target, cardId);
+            break;  
+          case "cancel":
+            console.log("cancel!");
+            break;  
+          case "ability":
+            this.sendToAbility(cardId);
+            break;  
+          case -1:
+            console.warn("no drag target!");
+            break;
         }
-        if(fieldIndex !== -1){
-          this.sendToBoard(fieldIndex, cardId);
-          return;
-        }
-        console.warn("no drag target!");
       },
       sendToAbility(cardId){
         this.$emit("guiEvent", {type: "sendToAbility", cardId: cardId});
