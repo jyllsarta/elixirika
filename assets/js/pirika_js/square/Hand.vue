@@ -34,10 +34,10 @@
     },
     methods: {
       checkMove(event){
-        //console.log(event);
-        const {clientX, clientY} = event.originalEvent;
-        //console.log(clientX, clientY)
-        if(!clientX){
+        const {clientX, clientY, type} = event.originalEvent;
+        // タッチドラッグの場合においてのみ行き先表示を判定したい
+        // 逆にマウスの場合は正規のDragEventが来て type が入っているので、 type にそれっぽいものが書いてあったら処理しない
+        if(!clientX || type?.startsWith("drag")){
           return false;
         }
         const target = this.findTargetFromTouchEvent(clientX, clientY);
