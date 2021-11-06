@@ -1,4 +1,3 @@
-const { fill } = require("../../masterdata/chapters");
 let Card = require("../card");
 
 module.exports = class Character2_Default {
@@ -7,19 +6,25 @@ module.exports = class Character2_Default {
   }
 
   onSendToStarPalette = (character, model, field) => {
-    const { maxEnergy, sandStorm } = model.character.getCallback("starPaletteParameter", model.chapter.index)();
+    const { maxEnergy, sandStorm, staleMateByEnergy } = model.character.getCallback("starPaletteParameter", model.chapter.index)();
     this.fluctuateEnergy(character, maxEnergy, field.score());
 
     if(sandStorm){
       this.shufflePocket(character, model);
     }
+    if(staleMateByEnergy && character.uniqueParameters.energy >= maxEnergy){
+      model.isForceStaleMate = true;
+    }
   }
 
   // class 内で this 使うとコールバックで発動したときは this が windowになってるシチュエーションがあるので、 function ではなく アロー関数で定義を行う
   onSendCard = (character, model, card) => {
-    const { consumptionPerCard, scoreRanges, maxEnergy } = model.character.getCallback("starPaletteParameter", model.chapter.index)();
+    const { consumptionPerCard, scoreRanges, maxEnergy, staleMateByEnergy } = model.character.getCallback("starPaletteParameter", model.chapter.index)();
     this.addScore(character, model, scoreRanges);
     this.fluctuateEnergy(character, maxEnergy, -consumptionPerCard)
+    if(staleMateByEnergy && character.uniqueParameters.energy <= 0){
+      model.isForceStaleMate = true;
+    }
   }
 
   calculateScore(character, model){
@@ -35,6 +40,7 @@ module.exports = class Character2_Default {
         {min: 20, max: 80, score: 3},
       ],
       sandStorm: false,
+      staleMateByEnergy: false,
     };
   }
 

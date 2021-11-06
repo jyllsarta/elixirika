@@ -33,6 +33,7 @@ module.exports = class Model {
     this.cardStackRule = this.character.getCallback("cardStackRule", this.chapter.index);
     this.operationHistory = [];
     this.clearedChallenges = [];
+    this.isForceStaleMate = false;
 
     this.onGameStart();
   }
@@ -50,9 +51,13 @@ module.exports = class Model {
     return this.character.getCallback("calculateScore", this.chapter.index)(this.character, this);
   }
 
-  // 手詰まり == デッキ枚数がゼロ && ステージングにもなし && すべての手札がどこにも出せない
+  // 特殊効果による手詰まり == isForceStalemate == true
+  // カード状況による手詰まり == デッキ枚数がゼロ && ステージングにもなし && すべての手札がどこにも出せない
   // TODO: 「スキルを全部使用済み」もやる必要あり 
   isStaleMate(){
+    if(this.isForceStaleMate){
+      return true;
+    }
     if(this.deck.field.cards.length !== 0){
       return false;
     }
