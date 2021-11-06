@@ -1,3 +1,4 @@
+const { fill } = require("../../masterdata/chapters");
 let Card = require("../card");
 
 module.exports = class Character2_Default {
@@ -6,8 +7,12 @@ module.exports = class Character2_Default {
   }
 
   onSendToStarPalette = (character, model, field) => {
-    const { maxEnergy } = model.character.getCallback("starPaletteParameter", model.chapter.index)();
-    this.fluctuateEnergy(character, maxEnergy, field.score())
+    const { maxEnergy, sandStorm } = model.character.getCallback("starPaletteParameter", model.chapter.index)();
+    this.fluctuateEnergy(character, maxEnergy, field.score());
+
+    if(sandStorm){
+      this.shufflePocket(character, model);
+    }
   }
 
   // class 内で this 使うとコールバックで発動したときは this が windowになってるシチュエーションがあるので、 function ではなく アロー関数で定義を行う
@@ -28,7 +33,8 @@ module.exports = class Character2_Default {
       scoreRanges: [
         {min: 40, max: 60, score: 5},
         {min: 20, max: 80, score: 3},
-      ]
+      ],
+      sandStorm: false,
     };
   }
 
@@ -82,6 +88,20 @@ module.exports = class Character2_Default {
     }
     if(character.uniqueParameters.energy > maxEnergy){
       character.uniqueParameters.energy = maxEnergy;
+    }
+  }
+
+  // デッキに入れて、シャッフルして、デッキから引いてくる
+  shufflePocket = (character, model) => {
+    const filledPockets = character.uniqueParameters.abilities?.filter(ability=>ability.category === "cardPocket" && ability.card !== null);
+    for(let pocket of filledPockets){
+      model.deck.field.cards.push(pocket.card);
+      pocket.card = null;
+    }
+    model.deck.shuffle(model.seededRandom)
+    for(let pocket of filledPockets){
+      let card = model.deck.field.cards.pop();
+      pocket.card = card;
     }
   }
 };
