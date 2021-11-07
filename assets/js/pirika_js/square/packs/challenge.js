@@ -39,6 +39,9 @@ module.exports = class Challenge {
       case "getAllTreasure":
         return this.isClearedGetAllTreasure(challenge, model);
         break;
+      case "completeRun":
+        return this.isClearedCompleteRun(challenge, model);
+        break;
       default:
         console.warn(`unknown challenge type: ${challenge.type}`)
         return false;
@@ -83,6 +86,9 @@ module.exports = class Challenge {
       model.board.fields.every(field => this.hasNoJewelCard(field));
   }
 
+  isClearedCompleteRun(challenge, model){
+    return model.isStaleMate() && !model.isForceStaleMate;
+  }
   // private
 
   hasNoJewelCard(field){
