@@ -2,7 +2,7 @@
 const constants = {
   fieldCardNumber: 4,
   handCardNumber: 4,
-  normalCardPerSuit: 2,
+  normalCardPerSuit: 10,
   senderCardPerSuit: 3,
   senderCardRank: 11,
   maxScorePerField: 999,
