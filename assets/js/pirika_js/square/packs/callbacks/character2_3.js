@@ -9,6 +9,7 @@ module.exports = class Character2_3 {
       ],
       sandStorm: false,
       staleMateByEnergy: true,
+      coldAbility: false,
     };
   }
 };

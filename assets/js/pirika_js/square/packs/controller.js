@@ -133,6 +133,11 @@ module.exports = class Controller {
       console.warn("no empty pocket!");
       return;
     }
+    const callback = this.model.character.getCallback("isAbilityColded", this.model.chapter.index);
+    if(callback && callback(this.model.character, this.model)){
+      console.log("cold now!");
+      return;
+    }
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToEmptyPocketAbility"})
     const card = this.model.hand.field.cards[handIndex];
     card.selected = false;

@@ -6,7 +6,7 @@ module.exports = class Character2_Default {
   }
 
   onSendToStarPalette = (character, model, field) => {
-    const { maxEnergy, sandStorm, staleMateByEnergy } = model.character.getCallback("starPaletteParameter", model.chapter.index)();
+    const { maxEnergy, sandStorm, staleMateByEnergy } = character.getCallback("starPaletteParameter", model.chapter.index)();
     this.fluctuateEnergy(character, maxEnergy, field.score());
 
     if(sandStorm){
@@ -19,7 +19,7 @@ module.exports = class Character2_Default {
 
   // class 内で this 使うとコールバックで発動したときは this が windowになってるシチュエーションがあるので、 function ではなく アロー関数で定義を行う
   onSendCard = (character, model, card) => {
-    const { consumptionPerCard, scoreRanges, maxEnergy, staleMateByEnergy } = model.character.getCallback("starPaletteParameter", model.chapter.index)();
+    const { consumptionPerCard, scoreRanges, maxEnergy, staleMateByEnergy } = character.getCallback("starPaletteParameter", model.chapter.index)();
     this.addScore(character, model, scoreRanges);
     this.fluctuateEnergy(character, maxEnergy, -consumptionPerCard)
     if(staleMateByEnergy && character.uniqueParameters.energy <= 0){
@@ -41,6 +41,7 @@ module.exports = class Character2_Default {
       ],
       sandStorm: false,
       staleMateByEnergy: false,
+      coldAbility: false,
     };
   }
 
@@ -67,6 +68,13 @@ module.exports = class Character2_Default {
       return false;
     }
     return true;
+  }
+
+  isAbilityColded = (character, model) => {
+    const { coldAbility } = character.getCallback("starPaletteParameter", model.chapter.index)();
+    const x = model.deck.field.cards.length;
+    console.log(Math.floor(x / 4) % 2);
+    return coldAbility && Math.floor(x / 4) % 2 === 0;
   }
 
   // private

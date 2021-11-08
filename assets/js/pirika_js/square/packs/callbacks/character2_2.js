@@ -8,6 +8,8 @@ module.exports = class Character2_2 {
         {min: 20, max: 80, score: 3},
       ],
       sandStorm: true,
+      staleMateByEnergy: false,
+      coldAbility: false,
     };
   }
 };

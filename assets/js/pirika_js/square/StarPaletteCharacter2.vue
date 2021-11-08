@@ -2,6 +2,8 @@
   .area
     .spp
       | EN: {{model.character.uniqueParameters.energy}}
+    .spp2
+      | Cold: {{isColded}}
 </template>
 
 <script lang="typescript">
@@ -23,6 +25,11 @@
     methods: {
       stringExpression(param){
         return param.upper ? param.value + "+" : param.value;
+      }
+    },
+    computed: {
+      isColded(){
+        return this.model.character.getCallback("isAbilityColded", this.model.chapter.index)(this.model.character, this.model);
       }
     },
   })
