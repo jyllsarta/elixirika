@@ -19,7 +19,8 @@ module.exports = class Character2 {
       abilities: [
         new AbilityCardPocket(),
         new AbilityCardPocket(),
-      ]
+      ],
+      sandStormCount: 0,
     }
     this.defaultCallback = new Character2_Default();
     this.callbacks = {

@@ -42,6 +42,9 @@ module.exports = class Challenge {
       case "completeRun":
         return this.isClearedCompleteRun(challenge, model);
         break;
+      case "sandStormCount":
+        return this.isClearedSandStormCount(challenge, model);
+        break;
       default:
         console.warn(`unknown challenge type: ${challenge.type}`)
         return false;
@@ -76,6 +79,11 @@ module.exports = class Challenge {
   isClearedBiggestStack(challenge, model){
     const maxStackSize = Math.max(...(model.starPalette.fields.map(field=>field.cards.length)));
     return challenge.value1 <= maxStackSize;
+  }
+
+  isClearedSandStormCount(challenge, model){
+    const count = model.character.uniqueParameters.sandStormCount;
+    return challenge.value1 <= count;
   }
 
   // 「すべての j を回収している」とは「ゲーム終了時、手札にも捨札にもボードにも j がない状態」である

@@ -117,5 +117,6 @@ module.exports = class Character2_Default {
       let card = model.deck.field.cards.pop();
       pocket.card = card;
     }
+    character.uniqueParameters.sandStormCount += filledPockets.length;
   }
 };
