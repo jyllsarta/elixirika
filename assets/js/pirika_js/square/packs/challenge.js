@@ -45,6 +45,12 @@ module.exports = class Challenge {
       case "sandStormCount":
         return this.isClearedSandStormCount(challenge, model);
         break;
+      case "sustainEnergyRange":
+        return this.isClearedSustainEnergyRange(challenge, model);
+        break;
+      case "beEnergyRange":
+        return this.isClearedBeEnergyRange(challenge, model);
+        break;
       default:
         console.warn(`unknown challenge type: ${challenge.type}`)
         return false;
@@ -97,9 +103,44 @@ module.exports = class Challenge {
   isClearedCompleteRun(challenge, model){
     return model.isStaleMate() && !model.isForceStaleMate;
   }
+
+  isClearedSustainEnergyRange(challenge, model){
+    const energyHistory = model.character.uniqueParameters.energyHistory;
+    if(energyHistory === undefined){
+      console.warn("character has no energy history but challenge SustainEnergyRange is set");
+      return;
+    }
+    const min = challenge.value1;
+    const max = challenge.value2;
+    // 最後まで維持チャレンジの場合は両端を含まない
+    return model.isStaleMate() && energyHistory.every(energy=>this.isInRange(min, max, energy, false))
+  }
+
+  isClearedBeEnergyRange(challenge, model){
+    console.log(model.character.uniqueParameters.energyHistory)
+    const energyHistory = model.character.uniqueParameters.energyHistory;
+    if(energyHistory === undefined){
+      console.warn("character has no energy history but challenge SustainEnergyRange is set");
+      return;
+    }
+    const min = challenge.value1;
+    const max = challenge.value2;
+    // 一回でもその範囲に入ればOKチャレンジは両端を含む
+    return energyHistory.some(energy=>this.isInRange(min, max, energy, true))
+  }
+
   // private
 
   hasNoJewelCard(field){
     return field.cards.every(card => card.suit !== "j")
+  }
+
+  isInRange(min, max, value, includeBothEnds){
+    if(includeBothEnds){
+      return min <= value && value <= max;
+    }
+    else{
+      return min < value && value < max;
+    }
   }
 };

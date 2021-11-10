@@ -8,7 +8,6 @@ module.exports = class Character2_Default {
   onSendToStarPalette = (character, model, field) => {
     const { maxEnergy, sandStorm, staleMateByEnergy } = character.getCallback("starPaletteParameter", model.chapter.index)();
     this.fluctuateEnergy(character, maxEnergy, field.score());
-
     if(sandStorm){
       this.shufflePocket(character, model);
     }
@@ -22,6 +21,7 @@ module.exports = class Character2_Default {
     const { consumptionPerCard, scoreRanges, maxEnergy, staleMateByEnergy } = character.getCallback("starPaletteParameter", model.chapter.index)();
     this.addScore(character, model, scoreRanges);
     this.fluctuateEnergy(character, maxEnergy, -consumptionPerCard)
+    character.uniqueParameters.energyHistory.push(character.uniqueParameters.energy);
     if(staleMateByEnergy && character.uniqueParameters.energy <= 0){
       model.isForceStaleMate = true;
     }
