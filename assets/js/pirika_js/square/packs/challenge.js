@@ -113,7 +113,7 @@ module.exports = class Challenge {
     const min = challenge.value1;
     const max = challenge.value2;
     // 最後まで維持チャレンジの場合は両端を含まない
-    return model.isStaleMate() && energyHistory.every(energy=>this.isInRange(min, max, energy, false))
+    return model.isStaleMate() && energyHistory.every(energy=>this.isInRange(min, max, energy, false));
   }
 
   isClearedBeEnergyRange(challenge, model){
@@ -126,13 +126,13 @@ module.exports = class Challenge {
     const min = challenge.value1;
     const max = challenge.value2;
     // 一回でもその範囲に入ればOKチャレンジは両端を含む
-    return energyHistory.some(energy=>this.isInRange(min, max, energy, true))
+    return energyHistory.some(energy=>this.isInRange(min, max, energy, true));
   }
 
   // private
 
   hasNoJewelCard(field){
-    return field.cards.every(card => card.suit !== "j")
+    return field.cards.every(card => card.suit !== "j");
   }
 
   isInRange(min, max, value, includeBothEnds){
