@@ -19,6 +19,8 @@ module.exports = class Character2 {
       abilities: [
         new AbilityCardPocket(),
         new AbilityCardPocket(),
+        new AbilityCardPocket(),
+        new AbilityCardPocket(),
       ],
       sandStormCount: 0,
       energyHistory: [],
