@@ -1,8 +1,10 @@
 let Card = require("../card");
 
-module.exports = class Character2_Default {
+module.exports = class Character4_Default {
   onGameStart(character, model){
     console.log("あかねですー");
+    const { enemies } = character.getCallback("starPaletteParameter", model.chapter.index)();
+    character.initializeEnemy(enemies);
   }
 
   onSendCard(character, model, card){
@@ -17,15 +19,12 @@ module.exports = class Character2_Default {
 
   starPaletteParameter(){
     return {
-      kinds: [
-        {value: 1, order: 1},
-        {value: 2, order: 1},
-        {value: 3, order: 1},
-        {value: 4, order: 1},
-        {value: 5, order: 1},
-        {value: 6, order: 1},
-        {value: 7, order: 1},
-        {value: 8, order: 1, upper: true},
+      enemies: [
+        {hp: 1},
+        {hp: 3},
+        {hp: 5},
+        {hp: 6},
+        {hp: 7},
       ]
     };
   }

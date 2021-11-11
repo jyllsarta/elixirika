@@ -1,8 +1,8 @@
 <template lang="pug">
   .area
     .container
-      .star(v-for="param in params", :class="model.starPalette.isSatisfied(param) ?  'enabled' : 'disabled'")
-        | {{stringExpression(param)}}
+      .star(v-for="param in params")
+        | {{param.hp}} / {{param.hpMax}}
 </template>
 
 <script lang="typescript">
@@ -19,12 +19,9 @@
       }
     },
     mounted(){
-      this.params = this.model.character.getCallback("starPaletteParameter", this.model.chapter.index)()?.kinds;
+      this.params = this.model.character.uniqueParameters.enemies;
     },
     methods: {
-      stringExpression(param){
-        return param.upper ? param.value + "+" : param.value;
-      }
     },
   })
 </script>

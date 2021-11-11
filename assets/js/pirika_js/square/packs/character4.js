@@ -7,7 +7,7 @@ let AbilityAddCard = require("./abilityAddCard");
 let Card = require("./card");
 
 
-module.exports = class Character2 {
+module.exports = class Character4 {
   constructor(){
     this.id = 4;
     this.name = "あかね";
@@ -16,11 +16,10 @@ module.exports = class Character2 {
 
     this.uniqueParameters = {
       abilities: [
-        new AbilityAddCard(new Card( 0, "X", "special")),
-        new AbilityAddCard(new Card( 0, "X", "special")),
-        new AbilityAddCard(new Card( 11, "s", "sender")),
-        new AbilityAddCard(new Card( 11, "h", "sender")),
-      ]
+        // TODO 魔法スキル
+      ],
+      // initializeEnemy で実体化する
+      enemies: [],
     }
     this.defaultCallback = new Character4_Default();
     this.callbacks = {
@@ -34,5 +33,17 @@ module.exports = class Character2 {
   getCallback(callbackName, index){
     console.log(callbackName, index)
     return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
+  }
+
+  initializeEnemy(enemyParameters){
+    let enemies = [];
+    for(let param of enemyParameters){
+      let enemy = {
+        hp: param.hp,
+        hpMax: param.hp
+      }
+      enemies.push(enemy)
+    };
+    this.uniqueParameters.enemies = enemies;
   }
 };
