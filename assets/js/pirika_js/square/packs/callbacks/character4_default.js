@@ -10,7 +10,13 @@ module.exports = class Character4_Default {
   onSendCard(character, model, card){
   }
 
-  onSendToStarPalette(character, model, field){
+  onSendToStarPalette = (character, model, field) => {
+    const power = field.cards.length;
+    let nextEnemy = character.uniqueParameters.enemies.find(enemy=>enemy.hp>0);
+    if(!nextEnemy){
+      return;
+    }
+    nextEnemy.hp -= power;
   }
 
   calculateScore(character, model){
