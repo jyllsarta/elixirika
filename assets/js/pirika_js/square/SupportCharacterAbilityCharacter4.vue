@@ -8,7 +8,7 @@
       .button(
         v-for="(ability, index) in character.uniqueParameters.abilities"
         @click="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
-        :class="ability.card.suit"
+        :class="{disabled: !character.hasSufficientMp(ability.cost), enabled: character.hasSufficientMp(ability.cost)}"
       )
         | {{ability.stringExpression()}}
 
@@ -42,20 +42,17 @@
     }
     .button{
       padding: $space-m;
-      &:hover{
-        transform: scale(1.2);
-      }
-      &.X{
-        border: 1px solid $yellow;
-        background-color: $yellow-o;
-      }
-      &.s{
-        border: 1px solid $light-green;
-        background-color: $light-green-o;
-      }
-      &.h{
-        border: 1px solid $extra-light-purple;
-        background-color: $extra-light-purple-o;
+      &.enabled{
+        &:hover{
+          transform: scale(1.2);
+        }
+      } 
+      border: 1px solid $yellow;
+      background-color: $yellow-o;
+      &.disabled{
+        border: 1px solid $gray1;
+        background-color: transparent;
+        opacity: $disabled-opacity;
       }
     }
   }

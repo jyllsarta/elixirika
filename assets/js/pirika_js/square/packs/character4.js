@@ -3,7 +3,9 @@ let Character4_1 = require("./callbacks/character4_1");
 let Character4_2 = require("./callbacks/character4_2");
 let Character4_3 = require("./callbacks/character4_3");
 let Character4_4 = require("./callbacks/character4_4");
-let AbilityAddCard = require("./abilityAddCard");
+let AbilityAddCardWithMp = require("./abilityAddCardWithMp");
+let AbilityDamageWithMp = require("./abilityDamageWithMp");
+let AbilityDrawWithMp = require("./abilityDrawWithMp");
 let Card = require("./card");
 
 
@@ -16,7 +18,9 @@ module.exports = class Character4 {
 
     this.uniqueParameters = {
       abilities: [
-        // TODO 魔法スキル
+        new AbilityAddCardWithMp( [new Card( 11, "s", "sender"), new Card( 11, "h", "sender")], 25),
+        new AbilityDamageWithMp(5,10),
+        new AbilityDrawWithMp(1,1),
       ],
       // initializeEnemy で実体化する
       enemies: [],
@@ -36,6 +40,15 @@ module.exports = class Character4 {
     return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
   }
 
+  damageToNextEnemy(power){
+    let nextEnemy = this.uniqueParameters.enemies.find(enemy=>enemy.hp>0);
+    if(!nextEnemy){
+      console.warn("no damage target!")
+      return;
+    }
+    nextEnemy.hp -= power;
+  }
+
   initializeEnemy(enemyParameters){
     let enemies = [];
     for(let param of enemyParameters){
@@ -46,5 +59,9 @@ module.exports = class Character4 {
       enemies.push(enemy)
     };
     this.uniqueParameters.enemies = enemies;
+  }
+
+  hasSufficientMp(cost){
+    return this.uniqueParameters.mp >= cost;
   }
 };
