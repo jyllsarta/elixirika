@@ -20,6 +20,7 @@ module.exports = class Character4 {
       ],
       // initializeEnemy で実体化する
       enemies: [],
+      mp: 0,
     }
     this.defaultCallback = new Character4_Default();
     this.callbacks = {

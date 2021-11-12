@@ -17,6 +17,7 @@ module.exports = class Character4_Default {
       return;
     }
     nextEnemy.hp -= power;
+    character.uniqueParameters.mp += field.score();
   }
 
   calculateScore(character, model){

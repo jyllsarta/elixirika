@@ -2,6 +2,8 @@
   .area
     .index
       | あかねのスキル
+    .mp
+      | MP: {{character.uniqueParameters.mp}}
     .buttons
       .button(
         v-for="(ability, index) in character.uniqueParameters.abilities"
