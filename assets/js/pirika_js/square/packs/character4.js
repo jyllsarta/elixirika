@@ -40,13 +40,14 @@ module.exports = class Character4 {
     return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
   }
 
-  damageToNextEnemy(power){
+  damageToNextEnemy(power, abilityDamage=false){
     let nextEnemy = this.uniqueParameters.enemies.find(enemy=>enemy.hp>0);
     if(!nextEnemy){
       console.warn("no damage target!")
       return;
     }
     nextEnemy.hp -= power;
+    nextEnemy.damageHistory.push({power: power, abilityDamage: abilityDamage});
   }
 
   initializeEnemy(enemyParameters){
@@ -54,7 +55,8 @@ module.exports = class Character4 {
     for(let param of enemyParameters){
       let enemy = {
         hp: param.hp,
-        hpMax: param.hp
+        hpMax: param.hp,
+        damageHistory: [],
       }
       enemies.push(enemy)
     };
