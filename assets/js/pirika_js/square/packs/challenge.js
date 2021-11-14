@@ -51,6 +51,12 @@ module.exports = class Challenge {
       case "beEnergyRange":
         return this.isClearedBeEnergyRange(challenge, model);
         break;
+      case "defeatEnemy":
+        return this.isClearedDefeatEnemy(challenge, model);
+        break;  
+      case "defeatEnemyCount":
+        return this.isClearedDefeatEnemyCount(challenge, model);
+        break;  
       default:
         console.warn(`unknown challenge type: ${challenge.type}`)
         return false;
@@ -117,7 +123,6 @@ module.exports = class Challenge {
   }
 
   isClearedBeEnergyRange(challenge, model){
-    console.log(model.character.uniqueParameters.energyHistory)
     const energyHistory = model.character.uniqueParameters.energyHistory;
     if(energyHistory === undefined){
       console.warn("character has no energy history but challenge SustainEnergyRange is set");
@@ -127,6 +132,46 @@ module.exports = class Challenge {
     const max = challenge.value2;
     // 一回でもその範囲に入ればOKチャレンジは両端を含む
     return energyHistory.some(energy=>this.isInRange(min, max, energy, true));
+  }
+
+  isClearedDefeatEnemy(challenge, model){
+    const enemies = model.character.uniqueParameters.enemies;
+    if(enemies === undefined){
+      console.warn("character has no enemies but challenge DefeatEnemy is set");
+      return;
+    }
+    const enemyId = challenge.value1;
+    const shouldOneShot = challenge.value2 !== 0;
+    const shouldDoneByAbilityDamage = challenge.value3 !== 0;
+    const enemy = enemies.find(enemy=>enemy.id === enemyId);
+    if(shouldOneShot && enemy.damageHistory.length !== 1){
+      return false;
+    }
+    // todo: 検証
+    if(shouldDoneByAbilityDamage && enemy.damageHistory[enemy.damageHistory.length - 1]?.isAbilityDamage !== true){
+      return false;
+    }
+    console.log(shouldOneShot, shouldDoneByAbilityDamage, enemy.hp <= 0);
+    return enemy.hp <= 0;
+  }
+
+  isClearedDefeatEnemyCount(challenge, model){
+    let enemies = model.character.uniqueParameters.enemies;
+    if(enemies === undefined){
+      console.warn("character has no enemies but challenge DefeatEnemyCount is set");
+      return;
+    }
+    const count = challenge.value1;
+    const requredRemainCardCount = challenge.value2;
+    const shouldDoneByAbilityDamage = challenge.value3 !== 0;
+    enemies = enemies.filter(enemy=>enemy.hp <= 0);
+    if(shouldDoneByAbilityDamage){
+      enemies = enemies.filter(enemy=>enemy.damageHistory[enemy.damageHistory.length - 1]?.isAbilityDamage === true)
+    }
+    if(model.deck.field.cards.length < requredRemainCardCount){
+      return false;
+    }
+    return count <= enemies.length;
   }
 
   // private

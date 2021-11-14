@@ -174,6 +174,7 @@ module.exports = class Controller {
       character.uniqueParameters.abilities.splice(index, 1);
     }
     ability.ignite(character, this.model);
+    this.model.checkAndUpdateClearedChallenges();
   }
 
   sendPlayLog(){

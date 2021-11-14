@@ -23,11 +23,11 @@ module.exports = class Character4_Default {
   starPaletteParameter(){
     return {
       enemies: [
-        {hp: 1},
-        {hp: 3},
-        {hp: 5},
-        {hp: 6},
-        {hp: 7},
+        {id: 1, hp: 1},
+        {id: 2, hp: 3},
+        {id: 3, hp: 5},
+        {id: 4, hp: 6},
+        {id: 5, hp: 7},
       ]
     };
   }
