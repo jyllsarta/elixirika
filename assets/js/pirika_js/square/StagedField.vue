@@ -39,6 +39,7 @@
     width: 160px;
     height: 100px;
     .card_container{
+      pointer-events: none;
       position: absolute;
       top: 0px;
       width: 100%;
