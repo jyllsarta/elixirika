@@ -15,4 +15,4 @@ fs.writeFile(`/tmp/square_result_${seed}.json`, JSON.stringify(status), "utf8", 
     console.log(JSON.stringify(error));
   }
 });
-console.log("donedoneodne")
+console.log("SUCCESS: write result completed!");

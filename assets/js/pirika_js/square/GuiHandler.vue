@@ -40,7 +40,7 @@
       endGame(_args){
         this.controller.sendPlayLog()
         .then((_) => {
-          console.log("send end");
+          console.log("score send complete");
           this.$emit("loadScene", {sceneName: "mainMenu"});
         });
       },

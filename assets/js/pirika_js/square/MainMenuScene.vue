@@ -93,9 +93,7 @@
         }
         axios.get(`/square/status`, {params: params})
         .then((results) => {
-          console.log(results);
           this.userStatus = this.constructUserStatus(results.data);
-          console.log("OK");
         })
         .catch((results) => {
           console.warn(results);

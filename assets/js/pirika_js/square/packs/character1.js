@@ -34,7 +34,6 @@ module.exports = class Character1 {
   }
 
   getCallback(callbackName, index){
-    console.log(callbackName, index)
     return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
   }
 };

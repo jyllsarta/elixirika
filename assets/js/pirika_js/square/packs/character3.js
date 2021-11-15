@@ -21,7 +21,6 @@ module.exports = class Character3 {
   }
 
   getCallback(callbackName, index){
-    console.log(callbackName, index)
     return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
   }
 };

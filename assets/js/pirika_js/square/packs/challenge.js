@@ -151,7 +151,6 @@ module.exports = class Challenge {
     if(shouldDoneByAbilityDamage && enemy.damageHistory[enemy.damageHistory.length - 1]?.isAbilityDamage !== true){
       return false;
     }
-    console.log(shouldOneShot, shouldDoneByAbilityDamage, enemy.hp <= 0);
     return enemy.hp <= 0;
   }
 

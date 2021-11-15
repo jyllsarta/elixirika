@@ -13,7 +13,7 @@ module.exports = class AbilityDamageWithMp {
   ignite(character, model){
     const callback = character.getCallback("isAbilityColded", model.chapter.index);
     if(callback && callback(character, model)){
-      console.log("cold now!");
+      console.warn("cold now!");
       return;
     }
     if(character.uniqueParameters.mp < this.cost){

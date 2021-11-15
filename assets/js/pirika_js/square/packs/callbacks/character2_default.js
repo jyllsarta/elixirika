@@ -73,7 +73,6 @@ module.exports = class Character2_Default {
   isAbilityColded = (character, model) => {
     const { coldAbility } = character.getCallback("starPaletteParameter", model.chapter.index)();
     const x = model.deck.field.cards.length;
-    console.log(Math.floor(x / 4) % 2);
     return coldAbility && Math.floor(x / 4) % 2 === 0;
   }
 
@@ -81,9 +80,7 @@ module.exports = class Character2_Default {
 
   addScore = (character, model, scoreRanges) => {
     for(let scoreRange of scoreRanges){
-      console.log(scoreRange)
       if(this.inRange(character.uniqueParameters.energy, scoreRange)){
-        console.log(scoreRange.score)
         character.uniqueParameters.score += scoreRange.score;
         return;
       }

@@ -3,7 +3,6 @@ module.exports = class AbilityAddCard {
     this.category = "addCard";
     this.card = card;
     this.isRemovedAfterIgnite = true;
-    console.log(this.isRemovedAfterIgnite);
   }
 
   stringExpression(){
@@ -13,7 +12,7 @@ module.exports = class AbilityAddCard {
   ignite(character, model){
     const callback = character.getCallback("isAbilityColded", model.chapter.index);
     if(callback && callback(character, model)){
-      console.log("cold now!");
+      console.warn("cold now!");
       return;
     }
     model.hand.field.addCard(this.card);

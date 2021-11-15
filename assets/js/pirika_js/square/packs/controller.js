@@ -76,7 +76,7 @@ module.exports = class Controller {
 
   _doSendCardToBoard(card, fromField, toField){
     if(!this.model.cardStackRule(this.model.character, this.model, card, toField)){
-      console.error("cannot stack this card!");
+      console.warn("cannot stack this card!");
       this.unstageStagedCard();
       return;
     }
@@ -105,7 +105,7 @@ module.exports = class Controller {
     const card = this.model.hand.field.cards[handIndex];
     const stagedField = this.model.stagedField;
     if(!stagedField.isSendable()){
-      console.error("cannot stack this card!");
+      console.warn("cannot stack this card!");
       return;
     }
     card.setSelected(false);
@@ -135,7 +135,7 @@ module.exports = class Controller {
     }
     const callback = this.model.character.getCallback("isAbilityColded", this.model.chapter.index);
     if(callback && callback(this.model.character, this.model)){
-      console.log("cold now!");
+      console.warn("cold now!");
       return;
     }
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToEmptyPocketAbility"})
@@ -155,7 +155,7 @@ module.exports = class Controller {
     this.model.operationHistory.push({arguments: Object.values(arguments), name: "selectBoard"})
     // 非選択状態にするために -1 だけ例外で許可する
     if(boardIndex !== -1 && !this.model.board.fields[boardIndex]){
-      console.error(`no board field ${boardIndex}`);
+      console.warn(`no board field ${boardIndex}`);
       return;
     }
     this.model.selectingBoardIndex = boardIndex;

@@ -59,9 +59,6 @@
         if(event.originalEvent.pointerType === "touch"){
           this.touchDragging = true;
         }
-        else{
-          console.log("mouse drag!")
-        }
       },
       onDragEnd(event){
         this.touchDragging = false;
@@ -84,7 +81,6 @@
         }
       },
       onDragEndTouch(event){
-        console.log(event)
         const {clientX, clientY} = event.originalEvent.changedTouches[0];
         const target = this.findTargetFromTouchEvent(clientX, clientY)
         const cardId = parseInt(event.item?.id?.split("card-")[1] || -1);
@@ -116,7 +112,6 @@
           case 1:
           case 2:
           case 3:
-            console.log(target, cardId)
             this.sendToBoard(target, cardId);
             break;  
           case "cancel":
