@@ -21,9 +21,9 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   #support-character{
+    height: 400px;
     img{
-      width: 200px;
-      height: 400px;
+      height: 100%;
       transform: scale(-1, 1);
       pointer-events: none;
     }

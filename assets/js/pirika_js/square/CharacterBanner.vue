@@ -30,7 +30,7 @@
         width: 100%;
         height: 100%;
         background-size: 300px;
-        background-position: 50px 40%;
+        background-position: 50px 35%;
         background-repeat: no-repeat;
         transform: scale(-1, 1);
       }

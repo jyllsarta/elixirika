@@ -8,7 +8,7 @@ module.exports = class Character3 {
   constructor(){
     this.id = 3;
     this.name = "ミズハ";
-    this.imageName = "faily2";
+    this.imageName = "character3";
     this.defaultMessage = "はい、ミズハです。\n今回も頑張っていきましょうね";
     this.uniqueParameters = {};
     this.defaultCallback = new Character3_Default();

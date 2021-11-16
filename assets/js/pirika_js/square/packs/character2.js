@@ -10,7 +10,7 @@ module.exports = class Character2 {
   constructor(){
     this.id = 2;
     this.name = "すずらん";
-    this.imageName = "faily";
+    this.imageName = "character2";
     this.defaultMessage = "ふええ";
 
     this.uniqueParameters = {

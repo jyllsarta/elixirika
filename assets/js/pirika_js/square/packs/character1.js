@@ -11,7 +11,7 @@ module.exports = class Character1 {
     // TODO: 今後キャラマスタ・セリフマスタに移動していく
     this.id = 1;
     this.name = "ピリカ";
-    this.imageName = "faily";
+    this.imageName = "character1";
     this.defaultMessage = "はーい！こんにちは\nまずはカード出してみてね";
 
     this.uniqueParameters = {
