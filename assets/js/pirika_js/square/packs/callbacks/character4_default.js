@@ -14,6 +14,9 @@ module.exports = class Character4_Default {
     const power = field.cards.length;
     character.damageToNextEnemy(power);
     character.uniqueParameters.mp += field.score();
+    if(character.isAllEnemyDefeated()){
+      model.isForceStaleMate = true;
+    }
   }
 
   calculateScore(character, model){

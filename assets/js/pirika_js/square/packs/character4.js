@@ -67,4 +67,8 @@ module.exports = class Character4 {
   hasSufficientMp(cost){
     return this.uniqueParameters.mp >= cost;
   }
+
+  isAllEnemyDefeated(){
+    return this.uniqueParameters.enemies.every(enemy=>enemy.hp<=0)
+  }
 };
