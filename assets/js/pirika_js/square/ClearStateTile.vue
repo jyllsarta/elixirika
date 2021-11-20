@@ -29,12 +29,12 @@
             opacity: 0.5,
           },
           {
-            duration: 0.5,
+            duration: 1,
             scale: 2,
             opacity: 0,
             ease: 'expo.out',
           });
-        await this.$delay(100);
+        await this.$delay(300);
         this.$emit('selected', {chapterId: this.chapter.id, characterId: this.character.id});
       },
       isCleared(challengeIndex){
