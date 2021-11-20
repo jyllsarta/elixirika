@@ -1,16 +1,17 @@
 <template lang="pug">
-  .clear_state_tile(@click="$emit('selected', {chapterId: chapter.id, characterId: character.id})")
-    .flake1.flake
-    .flake2.flake(:class="isCleared(0) ? 'cleared' : ''")
-    .flake3.flake(:class="isCleared(1) ? 'cleared' : ''")
-    .flake4.flake(:class="isCleared(2) ? 'cleared' : ''")
-    .flake5.flake(:class="isCleared(3) ? 'cleared' : ''")
+  .clear_state_tile(@click="onClick")
+    .flake1.flake(:class="isCleared(0) ? 'cleared' : ''")
+    .flake2.flake(:class="isCleared(1) ? 'cleared' : ''")
+    .flake3.flake(:class="isCleared(2) ? 'cleared' : ''")
+    .flake4.flake(:class="isCleared(3) ? 'cleared' : ''")
     .number
       | {{chapter.index}}
+    .flash(ref="flash")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import gsap from 'gsap';
 
   export default Vue.extend({
     props: {
@@ -20,6 +21,22 @@
       challengeClearState: Array,
     },
     methods: {
+      async onClick(){
+        gsap.fromTo(
+          this.$refs.flash,
+          {
+            scale: 0,
+            opacity: 0.5,
+          },
+          {
+            duration: 0.5,
+            scale: 2,
+            opacity: 0,
+            ease: 'expo.out',
+          });
+        await this.$delay(100);
+        this.$emit('selected', {chapterId: this.chapter.id, characterId: this.character.id});
+      },
       isCleared(challengeIndex){
         const challengeId = this.chapter.challenge_ids[challengeIndex];
         return this.challengeClearState.some(x=>x===challengeId);
@@ -35,49 +52,27 @@
     width: 100%;
     height: 100%;
     border: 1px solid $gray2;
-    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
     transition: transform 0.1s, filter 0.1s;
     &:hover{
       filter: brightness(130%);
       transform: scale(1.1);
     }
     .flake{
-      position: absolute;
-      width: 140%;
-      height: 140%;
+      width: 50%;
+      height: 50%;
       border: 1px solid $gray1;
       background-color: $frame-background;
       box-shadow: 0px 0px 5px 2px $gray3 inset;
     }
-    //ナンバー 左上の色違うやつ
-    .flake1{
-      background-color: $ingame-background;
-      transform: translate(-77%, -50%) rotate(25deg);
-      z-index: 5; 
-    }
-    // チャレンジ1 ←
-    .flake2{
-      // background-color: red;
-      transform: translate(-75%, 10%) rotate(-15deg);
-      z-index: 4;
-    }
-    // チャレンジ2 中央 地合いなので特に何もしない
-    .flake3{
-      // background-color: yellow;
-      transform: translate(0, 0) rotate(0deg);
-      z-index: 1;
-    }
-    // チャレンジ3 ↑
-    .flake4{
-      // background-color: cyan;
-      transform: translate(10%, -70%) rotate(15deg);
-      z-index: 2;
-    }
-    // チャレンジ4 →
-    .flake5{
-      //background-color: magenta;
-      transform: translate(45%, 32%) rotate(50deg);
-      z-index: 3;
+    .flash{
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      background-color: violet;
+      pointer-events: none;
     }
     .number{
       position: absolute;

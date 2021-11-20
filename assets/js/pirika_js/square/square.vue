@@ -16,36 +16,44 @@
     import InGameScene from "./InGameScene.vue";
 
     export default Vue.extend({
-    components: {
-      TitleScene,
-      MainMenuScene,
-      InGameScene,
-    },
-    methods: {
-      loadScene(parameter){
-        const {sceneName: sceneName, params: params} = parameter;
-        this.sceneName = sceneName;
-        this.sceneParameter[sceneName] = params || {};
+      components: {
+        TitleScene,
+        MainMenuScene,
+        InGameScene,
       },
-    },
-    data(){
-      const defaultScene = "title";
+      methods: {
+        loadScene(parameter){
+          const {sceneName: sceneName, params: params} = parameter;
+          this.sceneName = sceneName;
+          this.sceneParameter[sceneName] = params || {};
+        },
+      },
+      data(){
+        const defaultScene = "title";
 
-      return {
-        sceneName: defaultScene,
-        sceneParameter: {
-          title: {
-          },
-          mainMenu: {
-          },
-          inGame: {
-            characterId: -1,
-            chapterId: -1,
-          },
+        return {
+          sceneName: defaultScene,
+          sceneParameter: {
+            title: {
+            },
+            mainMenu: {
+            },
+            inGame: {
+              characterId: -1,
+              chapterId: -1,
+            },
+          }
+        };
+      },
+    });
+
+    Vue.mixin({
+      methods: {
+        $delay (ms) {
+          return new Promise(resolve => setTimeout(resolve, ms))
         }
-      };
-    },
-  })
+      }
+    })
 </script>
 
 <style lang='scss'>
