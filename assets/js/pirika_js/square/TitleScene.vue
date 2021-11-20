@@ -2,7 +2,19 @@
   .title(@click="onClick")
     .tops
       .logo
-        | すくえあ！
+        .container
+          .box
+            .letter
+              | す
+          .box
+            .letter
+              | く
+          .box
+            .letter
+              | え
+          .box
+            .letter
+              | あ
       .start
         | クリックしてはじめる
     .bottoms
@@ -46,9 +58,32 @@ export default Vue.extend({
     .tops{
       .logo{
         width: 100%;
-        text-align: center;
-        font-size: $font-size-xlarge;
         margin-bottom: $space-m;
+
+        .container{
+          width: 200px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: $space-m;
+          margin: auto;
+          .box{
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $white;
+            .letter{
+              text-align: center;
+              font-weight: bold;
+              font-size: $font-size-xlarge;
+              line-height: 100%;
+              color: $frame-background;
+            }
+          }
+        }
       }
       .start{
         width: 100%;
