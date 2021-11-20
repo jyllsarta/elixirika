@@ -98,9 +98,6 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  * {
-    outline: 1px solid #d8d08b;
-  }
   .game{
     width: 100%;
     height: 100%;
