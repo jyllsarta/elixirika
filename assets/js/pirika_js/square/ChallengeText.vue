@@ -34,7 +34,7 @@
       text-align: center;
     }
     &.cleared{
-      color: $extra-light-purple;
+      color: $purple1;
     }
     &.not_cleared{
       opacity: $disabled-opacity;

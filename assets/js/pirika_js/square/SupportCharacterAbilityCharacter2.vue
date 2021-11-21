@@ -53,16 +53,16 @@
         transform: scale(1.2);
       }
       &.X{
-        border: 1px solid $yellow;
-        background-color: $yellow-o;
+        border: 1px solid $yellow2;
+        background-color: $yellow3;
       }
       &.s{
-        border: 1px solid $light-green;
-        background-color: $light-green-o;
+        border: 1px solid $blue2;
+        background-color: $blue3;
       }
       &.h{
-        border: 1px solid $extra-light-purple;
-        background-color: $extra-light-purple-o;
+        border: 1px solid $red2;
+        background-color: $red3;
       }
       &.o{
         border: 1px dashed $gray1;

@@ -23,16 +23,16 @@
     border: 1px solid $main-color;
     pointer-events: none;
     &.h{
-      border: 1px solid $extra-light-purple;
+      border: 1px solid $red2;
     }
     &.s{
-      border: 1px solid $light-green;
+      border: 1px solid $blue2;
     }
     &.j{
-      border: 1px solid $blue;
+      border: 1px solid $purple2;
     }
     &.special{
-      border: 1px solid $yellow;
+      border: 1px solid $yellow2;
     }
   }
 </style>

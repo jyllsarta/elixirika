@@ -35,8 +35,8 @@
     .draw {
       width: 100px;
       @include centering($height: 50px);
-      border: 1px solid $light-green;
-      background-color: $light-green-o;
+      border: 1px solid $gray3;
+      background-color: $gray4;
       &:hover{
         filter: brightness(140%);
       }

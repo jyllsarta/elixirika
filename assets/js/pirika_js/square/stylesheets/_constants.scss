@@ -1,10 +1,46 @@
-//
+// 各種スペーシング・サイズ定義
 
+$font-size-xlarge: 48px;
+$font-size-large: 32px;
+$font-size-medium: 20px;
 $font-size-normal: 16px;
+$font-size-mini: 14px;
+$space-ll: 16px;
+$space-l: 12px;
+$space-m: 8px;
+$space-s: 4px;
+$space-ss: 2px;
 
-@mixin centering($height){
-  height: $height - $font-size-normal;
-  padding-top: (($height - $font-size-normal) / 2);
-  line-height: 100%;
-  text-align: center;
-}
+$radius: 4px;
+
+// いろいろなところで使える色そのものの定義
+
+$gray1: #a7a7a7;
+$gray2: #7e7e7e;
+$gray3: #535353;
+$gray4: #313131;
+
+$white: #e1e7e4;
+$white-o: #e1e7e488;
+
+$purple1: #e19fff;
+$purple2: #a464c2;
+$purple3: #572b6b;
+$red1: #ff3164;
+$red2: #b63c5b;
+$red3: #753d4b;
+$blue1: #2c39fc;
+$blue2: #3a42b6;
+$blue3: #313672;
+$yellow1: #f3ff4b;
+$yellow2: #afb649;
+$yellow3: #6d703f;
+
+// 意味のある単位
+$main-color: #56ddff;
+$ingame-background: #2d2b35;
+$frame-background: #202024;
+
+// 色でも長さでもない定数
+
+$disabled-opacity: 0.5;

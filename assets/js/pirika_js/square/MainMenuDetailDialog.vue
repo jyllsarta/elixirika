@@ -176,7 +176,7 @@
                 text-align: center;
               }
               &.cleared{
-                color: $extra-light-purple;
+                color: $purple2;
               }
               &.not_cleared{
                 opacity: $disabled-opacity;
@@ -202,11 +202,11 @@
         .background{
           width: 250px;
           height: 250px; 
-          background-color: $purple;
+          background-color: $purple3;
           transform: translate(100px, -20px) rotate(40deg) scale(1, 2) rotate(45deg);
           transition: transform 0.2s, background-color 0.2s;
           &:hover{
-            background-color: $light-purple;
+            background-color: $purple2;
             transform: translate(80px, 0px) rotate(35deg) scale(1, 2) rotate(45deg);
           }
         }
@@ -217,7 +217,7 @@
           width: 200px;
           text-align: center;
           font-size: $font-size-large;
-          color: $extra-light-purple;
+          color: $purple1;
           pointer-events: none;
         }
         .high_score{
@@ -226,7 +226,7 @@
           right: 0;
           width: 200px;
           text-align: center;
-          color: $extra-light-purple;
+          color: $purple1;
           pointer-events: none;
         }
       }

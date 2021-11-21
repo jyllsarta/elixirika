@@ -166,13 +166,13 @@
         .shutter1{
           width: 100%;
           height: 50%;
-          background-color: rgb(146, 145, 80);
+          background-color: $red3;
           transform-origin: left;
         }
         .shutter2{
           width: 100%;
           height: 50%;
-          background-color: rgb(88, 129, 125);
+          background-color: $yellow3;
           transform-origin: right;
         }
       }
@@ -185,13 +185,13 @@
         .shutter3{
           width: 50%;
           height: 100%;
-          background-color: rgb(146, 145, 80);
+          background-color: $blue3;
           transform-origin: top;
         }
         .shutter4{
           width: 50%;
           height: 100%;
-          background-color: rgb(88, 129, 125);
+          background-color: $purple3;
           transform-origin: bottom;
         }
       }

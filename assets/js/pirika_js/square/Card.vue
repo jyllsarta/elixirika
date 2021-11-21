@@ -3,8 +3,12 @@
     .number
       | {{card.stringExpression()}}
     .icon
-      .icons
+      .icons(v-if="card.category==='normal'")
         .item(v-for="i in new Array(card.number)" :class="card.viewClass()")
+      .sender_icon(v-if="card.category==='sender'")
+        | ↑
+      .special_icon(v-if="card.category==='special'")
+        | ★
 
 </template>
 
@@ -31,16 +35,14 @@
   .card{
     width: 100%;
     max-width: 200px;
-    background-color: $white;
-    border: 1px solid $main-color;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: $space-m;
     flex-direction: column;
+    gap: $space-m;
     height: 140px;
     .number{
-      color: $ingame-background;
+      color: $white;
       font-size: $font-size-medium;
     }
     .icon{
@@ -57,18 +59,26 @@
           height: 40px;
           background-color: $ingame-background;
           &.h{
-            background-color: $extra-light-purple;
+            background-color: $red2;
           }
           &.s{
-            background-color: $light-green;
+            background-color: $blue2;
           }
           &.j{
-            background-color: $blue;
+            background-color: $purple2;
           }
           &.special{
-            background-color: $yellow;
+            background-color: $yellow2;
           }
         }
+      }
+      .sender_icon{
+        font-size: 64px;
+        text-align: center;
+      }
+      .special_icon{
+        font-size: 64px;
+        text-align: center;
       }
     }
     &.selected{
@@ -79,16 +89,20 @@
       font-weight: bold;
     }
     &.h{
-      border: 3px solid $extra-light-purple;
+      border: 3px solid $red1;
+      background-color: $red3;
     }
     &.s{
-      border: 3px solid $light-green;
+      border: 3px solid $blue1;
+      background-color: $blue3;
     }
     &.j{
-      border: 3px solid $blue;
+      border: 3px solid $purple1;
+      background-color: $purple3;
     }
     &.special{
-      border: 3px solid $yellow;
+      border: 3px solid $yellow1;
+      background-color: $yellow3;
     }
   }
 </style>

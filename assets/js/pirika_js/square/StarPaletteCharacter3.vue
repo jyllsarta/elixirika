@@ -40,12 +40,12 @@
     justify-content: center;
     gap: $space-ss;
     .star{
-      border: 1px solid $extra-light-purple;
+      border: 1px solid $purple2;
       @include centering($height: 50px);
       width: 50px;
     }
     .enabled{
-      background-color: $light-green-o;
+      background-color: $gray3;
     }
     .disabled{
       color: $white-o;

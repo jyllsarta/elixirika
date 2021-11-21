@@ -45,10 +45,10 @@
       &.enabled{
         &:hover{
           transform: scale(1.2);
-        }
-      } 
-      border: 1px solid $yellow;
-      background-color: $yellow-o;
+        };
+      };
+      border: 1px solid $yellow2;
+      background-color: $yellow3;
       &.disabled{
         border: 1px solid $gray1;
         background-color: transparent;

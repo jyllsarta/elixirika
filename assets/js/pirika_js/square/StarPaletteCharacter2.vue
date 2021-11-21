@@ -45,15 +45,15 @@
     justify-content: center;
     gap: $space-ss;
     .star{
-      border: 1px solid $light-green;
+      border: 1px solid $gray3;
       @include centering($height: 50px);
       width: 50px;
     }
     .enabled{
-      background-color: $light-green-o;
+      background-color: $gray4;
     }
     .disabled{
-      color: $white-o
+      color: $white-o;
     }
   }
 </style>

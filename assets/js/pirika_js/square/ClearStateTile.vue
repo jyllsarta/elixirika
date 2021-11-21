@@ -71,7 +71,7 @@
       opacity: 0;
       width: 100%;
       height: 100%;
-      background-color: violet;
+      background-color: $purple1;
       pointer-events: none;
     }
     .number{
@@ -82,7 +82,7 @@
       font-size: $font-size-medium;
     }
     .cleared{
-      background-color: $purple;
+      background-color: $purple3;
     }
   }
 </style>
