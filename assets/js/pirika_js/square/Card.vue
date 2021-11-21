@@ -1,6 +1,11 @@
 <template lang="pug">
   .card(:id="`card-${card.id}`" :class="card.viewClass()" @mouseover="onHover")
-    | {{card.stringExpression()}}
+    .number
+      | {{card.stringExpression()}}
+    .icon
+      .icons
+        .item(v-for="i in new Array(card.number)" :class="card.viewClass()")
+
 </template>
 
 <script lang="typescript">
@@ -25,10 +30,47 @@
   @import "stylesheets/global_settings";
   .card{
     width: 100%;
-    max-width: 160px;
-    @include centering($height: 50px);
+    max-width: 200px;
+    background-color: $white;
     border: 1px solid $main-color;
-    font-size: $font-size-medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-m;
+    flex-direction: column;
+    height: 140px;
+    .number{
+      color: $ingame-background;
+      font-size: $font-size-medium;
+    }
+    .icon{
+      width: 80%;
+      .icons{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: $space-m;
+        .item{
+          width: $space-m;
+          height: 40px;
+          background-color: $ingame-background;
+          &.h{
+            background-color: $extra-light-purple;
+          }
+          &.s{
+            background-color: $light-green;
+          }
+          &.j{
+            background-color: $blue;
+          }
+          &.special{
+            background-color: $yellow;
+          }
+        }
+      }
+    }
     &.selected{
       transition: transform 0.1s;
       transform: scale(1.2);
@@ -37,16 +79,16 @@
       font-weight: bold;
     }
     &.h{
-      border: 1px solid $extra-light-purple;
+      border: 3px solid $extra-light-purple;
     }
     &.s{
-      border: 1px solid $light-green;
+      border: 3px solid $light-green;
     }
     &.j{
-      border: 1px solid $blue;
+      border: 3px solid $blue;
     }
     &.special{
-      border: 1px solid $yellow;
+      border: 3px solid $yellow;
     }
   }
 </style>
