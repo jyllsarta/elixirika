@@ -111,7 +111,7 @@
     .support_character{
       height: 100%;
       top: 0px;
-      left: 350px;
+      left: 300px;
     }
     .star_palette{
       top: 0px;

@@ -1,5 +1,7 @@
 <template lang="pug">
   .area
+    .background
+      img(src="/images/square/svg/star_palette.svg")
     .container
       .star(v-for="param in params", :class="model.starPalette.isSatisfied(param) ?  'enabled' : 'disabled'")
         | {{stringExpression(param)}}
@@ -31,23 +33,38 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .container{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: $space-ss;
-    .star{
-      border: 1px solid $gray3;
-      @include centering($height: 50px);
-      width: 50px;
+  .area{
+    position: relative;
+    .background{
+      position: absolute;
+      left: 15%;
+      top: -15px;
+      width: 70%;
+      img{
+        width: 100%;
+      }
     }
-    .enabled{
-      background-color: $yellow2;
-    }
-    .disabled{
-      color: $white-o;
+    .container{
+      position: absolute;
+      left: 20%;
+      width: 60%;
+      height: 80%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: $space-ll;
+      .star{
+        border: 2px solid $yellow3;
+        @include centering($height: 50px);
+        width: 50px;
+      }
+      .enabled{
+        border: 2px solid $yellow1;
+        background-color: $yellow2;
+      }
+      .disabled{
+        color: $white-o;
+      }
     }
   }
 </style>
