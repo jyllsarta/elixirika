@@ -51,7 +51,6 @@
     padding: $space-m;
     .title{
       font-size: $font-size-medium;
-      font-weight: bold;
       width: 100%;
       text-align: center;
     }
