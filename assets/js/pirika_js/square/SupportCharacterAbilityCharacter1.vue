@@ -40,12 +40,17 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .area{
-    width: 200px;
+    width: 150px;
+    height: 200px;
     background-color: $ingame-background;
+    border: 2px solid $yellow3;
+    border-radius: $radius;
+    padding: $space-m;
     .buttons{
       display: flex;
+      flex-wrap: wrap;
       padding: $space-m;
-      gap: $space-s;
+      gap: $space-m;
     }
     .button{
       padding: $space-m;

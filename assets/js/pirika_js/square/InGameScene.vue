@@ -122,8 +122,8 @@
       left: 20px;
     }
     .support_character_ability{
-      bottom: 20%;
-      left: 20px;
+      bottom: 0;
+      left: 0;
     }
     .center_board{
       top: 80px;
@@ -142,8 +142,8 @@
       right: 0px;
     }
     .card_game_panel{
-      top: 400px;
-      right: 0px;
+      bottom: 0;
+      right: 0;
     }
     .game_end_popup{
       top: 200px;
