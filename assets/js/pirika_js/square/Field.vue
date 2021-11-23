@@ -26,14 +26,15 @@
   .field{
     width: 160px;
     height: 250px;
-    border: 1px solid $main-color;
+    border: 2px solid $main-color;
+    border-radius: $radius;
     transition: all 0.1s;
     &:hover{
-      border: 1px solid $gray1;
+      border: 2px solid $gray1;
       transform: scale(1.05);
     }
     &.selected{
-      border: 1px solid red;
+      border: 2px solid $red1;
       transform: scale(1.05);      
     }
   }

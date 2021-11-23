@@ -2,7 +2,7 @@
   .area
     .indice
       .index(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]")
-        | {{board.fields[index].cards.length}}
+        | {{board.fields[index].cards.length}}枚 / {{board.fields[index].score()}}点
     .fields
       Field(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]" :selected="model.selectingBoardIndex === index")
 </template>
@@ -33,19 +33,23 @@
     flex-direction: column;
     .indice{
       width: 100%;
-      height: 50px;
+      height: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: $space-m;
       .index{
+        background-color: $ingame-background;
+        border: 2px solid $yellow3;
+        border-radius: $radius;
+        padding: $space-m;
         width: 160px;
         text-align: center;
       }
     }
     .fields{
       width: 100%;
-      height: 300px;
+      height: 280px;
       display: flex;
       justify-content: center;
       align-items: center;
