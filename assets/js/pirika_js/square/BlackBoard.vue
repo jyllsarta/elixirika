@@ -1,5 +1,7 @@
 <template lang="pug">
   .area
+    .title
+      |  - 今回の目標 - 
     .score
       | スコア：{{model.currentScore()}}
     .challenges()
@@ -41,7 +43,17 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .area{
-    width: 200px;
-    height: 300px;
+    width: 220px;
+    height: 200px;
+    background-color: $ingame-background;
+    border: 2px solid $yellow3;
+    border-radius: $radius;
+    padding: $space-m;
+    .title{
+      font-size: $font-size-medium;
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+    }
   }
 </style>

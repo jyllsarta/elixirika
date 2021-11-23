@@ -30,8 +30,12 @@
 <style lang="scss" scoped>
   @import "stylesheets/global_settings";
   .area{
-    width: 200px;
-    height: 150px;
+    width: 150px;
+    height: 200px;
+    background-color: $ingame-background;
+    border: 2px solid $yellow3;
+    border-radius: $radius;
+    padding: $space-m;
     .draw {
       width: 100px;
       @include centering($height: 50px);
