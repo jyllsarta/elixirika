@@ -104,12 +104,14 @@
     color: $white;
     background-color: $ingame-background;
     position: relative;
+    overflow: hidden;
     .object{
       position: absolute;
     }
     .support_character{
-      top: 100px;
-      left: 0px;
+      height: 100%;
+      top: 0px;
+      left: 350px;
     }
     .star_palette{
       top: 0px;
@@ -120,7 +122,7 @@
       left: 20px;
     }
     .support_character_ability{
-      bottom: 150px;
+      bottom: 20%;
       left: 20px;
     }
     .center_board{

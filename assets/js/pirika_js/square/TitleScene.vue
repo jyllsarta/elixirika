@@ -83,8 +83,9 @@
       }
     },
     mounted(){
-      // タイトルシーンは開発中は飛ばす
-      //this.onClick();
+      // シーン飛ばし用
+      //this.$emit("loadScene", {sceneName: "mainMenu"});
+      this.$emit("loadScene", {sceneName: "inGame", params: {characterId: 4, chapterId: 1}});
     }
   })
 </script>
