@@ -126,7 +126,7 @@
       left: 0;
     }
     .center_board{
-      top: 120px;
+      top: 22%;
       left: 200px;
     }
     .staged_field{

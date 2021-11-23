@@ -2,7 +2,10 @@
   .area
     .indice
       .index(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]")
-        | {{board.fields[index].cards.length}}枚 / {{board.fields[index].score()}}点
+        span(:class="{big_combo: board.fields[index].overScoreBonusBorder()}")
+          | {{board.fields[index].cards.length}}
+        span
+          | 枚 / {{board.fields[index].score()}}点
     .fields
       Field(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]" :selected="model.selectingBoardIndex === index")
 </template>
@@ -45,6 +48,10 @@
         padding: $space-m;
         width: 160px;
         text-align: center;
+        .big_combo{
+          font-weight: bold;
+          color: $yellow1;
+        }
       }
     }
     .fields{

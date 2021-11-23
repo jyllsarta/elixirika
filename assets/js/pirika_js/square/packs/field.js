@@ -63,8 +63,12 @@ module.exports = class Field {
     return this.cards.slice(-1)[0];
   }
 
+  overScoreBonusBorder(){
+    return this.cards.length >= Constants.cardCountScoreBonusThreshold 
+  }
+
   lengthBonus(){
-    return this.cards.length >= Constants.cardCountScoreBonusThreshold  ? 2 : 1;
+    return this.overScoreBonusBorder() ? 2 : 1;
   }
 
   score(){

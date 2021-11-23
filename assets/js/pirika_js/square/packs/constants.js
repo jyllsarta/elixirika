@@ -8,7 +8,7 @@ const constants = {
   senderCardRank: 11,
   maxScorePerField: 999,
   maxRandomSeed: 1000000000,
-  cardCountScoreBonusThreshold: 8,
+  cardCountScoreBonusThreshold: 5,
   defaultWindowWidth: 1200,
 }
 module.exports = constants;
