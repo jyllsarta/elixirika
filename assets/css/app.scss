@@ -26,9 +26,6 @@ a{
     padding: 0px 0px;
 }
 
-// honpen
-
-
 $main-color: #4b4f61;
 $gray1: #dad9f3;
 $sub-color: #9dbcf7;
@@ -37,7 +34,7 @@ $link-color: #5e3aff;
 $link-color-visited: #8229b6;
 
 $content-min-width: 600px;
-$content-max-width: 1200px;
+$content-max-width: 1000px;
 $infinity: 100000px;
 
 $padding_wide: 50px;
@@ -57,6 +54,7 @@ $padding_slice: 5px;
 }
 
 /* top */
+
 body{
   color: $main_color;
   font-size: 16px;
@@ -124,7 +122,6 @@ a:visited{
   color: $link-color-visited;
 }
 
-
 .menu_item{
   display: block;
   width: 100%;
@@ -148,16 +145,17 @@ a:visited{
 }
 
 h1{
-  font-size: 2em;
+  font-size: 1.5em;
   color: $main-color;
 }
 
 h2{
-  font-size: 1.6em;
+  font-size: 1.4em;
   border-left: $padding_thin solid $main_color;
   border-bottom: 1px solid $main_color;
   padding: $padding_slice;
   color: $main-color;
+  margin-bottom: $padding_thin;
 }
 
 h3{
@@ -176,6 +174,7 @@ h4{
 
 section{
   padding-left: $padding_normal;
+  margin-bottom: $padding_normal;
 }
 
 p{
@@ -230,6 +229,7 @@ dt{
   width: 25%;
   text-align: center;
 }
+
 dd{
   padding: $padding_thin;
   width: 70%;
@@ -279,7 +279,6 @@ dd{
   opacity: 0.5;
 }
 
-
 .screenshots{
   width: 100%;
   display: flex;
@@ -300,4 +299,11 @@ dd{
 .play{
   font-size: 18px;
   text-decoration: underline;
+}
+
+.text_item_list{
+  li{
+    list-style: circle;
+  }
+  padding-left: $padding_normal;
 }

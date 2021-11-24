@@ -30,6 +30,7 @@ defmodule ElixirikaWeb.Router do
     get "/sainokawara", PageController, :sainokawara
     get "/samusugi", PageController, :samusugi
     get "/match_illust", PageController, :match_illust
+    get "/stray_release", PageController, :stray_release
 
     get "/neko", PageController, :neko
     get "/nekomanual", PageController, :nekomanual

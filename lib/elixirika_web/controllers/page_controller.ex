@@ -106,6 +106,23 @@ defmodule ElixirikaWeb.PageController do
     )
   end
 
+  def stray_release(conn, _params) do
+    custom_og = %{
+      description: "スピカとチロルのアルファ版公開 ~ 本番環境での安定動作が実現するまでにやったことをまとめてみました。",
+      title: "ほとんど素のRailsアプリだった「スピカとチロル」が本番環境で安定動作するまで",
+      url: "https://jyllsarta.net/stray_release",
+      image: "https://jyllsarta.github.io/images/tile/ogp_image.png",
+      site_name: "さーたはうす"
+    }
+
+    conn
+    |> render("stray_release.html",
+      title: title("ほとんど素のRailsアプリだった「スピカとチロル」が本番環境で安定動作するまで"),
+      og: custom_og,
+      extra: %{}
+    )
+  end
+
   # layout falses
 
   def neko(conn, _params) do
