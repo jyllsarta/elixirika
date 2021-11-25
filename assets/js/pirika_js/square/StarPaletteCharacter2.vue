@@ -1,9 +1,12 @@
 <template lang="pug">
   .area
-    .spp
-      | EN: {{model.character.uniqueParameters.energy}}
-    .spp2
-      | Cold: {{isColded}}
+    .background
+      img(src="/images/square/svg/star_palette2.svg")
+    .container
+      .spp
+        | EN: {{model.character.uniqueParameters.energy}}
+      .spp2
+        | Cold: {{isColded}}
 </template>
 
 <script lang="typescript">
@@ -37,23 +40,21 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .container{
+  .area{
+    position: absolute;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: $space-ss;
-    .star{
-      border: 1px solid $gray3;
-      @include centering($height: 50px);
-      width: 50px;
+    .background{
+      position: absolute;
+      left: 15%;
+      top: -15px;
+      width: 70%;
+      img{
+        width: 100%;
+      }
     }
-    .enabled{
-      background-color: $gray4;
-    }
-    .disabled{
-      color: $white-o;
+    .container{
+      position: absolute;
     }
   }
 </style>

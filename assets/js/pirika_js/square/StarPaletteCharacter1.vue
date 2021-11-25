@@ -1,7 +1,7 @@
 <template lang="pug">
   .area
     .background
-      img(src="/images/square/svg/star_palette.svg")
+      img(src="/images/square/svg/star_palette1.svg")
     .container
       .star(v-for="param in params", :class="model.starPalette.isSatisfied(param) ?  'enabled' : 'disabled'")
         | {{stringExpression(param)}}
