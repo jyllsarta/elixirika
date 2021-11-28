@@ -1,9 +1,6 @@
 <template lang="pug">
   .clear_state_tile(@click="onClick")
-    .flake1.flake(:class="isCleared(0) ? 'cleared' : ''")
-    .flake2.flake(:class="isCleared(1) ? 'cleared' : ''")
-    .flake3.flake(:class="isCleared(2) ? 'cleared' : ''")
-    .flake4.flake(:class="isCleared(3) ? 'cleared' : ''")
+    .flake(v-for="index in [0, 1, 2, 3]" :class="{cleared: isCleared(index), completed: isCompleted}")
     .number
       | {{chapter.index}}
     .flash(ref="flash")
@@ -40,6 +37,11 @@
       isCleared(challengeIndex){
         const challengeId = this.chapter.challenge_ids[challengeIndex];
         return this.challengeClearState.some(x=>x===challengeId);
+      }
+    },
+    computed: {
+      isCompleted(){
+        return this.chapter.challenge_ids.every(x=>this.challengeClearState.indexOf(x) !== -1);
       }
     }
   })
@@ -83,6 +85,9 @@
     }
     .cleared{
       background-color: $purple3;
+    }
+    .completed{
+      background-color: $purple2;
     }
   }
 </style>
