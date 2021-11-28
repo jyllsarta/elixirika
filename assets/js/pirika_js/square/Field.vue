@@ -1,5 +1,5 @@
 <template lang="pug">
-  draggable.field(:id="`field-${field.index}`" :group="'top'" :class="{selected: selected}")
+  draggable.field.with_shadow(:id="`field-${field.index}`" :group="'top'" :class="{selected: selected}")
     FieldCard(v-for="card in field.cards" :key="card.id", :card="card")
 </template>
 
@@ -25,7 +25,8 @@
   @import "stylesheets/global_settings";
   .field{
     width: 160px;
-    height: 250px;
+    height: 90%;
+    max-height: 300px;
     border: 2px solid $main-color;
     border-radius: $radius;
     transition: all 0.1s;

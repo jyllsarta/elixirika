@@ -1,5 +1,5 @@
 <template lang="pug">
-  .area
+  .area.with_shadow
     .abilities(v-if="character.id === 1")
       SupportCharacterAbilityCharacter1(:character="character" @guiEvent="eventsUp")
     .abilities(v-if="character.id === 2")

@@ -1,7 +1,7 @@
 <template lang="pug">
   draggable#support-character(v-if="character")
     .character_animation
-      img.character(:src="`/images/square/characters/${character.imageName}.png`")
+      img.character.with_drop_shadow(:src="`/images/square/characters/${character.imageName}.png`")
 
 </template>
 

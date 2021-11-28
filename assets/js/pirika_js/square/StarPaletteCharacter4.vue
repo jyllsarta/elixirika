@@ -1,6 +1,6 @@
 <template lang="pug">
   .area
-    .background
+    .background.with_drop_shadow
       img(src="/images/square/svg/star_palette5.svg")
     .container
       .star(v-for="param in params")

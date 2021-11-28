@@ -1,6 +1,6 @@
 <template lang="pug">
   .area
-    .background
+    .background.with_drop_shadow
       img(src="/images/square/svg/star_palette2.svg")
     .container
       .spp

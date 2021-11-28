@@ -1,7 +1,7 @@
 <template lang="pug">
-  .area
+  .area.with_inset_shadow
     .indice
-      .index(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]")
+      .index.with_shadow(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]")
         span(:class="{big_combo: board.fields[index].overScoreBonusBorder()}")
           | {{board.fields[index].cards.length}}
         span
@@ -31,14 +31,17 @@
   @import "stylesheets/global_settings";
   .area{
     width: 800px;
-    height: 350px;
+    height: unquote('max(350px, 57%)');
     display: flex;
     flex-direction: column;
+    background-color: $ingame-background;
+    padding: $space-ll;
+    border-radius: $space-l;
     .indice{
       width: 100%;
-      height: 30px;
+      height: 50px;
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
       gap: $space-m;
       .index{
@@ -56,9 +59,9 @@
     }
     .fields{
       width: 100%;
-      height: 280px;
+      flex-grow: 1;
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
       gap: $space-m;
     }

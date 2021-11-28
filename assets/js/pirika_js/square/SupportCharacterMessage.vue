@@ -1,6 +1,6 @@
 <template lang="pug">
   .area
-    .balloon2
+    .balloon2.with_shadow
       | {{message}}
 </template>
 

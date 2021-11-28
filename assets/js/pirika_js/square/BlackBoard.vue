@@ -1,5 +1,5 @@
 <template lang="pug">
-  .area
+  .area.with_shadow
     .title
       |  - 今回の目標 - 
     .score
@@ -44,7 +44,7 @@
   @import "stylesheets/global_settings";
   .area{
     width: 220px;
-    height: 200px;
+    height: unquote('max(200px, 40%)');
     background-color: $ingame-background;
     border: 2px solid $yellow3;
     border-radius: $radius;

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .area(v-if="model")
+  .area.with_shadow(v-if="model")
     .controls
       .draw(@click="draw()")
         | ドロー

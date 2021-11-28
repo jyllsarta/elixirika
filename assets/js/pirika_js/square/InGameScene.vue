@@ -1,17 +1,17 @@
 <template lang="pug">
   .game(v-if="model")
+    .center_board.object
+      CenterBoard(:board="model.board", :model="model")
     .support_character.object
       SupportCharacter(:character="model.character")
-    .star_palette.object
-      StarPalette(:model="model")
     .support_character_message.object
       SupportCharacterMessage(:character="model.character")
     .support_character_ability.object
       SupportCharacterAbilityBase(:character="model.character" @guiEvent="onGuiEvent")
-    .center_board.object
-      CenterBoard(:board="model.board", :model="model")
     .staged_field.object
       StagedField(:stagedField="model.stagedField", :model="model")
+    .star_palette.object
+      StarPalette(:model="model")
     .hand.object
       Hand(:hand="model.hand" @guiEvent="onGuiEvent", :model="model")
     .black_board.object
@@ -122,11 +122,12 @@
       left: 20px;
     }
     .support_character_ability{
-      bottom: 0;
-      left: 0;
+      bottom: $space-m;
+      left: $space-m;
     }
     .center_board{
-      top: 22%;
+      height: 100%;
+      top: 20%;
       left: 200px;
     }
     .staged_field{
@@ -138,12 +139,13 @@
       left: 150px;
     }
     .black_board{
-      top: 100px;
-      right: 0px;
+      height: 100%;
+      top: unquote('max(100px, 20%)');
+      right: $space-m;
     }
     .card_game_panel{
-      bottom: 0;
-      right: 0;
+      bottom: $space-m;
+      right: $space-m;
     }
     .game_end_popup{
       top: 200px;

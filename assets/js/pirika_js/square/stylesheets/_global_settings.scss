@@ -11,3 +11,13 @@ body{
   font-family: 'M PLUS 2', sans-serif;
 }
 
+.with_inset_shadow{
+  box-shadow: inset 7px 7px 7px $shadow, inset -3px -3px 7px $shadow;
+}
+.with_shadow{
+  box-shadow: 7px 7px 7px $shadow, 5px 5px 5px $shadow;
+}
+.with_drop_shadow{
+  filter: drop-shadow(5px 5px 5px $shadow) drop-shadow(7px 7px 7px $shadow);
+}
+
