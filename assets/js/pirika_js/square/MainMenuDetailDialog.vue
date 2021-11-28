@@ -121,7 +121,7 @@
           position: absolute;
           width: 100%;
           height: 100%;
-          background-size: 350px;
+          background-size: 500px;
           background-position: -5% 35%;
           background-repeat: no-repeat;
           opacity: 0.8;
@@ -130,8 +130,8 @@
           position: absolute;
           width: 100%;
           height: 100%;
-          background-size: 500px;
-          background-position: -15% 60%;
+          background-size: 650px;
+          background-position: -70% 60%;
           background-repeat: no-repeat;
           transform: scale(-1, 1);
           opacity: 0.05;
