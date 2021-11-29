@@ -1,5 +1,5 @@
 <template lang="pug">
-  .banner
+  .banner(@click="onClick")
     .base
       img.sheet(:style="{backgroundImage: `url(/images/square/characters/${character.imageName}.png`}")
       .shadow
@@ -15,6 +15,11 @@
       // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
       character: Object,
     },
+    methods: {
+      onClick(){
+        this.$emit('selected', {characterId: this.character.id});
+      }
+    }
   })
 </script>
 
@@ -25,7 +30,9 @@
       position: relative;
       width: 300px;
       height: 100px;
+      transition: all 0.1s;
       .sheet{
+        transition: all 0.1s;
         position: absolute;
         width: 100%;
         height: 100%;
@@ -48,6 +55,13 @@
         right: 0;
         padding: $space-m;
         line-height: 100%;
+      }
+      &:hover{
+        .sheet{
+          background-size: 350px;
+          background-position: 50px 30%;
+        }
+        color: $yellow1;
       }
     }
   }

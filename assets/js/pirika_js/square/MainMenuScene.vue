@@ -8,7 +8,10 @@
     .content
       .row(v-for="characterId, index in [1,2,3,4]", :key="index")
         .character
-          CharacterBanner(:character="characters[characterId]")
+          CharacterBanner(
+            :character="characters[characterId]"
+            @selected="onCharacterSelected",
+          )
         .tile(v-for="chapter in chapters(characterId)", :key="chapter.id")
           ClearStateTile(
             :chapter="chapter"
@@ -71,6 +74,12 @@
         this.selectedChapterId = chapterId;
         this.showsDetailDialog = true;
       },
+      onCharacterSelected(params){
+        const {characterId: characterId} = params;
+        this.selectedCharacterId = characterId;
+        this.selectedChapterId = this.findBestChapter(characterId)?.id;
+        this.showsDetailDialog = true;
+      },
       hideDetailDialog(){
         this.showsDetailDialog = false;
       },
@@ -86,6 +95,11 @@
       },
       highScore(chapter){
         return this.userStatus.high_score[chapter.id] || 0;
+      },
+      findBestChapter(characterId){
+        const chapters = this.chapters(characterId);
+        console.log(chapters)
+        return chapters.find(chapter=>!chapter.challenge_ids.every(x=>this.userStatus.challenges[chapter.id]?.indexOf(x) !== -1)) || chapters[0];
       },
       fetchMyScore(){
         const params = {
