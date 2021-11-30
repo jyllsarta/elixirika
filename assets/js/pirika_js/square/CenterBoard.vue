@@ -1,7 +1,7 @@
 <template lang="pug">
   .area.with_inset_shadow
     .indice
-      .index.with_shadow(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]")
+      .index.with_solid_shadow(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]")
         span(:class="{big_combo: board.fields[index].overScoreBonusBorder()}")
           | {{board.fields[index].cards.length}}
         span

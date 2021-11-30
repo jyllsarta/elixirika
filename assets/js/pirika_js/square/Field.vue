@@ -1,5 +1,5 @@
 <template lang="pug">
-  draggable.field.with_shadow(:id="`field-${field.index}`" :group="'top'" :class="{selected: selected}")
+  draggable.field.with_solid_shadow(:id="`field-${field.index}`" :group="'top'" :class="{selected: selected}")
     FieldCard(v-for="card in field.cards" :key="card.id", :card="card")
 </template>
 
