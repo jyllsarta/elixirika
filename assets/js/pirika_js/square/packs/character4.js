@@ -12,9 +12,9 @@ let Card = require("./card");
 module.exports = class Character4 {
   constructor(){
     this.id = 4;
-    this.name = "あかね";
+    this.name = "アヤメ";
     this.imageName = "character4";
-    this.defaultMessage = "ふええええ！";
+    this.defaultMessage = "いきますよー！";
 
     this.uniqueParameters = {
       abilities: [

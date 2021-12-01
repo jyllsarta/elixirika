@@ -10,9 +10,9 @@ module.exports = class Character1 {
   constructor(){
     // TODO: 今後キャラマスタ・セリフマスタに移動していく
     this.id = 1;
-    this.name = "ピリカ";
+    this.name = "クローネ";
     this.imageName = "character1";
-    this.defaultMessage = "はーい！こんにちは\nまずはカード出してみてね";
+    this.defaultMessage = "はい、こんにちは。\nまずはカード出してみてね";
 
     this.uniqueParameters = {
       // X X 11s 11h を追加する事ができる残り回数
