@@ -70,6 +70,12 @@ li{
   li{
     list-style: square;
     padding-bottom: $padding_slice;
+    ul{
+      padding-left: 20px;
+      li{
+        list-style: circle;
+      }
+    }
   }
 }
 
