@@ -3,8 +3,8 @@
     .number
       | {{card.stringExpression()}}
     .icon
-      .icons(v-if="card.category==='normal'")
-        .item(v-for="i in new Array(card.number)" :class="card.viewClass()")
+      .normal_icon(v-if="card.category==='normal'")
+        img.symbol(:src="`/images/square/svg/cards/card${card.number}.svg`")
       .sender_icon(v-if="card.category==='sender'")
         | ↑
       .special_icon(v-if="card.category==='special'")
@@ -44,32 +44,19 @@
     .number{
       color: $white;
       font-size: $font-size-medium;
+      line-height: 100%;
     }
     .icon{
       width: 80%;
-      .icons{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: $space-m;
-        .item{
-          width: $space-m;
-          height: 40px;
-          background-color: $ingame-background;
-          &.h{
-            background-color: $red2;
-          }
-          &.s{
-            background-color: $blue2;
-          }
-          &.j{
-            background-color: $purple2;
-          }
-          &.special{
-            background-color: $yellow2;
-          }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .normal_icon{
+        width: 80px;
+        height: 80px;
+        .symbol{
+          width: 100%;
+          height: 100%;
         }
       }
       .sender_icon{
