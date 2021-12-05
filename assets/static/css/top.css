@@ -335,3 +335,7 @@ dd {
 .text_item_list li {
   list-style: circle;
 }
+
+.twitter{
+  margin: 20px;
+}
