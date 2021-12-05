@@ -7,19 +7,23 @@ section
     a[href="https://adventar.org/calendars/6566"]
       | Akatsuki Advent Calendar
     | 　6日目の記事です。
-  // TODO: 前日誰だったかかく
+  p 
+    | 前日は
+    a[href="https://zenn.dev/e_koma/articles/20211205-gcp-instances-recommender"]
+      | 使用頻度の低いGCEインスタンスを組織一括で検知する方法
+    | でした。
+
   p
     span
       | ただ rails new しただけのアプリケーションである
     a[href="https://st.jyllsarta.net/"]
       | スピカとチロル
     span
-      | のアルファ版公開 ~ 本番環境での安定動作が実現するまでにやったことをまとめてみました。
+      | が、本番環境での安定動作が実現するまでにやったことをまとめました。
 
 section
   h2
     | もくじ
-  // TODO: それぞれのセクションにid振っちゃってリンクにする
   ul.with_point
     li
       a[href="#pre"]
@@ -69,10 +73,14 @@ section
     | サーバ処理主体の半放置ゲームです。自動探索で拾ったアイテムを装備して、手動のRPG的なバトルでさらなる奥地をひたすら目指すタイプのゲームです。
       考えると倒せるようになるボス戦、手をかけたらそれだけ探索効率の良さとしてフィードバックが返ってくる楽しさがウリです。
   .screenshots
-    img.screenshot(src="/images/stray_release/screenshot_1.jpeg")
-    img.screenshot(src="/images/stray_release/screenshot_2.jpeg")
-    img.screenshot(src="/images/stray_release/screenshot_3.jpeg")
-    img.screenshot(src="/images/stray_release/screenshot_4.jpeg")
+    a[href="/images/stray_release/screenshot_1.jpeg"]
+      img.screenshot.with_shadow(src="/images/stray_release/screenshot_1.jpeg")
+    a[href="/images/stray_release/screenshot_2.jpeg"]
+      img.screenshot.with_shadow(src="/images/stray_release/screenshot_2.jpeg")
+    a[href="/images/stray_release/screenshot_3.jpeg"]
+      img.screenshot.with_shadow(src="/images/stray_release/screenshot_3.jpeg")
+    a[href="/images/stray_release/screenshot_4.jpeg"]
+      img.screenshot.with_shadow(src="/images/stray_release/screenshot_4.jpeg")
 section
   h2#architecture
     | おおまかアーキテクチャ解説
@@ -81,7 +89,8 @@ section
       ユーザの進捗データはキャッシュサーバ・DBのみに保存されているので、これらをインスタンス内から切り離して参照先を切り替えればアプリケーションサーバの数を増やせる作りです。
       (結果的にそれが必要になる規模での大きな負荷は来ませんでしたが、予想外の大盛況に耐えられる構造というのは大いに開発の励みになりました)
   .img_with_caption
-    img.image[src="/images/stray_release/infra.png"]
+    a[href="/images/stray_release/infra.png"]
+      img.image[src="/images/stray_release/infra.png"]
     .caption
       | もはや 図にするまでもありませんが構成図です
 
@@ -108,18 +117,17 @@ section
 section
   h2#timeline
     | 本番リリースからのタイムライン
-
   p 
-    | いろいろな問題を踏みつつ、なんとか本番のサーバが安定するまでの記録です。
-
+    | いろいろな問題にぶつかりながら、なんとか本番のサーバが安定動作するまでの記録です。
   h4
     | 2021/5/8 リリース
   p 
     | twitter でリリース告知を行いました。
-      静かなスタートを切ることができ、リツイート100件分から流入した層で200人ほどが同時に遊ぶ状態になりましたが、特段の問題なく捌き切ることができました。
+      静かなスタートを切ることができ、リツイート100件分からの流入で200人ほどが同時に遊ぶ状態になりましたが、特段の問題なく捌き切ることができました。
       この時点ではプレイヤー数は累計で1000人程度です。
   .img_with_caption
-    img.image[src="/images/stray_release/monitor11.png"]
+    a[href="/images/stray_release/monitor11.png"]
+      img.image[src="/images/stray_release/monitor11.png"]
     .caption
       | 主な流入経路はRTとユーザの攻略口コミです
 
@@ -134,11 +142,13 @@ section
       とりあえず本番環境に自分でもアクセスし、ゲームが動作していることを確認。
   .align_horizontal
     .img_with_caption
-      img.image[src="/images/stray_release/monitor1.png"]
+      a[href="/images/stray_release/monitor1.png"]
+        img.image[src="/images/stray_release/monitor1.png"]
       .caption
         | ロードアベレージは1を超えた
     .img_with_caption
-      img.image[src="/images/stray_release/monitor2.png"]
+      a[href="/images/stray_release/monitor2.png"]
+        img.image[src="/images/stray_release/monitor2.png"]
       .caption
         | CPUは1コアを使い切りそうなペースに
 
@@ -153,7 +163,8 @@ section
   p 
     | サービスを停止せずにディスク容量を増やせるのはとてもありがたいですね。自宅サーバだとこうはいかないので、AWSの強みを活かせました。
   .img_with_caption
-    img.image[src="/images/stray_release/monitor5.png"]
+    a[href="/images/stray_release/monitor5.png"]
+      img.image[src="/images/stray_release/monitor5.png"]
     .caption
       | ストレージアラート
 
@@ -167,11 +178,13 @@ section
       このタイミングで、累計プレイヤー数が2000人を突破しています。半日で累計プレイヤー数が倍になりました。
   .align_horizontal
     .img_with_caption
-      img.image[src="/images/stray_release/monitor7.png"]
+      a[href="/images/stray_release/monitor7.png"]
+        img.image[src="/images/stray_release/monitor7.png"]
       .caption
         | あきらかにCPUが使えなくなっている
     .img_with_caption
-      img.image[src="/images/stray_release/monitor8.png"]
+      a[href="/images/stray_release/monitor8.png"]
+        img.image[src="/images/stray_release/monitor8.png"]
       .caption
         | 不適切なユーザへの障害報告
 
@@ -198,11 +211,13 @@ section
       無事ブログ経由の流入層みんなにゲームを遊んでもらうことに成功しました。
   .align_horizontal
     .img_with_caption
-      img.image[src="/images/stray_release/monitor9.png"]
+      a[href="/images/stray_release/monitor9.png"]
+        img.image[src="/images/stray_release/monitor9.png"]
       .caption
         | ロードアベレージ。ユーザの生活リズムと連動しています
     .img_with_caption
-      img.image[src="/images/stray_release/monitor10.png"]
+      a[href="/images/stray_release/monitor10.png"]
+        img.image[src="/images/stray_release/monitor10.png"]
       .caption
         | CPU利用率。深夜に小さく跳ねているのはログローテーション
       
@@ -245,7 +260,7 @@ section
   p 
     a[href="https://locust.io/"]
       | Locust 
-    | などコード管理できる便利な負荷試験のための道具は揃っている環境なので、主要なAPIを一通り叩くシナリオを作成して本番環境がどの程度までアクセスをさばくことができるのか把握できていると良かったですね。
+    | などコード管理できる便利な負荷試験のための道具は揃っているので、主要なAPIを一通り叩くシナリオを作成して本番環境がどの程度までアクセスをさばくことができるのか把握できていると良かったですね。
       今回はゲームが完成した瞬間にさっそく世に出してしまいました。
 
 section
