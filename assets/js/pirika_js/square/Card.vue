@@ -4,10 +4,8 @@
       | {{card.stringExpression()}}
     .icon
       .normal_icon(v-if="card.category==='normal'")
-        .big_symbol(v-for="x in new Array(cardBigSymbolCount)")
-          .inner_cube
-          .slash
-        .small_symbol(v-for="x in new Array(cardSmallSymbolCount)")
+        .number(:class="card.suit")
+          | {{ card.number }}
       .sender_icon(v-if="card.category==='sender'")
         | ↑
       .special_icon(v-if="card.category==='special'")
@@ -67,33 +65,17 @@
         justify-content: center;
         align-items: center;
         gap: $space_m;
-        .big_symbol{
-          width: 50px;
-          height: 50px;
-          position: relative;
-          .inner_cube{
-            position: absolute;
-            border: 10px solid $white;
-            width: 50px;
-            height: 50px;
-            transform: scale(0.707) rotate(45deg);
-            border-radius: 4px;
-          }
-          .slash{
-            position: absolute;
-            left: 22px;
-            width: 8px;
-            height: 50px;
-            transform: rotate(45deg);
-            background-color: $white;
-            border-radius: 4px;
-          }
+        .number{
+          font-size: 64px;
         }
-        .small_symbol{
-          width: 8px;
-          height: 40px;
-          background-color: $white;
-          border-radius: 4px;
+        .s{
+  font-family: 'Nova Square', cursive;
+        }
+        .h{
+          font-family: 'Cinzel Decorative', cursive;
+        }
+        .j{
+          font-family: 'Coda', cursive;
         }
       }
       .sender_icon{
@@ -110,7 +92,6 @@
       transform: scale(1.2);
       transform-origin: bottom;
       border: 2px solid $white;
-      font-weight: bold;
     }
     &.h{
       border: 3px solid $red1;
@@ -129,4 +110,19 @@
       background-color: $yellow3;
     }
   }
+
+  /*
+  font-family: 'Atomic Age', cursive;
+  font-family: 'Cinzel Decorative', cursive;
+  font-family: 'Coda', cursive;
+  font-family: 'Cute Font', cursive;
+  font-family: 'Federant', cursive;
+  font-family: 'Geostar Fill', cursive;
+  font-family: 'Khmer', cursive;
+  font-family: 'Milonga', cursive;
+  font-family: 'Nova Square', cursive;
+  font-family: 'Offside', cursive;
+  font-family: 'Simonetta', cursive;
+  font-family: 'Voces', cursive;
+   */
 </style>
