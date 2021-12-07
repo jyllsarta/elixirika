@@ -11,7 +11,16 @@ module.exports = class Card {
   }
 
   stringExpression(){
-    return `${this.number}${this.suit}`; 
+    switch(this.category){
+      case "sender":
+        return `↑${this.suit}`; 
+      case "special":
+        return `◇`; 
+      case "normal":
+        return `${this.number}${this.suit}`; 
+      default:
+        return `!`;
+    }
   }
 
   viewClass(){

@@ -25,6 +25,7 @@
   .card{
     box-sizing: border-box;
     width: 100%;
+    border-radius: $radius;
     @include centeringWithBorder($height: 20px, $border: 2px);
     border: 2px solid $main-color;
     pointer-events: none;

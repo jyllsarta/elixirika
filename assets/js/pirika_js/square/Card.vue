@@ -1,15 +1,21 @@
 <template lang="pug">
   .card(:id="`card-${card.id}`" :class="card.viewClass()" @mouseover="onHover")
-    .number
-      | {{card.stringExpression()}}
+    .background
+      .line_ur(v-for="(x, index) in rightLineCount" :class="card.suit", :style="{left: (index + 1) * 10 + 'px'}")
+      .line_ul(v-for="(x, index) in leftLineCount" :class="card.suit", :style="{right: (index + 1) * 10 + 'px'}")
     .icon
       .normal_icon(v-if="card.category==='normal'")
         .number(:class="card.suit")
           | {{ card.number }}
       .sender_icon(v-if="card.category==='sender'")
-        | ↑
+        .icon
+          .upper_symbol
+            .inner_cone
+          .downer_symbol
+            .inner_cone
       .special_icon(v-if="card.category==='special'")
-        | ★
+        .big_symbol
+          .inner_cube
 
 </template>
 
@@ -27,34 +33,67 @@
       }
     },
     computed: {
-      cardBigSymbolCount(){
-        return Math.floor(this.card.number / 5);
+      rightLineCount(){
+        if(this.card.category !== 'normal'){
+          return 8;
+        }
+        return Math.ceil(this.card.number / 2);
       },
-      cardSmallSymbolCount(){
-        return this.card.number % 5;
-      }
-    },
+      leftLineCount(){
+        if(this.card.category !== 'normal'){
+          return 8;
+        }
+        return Math.floor(this.card.number / 2);
+      },
+    }
   })
 </script>
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .card{
+    height: 140px;
     width: 100%;
     max-width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: $space-m;
-    height: 140px;
-    .number{
-      color: $white;
-      font-size: $font-size-medium;
-      line-height: 100%;
+    position: relative;
+    border-radius: $radius;
+    .background{
+      position: absolute;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+      .line_ur{
+        position: absolute;
+        width: 1px;
+        height: 200px;
+        top: 0;
+        left: 5px;
+        transform: rotate(-10deg);
+      }
+      .line_ul{
+        position: absolute;
+        width: 1px;
+        height: 200px;
+        top: 0;
+        right: 5px;
+        transform: rotate(10deg);
+      }
+      .h{
+        background-color: $red1;
+      }
+      .s{
+        background-color: $blue1;
+      }
+      .j{
+        background-color: $purple1;
+      }
+      .X{
+        background-color: $yellow1;
+      }
     }
     .icon{
-      width: 80%;
+      width: 100%;
+      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -70,26 +109,74 @@
         }
         .s{
           font-family: 'Nova Square', cursive;
+          text-shadow: 0px 0px 4px $blue1;
         }
         .h{
           font-family: 'Cinzel Decorative', cursive;
+          text-shadow: 0px 0px 4px $red1;
         }
         .j{
           font-family: 'Coda', cursive;
+          text-shadow: 0px 0px 4px $purple1;
+        }
+        .X{
+          // Xでは文字描写はない想定
+          font-family: 'Nova Square', cursive;
+          text-shadow: 0px 0px 4px $yellow1;
         }
       }
       .sender_icon{
-        font-size: 64px;
-        text-align: center;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon{
+          width: 80px;
+          height: 80px;
+          position: absolute;
+          .upper_symbol{
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: 0px;
+          }
+          .downer_symbol{
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: 20px;
+          }
+          .inner_cone{
+            position: absolute;
+            border-top: 10px solid $white;
+            border-left: 10px solid $white;
+            width: 80px;
+            height: 80px;
+            transform: scale(0.707) rotate(45deg);
+            border-radius: 4px;
+          }
+        }
       }
       .special_icon{
-        font-size: 64px;
-        text-align: center;
+        .big_symbol{
+          width: 80px;
+          height: 80px;
+          position: relative;
+          .inner_cube{
+            position: absolute;
+            border: 10px solid $white;
+            width: 80px;
+            height: 80px;
+            transform: scale(0.707) rotate(45deg);
+            border-radius: 4px;
+          }
+        }
       }
     }
     &.selected{
-      transition: transform 0.1s;
-      transform: scale(1.2);
+      transition: transform 0.2s;
+      transform: rotate(5deg);
       transform-origin: bottom;
       border: 2px solid $white;
     }
@@ -110,19 +197,4 @@
       background-color: $yellow3;
     }
   }
-
-  /*
-  font-family: 'Atomic Age', cursive;
-  font-family: 'Cinzel Decorative', cursive;
-  font-family: 'Coda', cursive;
-  font-family: 'Cute Font', cursive;
-  font-family: 'Federant', cursive;
-  font-family: 'Geostar Fill', cursive;
-  font-family: 'Khmer', cursive;
-  font-family: 'Milonga', cursive;
-  font-family: 'Nova Square', cursive;
-  font-family: 'Offside', cursive;
-  font-family: 'Simonetta', cursive;
-  font-family: 'Voces', cursive;
-   */
 </style>
