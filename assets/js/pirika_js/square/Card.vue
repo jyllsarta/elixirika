@@ -69,7 +69,7 @@
           font-size: 64px;
         }
         .s{
-  font-family: 'Nova Square', cursive;
+          font-family: 'Nova Square', cursive;
         }
         .h{
           font-family: 'Cinzel Decorative', cursive;
