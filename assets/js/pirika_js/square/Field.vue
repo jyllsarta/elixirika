@@ -1,6 +1,6 @@
 <template lang="pug">
   draggable.field.with_solid_shadow(:id="`field-${field.index}`" :group="'top'" :class="{selected: selected}")
-    FieldCard(v-for="card in field.cards" :key="card.id", :card="card")
+    FieldCard(v-for="(card, index) in field.cards" :key="card.id", :card="card" :isLast="index === field.cards.length -1")
 </template>
 
 <script lang="typescript">

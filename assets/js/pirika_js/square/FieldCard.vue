@@ -1,5 +1,5 @@
 <template lang="pug">
-  .card(:class="card.viewClass()")
+  .card(:class="card.viewClass() + last")
     | {{card.stringExpression()}}
 </template>
 
@@ -9,7 +9,13 @@
 
   export default Vue.extend({
     props: {
-      card: Card
+      card: Card,
+      isLast: Boolean,
+    },
+    computed: {
+      last(){
+        return this.isLast ? " last" : "";
+      }
     }
   })
 </script>
@@ -19,20 +25,24 @@
   .card{
     box-sizing: border-box;
     width: 100%;
-    @include centering($height: 20px);
-    border: 1px solid $main-color;
+    @include centeringWithBorder($height: 20px, $border: 2px);
+    border: 2px solid $main-color;
     pointer-events: none;
     &.h{
-      border: 1px solid $red2;
+      border: 2px solid $red2;
     }
     &.s{
-      border: 1px solid $blue2;
+      border: 2px solid $blue2;
     }
     &.j{
-      border: 1px solid $purple2;
+      border: 2px solid $purple2;
     }
     &.special{
-      border: 1px solid $yellow2;
+      border: 2px solid $yellow2;
+    }
+    &.last{
+      font-weight: bold;
+      @include centeringWithBorder($height: 40px, $border: 2px);
     }
   }
 </style>
