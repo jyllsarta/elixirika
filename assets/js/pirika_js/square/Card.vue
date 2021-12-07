@@ -4,7 +4,10 @@
       | {{card.stringExpression()}}
     .icon
       .normal_icon(v-if="card.category==='normal'")
-        img.symbol(:src="`/images/square/svg/cards/card${card.number}.svg`")
+        .big_symbol(v-for="x in new Array(cardBigSymbolCount)")
+          .inner_cube
+          .slash
+        .small_symbol(v-for="x in new Array(cardSmallSymbolCount)")
       .sender_icon(v-if="card.category==='sender'")
         | ↑
       .special_icon(v-if="card.category==='special'")
@@ -26,6 +29,12 @@
       }
     },
     computed: {
+      cardBigSymbolCount(){
+        return Math.floor(this.card.number / 5);
+      },
+      cardSmallSymbolCount(){
+        return this.card.number % 5;
+      }
     },
   })
 </script>
@@ -52,11 +61,39 @@
       justify-content: center;
       align-items: center;
       .normal_icon{
-        width: 80px;
+        width: 120px;
         height: 80px;
-        .symbol{
-          width: 100%;
-          height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: $space_m;
+        .big_symbol{
+          width: 50px;
+          height: 50px;
+          position: relative;
+          .inner_cube{
+            position: absolute;
+            border: 10px solid $white;
+            width: 50px;
+            height: 50px;
+            transform: scale(0.707) rotate(45deg);
+            border-radius: 4px;
+          }
+          .slash{
+            position: absolute;
+            left: 22px;
+            width: 8px;
+            height: 50px;
+            transform: rotate(45deg);
+            background-color: $white;
+            border-radius: 4px;
+          }
+        }
+        .small_symbol{
+          width: 8px;
+          height: 40px;
+          background-color: $white;
+          border-radius: 4px;
         }
       }
       .sender_icon{
