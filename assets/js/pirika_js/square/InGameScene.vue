@@ -20,6 +20,8 @@
       CardGamePanel(:model="model" @guiEvent="onGuiEvent")
     .game_end_popup.object
       GameEndPopup(:model="model" @guiEvent="onGuiEvent")
+    .game_start_popup.object
+      GameStartPopup(v-if="showGameStartPopup" :model="model" @startGame="showGameStartPopup = false")
     KeyHandler(:controller="controller")
     GuiHandler(:controller="controller" @initiate="registerGuiHandler"  @loadScene="loadScene")
 </template>
@@ -36,6 +38,7 @@
     import BlackBoard from "./BlackBoard.vue"
     import CardGamePanel from "./CardGamePanel.vue"
     import GameEndPopup from "./GameEndPopup.vue"
+    import GameStartPopup from "./GameStartPopup.vue"
     import Controller from "./packs/controller"
     import KeyHandler from "./KeyHandler.vue"
     import GuiHandler from "./GuiHandler.vue"
@@ -52,6 +55,7 @@
       BlackBoard,
       CardGamePanel,
       GameEndPopup,
+      GameStartPopup,
       KeyHandler,
       GuiHandler,
     },
@@ -80,6 +84,7 @@
       return {
         controller: null,
         guiHandler: null,
+        showGameStartPopup: true,
       };
     },
     computed: {
@@ -150,6 +155,12 @@
     .game_end_popup{
       top: 200px;
       left: 300px;
+    }
+    .game_start_popup{
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
     }
   }
 </style>
