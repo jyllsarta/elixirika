@@ -20,8 +20,8 @@
       CardGamePanel(:model="model" @guiEvent="onGuiEvent")
     .game_end_popup.object
       GameEndPopup(:model="model" @guiEvent="onGuiEvent")
-    .game_start_popup.object
-      GameStartPopup(v-if="showGameStartPopup" :model="model" @startGame="showGameStartPopup = false")
+    .game_start_popup.object(v-if="showGameStartPopup")
+      GameStartPopup(:model="model" @startGame="showGameStartPopup = false")
     KeyHandler(:controller="controller")
     GuiHandler(:controller="controller" @initiate="registerGuiHandler"  @loadScene="loadScene")
 </template>
