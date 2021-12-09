@@ -1,7 +1,9 @@
 <template lang="pug">
   .challenge(:class="isCleared ? 'cleared' : 'not_cleared'")
-    .icon
-      | ■
+    .icon(v-if="isCleared")
+      | ◆
+    .icon(v-else="isCleared")
+      | ◇
     .rank
       | {{["I","II","III","IV"][index]}}
     .description
