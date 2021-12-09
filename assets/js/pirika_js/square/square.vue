@@ -95,11 +95,9 @@ a {
     width: 100%;
     height: 100%;
     .game{
-      width: 1200px;
-      height: 100%;
-      min-width: 1200px;
-      min-height: 540px;
-      max-height: 800px;
+      width: $window-width;
+      height: $window-height;
+      min-width: $window-width;
       margin: auto;
     }
   }

@@ -20,8 +20,8 @@
       CardGamePanel(:model="model" @guiEvent="onGuiEvent")
     .game_end_popup.object
       GameEndPopup(:model="model" @guiEvent="onGuiEvent")
-    .game_start_popup.object(v-if="showGameStartPopup")
-      GameStartPopup(:model="model" @startGame="showGameStartPopup = false")
+    .game_start_popup.object
+      GameStartPopup(:model="model")
     KeyHandler(:controller="controller")
     GuiHandler(:controller="controller" @initiate="registerGuiHandler"  @loadScene="loadScene")
 </template>
@@ -84,7 +84,6 @@
       return {
         controller: null,
         guiHandler: null,
-        showGameStartPopup: true,
       };
     },
     computed: {
@@ -157,8 +156,6 @@
       left: 300px;
     }
     .game_start_popup{
-      width: 100%;
-      height: 100%;
       top: 0;
       left: 0;
     }

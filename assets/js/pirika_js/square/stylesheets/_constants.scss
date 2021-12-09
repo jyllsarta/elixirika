@@ -46,3 +46,6 @@ $shadow: #332f41;
 // 色でも長さでもない定数
 
 $disabled-opacity: 0.5;
+
+$window-width: 1200px;
+$window-height: clamp(540px, 100vh, 800px);
