@@ -1,23 +1,27 @@
 <template lang="pug">
   .area.with_shadow(v-if="model")
     .controls
-      .draw(@click="draw()")
+      .draw.with_shadow(@click="draw()")
         | ドロー
     .informations
       .deck
-        | 山： {{model.deck.field.cards.length}}
+        StackedIconField(:field="model.deck.field")
       .grav
-        | 捨： {{model.graveyard.field.cards.length}}
+        StackedIconField(:field="model.graveyard.field")
 
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import Model from './packs/model';
+  import StackedIconField from "./StackedIconField.vue";
 
   export default Vue.extend({
     props: {
       model: Model
+    },
+    components: {
+      StackedIconField
     },
     methods: {
       draw(){
@@ -36,13 +40,25 @@
     border: 2px solid $yellow3;
     border-radius: $radius;
     padding: $space-m;
+    display: flex;
+    flex-direction: column;
     .draw {
-      width: 100px;
-      @include centering($height: 50px);
-      border: 1px solid $gray3;
-      background-color: $gray4;
+      width: 100%;
+      @include centeringWithBorder($height: 50px, $border: 2px);
+      border: 2px solid $red1;
+      border-radius: $radius;
+      background-color: $red3;
       &:hover{
         filter: brightness(140%);
+      }
+    }
+    .informations{
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .grav{
+        opacity: 0.3;
       }
     }
   }
