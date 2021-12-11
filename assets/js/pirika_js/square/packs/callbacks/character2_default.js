@@ -116,4 +116,8 @@ module.exports = class Character2_Default {
     }
     character.uniqueParameters.sandStormCount += filledPockets.length;
   }
+
+  canGetSenderCardFromSkill(character, model){
+    return character.uniqueParameters.abilities?.some(ability=>ability.card?.category == "sender");
+  }
 };

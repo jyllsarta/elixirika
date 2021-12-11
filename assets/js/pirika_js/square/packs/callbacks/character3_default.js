@@ -54,4 +54,8 @@ module.exports = class Character3_Default {
     }
     return true;
   }
+
+  canGetSenderCardFromSkill(character, model){
+    return character.uniqueParameters.abilities.some(ability=>ability.card?.category == "sender");
+  }
 };

@@ -51,26 +51,16 @@ module.exports = class Model {
     return this.character.getCallback("calculateScore", this.chapter.index)(this.character, this);
   }
 
-  // 特殊効果による手詰まり == isForceStalemate == true
-  // カード状況による手詰まり == デッキ枚数がゼロ && ステージングにもなし && すべての手札がどこにも出せない
-  // TODO: 「スキルを全部使用済み」もやる必要あり 
+  // 特殊効果による手詰まり is isForceStalemate == true この場合は他の条件に関係なくとにかくtrue
+  // カード状況による手詰まり is デッキ枚数がゼロ && 手札にもステージングにもsenderがない && スキル経由でsenderの供給が不可能
   isStaleMate(){
     if(this.isForceStaleMate){
       return true;
     }
-    if(this.deck.field.cards.length !== 0){
-      return false;
-    }
-    if(this.stagedField.field.cards.length !== 0){
-      return false;
-    }
-    for(let handCard of this.hand.field.cards){
-      for(let field of this.board.fields){
-        if(this.cardStackRule(this.character, this, handCard, field)){
-          return false;
-        }
-      }
-    }
-    return true;
+    const isDeckEmpty = this.deck.field.cards.length == 0;
+    const noSenderOnHand =        this.hand.field.cards.every(card=>card.category !== "sender");
+    const noSenderOnStagedField = this.stagedField.field.cards.every(card=>card.category !== "sender");
+    const cannotGetSenderFromSkill = !this.character.getCallback("canGetSenderCardFromSkill", this.chapter.index)(this.character, this);
+    return isDeckEmpty && noSenderOnHand && noSenderOnStagedField && cannotGetSenderFromSkill;
   }
 };

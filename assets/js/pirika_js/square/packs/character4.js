@@ -6,6 +6,7 @@ let Character4_4 = require("./callbacks/character4_4");
 let AbilityAddCardWithMp = require("./abilityAddCardWithMp");
 let AbilityDamageWithMp = require("./abilityDamageWithMp");
 let AbilityDrawWithMp = require("./abilityDrawWithMp");
+let Constants = require("./constants");
 let Card = require("./card");
 
 
@@ -18,7 +19,7 @@ module.exports = class Character4 {
 
     this.uniqueParameters = {
       abilities: [
-        new AbilityAddCardWithMp( [new Card( 11, "s", "sender"), new Card( 11, "h", "sender")], 25),
+        new AbilityAddCardWithMp( [new Card( 11, "s", "sender"), new Card( 11, "h", "sender")], Constants.costOfAbilityAddSenderCard),
         new AbilityDamageWithMp(5,10),
         new AbilityDrawWithMp(1,1),
       ],

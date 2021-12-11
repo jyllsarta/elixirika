@@ -1,4 +1,5 @@
 let Card = require("../card");
+const Constants = require("../constants");
 
 module.exports = class Character4_Default {
   onGameStart(character, model){
@@ -58,5 +59,9 @@ module.exports = class Character4_Default {
       return false;
     }
     return true;
+  }
+
+  canGetSenderCardFromSkill(character, model){
+    return character.uniqueParameters.mp >= Constants.costOfAbilityAddSenderCard;
   }
 };
