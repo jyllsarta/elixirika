@@ -34,6 +34,7 @@
   @import "stylesheets/global_settings";
   .area{
     width: 150px;
+    height: 220px;
     background-color: $ingame-background;
     border: 2px solid $yellow3;
     border-radius: $radius;

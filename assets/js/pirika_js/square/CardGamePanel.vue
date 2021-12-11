@@ -5,9 +5,9 @@
         | ドロー
     .informations
       .deck
-        StackedIconField(:field="model.deck.field")
+        StackedIconField(:field="model.deck.field" :emphasisTopCards="true")
       .grav
-        StackedIconField(:field="model.graveyard.field")
+        StackedIconField(:field="model.graveyard.field" :emphasisTopCards="false")
 
 </template>
 
@@ -35,7 +35,7 @@
   @import "stylesheets/global_settings";
   .area{
     width: 150px;
-    height: 200px;
+    height: 220px;
     background-color: $ingame-background;
     border: 2px solid $yellow3;
     border-radius: $radius;

@@ -44,7 +44,7 @@
   @import "stylesheets/global_settings";
   .area{
     width: 220px;
-    height: unquote('max(200px, 40%)');
+    height: unquote('max(180px, 36%)');
     background-color: $ingame-background;
     border: 2px solid $yellow3;
     border-radius: $radius;
