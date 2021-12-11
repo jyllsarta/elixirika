@@ -113,8 +113,8 @@
       position: absolute;
     }
     .support_character{
-      height: 100%;
-      top: 0px;
+      height: 95%;
+      bottom: 0px;
       left: 300px;
     }
     .star_palette{

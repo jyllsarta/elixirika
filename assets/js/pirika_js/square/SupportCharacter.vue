@@ -1,5 +1,6 @@
 <template lang="pug">
-  draggable#support-character(v-if="character")
+  .support-character(v-if="character")
+    draggable#support-character.hit_box
     .character_animation
       img.character.with_drop_shadow(:src="`/images/square/characters/${character.imageName}.png`")
 
@@ -21,10 +22,17 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  #support-character{
+  .support-character{
     height: 100%;
     position: relative;
+    .hit_box{
+      position: absolute;
+      right: 100px;
+      height: 100%;
+      width: 200px;
+    }
     .character_animation{
+      pointer-events: none;
       position: absolute;
       right: 0;
       height: 100%;
