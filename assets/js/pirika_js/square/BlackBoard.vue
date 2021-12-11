@@ -3,8 +3,11 @@
     .title
       |  - 今回の目標 - 
     .score
-      | スコア：{{model.currentScore()}}
-    .challenges()
+      .label
+        | スコア：
+      .value
+        | {{model.currentScore()}}
+    .challenges
       ChallengeText(
         v-for="challenge, index in challenges"
         :is-cleared="isCleared(challenge.id)",
@@ -43,16 +46,34 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .area{
-    width: 220px;
+    width: 210px;
     height: unquote('max(180px, 36%)');
     background-color: $ingame-background;
     border: 2px solid $yellow3;
     border-radius: $radius;
     padding: $space-m;
+    display: flex;
+    flex-direction: column;
     .title{
       font-size: $font-size-medium;
       width: 100%;
       text-align: center;
+    }
+    .score{
+      padding: $space-s;
+      display: flex;
+      margin-left: 10%;
+      width: 80%;
+      justify-content: space-between;
+      border-bottom: 2px solid $gray3;
+    }
+    .challenges{
+      padding-top: $space-m;
+      padding-bottom: $space-m;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
     }
   }
 </style>

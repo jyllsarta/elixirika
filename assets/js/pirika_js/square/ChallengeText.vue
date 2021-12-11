@@ -29,10 +29,10 @@
     display: flex;
     gap: $space-m;
     .icon{
-      width: 20px;
+      width: 16px;
     }
     .rank{
-      width: 30px;
+      width: 24px;
       text-align: center;
     }
     &.cleared{
