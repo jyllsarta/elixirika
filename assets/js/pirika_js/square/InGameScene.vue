@@ -1,5 +1,6 @@
 <template lang="pug">
   .game(v-if="model")
+    .background(:style="{backgroundImage: `url(/images/square/svg/symbol_character${model.characterId}_small.svg`}")
     .center_board.object
       CenterBoard(:board="model.board", :model="model")
     .support_character.object
@@ -109,6 +110,13 @@
     background-color: $ingame-background;
     position: relative;
     overflow: hidden;
+    .background{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background-size: 100px;
+      opacity: 0.1;
+    }
     .object{
       position: absolute;
     }

@@ -30,6 +30,7 @@
     border: 2px solid $main-color;
     border-radius: $radius;
     transition: all 0.1s;
+    background-color: $ingame-background;
     &:hover{
       border: 2px solid $gray1;
       transform: scale(1.05);
