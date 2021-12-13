@@ -172,7 +172,14 @@
         this.controller.sendHandToStagedField(handIndex);
       },
       sendStagedCard(){
-        this.controller.sendStagedCardToBoard(this.controller.model.selectingBoardIndex);
+        if(this.controller.model.selectingBoardIndex === -1){
+          this.controller.unstageStagedCard();
+          const handIndex = this.currentCardIndex();
+          this.controller.sendHandToEmptyPocketAbility(handIndex);
+        }
+        else{
+          this.controller.sendStagedCardToBoard(this.controller.model.selectingBoardIndex);
+        }
         if(this.controller.model.hand.field.cards.every(card=>!card.isSelected())){
           const handCount = this.controller.model.hand.field.cards.length;
           const boardIndex = this.controller.model.selectingBoardIndex;
