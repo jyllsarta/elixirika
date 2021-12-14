@@ -46,17 +46,18 @@
       onKeyDownSelectHand(keyCode){
         switch(keyCode){
           case "o":
+            // デバッグ用
             this.controller.sendPlayLog();
             break;
-          case "p":
+          case "r":
             const characterId = this.controller.model.characterId;
             const chapterId = this.controller.model.chapterId;
             this.controller.newGame(characterId, chapterId);
             this.controller.fillDraw();
             this.controller.selectHand(0);
             break;
-          case "r":
-            // rは強制
+          case "s":
+            // sは強制
             this.controller.fillDraw(true);
             break;
           case "x":
