@@ -52,6 +52,15 @@
         console.log(`character: ${this.controller.model.character.name} のアビリティ ${index} 発動`);
         this.controller.igniteSupportAbility(args);
       },
+      reset(_args){
+        const characterId = this.controller.model.characterId;
+        const chapterId = this.controller.model.chapterId;
+        this.controller.newGame(characterId, chapterId);
+        this.controller.fillDraw();
+      },
+      backToMainMenu(_args){
+        this.$emit("loadScene", {sceneName: "mainMenu"});
+      }
     },
   })
 </script>

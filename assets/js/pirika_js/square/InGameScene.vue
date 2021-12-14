@@ -19,6 +19,8 @@
       BlackBoard(:model="model")
     .card_game_panel.object
       CardGamePanel(:model="model" @guiEvent="onGuiEvent")
+    .in_game_menu.object
+      InGameMenu(@guiEvent="onGuiEvent")
     .game_end_popup.object
       GameEndPopup(:model="model" @guiEvent="onGuiEvent")
     .game_start_popup.object
@@ -38,6 +40,7 @@
     import Hand from "./Hand.vue"
     import BlackBoard from "./BlackBoard.vue"
     import CardGamePanel from "./CardGamePanel.vue"
+    import InGameMenu from "./InGameMenu.vue"
     import GameEndPopup from "./GameEndPopup.vue"
     import GameStartPopup from "./GameStartPopup.vue"
     import Controller from "./packs/controller"
@@ -55,6 +58,7 @@
       Hand,
       BlackBoard,
       CardGamePanel,
+      InGameMenu,
       GameEndPopup,
       GameStartPopup,
       KeyHandler,
@@ -157,6 +161,10 @@
     }
     .card_game_panel{
       bottom: $space-m;
+      right: $space-m;
+    }
+    .in_game_menu{
+      top: $space-m;
       right: $space-m;
     }
     .game_end_popup{
