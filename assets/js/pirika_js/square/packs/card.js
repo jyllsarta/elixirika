@@ -17,7 +17,7 @@ module.exports = class Card {
       case "special":
         return `◇`; 
       case "normal":
-        return `${this.number}${this.suit}`; 
+        return `${this.number}`; 
       default:
         return `!`;
     }
