@@ -1,5 +1,5 @@
 <template lang="pug">
-  .card(:class="card.viewClass() + last")
+  .card(:class="card.viewClass() + last + compressed")
     .background
       .line_ur(v-for="(x, index) in rightLineCount" :class="card.suit", :style="{left: (index + 2.5) * 10 + 'px'}")
       .line_ul(v-for="(x, index) in leftLineCount" :class="card.suit", :style="{right: (index + 2.5) * 10 + 'px'}")
@@ -16,10 +16,14 @@
     props: {
       card: Card,
       isLast: Boolean,
+      isCompressed: Boolean,
     },
     computed: {
       last(){
         return this.isLast ? " last" : "";
+      },
+      compressed(){
+        return this.isCompressed ? " compressed" : "";
       },
       rightLineCount(){
         if(this.card.category !== 'normal'){
@@ -58,6 +62,11 @@
       font-weight: bold;
       font-size: $font-size-medium;
       height: 40px;
+    }
+    &.compressed{
+      font-size: 0;
+      line-height: 0;
+      height: 4px;
     }
     .background{
       position: absolute;

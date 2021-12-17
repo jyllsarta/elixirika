@@ -1,6 +1,7 @@
 <template lang="pug">
   draggable.field.with_solid_shadow(:id="`field-${field.index}`" :group="'top'" :class="{selected: selected}")
-    FieldCard(v-for="(card, index) in field.cards" :key="card.id", :card="card" :isLast="index === field.cards.length -1")
+    FieldCard(v-for="(card, index) in compressedCards" :key="card.id", :card="card" :isLast="index === field.cards.length -1" :isCompressed="true")
+    FieldCard(v-for="(card, index) in normalCards" :key="card.id", :card="card" :isLast="index === field.cards.length -1" :isCompressed="false")
 </template>
 
 <script lang="typescript">
@@ -17,6 +18,14 @@
     components: {
       FieldCard,
       draggable,
+    },
+    computed: {
+      compressedCards(){
+        return this.field.cards.slice(0, -10);
+      },
+      normalCards(){
+        return this.field.cards.slice(-10);
+      },
     }
   })
 </script>
