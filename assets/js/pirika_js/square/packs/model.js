@@ -8,6 +8,7 @@ let CharacterFactory = require("./characterFactory");
 let SeededRandom = require("./seededRandom");
 let Chapter = require("./chapter");
 const Challenge = require("./challenge");
+const MessageManager = require("./message_manager");
 
 module.exports = class Model {
   constructor(characterId, chapterId, seed) {
@@ -21,6 +22,7 @@ module.exports = class Model {
     this.chapter = new Chapter().getById(chapterId);
     this.chapterId = chapterId;
     this.challenge = new Challenge();
+    this.messageManager = new MessageManager(this);
     this.seed = seed;
     this.deck = new Deck();
     this.board = new Board();
@@ -45,6 +47,7 @@ module.exports = class Model {
   onGameStart(){
     this.deck.shuffle(this.seededRandom);
     this.character.getCallback("onGameStart", this.chapter.index)(this.character, this);
+    this.messageManager.register("gameStart");
   }
 
   currentScore(){

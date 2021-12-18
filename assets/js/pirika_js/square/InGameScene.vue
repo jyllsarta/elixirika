@@ -6,7 +6,7 @@
     .support_character.object
       SupportCharacter(:character="model.character")
     .support_character_message.object
-      SupportCharacterMessage(:character="model.character")
+      SupportCharacterMessage(:model="model")
     .support_character_ability.object
       SupportCharacterAbilityBase(:character="model.character" @guiEvent="onGuiEvent")
     .staged_field.object

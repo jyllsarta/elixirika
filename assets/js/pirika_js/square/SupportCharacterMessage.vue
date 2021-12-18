@@ -7,14 +7,15 @@
 
 <script lang="typescript">
   import Vue from 'vue';
+  import Model from "./packs/model";
 
   export default Vue.extend({
     props: {
-      character: Object,
+      model: Model,
     },
     computed: {
       message(){
-        return this.character.defaultMessage;
+        return this.model.messageManager.currentMessage.message;
       }
     }
   })
