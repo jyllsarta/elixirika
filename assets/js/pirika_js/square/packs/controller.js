@@ -90,6 +90,7 @@ module.exports = class Controller {
 
     this.model.character.getCallback("onSendCard", this.model.chapter.index)(this.model.character, this.model, card);
 
+    this.model.messageManager.register("sendCard");
     this.model.checkAndUpdateClearedChallenges();
   }
 

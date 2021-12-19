@@ -9,7 +9,12 @@ module.exports = class MessageManager {
   }
 
   register(when){
-    const records = this.messageMaster.getBySituation(this.model.characterId, when, this.model.chapter.index);
+    const calibratedWhen = this.calibrateWhen(when);
+    const records = this.messageMaster.getBySituation(this.model.characterId, calibratedWhen, this.model.chapter.index);
+    if(records.length === 0){
+      console.warn(`no availvable message: ${calibratedWhen}`); 
+      return;
+    }
     // ロジックに関わらない部分なので天然の乱数を使う
     const record = records[Math.floor(Math.random() * records.length)];
     this.currentMessage = record;
@@ -17,4 +22,22 @@ module.exports = class MessageManager {
 
   // メッセージ競合に困ったら1誘発が終わったところでこれを呼んで再度上書き可能にする
   //resetPriority(){}
+
+  calibrateWhen(when){
+
+    if(this[`${when}Calibration`]){
+      return this[`${when}Calibration`](when, this.model);
+    }
+    return when;
+  }
+
+  sendCardCalibration(when, model){
+    if(model.deck.field.cards.length > 30){
+      return "sendCard1";
+    }
+    if(model.deck.field.cards.length > 10){
+      return "sendCard2";
+    }
+    return "sendCard3";
+  }
 };
