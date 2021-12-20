@@ -83,14 +83,14 @@ module.exports = class Controller {
     card.setSelected(false);
 
     fromField.sendCardById(card.id, toField)
-    this.model.messageManager.register("sendCard");
-
+    
     if(card.isSenderCard()){
       this._commitSenderCard(toField);
     }
-
+    
     this.model.character.getCallback("onSendCard", this.model.chapter.index)(this.model.character, this.model, card);
     this.model.checkAndUpdateClearedChallenges();
+    this.model.messageManager.register("sendCard");
   }
 
   _commitSenderCard(toField){

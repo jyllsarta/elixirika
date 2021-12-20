@@ -10,8 +10,8 @@ module.exports = class Message {
     return master;
   }
 
-  getById(chapterId){
-    return this.idTable[chapterId];
+  getById(id){
+    return this.idTable[id];
   }
 
   getBySituation(characterId, when, chapterIndex){
