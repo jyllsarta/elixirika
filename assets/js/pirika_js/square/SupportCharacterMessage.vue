@@ -5,7 +5,7 @@
       span.letter(
         v-for="(t, index) in message"
         :key="t + index + messageId"
-        :style="{animationDelay: (index*5)+'ms'}"
+        :style="{animationDelay: (index*15)+'ms'}"
         v-text="t")
 </template>
 
