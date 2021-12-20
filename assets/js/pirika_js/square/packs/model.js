@@ -41,7 +41,11 @@ module.exports = class Model {
   }
 
   checkAndUpdateClearedChallenges(){
-    this.clearedChallenges = this.challenge.clearedChallengeIds(this, this.chapter.challenge_ids);
+    const updatedChallengeIds = this.challenge.clearedChallengeIds(this, this.chapter.challenge_ids);
+    if(this.clearedChallenges.length < updatedChallengeIds.length){
+      this.messageManager.register("challenge");
+    }
+    this.clearedChallenges = updatedChallengeIds;
   }
 
   onGameStart(){

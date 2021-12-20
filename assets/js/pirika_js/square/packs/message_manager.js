@@ -8,9 +8,9 @@ module.exports = class MessageManager {
     this.messageMaster = new Message();
     this.messagePriorityMaster = new MessagePriority();
     this.currentMessage = {};
-    this.id = this.reseedId();
-    this.priority = 0;
-    this.lastOperationHistoryLength = 0;
+    this.id = this.reseedId(); // 更新検知用
+    this.priority = 0; // 1アクションで複数registerされたときにどのセリフを表示するかの制御用
+    this.lastOperationHistoryLength = 0; // アクション単位
   }
 
   register(when, params){
