@@ -78,6 +78,16 @@ module.exports = class MessageManager {
     return "sendCard3";
   }
 
+  drawCalibration(when, model, params){
+    if(model.deck.field.cards.length > 30){
+      return "draw1";
+    }
+    if(model.deck.field.cards.length > 10){
+      return "draw2";
+    }
+    return "draw3";
+  }
+
   sendToStarPaletteCalibration(when, model, params){
     const { toField } = params;
     if(toField.cards.length >= Constants.cardCountScoreBonusThreshold){

@@ -58,6 +58,7 @@ module.exports = class Controller {
     for(let i = 0; i < drawNum; ++i){
       this.model.hand.field.addCard(this.model.deck.field.draw());
     }
+    this.model.messageManager.register("draw");
   }
 
   sendHandToBoard(handIndex, boardIndex){
