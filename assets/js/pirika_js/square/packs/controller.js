@@ -83,14 +83,13 @@ module.exports = class Controller {
     card.setSelected(false);
 
     fromField.sendCardById(card.id, toField)
+    this.model.messageManager.register("sendCard");
 
     if(card.isSenderCard()){
       this._commitSenderCard(toField);
     }
 
     this.model.character.getCallback("onSendCard", this.model.chapter.index)(this.model.character, this.model, card);
-
-    this.model.messageManager.register("sendCard");
     this.model.checkAndUpdateClearedChallenges();
   }
 
@@ -99,6 +98,7 @@ module.exports = class Controller {
     toField.sendAllCardTo(newField);
     this.model.starPalette.fields.push(newField);
     this.model.character.getCallback("onSendToStarPalette", this.model.chapter.index)(this.model.character, this.model, newField);
+    this.model.messageManager.register("sendToStarPalette", {toField: newField});
   }
 
   sendHandToStagedField(handIndex){
