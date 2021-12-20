@@ -49,9 +49,6 @@ module.exports = class MessageManager {
     return priority < this.priority;
   }
 
-  // メッセージ競合に困ったら1誘発が終わったところでこれを呼んで再度上書き可能にする
-  //resetPriority(){}
-
   reseedId(){
     return Math.floor(Math.random() * 1000000000);
   }
