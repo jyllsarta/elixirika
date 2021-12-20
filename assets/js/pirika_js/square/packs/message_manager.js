@@ -21,7 +21,7 @@ module.exports = class MessageManager {
 
   pickAndUpdateMessage(records){
     if(records.length === 0){
-      console.warn(`no availvable message: ${calibratedWhen}`); 
+      console.warn(`no availvable message`); 
       return;
     }
     // ロジックに関わらない部分なので天然の乱数を使う

@@ -17,10 +17,12 @@ module.exports = class AbilityAddCardWithMp {
       return;
     }
     if(character.uniqueParameters.mp < this.cost){
+      model.messageManager.register("cannotIgniteAbilityMagic");
       console.warn("insufficient mp!");
       return;
     }
     character.uniqueParameters.mp -= this.cost;
     this.cards.map(card=>model.hand.field.addCard(card));
+    model.messageManager.register("abilityMagic");
   }
 };

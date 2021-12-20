@@ -17,10 +17,12 @@ module.exports = class AbilityDamageWithMp {
       return;
     }
     if(character.uniqueParameters.mp < this.cost){
+      model.messageManager.register("cannotIgniteAbilityMagic");
       console.warn("insufficient mp!");
       return;
     }
     character.uniqueParameters.mp -= this.cost;
     character.damageToNextEnemy(this.damageValue);
+    model.messageManager.register("abilityMagic");
   }
 };

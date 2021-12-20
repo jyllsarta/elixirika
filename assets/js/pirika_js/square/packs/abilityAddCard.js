@@ -16,5 +16,6 @@ module.exports = class AbilityAddCard {
       return;
     }
     model.hand.field.addCard(this.card);
+    model.messageManager.register("abilityAddCard");
   }
 };

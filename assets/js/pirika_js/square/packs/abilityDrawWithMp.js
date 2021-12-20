@@ -19,11 +19,13 @@ module.exports = class AbilityDrawWithMp {
       return;
     }
     if(character.uniqueParameters.mp < this.cost){
+      model.messageManager.register("cannotIgniteAbilityMagic");
       console.warn("insufficient mp!");
       return;
     }
     if(model.hand.field.cards.length >= Constants.maxHandCardNumber){
       console.warn("max hand cards!");
+      model.messageManager.register("cannotIgniteAbilityCardPocketMaxCard");
       return;
     }
     const drawNum = Math.min(this.drawCount, model.deck.field.cards.length)
@@ -31,5 +33,6 @@ module.exports = class AbilityDrawWithMp {
     for(let i = 0; i < drawNum; ++i){
       model.hand.field.addCard(model.deck.field.draw());
     }
+    model.messageManager.register("abilityMagic");
   }
 };
