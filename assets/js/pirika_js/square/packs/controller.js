@@ -199,4 +199,8 @@ module.exports = class Controller {
               console.warn("NG");
             })
   }
+
+  cancelDrag(){
+    this.model.messageManager.register("cancel");
+  }
 };

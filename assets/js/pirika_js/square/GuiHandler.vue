@@ -60,7 +60,10 @@
       },
       backToMainMenu(_args){
         this.$emit("loadScene", {sceneName: "mainMenu"});
-      }
+      },
+      cancelDrag(args){
+        this.controller.cancelDrag();
+      },
     },
   })
 </script>

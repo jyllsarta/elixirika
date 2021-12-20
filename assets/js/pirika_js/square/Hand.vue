@@ -116,14 +116,19 @@
             break;  
           case "cancel":
             console.log("cancel!");
+            this.cancelDrag();
             break;  
           case "ability":
             this.sendToAbility(cardId);
             break;  
           case -1:
             console.warn("no drag target!");
+            this.cancelDrag();
             break;
         }
+      },
+      cancelDrag(){
+        this.$emit("guiEvent", {type: "cancelDrag"});
       },
       sendToAbility(cardId){
         this.$emit("guiEvent", {type: "sendToAbility", cardId: cardId});
