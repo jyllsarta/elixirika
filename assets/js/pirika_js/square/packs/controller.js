@@ -79,6 +79,7 @@ module.exports = class Controller {
     if(!this.model.cardStackRule(this.model.character, this.model, card, toField)){
       console.warn("cannot stack this card!");
       this.unstageStagedCard();
+      this.couldNotSendCard();
       return;
     }
     card.setSelected(false);
@@ -202,5 +203,9 @@ module.exports = class Controller {
 
   cancelDrag(){
     this.model.messageManager.register("cancel");
+  }
+
+  couldNotSendCard(){
+    this.model.messageManager.register("cannotSendCard");
   }
 };

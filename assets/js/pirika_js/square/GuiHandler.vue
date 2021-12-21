@@ -64,6 +64,9 @@
       cancelDrag(args){
         this.controller.cancelDrag();
       },
+      couldNotSendCard(args){
+        this.controller.couldNotSendCard();
+      },
     },
   })
 </script>
