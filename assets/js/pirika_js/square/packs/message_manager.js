@@ -76,6 +76,13 @@ module.exports = class MessageManager {
   }
 
   drawCalibration(when, model, params){
+    if(model.deck.field.cards.length === 0){
+      // && と等価だけど 変数名に意図を残す
+      const canGetSenderCardFromSkill = model.character.getCallback("canGetSenderCardFromSkill", model.chapter.index)(model.character, model);
+      if(canGetSenderCardFromSkill){
+        return "noDeckButRemainsAbility";
+      }
+    }
     if(model.deck.field.cards.length > 30){
       return "draw1";
     }
