@@ -12,7 +12,7 @@ module.exports = class Character2_Default {
       this.shufflePocket(character, model);
     }
     if(staleMateByEnergy && character.uniqueParameters.energy >= maxEnergy){
-      model.isForceStaleMate = true;
+      model.setForceStalemate();
     }
   }
 
@@ -23,7 +23,7 @@ module.exports = class Character2_Default {
     this.fluctuateEnergy(character, maxEnergy, -consumptionPerCard)
     character.uniqueParameters.energyHistory.push(character.uniqueParameters.energy);
     if(staleMateByEnergy && character.uniqueParameters.energy <= 0){
-      model.isForceStaleMate = true;
+      model.setForceStalemate();
     }
   }
 

@@ -16,7 +16,7 @@ module.exports = class Character4_Default {
     character.damageToNextEnemy(power);
     character.uniqueParameters.mp += field.score();
     if(character.isAllEnemyDefeated()){
-      model.isForceStaleMate = true;
+      model.setForceStalemate();
     }
   }
 

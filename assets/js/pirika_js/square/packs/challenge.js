@@ -80,7 +80,7 @@ module.exports = class Challenge {
   }
 
   isClearedDiscardCount(challenge, model){
-    return model.isStaleMate() && model.graveyard.field.cards.length <= challenge.value1;
+    return model.isStalemate() && model.graveyard.field.cards.length <= challenge.value1;
   }
 
   isClearedMinusTrickCount(challenge, model){
@@ -100,14 +100,14 @@ module.exports = class Challenge {
 
   // 「すべての j を回収している」とは「ゲーム終了時、手札にも捨札にもボードにも j がない状態」である
   isClearedGetAllTreasure(challenge, model){
-    return model.isStaleMate() && 
+    return model.isStalemate() && 
       this.hasNoJewelCard(model.graveyard.field) && 
       this.hasNoJewelCard(model.hand.field) && 
       model.board.fields.every(field => this.hasNoJewelCard(field));
   }
 
   isClearedCompleteRun(challenge, model){
-    return model.isStaleMate() && !model.isForceStaleMate;
+    return model.isStalemate() && !model.isForceStalemate;
   }
 
   isClearedSustainEnergyRange(challenge, model){
@@ -119,7 +119,7 @@ module.exports = class Challenge {
     const min = challenge.value1;
     const max = challenge.value2;
     // 最後まで維持チャレンジの場合は両端を含まない
-    return model.isStaleMate() && energyHistory.every(energy=>this.isInRange(min, max, energy, false));
+    return model.isStalemate() && energyHistory.every(energy=>this.isInRange(min, max, energy, false));
   }
 
   isClearedBeEnergyRange(challenge, model){

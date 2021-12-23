@@ -1,5 +1,5 @@
 <template lang="pug">
-  .game_end(v-if="isStaleMate" @click="endGame" :class="{sending: sending}")
+  .game_end(v-if="isStalemate" @click="endGame" :class="{sending: sending}")
     .background(:style="{backgroundImage: `url(/images/square/characters/${model.character.imageName}.png`}")
     .front
       .title
@@ -40,8 +40,8 @@
       ChallengeText
     },
     computed: {
-      isStaleMate(){
-        return this.model?.isStaleMate();
+      isStalemate(){
+        return this.model?.isStalemate();
       },
       challenges(){
         return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
