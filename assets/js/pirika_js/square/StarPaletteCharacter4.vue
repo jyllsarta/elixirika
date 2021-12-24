@@ -1,5 +1,5 @@
 <template lang="pug">
-  .area
+  .star_palette
     .background.with_drop_shadow
       img(src="/images/square/svg/star_palette5.svg")
     .container
@@ -30,19 +30,21 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .area{
-    position: relative;
+  .star_palette{
+    position: absolute;
+    width: 100%;
+    height: 100%;
     .background{
       position: absolute;
-      left: 15%;
-      top: -15px;
-      width: 70%;
+      width: 100%;
+      height: 100%;
       img{
         width: 100%;
       }
     }
     .container{
       position: absolute;
+      top: $space-m * 2;
       left: 20%;
       width: 60%;
       height: 80%;
@@ -64,4 +66,5 @@
       }
     }
   }
+
 </style>
