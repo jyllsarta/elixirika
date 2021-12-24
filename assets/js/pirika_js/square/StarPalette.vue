@@ -34,10 +34,12 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .area{
-    width: 1200px;
-    height: 80px;
+    width: $window-width;
+    height: 70px;
     .palette{
-      width: 100%;
+      position: absolute;
+      left: 15%;
+      width: 70%;
       height: 100%;
     }
   }
