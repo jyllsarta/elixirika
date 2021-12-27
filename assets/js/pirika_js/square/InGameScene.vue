@@ -147,7 +147,7 @@
     }
     .support_character{
       height: 95%;
-      bottom: 0px;
+      bottom: -20px;
       left: 300px;
     }
     .star_palette{
@@ -155,7 +155,7 @@
       left: 0px;
     }
     .support_character_message{
-      top: 100px;
+      top: 110px;
       left: 20px;
     }
     .support_character_ability{
