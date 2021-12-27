@@ -1,8 +1,17 @@
 <template lang="pug">
-  .card(:id="`card-${card.id}`" :class="card.viewClass()" @mouseover="onHover")
+  .card(
+    :id="`card-${card.id}`"
+    :class="card.viewClass()"
+    @mouseover="onHover"
+    :style="colorSchemedStyleBackground"
+  )
     .background
-      .line_ur(v-for="(x, index) in rightLineCount" :class="card.suit", :style="{left: (index + 1) * 10 + 'px'}")
-      .line_ul(v-for="(x, index) in leftLineCount" :class="card.suit", :style="{right: (index + 1) * 10 + 'px'}")
+      .line_ur(
+        v-for="(x, index) in rightLineCount"
+        :class="card.suit",
+        :style="{left: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"
+      )
+      .line_ul(v-for="(x, index) in leftLineCount" :class="card.suit", :style="{right: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}")
     .icon
       .normal_icon(v-if="card.category==='normal'")
         .number(:class="card.suit")
@@ -26,6 +35,7 @@
   export default Vue.extend({
     props: {
       card: Card,
+      characterId: Number,
     },
     methods: {
       onHover(){
@@ -44,6 +54,12 @@
           return 8;
         }
         return Math.floor(this.card.number / 2);
+      },
+      colorSchemedStyleBackground(){
+        return {
+          backgroundColor: `var(--color-${this.card.suit}3-${this.characterId})`,
+          border: `3px solid var(--color-${this.card.suit}1-${this.characterId})`,
+        };
       },
     }
   })
@@ -78,18 +94,6 @@
         right: 5px;
         transform: rotate(10deg);
       }
-      .h{
-        background-color: $red1;
-      }
-      .s{
-        background-color: $blue1;
-      }
-      .j{
-        background-color: $purple1;
-      }
-      .X{
-        background-color: $yellow1;
-      }
     }
     .icon{
       width: 100%;
@@ -107,6 +111,7 @@
         .number{
           font-size: 64px;
         }
+        // この辺カラースキーム対応してもいいけど割と違和感ないのでそのままで
         .s{
           font-family: 'Nova Square', cursive;
           text-shadow: 0px 0px 4px $blue1;
@@ -119,7 +124,7 @@
           font-family: 'Coda', cursive;
           text-shadow: 0px 0px 4px $purple1;
         }
-        .X{
+        .x{
           // Xでは文字描写はない想定
           font-family: 'Nova Square', cursive;
           text-shadow: 0px 0px 4px $yellow1;
@@ -173,28 +178,6 @@
           }
         }
       }
-    }
-    &.selected{
-      transition: transform 0.2s;
-      transform: rotate(5deg);
-      transform-origin: bottom;
-      border: 2px solid $white;
-    }
-    &.h{
-      border: 3px solid $red1;
-      background-color: $red3;
-    }
-    &.s{
-      border: 3px solid $blue1;
-      background-color: $blue3;
-    }
-    &.j{
-      border: 3px solid $purple1;
-      background-color: $purple3;
-    }
-    &.special{
-      border: 3px solid $yellow1;
-      background-color: $yellow3;
     }
   }
 </style>

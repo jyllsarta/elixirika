@@ -5,9 +5,9 @@
         | ドロー
     .informations
       .deck
-        StackedIconField(:field="model.deck.field" :emphasisTopCards="true")
+        StackedIconField(:field="model.deck.field" :emphasisTopCards="true", :characterId="model.characterId")
       .grav
-        StackedIconField(:field="model.graveyard.field" :emphasisTopCards="false")
+        StackedIconField(:field="model.graveyard.field" :emphasisTopCards="false", :characterId="model.characterId")
 
 </template>
 

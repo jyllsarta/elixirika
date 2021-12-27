@@ -1,7 +1,13 @@
 <template lang="pug">
   .area
     draggable.hand(:list="cards" @end="onDragEnd" @start="onDragStart" :move="checkMove" :sort="false" :group="'top'")
-      Card(:card="card" v-for="card in cards" :key="card.id", @hover="onCardHover")
+      Card(
+        :card="card",
+        v-for="card in cards",
+        :key="card.id",
+        @hover="onCardHover",
+        :characterId="model.characterId"
+      )
     draggable.pseudo_draggable(v-if="touchDragging" :group="'top'")
 </template>
 

@@ -57,7 +57,7 @@
       &:hover{
         transform: scale(1.2);
       }
-      &.X{
+      &.x{
         border: 1px solid $yellow2;
         background-color: $yellow3;
       }

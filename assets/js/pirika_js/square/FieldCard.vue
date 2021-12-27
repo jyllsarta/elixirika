@@ -1,8 +1,8 @@
 <template lang="pug">
-  .card(:class="card.viewClass() + last + compressed")
+  .card(:class="card.viewClass() + last + compressed" :style="colorSchemedStyleBackground")
     .background
-      .line_ur(v-for="(x, index) in rightLineCount" :class="card.suit", :style="{left: (index + 2.5) * 10 + 'px'}")
-      .line_ul(v-for="(x, index) in leftLineCount" :class="card.suit", :style="{right: (index + 2.5) * 10 + 'px'}")
+      .line_ur(v-for="(x, index) in rightLineCount" :class="card.suit", :style="{left: (index + 2.5) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})` }")
+      .line_ul(v-for="(x, index) in leftLineCount" :class="card.suit", :style="{right: (index + 2.5) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})` }")
     .front
       .number
         | {{card.stringExpression()}}
@@ -17,6 +17,7 @@
       card: Card,
       isLast: Boolean,
       isCompressed: Boolean,
+      characterId: Number,
     },
     computed: {
       last(){
@@ -36,6 +37,12 @@
           return 8;
         }
         return Math.floor(this.card.number / 2);
+      },
+      colorSchemedStyleBackground(){
+        return {
+          backgroundColor: `var(--color-${this.card.suit}3-${this.characterId})`,
+          border: `3px solid var(--color-${this.card.suit}1-${this.characterId})`,
+        };
       },
     }
   })
@@ -89,34 +96,6 @@
         right: 5px;
         transform: rotate(10deg);
       }
-      .h{
-        background-color: $red1;
-      }
-      .s{
-        background-color: $blue1;
-      }
-      .j{
-        background-color: $purple1;
-      }
-      .X{
-        background-color: $yellow1;
-      }
-    }
-    &.h{
-      border: 2px solid $red1;
-      background-color: $red3;
-    }
-    &.s{
-      border: 2px solid $blue1;
-      background-color: $blue3;
-    }
-    &.j{
-      border: 2px solid $purple1;
-      background-color: $purple3;
-    }
-    &.special{
-      border: 2px solid $yellow1;
-      background-color: $yellow3;
     }
   }
 </style>

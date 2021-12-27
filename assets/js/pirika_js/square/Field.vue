@@ -5,8 +5,22 @@
     :class="{selected: selected}"
     :style="colorSchemedStyle"
   )
-    FieldCard(v-for="(card, index) in compressedCards" :key="card.id", :card="card" :isLast="index === field.cards.length -1" :isCompressed="true")
-    FieldCard(v-for="(card, index) in normalCards" :key="card.id", :card="card" :isLast="index === field.cards.length -1" :isCompressed="false")
+    FieldCard(
+      v-for="(card, index) in compressedCards"
+      :key="card.id",
+      :card="card"
+      :isLast="index === field.cards.length -1"
+      :isCompressed="true",
+      :characterId="characterId",
+    )
+    FieldCard(
+      v-for="(card, index) in normalCards"
+      :key="card.id",
+      :card="card",
+      :isLast="index === field.cards.length -1",
+      :isCompressed="false",
+      :characterId="characterId",
+    )
 </template>
 
 <script lang="typescript">

@@ -1,10 +1,10 @@
 <template lang="pug">
   .fields
     .field(v-if="emphasisTopCards")
-      .card.top(v-for="card in topCards", :class="card.category !== 'normal' ? card.suit : ''")
-      .card(v-for="card in notTopCards", :class="card.category !== 'normal' ? card.suit : ''")
+      .card.top(v-for="card in topCards", :style="colorSchemedStyle(card)")
+      .card(v-for="card in notTopCards", :style="colorSchemedStyle(card)")
     .field(v-if="!emphasisTopCards")
-      .card(v-for="card in field.cards", :class="card.category !== 'normal' ? card.suit : ''")
+      .card(v-for="card in field.cards", :style="colorSchemedStyle(card)")
 
 </template>
 
@@ -16,6 +16,7 @@
     props: {
       field: Field,
       emphasisTopCards: Boolean,
+      characterId: Number,
     },
     computed: {
       topCards(){
@@ -23,6 +24,18 @@
       },
       notTopCards(){
         return this.field.cards.slice(4, Math.inf);
+      },
+    },
+    methods: {
+      colorSchemedStyle(card){
+        if(card.category === 'normal'){
+          return {
+            opacity: 0.8,
+          }
+        }
+        return {
+          backgroundColor: `var(--color-${card.suit}2-${this.characterId})`
+        };
       },
     }
   })
@@ -48,15 +61,6 @@
         &.top{
           width: $space-s;
           height: 25px;
-        }
-        &.h{
-          background-color: $red2;
-        }
-        &.s{
-          background-color: $blue2;
-        }
-        &.X{
-          background-color: $yellow1;
         }
       }
     }
