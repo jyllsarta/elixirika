@@ -1,15 +1,26 @@
 <template lang="pug">
-  .area.with_inset_shadow
+  .area.with_inset_shadow(:style="styleBackground")
     .background(:style="{backgroundImage: `url(/images/square/svg/symbol_character${model.characterId}_small.svg`}")
     .front
       .indice
-        .index.with_solid_shadow(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]")
+        .index.with_solid_shadow(
+          v-for="index in [0,1,2,3]",
+          :key="index",
+          :field="board.fields[index]",
+          :style="styleIndexBackground"
+        )
           span(:class="{big_combo: board.fields[index].overScoreBonusBorder()}")
             | {{board.fields[index].cards.length}}
           span
             | 枚 / {{board.fields[index].score()}}点
       .fields
-        Field(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]" :selected="model.selectingBoardIndex === index")
+        Field(
+          v-for="index in [0,1,2,3]",
+          :key="index",
+          :field="board.fields[index]"
+          :selected="model.selectingBoardIndex === index"
+          :characterId="model.characterId"
+        )
 </template>
 
 <script lang="typescript">
@@ -25,6 +36,18 @@
     },
     components: {
       Field,
+    },
+    computed: {
+      styleBackground(){
+        return {
+          "background-color": `var(--bg2-${this.model.characterId})`,
+        };
+      },
+      styleIndexBackground(){
+        return {
+          "background-color": `var(--bg3-${this.model.characterId})`,
+        };
+      },
     }
   })
 </script>
@@ -35,7 +58,7 @@
     position: relative;
     width: 800px;
     height: unquote('max(350px, 57%)');
-    background-color: $ingame-background;
+    border-radius: $radius;
     .background{
       position: absolute;
       width: 100%;
@@ -60,15 +83,14 @@
         align-items: center;
         gap: $space-m;
         .index{
-          background-color: $ingame-background;
-          border: 2px solid $yellow3;
+          border: 2px solid $primary3;
           border-radius: $radius;
           padding: $space-m;
           width: 160px;
           text-align: center;
           .big_combo{
             font-weight: bold;
-            color: $yellow1;
+            color: $primary1;
           }
         }
       }

@@ -1,6 +1,8 @@
 <template lang="pug">
   .game(v-if="model")
-    .background(:style="{backgroundImage: `url(/images/square/svg/symbol_character${model.characterId}_small.svg`}")
+    .background
+      .color(:style="styleBackground")
+      .image(:style="styleBackgroundImage")
     .center_board.object
       CenterBoard(:board="model.board", :model="model")
     .support_character.object
@@ -83,7 +85,7 @@
       },
       loadScene(args){
         this.$emit("loadScene", args);
-      }
+      },
     },
     data(){
       return {
@@ -101,6 +103,16 @@
       chapterId(){
          return this.sceneParameter.chapterId;
       },
+      styleBackgroundImage(){
+        return {
+          backgroundImage: `url(/images/square/svg/symbol_character${this.model.characterId}_small.svg`,
+        };
+      },
+      styleBackground(){
+        return {
+          "background-color": `var(--bg3-${this.model.characterId})`,
+        };
+      },
     }
   })
 </script>
@@ -111,15 +123,24 @@
     width: 100%;
     height: 100%;
     color: $white;
-    background-color: $ingame-background;
     position: relative;
     overflow: hidden;
     .background{
       width: 100%;
       height: 100%;
       position: absolute;
-      background-size: 100px;
-      opacity: 0.1;
+      .color{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+      .image{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-size: 100px;
+        opacity: 0.1;
+      }
     }
     .object{
       position: absolute;

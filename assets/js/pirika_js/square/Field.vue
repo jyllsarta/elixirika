@@ -1,5 +1,10 @@
 <template lang="pug">
-  draggable.field.with_solid_shadow(:id="`field-${field.index}`" :group="'top'" :class="{selected: selected}")
+  draggable.field.with_solid_shadow(
+    :id="`field-${field.index}`"
+    :group="'top'"
+    :class="{selected: selected}"
+    :style="colorSchemedStyle"
+  )
     FieldCard(v-for="(card, index) in compressedCards" :key="card.id", :card="card" :isLast="index === field.cards.length -1" :isCompressed="true")
     FieldCard(v-for="(card, index) in normalCards" :key="card.id", :card="card" :isLast="index === field.cards.length -1" :isCompressed="false")
 </template>
@@ -14,6 +19,7 @@
     props: {
       field: Field,
       selected: Boolean,
+      characterId: Number,
     },
     components: {
       FieldCard,
@@ -26,7 +32,13 @@
       normalCards(){
         return this.field.cards.slice(-10);
       },
-    }
+      colorSchemedStyle(){
+        return {
+          backgroundColor: `var(--bg3-${this.characterId})`,
+          border: `2px solid var(--bg1-${this.characterId})`
+        };
+      },
+    },
   })
 </script>
 
@@ -36,16 +48,14 @@
     width: 160px;
     height: 90%;
     max-height: 300px;
-    border: 2px solid $main-color;
     border-radius: $radius;
     transition: all 0.1s;
-    background-color: $ingame-background;
     &:hover{
-      border: 2px solid $gray1;
+      border: 2px solid $primary1;
       transform: scale(1.05);
     }
     &.selected{
-      border: 2px solid $red1;
+      border: 2px solid $primary1;
       transform: scale(1.05);      
     }
   }
