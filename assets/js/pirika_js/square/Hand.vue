@@ -40,12 +40,22 @@
     },
     methods: {
       checkMove(event){
-        const {clientX, clientY, type} = event.originalEvent;
+        const {clientX, type} = event.originalEvent;
         // タッチドラッグの場合においてのみ行き先表示を判定したい
         // 逆にマウスの場合は正規のDragEventが来て type が入っているので、 type にそれっぽいものが書いてあったら処理しない
         if(!clientX || type?.startsWith("drag")){
-          return false;
+          return this.checkMoveDrag(event);
         }
+        return this.checkMoveTouch(event)
+      },
+      checkMoveDrag(event){
+        const {to} = event;
+        const fieldIndex = parseInt(to.id?.split("field-")[1] || -1);
+        this.$emit("guiEvent", {type: "selectBoard", index: fieldIndex});      
+        return false;
+      },
+      checkMoveTouch(event){
+        const {clientX, clientY, type} = event.originalEvent;
         const target = this.findTargetFromTouchEvent(clientX, clientY);
         if(typeof(target) === "number" && this.model.selectingBoardIndex !== target){
           this.$emit("guiEvent", {type: "selectBoard", index: target});
@@ -96,17 +106,22 @@
         const aspectRatio = window.screen.width / window.screen.height;
         const width = Math.max(window.screen.width, Constants.defaultWindowWidth);
         const virtualHeight = width / aspectRatio;
-        const fieldIndex = Math.floor(clientX * 4 / width);
-        const isFloorPart = clientY > (virtualHeight / 2);
-        // 画面下半分かつ左端に出したときはアビリティ宛にする
-        if(fieldIndex === 0 && isFloorPart){
-          return "ability"
-        }
-        // 画面下半分かつ左端でもない場合にはキャンセル扱いにする
-        if(fieldIndex !== 0 && isFloorPart){
+        const touchAreaIndex = Math.floor(clientX * 6 / width);
+        const isFloorPart = clientY > (virtualHeight * 4 / 5);
+        // 画面下のほうはキャンセル扱いにする
+        if(isFloorPart){
           return "cancel";
         }
-        return fieldIndex;
+        return this.touchAreaIndexToCardIndex(touchAreaIndex);
+      },
+      touchAreaIndexToCardIndex(touchAreaIndex){
+        if(touchAreaIndex === 5){
+          return -1;
+        }
+        if(touchAreaIndex === 0){
+          return "ability";
+        }
+        return touchAreaIndex - 1;
       },
       doSend(target, cardId){
         if(cardId === -1){
