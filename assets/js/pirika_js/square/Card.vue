@@ -179,5 +179,11 @@
         }
       }
     }
+    &.selected{
+      transition: transform 0.2s;
+      transform: rotate(5deg) translateY(-20px);
+      transform-origin: bottom;
+      border: 2px solid $white;
+    }
   }
 </style>
