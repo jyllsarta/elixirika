@@ -65,11 +65,12 @@
     border-radius: $radius;
     transition: all 0.1s;
     &:hover{
-      border: 2px solid $primary1;
+      // colorSchemedStyleによってインラインスタイルが埋め込まれてそれに負けてしまうので、ここだけピンポイントでimportantを使う
+      border: 2px solid $primary1 !important;
       transform: scale(1.05);
     }
     &.selected{
-      border: 2px solid $primary1;
+      border: 2px solid $primary1 !important;
       transform: scale(1.05);      
     }
   }
