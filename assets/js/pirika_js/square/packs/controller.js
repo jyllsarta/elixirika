@@ -33,7 +33,7 @@ module.exports = class Controller {
   loadOperationHistory(historyString){
     const operations = JSON.parse(historyString);
     this.model = new Model(operations.characterId, operations.chapterId, operations.seed);
-    
+    console.log(operations)
     for(let operation of operations.operationHistory){
       this[operation.name](...operation.arguments);
     }
@@ -48,7 +48,7 @@ module.exports = class Controller {
   // 手札の引き直し
   // 手札を全て墓地に送る・デッキから引けるだけ引く
   fillDraw(force=false){
-    this.model.operationHistory.push({arguments: Object.values(arguments), name: "fillDraw"})
+    this.model.registerOperationHistory({arguments: Object.values(arguments), name: "fillDraw"})
     if(!force && this.model.hand.field.cards.length >= Constants.handCardNumber){
       return;
     }
@@ -62,14 +62,14 @@ module.exports = class Controller {
   }
 
   sendHandToBoard(handIndex, boardIndex){
-    this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToBoard"})
+    this.model.registerOperationHistory({arguments: Object.values(arguments), name: "sendHandToBoard"})
     const card = this.model.hand.field.cards[handIndex];
     const toField = this.model.board.fields[boardIndex];
     this._doSendCardToBoard(card, this.model.hand.field, toField);
   }
 
   sendStagedCardToBoard(boardIndex){
-    this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendStagedCardToBoard"})
+    this.model.registerOperationHistory({arguments: Object.values(arguments), name: "sendStagedCardToBoard"})
     const card = this.model.stagedField.field.cards[0];
     const toField = this.model.board.fields[boardIndex];
     this._doSendCardToBoard(card, this.model.stagedField.field, toField);
@@ -105,7 +105,7 @@ module.exports = class Controller {
   }
 
   sendHandToStagedField(handIndex){
-    this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToStagedField"})
+    this.model.registerOperationHistory({arguments: Object.values(arguments), name: "sendHandToStagedField"})
     const card = this.model.hand.field.cards[handIndex];
     const stagedField = this.model.stagedField;
     if(!stagedField.isSendable()){
@@ -123,7 +123,7 @@ module.exports = class Controller {
     if(!stagedField.isStaged()){
       return;
     }
-    this.model.operationHistory.push({arguments: Object.values(arguments), name: "unstageStagedCard"})
+    this.model.registerOperationHistory({arguments: Object.values(arguments), name: "unstageStagedCard"})
     const handIndex = stagedField.stagedCardIsFromIndex;
     const card = stagedField.field.cards[0];
     stagedField.field.sendCardById(card.id, this.model.hand.field, {index: handIndex})
@@ -143,7 +143,7 @@ module.exports = class Controller {
       console.warn("cold now!");
       return;
     }
-    this.model.operationHistory.push({arguments: Object.values(arguments), name: "sendHandToEmptyPocketAbility"})
+    this.model.registerOperationHistory({arguments: Object.values(arguments), name: "sendHandToEmptyPocketAbility"})
     const card = this.model.hand.field.cards[handIndex];
     card.selected = false;
     emptyPocket.card = card;
@@ -152,13 +152,13 @@ module.exports = class Controller {
   }
 
   selectHand(handIndex){
-    this.model.operationHistory.push({arguments: Object.values(arguments), name: "selectHand"})
+    this.model.registerOperationHistory({arguments: Object.values(arguments), name: "selectHand"})
     this.model.hand.disselectAllCard();
     this.model.hand.field.cards[handIndex]?.setSelected(true);
   }
 
   selectBoard(boardIndex){
-    this.model.operationHistory.push({arguments: Object.values(arguments), name: "selectBoard"})
+    this.model.registerOperationHistory({arguments: Object.values(arguments), name: "selectBoard"})
     // 非選択状態にするために -1 だけ例外で許可する
     if(boardIndex !== -1 && !this.model.board.fields[boardIndex]){
       console.warn(`no board field ${boardIndex}`);
@@ -168,7 +168,7 @@ module.exports = class Controller {
   }
 
   igniteSupportAbility(args){
-    this.model.operationHistory.push({arguments: Object.values(arguments), name: "igniteSupportAbility"})
+    this.model.registerOperationHistory({arguments: Object.values(arguments), name: "igniteSupportAbility"})
     const character = this.model.character;
     const { index } = args;
     const ability = character.uniqueParameters.abilities[index];

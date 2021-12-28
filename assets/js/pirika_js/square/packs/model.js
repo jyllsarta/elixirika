@@ -86,4 +86,16 @@ module.exports = class Model {
     }
     return this.hand.field.cards.find(card=>card.selected);
   }
+
+  registerOperationHistory(history){
+    // 選び直し系が連続した場合、最後のヒストリーのみを記録する
+    const lastOperationHistory = this.operationHistory.slice(-1)[0]
+    if(lastOperationHistory && lastOperationHistory.name === "selectHand" && history.name === "selectHand"){
+      this.operationHistory.pop();
+    }
+    if(lastOperationHistory && lastOperationHistory.name === "selectBoard" && history.name === "selectBoard"){
+      this.operationHistory.pop();
+    }
+    this.operationHistory.push(history)
+  }
 };

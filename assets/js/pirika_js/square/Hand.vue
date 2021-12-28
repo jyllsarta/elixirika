@@ -51,17 +51,17 @@
       checkMoveDrag(event){
         const {to} = event;
         const fieldIndex = parseInt(to.id?.split("field-")[1] || -1);
-        this.$emit("guiEvent", {type: "selectBoard", index: fieldIndex});
+        this.selectBoard(fieldIndex);
         return false;
       },
       checkMoveTouch(event){
         const {clientX, clientY, type} = event.originalEvent;
         const target = this.findTargetFromTouchEvent(clientX, clientY);
         if(typeof(target) === "number" && this.model.selectingBoardIndex !== target){
-          this.$emit("guiEvent", {type: "selectBoard", index: target});
+          this.selectBoard(target);
         }
         if(target === "cancel" && this.model.selectingBoardIndex !== target){
-          this.$emit("guiEvent", {type: "selectBoard", index: -1});
+          this.disselectBoard();
         }
         // draggable ネイティブの勝手なリソース移動は禁止するためにかならず false をリターンする
         return false;
@@ -152,7 +152,6 @@
         }
       },
       cancelDrag(){
-        this.model.hand.disselectAllCard();
         this.$emit("guiEvent", {type: "cancelDrag"});
       },
       sendToAbility(cardId){
@@ -164,7 +163,16 @@
       onCardHover(card){
         this.$emit("guiEvent", {type: "selectCard", card: card});
       },
+      selectBoard(index){
+        if(this.model.selectingBoardIndex === index){
+          return;
+        }
+        this.$emit("guiEvent", {type: "selectBoard", index: index});
+      },
       disselectBoard(){
+        if(this.model.selectingBoardIndex === -1){
+          return;
+        }
         this.$emit("guiEvent", {type: "selectBoard", index: -1});
       }
     }
