@@ -9,7 +9,7 @@
           :field="board.fields[index]",
           :style="styleIndexBackground(index)"
         )
-          span(:class="{big_combo: board.fields[index].overScoreBonusBorder()}")
+          span
             | {{expectedCardCount(index)}}
           span
             | 枚 / {{expectedScore(index)}}点
@@ -111,10 +111,6 @@
           padding: $space-m;
           width: 160px;
           text-align: center;
-          .big_combo{
-            font-weight: bold;
-            color: $primary1;
-          }
         }
       }
       .fields{
