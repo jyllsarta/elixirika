@@ -75,4 +75,15 @@ module.exports = class Model {
     this.messageManager.register("forceStalemate");
     this.isForceStalemate = true;
   }
+
+  // タッチ・ドラッグに関わらず今握っているカードを取得することを試みる(無選択があり得る)
+  getHoldingCard(){
+    if(this.stagedField.isStaged()){
+      return this.stagedField.field.cards[0];
+    }
+    if(this.hand.isNoCardSelected()){
+      return null;
+    }
+    return this.hand.field.cards.find(card=>card.selected);
+  }
 };

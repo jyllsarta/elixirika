@@ -6,9 +6,9 @@
         v-for="card in cards",
         :key="card.id",
         @hover="onCardHover",
-        :characterId="model.characterId"
+        :characterId="model.characterId",
+        :touchDragging="touchDragging"
       )
-    draggable.pseudo_draggable(v-if="touchDragging" :group="'top'")
 </template>
 
 <script lang="typescript">
@@ -51,7 +51,7 @@
       checkMoveDrag(event){
         const {to} = event;
         const fieldIndex = parseInt(to.id?.split("field-")[1] || -1);
-        this.$emit("guiEvent", {type: "selectBoard", index: fieldIndex});      
+        this.$emit("guiEvent", {type: "selectBoard", index: fieldIndex});
         return false;
       },
       checkMoveTouch(event){
@@ -73,11 +73,14 @@
           return;
         }
         if(event.originalEvent.pointerType === "touch"){
+          const card = this.model.hand.field.cards.find(card=>card.id==cardId);
+          this.$emit("guiEvent", {type: "selectCard", card: card});
           this.touchDragging = true;
         }
       },
       onDragEnd(event){
         this.touchDragging = false;
+        this.disselectBoard();
         if(event.originalEvent.dataTransfer){
           this.onDragEndMouse(event);
         }
@@ -149,6 +152,7 @@
         }
       },
       cancelDrag(){
+        this.model.hand.disselectAllCard();
         this.$emit("guiEvent", {type: "cancelDrag"});
       },
       sendToAbility(cardId){
@@ -159,6 +163,9 @@
       },
       onCardHover(card){
         this.$emit("guiEvent", {type: "selectCard", card: card});
+      },
+      disselectBoard(){
+        this.$emit("guiEvent", {type: "selectBoard", index: -1});
       }
     }
   })
@@ -176,13 +183,6 @@
       align-items: flex-end;
       justify-content: center;
       gap: $space-m;
-    }
-    .pseudo_draggable{
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
     }
   }
 </style>

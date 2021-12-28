@@ -1,7 +1,7 @@
 <template lang="pug">
   .card(
     :id="`card-${card.id}`"
-    :class="card.viewClass()"
+    :class="card.viewClass() + `${touchDragging ? '' : ' not_touch'}`"
     @mouseover="onHover"
     :style="colorSchemedStyleBackground"
   )
@@ -36,9 +36,14 @@
     props: {
       card: Card,
       characterId: Number,
+      touchDragging: Boolean,
     },
     methods: {
-      onHover(){
+      onHover(event){
+        if ("ontouchstart" in window) {
+          // タッチデバイスではonHoverをポップさせない
+          return;
+        }
         this.$emit("hover", this.card);
       }
     },
@@ -56,10 +61,11 @@
         return Math.floor(this.card.number / 2);
       },
       colorSchemedStyleBackground(){
-        return {
+        let style =  {
           backgroundColor: `var(--color-${this.card.suit}3-${this.characterId})`,
           border: `3px solid var(--color-${this.card.suit}1-${this.characterId})`,
         };
+        return style;
       },
     }
   })
@@ -179,7 +185,7 @@
         }
       }
     }
-    &.selected{
+    &.selected.not_touch{
       transition: transform 0.2s;
       transform: rotate(5deg) translateY(-20px);
       transform-origin: bottom;

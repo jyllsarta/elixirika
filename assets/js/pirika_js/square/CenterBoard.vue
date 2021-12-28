@@ -10,9 +10,9 @@
           :style="styleIndexBackground"
         )
           span(:class="{big_combo: board.fields[index].overScoreBonusBorder()}")
-            | {{board.fields[index].cards.length}}
+            | {{expectedCardCount(index)}}
           span
-            | 枚 / {{board.fields[index].score()}}点
+            | 枚 / {{expectedScore(index)}}点
       .fields
         Field(
           v-for="index in [0,1,2,3]",
@@ -36,6 +36,22 @@
     },
     components: {
       Field,
+    },
+    methods: {
+      expectedCardCount(index){
+        const card = this.model.getHoldingCard();
+        if(card && this.model.selectingBoardIndex === index){
+          return this.board.fields[index].cards.length + 1;
+        }
+        return this.board.fields[index].cards.length;
+      },
+      expectedScore(index){
+        const card = this.model.getHoldingCard();
+        if(card && this.model.selectingBoardIndex === index){
+          return this.board.fields[index].scoreWithCard(card);
+        }
+        return this.board.fields[index].score();
+      }
     },
     computed: {
       styleBackground(){

@@ -72,7 +72,11 @@ module.exports = class Field {
   }
 
   score(){
-    return Math.min(Math.floor(this.lengthBonus() * this.cards.reduce((x,y)=>x+y.number, 0)), Constants.maxScorePerField);
+    return this.calculateScore(this.cards);
+  }
+
+  scoreWithCard(card){
+    return this.calculateScore(this.cards.concat(card));
   }
 
   minusTrickCount(){
@@ -85,5 +89,9 @@ module.exports = class Field {
       prevCardNmber = card.number;
     }
     return count;
+  }
+
+  calculateScore(cards){
+    return Math.min(Math.floor(this.lengthBonus() * cards.reduce((x,y)=>x+y.number, 0)), Constants.maxScorePerField);
   }
 };

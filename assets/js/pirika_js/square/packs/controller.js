@@ -73,6 +73,7 @@ module.exports = class Controller {
     const card = this.model.stagedField.field.cards[0];
     const toField = this.model.board.fields[boardIndex];
     this._doSendCardToBoard(card, this.model.stagedField.field, toField);
+    this.model.hand.disselectAllCard();
   }
 
   _doSendCardToBoard(card, fromField, toField){
