@@ -4,9 +4,8 @@
       img(src="/images/square/svg/star_palette2.svg")
     .gauge_container
       .gauge
-        .gauge_background
         .foreground
-          .fill(:style="{width: `${currentFillWidth * 100}%`}")
+          .fill(:style="{width: `${currentFillWidth * 100}%`}", :class="currentFillStatus")
           .lose_next(:style="{width: `${currentLoseWidth * 100}%`}")
     .number
       .energy
@@ -54,6 +53,15 @@
       },
       currentLoseWidth(){
         return this.consumptionPerCard / this.maxEnergy;
+      },
+      currentFillStatus(){
+        if(this.currentFillWidth <= 0.2){
+          return "low"
+        }
+        if(this.currentFillWidth >= 0.8){
+          return "high"
+        }
+        return "best"
       }
     },
   })
@@ -75,46 +83,56 @@
     }
     .gauge_container{
       position: absolute;
-      display: flex;
-      width: 70%;
-      left: 15%;
-      height: 30px;
-      top: $space-m * 3;
-      align-items: center;
-      justify-content: center;
+      width: 630px;
+      left: 190px;
+      height: 38px;
+      top: 23px;
       .gauge{
         width: 100%;
         height: 100%;
         position: absolute;
         border-radius: $radius;
-        .gauge_background{
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background-color: $gray4;
-        }
         .foreground{
           position: absolute;
           width: 100%;
           height: 100%;
           display: flex;
+          opacity: 0.8;
           .fill{
             height: 100%;
-            background-color: $yellow2;
+            transition: background-color 0.1s linear, width 0.1s linear;
+            &.low{
+              background-color: $blue1;
+            }
+            &.high{
+              background-color: $red1;
+            }
+            &.best{
+              background-color: $yellow1;
+            }
           }
           .lose_next{
             height: 100%;
-            background-color: $yellow3;
+            background-color: $yellow2;
+            animation: flash 4s linear infinite;
           }
         }
+      }
+    }
+    @keyframes flash {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
       }
     }
     .number{
       position: absolute;
       display: flex;
-      left: 0;
+      left: $space-ll;
       bottom: 0;
-      padding: $space-m;
+      padding: $space-ll;
       line-height: 100%;
       .energy{
         display: flex;
