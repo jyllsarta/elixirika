@@ -146,7 +146,7 @@
       position: absolute;
     }
     .support_character{
-      height: 95%;
+      height: 90%;
       bottom: -20px;
       left: 300px;
     }
@@ -156,7 +156,7 @@
     }
     .support_character_message{
       top: 110px;
-      left: 20px;
+      left: $space-m;
     }
     .support_character_ability{
       bottom: $space-m;

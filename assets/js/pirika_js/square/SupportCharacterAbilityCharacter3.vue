@@ -1,9 +1,9 @@
 <template lang="pug">
   .area
     .index(v-if="!character.uniqueParameters.abilities")
-      | ミズハにスキルはない
+      | スキルはない
     .index(v-if="character.uniqueParameters.abilities")
-      | ミズハにスキルはない..というのは嘘だ
+      | スキルあるよ
     .buttons(v-if="character.uniqueParameters.abilities")
       .button(
         v-for="(ability, index) in character.uniqueParameters.abilities"

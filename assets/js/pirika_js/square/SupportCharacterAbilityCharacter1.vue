@@ -1,7 +1,7 @@
 <template lang="pug">
   .area
     .index
-      | ピリカのスキル
+      | スキル
     .buttons
       .button(
         v-for="(ability, index) in character.uniqueParameters.abilities"
