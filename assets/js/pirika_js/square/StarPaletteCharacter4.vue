@@ -10,18 +10,19 @@
         .foreground_enemy(v-if="foregroundEnemy.hp > 0", :key="foregroundEnemy.id")
           .img
             img(:src="`/images/square/characters/${foregroundEnemy.image}.png`")
-          .hp
+          .hp(:class="hpClass(foregroundEnemy.hp)")
             | {{foregroundEnemy.hp}}
       transition-group(class="background_enemies" name="background")
         .enemy(v-for="enemy in backgroundEnemies" :key="enemy.id")
           .content
             .img
               img(:src="`/images/square/characters/${enemy.image}.png`")
-            .hp
+            .hp(:class="hpClass(enemy.hp)")
               | {{enemy.hpMax}}
-      .cleared(v-if="!foregroundEnemy.hp")
-        .text
-          | 勝利！
+      transition(name="win")
+        .cleared(v-if="!foregroundEnemy.hp")
+          .text
+            | 勝利！
 </template>
 
 <script lang="typescript">
@@ -44,6 +45,15 @@
       }
     },
     methods: {
+      hpClass(hp){
+        if(hp >= 10){
+          return "hp3";
+        }
+        if(hp >= 5){
+          return "hp2";
+        }
+        return "hp1"
+      }
     },
   })
 </script>
@@ -93,6 +103,7 @@
           left: 0;
           width: 100%;
           text-align: center;
+          font-size: $font-size-medium;
         }
       }
       .background_enemies{
@@ -119,6 +130,7 @@
               left: 0;
               width: 100%;
               text-align: center;
+              font-size: $font-size-medium;
             }
           }
         }
@@ -134,9 +146,22 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          font-size: $font-size-large;
         }
         // 今後 アヤメちゃんイラストが追加される
       }
+    }
+
+    .hp1{
+      text-shadow: 0px 0px 2px $red1, 0px 0px 2px $red1;
+    }
+
+    .hp2{
+      text-shadow: 0px 0px 2px $yellow1, 0px 0px 2px $yellow1;
+    }
+
+    .hp3{
+      text-shadow: 0px 0px 2px $blue1, 0px 0px 2px $blue1;
     }
 
     .enemy-appear-enter-active {
@@ -172,6 +197,16 @@
     }
     .background-move {
       transition: transform 1s;
+    }
+
+    .win-enter-active {
+      position: absolute;
+      transition: all 0.4s;
+      transition-delay: 0.5s;
+    }
+    .win-enter{
+      transform: scale(4);
+      opacity: 0;
     }
   }
 
