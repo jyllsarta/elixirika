@@ -10,15 +10,15 @@
         .foreground_enemy(v-if="foregroundEnemy.hp > 0", :key="foregroundEnemy.id")
           .img
             img(:src="`/images/square/characters/${foregroundEnemy.image}.png`")
-          .hp(:class="hpClass(foregroundEnemy.hp)")
-            | {{foregroundEnemy.hp}}
+      .foreground_enemy_hp(:class="hpClass(referenceCurrentHp)")
+        | {{referenceCurrentHp}}
       transition-group(class="background_enemies" name="background")
         .enemy(v-for="enemy in backgroundEnemies" :key="enemy.id")
           .content
             .img
               img(:src="`/images/square/characters/${enemy.image}.png`")
             .hp(:class="hpClass(enemy.hp)")
-              | {{enemy.hpMax}}
+              | {{enemy.hp}}
       .attack_effect
         .line1.line(ref="line1")
         .line2.line(ref="line2")
@@ -38,6 +38,14 @@
     props: {
       model: Model,
     },
+    data: function(){
+      return {
+        referenceCurrentHp: 0,
+      };
+    },
+    mounted() {
+      this.syncCurrentHp();
+    },
     computed: {
       aliveEnemies(){
         return this.model.character.uniqueParameters.enemies.filter(enemy=>enemy.hp>0);
@@ -50,6 +58,9 @@
       }
     },
     methods: {
+      syncCurrentHp(){
+        this.referenceCurrentHp = this.foregroundEnemy.hp;
+      },
       hpClass(hp){
         if(hp >= 10){
           return "hp3";
@@ -57,9 +68,9 @@
         if(hp >= 5){
           return "hp2";
         }
-        return "hp1"
+        return "hp1";
       },
-      onAttack(){
+      async onAttack(){
         const playerTimeline = gsap.timeline();
         playerTimeline
           .to(
@@ -106,8 +117,26 @@
           .to( this.$refs.line3, { x:   0, opacity: 0.7, duration: 0.15 })
           .to( this.$refs.line3, { x:  50, opacity:   0, duration: 0.15 });
 
+        // アニメーションの最後に合わせるほうが行儀良くはある
+        await this.$delay(1000);
+        this.syncCurrentHp();
       },
     },
+    watch: {
+      // HPさがる ID変化あり: 攻撃で倒したに違いない 
+      // HPあがる ID変化あり: 攻撃で倒したに違いない
+      // HPさがる ID変化なし: 攻撃で削ったに違いない
+      // HPあがる ID変化なし: そんなことある？ 現状の実装ではないが、増えてる場合はおそらく攻撃エフェクトは出したくなさそう
+      "foregroundEnemy.id": function(){
+        this.onAttack();
+      },
+      "foregroundEnemy.hp": function(newHp, prevHp){
+        if(prevHp < newHp){
+          return;
+        }
+        this.onAttack();
+      },
+    }
   })
 </script>
 
@@ -161,22 +190,26 @@
       .foreground_enemy{
         position: absolute;
         left: 300px;
+        bottom: 0;
         width: 80px;
         height: 80px;
-        bottom: 0;
+        // 味方攻撃 -> 倒れる のアニメーションにしたいので、ここで特別にdelayをかけてる
+        transition-delay: 0.9s;
         .img img{
           width: 100%;
           height: 100%;
         }
-        .hp{
+      }
+      .foreground_enemy_hp{
           position: absolute;
-          top: -10px;
-          left: 0;
-          width: 100%;
+          left: 300px;
+          top: 8px;
+          width: 80px;
+          height: $font-size-medium;
+          line-height: 100%;
           text-align: center;
           font-size: $font-size-medium;
         }
-      }
       .background_enemies{
         display: flex;
         flex-direction: row;
@@ -237,9 +270,11 @@
 
     .enemy-appear-enter-active {
       transition: all 1.3s;
+      transition-delay: 0.5s;
     }
     .enemy-appear-leave-active {
       transition: all 1s linear;
+      transition-delay: 0.5s;
     }
     .enemy-appear-enter{
       transform: translateX(30px);
@@ -250,13 +285,11 @@
       opacity: 0;
     }
 
-    .background-enter-active {
-      position: absolute;
-      transition: all 0.4s;
-    }
     .background-leave-active {
       position: absolute;
-      transition: all 0.4s;
+      transition: all 1.3s;
+      // 味方攻撃 -> 倒れる のアニメーションにしたいので、ここで特別にdelayをかけてる
+        transition-delay: 0.9s;
     }
     .background-enter{
       transform: translateX(20px);
@@ -268,6 +301,8 @@
     }
     .background-move {
       transition: transform 1s;
+      // 味方攻撃 -> 倒れる のアニメーションにしたいので、ここで特別にdelayをかけてる
+      transition-delay: 0.9s;
     }
 
     .win-enter-active {
