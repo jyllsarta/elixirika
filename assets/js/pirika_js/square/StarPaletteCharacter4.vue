@@ -3,9 +3,13 @@
     .background.with_drop_shadow
       img(src="/images/square/svg/star_palette5.svg")
     .field
-      .player
+      .player(@click="onAttack" ref="player")
         .img
           img(:src="`/images/square/characters/spica.png`")
+      .attack_effect
+        .line1.line(ref="line1")
+        .line2.line(ref="line2")
+        .line3.line(ref="line3")
       transition(name="enemy-appear")
         .foreground_enemy(v-if="foregroundEnemy.hp > 0", :key="foregroundEnemy.id")
           .img
@@ -28,6 +32,7 @@
 <script lang="typescript">
   import Vue from 'vue';
   import Model from "./packs/model"
+  import gsap from 'gsap';
 
   export default Vue.extend({
     props: {
@@ -53,7 +58,55 @@
           return "hp2";
         }
         return "hp1"
-      }
+      },
+      onAttack(){
+        const playerTimeline = gsap.timeline();
+        playerTimeline
+          .to(
+            this.$refs.player,
+            {
+              x: 45,
+              y: -20,
+              duration: 0.08
+            },
+          )
+          .to(
+            this.$refs.player,
+            {
+              x: 60,
+              y: 0,
+              duration: 0.08
+            },
+          )
+          .to(
+            this.$refs.player,
+            {
+              x: 0,
+              y: 0,
+              duration: 0.2
+            },
+            "+=0.5"
+          );
+
+        const effectTimeline1 = gsap.timeline();
+        effectTimeline1
+          .to( this.$refs.line1, { x: -50, opacity:   0, duration: 0.15 })
+          .to( this.$refs.line1, { x:   0, opacity: 0.7, duration: 0.15 })
+          .to( this.$refs.line1, { x:  50, opacity:   0, duration: 0.15 });
+
+        const effectTimeline2 = gsap.timeline();
+        effectTimeline2
+          .to( this.$refs.line2, { x: -50, opacity:   0, duration: 0.20 })
+          .to( this.$refs.line2, { x:   0, opacity: 0.7, duration: 0.15 })
+          .to( this.$refs.line2, { x:  50, opacity:   0, duration: 0.15 });
+
+        const effectTimeline3 = gsap.timeline();
+        effectTimeline3
+          .to( this.$refs.line3, { x: -50, opacity:   0, duration: 0.30 })
+          .to( this.$refs.line3, { x:   0, opacity: 0.7, duration: 0.15 })
+          .to( this.$refs.line3, { x:  50, opacity:   0, duration: 0.15 });
+
+      },
     },
   })
 </script>
@@ -85,6 +138,24 @@
         .img img{
           width: 100%;
           height: 100%;
+        }
+      }
+      .attack_effect{
+        position: absolute;
+        bottom: 20px;
+        left: 280px;
+        width: 60px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+        transform: rotate(30deg);
+        .line{
+          width: 60px;
+          height: 2px;
+          background-color: white;
+          opacity: 0;
         }
       }
       .foreground_enemy{
