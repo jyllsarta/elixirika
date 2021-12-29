@@ -6,10 +6,6 @@
       .player(@click="onAttack" ref="player")
         .img
           img(:src="`/images/square/characters/spica.png`")
-      .attack_effect
-        .line1.line(ref="line1")
-        .line2.line(ref="line2")
-        .line3.line(ref="line3")
       transition(name="enemy-appear")
         .foreground_enemy(v-if="foregroundEnemy.hp > 0", :key="foregroundEnemy.id")
           .img
@@ -23,6 +19,10 @@
               img(:src="`/images/square/characters/${enemy.image}.png`")
             .hp(:class="hpClass(enemy.hp)")
               | {{enemy.hpMax}}
+      .attack_effect
+        .line1.line(ref="line1")
+        .line2.line(ref="line2")
+        .line3.line(ref="line3")
       transition(name="win")
         .cleared(v-if="!foregroundEnemy.hp")
           .text
