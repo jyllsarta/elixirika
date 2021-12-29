@@ -85,7 +85,7 @@
     mounted(){
       // シーン飛ばし用
       //this.$emit("loadScene", {sceneName: "mainMenu"});
-      this.$emit("loadScene", {sceneName: "inGame", params: {characterId: 2, chapterId: 1}});
+      this.$emit("loadScene", {sceneName: "inGame", params: {characterId: 4, chapterId: 1}});
     }
   })
 </script>

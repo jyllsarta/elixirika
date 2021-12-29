@@ -58,6 +58,7 @@ module.exports = class Character4 {
         id: param.id,
         hp: param.hp,
         hpMax: param.hp,
+        image: param.image,
         damageHistory: [],
       }
       enemies.push(enemy)
