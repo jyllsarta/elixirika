@@ -2,9 +2,12 @@
   .star_palette
     .background.with_drop_shadow
       img(src="/images/square/svg/star_palette5.svg")
-    .container
-      .star(v-for="param in params")
-        | {{param.hp}} / {{param.hpMax}}
+    .player
+    .foreground_enemy
+      | {{foregroundEnemy.hp}}
+    .background_enemies
+      .background_enemy(v-for="enemy in backgroundEnemies")
+        | {{enemy.hp}}
 </template>
 
 <script lang="typescript">
@@ -15,13 +18,16 @@
     props: {
       model: Model,
     },
-    data(){
-      return { 
-        params: null,
+    computed: {
+      enemies(){
+        return this.model.character.uniqueParameters.enemies;
+      },
+      foregroundEnemy(){
+        return this.enemies[0] || {};
+      },
+      backgroundEnemies(){
+        return this.enemies.slice(1, Math.inf);
       }
-    },
-    mounted(){
-      this.params = this.model.character.uniqueParameters.enemies;
     },
     methods: {
     },
@@ -42,28 +48,13 @@
         width: 100%;
       }
     }
-    .container{
+    .player{
       position: absolute;
-      top: $space-m * 2;
-      left: 20%;
-      width: 60%;
-      height: 80%;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      gap: $space-ll;
-      .star{
-        border: 2px solid $yellow3;
-        @include centering($height: 50px);
-        width: 50px;
-      }
-      .enabled{
-        border: 2px solid $yellow1;
-        background-color: $yellow2;
-      }
-      .disabled{
-        color: $white-o;
-      }
+      left: 100px;
+      width: 100px;
+      height: 100px;
+      background-color: aquamarine;
+      bottom: 0;
     }
   }
 

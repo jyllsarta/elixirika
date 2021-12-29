@@ -48,7 +48,7 @@
     }
     .container{
       position: absolute;
-      top: $space-m * 2;
+      top: 0;
       left: 20%;
       width: 60%;
       height: 80%;

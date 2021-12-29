@@ -167,7 +167,7 @@
       position: absolute;
       display: flex;
       left: $space-ll;
-      bottom: 0;
+      bottom: 50px;
       padding: $space-ll;
       line-height: 100%;
       .energy{

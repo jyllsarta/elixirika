@@ -35,7 +35,7 @@
   @import "stylesheets/global_settings";
   .area{
     width: $window-width;
-    height: 70px;
+    height: 120px;
     .palette{
       position: absolute;
       left: 15%;
