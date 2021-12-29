@@ -6,17 +6,20 @@
       .player
         .img
           img(:src="`/images/square/characters/spica.png`")
-      .foreground_enemy
+      .foreground_enemy(v-if="foregroundEnemy.hp > 0")
         .img
           img(:src="`/images/square/characters/${foregroundEnemy.image}.png`")
         .hp
           | {{foregroundEnemy.hp}}
-      .background_enemies
+      .background_enemies(v-if="backgroundEnemies.length > 0")
         .enemy(v-for="enemy in backgroundEnemies")
           .img
             img(:src="`/images/square/characters/${enemy.image}.png`")
           .hp
             | {{enemy.hpMax}}
+      .cleared(v-if="!foregroundEnemy.hp")
+        .text
+          | 勝利！
 </template>
 
 <script lang="typescript">
@@ -28,14 +31,14 @@
       model: Model,
     },
     computed: {
-      enemies(){
-        return this.model.character.uniqueParameters.enemies;
+      aliveEnemies(){
+        return this.model.character.uniqueParameters.enemies.filter(enemy=>enemy.hp>0);
       },
       foregroundEnemy(){
-        return this.enemies[0] || {};
+        return this.aliveEnemies[0] || {};
       },
       backgroundEnemies(){
-        return this.enemies.slice(1, Math.inf);
+        return this.aliveEnemies.slice(1, Math.inf);
       }
     },
     methods: {
@@ -115,6 +118,20 @@
             text-align: center;
           }
         }
+      }
+      .cleared{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        .text{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        // 今後 アヤメちゃんイラストが追加される
       }
     }
   }

@@ -28,10 +28,10 @@ module.exports = class Character4_Default {
     return {
       enemies: [
         {id: 1, hp: 1, image: "kani"},
-        {id: 2, hp: 3, image: "gob"},
-        {id: 3, hp: 5, image: "kani"},
-        {id: 4, hp: 6, image: "gob"},
-        {id: 5, hp: 7, image: "ghost"},
+        {id: 2, hp: 1, image: "gob"},
+        {id: 3, hp: 1, image: "kani"},
+        {id: 4, hp: 1, image: "gob"},
+        {id: 5, hp: 1, image: "ghost"},
       ]
     };
   }
