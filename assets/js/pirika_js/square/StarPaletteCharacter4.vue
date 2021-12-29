@@ -6,17 +6,19 @@
       .player
         .img
           img(:src="`/images/square/characters/spica.png`")
-      .foreground_enemy(v-if="foregroundEnemy.hp > 0")
-        .img
-          img(:src="`/images/square/characters/${foregroundEnemy.image}.png`")
-        .hp
-          | {{foregroundEnemy.hp}}
-      .background_enemies(v-if="backgroundEnemies.length > 0")
-        .enemy(v-for="enemy in backgroundEnemies")
+      transition(name="enemy-appear")
+        .foreground_enemy(v-if="foregroundEnemy.hp > 0", :key="foregroundEnemy.id")
           .img
-            img(:src="`/images/square/characters/${enemy.image}.png`")
+            img(:src="`/images/square/characters/${foregroundEnemy.image}.png`")
           .hp
-            | {{enemy.hpMax}}
+            | {{foregroundEnemy.hp}}
+      transition-group(class="background_enemies" name="background")
+        .enemy(v-for="enemy in backgroundEnemies" :key="enemy.id")
+          .content
+            .img
+              img(:src="`/images/square/characters/${enemy.image}.png`")
+            .hp
+              | {{enemy.hpMax}}
       .cleared(v-if="!foregroundEnemy.hp")
         .text
           | 勝利！
@@ -103,19 +105,21 @@
         height: 60px;
         gap: $space-m;
         .enemy{
-          position: relative;
-          width: 60px;
-          height: 60px;
-          .img img{
-            width: 100%;
-            height: 100%;
-          }
-          .hp{
-            position: absolute;
-            top: -20px;
-            left: 0;
-            width: 100%;
-            text-align: center;
+          .content{
+            position: relative;
+            width: 60px;
+            height: 60px;
+            .img img{
+              width: 100%;
+              height: 100%;
+            }
+            .hp{
+              position: absolute;
+              top: -20px;
+              left: 0;
+              width: 100%;
+              text-align: center;
+            }
           }
         }
       }
@@ -133,6 +137,41 @@
         }
         // 今後 アヤメちゃんイラストが追加される
       }
+    }
+
+    .enemy-appear-enter-active {
+      transition: all 1.3s;
+    }
+    .enemy-appear-leave-active {
+      transition: all 1s linear;
+    }
+    .enemy-appear-enter{
+      transform: translateX(30px);
+      opacity: 0;
+    }
+    .enemy-appear-leave-to{
+      transform: translate(130px, -40px) rotate(270deg);
+      opacity: 0;
+    }
+
+    .background-enter-active {
+      position: absolute;
+      transition: all 0.4s;
+    }
+    .background-leave-active {
+      position: absolute;
+      transition: all 0.4s;
+    }
+    .background-enter{
+      transform: translateX(20px);
+      opacity: 0;
+    }
+    .background-leave-to{
+      transform: translateX(-20px);
+      opacity: 0;
+    }
+    .background-move {
+      transition: transform 1s;
     }
   }
 
