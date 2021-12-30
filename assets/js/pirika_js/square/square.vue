@@ -100,5 +100,8 @@ a {
       min-width: $window-width;
       margin: auto;
     }
+    ::selection{
+      background: none;
+    }
   }
 </style>
