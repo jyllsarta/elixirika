@@ -8,6 +8,13 @@
         .pattern_flash2(v-if="model.starPalette.isSatisfied(param)")
         .text
           | {{stringExpression(param)}}
+    .progress
+      .current
+        | {{ currentProgress }}
+      .sep
+        | /
+      .total
+        | {{ totalProgress }}
 </template>
 
 <script lang="typescript">
@@ -31,7 +38,14 @@
         return param.upper ? param.value + "+" : param.value;
       }
     },
-
+    computed: {
+      currentProgress(){
+        return this.params.filter(param=>this.model.starPalette.isSatisfied(param)).length
+      },
+      totalProgress(){
+        return this.params.length
+      },
+    }
   })
 </script>
 
@@ -112,6 +126,23 @@
       }
       .disabled{
         color: $white;
+      }
+    }
+    .progress{
+      position: absolute;
+      width: 30%;
+      height: 30px;
+      bottom: 24px;
+      left: 35%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: $space-m;
+      .current{
+        text-shadow: 0px 0px 4px $yellow1;
+      }
+      .total{
+        text-shadow: 0px 0px 4px $blue1;
       }
     }
   }
