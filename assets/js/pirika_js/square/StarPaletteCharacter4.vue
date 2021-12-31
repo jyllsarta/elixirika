@@ -5,7 +5,7 @@
     .field
       .player(@click="onAttack" ref="player")
         .img
-          img(:src="`/images/square/characters/spica.png`")
+          img(src="/images/square/characters/ayame1.png")
       transition(name="enemy-appear")
         .foreground_enemy(v-if="foregroundEnemy.hp > 0", :key="foregroundEnemy.id")
           .img
@@ -26,7 +26,11 @@
       transition(name="win")
         .cleared(v-if="!foregroundEnemy.hp")
           .text
-            | 勝利！
+              | 勝利！
+      transition(name="win-character")
+        .cleared_character(v-if="!foregroundEnemy.hp")
+          .img
+            img(src="/images/square/characters/ayame2.png")            
 </template>
 
 <script lang="typescript">
@@ -252,7 +256,17 @@
           align-items: center;
           font-size: $font-size-large;
         }
-        // 今後 アヤメちゃんイラストが追加される
+      }
+    }
+    .cleared_character{
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      right: 20%;
+      bottom: -10px;
+      .img img{
+        width: 100%;
+        height: 100%;
       }
     }
 
@@ -312,6 +326,16 @@
     }
     .win-enter{
       transform: scale(4);
+      opacity: 0;
+    }
+
+    .win-character-enter-active {
+      position: absolute;
+      transition: all 0.2s;
+      transition-delay: 1.0s;
+    }
+    .win-character-enter{
+      transform: translateY(30px);
       opacity: 0;
     }
   }
