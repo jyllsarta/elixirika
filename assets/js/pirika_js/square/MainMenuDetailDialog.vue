@@ -86,6 +86,7 @@
       background-color: $ingame-background;
       border: 1px solid $gray1;
       overflow: hidden;
+      animation: in 0.2s;
       .tile{
         position: absolute;
         width: 100px;
@@ -229,6 +230,17 @@
           color: $purple1;
           pointer-events: none;
         }
+      }
+    }
+
+    @keyframes in {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      100%{
+        opacity: 1;
+        transform: scale(1);
       }
     }
   }
