@@ -129,6 +129,7 @@ module.exports = class Controller {
     stagedField.field.sendCardById(card.id, this.model.hand.field, {index: handIndex})
     this.model.selectingBoardIndex = -1;
     card.setSelected(true);
+    this.model.messageManager.register("cancel");
   }
 
   sendHandToEmptyPocketAbility(handIndex){

@@ -95,6 +95,9 @@
             break;
           case "ArrowLeft":
             this.controller.selectBoard(this.controller.model.selectingBoardIndex - 1);
+            if(this.controller.model.selectingBoardIndex === -1){
+              this.controller.prepareSendToAbility();
+            }
             break;
           case "ArrowDown":
             this.controller.unstageStagedCard();
