@@ -4,7 +4,7 @@
     @enter="onAnimationEnter"
     @leave="onAnimationLeave"
   )
-    .game_start(@click="showGameStartPopup = false" v-if="showGameStartPopup")
+    .game_start(@click="startGame" v-if="!gameStarted")
       .background(ref="bg")
       .front(ref="front")
         .content
@@ -32,14 +32,7 @@
   export default Vue.extend({
     props: {
       model: Model,
-    },
-    data(){
-      return {
-        showGameStartPopup: false,
-      }
-    },
-    mounted(){
-      this.showGameStartPopup = true;
+      gameStarted: Boolean,
     },
     computed: {
       chapter(){
@@ -50,6 +43,9 @@
       }
     },
     methods: {
+      startGame(){
+        this.$emit("startGame");
+      },
       onAnimationEnter(el, completed){
         gsap.fromTo(
           [this.$refs.bg],

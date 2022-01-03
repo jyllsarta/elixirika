@@ -1,5 +1,5 @@
 <template lang="pug">
-  .area(ref="message")
+  .area(ref="message" v-if="gameStarted")
     img.background.with_drop_shadow(src="images/square/svg/message.svg")
     .text
       span.letter(
@@ -17,6 +17,7 @@
   export default Vue.extend({
     props: {
       model: Model,
+      gameStarted: Boolean,
     },
     computed: {
       message(){
@@ -54,6 +55,7 @@
     width: 250px;
     height: 100px;
     position: relative;
+    animation: show 2s;
     .background{
       position: absolute;
       width: 100%;
@@ -81,5 +83,17 @@
     display: inline-block;
     min-width: 0.3em;
     animation: vertical-text-in .01s cubic-bezier(0.22, 0.15, 0.25, 1.43) 0s backwards;
+  }
+
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    50%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
   }
 </style>

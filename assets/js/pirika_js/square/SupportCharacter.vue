@@ -1,8 +1,9 @@
 <template lang="pug">
-  .support-character(v-if="character")
+  .support-character(v-if="character && gameStarted" @click="interact")
     draggable#support-character.hit_box
     .character_animation
-      img.character.with_drop_shadow(:src="`/images/square/characters/${character.imageName}.png`")
+       .character_action(:key="actionTime")
+        img.character.with_drop_shadow(:src="`/images/square/characters/${character.imageName}.png`")
 
 </template>
 
@@ -13,9 +14,20 @@
   export default Vue.extend({
     props: {
       character: Object,
+      gameStarted: Boolean,
+    },
+    data(){
+      return {
+        actionTime: 0,
+      }
     },
     components: {
       draggable,
+    },
+    methods: {
+      interact(){
+        this.actionTime++;
+      }
     }
   })
 </script>
@@ -25,6 +37,7 @@
   .support-character{
     height: 100%;
     position: relative;
+    animation: appear 1s;
     .hit_box{
       position: absolute;
       right: 100px;
@@ -37,6 +50,10 @@
       right: 0;
       height: 100%;
       animation: yurayura 10s infinite;
+      .character_action{
+        height: 100%;
+        animation: piko 0.5s;
+      }
     }
     .character{
       height: 100%;
@@ -57,5 +74,45 @@
       }
     }
 
+    @keyframes piko {
+      0% {
+      }
+      10% {
+        transform: translateY(0);
+      }
+      20% {
+        transform: translateY(-8px);
+      }
+      30% {
+        transform: translateY(0);
+      }
+      60% {
+        transform: translateY(0);
+      }
+      70% {
+        transform: translateY(-8px);
+      }
+      80% {
+        transform: translateY(0);
+      }
+      100% {
+      }
+    }
+
+    @keyframes appear {
+      0% {
+        opacity: 0;
+        transform: translate(-200px, 100px);
+      }
+      50%{
+        opacity: 0;
+      }
+      70%{
+        opacity: 1;
+      }
+      100% {
+        transform: none;
+      }
+    }
   }
 </style>

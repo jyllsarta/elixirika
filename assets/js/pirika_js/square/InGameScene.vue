@@ -6,9 +6,9 @@
     .center_board.object
       CenterBoard(:board="model.board", :model="model")
     .support_character.object
-      SupportCharacter(:character="model.character")
+      SupportCharacter(:character="model.character" :gameStarted="gameStarted")
     .support_character_message.object
-      SupportCharacterMessage(:model="model")
+      SupportCharacterMessage(:model="model" :gameStarted="gameStarted")
     .support_character_ability.object
       SupportCharacterAbilityBase(:character="model.character" @guiEvent="onGuiEvent")
     .staged_field.object
@@ -26,7 +26,7 @@
     .game_end_popup.object
       GameEndPopup(:model="model" @guiEvent="onGuiEvent")
     .game_start_popup.object
-      GameStartPopup(:model="model")
+      GameStartPopup(:model="model" @startGame="startGame" :gameStarted="gameStarted")
     KeyHandler(:controller="controller")
     GuiHandler(:controller="controller" @initiate="registerGuiHandler"  @loadScene="loadScene")
 </template>
@@ -86,11 +86,15 @@
       loadScene(args){
         this.$emit("loadScene", args);
       },
+      startGame(){
+        this.gameStarted = true;
+      }
     },
     data(){
       return {
         controller: null,
         guiHandler: null,
+        gameStarted: false,
       };
     },
     computed: {
