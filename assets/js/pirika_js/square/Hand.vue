@@ -80,8 +80,6 @@
           return;
         }
         if(event.originalEvent.pointerType === "touch"){
-          const card = this.model.hand.field.cards.find(card=>card.id==cardId);
-          this.$emit("guiEvent", {type: "selectCard", card: card});
           this.touchDragging = true;
         }
       },
