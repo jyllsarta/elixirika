@@ -5,9 +5,9 @@
       .tile
         ClearStateTile(:character="character", :chapter="chapter", :challenge-clear-state="challengeClearState")
       .dialog_background
-        .sheet(:style="{backgroundImage: `url(/images/square/characters/${character.imageName}.png`}")
+        .sheet(:style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}")
         .shadow
-        .sheet2(:style="{backgroundImage: `url(/images/square/characters/${character.imageName}.png`}")
+        .sheet2(:style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}")
       .chapter_title
         | {{chapter.title}}
       .chapter_description

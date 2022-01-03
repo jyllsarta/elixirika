@@ -1,6 +1,6 @@
 <template lang="pug">
   .game_end(v-if="isStalemate" @click="endGame" :class="{sending: sending}")
-    .background(:style="{backgroundImage: `url(/images/square/characters/${model.character.imageName}.png`}")
+    .background(:style="{backgroundImage: `url(/images/square/characters/${model.characterId}-1.png`}")
     .front
       .title
         | 今回の結果

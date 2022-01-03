@@ -14,7 +14,6 @@ module.exports = class Character4 {
   constructor(){
     this.id = 4;
     this.name = "アヤメ";
-    this.imageName = "character4";
     this.defaultMessage = "いきますよー！";
 
     this.uniqueParameters = {

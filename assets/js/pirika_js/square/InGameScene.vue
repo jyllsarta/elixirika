@@ -6,7 +6,7 @@
     .center_board.object
       CenterBoard(:board="model.board", :model="model")
     .support_character.object
-      SupportCharacter(:character="model.character" :gameStarted="gameStarted")
+      SupportCharacter(:model="model" :gameStarted="gameStarted")
     .support_character_message.object
       SupportCharacterMessage(:model="model" :gameStarted="gameStarted")
     .support_character_ability.object

@@ -1,19 +1,20 @@
 <template lang="pug">
-  .support-character(v-if="character && gameStarted" @click="interact")
+  .support-character(v-if="gameStarted")
     draggable#support-character.hit_box
     .character_animation
-       .character_action(:key="actionTime")
-        img.character.with_drop_shadow(:src="`/images/square/characters/${character.imageName}.png`")
+       .character_action(:key="currentMessage.face")
+        img.character.with_drop_shadow(:src="`/images/square/characters/${model.character.id}-${currentMessage.face}.png`")
 
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import Model from "./packs/model";
   import draggable from "vuedraggable";
 
   export default Vue.extend({
     props: {
-      character: Object,
+      model: Model,
       gameStarted: Boolean,
     },
     data(){
@@ -27,6 +28,11 @@
     methods: {
       interact(){
         this.actionTime++;
+      }
+    },
+    computed: {
+      currentMessage(){
+        return this.model.messageManager.currentMessage;
       }
     }
   })
@@ -52,7 +58,7 @@
       animation: yurayura 10s infinite;
       .character_action{
         height: 100%;
-        animation: piko 0.5s;
+        animation: piko 0.2s;
       }
     }
     .character{
@@ -76,26 +82,13 @@
 
     @keyframes piko {
       0% {
-      }
-      10% {
         transform: translateY(0);
       }
-      20% {
+      50% {
         transform: translateY(-8px);
-      }
-      30% {
-        transform: translateY(0);
-      }
-      60% {
-        transform: translateY(0);
-      }
-      70% {
-        transform: translateY(-8px);
-      }
-      80% {
-        transform: translateY(0);
       }
       100% {
+        transform: translateY(0);
       }
     }
 

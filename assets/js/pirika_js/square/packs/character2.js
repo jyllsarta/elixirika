@@ -10,7 +10,6 @@ module.exports = class Character2 {
   constructor(){
     this.id = 2;
     this.name = "エンティ";
-    this.imageName = "character2";
     this.defaultMessage = "イニシャライズ走りきりました、疎通確認いけます";
 
     this.uniqueParameters = {
