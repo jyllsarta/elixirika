@@ -203,10 +203,19 @@ module.exports = class Controller {
   }
 
   cancelDrag(){
+    this.model.hand.disselectAllCard();
     this.model.messageManager.register("cancel");
   }
 
   couldNotSendCard(){
     this.model.messageManager.register("cannotSendCard");
+  }
+
+  prepareSendToAbility(){
+    // これはドラッグ中発火しまくるのでメッセージが更新済みの場合はアップデートをしない
+    if(this.model.messageManager.currentMessage?.when === 'abilityCardPocketSendPrepare'){
+      return;
+    }
+    this.model.messageManager.register("abilityCardPocketSendPrepare");
   }
 };

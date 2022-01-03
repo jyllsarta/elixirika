@@ -51,12 +51,19 @@
       checkMoveDrag(event){
         const {to} = event;
         const fieldIndex = parseInt(to.id?.split("field-")[1] || -1);
+        if(to?.id === "support-character"){
+          this.prepareSendToAbility();
+        }
         this.selectBoard(fieldIndex);
         return false;
       },
       checkMoveTouch(event){
         const {clientX, clientY, type} = event.originalEvent;
         const target = this.findTargetFromTouchEvent(clientX, clientY);
+        console.log(target)
+        if(target === "ability"){
+          this.prepareSendToAbility();
+        }
         if(typeof(target) === "number" && this.model.selectingBoardIndex !== target){
           this.selectBoard(target);
         }
@@ -174,6 +181,9 @@
           return;
         }
         this.$emit("guiEvent", {type: "selectBoard", index: -1});
+      },
+      prepareSendToAbility(){
+        this.$emit("guiEvent", {type: "prepareSendToAbility"});
       }
     }
   })

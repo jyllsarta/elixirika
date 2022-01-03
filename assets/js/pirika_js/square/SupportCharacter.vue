@@ -1,9 +1,9 @@
 <template lang="pug">
   .support-character(v-if="gameStarted")
-    draggable#support-character.hit_box
     .character_animation
        .character_action(:key="currentMessage.face")
         img.character.with_drop_shadow(:src="`/images/square/characters/${model.character.id}-${currentMessage.face}.png`")
+    draggable#support-character.hit_box(:group="'top'")
 
 </template>
 
@@ -64,7 +64,6 @@
     .character{
       height: 100%;
       transform: scale(-1, 1);
-      pointer-events: none;
     }
 
     @keyframes yurayura {

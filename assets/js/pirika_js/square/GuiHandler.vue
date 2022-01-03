@@ -67,6 +67,9 @@
       couldNotSendCard(args){
         this.controller.couldNotSendCard();
       },
+      prepareSendToAbility(args){
+        this.controller.prepareSendToAbility();
+      },
     },
   })
 </script>
