@@ -40,13 +40,16 @@ module.exports = class Character4 {
     return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
   }
 
-  damageToNextEnemy(power, isAbilityDamage=false){
+  damageToNextEnemy(power, model, isAbilityDamage=false){
     let nextEnemy = this.uniqueParameters.enemies.find(enemy=>enemy.hp>0);
     if(!nextEnemy){
       console.warn("no damage target!")
       return;
     }
     nextEnemy.hp -= power;
+    if(nextEnemy.hp <= 0){
+      model.messageManager.register("specialAbilityDefeatEnemy");
+    }
     nextEnemy.damageHistory.push({power: power, isAbilityDamage: isAbilityDamage});
   }
 

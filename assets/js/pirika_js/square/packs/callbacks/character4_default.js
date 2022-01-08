@@ -13,7 +13,7 @@ module.exports = class Character4_Default {
 
   onSendToStarPalette = (character, model, field) => {
     const power = field.cards.length;
-    character.damageToNextEnemy(power);
+    character.damageToNextEnemy(power, model, false);
     character.uniqueParameters.mp += field.score();
     if(character.isAllEnemyDefeated()){
       model.setForceStalemate();

@@ -22,7 +22,7 @@ module.exports = class AbilityDamageWithMp {
       return;
     }
     character.uniqueParameters.mp -= this.cost;
-    character.damageToNextEnemy(this.damageValue);
+    character.damageToNextEnemy(this.damageValue, model, true);
     model.messageManager.register("abilityMagic");
   }
 };
