@@ -12,5 +12,7 @@ const constants = {
   defaultWindowWidth: 1200,
   // ステイルメイト判定でも使い回すのでこっちにある
   costOfAbilityAddSenderCard: 100,
+  bestEnergyLowLimit: 20,
+  bestEnergyHighLimit: 80,
 }
 module.exports = constants;

@@ -1,4 +1,5 @@
 let Card = require("../card");
+const Constants = require("../constants");
 
 module.exports = class Character2_Default {
   onGameStart(character, model){
@@ -7,7 +8,7 @@ module.exports = class Character2_Default {
 
   onSendToStarPalette = (character, model, field) => {
     const { maxEnergy, sandStorm, staleMateByEnergy } = character.getCallback("starPaletteParameter", model.chapter.index)();
-    this.fluctuateEnergy(character, maxEnergy, field.score());
+    this.fluctuateEnergy(character, maxEnergy, field.score(), model);
     if(sandStorm){
       this.shufflePocket(character, model);
     }
@@ -20,7 +21,7 @@ module.exports = class Character2_Default {
   onSendCard = (character, model, card) => {
     const { consumptionPerCard, scoreRanges, maxEnergy, staleMateByEnergy } = character.getCallback("starPaletteParameter", model.chapter.index)();
     this.addScore(character, model, scoreRanges);
-    this.fluctuateEnergy(character, maxEnergy, -consumptionPerCard)
+    this.fluctuateEnergy(character, maxEnergy, -consumptionPerCard, model);
     character.uniqueParameters.energyHistory.push(character.uniqueParameters.energy);
     if(staleMateByEnergy && character.uniqueParameters.energy <= 0){
       model.setForceStalemate();
@@ -36,8 +37,8 @@ module.exports = class Character2_Default {
       consumptionPerCard: 3,
       maxEnergy: 100,
       scoreRanges: [
-        {min: 40, max: 60, score: 5},
-        {min: 20, max: 80, score: 3},
+        {min: Constants.bestEnergyLowLimit, max: Constants.bestEnergyHighLimit, score: 5},
+        {min: 0, max: 100, score: 1},
       ],
       sandStorm: false,
       staleMateByEnergy: false,
@@ -92,13 +93,20 @@ module.exports = class Character2_Default {
     return scoreRange.min <= value && value <= scoreRange.max;
   }
 
-  fluctuateEnergy = (character, maxEnergy, delta) => {
+  fluctuateEnergy = (character, maxEnergy, delta, model) => {
+    const prevEnergy = character.uniqueParameters.energy;
     character.uniqueParameters.energy += delta;
     if(character.uniqueParameters.energy < 0){
       character.uniqueParameters.energy = 0;
     }
     if(character.uniqueParameters.energy > maxEnergy){
       character.uniqueParameters.energy = maxEnergy;
+    }
+    if(Constants.bestEnergyLowLimit <= prevEnergy && character.uniqueParameters.energy < Constants.bestEnergyLowLimit){
+      model.messageManager.register("specialAbilityLowEnergy");
+    }
+    if(prevEnergy <= Constants.bestEnergyHighLimit && Constants.bestEnergyHighLimit < character.uniqueParameters.energy){
+      model.messageManager.register("specialAbilityHighEnergy");
     }
   }
 

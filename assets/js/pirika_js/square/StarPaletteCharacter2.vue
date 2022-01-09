@@ -21,6 +21,7 @@
 <script lang="typescript">
   import Vue from 'vue';
   import Model from "./packs/model"
+  import Constants from "./packs/constants";
 
   export default Vue.extend({
     props: {
@@ -58,13 +59,13 @@
         return this.consumptionPerCard / this.maxEnergy;
       },
       currentFillStatus(){
-        if(this.currentFillWidth <= 0.2){
-          return "low"
+        if(this.energy < Constants.bestEnergyLowLimit){
+          return "low";
         }
-        if(this.currentFillWidth >= 0.8){
-          return "high"
+        if(this.currentFillWidth > Constants.bestEnergyHighLimit){
+          return "high";
         }
-        return "best"
+        return "best";
       },
       holdingCard(){
         return this.model.getHoldingCard();
