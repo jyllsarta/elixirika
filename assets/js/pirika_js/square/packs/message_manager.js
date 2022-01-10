@@ -24,8 +24,9 @@ module.exports = class MessageManager {
       console.warn(`no availvable message`); 
       return;
     }
+    
     // ロジックに関わらない部分なので天然の乱数を使う
-    const record = records[Math.floor(Math.random() * records.length)];
+    const record = this.pickRecordPreferAnother(records, this.currentMessage);
     const priority = this.messagePriorityMaster.getPriorityByWhen(record?.when);
     if(this.hasLessPriority(priority)){
       return;
@@ -51,6 +52,14 @@ module.exports = class MessageManager {
 
   reseedId(){
     return Math.floor(Math.random() * 1000000000);
+  }
+
+  pickRecordPreferAnother(records, currentRecord){
+    if(records.length === 1){
+      return records[0];
+    }
+    const exceptCurrentRecords = records.filter(record=>record.id!==currentRecord.id);
+    return exceptCurrentRecords[Math.floor(Math.random() * exceptCurrentRecords.length)];
   }
 
   // メッセージ だしわけ 機構
