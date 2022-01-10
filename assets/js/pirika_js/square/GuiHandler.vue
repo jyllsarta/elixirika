@@ -48,9 +48,10 @@
         this.controller.fillDraw(true);
       },
       igniteSupportAbility(args){
-        const { index } = args;
-        console.log(`character: ${this.controller.model.character.name} のアビリティ ${index} 発動`);
         this.controller.igniteSupportAbility(args);
+      },
+      describeSupportAbility(args){
+        this.controller.describeSupportAbility(args);
       },
       reset(_args){
         const characterId = this.controller.model.characterId;

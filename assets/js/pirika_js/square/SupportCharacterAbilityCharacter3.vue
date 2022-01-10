@@ -8,6 +8,7 @@
       .button(
         v-for="(ability, index) in character.uniqueParameters.abilities"
         @click="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
+        @mouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
         :class="ability.card.suit"
       )
         | {{ability.stringExpression()}}

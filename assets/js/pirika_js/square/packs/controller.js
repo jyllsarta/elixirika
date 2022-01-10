@@ -184,6 +184,18 @@ module.exports = class Controller {
     this.model.checkAndUpdateClearedChallenges();
   }
 
+  describeSupportAbility(args){
+    console.log("だめだめ");
+    const { index } = args;
+    const category = this.model.character.uniqueParameters.abilities[index]?.category || "";
+    const abilityName = "describeAbility" + category.slice(0, 1).toUpperCase() + category.slice(1, Math.inf);
+    // これはホバーごとに発火しまくるので、メッセージが更新済みの場合はアップデートをしない
+    if([abilityName].indexOf(this.model.messageManager.currentMessage?.when) !== -1){
+      return;
+    }
+    this.model.messageManager.register(abilityName);
+  }
+
   sendPlayLog(){
     let axios =  require("axios");
     return axios.post("/square/register_log",{
@@ -213,8 +225,13 @@ module.exports = class Controller {
   }
 
   prepareSendToAbility(){
-    // これはドラッグ中発火しまくるのでメッセージが更新済みの場合はアップデートをしない
-    if(this.model.messageManager.currentMessage?.when === 'abilityCardPocketSendPrepare'){
+    // これはドラッグ中発火しまくるので、メッセージが更新済みの場合はアップデートをしない
+    if(['abilityCardPocketSendPrepare', 'abilityCardPocketSendPrepareNoAbility'].indexOf(this.model.messageManager.currentMessage?.when) !== -1){
+      return;
+    }
+    // 送れないのに送ろうとしたら専用メッセージ
+    if(!this.model.character.uniqueParameters.abilities?.find(ability=>ability.category === "cardPocket")){
+      this.model.messageManager.register("abilityCardPocketSendPrepareNoAbility");
       return;
     }
     this.model.messageManager.register("abilityCardPocketSendPrepare");
