@@ -2,7 +2,8 @@
   .support-character(v-if="gameStarted")
     .character_animation
        .character_action(:key="currentMessage.face")
-        img.character.with_drop_shadow(:src="`/images/square/characters/${model.character.id}-${currentMessage.face}.png`")
+        .image_box
+          img.character.with_drop_shadow(v-for="index in [1,2,3,4,5,6,7,8,9,10,11]" :class="{hidden: index !== currentMessage.face}" :src="`/images/square/characters/${model.character.id}-${index}.png`")
     draggable#support-character.hit_box(:group="'top'")
 
 </template>
@@ -61,9 +62,16 @@
         animation: piko 0.2s;
       }
     }
-    .character{
+    .image_box{
       height: 100%;
       transform: scale(-1, 1);
+      .character{
+        position: absolute;
+        height: 100%;      
+        &.hidden{
+          visibility: hidden;
+        }
+      }
     }
 
     @keyframes yurayura {
