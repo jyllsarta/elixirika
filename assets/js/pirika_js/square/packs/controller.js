@@ -45,10 +45,18 @@ module.exports = class Controller {
     return this.model;
   }
 
+  operate(operation, ...args){
+    if(this.model.isStalemate()){
+      console.log("it is stalemate");
+      return;
+    }
+    this.model.registerOperationHistory({arguments: args, name: operation});
+    this[operation](arguments);
+  }
+
   // 手札の引き直し
   // 手札を全て墓地に送る・デッキから引けるだけ引く
   fillDraw(force=false){
-    this.model.registerOperationHistory({arguments: Object.values(arguments), name: "fillDraw"})
     if(!force && this.model.hand.field.cards.length >= Constants.handCardNumber){
       return;
     }
