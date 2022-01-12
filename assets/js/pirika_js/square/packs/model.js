@@ -36,6 +36,7 @@ module.exports = class Model {
     this.operationHistory = [];
     this.clearedChallenges = [];
     this.isForceStalemate = false;
+    this.isGracefullyStalemate = false;
 
     this.onGameStart();
   }
@@ -59,16 +60,13 @@ module.exports = class Model {
   }
 
   // 特殊効果による手詰まり is isForceStalemate == true この場合は他の条件に関係なくとにかくtrue
+  // 特殊効果による手詰まり is isForceStalemate == true この場合は他の条件に関係なくとにかくtrue
   // カード状況による手詰まり is デッキ枚数がゼロ && 手札にもステージングにもsenderがない && スキル経由でsenderの供給が不可能
   isStalemate(){
-    if(this.isForceStalemate){
+    if(this.isForceStalemate || this.isGracefullyStalemate){
       return true;
     }
-    const isDeckEmpty = this.deck.field.cards.length == 0;
-    const noSenderOnHand =        this.hand.field.cards.every(card=>card.category !== "sender");
-    const noSenderOnStagedField = this.stagedField.field.cards.every(card=>card.category !== "sender");
-    const cannotGetSenderFromSkill = !this.character.getCallback("canGetSenderCardFromSkill", this.chapter.index)(this.character, this);
-    return isDeckEmpty && noSenderOnHand && noSenderOnStagedField && cannotGetSenderFromSkill;
+    return false;
   }
 
   setForceStalemate(){

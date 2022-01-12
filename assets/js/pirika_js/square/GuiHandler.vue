@@ -47,6 +47,9 @@
       fillDraw(_args){
         this.controller.operate("fillDraw", true);
       },
+      gracefullyStalemate(_args){
+        this.controller.operate("gracefullyStalemate");
+      },
       igniteSupportAbility(args){
         this.controller.operate("igniteSupportAbility", args);
       },

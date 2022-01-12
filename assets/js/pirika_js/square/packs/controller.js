@@ -186,7 +186,6 @@ module.exports = class Controller {
   }
 
   describeSupportAbility(args){
-    console.log("だめだめ");
     const { index } = args;
     const category = this.model.character.uniqueParameters.abilities[index]?.category || "";
     const abilityName = "describeAbility" + category.slice(0, 1).toUpperCase() + category.slice(1, Math.inf);
@@ -195,6 +194,10 @@ module.exports = class Controller {
       return;
     }
     this.model.messageManager.register(abilityName);
+  }
+
+  gracefullyStalemate(){
+    this.model.isGracefullyStalemate = true;
   }
 
   sendPlayLog(){
