@@ -6,7 +6,7 @@
       .label
         | スコア：
       .value
-        | {{model.currentScore()}}
+        NumeratableNumber(:number="model.currentScore()", :speed="0.4")
     .challenges
       ChallengeText(
         v-for="challenge, index in challenges"
@@ -22,13 +22,15 @@
   import Vue from 'vue';
   import Model from "./packs/model";
   import ChallengeText from "./ChallengeText.vue";
+  import NumeratableNumber from "./NumeratableNumber.vue";
 
   export default Vue.extend({
     props: {
       model: Model,
     },
     components: {
-      ChallengeText
+      ChallengeText,
+      NumeratableNumber,
     },
     computed: {
       challenges(){

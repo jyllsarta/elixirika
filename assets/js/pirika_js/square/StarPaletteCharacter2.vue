@@ -11,7 +11,7 @@
     .number
       .energy
         .current
-          | {{energy}}
+          NumeratableNumber(:number="energy", :speed="0.1")
         .max
           | / {{maxEnergy}}
     .delta_number(v-if="holdingCard" :class="holdingCardClass")
@@ -22,10 +22,14 @@
   import Vue from 'vue';
   import Model from "./packs/model"
   import Constants from "./packs/constants";
+  import NumeratableNumber from "./NumeratableNumber.vue";
 
   export default Vue.extend({
     props: {
       model: Model,
+    },
+    components: {
+      NumeratableNumber,
     },
     data(){
       return { 
