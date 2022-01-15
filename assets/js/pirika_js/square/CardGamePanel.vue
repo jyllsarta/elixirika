@@ -1,9 +1,9 @@
 <template lang="pug">
   .area.with_shadow(v-if="model")
     .controls
-      .draw.with_shadow(@click="draw()" v-if="model.deck.field.cards.length !== 0")
+      .draw.with_shadow(@click="draw()" v-if="model.deck.field.cards.length !== 0" :class="{disabled: drawing}")
         | ドロー
-      .end.with_shadow(@click="gracefullyStalemate()" v-if="model.deck.field.cards.length === 0")
+      .end.with_shadow(@click="gracefullyStalemate()" v-if="model.deck.field.cards.length === 0" :class="{disabled: drawing}")
         | おしまい
     .informations
       .deck
@@ -19,6 +19,11 @@
   import StackedIconField from "./StackedIconField.vue";
 
   export default Vue.extend({
+    data: function(){
+      return {
+        drawing: false,
+      }
+    },
     props: {
       model: Model
     },
@@ -27,9 +32,19 @@
     },
     methods: {
       draw(){
+        if(this.drawing){
+          return;
+        }
+        this.drawing = true;
+        setTimeout(()=>this.drawing=false, 1000);
         this.$emit("guiEvent", {type: "fillDraw"});
       },
       gracefullyStalemate(){
+        if(this.drawing){
+          return;
+        }
+        this.drawing = true;
+        setTimeout(()=>this.drawing=false, 1000);
         this.$emit("guiEvent", {type: "gracefullyStalemate"});
       }
     }
@@ -56,6 +71,9 @@
       &:hover{
         filter: brightness(140%);
       }
+      &.disabled{
+        opacity: $disabled-opacity;
+      }
     }
     .end {
       width: 100%;
@@ -65,6 +83,9 @@
       background-color: $red2;
       &:hover{
         filter: brightness(140%);
+      }
+      &.disabled{
+        opacity: $disabled-opacity;
       }
     }
     .informations{
