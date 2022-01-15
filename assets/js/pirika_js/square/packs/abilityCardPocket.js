@@ -1,3 +1,5 @@
+const Constants = require("./constants");
+
 module.exports = class AbilityCardPocket {
   constructor(card){
     this.category = "cardPocket";
@@ -15,9 +17,17 @@ module.exports = class AbilityCardPocket {
       console.warn("cold now!");
       return;
     }
-    if(this.card){
-      model.hand.field.addCard(this.card);
-      this.card = null;
+    if(!this.card){
+      model.messageManager.register("cannotIgniteAbilityCardPocketNoCard");
+      return;
     }
+    if(model.hand.field.cards.length >= Constants.maxHandCardNumber){
+      console.warn("max hand cards!");
+      model.messageManager.register("cannotIgniteAbilityCardPocketMaxCard");
+      return;
+    }
+    model.hand.field.addCard(this.card);
+    this.card = null;
+    model.messageManager.register("abilityCardPocketWithdraw");
   }
 };

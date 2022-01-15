@@ -1,13 +1,31 @@
 <template lang="pug">
-  .game_end(v-if="isStaleMate" @click="endGame" :class="{sending: sending}")
-    .stalemate
-      | 手詰まり！クリックでメイン画面に戻ります
-
+  .game_end(v-if="isStalemate" @click="endGame" :class="{sending: sending}")
+    .background(:style="{backgroundImage: `url(/images/square/characters/${model.characterId}-1.png`}")
+    .front
+      .title
+        | 今回の結果
+      .content
+        .score
+          .label
+            | スコア
+          .value
+            | {{model.currentScore()}}
+        .challenges
+          ChallengeText(
+            v-for="challenge, index in challenges"
+            :is-cleared="isCleared(challenge.id)",
+            :index="index",
+            :challenge="challenge"
+            :key="index"
+          )
+        .click_to_send
+          | クリックすると結果を登録してメニューに戻ります
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import Model from './packs/model';
+  import ChallengeText from "./ChallengeText.vue";
 
   export default Vue.extend({
     props: {
@@ -18,10 +36,16 @@
         sending: false,
       }
     },
+    components: {
+      ChallengeText
+    },
     computed: {
-      isStaleMate(){
-        return this.model?.isStaleMate();
-      }
+      isStalemate(){
+        return this.model?.isStalemate();
+      },
+      challenges(){
+        return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
+      },
     },
     methods: {
       endGame(){
@@ -30,6 +54,9 @@
         }
         this.sending = true;
         this.$emit("guiEvent", {type: "endGame"});
+      },
+      isCleared(challengeId){
+        return this.model.clearedChallenges.indexOf(challengeId) !== -1;
       }
     },
   })
@@ -39,14 +66,57 @@
   @import "stylesheets/global_settings";
   .game_end{
     background-color: $ingame-background;
-    border: 1px solid $white;
-    width: 500px;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border: 2px solid $white;
+    width: 600px;
+    height: 350px;
+    border-radius: $radius;
     &.sending{
       opacity: 0.5;
+    }
+    .background{
+      position: absolute;
+      background-size: 250px;
+      background-position: bottom right;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
+      opacity: 0.2;
+    }
+    .front{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: $space-m;
+      display: flex;
+      flex-direction: column;
+      .title{
+        width: 100%;
+        font-size: $font-size-large;
+        border-bottom: 2px solid $white;
+        padding-left: $space-m;
+        margin-bottom: $space-m;
+      }
+      .content{
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: $space-m;
+        .score{
+          padding: $space-s;
+          display: flex;
+          width: 60%;
+          justify-content: space-between;
+          border-bottom: 2px solid $white;
+        }
+        .challenges{
+          padding: $space-m;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        }
+      }
     }
   }
 </style>

@@ -4,6 +4,16 @@ module.exports = class Character3_Default {
   }
 
   onSendCard(character, model, card){
+    const field = model.board.fields.find(field=>field.cards.some(fieldCard=>fieldCard.id === card.id));
+    const [prevCard] = field.cards.slice(-2, -1);
+    if(!prevCard){
+      return;
+    }
+    const thatWasMinusTrick = prevCard.number > card.number;
+    if(thatWasMinusTrick){
+      console.log("minus trick detected!")
+      model.messageManager.register("specialAbilityMinusTrick");
+    }
   }
 
   onSendToStarPalette(character, model, field){
@@ -53,5 +63,9 @@ module.exports = class Character3_Default {
       return false;
     }
     return true;
+  }
+
+  canGetSenderCardFromSkill(character, model){
+    return character.uniqueParameters.abilities.some(ability=>ability.card?.category == "sender");
   }
 };

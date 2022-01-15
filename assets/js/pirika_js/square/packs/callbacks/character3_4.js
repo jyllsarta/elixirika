@@ -5,8 +5,8 @@ module.exports = class Character3_4 {
   onGameStart(character, model){
     console.log("最強ミズハさんです");
     character.uniqueParameters.abilities = [
-      new AbilityAddCard(new Card( 0, "X", "special")),
-      new AbilityAddCard(new Card( 0, "X", "special")),
+      new AbilityAddCard(new Card( 0, "x", "special")),
+      new AbilityAddCard(new Card( 0, "x", "special")),
       new AbilityAddCard(new Card( 11, "s", "sender")),
       new AbilityAddCard(new Card( 11, "h", "sender")),
     ]

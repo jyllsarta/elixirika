@@ -1,13 +1,26 @@
 <template lang="pug">
-  .area.with_inset_shadow
-    .indice
-      .index.with_solid_shadow(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]")
-        span(:class="{big_combo: board.fields[index].overScoreBonusBorder()}")
-          | {{board.fields[index].cards.length}}
-        span
-          | 枚 / {{board.fields[index].score()}}点
-    .fields
-      Field(v-for="index in [0,1,2,3]", :key="index", :field="board.fields[index]" :selected="model.selectingBoardIndex === index")
+  .area.with_inset_shadow(:style="styleBackground")
+    .background(:style="{backgroundImage: `url(/images/square/svg/symbol_character${model.characterId}_small.svg`}")
+    .front
+      .indice
+        .index.with_solid_shadow(
+          v-for="index in [0,1,2,3]",
+          :key="index",
+          :field="board.fields[index]",
+          :style="styleIndexBackground(index)"
+        )
+          span
+            | {{expectedCardCount(index)}}
+          span
+            | 枚 / {{expectedScore(index)}}点
+      .fields
+        Field(
+          v-for="index in [0,1,2,3]",
+          :key="index",
+          :field="board.fields[index]"
+          :selected="canStackCard(index)"
+          :characterId="model.characterId"
+        )
 </template>
 
 <script lang="typescript">
@@ -23,6 +36,41 @@
     },
     components: {
       Field,
+    },
+    methods: {
+      expectedCardCount(index){
+        if(this.model.selectingBoardIndex === index && this.canStackCard(index)){
+          return this.board.fields[index].cards.length + 1;
+        }
+        return this.board.fields[index].cards.length;
+      },
+      expectedScore(index){
+        if(this.model.selectingBoardIndex === index && this.canStackCard(index)){
+          const card = this.model.getHoldingCard();
+          return this.board.fields[index].scoreWithCard(card);
+        }
+        return this.board.fields[index].score();
+      },
+      canStackCard(index){
+        const card = this.model.getHoldingCard();
+        return card && this.model.cardStackRule(this.model.character, this.model, card, this.model.board.fields[index]);
+      },
+      styleIndexBackground(index){
+        let style = {
+          "background-color": `var(--bg3-${this.model.characterId})`,
+        };
+        if(this.canStackCard(index)){
+          style.border = `2px solid var(--color-i1-${this.model.characterId})`;
+        }
+        return style;
+      },
+    },
+    computed: {
+      styleBackground(){
+        return {
+          "background-color": `var(--bg2-${this.model.characterId})`,
+        };
+      },
     }
   })
 </script>
@@ -30,40 +78,49 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .area{
+    position: relative;
     width: 800px;
     height: unquote('max(350px, 57%)');
-    display: flex;
-    flex-direction: column;
-    background-color: $ingame-background;
-    padding: $space-ll;
-    border-radius: $space-l;
-    .indice{
+    border-radius: $radius;
+    .background{
+      position: absolute;
       width: 100%;
-      height: 50px;
+      height: 100%;
+      background-size: 90px;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+    .front{
+      position: absolute;
+      width: 100%;
+      height: 100%;
       display: flex;
-      justify-content: space-around;
-      align-items: center;
-      gap: $space-m;
-      .index{
-        background-color: $ingame-background;
-        border: 2px solid $yellow3;
-        border-radius: $radius;
-        padding: $space-m;
-        width: 160px;
-        text-align: center;
-        .big_combo{
-          font-weight: bold;
-          color: $yellow1;
+      flex-direction: column;
+      padding: $space-ll;
+      border-radius: $space-l;
+      .indice{
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: $space-m;
+        .index{
+          border: 2px solid $primary3;
+          border-radius: $radius;
+          padding: $space-m;
+          width: 160px;
+          text-align: center;
         }
       }
-    }
-    .fields{
-      width: 100%;
-      flex-grow: 1;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      gap: $space-m;
+      .fields{
+        width: 100%;
+        flex-grow: 1;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: $space-m;
+      }
     }
   }
 </style>

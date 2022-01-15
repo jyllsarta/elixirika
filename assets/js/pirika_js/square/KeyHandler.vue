@@ -46,27 +46,28 @@
       onKeyDownSelectHand(keyCode){
         switch(keyCode){
           case "o":
+            // デバッグ用
             this.controller.sendPlayLog();
             break;
-          case "p":
+          case "r":
             const characterId = this.controller.model.characterId;
             const chapterId = this.controller.model.chapterId;
             this.controller.newGame(characterId, chapterId);
-            this.controller.fillDraw();
-            this.controller.selectHand(0);
+            this.controller.operate("fillDraw", true);
+            this.controller.operate("selectHand", 0);
             break;
-          case "r":
-            // rは強制
-            this.controller.fillDraw(true);
+          case "s":
+            // sは強制
+            this.controller.operate("fillDraw");
             break;
           case "x":
             // xはやさしい、事故防止付き
             if(this.controller.model.hand.field.cards.length === 4){
               return;
             }
-            this.controller.fillDraw();
+            this.controller.operate("fillDraw");
             // xはやさしい、左端選択付き
-            this.controller.selectHand(0);
+            this.controller.operate("selectHand", 0);
             break;
           case "z":
             this.stageCard();
@@ -90,13 +91,16 @@
             this.sendStagedCard();
             break;
           case "ArrowRight":
-            this.controller.selectBoard(this.controller.model.selectingBoardIndex + 1);
+            this.controller.operate("selectBoard", this.controller.model.selectingBoardIndex + 1);
             break;
           case "ArrowLeft":
-            this.controller.selectBoard(this.controller.model.selectingBoardIndex - 1);
+            this.controller.operate("selectBoard", this.controller.model.selectingBoardIndex - 1);
+            if(this.controller.model.selectingBoardIndex === -1){
+              this.controller.prepareSendToAbility();
+            }
             break;
           case "ArrowDown":
-            this.controller.unstageStagedCard();
+            this.controller.operate("unstageStagedCard");
             break;
         }
       },
@@ -130,10 +134,10 @@
       },
       selectOrSend(idx){
         if(this.controller.model.hand.field.cards[idx]?.isSelected()){
-          this.controller.sendHandToBoard(idx, this.controller.model.selectingBoardIndex);
+          this.controller.operate("sendHandToBoard", idx, this.controller.model.selectingBoardIndex);
         }
         else{
-          this.controller.selectHand(idx);
+          this.controller.operate("selectHand", idx);
         }
       },
       turnRight(){
@@ -169,10 +173,17 @@
         if(handIndex === -1){
           return;
         }
-        this.controller.sendHandToStagedField(handIndex);
+        this.controller.operate("sendHandToStagedField", handIndex);
       },
       sendStagedCard(){
-        this.controller.sendStagedCardToBoard(this.controller.model.selectingBoardIndex);
+        if(this.controller.model.selectingBoardIndex === -1){
+          this.controller.operate("unstageStagedCard");
+          const handIndex = this.currentCardIndex();
+          this.controller.operate("sendHandToEmptyPocketAbility", handIndex);
+        }
+        else{
+          this.controller.operate("sendStagedCardToBoard", this.controller.model.selectingBoardIndex);
+        }
         if(this.controller.model.hand.field.cards.every(card=>!card.isSelected())){
           const handCount = this.controller.model.hand.field.cards.length;
           const boardIndex = this.controller.model.selectingBoardIndex;

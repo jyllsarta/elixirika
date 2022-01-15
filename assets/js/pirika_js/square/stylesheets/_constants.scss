@@ -23,26 +23,127 @@ $gray4: #313131;
 $white: #e1e7e4;
 $white-o: #e1e7e488;
 
-$purple1: #e19fff;
+$purple1: #cb87eb;
 $purple2: #a464c2;
-$purple3: #572b6b;
-$red1: #ff3164;
-$red2: #b63c5b;
+$purple3: #553b61;
+$red1: #ee8ea6;
+$red2: #e05477;
 $red3: #753d4b;
-$blue1: #2c39fc;
-$blue2: #3a42b6;
-$blue3: #313672;
-$yellow1: #f3ff4b;
-$yellow2: #afb649;
+$blue1: #8e94eb;
+$blue2: #4a53d3;
+$blue3: #3f4370;
+$yellow1: #ebf189;
+$yellow2: #b5bd49;
 $yellow3: #6d703f;
 
+$primary1: #8e94eb;
+$primary2: #4a53d3;
+$primary3: #3f4370;
+$sub1: #eb8eeb;
+$sub2: #af68af;
+$sub3: #492949;
+
 // 意味のある単位
-$main-color: #56ddff;
-$ingame-background: #534f63;
+$main-color: $blue1;
+$ingame-background2: #534f63;
 $ingame-background: #444152;
 $frame-background: #202024;
-$shadow: #332f41;
+$shadow: #282729;
+
+// キャラごとのカラースキーム系はjsから制御したいのでネイティブのCSS変数として扱う
+:root{
+  --bg1-1: #444152;
+  --bg2-1: #312e3f;
+  --bg3-1: #1e1b2b;
+  --gray1-1 :#a7a7a7;
+  --gray2-1 :#a7a7a7;
+  --gray3-1 :#a7a7a7;
+  --color-s1-1 : #8e94eb;
+  --color-s2-1 : #4a53d3;
+  --color-s3-1 : #3f4370;
+  --color-h1-1 : #ee8ea6;
+  --color-h2-1 : #e05477;
+  --color-h3-1 : #753d4b;
+  --color-j1-1 : #cb87eb;
+  --color-j2-1 : #a464c2;
+  --color-j3-1 : #553b61;
+  --color-x1-1 : #ebf189;
+  --color-x2-1 : #b5bd49;
+  --color-x3-1 : #6d703f;
+  --color-i1-1 : #4acef7;
+  --color-i2-1 : #3492af;
+  --color-i3-1 : #1c5668;
+
+  --bg1-2: #a19b92;
+  --bg2-2: #6e6961;
+  --bg3-2: #3a3631;
+  --gray1-2 :#a7a7a7;
+  --gray2-2 :#a7a7a7;
+  --gray3-2 :#a7a7a7;
+  --color-s1-2 : #c6c7d3;
+  --color-s2-2 : #8e8f97;
+  --color-s3-2 : #434347;
+  --color-h1-2 : #202024;
+  --color-h2-2 : #505057;
+  --color-h3-2 : #77777c;
+  --color-j1-2 : #9ab384;
+  --color-j2-2 : #77925f;
+  --color-j3-2 : #4d6836;
+  --color-x1-2 : #ebf189;
+  --color-x2-2 : #b5bd49;
+  --color-x3-2 : #6d703f;
+  --color-i1-2 : #4acef7;
+  --color-i2-2 : #3492af;
+  --color-i3-2 : #1c5668;
+
+  --bg1-3: #47576d;
+  --bg2-3: #293647;
+  --bg3-3: #161e29;
+  --gray1-3 :#a7a7a7;
+  --gray2-3 :#a7a7a7;
+  --gray3-3 :#a7a7a7;
+  --color-s1-3 : #8e94eb;
+  --color-s2-3 : #4a53d3;
+  --color-s3-3 : #3f4370;
+  --color-h1-3 : #ee8ea6;
+  --color-h2-3 : #e05477;
+  --color-h3-3 : #753d4b;
+  --color-j1-3 : #cb87eb;
+  --color-j2-3 : #a464c2;
+  --color-j3-3 : #553b61;
+  --color-x1-3 : #ebf189;
+  --color-x2-3 : #b5bd49;
+  --color-x3-3 : #6d703f;
+  --color-i1-3 : #4acef7;
+  --color-i2-3 : #3492af;
+  --color-i3-3 : #1c5668;
+
+  --bg1-4: #55405f;
+  --bg2-4: #3f2849;
+  --bg3-4: #24122c;
+  --gray1-4 :#a7a7a7;
+  --gray2-4 :#a7a7a7;
+  --gray3-4 :#a7a7a7;
+  --color-s1-4 : #8e94eb;
+  --color-s2-4 : #4a53d3;
+  --color-s3-4 : #3f4370;
+  --color-h1-4 : #ee8ea6;
+  --color-h2-4 : #e05477;
+  --color-h3-4 : #753d4b;
+  --color-j1-4 : #cb87eb;
+  --color-j2-4 : #a464c2;
+  --color-j3-4 : #553b61;
+  --color-x1-4 : #ebf189;
+  --color-x2-4 : #b5bd49;
+  --color-x3-4 : #6d703f;
+  --color-i1-4 : #4acef7;
+  --color-i2-4 : #3492af;
+  --color-i3-4 : #1c5668;
+}
 
 // 色でも長さでもない定数
 
 $disabled-opacity: 0.5;
+
+$window-width: 1200px;
+$window-height: clamp(540px, 100vh, 800px);

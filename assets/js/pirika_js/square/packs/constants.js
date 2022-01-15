@@ -10,5 +10,9 @@ const constants = {
   maxRandomSeed: 1000000000,
   cardCountScoreBonusThreshold: 5,
   defaultWindowWidth: 1200,
+  // ステイルメイト判定でも使い回すのでこっちにある
+  costOfAbilityAddSenderCard: 100,
+  bestEnergyLowLimit: 20,
+  bestEnergyHighLimit: 80,
 }
 module.exports = constants;

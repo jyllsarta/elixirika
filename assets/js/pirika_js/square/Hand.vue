@@ -1,8 +1,14 @@
 <template lang="pug">
   .area
     draggable.hand(:list="cards" @end="onDragEnd" @start="onDragStart" :move="checkMove" :sort="false" :group="'top'")
-      Card(:card="card" v-for="card in cards" :key="card.id", @hover="onCardHover")
-    draggable.pseudo_draggable(v-if="touchDragging" :group="'top'")
+      Card(
+        :card="card",
+        v-for="card in cards",
+        :key="card.id",
+        @hover="onCardHover",
+        :characterId="model.characterId",
+        :touchDragging="touchDragging"
+      )
 </template>
 
 <script lang="typescript">
@@ -34,18 +40,35 @@
     },
     methods: {
       checkMove(event){
-        const {clientX, clientY, type} = event.originalEvent;
+        const {clientX, type} = event.originalEvent;
         // タッチドラッグの場合においてのみ行き先表示を判定したい
         // 逆にマウスの場合は正規のDragEventが来て type が入っているので、 type にそれっぽいものが書いてあったら処理しない
         if(!clientX || type?.startsWith("drag")){
-          return false;
+          return this.checkMoveDrag(event);
         }
+        return this.checkMoveTouch(event)
+      },
+      checkMoveDrag(event){
+        const {to} = event;
+        const fieldIndex = parseInt(to.id?.split("field-")[1] || -1);
+        if(to?.id === "support-character"){
+          this.prepareSendToAbility();
+        }
+        this.selectBoard(fieldIndex);
+        return false;
+      },
+      checkMoveTouch(event){
+        const {clientX, clientY, type} = event.originalEvent;
         const target = this.findTargetFromTouchEvent(clientX, clientY);
+        console.log(target)
+        if(target === "ability"){
+          this.prepareSendToAbility();
+        }
         if(typeof(target) === "number" && this.model.selectingBoardIndex !== target){
-          this.$emit("guiEvent", {type: "selectBoard", index: target});
+          this.selectBoard(target);
         }
         if(target === "cancel" && this.model.selectingBoardIndex !== target){
-          this.$emit("guiEvent", {type: "selectBoard", index: -1});
+          this.disselectBoard();
         }
         // draggable ネイティブの勝手なリソース移動は禁止するためにかならず false をリターンする
         return false;
@@ -62,6 +85,7 @@
       },
       onDragEnd(event){
         this.touchDragging = false;
+        this.disselectBoard();
         if(event.originalEvent.dataTransfer){
           this.onDragEndMouse(event);
         }
@@ -90,17 +114,22 @@
         const aspectRatio = window.screen.width / window.screen.height;
         const width = Math.max(window.screen.width, Constants.defaultWindowWidth);
         const virtualHeight = width / aspectRatio;
-        const fieldIndex = Math.floor(clientX * 4 / width);
-        const isFloorPart = clientY > (virtualHeight / 2);
-        // 画面下半分かつ左端に出したときはアビリティ宛にする
-        if(fieldIndex === 0 && isFloorPart){
-          return "ability"
-        }
-        // 画面下半分かつ左端でもない場合にはキャンセル扱いにする
-        if(fieldIndex !== 0 && isFloorPart){
+        const touchAreaIndex = Math.floor(clientX * 6 / width);
+        const isFloorPart = clientY > (virtualHeight * 4 / 5);
+        // 画面下のほうはキャンセル扱いにする
+        if(isFloorPart){
           return "cancel";
         }
-        return fieldIndex;
+        return this.touchAreaIndexToCardIndex(touchAreaIndex);
+      },
+      touchAreaIndexToCardIndex(touchAreaIndex){
+        if(touchAreaIndex === 5){
+          return -1;
+        }
+        if(touchAreaIndex === 0){
+          return "ability";
+        }
+        return touchAreaIndex - 1;
       },
       doSend(target, cardId){
         if(cardId === -1){
@@ -116,14 +145,19 @@
             break;  
           case "cancel":
             console.log("cancel!");
+            this.cancelDrag();
             break;  
           case "ability":
             this.sendToAbility(cardId);
             break;  
           case -1:
             console.warn("no drag target!");
+            this.cancelDrag();
             break;
         }
+      },
+      cancelDrag(){
+        this.$emit("guiEvent", {type: "cancelDrag"});
       },
       sendToAbility(cardId){
         this.$emit("guiEvent", {type: "sendToAbility", cardId: cardId});
@@ -133,6 +167,21 @@
       },
       onCardHover(card){
         this.$emit("guiEvent", {type: "selectCard", card: card});
+      },
+      selectBoard(index){
+        if(this.model.selectingBoardIndex === index){
+          return;
+        }
+        this.$emit("guiEvent", {type: "selectBoard", index: index});
+      },
+      disselectBoard(){
+        if(this.model.selectingBoardIndex === -1){
+          return;
+        }
+        this.$emit("guiEvent", {type: "selectBoard", index: -1});
+      },
+      prepareSendToAbility(){
+        this.$emit("guiEvent", {type: "prepareSendToAbility"});
       }
     }
   })
@@ -150,13 +199,6 @@
       align-items: flex-end;
       justify-content: center;
       gap: $space-m;
-    }
-    .pseudo_draggable{
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
     }
   }
 </style>

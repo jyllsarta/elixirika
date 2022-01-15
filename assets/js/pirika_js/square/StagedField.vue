@@ -1,7 +1,7 @@
 <template lang="pug">
   .area
     .card_container(:style="{left: leftGap}")
-      Card(:card="stagedField.field.cards[0]" v-if="stagedField.field.cards[0]")
+      Card(:card="stagedField.field.cards[0]", v-if="stagedField.field.cards[0]", :characterId="model.characterId")
 </template>
 
 <script lang="typescript">
@@ -36,7 +36,7 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .area{
-    width: 160px;
+    width: 200px;
     height: 100px;
     .card_container{
       pointer-events: none;

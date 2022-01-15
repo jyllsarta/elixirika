@@ -1,11 +1,14 @@
 <template lang="pug">
   .game(v-if="model")
+    .background
+      .color(:style="styleBackground")
+      .image(:style="styleBackgroundImage")
     .center_board.object
       CenterBoard(:board="model.board", :model="model")
     .support_character.object
-      SupportCharacter(:character="model.character")
+      SupportCharacter(:model="model" :gameStarted="gameStarted")
     .support_character_message.object
-      SupportCharacterMessage(:character="model.character")
+      SupportCharacterMessage(:model="model" :gameStarted="gameStarted")
     .support_character_ability.object
       SupportCharacterAbilityBase(:character="model.character" @guiEvent="onGuiEvent")
     .staged_field.object
@@ -18,8 +21,12 @@
       BlackBoard(:model="model")
     .card_game_panel.object
       CardGamePanel(:model="model" @guiEvent="onGuiEvent")
+    .in_game_menu.object
+      InGameMenu(@guiEvent="onGuiEvent")
     .game_end_popup.object
       GameEndPopup(:model="model" @guiEvent="onGuiEvent")
+    .game_start_popup.object
+      GameStartPopup(:model="model" @startGame="startGame" :gameStarted="gameStarted")
     KeyHandler(:controller="controller")
     GuiHandler(:controller="controller" @initiate="registerGuiHandler"  @loadScene="loadScene")
 </template>
@@ -35,7 +42,9 @@
     import Hand from "./Hand.vue"
     import BlackBoard from "./BlackBoard.vue"
     import CardGamePanel from "./CardGamePanel.vue"
+    import InGameMenu from "./InGameMenu.vue"
     import GameEndPopup from "./GameEndPopup.vue"
+    import GameStartPopup from "./GameStartPopup.vue"
     import Controller from "./packs/controller"
     import KeyHandler from "./KeyHandler.vue"
     import GuiHandler from "./GuiHandler.vue"
@@ -51,7 +60,9 @@
       Hand,
       BlackBoard,
       CardGamePanel,
+      InGameMenu,
       GameEndPopup,
+      GameStartPopup,
       KeyHandler,
       GuiHandler,
     },
@@ -74,12 +85,16 @@
       },
       loadScene(args){
         this.$emit("loadScene", args);
+      },
+      startGame(){
+        this.gameStarted = true;
       }
     },
     data(){
       return {
         controller: null,
         guiHandler: null,
+        gameStarted: false,
       };
     },
     computed: {
@@ -92,6 +107,16 @@
       chapterId(){
          return this.sceneParameter.chapterId;
       },
+      styleBackgroundImage(){
+        return {
+          backgroundImage: `url(/images/square/svg/symbol_character${this.model.characterId}_small.svg`,
+        };
+      },
+      styleBackground(){
+        return {
+          "background-color": `var(--bg3-${this.model.characterId})`,
+        };
+      },
     }
   })
 </script>
@@ -102,15 +127,31 @@
     width: 100%;
     height: 100%;
     color: $white;
-    background-color: $ingame-background;
     position: relative;
     overflow: hidden;
+    .background{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      .color{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+      .image{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-size: 100px;
+        opacity: 0.1;
+      }
+    }
     .object{
       position: absolute;
     }
     .support_character{
-      height: 100%;
-      top: 0px;
+      height: 90%;
+      bottom: -20px;
       left: 300px;
     }
     .star_palette{
@@ -118,8 +159,8 @@
       left: 0px;
     }
     .support_character_message{
-      top: 100px;
-      left: 20px;
+      top: 110px;
+      left: $space-m;
     }
     .support_character_ability{
       bottom: $space-m;
@@ -147,9 +188,17 @@
       bottom: $space-m;
       right: $space-m;
     }
+    .in_game_menu{
+      top: $space-m;
+      right: $space-m;
+    }
     .game_end_popup{
-      top: 200px;
-      left: 300px;
+      top: 170px;
+      left: 250px;
+    }
+    .game_start_popup{
+      top: 0;
+      left: 0;
     }
   }
 </style>

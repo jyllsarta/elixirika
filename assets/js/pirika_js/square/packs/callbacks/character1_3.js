@@ -6,11 +6,11 @@ module.exports = class Character1_3 {
     console.log("よわピリカです...");
 
     character.uniqueParameters.abilities = [
-      new AbilityAddCard(new Card( 0, "X", "special")),
+      new AbilityAddCard(new Card( 0, "x", "special")),
       new AbilityAddCard(new Card( 11, "s", "sender")),
       new AbilityAddCard(new Card( 11, "h", "sender")),
     ]
-    model.deck.field.addCard(new Card(0, "X", "special"));
+    model.deck.field.addCard(new Card(0, "x", "special"));
     model.deck.shuffle(model.seededRandom);
   }
   starPaletteParameter(){

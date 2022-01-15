@@ -8,6 +8,7 @@ let CharacterFactory = require("./characterFactory");
 let SeededRandom = require("./seededRandom");
 let Chapter = require("./chapter");
 const Challenge = require("./challenge");
+const MessageManager = require("./message_manager");
 
 module.exports = class Model {
   constructor(characterId, chapterId, seed) {
@@ -21,6 +22,7 @@ module.exports = class Model {
     this.chapter = new Chapter().getById(chapterId);
     this.chapterId = chapterId;
     this.challenge = new Challenge();
+    this.messageManager = new MessageManager(this);
     this.seed = seed;
     this.deck = new Deck();
     this.board = new Board();
@@ -33,44 +35,65 @@ module.exports = class Model {
     this.cardStackRule = this.character.getCallback("cardStackRule", this.chapter.index);
     this.operationHistory = [];
     this.clearedChallenges = [];
-    this.isForceStaleMate = false;
+    this.isForceStalemate = false;
+    this.isGracefullyStalemate = false;
 
     this.onGameStart();
   }
 
   checkAndUpdateClearedChallenges(){
-    this.clearedChallenges = this.challenge.clearedChallengeIds(this, this.chapter.challenge_ids);
+    const updatedChallengeIds = this.challenge.clearedChallengeIds(this, this.chapter.challenge_ids);
+    if(this.clearedChallenges.length < updatedChallengeIds.length){
+      this.messageManager.register("challenge");
+    }
+    this.clearedChallenges = updatedChallengeIds;
   }
 
   onGameStart(){
     this.deck.shuffle(this.seededRandom);
     this.character.getCallback("onGameStart", this.chapter.index)(this.character, this);
+    this.messageManager.register("gameStart");
   }
 
   currentScore(){
     return this.character.getCallback("calculateScore", this.chapter.index)(this.character, this);
   }
 
-  // 特殊効果による手詰まり == isForceStalemate == true
-  // カード状況による手詰まり == デッキ枚数がゼロ && ステージングにもなし && すべての手札がどこにも出せない
-  // TODO: 「スキルを全部使用済み」もやる必要あり 
-  isStaleMate(){
-    if(this.isForceStaleMate){
+  // 特殊効果による手詰まり is isForceStalemate == true この場合は他の条件に関係なくとにかくtrue
+  // 特殊効果による手詰まり is isForceStalemate == true この場合は他の条件に関係なくとにかくtrue
+  // カード状況による手詰まり is デッキ枚数がゼロ && 手札にもステージングにもsenderがない && スキル経由でsenderの供給が不可能
+  isStalemate(){
+    if(this.isForceStalemate || this.isGracefullyStalemate){
       return true;
     }
-    if(this.deck.field.cards.length !== 0){
-      return false;
+    return false;
+  }
+
+  setForceStalemate(){
+    this.messageManager.register("forceStalemate");
+    this.isForceStalemate = true;
+  }
+
+  // タッチ・ドラッグに関わらず今握っているカードを取得することを試みる(無選択があり得る)
+  getHoldingCard(){
+    if(this.stagedField.isStaged()){
+      return this.stagedField.field.cards[0];
     }
-    if(this.stagedField.field.cards.length !== 0){
-      return false;
+    if(this.hand.isNoCardSelected()){
+      return null;
     }
-    for(let handCard of this.hand.field.cards){
-      for(let field of this.board.fields){
-        if(this.cardStackRule(this.character, this, handCard, field)){
-          return false;
-        }
-      }
+    return this.hand.field.cards.find(card=>card.selected);
+  }
+
+  registerOperationHistory(history){
+    // 選び直し系が連続した場合、最後のヒストリーのみを記録する
+    const lastOperationHistory = this.operationHistory.slice(-1)[0]
+    if(lastOperationHistory && lastOperationHistory.name === "selectHand" && history.name === "selectHand"){
+      this.operationHistory.pop();
     }
-    return true;
+    if(lastOperationHistory && lastOperationHistory.name === "selectBoard" && history.name === "selectBoard"){
+      this.operationHistory.pop();
+    }
+    this.operationHistory.push(history)
   }
 };

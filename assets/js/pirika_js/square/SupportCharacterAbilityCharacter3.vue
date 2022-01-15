@@ -1,13 +1,14 @@
 <template lang="pug">
   .area
     .index(v-if="!character.uniqueParameters.abilities")
-      | ミズハにスキルはない
+      | スキルはない
     .index(v-if="character.uniqueParameters.abilities")
-      | ミズハにスキルはない..というのは嘘だ
+      | スキルあるよ
     .buttons(v-if="character.uniqueParameters.abilities")
       .button(
         v-for="(ability, index) in character.uniqueParameters.abilities"
         @click="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
+        @mouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
         :class="ability.card.suit"
       )
         | {{ability.stringExpression()}}
@@ -34,7 +35,7 @@
   @import "stylesheets/global_settings";
   .area{
     width: 150px;
-    height: 200px;
+    height: 220px;
     background-color: $ingame-background;
     border: 2px solid $yellow3;
     border-radius: $radius;
@@ -50,7 +51,7 @@
       &:hover{
         transform: scale(1.2);
       }
-      &.X{
+      &.x{
         border: 1px solid $yellow2;
         background-color: $yellow3;
       }

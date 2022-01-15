@@ -1,67 +1,343 @@
 <template lang="pug">
-  .area
+  .star_palette
     .background.with_drop_shadow
       img(src="/images/square/svg/star_palette5.svg")
-    .container
-      .star(v-for="param in params")
-        | {{param.hp}} / {{param.hpMax}}
+    .field
+      .player(@click="onAttack" ref="player")
+        .img
+          img(src="/images/square/characters/ayame1.png")
+      transition(name="enemy-appear")
+        .foreground_enemy(v-if="foregroundEnemy.hp > 0", :key="foregroundEnemy.id")
+          .img
+            img(:src="`/images/square/characters/${foregroundEnemy.image}.png`")
+      .foreground_enemy_hp(:class="hpClass(referenceCurrentHp)")
+        | {{referenceCurrentHp}}
+      transition-group(class="background_enemies" name="background")
+        .enemy(v-for="enemy in backgroundEnemies" :key="enemy.id")
+          .content
+            .img
+              img(:src="`/images/square/characters/${enemy.image}.png`")
+            .hp(:class="hpClass(enemy.hp)")
+              | {{enemy.hp}}
+      .attack_effect
+        .line1.line(ref="line1")
+        .line2.line(ref="line2")
+        .line3.line(ref="line3")
+      transition(name="win")
+        .cleared(v-if="!foregroundEnemy.hp")
+          .text
+              | 勝利！
+      transition(name="win-character")
+        .cleared_character(v-if="!foregroundEnemy.hp")
+          .img
+            img(src="/images/square/characters/ayame2.png")            
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import Model from "./packs/model"
+  import gsap from 'gsap';
 
   export default Vue.extend({
     props: {
       model: Model,
     },
-    data(){
-      return { 
-        params: null,
+    data: function(){
+      return {
+        referenceCurrentHp: 0,
+      };
+    },
+    mounted() {
+      this.syncCurrentHp();
+    },
+    computed: {
+      aliveEnemies(){
+        return this.model.character.uniqueParameters.enemies.filter(enemy=>enemy.hp>0);
+      },
+      foregroundEnemy(){
+        return this.aliveEnemies[0] || {};
+      },
+      backgroundEnemies(){
+        return this.aliveEnemies.slice(1, Math.inf);
       }
     },
-    mounted(){
-      this.params = this.model.character.uniqueParameters.enemies;
-    },
     methods: {
+      syncCurrentHp(){
+        this.referenceCurrentHp = this.foregroundEnemy.hp;
+      },
+      hpClass(hp){
+        if(hp >= 10){
+          return "hp3";
+        }
+        if(hp >= 5){
+          return "hp2";
+        }
+        return "hp1";
+      },
+      async onAttack(){
+        const playerTimeline = gsap.timeline();
+        playerTimeline
+          .to(
+            this.$refs.player,
+            {
+              x: 45,
+              y: -20,
+              duration: 0.08
+            },
+          )
+          .to(
+            this.$refs.player,
+            {
+              x: 60,
+              y: 0,
+              duration: 0.08
+            },
+          )
+          .to(
+            this.$refs.player,
+            {
+              x: 0,
+              y: 0,
+              duration: 0.2
+            },
+            "+=0.5"
+          );
+
+        const effectTimeline1 = gsap.timeline();
+        effectTimeline1
+          .to( this.$refs.line1, { x: -50, opacity:   0, duration: 0.15 })
+          .to( this.$refs.line1, { x:   0, opacity: 0.7, duration: 0.15 })
+          .to( this.$refs.line1, { x:  50, opacity:   0, duration: 0.15 });
+
+        const effectTimeline2 = gsap.timeline();
+        effectTimeline2
+          .to( this.$refs.line2, { x: -50, opacity:   0, duration: 0.20 })
+          .to( this.$refs.line2, { x:   0, opacity: 0.7, duration: 0.15 })
+          .to( this.$refs.line2, { x:  50, opacity:   0, duration: 0.15 });
+
+        const effectTimeline3 = gsap.timeline();
+        effectTimeline3
+          .to( this.$refs.line3, { x: -50, opacity:   0, duration: 0.30 })
+          .to( this.$refs.line3, { x:   0, opacity: 0.7, duration: 0.15 })
+          .to( this.$refs.line3, { x:  50, opacity:   0, duration: 0.15 });
+
+        // アニメーションの最後に合わせるほうが行儀良くはある
+        await this.$delay(1000);
+        this.syncCurrentHp();
+      },
     },
+    watch: {
+      // HPさがる ID変化あり: 攻撃で倒したに違いない 
+      // HPあがる ID変化あり: 攻撃で倒したに違いない
+      // HPさがる ID変化なし: 攻撃で削ったに違いない
+      // HPあがる ID変化なし: そんなことある？ 現状の実装ではないが、増えてる場合はおそらく攻撃エフェクトは出したくなさそう
+      "foregroundEnemy.id": function(){
+        this.onAttack();
+      },
+      "foregroundEnemy.hp": function(newHp, prevHp){
+        if(prevHp < newHp){
+          return;
+        }
+        this.onAttack();
+      },
+    }
   })
 </script>
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .area{
-    position: relative;
+  .star_palette{
+    position: absolute;
+    width: 100%;
+    height: 100%;
     .background{
       position: absolute;
-      left: 15%;
-      top: -15px;
-      width: 70%;
+      width: 100%;
+      height: 100%;
       img{
         width: 100%;
       }
     }
-    .container{
+    .field{
       position: absolute;
-      left: 20%;
-      width: 60%;
-      height: 80%;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      gap: $space-ll;
-      .star{
-        border: 2px solid $yellow3;
-        @include centering($height: 50px);
-        width: 50px;
+      width: 100%;
+      height: unquote("calc(100% - 27px)");
+      .player{
+        position: absolute;
+        left: 100px;
+        width: 80px;
+        height: 80px;
+        bottom: 0;
+        .img img{
+          width: 100%;
+          height: 100%;
+        }
       }
-      .enabled{
-        border: 2px solid $yellow1;
-        background-color: $yellow2;
+      .attack_effect{
+        position: absolute;
+        bottom: 20px;
+        left: 280px;
+        width: 60px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+        transform: rotate(30deg);
+        .line{
+          width: 60px;
+          height: 2px;
+          background-color: white;
+          opacity: 0;
+        }
       }
-      .disabled{
-        color: $white-o;
+      .foreground_enemy{
+        position: absolute;
+        left: 300px;
+        bottom: 0;
+        width: 80px;
+        height: 80px;
+        // 味方攻撃 -> 倒れる のアニメーションにしたいので、ここで特別にdelayをかけてる
+        transition-delay: 0.9s;
+        .img img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .foreground_enemy_hp{
+          position: absolute;
+          left: 300px;
+          top: 8px;
+          width: 80px;
+          height: $font-size-medium;
+          line-height: 100%;
+          text-align: center;
+          font-size: $font-size-medium;
+        }
+      .background_enemies{
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        left: 500px;
+        bottom: 0;
+        width: 400px;
+        height: 60px;
+        gap: $space-m;
+        .enemy{
+          .content{
+            position: relative;
+            width: 60px;
+            height: 60px;
+            .img img{
+              width: 100%;
+              height: 100%;
+            }
+            .hp{
+              position: absolute;
+              top: -20px;
+              left: 0;
+              width: 100%;
+              text-align: center;
+              font-size: $font-size-medium;
+            }
+          }
+        }
+      }
+      .cleared{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        .text{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: $font-size-large;
+        }
       }
     }
+    .cleared_character{
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      right: 20%;
+      bottom: -10px;
+      .img img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .hp1{
+      text-shadow: 0px 0px 2px $red1, 0px 0px 2px $red1;
+    }
+
+    .hp2{
+      text-shadow: 0px 0px 2px $yellow1, 0px 0px 2px $yellow1;
+    }
+
+    .hp3{
+      text-shadow: 0px 0px 2px $blue1, 0px 0px 2px $blue1;
+    }
+
+    .enemy-appear-enter-active {
+      transition: all 1.3s;
+      transition-delay: 0.5s;
+    }
+    .enemy-appear-leave-active {
+      transition: all 1s linear;
+      transition-delay: 0.5s;
+    }
+    .enemy-appear-enter{
+      transform: translateX(30px);
+      opacity: 0;
+    }
+    .enemy-appear-leave-to{
+      transform: translate(130px, -40px) rotate(270deg);
+      opacity: 0;
+    }
+
+    .background-leave-active {
+      position: absolute;
+      transition: all 1.3s;
+      // 味方攻撃 -> 倒れる のアニメーションにしたいので、ここで特別にdelayをかけてる
+        transition-delay: 0.9s;
+    }
+    .background-enter{
+      transform: translateX(20px);
+      opacity: 0;
+    }
+    .background-leave-to{
+      transform: translateX(-20px);
+      opacity: 0;
+    }
+    .background-move {
+      transition: transform 1s;
+      // 味方攻撃 -> 倒れる のアニメーションにしたいので、ここで特別にdelayをかけてる
+      transition-delay: 0.9s;
+    }
+
+    .win-enter-active {
+      position: absolute;
+      transition: all 0.4s;
+      transition-delay: 0.5s;
+    }
+    .win-enter{
+      transform: scale(4);
+      opacity: 0;
+    }
+
+    .win-character-enter-active {
+      position: absolute;
+      transition: all 0.2s;
+      transition-delay: 1.0s;
+    }
+    .win-character-enter{
+      transform: translateY(30px);
+      opacity: 0;
+    }
   }
+
 </style>

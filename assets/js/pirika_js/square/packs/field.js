@@ -63,16 +63,12 @@ module.exports = class Field {
     return this.cards.slice(-1)[0];
   }
 
-  overScoreBonusBorder(){
-    return this.cards.length >= Constants.cardCountScoreBonusThreshold 
-  }
-
-  lengthBonus(){
-    return this.overScoreBonusBorder() ? 2 : 1;
-  }
-
   score(){
-    return Math.min(Math.floor(this.lengthBonus() * this.cards.reduce((x,y)=>x+y.number, 0)), Constants.maxScorePerField);
+    return this.calculateScore(this.cards);
+  }
+
+  scoreWithCard(card){
+    return this.calculateScore(this.cards.concat(card));
   }
 
   minusTrickCount(){
@@ -85,5 +81,10 @@ module.exports = class Field {
       prevCardNmber = card.number;
     }
     return count;
+  }
+
+  calculateScore(cards){
+    const n = cards.length;
+    return Math.min(n*(n+1)/2, Constants.maxScorePerField);
   }
 };

@@ -1,19 +1,49 @@
 <template lang="pug">
-  .area
-    .balloon2.with_shadow
-      | {{message}}
+  .area(ref="message" v-if="gameStarted")
+    img.background.with_drop_shadow(src="images/square/svg/message.svg")
+    .text
+      span.letter(
+        v-for="(t, index) in message"
+        :key="t + index + messageId"
+        :style="{animationDelay: (index*15)+'ms'}"
+        v-text="t")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import Model from "./packs/model";
+  import gsap from 'gsap';
 
   export default Vue.extend({
     props: {
-      character: Object,
+      model: Model,
+      gameStarted: Boolean,
     },
     computed: {
       message(){
-        return this.character.defaultMessage;
+        return this.model.messageManager.currentMessage.message;
+      },
+      messageId(){
+        return this.model.messageManager.id;
+      }
+    },
+    watch: {
+      "model.messageManager.id": function() {
+        this.receiveAnimation();
+      }
+    },
+    methods: {
+      receiveAnimation(){
+        gsap.fromTo(
+          this.$refs.message,
+          {
+            scale: 1.1,
+          },
+          {
+            duration: 0.2,
+            scale: 1,
+            ease: 'expo.out',
+          });
       }
     }
   })
@@ -24,37 +54,46 @@
   .area{
     width: 250px;
     height: 100px;
-    .balloon2 {
-      position: relative;
-      display: inline-block;
+    position: relative;
+    animation: show 2s;
+    .background{
+      position: absolute;
+      width: 100%;
+    }
+    .text {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      line-height: 140%;
       white-space: pre-wrap;
-      line-height: 100%;
       padding: $space-m;
-      width: 250px;
       color: $white;
-      background: $ingame-background;
-      border: 1px solid $white;
     }
+  }
 
-    .balloon2:before {
-      content: "";
-      position: absolute;
-      bottom: -27px;
-      left: 20%;
-      margin-left: -17px;
-      border: 14px solid transparent;
-      border-top: 14px solid $ingame-background;
-      z-index: 2;
+  @keyframes vertical-text-in {
+    0% {
+      opacity: 0;
     }
-    .balloon2:after {
-      content: "";
-      position: absolute;
-      bottom: -28px;
-      left: 20%;
-      margin-left: -17px;
-      border: 14px solid transparent;
-      border-top: 14px solid $white;
-      z-index: 1;
+    99% {
+      opacity: 0;
+    }
+  }
+  .letter {
+    display: inline-block;
+    min-width: 0.3em;
+    animation: vertical-text-in .01s cubic-bezier(0.22, 0.15, 0.25, 1.43) 0s backwards;
+  }
+
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    50%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
     }
   }
 </style>

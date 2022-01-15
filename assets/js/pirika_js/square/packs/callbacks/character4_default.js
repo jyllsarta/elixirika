@@ -1,4 +1,5 @@
 let Card = require("../card");
+const Constants = require("../constants");
 
 module.exports = class Character4_Default {
   onGameStart(character, model){
@@ -12,10 +13,10 @@ module.exports = class Character4_Default {
 
   onSendToStarPalette = (character, model, field) => {
     const power = field.cards.length;
-    character.damageToNextEnemy(power);
+    character.damageToNextEnemy(power, model, false);
     character.uniqueParameters.mp += field.score();
     if(character.isAllEnemyDefeated()){
-      model.isForceStaleMate = true;
+      model.setForceStalemate();
     }
   }
 
@@ -26,11 +27,11 @@ module.exports = class Character4_Default {
   starPaletteParameter(){
     return {
       enemies: [
-        {id: 1, hp: 1},
-        {id: 2, hp: 3},
-        {id: 3, hp: 5},
-        {id: 4, hp: 6},
-        {id: 5, hp: 7},
+        {id: 1, hp: 1, image: "kani"},
+        {id: 2, hp: 5, image: "gob"},
+        {id: 3, hp: 5, image: "kani"},
+        {id: 4, hp: 5, image: "gob"},
+        {id: 5, hp: 5, image: "ghost"},
       ]
     };
   }
@@ -58,5 +59,9 @@ module.exports = class Character4_Default {
       return false;
     }
     return true;
+  }
+
+  canGetSenderCardFromSkill(character, model){
+    return character.uniqueParameters.mp >= Constants.costOfAbilityAddSenderCard;
   }
 };

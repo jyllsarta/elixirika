@@ -8,6 +8,7 @@
       .button(
         v-for="(ability, index) in character.uniqueParameters.abilities"
         @click="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
+        @mouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
         :class="{disabled: !character.hasSufficientMp(ability.cost), enabled: character.hasSufficientMp(ability.cost)}"
       )
         | {{ability.stringExpression()}}
@@ -34,6 +35,7 @@
   @import "stylesheets/global_settings";
   .area{
     width: 150px;
+    height: 220px;
     background-color: $ingame-background;
     border: 2px solid $yellow3;
     border-radius: $radius;

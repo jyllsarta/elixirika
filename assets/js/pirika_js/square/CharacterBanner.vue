@@ -1,7 +1,7 @@
 <template lang="pug">
   .banner(@click="onClick")
     .base
-      img.sheet(:style="{backgroundImage: `url(/images/square/characters/${character.imageName}.png`}")
+      img.sheet(:style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}")
       .shadow
       .name
         | {{character.name}}

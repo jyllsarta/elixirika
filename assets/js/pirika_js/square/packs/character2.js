@@ -9,12 +9,11 @@ let Card = require("./card");
 module.exports = class Character2 {
   constructor(){
     this.id = 2;
-    this.name = "エンティア";
-    this.imageName = "character2";
+    this.name = "エンティ";
     this.defaultMessage = "イニシャライズ走りきりました、疎通確認いけます";
 
     this.uniqueParameters = {
-      energy: 50,
+      energy: 20,
       score: 0,
       abilities: [
         new AbilityCardPocket(),

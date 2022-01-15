@@ -1,7 +1,9 @@
 <template lang="pug">
   .challenge(:class="isCleared ? 'cleared' : 'not_cleared'")
-    .icon
-      | ■
+    .icon(v-if="isCleared")
+      | ◆
+    .icon(v-else="isCleared")
+      | ◇
     .rank
       | {{["I","II","III","IV"][index]}}
     .description
@@ -27,10 +29,10 @@
     display: flex;
     gap: $space-m;
     .icon{
-      width: 20px;
+      width: 16px;
     }
     .rank{
-      width: 30px;
+      width: 24px;
       text-align: center;
     }
     &.cleared{
