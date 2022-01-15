@@ -21,7 +21,7 @@ npm run deploy --prefix ./assets
 
 echo "##### create release"
 
-MIX_ENV=prod mix release
+MIX_ENV=prod mix release --overwrite
 
 echo "##### DB migration"
 
