@@ -32,8 +32,7 @@ defmodule ElixirikaWeb.SquareController do
 
     result = content |> Jason.decode!()
 
-    user_id = Elixirika.SquareUser.find_or_create_by(params["username"])
-    character_id = params["log"]["characterId"]
+    user_id = Elixirika.SquareUser.find_or_create_by(params["username"] || "")
     chapter_id = params["log"]["chapterId"]
 
     # TODO: クリアした実績数でNクエリ走るのでBULK INSERTにしたい
