@@ -13,7 +13,6 @@ defmodule Elixirika.SquareScore do
 
   def high_score(user_id) do
     Ecto.Query.from(score in Elixirika.SquareScore,
-      order_by: [desc: score.score],
       select: %{chapter_id: score.chapter_id, score: max(score.score)},
       group_by: [score.chapter_id]
     )
