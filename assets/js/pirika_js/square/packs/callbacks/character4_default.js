@@ -16,7 +16,7 @@ module.exports = class Character4_Default {
     character.damageToNextEnemy(power, model, false);
     character.uniqueParameters.mp += field.score();
     if(character.isAllEnemyDefeated()){
-      model.setForceStalemate();
+      model.setForceStalemate("見事 敵を全滅させた！");
     }
   }
 

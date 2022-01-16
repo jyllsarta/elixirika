@@ -1,11 +1,14 @@
 <template lang="pug">
   .game_end(v-if="isStalemate" @click="endGame")
     .darkness
-    .body
-      .background(:style="{backgroundImage: `url(/images/square/characters/${model.characterId}-1.png`}" :class="{sending: sending}")
+    .body(:class="{sending: sending}")
+      .background(:style="{backgroundImage: `url(/images/square/characters/${model.characterId}-1.png`}")
       .front
         .title
-          | 今回の結果
+          .text
+            | 今回の結果
+          .reason
+            | {{model.forceStalemateReason}}
         .content
           .score
             .label
@@ -114,10 +117,20 @@
         flex-direction: column;
         .title{
           width: 100%;
-          font-size: $font-size-large;
           border-bottom: 2px solid $white;
           padding-left: $space-m;
           margin-bottom: $space-m;
+          display: flex;
+          justify-content: left;
+          align-items: flex-end;
+          gap: $space-ll;
+          .text{
+            font-size: $font-size-large;
+          }
+          .reason{
+            font-weight: bold;
+            color: $red2;
+          }
         }
         .content{
           display: flex;

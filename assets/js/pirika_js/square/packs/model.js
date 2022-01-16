@@ -37,6 +37,7 @@ module.exports = class Model {
     this.clearedChallenges = [];
     this.isForceStalemate = false;
     this.isGracefullyStalemate = false;
+    this.forceStalemateReason = "";
 
     this.onGameStart();
   }
@@ -69,9 +70,10 @@ module.exports = class Model {
     return false;
   }
 
-  setForceStalemate(){
+  setForceStalemate(reason){
     this.messageManager.register("forceStalemate");
     this.isForceStalemate = true;
+    this.forceStalemateReason = reason;
   }
 
   // タッチ・ドラッグに関わらず今握っているカードを取得することを試みる(無選択があり得る)

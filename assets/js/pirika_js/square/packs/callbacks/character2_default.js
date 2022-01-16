@@ -13,7 +13,7 @@ module.exports = class Character2_Default {
       this.shufflePocket(character, model);
     }
     if(staleMateByEnergy && character.uniqueParameters.energy >= maxEnergy){
-      model.setForceStalemate();
+      model.setForceStalemate("エネルギー過供給で災害を起こしてしまった！");
     }
   }
 
@@ -24,7 +24,7 @@ module.exports = class Character2_Default {
     this.fluctuateEnergy(character, maxEnergy, -consumptionPerCard, model);
     character.uniqueParameters.energyHistory.push(character.uniqueParameters.energy);
     if(staleMateByEnergy && character.uniqueParameters.energy <= 0){
-      model.setForceStalemate();
+      model.setForceStalemate("エネルギー枯渇で災害を起こしてしまった！");
     }
   }
 
