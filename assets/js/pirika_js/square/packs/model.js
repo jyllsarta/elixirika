@@ -94,6 +94,9 @@ module.exports = class Model {
     if(lastOperationHistory && lastOperationHistory.name === "selectBoard" && history.name === "selectBoard"){
       this.operationHistory.pop();
     }
+    if(this.operationHistory.length > 1000){
+      console.warn(`operation history reached ${this.operationHistory.length}! may refused by server`)
+    }
     this.operationHistory.push(history)
   }
 };

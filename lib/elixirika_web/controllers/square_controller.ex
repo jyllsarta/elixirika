@@ -1,6 +1,8 @@
 defmodule ElixirikaWeb.SquareController do
   use ElixirikaWeb, :controller
 
+  @max_log_size 50000
+
   def index(conn, _params) do
     conn
     |> put_layout(false)
@@ -22,6 +24,7 @@ defmodule ElixirikaWeb.SquareController do
 
   def register_log(conn, params) do
     log = Jason.encode!(params["log"])
+    if String.length(log) >= @max_log_size, do: raise(ElixirikaWeb.PlaylogTooLongError)
     cmd = ~s(cd assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
     IO.puts(cmd)
     :os.cmd(to_charlist(cmd))
