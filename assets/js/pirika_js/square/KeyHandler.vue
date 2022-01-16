@@ -58,7 +58,7 @@
             break;
           case "s":
             // sは強制
-            this.controller.operate("fillDraw");
+            this.controller.operate("fillDraw", true);
             break;
           case "x":
             // xはやさしい、事故防止付き

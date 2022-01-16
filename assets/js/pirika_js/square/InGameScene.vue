@@ -193,8 +193,8 @@
       right: $space-m;
     }
     .game_end_popup{
-      top: 170px;
-      left: 250px;
+      top: 0;
+      left: 0;
     }
     .game_start_popup{
       top: 0;

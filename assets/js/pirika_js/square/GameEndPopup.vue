@@ -1,25 +1,27 @@
 <template lang="pug">
-  .game_end(v-if="isStalemate" @click="endGame" :class="{sending: sending}")
-    .background(:style="{backgroundImage: `url(/images/square/characters/${model.characterId}-1.png`}")
-    .front
-      .title
-        | 今回の結果
-      .content
-        .score
-          .label
-            | スコア
-          .value
-            | {{model.currentScore()}}
-        .challenges
-          ChallengeText(
-            v-for="challenge, index in challenges"
-            :is-cleared="isCleared(challenge.id)",
-            :index="index",
-            :challenge="challenge"
-            :key="index"
-          )
-        .click_to_send
-          | クリックすると結果を登録してメニューに戻ります
+  .game_end(v-if="isStalemate" @click="endGame")
+    .darkness
+    .body
+      .background(:style="{backgroundImage: `url(/images/square/characters/${model.characterId}-1.png`}" :class="{sending: sending}")
+      .front
+        .title
+          | 今回の結果
+        .content
+          .score
+            .label
+              | スコア
+            .value
+              | {{model.currentScore()}}
+          .challenges
+            ChallengeText(
+              v-for="challenge, index in challenges"
+              :is-cleared="isCleared(challenge.id)",
+              :index="index",
+              :challenge="challenge"
+              :key="index"
+            )
+          .click_to_send
+            | クリックすると結果を登録してメニューに戻ります
 </template>
 
 <script lang="typescript">
@@ -64,57 +66,79 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .game_end{
-    background-color: $ingame-background;
-    border: 2px solid $white;
-    width: 600px;
-    height: 350px;
-    border-radius: $radius;
-    &.sending{
-      opacity: 0.5;
+  .game_end .darkness{
+    position: absolute;
+    width: $window-width;
+    height: $window-height;
+    background-color: $shadow;
+    opacity: 0.7;
+    animation: darkness-in 1s;
+  }
+  @keyframes darkness-in {
+    0%{
+      opacity: 0;
     }
-    .background{
+  }
+  .game_end {
+    position: absolute;
+    width: $window-width;
+    height: $window-height;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    .body{
       position: absolute;
-      background-size: 250px;
-      background-position: bottom right;
-      background-repeat: no-repeat;
-      width: 100%;
-      height: 100%;
-      opacity: 0.2;
-    }
-    .front{
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      padding: $space-m;
-      display: flex;
-      flex-direction: column;
-      .title{
-        width: 100%;
-        font-size: $font-size-large;
-        border-bottom: 2px solid $white;
-        padding-left: $space-m;
-        margin-bottom: $space-m;
+      background-color: $ingame-background;
+      border: 2px solid $white;
+      width: 600px;
+      height: 350px;
+      border-radius: $radius;
+      &.sending{
+        opacity: 0.5;
       }
-      .content{
+      .background{
+        position: absolute;
+        background-size: 250px;
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+        opacity: 0.2;
+      }
+      .front{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: $space-m;
         display: flex;
-        justify-content: start;
         flex-direction: column;
-        flex-grow: 1;
-        gap: $space-m;
-        .score{
-          padding: $space-s;
-          display: flex;
-          width: 60%;
-          justify-content: space-between;
+        .title{
+          width: 100%;
+          font-size: $font-size-large;
           border-bottom: 2px solid $white;
+          padding-left: $space-m;
+          margin-bottom: $space-m;
         }
-        .challenges{
-          padding: $space-m;
-          flex-grow: 1;
+        .content{
           display: flex;
+          justify-content: start;
           flex-direction: column;
-          justify-content: space-around;
+          flex-grow: 1;
+          gap: $space-m;
+          .score{
+            padding: $space-s;
+            display: flex;
+            width: 60%;
+            justify-content: space-between;
+            border-bottom: 2px solid $white;
+          }
+          .challenges{
+            padding: $space-m;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+          }
         }
       }
     }
