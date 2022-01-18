@@ -19,6 +19,9 @@ module.exports = class Character3_Default {
   onSendToStarPalette(character, model, field){
   }
 
+  onFillDraw(character, model){
+  }
+
   calculateScore(character, model){
     return model.starPalette.score();
   }

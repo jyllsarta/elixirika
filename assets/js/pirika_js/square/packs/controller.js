@@ -66,6 +66,7 @@ module.exports = class Controller {
     for(let i = 0; i < drawNum; ++i){
       this.model.hand.field.addCard(this.model.deck.field.draw());
     }
+    this.model.character.getCallback("onFillDraw", this.model.chapter.index)(this.model.character, this.model);
     this.model.messageManager.register("draw");
   }
 

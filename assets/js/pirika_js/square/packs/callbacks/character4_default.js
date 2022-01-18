@@ -20,6 +20,9 @@ module.exports = class Character4_Default {
     }
   }
 
+  onFillDraw(character, model){
+  }
+
   calculateScore(character, model){
     return model.starPalette.score();
   }

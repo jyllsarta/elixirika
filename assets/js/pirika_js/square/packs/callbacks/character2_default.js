@@ -28,13 +28,24 @@ module.exports = class Character2_Default {
     }
   }
 
+  // class 内で this 使うとコールバックで発動したときは this が windowになってるシチュエーションがあるので、 function ではなく アロー関数で定義を行う
+  onFillDraw = (character, model) => {
+    const { consumptionPerDraw, maxEnergy, staleMateByEnergy } = character.getCallback("starPaletteParameter", model.chapter.index)();
+    this.fluctuateEnergy(character, maxEnergy, -consumptionPerDraw, model);
+    character.uniqueParameters.energyHistory.push(character.uniqueParameters.energy);
+    if(staleMateByEnergy && character.uniqueParameters.energy <= 0){
+      model.setForceStalemate("エネルギー枯渇で災害を起こしてしまった！");
+    }
+  }
+
   calculateScore(character, model){
     return character.uniqueParameters.score;
   }
 
   starPaletteParameter(){
     return {
-      consumptionPerCard: 3,
+      consumptionPerCard: 1,
+      consumptionPerDraw: 10,
       maxEnergy: 100,
       scoreRanges: [
         {min: Constants.bestEnergyLowLimit, max: Constants.bestEnergyHighLimit, score: 5},
