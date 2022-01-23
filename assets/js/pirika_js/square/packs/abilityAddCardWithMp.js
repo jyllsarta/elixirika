@@ -1,3 +1,4 @@
+const Constants = require("./constants");
 module.exports = class AbilityAddCardWithMp {
   constructor(cards, cost){
     this.category = "addCardWithMp";
@@ -22,7 +23,11 @@ module.exports = class AbilityAddCardWithMp {
       return;
     }
     character.uniqueParameters.mp -= this.cost;
-    this.cards.map(card=>model.hand.field.addCard(card));
+    this.cards.map(card=>{
+      if(model.hand.field.cards.length < Constants.maxHandCardNumber){
+        model.hand.field.addCard(card)
+      }
+    });
     model.messageManager.register("abilityMagic");
   }
 };
