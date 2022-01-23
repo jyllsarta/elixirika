@@ -10,6 +10,16 @@ module.exports = class Card {
     this.selected = false;
   }
 
+  // カード生成系アビリティで使う
+  // そのままコピーすると同一IDのカードが複数生成されてしまうため、 GlobalIdFactory もう一度振ってもらう
+  createCopy(){
+    return new Card(
+      this.number,
+      this.suit,
+      this.category
+    )
+  }
+
   stringExpression(){
     switch(this.category){
       case "sender":

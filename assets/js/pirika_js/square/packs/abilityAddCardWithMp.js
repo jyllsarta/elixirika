@@ -25,7 +25,7 @@ module.exports = class AbilityAddCardWithMp {
     character.uniqueParameters.mp -= this.cost;
     this.cards.map(card=>{
       if(model.hand.field.cards.length < Constants.maxHandCardNumber){
-        model.hand.field.addCard(card)
+        model.hand.field.addCard(card.createCopy())
       }
     });
     model.messageManager.register("abilityMagic");

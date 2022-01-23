@@ -15,7 +15,7 @@ module.exports = class AbilityAddCard {
       console.warn("cold now!");
       return;
     }
-    model.hand.field.addCard(this.card);
+    model.hand.field.addCard(this.card.createCopy());
     model.messageManager.register("abilityAddCard");
   }
 };
