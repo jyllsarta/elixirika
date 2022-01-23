@@ -40,7 +40,6 @@
     computed: {
       isAbilityColded(){
         const callback = this.character.getCallback("isAbilityColded", this.model.chapter.index);
-        console.log(callback)
         return callback && callback(this.character, this.model);
       }
     },

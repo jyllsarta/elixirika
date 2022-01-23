@@ -13,7 +13,7 @@ module.exports = class Character2 {
     this.defaultMessage = "イニシャライズ走りきりました、疎通確認いけます";
 
     this.uniqueParameters = {
-      energy: 20,
+      energy: 50,
       score: 0,
       abilities: [
         new AbilityCardPocket(),

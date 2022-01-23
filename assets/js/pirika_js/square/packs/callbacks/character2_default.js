@@ -43,17 +43,8 @@ module.exports = class Character2_Default {
   }
 
   starPaletteParameter(){
+    console.warn("エンティのパラメータはオーバーライド前提");
     return {
-      consumptionPerCard: 1,
-      consumptionPerDraw: 10,
-      maxEnergy: 100,
-      scoreRanges: [
-        {min: Constants.bestEnergyLowLimit, max: Constants.bestEnergyHighLimit, score: 5},
-        {min: 0, max: 100, score: 1},
-      ],
-      sandStorm: false,
-      staleMateByEnergy: false,
-      coldAbility: false,
     };
   }
 
