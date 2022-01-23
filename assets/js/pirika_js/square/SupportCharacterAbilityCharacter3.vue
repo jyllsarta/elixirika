@@ -1,9 +1,10 @@
 <template lang="pug">
   .area
     .index(v-if="!character.uniqueParameters.abilities")
-      | スキルはない
+      | とくに
+      | やる気がない
     .index(v-if="character.uniqueParameters.abilities")
-      | スキルあるよ
+      | ラズの能力
     .buttons
       SupportCharacterAbilityButton(
         v-for="(ability, index) in character.uniqueParameters.abilities"
@@ -47,6 +48,7 @@
     .index{
       width: 100%;
       text-align: center;
+      white-space: pre-wrap;
     }
     .buttons{
       display: flex;
