@@ -85,6 +85,6 @@ module.exports = class Field {
 
   calculateScore(cards){
     const n = cards.length;
-    return Math.min(n*(n+1)/2, Constants.maxScorePerField);
+    return Math.min(n * n, Constants.maxScorePerField);
   }
 };
