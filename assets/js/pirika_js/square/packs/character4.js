@@ -40,6 +40,12 @@ module.exports = class Character4 {
     return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
   }
 
+  checkForceStalemate(model){
+    if(this.isAllEnemyDefeated()){
+      model.setForceStalemate("見事 敵を全滅させた！");
+    }
+  }
+
   damageToNextEnemy(power, model, isAbilityDamage=false){
     let nextEnemy = this.uniqueParameters.enemies.find(enemy=>enemy.hp>0);
     if(!nextEnemy){
@@ -58,6 +64,7 @@ module.exports = class Character4 {
       model.messageManager.register("specialAbilityDefeatEnemy");
     }
     nextEnemy.damageHistory.push({power: power, isAbilityDamage: isAbilityDamage});
+    this.checkForceStalemate(model);
   }
 
   initializeEnemy(enemyParameters){

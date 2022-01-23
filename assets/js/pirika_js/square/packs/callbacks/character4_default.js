@@ -15,9 +15,6 @@ module.exports = class Character4_Default {
     const power = field.cards.length;
     character.damageToNextEnemy(power, model, false);
     character.uniqueParameters.mp += field.score();
-    if(character.isAllEnemyDefeated()){
-      model.setForceStalemate("見事 敵を全滅させた！");
-    }
   }
 
   onFillDraw(character, model){
