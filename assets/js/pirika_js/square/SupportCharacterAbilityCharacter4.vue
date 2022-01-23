@@ -4,6 +4,9 @@
       | アヤメの忍法帖
     .mp
       | MP: {{character.uniqueParameters.mp}}
+    .bar
+      .bg
+      .current(:style="{width: mpBarWidth}")
     .buttons
       SupportCharacterAbilityButton(
         v-for="(ability, index) in character.uniqueParameters.abilities"
@@ -30,6 +33,13 @@
     props: {
       character: Object,
     },
+    computed: {
+      mpBarWidth(){
+        const percentage = Math.min(this.character.uniqueParameters.mp / 100, 1) * 100;
+        console.log(percentage)
+        return `${percentage}%`;
+      }
+    },
     methods: {
     },
   })
@@ -47,6 +57,21 @@
     .index{
       width: 100%;
       text-align: center;
+    }
+    .bar{
+      width: 100%;
+      position: relative;
+      .bg{
+        width: 100%;
+        background-color: $purple2;
+        height: 1px;
+        position: absolute;
+      }
+      .current{
+        background-color: $white;
+        height: 1px;
+        position: absolute;
+      }
     }
     .buttons{
       display: flex;
