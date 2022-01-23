@@ -9,8 +9,8 @@
         @popmouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
         :index="index"
         :ability="ability"
+        :character="character"
       )
-
 
 </template>
 

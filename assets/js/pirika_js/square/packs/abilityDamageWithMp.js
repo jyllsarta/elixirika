@@ -7,7 +7,11 @@ module.exports = class AbilityDamageWithMp {
   }
 
   stringExpression(){
-    return `DMG[${this.damageValue}] / ${this.cost}`;
+    const kanjiExpression = "零一二三四五六七八九十"[this.damageValue];
+    if(!kanjiExpression){
+      console.warn(`damage ${this.damageValue} is not supported! set 0 to 10`)
+    }
+    return `${kanjiExpression}連火球/${this.cost}`;
   }
 
   ignite(character, model){

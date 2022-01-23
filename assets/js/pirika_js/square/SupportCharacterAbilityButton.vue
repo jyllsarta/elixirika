@@ -3,6 +3,7 @@
   @click="$emit('popclick')"
   @mouseover="$emit('popmouseover')"
   :class="abilityClass(ability)"
+  :style="colorSchemedStyleBackground"
 )
   | {{ability.stringExpression()}}
 </template>
@@ -18,16 +19,40 @@
     props: {
       index: Number,
       ability: Object,
+      character: Object,
+    },
+    computed: {
+      colorSchemedStyleBackground(){
+        if(this.ability.category !== "cardPocket" || !this.ability?.card?.suit){
+          return {};
+        }
+        let style = {
+          backgroundColor: `var(--color-${this.ability?.card?.suit}3-${this.character.id})`,
+          border: `1px dashed var(--color-${this.ability?.card?.suit}1-${this.character.id})`,
+        };
+        return style;
+      },
     },
     methods: {
+      classByCard(ability){
+        return ability.card?.suit || "";
+      },
+      classByPocket(ability){
+        return ability.category === "cardPocket" ? "pocket" : "";
+      },
+      classByMagic(ability){
+        return ability.category.endsWith("Mp") ? "magic" : "";
+      },
+      classByCost(ability){
+        return this.character.hasSufficientMp && this.character.hasSufficientMp(ability.cost) ? "enabled" : "disabled";
+      },
       abilityClass(ability){
-        switch(ability.category){
-          case "addCard":
-            return ability.card?.suit || "";
-          case "cardPocket":
-            return "o";
-        }
-        return "";
+        return [
+          this.classByCard(ability),
+          this.classByCost(ability),
+          this.classByPocket(ability),
+          this.classByMagic(ability)
+        ].join(" ");
       }
     },
   })
@@ -39,8 +64,15 @@
     padding: $space-m;
     width: 100%;
     @include centeringWithBorder($height: 30px, $border: 1px);
-    &:hover{
-      transform: scale(1.2);
+    &.enabled{
+      &:hover{
+        transform: scale(1.2);
+      };
+    };
+    &.disabled{
+      border: 1px solid $gray1;
+      background-color: transparent;
+      opacity: $disabled-opacity;
     }
     &.x{
       border: 1px solid $yellow2;
@@ -54,9 +86,15 @@
       border: 1px solid $red2;
       background-color: $red3;
     }
-    &.o{
-      border: 1px dashed $gray1;
-      background-color: $gray3;
+    &.pocket{
+      border-width: 1px;
+      border-style: dashed;
+    }
+    &.magic{
+      padding: $space-s;
+      @include centeringWithBorder($height: 35px, $border: 1px);
+      border: 1px solid $red2;
+      background-color: $red3;
     }
   }
 </style>

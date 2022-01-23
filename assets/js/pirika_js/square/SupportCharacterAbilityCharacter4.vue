@@ -1,27 +1,31 @@
 <template lang="pug">
   .area
     .index
-      | あかねのスキル
+      | アヤメの忍法帖
     .mp
       | MP: {{character.uniqueParameters.mp}}
     .buttons
-      .button(
+      SupportCharacterAbilityButton(
         v-for="(ability, index) in character.uniqueParameters.abilities"
-        @click="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
-        @mouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
-        :class="{disabled: !character.hasSufficientMp(ability.cost), enabled: character.hasSufficientMp(ability.cost)}"
+        @popclick="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
+        @popmouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
+        :index="index"
+        :ability="ability"
+        :character="character"
       )
-        | {{ability.stringExpression()}}
-
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue"
 
   export default Vue.extend({
     data(){
       return {
       };
+    },
+    components: {
+      SupportCharacterAbilityButton
     },
     props: {
       character: Object,
@@ -40,27 +44,15 @@
     border: 2px solid $yellow3;
     border-radius: $radius;
     padding: $space-m;
+    .index{
+      width: 100%;
+      text-align: center;
+    }
     .buttons{
       display: flex;
       flex-wrap: wrap;
       padding: $space-m;
       gap: $space-m;
-    }
-    .button{
-      padding: $space-m;
-      font-size: $font-size-mini;
-      &.enabled{
-        &:hover{
-          transform: scale(1.2);
-        };
-      };
-      border: 1px solid $yellow2;
-      background-color: $yellow3;
-      &.disabled{
-        border: 1px solid $gray1;
-        background-color: transparent;
-        opacity: $disabled-opacity;
-      }
     }
   }
 </style>

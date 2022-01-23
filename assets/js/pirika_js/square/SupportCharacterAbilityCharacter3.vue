@@ -4,24 +4,28 @@
       | スキルはない
     .index(v-if="character.uniqueParameters.abilities")
       | スキルあるよ
-    .buttons(v-if="character.uniqueParameters.abilities")
-      .button(
+    .buttons
+      SupportCharacterAbilityButton(
         v-for="(ability, index) in character.uniqueParameters.abilities"
-        @click="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
-        @mouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
-        :class="ability.card.suit"
+        @popclick="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
+        @popmouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
+        :index="index"
+        :ability="ability"
+        :character="character"
       )
-        | {{ability.stringExpression()}}
-
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue"
 
   export default Vue.extend({
     data(){
       return {
       };
+    },
+    components: {
+      SupportCharacterAbilityButton
     },
     props: {
       character: Object,
@@ -40,33 +44,15 @@
     border: 2px solid $yellow3;
     border-radius: $radius;
     padding: $space-m;
+    .index{
+      width: 100%;
+      text-align: center;
+    }
     .buttons{
       display: flex;
       flex-wrap: wrap;
       padding: $space-m;
       gap: $space-m;
-    }
-    .button{
-      padding: $space-m;
-      &:hover{
-        transform: scale(1.2);
-      }
-      &.x{
-        border: 1px solid $yellow2;
-        background-color: $yellow3;
-      }
-      &.s{
-        border: 1px solid $blue2;
-        background-color: $blue3;
-      }
-      &.h{
-        border: 1px solid $red2;
-        background-color: $red3;
-      }
-      &.o{
-        border: 1px dashed $gray1;
-        background-color: $gray3;
-      }
     }
   }
 </style>

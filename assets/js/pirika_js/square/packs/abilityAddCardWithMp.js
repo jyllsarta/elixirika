@@ -7,7 +7,7 @@ module.exports = class AbilityAddCardWithMp {
   }
 
   stringExpression(){
-    return `${this.cards.map(card=>card.stringExpression()).join()} / ${this.cost}`;
+    return `隠し切札/${this.cost}`;
   }
 
   ignite(character, model){

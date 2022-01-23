@@ -8,7 +8,7 @@ module.exports = class AbilityCardPocket {
   }
 
   stringExpression(){
-    return this.card?.stringExpression() || "o";
+    return this.card?.stringExpression() ? `[ ${this.card?.stringExpression()} ]` : "からっぽ";
   }
 
   ignite(character, model){

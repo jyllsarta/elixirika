@@ -9,7 +9,11 @@ module.exports = class AbilityDrawWithMp {
   }
 
   stringExpression(){
-    return `DRAW[${this.drawCount}] / ${this.cost}`;
+    const kanjiExpression = "零一二三四五六七八九十"[this.drawCount];
+    if(!kanjiExpression){
+      console.warn(`draw ${this.drawCount} is not supported! set 0 to 10`)
+    }
+    return `${kanjiExpression}連宝札/${this.cost}`;
   }
 
   ignite(character, model){
