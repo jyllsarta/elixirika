@@ -50,7 +50,9 @@ module.exports = class Character4 {
       nextEnemy.shield = Math.max(nextEnemy.shield - power, 0);
     }
     else{
-      nextEnemy.hp = Math.max(nextEnemy.hp - power, 0);
+      // maxDamage はシールドの場合取り扱わず、本体のダメージ時のみ かつ -1 以外が指定されている場合に有効
+      const adjustedDamage = nextEnemy.maxDamage === -1 ? power : Math.min(power, nextEnemy.maxDamage);
+      nextEnemy.hp = Math.max(nextEnemy.hp - adjustedDamage, 0);
     }
     if(nextEnemy.hp <= 0){
       model.messageManager.register("specialAbilityDefeatEnemy");
@@ -68,6 +70,8 @@ module.exports = class Character4 {
         image: param.image,
         shield: param.shield || 0,
         shieldMax: param.shield || 0,
+        // maxDamage は マイナス1の場合無効扱いとして処理する
+        maxDamage: param.maxDamage || -1,
         damageHistory: [],
       }
       enemies.push(enemy)

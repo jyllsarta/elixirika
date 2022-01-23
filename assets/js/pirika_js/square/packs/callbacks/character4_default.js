@@ -39,7 +39,7 @@ module.exports = class Character4_Default {
   starPaletteParameter(){
     return {
       enemies: [
-        {id: 1, hp: 1, image: "kani", shield: 3},
+        {id: 1, hp: 100, image: "kani", shield: 3, maxDamage: 3},
         {id: 2, hp: 5, image: "gob", shield: 1},
         {id: 3, hp: 5, image: "kani"},
         {id: 4, hp: 5, image: "gob"},
