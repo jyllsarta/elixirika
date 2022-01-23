@@ -143,13 +143,12 @@ module.exports = class Challenge {
     }
     const enemyId = challenge.value1;
     const shouldOneShot = challenge.value2 !== 0;
-    const shouldDoneByAbilityDamage = challenge.value3 !== 0;
+    const shouldNoAbilityDamage = challenge.value3 === 1;
     const enemy = enemies.find(enemy=>enemy.id === enemyId);
     if(shouldOneShot && enemy.damageHistory.length !== 1){
       return false;
     }
-    // todo: 検証
-    if(shouldDoneByAbilityDamage && enemy.damageHistory[enemy.damageHistory.length - 1]?.isAbilityDamage !== true){
+    if(shouldNoAbilityDamage && enemy.damageHistory.some(damage=>damage.isAbilityDamage)){
       return false;
     }
     return enemy.hp <= 0;
