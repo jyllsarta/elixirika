@@ -95,6 +95,7 @@
     }
     &.magic{
       padding: 0;
+      @include centeringWithBorder($height: 42px, $border: 2px);
       border: 1px solid $red2;
       background-color: $red3;
     }
