@@ -46,7 +46,12 @@ module.exports = class Character4 {
       console.warn("no damage target!")
       return;
     }
-    nextEnemy.hp -= power;
+    if(nextEnemy.shield > 0){
+      nextEnemy.shield = Math.max(nextEnemy.shield - power, 0);
+    }
+    else{
+      nextEnemy.hp = Math.max(nextEnemy.hp - power, 0);
+    }
     if(nextEnemy.hp <= 0){
       model.messageManager.register("specialAbilityDefeatEnemy");
     }
@@ -61,6 +66,8 @@ module.exports = class Character4 {
         hp: param.hp,
         hpMax: param.hp,
         image: param.image,
+        shield: param.shield || 0,
+        shieldMax: param.shield || 0,
         damageHistory: [],
       }
       enemies.push(enemy)

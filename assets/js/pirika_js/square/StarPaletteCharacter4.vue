@@ -12,6 +12,11 @@
             img(:src="`/images/square/characters/${foregroundEnemy.image}.png`")
       .foreground_enemy_hp(:class="hpClass(referenceCurrentHp)")
         | {{referenceCurrentHp}}
+      transition(name="shield-appear")
+        .foreground_enemy_shield_hp(v-if="foregroundEnemy.shield > 0" :class="hpClass(referenceCurrentShieldHp)")
+          | {{referenceCurrentShieldHp}}
+      transition(name="shield-appear")
+        img.foreground_enemy_shield(v-if="foregroundEnemy.shield > 0" src="/images/square/characters/barrier.png")
       transition-group(class="background_enemies" name="background")
         .enemy(v-for="enemy in backgroundEnemies" :key="enemy.id")
           .content
@@ -45,6 +50,7 @@
     data: function(){
       return {
         referenceCurrentHp: 0,
+        referenceCurrentShieldHp: 0,
       };
     },
     mounted() {
@@ -64,6 +70,10 @@
     methods: {
       syncCurrentHp(){
         this.referenceCurrentHp = this.foregroundEnemy.hp;
+        this.referenceCurrentShieldHp = this.foregroundEnemy.shield;
+      },
+      syncCurrentShield(){
+        this.referenceCurrentShieldHp = this.foregroundEnemy.shield;
       },
       hpClass(hp){
         if(hp >= 10){
@@ -140,6 +150,14 @@
         }
         this.onAttack();
       },
+      "foregroundEnemy.shield": function(after, before){
+        if(before > 0){
+          this.onAttack();
+        }
+        if(before === 0 && after > 0){
+          this.syncCurrentShield();
+        }
+      },
     }
   })
 </script>
@@ -213,6 +231,24 @@
           line-height: 100%;
           text-align: center;
           font-size: $font-size-medium;
+        }
+      .foreground_enemy_shield_hp{
+          position: absolute;
+          left: 260px;
+          top: 8px;
+          width: 80px;
+          height: $font-size-medium;
+          line-height: 100%;
+          text-align: center;
+          font-size: $font-size-medium;
+        }
+      .foreground_enemy_shield{
+          position: absolute;
+          left: 270px;
+          top: 8px;
+          width: 80px;
+          height: 80px;
+          transform: scale(-1, 1);
         }
       .background_enemies{
         display: flex;
@@ -336,6 +372,21 @@
     }
     .win-character-enter{
       transform: translateY(30px);
+      opacity: 0;
+    }
+
+    .shield-appear-enter-active {
+      transition: all 0.5s;
+      transition-delay: 0.5s;
+    }
+    .shield-appear-leave-active {
+      transition: all 0.5s;
+      transition-delay: 0.5s;
+    }
+    .shield-appear-enter{
+      opacity: 0;
+    }
+    .shield-appear-leave-to{
       opacity: 0;
     }
   }

@@ -21,6 +21,15 @@ module.exports = class Character4_Default {
   }
 
   onFillDraw(character, model){
+    // シールドはドローしたタイミングで復活する
+    let nextEnemy = character.uniqueParameters.enemies.find(enemy=>enemy.hp>0);
+    if(!nextEnemy){
+      console.warn("no target!")
+      return;
+    }
+    if(nextEnemy.shield === 0){
+      nextEnemy.shield = nextEnemy.shieldMax;
+    }
   }
 
   calculateScore(character, model){
@@ -30,8 +39,8 @@ module.exports = class Character4_Default {
   starPaletteParameter(){
     return {
       enemies: [
-        {id: 1, hp: 1, image: "kani"},
-        {id: 2, hp: 5, image: "gob"},
+        {id: 1, hp: 1, image: "kani", shield: 3},
+        {id: 2, hp: 5, image: "gob", shield: 1},
         {id: 3, hp: 5, image: "kani"},
         {id: 4, hp: 5, image: "gob"},
         {id: 5, hp: 5, image: "ghost"},
