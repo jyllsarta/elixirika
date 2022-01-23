@@ -3,7 +3,7 @@
     .abilities(v-if="character.id === 1")
       SupportCharacterAbilityCharacter1(:character="character" @guiEvent="eventsUp")
     .abilities(v-if="character.id === 2")
-      SupportCharacterAbilityCharacter2(:character="character" @guiEvent="eventsUp")
+      SupportCharacterAbilityCharacter2(:character="character" :model="model" @guiEvent="eventsUp")
     .abilities(v-if="character.id === 3")
       SupportCharacterAbilityCharacter3(:character="character" @guiEvent="eventsUp")
     .abilities(v-if="character.id === 4")
@@ -27,6 +27,7 @@
     },
     props: {
       character: Object,
+      model: Object,
     },
     methods: {
       eventsUp(params){

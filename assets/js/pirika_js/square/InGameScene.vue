@@ -10,7 +10,7 @@
     .support_character_message.object
       SupportCharacterMessage(:model="model" :gameStarted="gameStarted")
     .support_character_ability.object
-      SupportCharacterAbilityBase(:character="model.character" @guiEvent="onGuiEvent")
+      SupportCharacterAbilityBase(:model="model" :character="model.character" @guiEvent="onGuiEvent")
     .staged_field.object
       StagedField(:stagedField="model.stagedField", :model="model")
     .star_palette.object

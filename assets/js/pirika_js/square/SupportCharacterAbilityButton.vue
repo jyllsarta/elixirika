@@ -44,7 +44,10 @@
         return ability.category.endsWith("Mp") ? "magic" : "";
       },
       classByCost(ability){
-        return this.character.hasSufficientMp && this.character.hasSufficientMp(ability.cost) ? "enabled" : "disabled";
+        if(!this.character.hasSufficientMp){
+          return "";
+        }
+        return this.character.hasSufficientMp(ability.cost) ? "enabled" : "disabled";
       },
       abilityClass(ability){
         return [
@@ -63,7 +66,7 @@
   .button{
     padding: $space-m;
     width: 100%;
-    @include centeringWithBorder($height: 30px, $border: 1px);
+    @include centeringWithBorder($height: 34px, $border: 2px);
     &.enabled{
       &:hover{
         transform: scale(1.2);
@@ -91,8 +94,7 @@
       border-style: dashed;
     }
     &.magic{
-      padding: $space-s;
-      @include centeringWithBorder($height: 35px, $border: 1px);
+      padding: 0;
       border: 1px solid $red2;
       background-color: $red3;
     }

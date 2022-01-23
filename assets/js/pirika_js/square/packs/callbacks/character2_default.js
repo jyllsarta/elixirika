@@ -85,6 +85,7 @@ module.exports = class Character2_Default {
   isAbilityColded = (character, model) => {
     const { coldAbility } = character.getCallback("starPaletteParameter", model.chapter.index)();
     const x = model.deck.field.cards.length;
+    console.log(Math.floor(x / 4) % 2 === 0);
     return coldAbility && Math.floor(x / 4) % 2 === 0;
   }
 
