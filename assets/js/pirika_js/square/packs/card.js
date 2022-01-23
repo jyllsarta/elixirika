@@ -13,7 +13,7 @@ module.exports = class Card {
   stringExpression(){
     switch(this.category){
       case "sender":
-        return `↑${this.suit}`; 
+        return `^`; 
       case "special":
         return `◇`; 
       case "normal":
