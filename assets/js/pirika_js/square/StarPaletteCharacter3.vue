@@ -27,7 +27,7 @@
     },
     data(){
       return { 
-        params: null,
+        params: [],
       }
     },
     mounted(){
