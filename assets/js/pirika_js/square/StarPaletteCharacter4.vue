@@ -12,6 +12,8 @@
             img(:src="`/images/square/characters/${foregroundEnemy.image}.png`")
       .foreground_enemy_hp(:class="hpClass(referenceCurrentHp)")
         | {{referenceCurrentHp}}
+      .damage(ref="damage")
+        | {{referenceDamage}}
       transition(name="shield-appear")
         .foreground_enemy_shield_hp(v-if="foregroundEnemy.shield > 0" :class="hpClass(referenceCurrentShieldHp)")
           | {{referenceCurrentShieldHp}}
@@ -51,6 +53,7 @@
       return {
         referenceCurrentHp: 0,
         referenceCurrentShieldHp: 0,
+        referenceDamage: 0,
       };
     },
     mounted() {
@@ -131,6 +134,13 @@
           .to( this.$refs.line3, { x:   0, opacity: 0.7, duration: 0.15 })
           .to( this.$refs.line3, { x:  50, opacity:   0, duration: 0.15 });
 
+        const damageTimeline = gsap.timeline();
+        damageTimeline
+          .to( this.$refs.damage, { x:  -5, opacity:   0, scale: 1.2, duration: 0.00 })
+          .to( this.$refs.damage, { x:   0, opacity:   1, scale:   1, duration: 0.10 })
+          .to( this.$refs.damage, { x:   0, opacity:   1, scale:   1, duration: 1.00 })
+          .to( this.$refs.damage, { x:   5, opacity:   0, scale: 1.2, duration: 0.10 })
+
         // アニメーションの最後に合わせるほうが行儀良くはある
         await this.$delay(1000);
         this.syncCurrentHp();
@@ -141,14 +151,20 @@
       // HPあがる ID変化あり: 攻撃で倒したに違いない
       // HPさがる ID変化なし: 攻撃で削ったに違いない
       // HPあがる ID変化なし: そんなことある？ 現状の実装ではないが、増えてる場合はおそらく攻撃エフェクトは出したくなさそう
-      "foregroundEnemy.id": function(){
+      "foregroundEnemy.id": function(newId, prevId){
         this.onAttack();
+        const enemy = this.model.character.uniqueParameters.enemies.find(enemy=>enemy.id === prevId);
+        const { power } = enemy.damageHistory[enemy.damageHistory.length - 1];
+        this.referenceDamage = power;
       },
       "foregroundEnemy.hp": function(newHp, prevHp){
         if(prevHp < newHp){
           return;
         }
         this.onAttack();
+        if(prevHp && newHp){
+          this.referenceDamage = prevHp - newHp;
+        }
       },
       "foregroundEnemy.shield": function(after, before){
         if(before > 0){
@@ -231,6 +247,17 @@
           line-height: 100%;
           text-align: center;
           font-size: $font-size-medium;
+        }
+      .damage{
+          position: absolute;
+          left: 280px;
+          top: 8px;
+          width: 80px;
+          height: $font-size-large;
+          line-height: 100%;
+          text-align: center;
+          font-size: $font-size-medium;
+          opacity: 0;
         }
       .foreground_enemy_shield_hp{
           position: absolute;
