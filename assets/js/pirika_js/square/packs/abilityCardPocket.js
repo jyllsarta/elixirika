@@ -1,14 +1,15 @@
 const Constants = require("./constants");
 
 module.exports = class AbilityCardPocket {
-  constructor(card){
+  constructor(count = 5){
     this.category = "cardPocket";
     this.card = null;
     this.isRemovedAfterIgnite = false;
+    this.count = count;
   }
 
   stringExpression(){
-    return this.card?.stringExpression() ? `[ ${this.card?.stringExpression()} ]` : "からっぽ";
+    return this.card?.stringExpression() ? `[ ${this.card?.stringExpression()} ]/残${this.count}` : `からっぽ/残${this.count}`;
   }
 
   ignite(character, model){

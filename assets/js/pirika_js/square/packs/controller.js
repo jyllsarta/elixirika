@@ -138,7 +138,7 @@ module.exports = class Controller {
   }
 
   sendHandToEmptyPocketAbility(handIndex){
-    const emptyPocket = this.model.character.uniqueParameters.abilities?.find(ability=>ability.category === "cardPocket" && ability.card === null)
+    const emptyPocket = this.model.character.uniqueParameters.abilities?.find(ability=>ability.category === "cardPocket" && ability.card === null && ability.count > 0);
     if(!emptyPocket){
       this.model.messageManager.register("cannotIgniteAbilityCardPocketMaxCard");
       console.warn("no empty pocket!");
@@ -152,6 +152,7 @@ module.exports = class Controller {
     const card = this.model.hand.field.cards[handIndex];
     card.selected = false;
     emptyPocket.card = card;
+    emptyPocket.count -= 1;
     this.model.hand.field.cards.splice(handIndex, 1);
     this.model.messageManager.register("abilityCardPocketSend");
   }
