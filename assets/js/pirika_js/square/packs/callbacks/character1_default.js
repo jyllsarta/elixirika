@@ -1,6 +1,5 @@
 module.exports = class Character1_Default {
   onGameStart(character, model){
-    console.log("ピリカだよー");
   }
 
   onSendCard(character, model, card){

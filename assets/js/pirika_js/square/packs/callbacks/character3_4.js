@@ -4,7 +4,6 @@ let AbilityCardPocket = require("../abilityCardPocket");
 
 module.exports = class Character3_4 {
   onGameStart(character, model){
-    console.log("最強ミズハさんです");
     character.uniqueParameters.abilities = [
       new AbilityCardPocket(),
       new AbilityCardPocket(),

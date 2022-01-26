@@ -3,8 +3,6 @@ let AbilityAddCard = require("../abilityAddCard");
 
 module.exports = class Character1_3 {
   onGameStart(character, model){
-    console.log("よわピリカです...");
-
     character.uniqueParameters.abilities = [
       new AbilityAddCard(new Card( 0, "x", "special")),
       new AbilityAddCard(new Card( 11, "s", "sender")),

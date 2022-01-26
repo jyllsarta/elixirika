@@ -3,7 +3,6 @@ const Constants = require("../constants");
 
 module.exports = class Character4_Default {
   onGameStart(character, model){
-    console.log("あかねですー");
     const { enemies } = character.getCallback("starPaletteParameter", model.chapter.index)();
     character.initializeEnemy(enemies);
   }

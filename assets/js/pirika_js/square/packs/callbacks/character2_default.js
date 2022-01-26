@@ -3,7 +3,6 @@ const Constants = require("../constants");
 
 module.exports = class Character2_Default {
   onGameStart(character, model){
-    console.log("すずらんですー");
   }
 
   onSendToStarPalette = (character, model, field) => {
