@@ -3,7 +3,7 @@
     .background.with_drop_shadow
       img(src="/images/square/svg/star_palette3.svg")
     .container
-      .star(v-for="param in params", :class="model.starPalette.isSatisfied(param) ? 'enabled' : 'disabled'")
+      .star(v-for="param in params", :class="starClass(param)")
         .pattern_flash(v-if="model.starPalette.isSatisfied(param)")
         .pattern_flash2(v-if="model.starPalette.isSatisfied(param)")
         .text
@@ -36,14 +36,29 @@
     methods: {
       stringExpression(param){
         return param.upper ? param.value + "+" : param.value;
-      }
+      },
+      expectedCardLength(){
+        const index = this.model.selectingBoardIndex;
+        const card = this.model.getHoldingCard();
+        const board = this.model.board.fields[index];
+        const holdingCardIsSender = card && card.isSenderCard();
+        if(board && card && holdingCardIsSender && this.model.cardStackRule(this.model.character, this.model, card, board)){
+          return board.cards.length + 1;
+        }
+        return 0;
+      },
+      starClass(starPaletteParam){
+        const satisfiedClass = this.model.starPalette.isSatisfied(starPaletteParam) ? 'enabled' : 'disabled';
+        const expectedClass = this.model.starPalette.willBeSatisfiedWith(starPaletteParam, this.expectedCardLength()) ? "will_be" : "";
+        return [satisfiedClass, expectedClass].join(" ")
+      },
     },
     computed: {
       currentProgress(){
-        return this.params.filter(param=>this.model.starPalette.isSatisfied(param)).length
+        return this.params.filter(param=>this.model.starPalette.isSatisfied(param)).length;
       },
       totalProgress(){
-        return this.params.length
+        return this.params.length;
       },
     }
   })
@@ -57,6 +72,7 @@
   $palette_base: #402A53;
   $palette_base2: #603d6b;
   $palette_base3: #271735;
+  $palette_expected: #e2d59a;
 
   .star_palette{
     position: absolute;
@@ -126,6 +142,9 @@
       }
       .disabled{
         color: $white;
+      }
+      .will_be{
+        background-color: $palette_expected;
       }
     }
     .progress{
