@@ -6,8 +6,8 @@
       .gauge
         .foreground
           .fill(:style="{width: `${currentFillWidth * 100}%`}", :class="currentFillStatus")
-          .lose_next(:style="{width: `${expectedEnergyDeltaWidth * 100}%`}" v-if="expectedEnergyDelta < 0")
-          .gain_next(:style="{width: `${expectedEnergyDeltaWidth * 100}%`}" v-if="expectedEnergyDelta > 0")
+          .lose_next(:style="{width: `${expectedFieldScoreWidth * 100}%`}" v-if="expectedFieldScore < 0")
+          .gain_next(:style="{width: `${expectedFieldScoreWidth * 100}%`}" v-if="expectedFieldScore > 0")
     .number
       .energy
         .current
@@ -15,7 +15,7 @@
         .max
           | / {{maxEnergy}}
     .delta_number(v-if="holdingCard" :class="holdingCardClass")
-      | {{expectedEnergyDelta > 0 ? '+' : ''}}{{expectedEnergyDelta}}
+      | {{expectedFieldScore > 0 ? '+' : ''}}{{expectedFieldScore}}
 </template>
 
 <script lang="typescript">
@@ -80,21 +80,23 @@
         const board = this.model.board.fields[index];
         const holdingCardIsSender = card && card.isSenderCard();
         if(board && card && holdingCardIsSender && this.model.cardStackRule(this.model.character, this.model, card, board)){
-          return this.model.board.fields[index].scoreWithCard(card);
+          return this.model.board.fields[index].scoreWithCard(card) ;
         }
-        return 0;
+        return -this.consumptionPerCard;
       },
-      expectedEnergyDelta(){
-        return -this.consumptionPerCard + this.expectedFieldScore;
-      },
-      expectedEnergyDeltaWidth(){
-        return Math.abs(this.expectedEnergyDelta) / this.maxEnergy;
+      expectedFieldScoreWidth(){
+        if(this.expectedFieldScore > 0){
+          return (this.expectedFieldScore + this.consumptionPerCard) / this.maxEnergy;
+        }
+        if(this.expectedFieldScore < 0){
+          return this.consumptionPerCard / this.maxEnergy;
+        }
       },
       holdingCardClass(){
-        if(this.expectedEnergyDelta > 0){
+        if(this.expectedFieldScore > 0){
           return "plus";
         }
-        if(this.expectedEnergyDelta < 0){
+        if(this.expectedFieldScore < 0){
           return "minus";
         }
         return "even";

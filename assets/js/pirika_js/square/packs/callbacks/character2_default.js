@@ -20,7 +20,9 @@ module.exports = class Character2_Default {
   onSendCard = (character, model, card) => {
     const { consumptionPerCard, scoreRanges, maxEnergy, staleMateByEnergy } = character.getCallback("starPaletteParameter", model.chapter.index)();
     this.addScore(character, model, scoreRanges);
-    this.fluctuateEnergy(character, maxEnergy, -consumptionPerCard, model);
+    if(!card.isSenderCard()){
+      this.fluctuateEnergy(character, maxEnergy, -consumptionPerCard, model);
+    }
     character.uniqueParameters.energyHistory.push(character.uniqueParameters.energy);
     if(staleMateByEnergy && character.uniqueParameters.energy <= 0){
       model.setForceStalemate("エネルギー枯渇で災害を起こしてしまった！");
