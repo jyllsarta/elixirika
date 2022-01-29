@@ -242,4 +242,12 @@ module.exports = class Controller {
     }
     this.model.messageManager.register("abilityCardPocketSendPrepare");
   }
+
+  selectAbility(abilityIndex){
+    this.model.focusingAbilityIndex = abilityIndex;
+  }
+
+  disSelectAbility(){
+    this.model.focusingAbilityIndex = -1;
+  }
 };

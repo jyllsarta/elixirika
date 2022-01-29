@@ -38,6 +38,7 @@ module.exports = class Model {
     this.isForceStalemate = false;
     this.isGracefullyStalemate = false;
     this.forceStalemateReason = "";
+    this.focusingAbilityIndex = -1;
 
     this.onGameStart();
   }

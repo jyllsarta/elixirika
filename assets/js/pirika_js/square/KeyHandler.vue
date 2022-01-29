@@ -28,6 +28,9 @@
         if(this.controller.model.stagedField.isStaged()){
           return "staged";
         }
+        if(this.controller.model.focusingAbilityIndex !== -1){
+          return "selectAbility";
+        }
         return "selectHand";
       },
       triggerKeyboardEvents(keyCode){
@@ -37,6 +40,9 @@
             break;
           case "selectHand":
             this.onKeyDownSelectHand(keyCode);
+            break;
+          case "selectAbility":
+            this.onKeyDownSelectAbility(keyCode);
             break;
           default:
             console.warn("no handler mode selected!");
@@ -72,6 +78,12 @@
           case "z":
             this.stageCard();
             break;
+          case "1":
+            this.selectOrIgniteAbility(0);
+            break;
+          case "a":
+            this.selectOrIgniteAbility(0);
+            break;
           case "ArrowUp":
             this.stageCard();
             break;
@@ -82,6 +94,28 @@
             this.turnLeft();
             break;
           default:
+            break;
+        }
+      },
+      onKeyDownSelectAbility(keyCode){
+        const currentIndex = this.controller.model.focusingAbilityIndex;
+        switch(keyCode){
+          case "1":
+            this.selectOrIgniteAbility(0);
+            break;
+          case "a":
+            this.selectOrIgniteAbility(0);
+            break;
+          case "ArrowUp":
+            this.selectOrIgniteAbility(currentIndex - 1);
+            break;
+          case "ArrowRight":
+            this.controller.operate("disSelectAbility");
+            break;
+          case "ArrowLeft":
+            this.controller.operate("disSelectAbility");
+          case "ArrowDown":
+            this.selectOrIgniteAbility(currentIndex + 1);
             break;
         }
       },
@@ -112,12 +146,21 @@
           case "selectHand":
             this.onKeyUpSelectHand(keyCode);
             break;
+          case "selectAbility":
+            this.onKeyUpSelectHand(keyCode);
+            break;
           default:
             console.warn("no handler mode selected!");
             break;
         }
       },
       onKeyUpSelectHand(keyCode){
+        switch(keyCode){
+          default:
+            break;
+        }
+      },
+      onKeyUpSelectAbility(keyCode){
         switch(keyCode){
           default:
             break;
@@ -190,7 +233,15 @@
           const nearby = Math.min(handCount - 1, boardIndex);
           this.selectOrSend(nearby);                        
         }
-      }
+      },
+      selectOrIgniteAbility(index){
+        if(this.controller.model.focusingAbilityIndex === index){
+          this.controller.operate("igniteSupportAbility", {index: index});
+          this.controller.operate("disSelectAbility");        }
+        else{
+          this.controller.operate("selectAbility", index);
+        }
+      },
     },
     data(){
       return {
