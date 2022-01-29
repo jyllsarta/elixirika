@@ -20,6 +20,7 @@
       index: Number,
       ability: Object,
       character: Object,
+      isSelected: Boolean,
     },
     computed: {
       colorSchemedStyleBackground(){
@@ -49,12 +50,17 @@
         }
         return this.character.hasSufficientMp(ability.cost) ? "enabled" : "disabled";
       },
+      classBySelected(_ability){
+        console.log(this.isSelected);
+        return this.isSelected ? "selected" : "";
+      },
       abilityClass(ability){
         return [
           this.classByCard(ability),
           this.classByCost(ability),
           this.classByPocket(ability),
-          this.classByMagic(ability)
+          this.classByMagic(ability),
+          this.classBySelected(ability),
         ].join(" ");
       }
     },
@@ -98,6 +104,11 @@
       @include centeringWithBorder($height: 42px, $border: 2px);
       border: 1px solid $red2;
       background-color: $red3;
+    }
+    &.selected{
+      border-width: 2px;
+      border-color: $white;
+      filter: brightness(150%);
     }
   }
 </style>

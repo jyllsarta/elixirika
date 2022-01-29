@@ -12,6 +12,7 @@
           :index="index"
           :ability="ability"
           :character="character"
+          :isSelected="isSelected(index)"
         )
     .cold_cover(v-if="isAbilityColded")
       .bg
@@ -45,6 +46,9 @@
       }
     },
     methods: {
+      isSelected(index){
+        return this.model.focusingAbilityIndex === index;
+      }
     },
   })
 </script>

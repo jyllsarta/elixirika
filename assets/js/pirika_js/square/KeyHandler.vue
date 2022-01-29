@@ -81,6 +81,15 @@
           case "1":
             this.selectOrIgniteAbility(0);
             break;
+          case "2":
+            this.selectOrIgniteAbility(1);
+            break;
+          case "3":
+            this.selectOrIgniteAbility(2);
+            break;
+          case "4":
+            this.selectOrIgniteAbility(3);
+            break;
           case "a":
             this.selectOrIgniteAbility(0);
             break;
@@ -103,8 +112,20 @@
           case "1":
             this.selectOrIgniteAbility(0);
             break;
+          case "2":
+            this.selectOrIgniteAbility(1);
+            break;
+          case "3":
+            this.selectOrIgniteAbility(2);
+            break;
+          case "4":
+            this.selectOrIgniteAbility(3);
+            break;
           case "a":
             this.selectOrIgniteAbility(0);
+            break;
+          case "z":
+            this.selectOrIgniteAbility(currentIndex);
             break;
           case "ArrowUp":
             this.selectOrIgniteAbility(currentIndex - 1);
@@ -114,6 +135,7 @@
             break;
           case "ArrowLeft":
             this.controller.operate("disSelectAbility");
+            break;
           case "ArrowDown":
             this.selectOrIgniteAbility(currentIndex + 1);
             break;
@@ -235,11 +257,17 @@
         }
       },
       selectOrIgniteAbility(index){
+        const abilityCount = this.controller.model.character.uniqueParameters.abilities.length;
+        if(index < 0 || index >= abilityCount){
+          return;
+        }
         if(this.controller.model.focusingAbilityIndex === index){
           this.controller.operate("igniteSupportAbility", {index: index});
-          this.controller.operate("disSelectAbility");        }
+          this.controller.operate("disSelectAbility");
+        }
         else{
           this.controller.operate("selectAbility", index);
+          this.controller.operate("describeSupportAbility", {index: index});
         }
       },
     },

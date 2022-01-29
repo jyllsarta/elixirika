@@ -14,6 +14,7 @@
         :index="index"
         :ability="ability"
         :character="character"
+        :isSelected="isSelected(index)"
       )
 </template>
 
@@ -31,8 +32,12 @@
     },
     props: {
       character: Object,
+      model: Object,
     },
     methods: {
+      isSelected(index){
+        return this.model.focusingAbilityIndex === index;
+      }
     },
   })
 </script>
