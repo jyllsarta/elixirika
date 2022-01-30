@@ -85,6 +85,7 @@ module.exports = class Field {
 
   calculateScore(cards){
     const n = cards.length;
-    return Math.min(n * n, Constants.maxScorePerField);
+    const scoreByJewel = cards.filter(card=>card.suit === "j").length * Constants.scorePerJewel;
+    return Math.min(n * n + scoreByJewel, Constants.maxScorePerField);
   }
 };
