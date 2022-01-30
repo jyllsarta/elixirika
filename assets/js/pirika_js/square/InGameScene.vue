@@ -25,6 +25,8 @@
       InGameMenu(@guiEvent="onGuiEvent")
     .game_end_popup.object
       GameEndPopup(:model="model" @guiEvent="onGuiEvent")
+    .challenge_clear_popup.object
+      ChallengeClearPopup(:model="model")
     .game_start_popup.object
       GameStartPopup(:model="model" @startGame="startGame" :gameStarted="gameStarted")
     KeyHandler(:controller="controller")
@@ -45,6 +47,7 @@
     import InGameMenu from "./InGameMenu.vue"
     import GameEndPopup from "./GameEndPopup.vue"
     import GameStartPopup from "./GameStartPopup.vue"
+    import ChallengeClearPopup from "./ChallengeClearPopup.vue"
     import Controller from "./packs/controller"
     import KeyHandler from "./KeyHandler.vue"
     import GuiHandler from "./GuiHandler.vue"
@@ -63,6 +66,7 @@
       InGameMenu,
       GameEndPopup,
       GameStartPopup,
+      ChallengeClearPopup,
       KeyHandler,
       GuiHandler,
     },
@@ -194,6 +198,10 @@
     }
     .game_end_popup{
       top: 0;
+      left: 0;
+    }
+    .challenge_clear_popup{
+      top: 50%;
       left: 0;
     }
     .game_start_popup{
