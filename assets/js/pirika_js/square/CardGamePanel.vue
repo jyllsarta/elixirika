@@ -1,7 +1,7 @@
 <template lang="pug">
   .area.with_shadow(v-if="model")
     .controls
-      .draw.with_shadow(@click="draw()" v-if="model.deck.field.cards.length !== 0" :class="{disabled: drawing}")
+      .draw.with_shadow(@click="draw()" v-if="model.deck.field.cards.length !== 0" :class="{disabled: drawing, flashing: model.hand.field.cards.length === 0}")
         | ドロー
       .end.with_shadow(@click="gracefullyStalemate()" v-if="model.deck.field.cards.length === 0" :class="{disabled: drawing}")
         | おしまい
@@ -73,6 +73,9 @@
       }
       &.disabled{
         opacity: $disabled-opacity;
+      }
+      &.flashing{
+        filter: brightness(140%);
       }
     }
     .end {
