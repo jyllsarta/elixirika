@@ -39,6 +39,7 @@ module.exports = class Model {
     this.isGracefullyStalemate = false;
     this.forceStalemateReason = "";
     this.focusingAbilityIndex = -1;
+    this.score = 0;
 
     this.onGameStart();
   }
@@ -57,8 +58,8 @@ module.exports = class Model {
     this.messageManager.register("gameStart");
   }
 
-  currentScore(){
-    return this.character.getCallback("calculateScore", this.chapter.index)(this.character, this);
+  calculateScore(){
+    this.score = this.character.getCallback("calculateScore", this.chapter.index)(this.character, this);
   }
 
   // 特殊効果による手詰まり is isForceStalemate == true この場合は他の条件に関係なくとにかくtrue

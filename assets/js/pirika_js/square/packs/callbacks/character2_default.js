@@ -87,6 +87,7 @@ module.exports = class Character2_Default {
     for(let scoreRange of scoreRanges){
       if(this.inRange(character.uniqueParameters.energy, scoreRange)){
         character.uniqueParameters.score += scoreRange.score;
+        model.calculateScore();
         return;
       }
     }

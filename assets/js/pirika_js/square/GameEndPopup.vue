@@ -14,7 +14,7 @@
             .label
               | スコア
             .value
-              | {{model.currentScore()}}
+              | {{model.score}}
           .challenges
             ChallengeText(
               v-for="challenge, index in challenges"

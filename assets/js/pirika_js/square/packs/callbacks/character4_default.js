@@ -14,6 +14,7 @@ module.exports = class Character4_Default {
     const power = field.cards.length;
     character.damageToNextEnemy(power, model, false);
     character.uniqueParameters.mp += field.score();
+    model.calculateScore();
   }
 
   onFillDraw(character, model){

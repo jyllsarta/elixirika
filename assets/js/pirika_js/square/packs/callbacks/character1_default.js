@@ -6,6 +6,7 @@ module.exports = class Character1_Default {
   }
 
   onSendToStarPalette(character, model, field){
+    model.calculateScore();
   }
 
   onFillDraw(character, model){
