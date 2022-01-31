@@ -17,8 +17,8 @@
       color: String,
       disabled: Boolean,
       flashing: Boolean,
-      width: Number,
-      height: Number,
+      width: String,
+      height: String,
     },
     methods: {
       onClick(){
@@ -40,14 +40,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    &:hover{
+    transition: all 0.2s;
+    &:hover:not(.disabled) {
       filter: brightness(140%);
+      transform: scale(1.05);
     }
     &.disabled{
       opacity: $disabled-opacity;
     }
     &.flashing{
       filter: brightness(140%);
+    }
+    &:active:not(.disabled) {
+      background-color: $white;
+      transform: scale(1.3);
     }
   }
 </style>
