@@ -1,10 +1,26 @@
 <template lang="pug">
   .area.with_shadow(v-if="model")
     .controls
-      .draw.with_shadow(@click="draw()" v-if="model.deck.field.cards.length !== 0" :class="{disabled: drawing, flashing: model.hand.field.cards.length === 0}")
-        | ドロー
-      .end.with_shadow(@click="gracefullyStalemate()" v-if="model.deck.field.cards.length === 0" :class="{disabled: drawing}")
-        | おしまい
+      GeneralButton.draw(
+        @click="draw()"
+        v-if="model.deck.field.cards.length !== 0"
+        :disabled="drawing"
+        :flashing="model.hand.field.cards.length === 0"
+        :width="'100%'"
+        :height="'50px'"
+        :color="'red'"
+        :label="'ドロー'"
+      )
+      GeneralButton.end(
+        @click="gracefullyStalemate()"
+        v-if="model.deck.field.cards.length === 0"
+        :disabled="drawing"
+        :flashing="model.hand.field.cards.length === 0"
+        :width="'100%'"
+        :height="'50px'"
+        :color="'blue'"
+        :label="'おしまい'"
+      )
     .informations
       .deck
         StackedIconField(:field="model.deck.field" :emphasisTopCards="true", :characterId="model.characterId")
@@ -17,6 +33,7 @@
   import Vue from 'vue';
   import Model from './packs/model';
   import StackedIconField from "./StackedIconField.vue";
+  import GeneralButton from "./GeneralButton.vue";
 
   export default Vue.extend({
     data: function(){
@@ -28,7 +45,8 @@
       model: Model
     },
     components: {
-      StackedIconField
+      StackedIconField,
+      GeneralButton
     },
     methods: {
       draw(){
@@ -62,35 +80,6 @@
     padding: $space-m;
     display: flex;
     flex-direction: column;
-    .draw {
-      width: 100%;
-      @include centeringWithBorder($height: 50px, $border: 2px);
-      border: 2px solid $red1;
-      border-radius: $radius;
-      background-color: $red3;
-      &:hover{
-        filter: brightness(140%);
-      }
-      &.disabled{
-        opacity: $disabled-opacity;
-      }
-      &.flashing{
-        filter: brightness(140%);
-      }
-    }
-    .end {
-      width: 100%;
-      @include centeringWithBorder($height: 50px, $border: 2px);
-      border: 2px solid $red1;
-      border-radius: $radius;
-      background-color: $red2;
-      &:hover{
-        filter: brightness(140%);
-      }
-      &.disabled{
-        opacity: $disabled-opacity;
-      }
-    }
     .informations{
       flex-grow: 1;
       display: flex;
