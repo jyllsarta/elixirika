@@ -1,26 +1,59 @@
 <template lang="pug">
   .area
-    .show_menu.with_shadow(v-if="!showMenu" @click="showMenu = true")
-      | メニュー
+    GeneralButton(
+      @click="showMenu = true"
+      v-if="!showMenu"
+      :disabled="false"
+      :flashing="false"
+      :width="'160px'"
+      :height="'40px'"
+      :color="'blue'"
+      :label="'メニュー'"
+    )
     .menu(v-if="showMenu")
       ._back(@click="showMenu = false")
-      .items
-        .item.with_shadow(@click="showMenu = false")
-          | とじる
-        .item.with_shadow.danger(@click="reset()")
-          | やりなおす
-        .item.with_shadow.danger(@click="backToMainMenu()")
-          | メインメニュー
+      .items(v-if="showMenu")
+        GeneralButton(
+          @click="showMenu = false"
+          :disabled="false"
+          :flashing="false"
+          :width="'160px'"
+          :height="'40px'"
+          :color="'blue'"
+          :label="'とじる'"
+        )
+        GeneralButton(
+          @click="reset()"
+          :disabled="false"
+          :flashing="false"
+          :width="'160px'"
+          :height="'40px'"
+          :color="'red'"
+          :label="'やりなおす'"
+        )
+        GeneralButton(
+          @click="backToMainMenu()"
+          :disabled="false"
+          :flashing="false"
+          :width="'160px'"
+          :height="'40px'"
+          :color="'red'"
+          :label="'メインメニュー'"
+        )
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import GeneralButton from "./GeneralButton.vue";
 
   export default Vue.extend({
     data(){
       return {
         showMenu: false,
       }
+    },
+    components: {
+      GeneralButton
     },
     methods: {
       backToMainMenu(){
@@ -38,13 +71,6 @@
 <style lang="scss" scoped>
   @import "stylesheets/global_settings";
   .area{
-    .show_menu{
-      @include centeringWithBorder($height:40px, $border: 2px);
-      width: 160px;
-      background-color: $blue3;
-      border: 2px solid $blue1;
-      border-radius: $radius;
-    }
     .menu{
       width: 160px;
       ._back{
@@ -61,17 +87,6 @@
         display: flex;
         flex-direction: column;
         gap: $space-m;
-        .item{
-          width: 100%;
-          @include centeringWithBorder($height:40px, $border: 2px);
-          background-color: $blue3;
-          border: 2px solid $blue1;
-          border-radius: $radius;
-          &.danger{
-            background-color: $red3;
-            border: 2px solid $red1;
-          }
-        }
       }
     }
   }

@@ -1,7 +1,7 @@
 <template lang="pug">
   .button.with_shadow(
     @click="onClick"
-    :class="{disabled: disabled, flashing: flashing}"
+    :class="buttonClass"
     :style="{width: width, height: height}"
   )
     | {{label}}
@@ -27,6 +27,13 @@
         }
         this.$emit('click');
       }
+    },
+    computed: {
+      buttonClass(){
+        let base = {disabled: this.disabled, flashing: this.flashing};
+        base[this.color] = true;
+        return base;
+      }
     }
   })
 </script>
@@ -35,8 +42,6 @@
   @import "stylesheets/global_settings";
   .button {
     border-radius: $radius;
-    border: 2px solid $red1;
-    background-color: $red3;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,6 +59,14 @@
     &:active:not(.disabled) {
       background-color: $white;
       transform: scale(1.3);
+    }
+    &.red{
+      border: 2px solid $red1;
+      background-color: $red3;
+    }
+    &.blue{
+      border: 2px solid $blue1;
+      background-color: $blue3;
     }
   }
 </style>
