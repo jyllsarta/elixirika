@@ -1,5 +1,6 @@
 module.exports = class AbilityDamageWithMp {
-  constructor(damageValue, cost){
+  constructor(slot, damageValue, cost){
+    this.slot = slot;
     this.category = "damageWithMp";
     this.damageValue = damageValue;
     this.cost = cost;

@@ -1,7 +1,8 @@
 const Constants = require("./constants");
 
 module.exports = class AbilityCardPocket {
-  constructor(count = 5){
+  constructor(slot, count = 5){
+    this.slot = slot;
     this.category = "cardPocket";
     this.card = null;
     this.isRemovedAfterIgnite = false;

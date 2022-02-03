@@ -4,9 +4,9 @@ let AbilityAddCard = require("../abilityAddCard");
 module.exports = class Character1_3 {
   onGameStart(character, model){
     character.uniqueParameters.abilities = [
-      new AbilityAddCard(new Card( 0, "x", "special")),
-      new AbilityAddCard(new Card( 11, "s", "sender")),
-      new AbilityAddCard(new Card( 11, "h", "sender")),
+      new AbilityAddCard(1, new Card( 0, "x", "special")),
+      new AbilityAddCard(2, new Card( 11, "s", "sender")),
+      new AbilityAddCard(3, new Card( 11, "h", "sender")),
     ]
     model.deck.field.addCard(new Card(0, "x", "special"));
     model.deck.shuffle(model.seededRandom);

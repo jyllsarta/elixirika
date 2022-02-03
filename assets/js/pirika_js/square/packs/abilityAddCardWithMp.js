@@ -1,6 +1,7 @@
 const Constants = require("./constants");
 module.exports = class AbilityAddCardWithMp {
-  constructor(cards, cost){
+  constructor(slot, cards, cost){
+    this.slot = slot;
     this.category = "addCardWithMp";
     this.cards = cards;
     this.cost = cost;

@@ -1,7 +1,8 @@
 const Constants = require("./constants");
 
 module.exports = class AbilityDrawWithMp {
-  constructor(drawCount, cost){
+  constructor(slot, drawCount, cost){
+    this.slot = slot;
     this.category = "drawWithMp";
     this.drawCount = drawCount;
     this.cost = cost;

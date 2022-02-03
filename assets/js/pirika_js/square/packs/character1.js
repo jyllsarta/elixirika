@@ -16,10 +16,10 @@ module.exports = class Character1 {
     this.uniqueParameters = {
       // X X 11s 11h を追加する事ができる残り回数
       abilities: [
-        new AbilityAddCard(new Card( 0, "x", "special")),
-        new AbilityAddCard(new Card( 0, "x", "special")),
-        new AbilityAddCard(new Card( 11, "s", "sender")),
-        new AbilityAddCard(new Card( 11, "h", "sender")),
+        new AbilityAddCard(1, new Card( 0, "x", "special")),
+        new AbilityAddCard(2, new Card( 0, "x", "special")),
+        new AbilityAddCard(3, new Card( 11, "s", "sender")),
+        new AbilityAddCard(4, new Card( 11, "h", "sender")),
       ]
     }
 

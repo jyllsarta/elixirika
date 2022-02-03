@@ -1,5 +1,6 @@
 module.exports = class AbilityAddCard {
-  constructor(card){
+  constructor(slot, card){
+    this.slot = slot;
     this.category = "addCard";
     this.card = card;
     this.isRemovedAfterIgnite = true;

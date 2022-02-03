@@ -1,11 +1,12 @@
 <template lang="pug">
-.button(
-  @click="$emit('popclick')"
-  @mouseover="$emit('popmouseover')"
-  :class="abilityClass(ability)"
-  :style="colorSchemedStyleBackground"
-)
-  | {{ability.stringExpression()}}
+transition(name="show-in")
+  .button(
+    @click="$emit('popclick')"
+    @mouseover="$emit('popmouseover')"
+    :class="abilityClass(ability)"
+    :style="colorSchemedStyleBackground"
+  )
+    | {{ability.stringExpression()}}
 </template>
 
 <script lang="typescript">
@@ -110,5 +111,20 @@
       border-color: $white;
       filter: brightness(150%);
     }
+  }
+
+  .show-in-enter-active {
+    transition: all .6s;
+  }
+  .show-in-leave-active {
+    transition: all .6s;
+  }
+  .show-in-enter{
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  .show-in-leave-to{
+    transform: translateY(-20px);
+    opacity: 0;
   }
 </style>

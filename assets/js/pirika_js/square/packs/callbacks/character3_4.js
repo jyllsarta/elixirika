@@ -5,10 +5,10 @@ let AbilityCardPocket = require("../abilityCardPocket");
 module.exports = class Character3_4 {
   onGameStart(character, model){
     character.uniqueParameters.abilities = [
-      new AbilityCardPocket(),
-      new AbilityCardPocket(),
-      new AbilityAddCard(new Card( 0, "x", "special")),
-      new AbilityAddCard(new Card( 0, "x", "special")),
+      new AbilityCardPocket(1),
+      new AbilityCardPocket(2),
+      new AbilityAddCard(3, new Card( 0, "x", "special")),
+      new AbilityAddCard(4, new Card( 0, "x", "special")),
     ]
   }
 
