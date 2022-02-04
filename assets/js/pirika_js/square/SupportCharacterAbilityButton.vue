@@ -1,16 +1,18 @@
 <template lang="pug">
 transition(name="show-in")
   .button(
-    @click="$emit('popclick')"
+    @click="onClick"
     @mouseover="$emit('popmouseover')"
     :class="abilityClass(ability)"
     :style="colorSchemedStyleBackground"
+    ref="button"
   )
     | {{ability.stringExpression()}}
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import gsap from 'gsap';
 
   export default Vue.extend({
     data(){
@@ -63,8 +65,25 @@ transition(name="show-in")
           this.classByMagic(ability),
           this.classBySelected(ability),
         ].join(" ");
+      },
+      animate(){
+        const tl = gsap.timeline();
+        tl
+          .to( this.$refs.button, { scale: 0.7, duration: 0.10 })
+          .to( this.$refs.button, { scale:   1, duration: 0.10 });
+      },
+      onClick(){
+        this.animate();
+        this.$emit('popclick');
       }
     },
+    watch: {
+      "ability.card": function(after, before){
+        if(after !== null && before === null){
+          this.animate();
+        }
+      }
+    }
   })
 </script>
 
