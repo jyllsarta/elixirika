@@ -1,10 +1,10 @@
 <template lang="pug">
   .fields
-    .field(v-if="emphasisTopCards")
-      .card.top(v-for="card in topCards", :style="colorSchemedStyle(card)")
-      .card(v-for="card in notTopCards", :style="colorSchemedStyle(card)")
-    .field(v-if="!emphasisTopCards")
-      .card(v-for="card in field.cards", :style="colorSchemedStyle(card)")
+    transition-group.field(name="cards" v-if="emphasisTopCards")
+      .card.top(v-for="card in topCards", :style="colorSchemedStyle(card)" :key="card.id")
+      .card(v-for="card in notTopCards",  :style="colorSchemedStyle(card)" :key="card.id")
+    transition-group.field(name="cards" v-if="!emphasisTopCards")
+        .card(v-for="card in field.cards", :style="colorSchemedStyle(card)" :key="card.id")
 
 </template>
 
@@ -64,5 +64,21 @@
         }
       }
     }
+  }
+
+  .cards-leave-active {
+    position: absolute;
+    transition: all 1.3s;
+  }
+  .cards-enter{
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  .cards-leave-to{
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  .cards-move {
+    transition: transform 0.3s;
   }
 </style>
