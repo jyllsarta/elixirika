@@ -4,6 +4,9 @@ module.exports = class Character3_Default {
 
   onSendCard(character, model, card){
     const field = model.board.fields.find(field=>field.cards.some(fieldCard=>fieldCard.id === card.id));
+    if(card.isSenderCard()){
+      return;
+    }
     const [prevCard] = field.cards.slice(-2, -1);
     if(!prevCard){
       return;

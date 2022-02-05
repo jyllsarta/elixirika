@@ -9,7 +9,9 @@ module.exports = class Character3 {
     this.id = 3;
     this.name = "ラズ";
     this.defaultMessage = "ラズでーす♡。\n今回も頑張っていきましょうね";
-    this.uniqueParameters = {};
+    this.uniqueParameters = {
+      abilities: [],
+    };
     this.defaultCallback = new Character3_Default();
     this.callbacks = {
       1: new Character3_1(),
