@@ -87,7 +87,7 @@
         }
         return "hp1";
       },
-      async onAttack(){
+      movePlayer(){
         const playerTimeline = gsap.timeline();
         playerTimeline
           .to(
@@ -115,7 +115,8 @@
             },
             "+=0.5"
           );
-
+      },
+      slashEffect(){
         const effectTimeline1 = gsap.timeline();
         effectTimeline1
           .to( this.$refs.line1, { x: -50, opacity:   0, duration: 0.15 })
@@ -133,14 +134,21 @@
           .to( this.$refs.line3, { x: -50, opacity:   0, duration: 0.30 })
           .to( this.$refs.line3, { x:   0, opacity: 0.7, duration: 0.15 })
           .to( this.$refs.line3, { x:  50, opacity:   0, duration: 0.15 });
-
+      },
+      popDamageValue(){
         const damageTimeline = gsap.timeline();
         damageTimeline
           .to( this.$refs.damage, { x:  -5, opacity:   0, scale: 1.2, duration: 0.00 })
           .to( this.$refs.damage, { x:   0, opacity:   1, scale:   1, duration: 0.10 })
           .to( this.$refs.damage, { x:   0, opacity:   1, scale:   1, duration: 1.00 })
           .to( this.$refs.damage, { x:   5, opacity:   0, scale: 1.2, duration: 0.10 })
-
+      },      
+      async onAttack(showDamageValue = false){
+        this.movePlayer();
+        this.slashEffect();
+        if(showDamageValue){
+          this.popDamageValue();
+        }
         // アニメーションの最後に合わせるほうが行儀良くはある
         await this.$delay(1000);
         this.syncCurrentHp();
@@ -161,14 +169,15 @@
         if(prevHp < newHp){
           return;
         }
-        this.onAttack();
+        this.onAttack(SVGComponentTransferFunctionElement);
         if(prevHp && newHp){
           this.referenceDamage = prevHp - newHp;
         }
       },
       "foregroundEnemy.shield": function(after, before){
         if(before > 0){
-          this.onAttack();
+          // シールドが削れたタイミングではHPは減らない
+          this.onAttack(false);
         }
         if(before === 0 && after > 0){
           this.syncCurrentShield();
