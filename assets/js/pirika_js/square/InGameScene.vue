@@ -203,6 +203,7 @@
     .challenge_clear_popup{
       top: 50%;
       left: 0;
+      pointer-events: none;
     }
     .game_start_popup{
       top: 0;

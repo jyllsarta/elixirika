@@ -24,7 +24,6 @@
     },
     methods: {
       updateChallenge(challengeId){
-        console.log(challengeId)
         this.clearedChallenge = this.model.challenge.idTable[challengeId];
         const tl = gsap.timeline();
         tl
@@ -36,10 +35,7 @@
     },
     watch: {
       "model.clearedChallenges": function(after, before){
-        console.log(after)
-        console.log(before)
         const newMembers = after.filter(x=>!before.includes(x));
-        console.log(newMembers)
         if(newMembers.length === 0){
           return;
         }
@@ -53,7 +49,6 @@
   @import "stylesheets/global_settings";
   .frame{
     position: relative;
-    pointer-events: none;
     width: $window-width;
     transform: translateX(-100px);
     border-top: 2px solid $white;
