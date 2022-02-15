@@ -39,7 +39,7 @@
     },
     methods: {
       expectedCardCount(index){
-        if(this.model.selectingBoardIndex === index && this.canStackCard(index)){
+        if(this.isAttemptingToStack(index)){
           return this.board.fields[index].cards.length + 1;
         }
         return this.board.fields[index].cards.length;
@@ -55,10 +55,19 @@
         const card = this.model.getHoldingCard();
         return card && this.model.cardStackRule(this.model.character, this.model, card, this.model.board.fields[index]);
       },
+      isAttemptingToStack(index){
+        return this.model.selectingBoardIndex === index && this.canStackCard(index);
+      },
       styleIndexBackground(index){
-        let style = {
-          "background-color": `var(--bg3-${this.model.characterId})`,
-        };
+        const card = this.model.getHoldingCard();
+        let style = {};
+        if(this.isAttemptingToStack(index) && card.isSenderCard()){
+          style["background-color"] = `var(--color-i2-${this.model.characterId})`;
+        }
+        else{
+          style["background-color"] = `var(--bg3-${this.model.characterId})`
+        }
+
         if(this.canStackCard(index)){
           style.border = `2px solid var(--color-i1-${this.model.characterId})`;
         }
@@ -111,6 +120,7 @@
           padding: $space-m;
           width: 160px;
           text-align: center;
+          transition: background-color 0.3s;
         }
       }
       .fields{
