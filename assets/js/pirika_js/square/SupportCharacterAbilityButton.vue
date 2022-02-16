@@ -1,5 +1,4 @@
 <template lang="pug">
-transition(name="show-in")
   .button(
     @click="onClick"
     @mouseover="$emit('popmouseover')"
@@ -24,6 +23,7 @@ transition(name="show-in")
       ability: Object,
       character: Object,
       isSelected: Boolean,
+      isSmall: Boolean,
     },
     computed: {
       colorSchemedStyleBackground(){
@@ -54,8 +54,10 @@ transition(name="show-in")
         return this.character.hasSufficientMp(ability.cost) ? "enabled" : "disabled";
       },
       classBySelected(_ability){
-        console.log(this.isSelected);
         return this.isSelected ? "selected" : "";
+      },
+      classBySmall(_ability){
+        return this.isSmall ? "small" : "";
       },
       abilityClass(ability){
         return [
@@ -64,6 +66,7 @@ transition(name="show-in")
           this.classByPocket(ability),
           this.classByMagic(ability),
           this.classBySelected(ability),
+          this.classBySmall(ability),
         ].join(" ");
       },
       animate(){
@@ -91,7 +94,8 @@ transition(name="show-in")
   @import "stylesheets/global_settings";
   .button{
     padding: $space-s;
-    width: 100%;
+    width: 114px;
+    transition: all 0.3s; 
     @include centeringWithBorder($height: 34px, $border: 2px);
     &.enabled{
       &:hover{
@@ -102,6 +106,9 @@ transition(name="show-in")
       border: 1px solid $gray1;
       background-color: transparent;
       opacity: $disabled-opacity;
+    }
+    &.small{
+      width: 53px;
     }
     &.x{
       border: 1px solid $yellow2;
@@ -130,20 +137,5 @@ transition(name="show-in")
       border-color: $white;
       filter: brightness(150%);
     }
-  }
-
-  .show-in-enter-active {
-    transition: all .6s;
-  }
-  .show-in-leave-active {
-    transition: all .6s;
-  }
-  .show-in-enter{
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  .show-in-leave-to{
-    transform: translateY(-20px);
-    opacity: 0;
   }
 </style>

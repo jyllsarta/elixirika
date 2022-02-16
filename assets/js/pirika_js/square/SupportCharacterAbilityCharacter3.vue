@@ -5,7 +5,7 @@
       | やる気がない
     .index(v-if="character.uniqueParameters.abilities")
       | ラズの能力
-    .buttons
+    transition-group.buttons(name="ability")
       SupportCharacterAbilityButton(
         v-for="(ability, index) in character.uniqueParameters.abilities"
         @popclick="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
@@ -15,6 +15,7 @@
         :ability="ability"
         :character="character"
         :isSelected="isSelected(index)"
+        :isSmall="isSmall(index)"
       )
 </template>
 
@@ -37,6 +38,13 @@
     methods: {
       isSelected(index){
         return this.model.focusingAbilityIndex === index;
+      },
+      isSmall(index){
+        const length = this.character.uniqueParameters.abilities.length;
+        if(length <= 4){
+          return false;
+        }
+        return index >= (8 - length);
       }
     },
   })
@@ -62,5 +70,25 @@
       padding: $space-m;
       gap: $space-m;
     }
+  }
+
+  .ability-enter-active {
+    position: absolute;
+    transition: all 0.2s;
+  }
+  .ability-leave-active {
+    position: absolute;
+    transition: all 0.2s;
+  }
+  .ability-enter{
+    transform: scale(0);
+    opacity: 0;
+  }
+  .ability-leave-to{
+    transform: scale(0);
+    opacity: 0;
+  }
+  .ability-move {
+    transition: transform 0.2s;
   }
 </style>
