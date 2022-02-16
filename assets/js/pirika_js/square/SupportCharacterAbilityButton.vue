@@ -90,7 +90,7 @@ transition(name="show-in")
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .button{
-    padding: $space-m;
+    padding: $space-s;
     width: 100%;
     @include centeringWithBorder($height: 34px, $border: 2px);
     &.enabled{
