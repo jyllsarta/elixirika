@@ -139,6 +139,9 @@
           case "ArrowDown":
             this.selectOrIgniteAbility(currentIndex + 1);
             break;
+          case "Escape":
+            this.controller.operate("disSelectAbility");
+            break;
         }
       },
       onKeyDownStaged(keyCode){
@@ -156,6 +159,9 @@
             }
             break;
           case "ArrowDown":
+            this.controller.operate("unstageStagedCard");
+            break;
+          case "Escape":
             this.controller.operate("unstageStagedCard");
             break;
         }
