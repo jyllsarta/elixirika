@@ -8,7 +8,7 @@
           v-for="(ability, index) in character.uniqueParameters.abilities"
           @popclick="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
           @popmouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
-          :key="index"
+          :key="ability.slot"
           :index="index"
           :ability="ability"
           :character="character"
