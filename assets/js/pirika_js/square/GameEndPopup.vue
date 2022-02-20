@@ -1,5 +1,5 @@
 <template lang="pug">
-  .game_end(v-if="isStalemate" @click="endGame")
+  .game_end(@click="endGame")
     .darkness
     .body(:class="{sending: sending}")
       .background(:style="{backgroundImage: `url(/images/square/characters/${model.characterId}-1.png`}")
@@ -23,8 +23,10 @@
               :challenge="challenge"
               :key="index"
             )
-          .click_to_send
-            | クリックすると結果を登録してメニューに戻ります
+          .message_area
+            transition(name="show-in")
+              .click_to_send(v-if="!isMarginTime")
+                | クリックすると結果を登録してメニューに戻ります
 </template>
 
 <script lang="typescript">
@@ -39,22 +41,23 @@
     data(){
       return {
         sending: false,
+        isMarginTime: true
       }
+    },
+    mounted(){
+      setTimeout(()=>this.isMarginTime=false, 1000);
     },
     components: {
       ChallengeText
     },
     computed: {
-      isStalemate(){
-        return this.model?.isStalemate();
-      },
       challenges(){
         return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
       },
     },
     methods: {
       endGame(){
-        if(this.sending){
+        if(this.sending || this.isMarginTime){
           return;
         }
         this.sending = true;
@@ -152,8 +155,26 @@
             flex-direction: column;
             justify-content: space-around;
           }
+          .message_area{
+            @include centering($height: 20px);
+          }
         }
       }
     }
+  }
+
+  .show-in-enter-active {
+    transition: all .3s;
+  }
+  .show-in-leave-active {
+    transition: all .3s;
+  }
+  .show-in-enter{
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  .show-in-leave-to{
+    transform: translateX(10px);
+    opacity: 0;
   }
 </style>

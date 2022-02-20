@@ -24,7 +24,7 @@
     .in_game_menu.object
       InGameMenu(@guiEvent="onGuiEvent")
     .game_end_popup.object
-      GameEndPopup(:model="model" @guiEvent="onGuiEvent")
+      GameEndPopup(:model="model" @guiEvent="onGuiEvent" v-if="isStalemate" )
     .challenge_clear_popup.object
       ChallengeClearPopup(:model="model")
     .game_start_popup.object
@@ -92,7 +92,7 @@
       },
       startGame(){
         this.gameStarted = true;
-      }
+      },
     },
     data(){
       return {
@@ -104,6 +104,9 @@
     computed: {
       model(){
         return this.controller?.model;
+      },
+      isStalemate(){
+        return this.model?.isStalemate();
       },
       characterId(){
          return this.sceneParameter.characterId;
