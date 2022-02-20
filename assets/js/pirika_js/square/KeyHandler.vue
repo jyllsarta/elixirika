@@ -67,13 +67,7 @@
             this.controller.operate("fillDraw", true);
             break;
           case "x":
-            // xはやさしい、事故防止付き
-            if(this.controller.model.hand.field.cards.length === 4){
-              return;
-            }
-            this.controller.operate("fillDraw");
-            // xはやさしい、左端選択付き
-            this.controller.operate("selectHand", 0);
+            this.proceedGame();
             break;
           case "z":
             this.stageCard();
@@ -276,6 +270,19 @@
           this.controller.operate("describeSupportAbility", {index: index});
         }
       },
+      proceedGame(){
+        // xはやさしい、事故防止付き
+        if(this.controller.model.hand.field.cards.length === 4){
+          return;
+        }
+        if(this.controller.model.deck.field.cards.length === 0){
+          this.controller.operate("gracefullyStalemate");
+        }
+        else{
+          this.controller.operate("fillDraw");
+          this.controller.operate("selectHand", 0);
+        }
+      }
     },
     data(){
       return {
