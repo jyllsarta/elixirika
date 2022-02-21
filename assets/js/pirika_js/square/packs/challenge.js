@@ -80,7 +80,7 @@ module.exports = class Challenge {
   }
 
   isClearedDiscardCount(challenge, model){
-    // エンティ の強制終了時には捨札条件をクリアさせない
+    // アリティ の強制終了時には捨札条件をクリアさせない
     return model.isStalemate() && !model.isForceStalemate && model.graveyard.field.cards.length <= challenge.value1;
   }
 

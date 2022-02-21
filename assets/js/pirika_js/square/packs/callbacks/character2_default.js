@@ -44,7 +44,7 @@ module.exports = class Character2_Default {
   }
 
   starPaletteParameter(){
-    console.warn("エンティのパラメータはオーバーライド前提");
+    console.warn("アリティのパラメータはオーバーライド前提");
     return {
     };
   }

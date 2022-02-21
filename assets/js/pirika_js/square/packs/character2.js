@@ -9,7 +9,7 @@ let Card = require("./card");
 module.exports = class Character2 {
   constructor(){
     this.id = 2;
-    this.name = "エンティ";
+    this.name = "アリティ";
     this.defaultMessage = "イニシャライズ走りきりました、疎通確認いけます";
 
     this.uniqueParameters = {
