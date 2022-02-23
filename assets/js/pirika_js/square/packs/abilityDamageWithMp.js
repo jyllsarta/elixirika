@@ -12,7 +12,7 @@ module.exports = class AbilityDamageWithMp {
     if(!kanjiExpression){
       console.warn(`damage ${this.damageValue} is not supported! set 0 to 10`)
     }
-    return `${kanjiExpression}連火球/${this.cost}`;
+    return `${kanjiExpression}連即撃/${this.cost}`;
   }
 
   ignite(character, model){
