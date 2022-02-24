@@ -160,7 +160,7 @@
       // HPさがる ID変化なし: 攻撃で削ったに違いない
       // HPあがる ID変化なし: そんなことある？ 現状の実装ではないが、増えてる場合はおそらく攻撃エフェクトは出したくなさそう
       "foregroundEnemy.id": function(newId, prevId){
-        this.onAttack();
+        this.onAttack(true);
         const enemy = this.model.character.uniqueParameters.enemies.find(enemy=>enemy.id === prevId);
         const { power } = enemy.damageHistory[enemy.damageHistory.length - 1];
         this.referenceDamage = power;
@@ -169,7 +169,7 @@
         if(prevHp < newHp){
           return;
         }
-        this.onAttack(SVGComponentTransferFunctionElement);
+        this.onAttack(true);
         if(prevHp && newHp){
           this.referenceDamage = prevHp - newHp;
         }
