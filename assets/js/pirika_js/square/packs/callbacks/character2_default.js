@@ -5,37 +5,24 @@ module.exports = class Character2_Default {
   onGameStart(character, model){
   }
 
-  onSendToStarPalette = (character, model, field) => {
-    const { maxEnergy, sandStorm, staleMateByEnergy } = character.getCallback("starPaletteParameter", model.chapter.index)();
-    this.fluctuateEnergy(character, maxEnergy, field.score(), model);
-    if(sandStorm){
-      this.shufflePocket(character, model);
-    }
-    if(staleMateByEnergy && character.uniqueParameters.energy >= maxEnergy){
-      model.setForceStalemate("エネルギー過供給で災害を起こしてしまった！");
+  onSendToStarPalette(character, model, field){
+    const { banSendCard } = character.getCallback("starPaletteParameter", model.chapter.index)();
+    if(banSendCard){
+      character.banSendCard(model, field);
     }
   }
 
-  // class 内で this 使うとコールバックで発動したときは this が windowになってるシチュエーションがあるので、 function ではなく アロー関数で定義を行う
-  onSendCard = (character, model, card) => {
-    const { consumptionPerCard, scoreRanges, maxEnergy, staleMateByEnergy } = character.getCallback("starPaletteParameter", model.chapter.index)();
-    this.addScore(character, model, scoreRanges);
-    if(!card.isSenderCard()){
-      this.fluctuateEnergy(character, maxEnergy, -consumptionPerCard, model);
-    }
-    character.uniqueParameters.energyHistory.push(character.uniqueParameters.energy);
-    if(staleMateByEnergy && character.uniqueParameters.energy <= 0){
-      model.setForceStalemate("エネルギー枯渇で災害を起こしてしまった！");
+  onSendCard(character, model, card, field){
+    const { banCardGap } = character.getCallback("starPaletteParameter", model.chapter.index)();
+    if(banCardGap){
+      character.banCardGap(model, field);
     }
   }
 
-  // class 内で this 使うとコールバックで発動したときは this が windowになってるシチュエーションがあるので、 function ではなく アロー関数で定義を行う
-  onFillDraw = (character, model) => {
-    const { consumptionPerDraw, maxEnergy, staleMateByEnergy } = character.getCallback("starPaletteParameter", model.chapter.index)();
-    this.fluctuateEnergy(character, maxEnergy, -consumptionPerDraw, model);
-    character.uniqueParameters.energyHistory.push(character.uniqueParameters.energy);
-    if(staleMateByEnergy && character.uniqueParameters.energy <= 0){
-      model.setForceStalemate("エネルギー枯渇で災害を起こしてしまった！");
+  onFillDraw(character, model, sentCardLength){
+    const { banDiscard } = character.getCallback("starPaletteParameter", model.chapter.index)();
+    if(banDiscard){
+      character.banDiscard(model, sentCardLength);
     }
   }
 
@@ -72,62 +59,6 @@ module.exports = class Character2_Default {
       return false;
     }
     return true;
-  }
-
-  isAbilityColded = (character, model) => {
-    const { coldAbility } = character.getCallback("starPaletteParameter", model.chapter.index)();
-    const x = model.deck.field.cards.length;
-    console.log(Math.floor(x / 4) % 2 === 0);
-    return coldAbility && Math.floor(x / 4) % 2 === 0;
-  }
-
-  // private
-
-  addScore = (character, model, scoreRanges) => {
-    for(let scoreRange of scoreRanges){
-      if(this.inRange(character.uniqueParameters.energy, scoreRange)){
-        character.uniqueParameters.score += scoreRange.score;
-        model.calculateScore();
-        return;
-      }
-    }
-  }
-
-  // 上位評価に対して引っかかりやすくゆるめに評価するためにrangeは両側を含ませる
-  inRange = (value, scoreRange) => {
-    return scoreRange.min <= value && value <= scoreRange.max;
-  }
-
-  fluctuateEnergy = (character, maxEnergy, delta, model) => {
-    const prevEnergy = character.uniqueParameters.energy;
-    character.uniqueParameters.energy += delta;
-    if(character.uniqueParameters.energy < 0){
-      character.uniqueParameters.energy = 0;
-    }
-    if(character.uniqueParameters.energy > maxEnergy){
-      character.uniqueParameters.energy = maxEnergy;
-    }
-    if(Constants.bestEnergyLowLimit <= prevEnergy && character.uniqueParameters.energy < Constants.bestEnergyLowLimit){
-      model.messageManager.register("specialAbilityLowEnergy");
-    }
-    if(prevEnergy <= Constants.bestEnergyHighLimit && Constants.bestEnergyHighLimit < character.uniqueParameters.energy){
-      model.messageManager.register("specialAbilityHighEnergy");
-    }
-  }
-
-  // デッキに入れて、シャッフルして、デッキから引いてくる
-  shufflePocket = (character, model) => {
-    const filledPockets = character.uniqueParameters.abilities?.filter(ability=>ability.category === "cardPocket" && ability.card !== null);
-    for(let pocket of filledPockets){
-      model.deck.field.cards.push(pocket.card);
-      pocket.card = null;
-    }
-    model.deck.shuffle(model.seededRandom)
-    for(let pocket of filledPockets){
-      let card = model.deck.field.cards.pop();
-      pocket.card = card;
-    }
-    character.uniqueParameters.sandStormCount += filledPockets.length;
   }
 
   canGetSenderCardFromSkill(character, model){

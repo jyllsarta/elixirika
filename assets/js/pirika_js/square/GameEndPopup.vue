@@ -96,7 +96,7 @@
       position: absolute;
       background-color: $ingame-background;
       border: 2px solid $white;
-      width: 600px;
+      width: 700px;
       height: 350px;
       border-radius: $radius;
       &.sending{

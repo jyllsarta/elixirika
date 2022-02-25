@@ -2,8 +2,7 @@ module.exports = class Character3_Default {
   onGameStart(character, model){
   }
 
-  onSendCard(character, model, card){
-    const field = model.board.fields.find(field=>field.cards.some(fieldCard=>fieldCard.id === card.id));
+  onSendCard(character, model, card, field){
     if(card.isSenderCard()){
       return;
     }
@@ -22,7 +21,7 @@ module.exports = class Character3_Default {
     model.calculateScore();
   }
 
-  onFillDraw(character, model){
+  onFillDraw(character, model, sentCardLength){
   }
 
   calculateScore(character, model){

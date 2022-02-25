@@ -2,14 +2,14 @@ module.exports = class Character1_Default {
   onGameStart(character, model){
   }
 
-  onSendCard(character, model, card){
+  onSendCard(character, model, card, field){
   }
 
   onSendToStarPalette(character, model, field){
     model.calculateScore();
   }
 
-  onFillDraw(character, model){
+  onFillDraw(character, model, sentCardLength){
   }
 
   calculateScore(character, model){

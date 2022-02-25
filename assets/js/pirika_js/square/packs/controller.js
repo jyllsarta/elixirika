@@ -61,12 +61,13 @@ module.exports = class Controller {
       return;
     }
     this.model.hand.disselectAllCard();
+    const sentCardLength = this.model.hand.field.cards.length;
     this.model.hand.field.sendAllCardTo(this.model.graveyard.field);
     const drawNum = Math.min(this.model.deck.field.cards.length, 4);
     for(let i = 0; i < drawNum; ++i){
       this.model.hand.field.addCard(this.model.deck.field.draw());
     }
-    this.model.character.getCallback("onFillDraw", this.model.chapter.index)(this.model.character, this.model);
+    this.model.character.getCallback("onFillDraw", this.model.chapter.index)(this.model.character, this.model, sentCardLength);
     this.model.messageManager.register("draw");
   }
 
@@ -98,7 +99,7 @@ module.exports = class Controller {
       this._commitSenderCard(toField);
     }
     
-    this.model.character.getCallback("onSendCard", this.model.chapter.index)(this.model.character, this.model, card);
+    this.model.character.getCallback("onSendCard", this.model.chapter.index)(this.model.character, this.model, card, toField);
     this.model.checkAndUpdateClearedChallenges();
     this.model.messageManager.register("sendCard");
   }

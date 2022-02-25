@@ -7,7 +7,7 @@ module.exports = class Character4_Default {
     character.initializeEnemy(enemies);
   }
 
-  onSendCard(character, model, card){
+  onSendCard(character, model, card, field){
   }
 
   onSendToStarPalette = (character, model, field) => {
@@ -17,7 +17,7 @@ module.exports = class Character4_Default {
     model.calculateScore();
   }
 
-  onFillDraw(character, model){
+  onFillDraw(character, model, sentCardLength){
     // シールドはドローしたタイミングで復活する
     let nextEnemy = character.uniqueParameters.enemies.find(enemy=>enemy.hp>0);
     if(!nextEnemy){
