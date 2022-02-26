@@ -7,6 +7,17 @@
         .pattern_flash(v-if="currentProgress >= index")
         .pattern_flash2(v-if="currentProgress >= index")
         .fill
+    .descriptions
+      .description(v-if="!params.banCardGap")
+        | ~ ルール ~
+      .description(v-if="params.banSendCard")
+        | 2枚か3枚でスターパレットに送るべからず
+      .description(v-if="params.banDiscard")
+        | 2枚か3枚まとめて捨札にするべからず
+      .description(v-if="params.banCardGap")
+        | 差が2か3になるようにカードを積むべからず
+      .description
+        | 4: ■  8: ■ ■
     .progress
       .current
         | {{ currentProgress }}
@@ -25,10 +36,16 @@
       model: Model,
     },
     data(){
-      return { 
+      return {
+        params: {
+          banSendCard: true,
+          banDiscard: true,
+          banCardGap: true
+        }
       }
     },
     mounted(){
+      this.params = this.model.character.getCallback("starPaletteParameter", this.model.chapter.index)();
     },
     methods: {
       expectedCardLength(){
@@ -91,16 +108,30 @@
         width: 100%;
       }
     }
+    .descriptions{
+      position: absolute;
+      top: 0;
+      left: 13%;
+      width: 30%;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      color: $palette_gold;
+      padding-top: 4px;
+      font-size: 12px;
+      align-items: center;
+      justify-content: space-around;
+    }
     .container{
       position: absolute;
       top: 0;
-      left: 30%;
-      width: 60%;
+      right: 5%;
+      width: 50%;
       height: 70%;
       display: flex;
       align-items: center;
       justify-content: space-around;
-      gap: $space-ll * 2;
+      gap: $space-ll;
       .star{
         position: relative;
         border: 2px solid $palette_gold;
@@ -150,7 +181,7 @@
       width: 10%;
       height: 30px;
       bottom: 50px;
-      left: 6%;
+      left: 1%;
       display: flex;
       justify-content: center;
       align-items: center;
