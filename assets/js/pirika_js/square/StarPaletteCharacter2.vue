@@ -3,7 +3,7 @@
     .background.with_drop_shadow
       img(src="/images/square/svg/star_palette2.svg")
     .container
-      .star(v-for="index in [1,2,3,4,5,6,7,8]", :class="starClass(index)")
+      .star(v-for="index in [1,2,3,4,5,6,7,8,9,10]", :class="starClass(index)")
         .pattern_flash(v-if="currentProgress >= index")
         .pattern_flash2(v-if="currentProgress >= index")
         .fill
@@ -81,7 +81,7 @@
         return this.model.starPalette.arityStyleScore();
       },
       totalProgress(){
-        return 8;
+        return 10;
       },
     }
   })

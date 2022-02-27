@@ -24,7 +24,10 @@ module.exports = class Challenge {
       case "point":
         return this.isClearedPoint(challenge, model);
         break;
-      case "starPaletteKind":
+      case "arityStyleScore":
+        return this.isClearedArityStyleScore(challenge, model);
+        break;
+        case "starPaletteKind":
         return this.isClearedStarPaletteKind(challenge, model);
         break;
       case "discardCount":
@@ -66,7 +69,12 @@ module.exports = class Challenge {
 
   isClearedPoint(challenge, model){
     const score = model.starPalette.score();
-    return challenge.value1 <= score
+    return challenge.value1 <= score;
+  }
+
+  isClearedArityStyleScore(challenge, model){
+    const score = model.starPalette.arityStyleScore();
+    return challenge.value1 <= score;
   }
 
   isClearedStarPaletteKind(challenge, model){
