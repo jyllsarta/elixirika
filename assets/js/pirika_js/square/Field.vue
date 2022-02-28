@@ -6,19 +6,11 @@
     :style="colorSchemedStyle"
   )
     FieldCard(
-      v-for="(card, index) in compressedCards"
+      v-for="(card, index) in field.cards"
       :key="card.id",
       :card="card"
       :isLast="index === field.cards.length -1"
-      :isCompressed="true",
-      :characterId="characterId",
-    )
-    FieldCard(
-      v-for="(card, index) in normalCards"
-      :key="card.id",
-      :card="card",
-      :isLast="index === field.cards.length -1",
-      :isCompressed="false",
+      :isCompressed="shouldBeCompressed(index)",
       :characterId="characterId",
     )
 </template>
@@ -38,6 +30,12 @@
     components: {
       FieldCard,
       draggable,
+    },
+    methods: {
+      shouldBeCompressed(index){
+        const threshold = this.field.cards.length - 10;
+        return index < threshold;
+      }
     },
     computed: {
       compressedCards(){

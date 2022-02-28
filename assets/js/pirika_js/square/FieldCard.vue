@@ -1,11 +1,12 @@
 <template lang="pug">
-  .card(:class="card.viewClass() + last + compressed" :style="colorSchemedStyleBackground")
-    .background
-      .line_ur(v-for="(x, index) in rightLineCount" :class="card.suit", :style="{left: (index + 2.5) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})` }")
-      .line_ul(v-for="(x, index) in leftLineCount" :class="card.suit", :style="{right: (index + 2.5) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})` }")
-    .front
-      .number
-        | {{card.stringExpression()}}
+  transition(name="show-in")
+    .card(:class="card.viewClass() + last + compressed" :style="colorSchemedStyleBackground")
+      .background
+        .line_ur(v-for="(x, index) in rightLineCount" :class="card.suit", :style="{left: (index + 2.5) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})` }")
+        .line_ul(v-for="(x, index) in leftLineCount" :class="card.suit", :style="{right: (index + 2.5) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})` }")
+      .front
+        .number
+          | {{card.stringExpression()}}
 </template>
 
 <script lang="typescript">
@@ -57,6 +58,8 @@
     border: 2px solid $main-color;
     pointer-events: none;
     height: 20px;
+    transition: height 0.3s linear;
+    animation: show 0.3s;
     .front{
       width: 100%;
       height: 100%;
@@ -97,5 +100,27 @@
         transform: rotate(10deg);
       }
     }
+  }
+
+  @keyframes show{
+    0% {
+      transform: translateY(30px) scale(0);
+      opacity: 0;
+    }
+  }
+
+  .show-in-enter-active {
+    transition: all .6s;
+  }
+  .show-in-leave-active {
+    transition: all .6s;
+  }
+  .show-in-enter{
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  .show-in-leave-to{
+    transform: translateY(-50px) scale(0);
+    opacity: 0;
   }
 </style>
