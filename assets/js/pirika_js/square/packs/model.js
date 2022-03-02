@@ -76,6 +76,7 @@ module.exports = class Model {
     this.messageManager.register("forceStalemate");
     this.isForceStalemate = true;
     this.forceStalemateReason = reason;
+    this.checkAndUpdateClearedChallenges();
   }
 
   // タッチ・ドラッグに関わらず今握っているカードを取得することを試みる(無選択があり得る)

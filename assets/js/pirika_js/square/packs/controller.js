@@ -201,6 +201,7 @@ module.exports = class Controller {
 
   gracefullyStalemate(){
     this.model.isGracefullyStalemate = true;
+    this.model.checkAndUpdateClearedChallenges();
   }
 
   sendPlayLog(){
