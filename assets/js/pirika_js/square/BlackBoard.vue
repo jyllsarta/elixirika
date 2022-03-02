@@ -16,7 +16,8 @@
         :is-cleared="isCleared(challenge.id)",
         :index="index",
         :challenge="challenge"
-        :key="index"
+        :key="index",
+        :showDescription="false"
       )
 
 </template>

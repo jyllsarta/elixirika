@@ -180,10 +180,10 @@
     }
     .main_menu_detail_dialog{
       position: absolute;
-      width: 70%;
+      width: 80%;
       height: 70%;
       top: 15%;
-      left: 15%;
+      left: 10%;
       z-index: 100;
     }
   }

@@ -7,7 +7,7 @@
     .rank
       | {{["I","II","III","IV"][index]}}
     .description
-      | {{challenge.title}}
+      | {{showDescription ? challenge.description : challenge.title}}
         
 </template>
 
@@ -19,6 +19,7 @@
       challenge: Object,
       isCleared: Boolean,
       index: Number,
+      showDescription: Boolean,
     },
   })
 </script>

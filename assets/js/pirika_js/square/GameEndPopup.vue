@@ -20,8 +20,9 @@
               v-for="challenge, index in challenges"
               :is-cleared="isCleared(challenge.id)",
               :index="index",
-              :challenge="challenge"
-              :key="index"
+              :challenge="challenge",
+              :key="index",
+              :showDescription="true"
             )
           .message_area
             transition(name="show-in")

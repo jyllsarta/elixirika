@@ -22,7 +22,14 @@
           .challenges
             .title
               | チャレンジ
-            ChallengeText(v-for="challenge, index in challenges" :is-cleared="isCleared(challenge.id)", :index="index", :challenge="challenge" :key="index")
+            ChallengeText(
+              v-for="challenge, index in challenges"
+              :is-cleared="isCleared(challenge.id)",
+              :index="index",
+              :challenge="challenge",
+              :key="index",
+              :showDescription="true"
+            )
 
       .chapter_name
         | {{character.name}} - {{["", "I","II","III","IV"][chapter.index]}}
@@ -97,7 +104,7 @@
       }
       .chapter_title{
         position: absolute;
-        width: 560px - $space-m;
+        width: 600px - $space-m;
         height: $font-size-large;
         top: $space-m;
         right: $space-m;
@@ -106,7 +113,7 @@
       }
       .chapter_description{
         position: absolute;
-        width: 560px - $space-m;
+        width: 600px - $space-m;
         height: $font-size-large;
         top: $space-m * 2 + $font-size-large;
         right: $space-m;
@@ -147,7 +154,7 @@
       }
       .texts{
         position: absolute;
-        width: 360px;
+        width: 400px;
         height: 300px;
         bottom: $font-size-xlarge + $space-m * 2;
         right: 200px;
