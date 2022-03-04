@@ -74,7 +74,7 @@
     width: 210px;
     height: unquote('max(180px, 36%)');
     background-color: $ingame-background;
-    border: 2px solid $yellow3;
+    border: 2px solid $window-border;
     border-radius: $radius;
     padding: $space-m;
     display: flex;

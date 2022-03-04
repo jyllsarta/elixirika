@@ -30,11 +30,11 @@
       colorSchemedStyle(card){
         if(card.category === 'normal'){
           return {
-            opacity: 0.8,
+            opacity: 0.6,
           }
         }
         return {
-          backgroundColor: `var(--color-${card.suit}2-${this.characterId})`
+          backgroundColor: `var(--color-${card.suit}1-${this.characterId})`,
         };
       },
     }
