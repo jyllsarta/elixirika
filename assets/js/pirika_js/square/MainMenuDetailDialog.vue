@@ -173,23 +173,6 @@
           .challenges{
             display: flex;
             flex-direction: column;
-            .challenge{
-              display: flex;
-              gap: $space-m;
-              .icon{
-                width: 20px;
-              }
-              .rank{
-                width: 30px;
-                text-align: center;
-              }
-              &.cleared{
-                color: $purple2;
-              }
-              &.not_cleared{
-                opacity: $disabled-opacity;
-              }
-            }
           }
         }
       }
