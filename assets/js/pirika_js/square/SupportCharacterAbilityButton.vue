@@ -27,12 +27,13 @@
     },
     computed: {
       colorSchemedStyleBackground(){
-        if(this.ability.category !== "cardPocket" || !this.ability?.card?.suit){
+        if(!this.ability?.card?.suit){
           return {};
         }
+        const lineStyle = this.ability.category === "cardPocket" ? "dashed" : "solid";
         let style = {
           backgroundColor: `var(--color-${this.ability?.card?.suit}3-${this.character.id})`,
-          border: `1px dashed var(--color-${this.ability?.card?.suit}1-${this.character.id})`,
+          border: `1px ${lineStyle} var(--color-${this.ability?.card?.suit}1-${this.character.id})`,
         };
         return style;
       },
@@ -109,18 +110,6 @@
     }
     &.small{
       width: 53px;
-    }
-    &.x{
-      border: 1px solid $yellow2;
-      background-color: $yellow3;
-    }
-    &.s{
-      border: 1px solid $blue2;
-      background-color: $blue3;
-    }
-    &.h{
-      border: 1px solid $red2;
-      background-color: $red3;
     }
     &.pocket{
       border-width: 1px;
