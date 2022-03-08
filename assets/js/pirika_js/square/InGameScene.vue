@@ -31,6 +31,7 @@
       GameStartPopup(:model="model" @startGame="startGame" :gameStarted="gameStarted")
     KeyHandler(:controller="controller")
     GuiHandler(:controller="controller" @initiate="registerGuiHandler"  @loadScene="loadScene")
+    InGameSoundManager(:model="model")
 </template>
 
 <script lang="typescript">
@@ -51,6 +52,7 @@
     import Controller from "./packs/controller"
     import KeyHandler from "./KeyHandler.vue"
     import GuiHandler from "./GuiHandler.vue"
+    import InGameSoundManager from "./InGameSoundManager.vue"
 
     export default Vue.extend({
     components: {
@@ -69,6 +71,7 @@
       ChallengeClearPopup,
       KeyHandler,
       GuiHandler,
+      InGameSoundManager,
     },
     props: {
       sceneParameter: Object,

@@ -9,6 +9,7 @@ let SeededRandom = require("./seededRandom");
 let Chapter = require("./chapter");
 const Challenge = require("./challenge");
 const MessageManager = require("./message_manager");
+const SoundManager = require("./sound_manager");
 
 module.exports = class Model {
   constructor(characterId, chapterId, seed) {
@@ -23,6 +24,7 @@ module.exports = class Model {
     this.chapterId = chapterId;
     this.challenge = new Challenge();
     this.messageManager = new MessageManager(this);
+    this.soundManager = new SoundManager();
     this.seed = seed;
     this.deck = new Deck();
     this.board = new Board();
