@@ -42,7 +42,7 @@ module.exports = class Controller {
   newGame(characterId, chapterId){
     this.seed = Math.floor(Math.random() * 1000000000);
     this.model = new Model(characterId, chapterId, this.seed);
-    this.model.soundManager.register("reset");
+    this.model.soundManager.register("ok", true);
     return this.model;
   }
 
