@@ -15,6 +15,10 @@
       return {
         sounds: {
           ok: null,
+          reset: null,
+          stack: null,
+          miss: null,
+          star_palette: null,
         }
       }
     },

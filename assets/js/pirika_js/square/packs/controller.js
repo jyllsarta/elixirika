@@ -42,7 +42,6 @@ module.exports = class Controller {
   newGame(characterId, chapterId){
     this.seed = Math.floor(Math.random() * 1000000000);
     this.model = new Model(characterId, chapterId, this.seed);
-    this.model.soundManager.register("ok", true);
     return this.model;
   }
 
@@ -90,6 +89,7 @@ module.exports = class Controller {
       console.warn("cannot stack this card!");
       this.unstageStagedCard();
       this.couldNotSendCard();
+      this.model.soundManager.register("miss", true);
       return;
     }
     card.setSelected(false);
@@ -98,6 +98,10 @@ module.exports = class Controller {
     
     if(card.isSenderCard()){
       this._commitSenderCard(toField);
+      this.model.soundManager.register("star_palette", true);
+    }
+    else{
+      this.model.soundManager.register("stack", true);
     }
     
     this.model.character.getCallback("onSendCard", this.model.chapter.index)(this.model.character, this.model, card, toField);
