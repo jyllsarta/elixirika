@@ -18,12 +18,14 @@
   import draggable from 'vuedraggable'
   import Constants from './packs/constants';
   import Model from './packs/model';
+  import store from './packs/store.js';
 
   export default Vue.extend({
     props: {
       hand: Hand,
       model: Model
     },
+    store,
     components: {
       draggable,
       Card
@@ -60,7 +62,6 @@
       checkMoveTouch(event){
         const {clientX, clientY, type} = event.originalEvent;
         const target = this.findTargetFromTouchEvent(clientX, clientY);
-        console.log(target)
         if(target === "ability"){
           this.prepareSendToAbility();
         }
@@ -134,6 +135,7 @@
       doSend(target, cardId){
         if(cardId === -1){
           console.warn("invalid drag!");
+          this.$store.commit("playSound", {key: "miss", interrupt: true});
           return;
         }
         switch(target){
@@ -158,6 +160,7 @@
       },
       cancelDrag(){
         this.$emit("guiEvent", {type: "cancelDrag"});
+        this.$store.commit("playSound", {key: "miss", interrupt: true});
       },
       sendToAbility(cardId){
         this.$emit("guiEvent", {type: "sendToAbility", cardId: cardId});
