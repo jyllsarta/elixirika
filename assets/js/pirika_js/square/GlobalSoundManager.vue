@@ -19,7 +19,8 @@
           stack: null,
           miss: null,
           star_palette: null,
-        }
+        },
+        volume: 1,
       }
     },
     mounted(){
@@ -28,17 +29,18 @@
     methods: {
       loadSounds(){
         for(let key of Object.keys(this.sounds)){
-          this.sounds[key] = new Audio(`/game/square/sounds/${key}.wav`); 
+          this.sounds[key] = new Audio(`/game/square/sounds/${key}.wav`);
+          this.sounds[key].load();
         }
       },
       playSound(key, interrupt){
-        console.log(key);
-        console.log(this.sounds);        
+        this.doPlaySound(key, interrupt, this.volume);
+      },
+      doPlaySound(key, interrupt, volume){
         if(interrupt){
           this.sounds[key].currentTime = 0;
         }
-        // [0, 1] で指定可能
-        //this.sounds[key].volume = this.volume;
+        this.sounds[key].volume = volume;
         this.sounds[key].play();
       }
     },
