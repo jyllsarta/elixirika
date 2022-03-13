@@ -5,8 +5,8 @@ module.exports = class SoundManager {
   }
 
   // モデル側から音を鳴らしてくれと置いておく
-  register(key, interrupt = false){
-    this.unplayedSounds.push({key: key, interrupt: interrupt});
+  register(key, tone = 0){
+    this.unplayedSounds.push({key, tone});
   }
 
   // コントローラ側から鳴らすべき音を全部鳴らしたら吹っ飛ばす

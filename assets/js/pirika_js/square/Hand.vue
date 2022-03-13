@@ -135,7 +135,7 @@
       doSend(target, cardId){
         if(cardId === -1){
           console.warn("invalid drag!");
-          this.$store.commit("playSound", {key: "miss", interrupt: true});
+          this.$store.commit("playSound", {key: "miss"});
           return;
         }
         switch(target){
@@ -160,7 +160,7 @@
       },
       cancelDrag(){
         this.$emit("guiEvent", {type: "cancelDrag"});
-        this.$store.commit("playSound", {key: "miss", interrupt: true});
+        this.$store.commit("playSound", {key: "miss"});
       },
       sendToAbility(cardId){
         this.$emit("guiEvent", {type: "sendToAbility", cardId: cardId});

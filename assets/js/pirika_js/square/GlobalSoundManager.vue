@@ -50,14 +50,14 @@
         }
         window.sounds = this.sounds;
       },
-      playSound(key, interrupt){
-        this.doPlaySound(key, interrupt, this.volume);
+      playSound(key, tone = 0){
+        this.doPlaySound(key, this.volume, tone);
       },
-      doPlaySound(key, interrupt, volume){
-        var s = this.sounds[key]
-        var source = this.audioContext.createBufferSource()
-        source.buffer = s
+      doPlaySound(key, volume, tone){
+        let source = this.audioContext.createBufferSource();
+        source.buffer = this.sounds[key];
         source.connect(this.audioContext.destination);
+        source.detune.value = source.detune.value += tone * 200;
         source.start(0);
       }
     },
@@ -68,8 +68,8 @@
             return;
           }
           for(let sound of afterSounds){
-            const {key, interrupt} = sound;
-            this.playSound(key, interrupt);
+            const {key, tone} = sound;
+            this.playSound(key, tone);
           }
           this.$store.commit("flushSounds");
         }

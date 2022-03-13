@@ -89,7 +89,7 @@ module.exports = class Controller {
       console.warn("cannot stack this card!");
       this.unstageStagedCard();
       this.couldNotSendCard();
-      this.model.soundManager.register("miss", true);
+      this.model.soundManager.register("miss");
       return;
     }
     card.setSelected(false);
@@ -98,10 +98,11 @@ module.exports = class Controller {
     
     if(card.isSenderCard()){
       this._commitSenderCard(toField);
-      this.model.soundManager.register("special1", true);
+      this.model.soundManager.register("special1");
     }
     else{
-      this.model.soundManager.register("stack", true);
+      const tone = toField.cards.length - 1;
+      this.model.soundManager.register("stack", tone);
     }
     
     this.model.character.getCallback("onSendCard", this.model.chapter.index)(this.model.character, this.model, card, toField);

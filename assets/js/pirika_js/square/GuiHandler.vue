@@ -61,7 +61,7 @@
         const chapterId = this.controller.model.chapterId;
         this.controller.newGame(characterId, chapterId);
         this.controller.operate("fillDraw", true);
-        this.controller.model.soundManager.register("reset", true);
+        this.controller.model.soundManager.register("reset");
       },
       backToMainMenu(_args){
         this.$emit("loadScene", {sceneName: "mainMenu"});

@@ -13,8 +13,8 @@
     },
     store,
     methods: {
-      playSound(key, interrupt){
-        this.$store.commit("playSound", {key, interrupt});
+      playSound(key, tone){
+        this.$store.commit("playSound", {key, tone});
       }
     },
     watch: {
@@ -24,7 +24,7 @@
           return;
         }
         for(let sound of newSounds){
-          this.playSound(sound.key, sound.interrupt);
+          this.playSound(sound.key, sound.tone);
         }
         // 本来はすべての操作はcontrollerを通す規約
         // だが、サウンドマネージャーだけはモデル側から干渉しないし結果の再生にも影響しないので
