@@ -5,6 +5,7 @@
 
 <script lang="typescript">
   import Vue from 'vue';
+  import axios from 'axios';
   import store from './packs/store.js';
 
   export default Vue.extend({
@@ -18,30 +19,46 @@
           reset: null,
           stack: null,
           miss: null,
-          star_palette: null,
+          special1: null,
         },
         volume: 1,
+        audioContext: null,
       }
     },
     mounted(){
       this.loadSounds();
     },
     methods: {
+      loadSound(key, response){
+        this.audioContext.decodeAudioData(response, (buffer) => {
+            this.sounds[key] = buffer;
+        }, function(msg) {console.error(msg)});
+      },
       loadSounds(){
+        this.audioContext = new AudioContext();
         for(let key of Object.keys(this.sounds)){
-          this.sounds[key] = new Audio(`/game/square/sounds/${key}.wav`);
-          this.sounds[key].load();
+          axios.get(`/game/square/sounds/${key}.wav`, { responseType : 'arraybuffer' })
+            .then((results) => {
+              this.loadSound(key, results.data);
+              console.log(results);
+              console.log("OK");
+            })
+            .catch((results) => {
+              console.warn(results);
+              console.warn("NG");
+            })
         }
+        window.sounds = this.sounds;
       },
       playSound(key, interrupt){
         this.doPlaySound(key, interrupt, this.volume);
       },
       doPlaySound(key, interrupt, volume){
-        if(interrupt){
-          this.sounds[key].currentTime = 0;
-        }
-        this.sounds[key].volume = volume;
-        this.sounds[key].play();
+        var s = this.sounds[key]
+        var source = this.audioContext.createBufferSource()
+        source.buffer = s
+        source.connect(this.audioContext.destination);
+        source.start(0);
       }
     },
     watch: {

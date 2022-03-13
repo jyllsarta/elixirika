@@ -98,7 +98,7 @@ module.exports = class Controller {
     
     if(card.isSenderCard()){
       this._commitSenderCard(toField);
-      this.model.soundManager.register("star_palette", true);
+      this.model.soundManager.register("special1", true);
     }
     else{
       this.model.soundManager.register("stack", true);
