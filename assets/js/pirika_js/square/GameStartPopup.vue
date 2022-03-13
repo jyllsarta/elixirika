@@ -28,12 +28,14 @@
   import Vue from 'vue';
   import Model from './packs/model';
   import gsap from 'gsap';
+  import store from './packs/store';
 
   export default Vue.extend({
     props: {
       model: Model,
       gameStarted: Boolean,
     },
+    store,
     computed: {
       chapter(){
         return this.model.chapter;
@@ -45,6 +47,7 @@
     methods: {
       startGame(){
         this.$emit("startGame");
+        this.$store.commit("playSound", {key: "reset"});
       },
       onAnimationEnter(el, completed){
         gsap.fromTo(

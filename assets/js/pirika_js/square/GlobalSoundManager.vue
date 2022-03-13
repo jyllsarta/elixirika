@@ -21,6 +21,9 @@
           stack: null,
           miss: null,
           special1: null,
+          endGame: null,
+          menuOpen: null,
+          menuClose: null,
         },
         volume: 1,
         audioContext: null,
@@ -52,6 +55,9 @@
         this.doPlaySound(key, this.volume, tone);
       },
       doPlaySound(key, volume, tone){
+        if(!this.sounds[key]){
+          console.warn(`undefined sound key: ${key}`)
+        }
         let source = this.audioContext.createBufferSource();
         source.buffer = this.sounds[key];
         source.connect(this.audioContext.destination);

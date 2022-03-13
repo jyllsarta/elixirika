@@ -3,13 +3,15 @@
 </template>
 
 <script lang="typescript">
-    import Vue from 'vue';
-    import Controller from "./packs/controller";
+  import Vue from 'vue';
+  import Controller from "./packs/controller";
+  import store from "./packs/store";
 
-    export default Vue.extend({
+  export default Vue.extend({
     props: {
       controller: Controller
     },
+    store,
     mounted(){
       this.$emit('initiate', this);
     },
@@ -49,6 +51,8 @@
       },
       gracefullyStalemate(_args){
         this.controller.operate("gracefullyStalemate");
+        console.log("end")
+        this.$store.commit("playSound", {key: "endGame"});
       },
       igniteSupportAbility(args){
         this.controller.operate("igniteSupportAbility", args);
@@ -60,11 +64,11 @@
         const characterId = this.controller.model.characterId;
         const chapterId = this.controller.model.chapterId;
         this.controller.newGame(characterId, chapterId);
-        this.controller.operate("fillDraw", true, true);
         this.controller.model.soundManager.register("reset");
       },
       backToMainMenu(_args){
         this.$emit("loadScene", {sceneName: "mainMenu"});
+        this.$store.commit("playSound", {key: "miss"});
       },
       cancelDrag(args){
         this.controller.cancelDrag();

@@ -1,8 +1,8 @@
 <template lang="pug">
   .area
     GeneralButton(
-      @click="showMenu = true"
-      v-if="!showMenu"
+      @click="showMenu"
+      v-if="!showingMenu"
       :disabled="false"
       :flashing="false"
       :width="'160px'"
@@ -10,11 +10,11 @@
       :color="'blue'"
       :label="'メニュー'"
     )
-    .menu(v-if="showMenu")
-      ._back(@click="showMenu = false")
-      .items(v-if="showMenu")
+    .menu(v-if="showingMenu")
+      ._back(@click="closeMenu")
+      .items(v-if="showingMenu")
         GeneralButton(
-          @click="showMenu = false"
+          @click="closeMenu"
           :disabled="false"
           :flashing="false"
           :width="'160px'"
@@ -45,23 +45,33 @@
 <script lang="typescript">
   import Vue from 'vue';
   import GeneralButton from "./GeneralButton.vue";
+  import store from "./packs/store";
 
   export default Vue.extend({
     data(){
       return {
-        showMenu: false,
+        showingMenu: false,
       }
     },
+    store,
     components: {
       GeneralButton
     },
     methods: {
+      showMenu(){
+        this.showingMenu = true;
+        this.$store.commit("playSound", {key: "menuOpen"});
+      },
+      closeMenu(){
+        this.showingMenu = false;
+        this.$store.commit("playSound", {key: "menuClose"});
+      },
       backToMainMenu(){
-        this.showMenu = false;
+        this.showingMenu = false;
         this.$emit("guiEvent", {type: "backToMainMenu"});
       },
       reset(){
-        this.showMenu = false;
+        this.showingMenu = false;
         this.$emit("guiEvent", {type: "reset"});
       },
     }
