@@ -16,6 +16,7 @@
       return {
         sounds: {
           ok: null,
+          draw: null,
           reset: null,
           stack: null,
           miss: null,
@@ -40,15 +41,12 @@
           axios.get(`/game/square/sounds/${key}.wav`, { responseType : 'arraybuffer' })
             .then((results) => {
               this.loadSound(key, results.data);
-              console.log(results);
-              console.log("OK");
             })
             .catch((results) => {
               console.warn(results);
               console.warn("NG");
             })
         }
-        window.sounds = this.sounds;
       },
       playSound(key, tone = 0){
         this.doPlaySound(key, this.volume, tone);
@@ -57,7 +55,7 @@
         let source = this.audioContext.createBufferSource();
         source.buffer = this.sounds[key];
         source.connect(this.audioContext.destination);
-        source.detune.value = source.detune.value += tone * 200;
+        source.detune.value += tone * 200;
         source.start(0);
       }
     },

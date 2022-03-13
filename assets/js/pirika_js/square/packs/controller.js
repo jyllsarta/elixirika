@@ -56,7 +56,7 @@ module.exports = class Controller {
 
   // 手札の引き直し
   // 手札を全て墓地に送る・デッキから引けるだけ引く
-  fillDraw(force=false){
+  fillDraw(force = false, muted = false){
     if(!force && this.model.hand.field.cards.length >= Constants.handCardNumber){
       return;
     }
@@ -69,6 +69,9 @@ module.exports = class Controller {
     }
     this.model.character.getCallback("onFillDraw", this.model.chapter.index)(this.model.character, this.model, sentCardLength);
     this.model.messageManager.register("draw");
+    if(!muted){
+      this.model.soundManager.register("draw");
+    }
   }
 
   sendHandToBoard(handIndex, boardIndex){
