@@ -42,7 +42,7 @@ module.exports = class Controller {
   newGame(characterId, chapterId){
     this.seed = Math.floor(Math.random() * 1000000000);
     this.model = new Model(characterId, chapterId, this.seed);
-    this.fillDraw(false, true);
+    this.operate("fillDraw", false, true);
     return this.model;
   }
 
