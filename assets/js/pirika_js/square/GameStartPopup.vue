@@ -36,6 +36,9 @@
       gameStarted: Boolean,
     },
     store,
+    mounted(){
+      this.$store.commit("playSound", {key: "welcome"});
+    },
     computed: {
       chapter(){
         return this.model.chapter;
@@ -47,7 +50,7 @@
     methods: {
       startGame(){
         this.$emit("startGame");
-        this.$store.commit("playSound", {key: "reset"});
+        this.$store.commit("playSound", {key: "gameStart"});
       },
       onAnimationEnter(el, completed){
         gsap.fromTo(
