@@ -39,3 +39,4 @@ npm-debug.log
 # Square masterdata directory
 
 /assets/js/pirika_js/square/masterdata
+/assets/static

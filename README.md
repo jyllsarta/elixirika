@@ -36,10 +36,23 @@ mix ecto.create
 mix yacto.migrate
 ```
 
+## アセットのリンク
+
+画像や直接配信しているCSSなどの静的ファイルは別リポジトリ https://github.com/jyllsarta/elixirika_assets に格納されています。
+直接参照できるように、シンボリックリンクを張ります。
+以下はelixirika, elixirika_masterdata ともにホームディレクトリにある前提のサンプルです。
+
+```
+cd ~
+git clone git@github.com:jyllsarta/elixirika_assets.git
+cd ~/elixirika/assets/
+ln -s ~/elixirika_assets/static static
+```
+
 ## (Square ゲーム用) マスターデータのリンク
 
 Square というゲームが https://github.com/jyllsarta/elixirika_masterdata を利用しています。
-マスターデータのディレクトリを参照できるようにシンボリックリンクを張ります
+マスターデータのディレクトリを参照できるようにシンボリックリンクを張ります。
 以下はelixirika, elixirika_masterdata ともにホームディレクトリにある前提のサンプルです。
 
 ```
