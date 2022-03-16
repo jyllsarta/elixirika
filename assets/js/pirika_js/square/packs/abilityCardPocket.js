@@ -14,22 +14,20 @@ module.exports = class AbilityCardPocket {
   }
 
   ignite(character, model){
-    const callback = character.getCallback("isAbilityColded", model.chapter.index);
-    if(callback && callback(character, model)){
-      console.warn("cold now!");
-      return;
-    }
     if(!this.card){
       model.messageManager.register("cannotIgniteAbilityCardPocketNoCard");
+      model.soundManager.register("miss");
       return;
     }
     if(model.hand.field.cards.length >= Constants.maxHandCardNumber){
       console.warn("max hand cards!");
       model.messageManager.register("cannotIgniteAbilityCardPocketMaxCard");
+      model.soundManager.register("miss");
       return;
     }
     model.hand.field.addCard(this.card);
     this.card = null;
     model.messageManager.register("abilityCardPocketWithdraw");
+    model.soundManager.register("special2");
   }
 };

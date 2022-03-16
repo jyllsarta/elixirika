@@ -13,13 +13,9 @@ module.exports = class AbilityAddCardWithMp {
   }
 
   ignite(character, model){
-    const callback = character.getCallback("isAbilityColded", model.chapter.index);
-    if(callback && callback(character, model)){
-      console.warn("cold now!");
-      return;
-    }
     if(character.uniqueParameters.mp < this.cost){
       model.messageManager.register("cannotIgniteAbilityMagic");
+      model.soundManager.register("miss");
       console.warn("insufficient mp!");
       return;
     }
@@ -30,5 +26,6 @@ module.exports = class AbilityAddCardWithMp {
       }
     });
     model.messageManager.register("abilityMagic");
+    model.soundManager.register("special2");
   }
 };

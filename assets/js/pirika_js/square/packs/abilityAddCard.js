@@ -11,12 +11,8 @@ module.exports = class AbilityAddCard {
   }
 
   ignite(character, model){
-    const callback = character.getCallback("isAbilityColded", model.chapter.index);
-    if(callback && callback(character, model)){
-      console.warn("cold now!");
-      return;
-    }
     model.hand.field.addCard(this.card.createCopy());
     model.messageManager.register("abilityAddCard");
+    model.soundManager.register("special2");
   }
 };

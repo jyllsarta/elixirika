@@ -18,18 +18,15 @@ module.exports = class AbilityDrawWithMp {
   }
 
   ignite(character, model){
-    const callback = character.getCallback("isAbilityColded", model.chapter.index);
-    if(callback && callback(character, model)){
-      console.warn("cold now!");
-      return;
-    }
     if(character.uniqueParameters.mp < this.cost){
       model.messageManager.register("cannotIgniteAbilityMagic");
+      model.soundManager.register("miss");
       console.warn("insufficient mp!");
       return;
     }
     if(model.hand.field.cards.length >= Constants.maxHandCardNumber){
       console.warn("max hand cards!");
+      model.soundManager.register("miss");
       model.messageManager.register("cannotIgniteAbilityCardPocketMaxCard");
       return;
     }
@@ -39,5 +36,6 @@ module.exports = class AbilityDrawWithMp {
       model.hand.field.addCard(model.deck.field.draw());
     }
     model.messageManager.register("abilityMagic");
+    model.soundManager.register("special2");
   }
 };
