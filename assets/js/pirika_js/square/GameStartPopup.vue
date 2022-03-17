@@ -38,6 +38,7 @@
     store,
     mounted(){
       this.$store.commit("playSound", {key: "welcome"});
+      this.$store.commit("playBgm", "");
     },
     computed: {
       chapter(){
@@ -51,6 +52,7 @@
       startGame(){
         this.$emit("startGame");
         this.$store.commit("playSound", {key: "gameStart"});
+        this.$store.commit("playBgm", this.model.character.bgm);
       },
       onAnimationEnter(el, completed){
         gsap.fromTo(

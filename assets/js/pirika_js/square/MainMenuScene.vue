@@ -41,8 +41,10 @@
   import Chapter from "./packs/chapter";
   import Challenge from "./packs/challenge";
   import axios from "axios";
+  import store from "./packs/store";
 
   export default Vue.extend({
+    store,
     components: {
       CharacterBanner,
       ClearStateTile,
@@ -128,6 +130,7 @@
     },
     mounted(){
       this.fetchMyScore();
+      this.$store.commit("playBgm", "bgm5");
     },
     computed: {
       selectedCharacter(){

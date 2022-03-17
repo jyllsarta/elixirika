@@ -15,6 +15,7 @@ module.exports = class Character4 {
     this.id = 4;
     this.name = "アヤメ";
     this.defaultMessage = "いきますよー！";
+    this.bgm = "bgm4";
 
     this.uniqueParameters = {
       abilities: [
