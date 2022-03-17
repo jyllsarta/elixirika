@@ -1,5 +1,5 @@
 <template lang="pug">
-  .banner(@click="onClick")
+  .banner(@click="onClick" @mouseenter="onHover")
     .base
       img.sheet(:style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}")
       .shadow
@@ -9,16 +9,22 @@
 
 <script lang="typescript">
   import Vue from 'vue';
+  import store from "./packs/store";
 
   export default Vue.extend({
+    store,
     props: {
       // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
       character: Object,
     },
     methods: {
       onClick(){
+        this.$store.commit("playSound", {key: "ok"});
         this.$emit('selected', {characterId: this.character.id});
-      }
+      },
+      onHover(){
+        this.$store.commit("playSound", {key: "hover"});
+      },
     }
   })
 </script>

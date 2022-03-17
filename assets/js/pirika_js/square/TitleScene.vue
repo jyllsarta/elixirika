@@ -42,11 +42,13 @@
   import Vue from 'vue';
   import NameArea from "./NameArea.vue";
   import gsap from 'gsap';
+  import store from "./packs/store";
 
   export default Vue.extend({
     components: {
       NameArea,
     },
+    store,
     data(){
       return {
         closing: false,
@@ -55,6 +57,7 @@
     methods: {
       onClick(){
         this.closing = true;
+        this.$store.commit("playSound", {key: "welcome"});
       },
       onAnimationEnter(el, completed){
         gsap.fromTo(
@@ -86,7 +89,7 @@
     mounted(){
       // シーン飛ばし用
       //this.$emit("loadScene", {sceneName: "mainMenu"});
-      this.$emit("loadScene", {sceneName: "inGame", params: {characterId: 1, chapterId: 1}});
+      //this.$emit("loadScene", {sceneName: "inGame", params: {characterId: 1, chapterId: 1}});
     }
   })
 </script>

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .clear_state_tile(@click="onClick")
+  .clear_state_tile(@click="onClick" @mouseenter="onHover")
     .flake(v-for="index in [0, 1, 2, 3]" :class="{cleared: isCleared(index), completed: isCompleted}")
     .number
       | {{chapter.index}}
@@ -9,8 +9,10 @@
 <script lang="typescript">
   import Vue from 'vue';
   import gsap from 'gsap';
+  import store from "./packs/store";
 
   export default Vue.extend({
+    store,
     props: {
       // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
       character: Object,
@@ -19,6 +21,7 @@
     },
     methods: {
       async onClick(){
+        this.$store.commit("playSound", {key: "ok"});        
         gsap.fromTo(
           this.$refs.flash,
           {
@@ -37,7 +40,10 @@
       isCleared(challengeIndex){
         const challengeId = this.chapter.challenge_ids[challengeIndex];
         return this.challengeClearState.some(x=>x===challengeId);
-      }
+      },
+      onHover(){
+        this.$store.commit("playSound", {key: "hover"});
+      },
     },
     computed: {
       isCompleted(){

@@ -1,6 +1,6 @@
 <template lang="pug">
   .menu_detail_dialog
-    .back(@click="$emit('cancel')")
+    .back(@click="close")
     .dialog
       .tile
         ClearStateTile(:character="character", :chapter="chapter", :challenge-clear-state="challengeClearState")
@@ -46,8 +46,10 @@
   import Vue from 'vue';
   import ClearStateTile from "./ClearStateTile.vue";
   import ChallengeText from "./ChallengeText.vue";
+  import store from "./packs/store";
 
   export default Vue.extend({
+    store,
     props: {
       // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
       character: Object,
@@ -71,6 +73,10 @@
       },
       isCleared(challengeId){
         return this.challengeClearState.some(x=>x===challengeId);
+      },
+      close(){
+        this.$emit('cancel');
+        this.$store.commit("playSound", {key: "miss"});
       }
     }
   })

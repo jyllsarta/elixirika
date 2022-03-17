@@ -27,6 +27,7 @@
           gameEnd: null,
           menuOpen: null,
           menuClose: null,
+          hover: null,
         },
         volume: 1,
         audioContext: null,

@@ -59,8 +59,8 @@
     },
     methods: {
       showMenu(){
-        this.showingMenu = true;
         this.$store.commit("playSound", {key: "menuOpen"});
+        this.showingMenu = true;
       },
       closeMenu(){
         this.showingMenu = false;
