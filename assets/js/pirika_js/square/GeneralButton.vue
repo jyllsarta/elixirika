@@ -1,6 +1,7 @@
 <template lang="pug">
   .button.with_shadow(
     @click="onClick"
+    @mouseenter="onHover"
     :class="buttonClass"
     :style="{width: width, height: height}"
   )
@@ -10,6 +11,7 @@
 
 <script lang="typescript">
   import Vue from 'vue';
+  import store from "./packs/store";
 
   export default Vue.extend({
     props: {
@@ -26,6 +28,10 @@
           return;
         }
         this.$emit('click');
+      },
+      onHover(){
+        this.$store.commit("playSound", {key: "hover"});
+        this.$emit('hover');
       }
     },
     computed: {
@@ -45,7 +51,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.2s;
+    transition: all 0.1s;
     &:hover:not(.disabled) {
       filter: brightness(140%);
       transform: scale(1.05);

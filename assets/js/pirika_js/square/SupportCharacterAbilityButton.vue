@@ -1,7 +1,7 @@
 <template lang="pug">
   .button(
     @click="onClick"
-    @mouseover="$emit('popmouseover')"
+    @mouseover="onHover"
     :class="abilityClass(ability)"
     :style="colorSchemedStyleBackground"
     ref="button"
@@ -12,8 +12,10 @@
 <script lang="typescript">
   import Vue from 'vue';
   import gsap from 'gsap';
+  import store from './packs/store';
 
   export default Vue.extend({
+    store,
     data(){
       return {
       };
@@ -79,6 +81,10 @@
       onClick(){
         this.animate();
         this.$emit('popclick');
+      },
+      onHover(){
+        this.$emit('popmouseover');
+        this.$store.commit("playSound", {key: "hover"});
       }
     },
     watch: {

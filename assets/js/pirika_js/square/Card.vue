@@ -2,7 +2,7 @@
   .card(
     :id="`card-${card.id}`"
     :class="card.viewClass() + `${touchDragging ? '' : ' not_touch'}`"
-    @mouseover="onHover"
+    @mouseenter="onHover"
     :style="colorSchemedStyleBackground"
   )
     .background
@@ -30,9 +30,11 @@
 
 <script lang="typescript">
   import Vue from 'vue';
-  import Card from "./packs/card"
+  import Card from "./packs/card";
+  import store from "./packs/store";
 
   export default Vue.extend({
+    store,
     props: {
       card: Card,
       characterId: Number,
@@ -45,6 +47,7 @@
           return;
         }
         this.$emit("hover", this.card);
+        this.$store.commit("playSound", {key: "hover"});
       }
     },
     computed: {

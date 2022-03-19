@@ -34,8 +34,10 @@
   import Model from './packs/model';
   import StackedIconField from "./StackedIconField.vue";
   import GeneralButton from "./GeneralButton.vue";
+  import store from "./packs/store";
 
   export default Vue.extend({
+    store,
     data: function(){
       return {
         drawing: false,
@@ -64,7 +66,7 @@
         this.drawing = true;
         setTimeout(()=>this.drawing=false, 1000);
         this.$emit("guiEvent", {type: "gracefullyStalemate"});
-      }
+      },
     }
   })
 </script>
