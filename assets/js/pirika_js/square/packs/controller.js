@@ -152,12 +152,8 @@ module.exports = class Controller {
     const emptyPocket = this.model.character.uniqueParameters.abilities?.find(ability=>ability.category === "cardPocket" && ability.card === null && ability.count > 0);
     if(!emptyPocket){
       this.model.messageManager.register("cannotIgniteAbilityCardPocketMaxCard");
+      this.model.soundManager.register("miss");
       console.warn("no empty pocket!");
-      return;
-    }
-    const callback = this.model.character.getCallback("isAbilityColded", this.model.chapter.index);
-    if(callback && callback(this.model.character, this.model)){
-      console.warn("cold now!");
       return;
     }
     const card = this.model.hand.field.cards[handIndex];
@@ -166,6 +162,7 @@ module.exports = class Controller {
     emptyPocket.count -= 1;
     this.model.hand.field.cards.splice(handIndex, 1);
     this.model.messageManager.register("abilityCardPocketSend");
+    this.model.soundManager.register("pocket");
   }
 
   selectHand(handIndex){

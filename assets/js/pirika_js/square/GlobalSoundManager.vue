@@ -28,6 +28,7 @@
           menuOpen: null,
           menuClose: null,
           hover: null,
+          pocket: null,
         },
         bgm: {
           bgm1: null,
