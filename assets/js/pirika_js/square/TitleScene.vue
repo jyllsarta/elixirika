@@ -57,7 +57,7 @@
     methods: {
       onClick(){
         this.closing = true;
-        this.$store.commit("playSound", {key: "welcome"});
+        this.$store.commit("playSound", {key: "gameStart"});
       },
       onAnimationEnter(el, completed){
         gsap.fromTo(
