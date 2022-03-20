@@ -18,6 +18,7 @@
     store,
     data(){
       return {
+        cooltime: false,
       };
     },
     props: {
@@ -62,6 +63,9 @@
       classBySmall(_ability){
         return this.isSmall ? "small" : "";
       },
+      classByCooltime(_ability){
+        return this.cooltime ? "cooltime" : "";
+      },
       abilityClass(ability){
         return [
           this.classByCard(ability),
@@ -70,6 +74,7 @@
           this.classByMagic(ability),
           this.classBySelected(ability),
           this.classBySmall(ability),
+          this.classByCooltime(ability),
         ].join(" ");
       },
       animate(){
@@ -79,6 +84,11 @@
           .to( this.$refs.button, { scale:   1, duration: 0.10 });
       },
       onClick(){
+        if(this.cooltime){
+          return;
+        }
+        this.cooltime = true;
+        setTimeout(()=>this.cooltime=false, 1000);
         this.animate();
         this.$emit('popclick');
       },
@@ -131,6 +141,11 @@
       border-width: 2px;
       border-color: $white;
       filter: brightness(150%);
+    }
+    &.cooltime{
+      border: 1px solid $gray1;
+      background-color: transparent;
+      opacity: $disabled-opacity;
     }
   }
 </style>
