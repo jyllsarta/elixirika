@@ -11,7 +11,7 @@ module.exports = class Character2 {
     this.id = 2;
     this.name = "アリティ";
     this.defaultMessage = "イニシャライズ走りきりました、疎通確認いけます";
-    this.bgm = "bgm2";
+    this.bgm = "bgm3";
 
     this.uniqueParameters = {
       energy: 50,

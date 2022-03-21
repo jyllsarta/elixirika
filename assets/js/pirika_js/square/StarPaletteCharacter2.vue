@@ -29,7 +29,7 @@
 
 <script lang="typescript">
   import Vue from 'vue';
-  import Model from "./packs/model"
+  import Model from "./packs/model";
 
   export default Vue.extend({
     props: {

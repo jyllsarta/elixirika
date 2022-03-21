@@ -9,7 +9,7 @@ module.exports = class Character3 {
     this.id = 3;
     this.name = "ラズ";
     this.defaultMessage = "ラズでーす♡。\n今回も頑張っていきましょうね";
-    this.bgm = "bgm3";
+    this.bgm = "bgm7";
 
     this.uniqueParameters = {
       abilities: [],

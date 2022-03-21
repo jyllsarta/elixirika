@@ -12,7 +12,7 @@ module.exports = class Character1 {
     this.id = 1;
     this.name = "クロネ";
     this.defaultMessage = "はい、こんにちは。\nまずはカード出してみてね";
-    this.bgm = "bgm1";
+    this.bgm = "bgm6";
 
     this.uniqueParameters = {
       // X X 11s 11h を追加する事ができる残り回数
