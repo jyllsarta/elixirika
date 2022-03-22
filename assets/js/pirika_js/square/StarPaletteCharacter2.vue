@@ -4,8 +4,8 @@
       img(src="/images/square/svg/star_palette2.svg")
     .container
       .star(v-for="index in [1,2,3,4,5,6,7,8,9,10]", :class="starClass(index)")
-        .pattern_flash(v-if="currentProgress >= index")
-        .pattern_flash2(v-if="currentProgress >= index")
+        .pattern_flash(v-if="currentProgressCache >= index")
+        .pattern_flash2(v-if="currentProgressCache >= index")
         .fill
     .descriptions
       .description(v-if="!params.banCardGap")
@@ -20,7 +20,7 @@
         | 4: ■  8: ■ ■
     .progress
       .current
-        | {{ currentProgress }}
+        | {{ currentProgressCache }}
       .sep
         | /
       .total
@@ -30,8 +30,10 @@
 <script lang="typescript">
   import Vue from 'vue';
   import Model from "./packs/model";
+  import store from "./packs/store";
 
   export default Vue.extend({
+    store,
     props: {
       model: Model,
     },
@@ -41,7 +43,8 @@
           banSendCard: true,
           banDiscard: true,
           banCardGap: true
-        }
+        },
+        currentProgressCache: 0,
       }
     },
     mounted(){
@@ -83,6 +86,21 @@
       totalProgress(){
         return 10;
       },
+    },
+    watch: {
+      "model.starPalette.fields.length": function(after, before){
+        const afterProgress = this.currentProgress;
+        if(afterProgress - this.currentProgressCache === 2){
+          this.$store.commit("playSound", {key: "special4"});
+        }
+        else if(afterProgress > this.currentProgressCache){
+          this.$store.commit("playSound", {key: "special1"});
+        }
+        else if (afterProgress === this.currentProgressCache && after > before){
+          this.$store.commit("playSound", {key: "special3"});
+        }
+        this.currentProgressCache = afterProgress;
+      }
     }
   })
 </script>
