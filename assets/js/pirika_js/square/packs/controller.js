@@ -102,7 +102,7 @@ module.exports = class Controller {
     
     if(card.isSenderCard()){
       this._commitSenderCard(toField);
-      this.model.soundManager.register("special1");
+      // sender系はスターパレット側から音を鳴らす
     }
     else{
       const tone = toField.cards.length - 1;

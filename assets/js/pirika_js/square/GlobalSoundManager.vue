@@ -22,6 +22,7 @@
           miss: null,
           special1: null,
           special2: null,
+          special3: null,
           welcome: null,
           gameStart: null,
           gameEnd: null,

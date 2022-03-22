@@ -10,7 +10,7 @@
           | {{stringExpression(param)}}
     .progress
       .current
-        | {{ currentProgress }}
+        | {{ currentProgressCache }}
       .sep
         | /
       .total
@@ -19,15 +19,18 @@
 
 <script lang="typescript">
   import Vue from 'vue';
-  import Model from "./packs/model"
+  import Model from "./packs/model";
+  import store from "./packs/store";
 
   export default Vue.extend({
+    store,
     props: {
       model: Model,
     },
     data(){
       return { 
         params: [],
+        currentProgressCache: 0,
       }
     },
     mounted(){
@@ -60,6 +63,18 @@
       totalProgress(){
         return this.params.length;
       },
+    },
+    watch: {
+      "model.starPalette.fields.length": function(after, before){
+        const afterProgress = this.currentProgress;
+        if(afterProgress > this.currentProgressCache){
+          this.$store.commit("playSound", {key: "special1"});
+        }
+        else if (afterProgress === this.currentProgressCache && after > before){
+          this.$store.commit("playSound", {key: "special3"});
+        }
+        this.currentProgressCache = afterProgress;
+      }
     }
   })
 </script>
