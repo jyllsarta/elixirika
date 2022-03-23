@@ -31,6 +31,10 @@
           menuClose: null,
           hover: null,
           pocket: null,
+          attack: null,
+          defeat: null,
+          damage: null,
+          shield: null,
         },
         bgm: {
           bgm1: null,

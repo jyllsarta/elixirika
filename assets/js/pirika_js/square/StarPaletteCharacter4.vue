@@ -42,10 +42,12 @@
 
 <script lang="typescript">
   import Vue from 'vue';
-  import Model from "./packs/model"
+  import Model from "./packs/model";
   import gsap from 'gsap';
+  import store from "./packs/store";
 
   export default Vue.extend({
+    store,
     props: {
       model: Model,
     },
@@ -149,6 +151,7 @@
         if(showDamageValue){
           this.popDamageValue();
         }
+        this.$store.commit("playSound", {key: "attack"});
         // アニメーションの最後に合わせるほうが行儀良くはある
         await this.$delay(1000);
         this.syncCurrentHp();
@@ -164,6 +167,7 @@
         const enemy = this.model.character.uniqueParameters.enemies.find(enemy=>enemy.id === prevId);
         const { power } = enemy.damageHistory[enemy.damageHistory.length - 1];
         this.referenceDamage = power;
+        setTimeout(()=>{this.$store.commit("playSound", {key: "defeat"})}, 1000);
       },
       "foregroundEnemy.hp": function(newHp, prevHp){
         if(prevHp < newHp){
@@ -173,11 +177,15 @@
         if(prevHp && newHp){
           this.referenceDamage = prevHp - newHp;
         }
+        if(newHp > 0){
+          setTimeout(()=>{this.$store.commit("playSound", {key: "damage"})}, 1000);
+        }
       },
       "foregroundEnemy.shield": function(after, before){
         if(before > 0){
           // シールドが削れたタイミングではHPは減らない
           this.onAttack(false);
+          setTimeout(()=>{this.$store.commit("playSound", {key: "shield"})}, 1000);
         }
         if(before === 0 && after > 0){
           this.syncCurrentShield();
