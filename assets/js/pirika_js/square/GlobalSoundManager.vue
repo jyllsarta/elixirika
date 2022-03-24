@@ -9,8 +9,6 @@
   import store from './packs/store.js';
 
   export default Vue.extend({
-    props: {
-    },
     store,
     data(){
       return {
@@ -35,6 +33,7 @@
           defeat: null,
           damage: null,
           shield: null,
+          challenge: null,
         },
         bgm: {
           bgm1: null,
@@ -50,7 +49,11 @@
           bgm11: null,
           bgm12: null,
         },
-        volume: 1,
+        volumes: {
+          master: 0.5,
+          bgm: 0.2,
+          se: 1,
+        },
         audioContext: null,
         bgmBufferSource: null,
       }
@@ -59,6 +62,14 @@
       this.audioContext = new AudioContext();
       this.loadSounds();
       this.loadBgms();
+    },
+    computed: {
+      seVolume(){
+        return this.volumes.master * this.volumes.se;
+      },
+      bgmVolume(){
+        return this.volumes.master * this.volumes.bgm;
+      },
     },
     methods: {
       loadSound(key, response){
@@ -96,7 +107,7 @@
         }
       },
       playSound(key, tone = 0){
-        this.doPlaySound(key, this.volume, tone);
+        this.doPlaySound(key, this.volumes.master, tone);
       },
       doPlaySound(key, volume, tone){
         if(!this.sounds[key]){
@@ -104,8 +115,11 @@
           return;
         }
         let source = this.audioContext.createBufferSource();
+        const gainNode = this.audioContext.createGain();
+        source.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        gainNode.gain.value = volume;
         source.buffer = this.sounds[key];
-        source.connect(this.audioContext.destination);
         source.detune.value += tone * 200;
         source.start(0);
       },
@@ -124,9 +138,12 @@
           return;
         }
         let source = this.audioContext.createBufferSource();
+        const gainNode = this.audioContext.createGain();
+        source.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        gainNode.gain.value = this.bgmVolume;
         source.buffer = this.bgm[key];
         source.loop = true;
-        source.connect(this.audioContext.destination);
         source.start(0);
         this.bgmBufferSource = source;
       }

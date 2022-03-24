@@ -9,8 +9,10 @@
   import Vue from 'vue';
   import Model from './packs/model';
   import gsap from 'gsap';
+  import store from "./packs/store";
 
   export default Vue.extend({
+    store,
     props: {
       model: Model,
     },
@@ -31,6 +33,7 @@
           .to( this.$refs.popup, { x:   0, opacity: 1, duration: 0.30, display: "block"  })
           .to( this.$refs.popup, { x:   0, opacity: 1, duration: 1.50, display: "block"  })
           .to( this.$refs.popup, { x:  80, opacity: 0, duration: 0.30, display: "none"  });
+        setTimeout(()=>{this.$store.commit("playSound", {key: "challenge"})}, 100);
       }
     },
     watch: {
