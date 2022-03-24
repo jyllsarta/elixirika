@@ -1,5 +1,58 @@
 <template lang="pug">
-._sound
+.sound_button_area
+  GeneralButton(
+    @click="showMenu"
+    v-if="!showingMenu"
+    :disabled="false"
+    :flashing="false"
+    :width="'160px'"
+    :height="'40px'"
+    :color="'blue'"
+    :label="'音量'"
+  )
+  .menu(v-if="showingMenu")
+    ._back(@click="closeMenu")
+    .items(v-if="showingMenu")
+      GeneralButton(
+        @click="closeMenu"
+        :disabled="false"
+        :flashing="false"
+        :width="'160px'"
+        :height="'40px'"
+        :color="'blue'"
+        :label="'とじる'"
+      )
+      .text
+        | マスター
+      input.volume(
+        type="range"
+        v-model.number="volumes.master"
+        min="0"
+        max="1"
+        step="any",
+        @change="setVolume"
+      )
+      .text
+        | BGM
+      input.volume(
+        type="range"
+        v-model.number="volumes.bgm"
+        min="0"
+        max="1"
+        step="any",
+        @change="setVolume"
+      )
+      .text
+        | SE
+      input.volume(
+        type="range"
+        v-model.number="volumes.se"
+        min="0"
+        max="1"
+        step="any",
+        @change="setVolume"
+      )
+
 </template>
 
 
@@ -7,9 +60,13 @@
   import Vue from 'vue';
   import axios from 'axios';
   import store from './packs/store.js';
+  import GeneralButton from "./GeneralButton.vue";
 
-  export default Vue.extend({
+export default Vue.extend({
     store,
+    components: {
+      GeneralButton,
+    },
     data(){
       return {
         sounds: {
@@ -56,6 +113,7 @@
         },
         audioContext: null,
         bgmBufferSource: null,
+        showingMenu: false,
       }
     },
     mounted(){
@@ -107,7 +165,7 @@
         }
       },
       playSound(key, tone = 0){
-        this.doPlaySound(key, this.volumes.master, tone);
+        this.doPlaySound(key, this.seVolume, tone);
       },
       doPlaySound(key, volume, tone){
         if(!this.sounds[key]){
@@ -122,6 +180,12 @@
         source.buffer = this.sounds[key];
         source.detune.value += tone * 200;
         source.start(0);
+      },
+      syncCurrentBgmVolume(){
+        if(!this.currentBgmGainNode){
+          return;
+        }
+        this.currentBgmGainNode.gain.value = this.bgmVolume;
       },
       playBgm(key){
         // 無のBGMをプレイ = BGMストップとしたいため再生するBGMの存在チェックをする前に音を止める
@@ -146,6 +210,17 @@
         source.loop = true;
         source.start(0);
         this.bgmBufferSource = source;
+        this.currentBgmGainNode = gainNode;
+      },
+      showMenu(){
+        this.showingMenu = true;
+      },
+      closeMenu(){
+        this.showingMenu = false;
+      },
+      setVolume(){
+        console.log("todo cookie");
+        this.syncCurrentBgmVolume();
       }
     },
     watch: {
@@ -171,4 +246,28 @@
 </script>
 
 <style lang="scss" scoped>
+@import "stylesheets/global_settings";
+.sound_button_area{
+  color: $white;
+  position: absolute;
+  top: $space-m;
+  right: $space-m;
+  .menu{
+    width: 200px;
+    display: flex;
+    padding: $space-m;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $space-m;
+    border-radius: $radius;
+    border: 2px solid $gray2;
+    .text{
+      width: 100%;
+    }
+    input{
+      width: 100%;
+    }
+  }
+}
 </style>

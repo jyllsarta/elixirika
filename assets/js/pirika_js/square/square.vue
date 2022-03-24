@@ -92,6 +92,7 @@
 
   body{
     background-color: $frame-background;
+    overflow: hidden;
   }
 
   #app {

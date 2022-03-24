@@ -200,7 +200,7 @@
     }
     .in_game_menu{
       top: $space-m;
-      right: $space-m;
+      left: $space-m;
     }
     .game_end_popup{
       top: 0;
