@@ -74,11 +74,17 @@ module.exports = class Model {
     return false;
   }
 
-  setForceStalemate(reason){
+  setForceStalemate(reason, isGood){
     this.messageManager.register("forceStalemate");
     this.isForceStalemate = true;
     this.forceStalemateReason = reason;
     this.checkAndUpdateClearedChallenges();
+    if(isGood){
+      this.soundManager.register("end");
+    }
+    else{
+      this.soundManager.register("bad");
+    }
   }
 
   // タッチ・ドラッグに関わらず今握っているカードを取得することを試みる(無選択があり得る)

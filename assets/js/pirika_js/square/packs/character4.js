@@ -43,7 +43,7 @@ module.exports = class Character4 {
 
   checkForceStalemate(model){
     if(this.isAllEnemyDefeated()){
-      model.setForceStalemate("見事 敵を全滅させた！");
+      model.setForceStalemate("見事 敵を全滅させた！", true);
     }
   }
 

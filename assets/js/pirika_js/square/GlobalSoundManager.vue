@@ -91,6 +91,8 @@ export default Vue.extend({
           damage: null,
           shield: null,
           challenge: null,
+          end: null,
+          bad: null,
         },
         bgm: {
           bgm1: null,

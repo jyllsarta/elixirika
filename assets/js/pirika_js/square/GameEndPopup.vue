@@ -34,15 +34,17 @@
   import Vue from 'vue';
   import Model from './packs/model';
   import ChallengeText from "./ChallengeText.vue";
+  import store from "./packs/store";
 
   export default Vue.extend({
+    store,
     props: {
       model: Model,
     },
     data(){
       return {
         sending: false,
-        isMarginTime: true
+        isMarginTime: true,
       }
     },
     mounted(){
@@ -63,6 +65,7 @@
         }
         this.sending = true;
         this.$emit("guiEvent", {type: "endGame"});
+        this.$store.commit("playSound", {key: "ok"})
       },
       isCleared(challengeId){
         return this.model.clearedChallenges.indexOf(challengeId) !== -1;

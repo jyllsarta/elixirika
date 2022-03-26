@@ -41,7 +41,7 @@ module.exports = class Character2 {
   banSendCard(model, sendingField){
     const length = sendingField.cards.length;
     if(length === 2 || length === 3){
-      model.setForceStalemate("「2枚か3枚でスターパレットに送るべからず」の誓いを破った...");
+      model.setForceStalemate("「2枚か3枚でスターパレットに送るべからず」の誓いを破った...", false);
     }
   }
 
@@ -55,13 +55,13 @@ module.exports = class Character2 {
     }
     const diff = newCard.number - prevCard.number;
     if(diff === 2 || diff === 3){
-      model.setForceStalemate("「差が2か3になるようにカードを積むべからず」の誓いを破った...");
+      model.setForceStalemate("「差が2か3になるようにカードを積むべからず」の誓いを破った...", false);
     }
   }
 
   banDiscard(model, sentCardLength){
     if(sentCardLength === 2 || sentCardLength === 3){
-      model.setForceStalemate("「2枚か3枚まとめて捨札にするべからず」の誓いを破った...");
+      model.setForceStalemate("「2枚か3枚まとめて捨札にするべからず」の誓いを破った...", false);
     }
   }
 };
