@@ -118,6 +118,7 @@ export default Vue.extend({
     },
     mounted(){
       this.audioContext = new AudioContext();
+      this.loadVolume();
       this.loadSounds();
       this.loadBgms();
     },
@@ -219,9 +220,18 @@ export default Vue.extend({
         this.showingMenu = false;
       },
       setVolume(){
-        console.log("todo cookie");
+        localStorage.volumeMaster = this.volumes.master;
+        localStorage.volumeBgm = this.volumes.bgm;
+        localStorage.volumeSe = this.volumes.se;
         this.syncCurrentBgmVolume();
-      }
+      },
+      loadVolume: function(){
+        if (localStorage.volumeMaster) {
+          this.volumes.master = localStorage.volumeMaster || 1;
+          this.volumes.bgm = localStorage.volumeBgm || 1;
+          this.volumes.se = localStorage.volumeSe || 1;
+        }
+      },
     },
     watch: {
       "$store.state.sounds": {
