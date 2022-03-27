@@ -4,7 +4,7 @@ const constants = {
   handCardNumber: 4,
   maxHandCardNumber: 10,
   normalCardPerSuit: 10,
-  senderCardPerSuit: 3,
+  senderCardPerSuit: 6,
   senderCardRank: 11,
   maxScorePerField: 100,
   scorePerJewel: 10,

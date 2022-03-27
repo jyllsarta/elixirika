@@ -209,7 +209,7 @@ module.exports = class Controller {
   gracefullyStalemate(){
     this.model.isGracefullyStalemate = true;
     this.model.checkAndUpdateClearedChallenges();
-    this.soundManager.register("end");
+    this.model.soundManager.register("end");
   }
 
   sendPlayLog(){

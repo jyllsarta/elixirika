@@ -27,6 +27,7 @@ module.exports = class Field {
 
   shuffle(seededRandom){
     let list = this.cards;
+
     for (var i = list.length - 1; i > 0; i--) {
       var j = seededRandom.randInt(0, i);
       if (i == j) continue;
@@ -34,6 +35,18 @@ module.exports = class Field {
       list[i] = list[j];
       list[j] = k;
     }
+
+    let preservedSenders = [];
+    for(let _index of [1,2]){
+      let idx = list.findIndex(card=>card.isSenderCard());
+      console.log(idx);
+      if(idx !== -1){
+        preservedSenders.push(list.splice(idx, 1)[0]);
+      }
+    }
+    console.log(preservedSenders);
+    list = list.concat(preservedSenders);
+
     this.cards = list;
   }
 

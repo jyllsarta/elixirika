@@ -26,7 +26,7 @@ module.exports = class Deck {
       }
     }
     for(let i = 1; i <= Constants.senderCardPerSuit; ++i){
-      for(let suit of ["s", "s", "h", "h"]){
+      for(let suit of ["s", "h"]){
         this.field.addCard(new Card(Constants.senderCardRank, suit, "sender"));
       }
     }
