@@ -19,8 +19,8 @@ module.exports = class Character4 {
 
     this.uniqueParameters = {
       abilities: [
-        new AbilityDamageWithMp(1, 3, 40),
-        new AbilityAddCardWithMp(2, [new Card( 11, "s", "sender"), new Card( 11, "h", "sender")], 20),
+        new AbilityDamageWithMp(1, 5, 60),
+        new AbilityAddCardWithMp(2, [new Card( 11, "s", "sender"), new Card( 11, "h", "sender")], 40),
         new AbilityDrawWithMp(3, 1, 2),
       ],
       // initializeEnemy で実体化する

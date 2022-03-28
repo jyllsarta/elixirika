@@ -193,6 +193,7 @@
       height: 100%;
       top: unquote('max(100px, 20%)');
       right: $space-m;
+      pointer-events: none;
     }
     .card_game_panel{
       bottom: $space-m;
