@@ -52,7 +52,8 @@
       gap: $space-s;
       flex-wrap: wrap;
       align-items: center;
-      padding: $space-m;
+      padding-top: $space-m;
+      padding-bottom: $space-m;
       .card{
         background-color: $white;
         width: $space-s;
