@@ -158,21 +158,35 @@
       },
     },
     watch: {
-      // HPさがる ID変化あり: 攻撃で倒したに違いない 
-      // HPあがる ID変化あり: 攻撃で倒したに違いない
+      // HPさがる ID変化あり: 攻撃で倒したに違いない
+      // HPあがる ID変化あり: 攻撃で倒したに違いない もしくはリセット
       // HPさがる ID変化なし: 攻撃で削ったに違いない
-      // HPあがる ID変化なし: そんなことある？ 現状の実装ではないが、増えてる場合はおそらく攻撃エフェクトは出したくなさそう
+      // HPあがる ID変化なし: リセット
       "foregroundEnemy.id": function(newId, prevId){
-        this.onAttack(true);
+        const newEnemy = this.model.character.uniqueParameters.enemies.find(enemy=>enemy.id === newId);
         const enemy = this.model.character.uniqueParameters.enemies.find(enemy=>enemy.id === prevId);
+        // リセット検出 出現順が巻き戻っていたら演出しない
+        if(newEnemy?.order < enemy?.order){
+          console.log("ID巻き戻り検出")
+          this.syncCurrentHp();
+          return;
+        }
+        this.onAttack(true);
         const { power } = enemy.damageHistory[enemy.damageHistory.length - 1];
         this.referenceDamage = power;
         setTimeout(()=>{this.$store.commit("playSound", {key: "defeat"})}, 1000);
       },
       "foregroundEnemy.hp": function(newHp, prevHp){
+        // リセット検出 ヒストリーが空なら演出しない
+        console.log(this.foregroundEnemy.damageHistory);
+        if(this.foregroundEnemy.damageHistory.length === 0){
+          this.syncCurrentHp();
+          return;
+        }
         if(prevHp < newHp){
           return;
         }
+        
         this.onAttack(true);
         if(prevHp && newHp){
           this.referenceDamage = prevHp - newHp;

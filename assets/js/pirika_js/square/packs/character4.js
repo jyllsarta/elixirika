@@ -73,6 +73,7 @@ module.exports = class Character4 {
     for(let param of enemyParameters){
       let enemy = {
         id: param.id,
+        order: param.order,
         hp: param.hp,
         hpMax: param.hp,
         image: param.image,
