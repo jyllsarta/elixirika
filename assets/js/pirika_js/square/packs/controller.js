@@ -69,9 +69,9 @@ module.exports = class Controller {
       this.model.hand.field.addCard(this.model.deck.field.draw());
     }
     this.model.character.getCallback("onFillDraw", this.model.chapter.index)(this.model.character, this.model, sentCardLength);
-    this.model.messageManager.register("draw");
     if(!muted){
       this.model.soundManager.register("draw");
+      this.model.messageManager.register("draw");
     }
   }
 
@@ -185,7 +185,7 @@ module.exports = class Controller {
     const { index } = args;
     const ability = character.uniqueParameters.abilities[index];
     if(!ability){
-      console.warn(`cannot ignite ability!`)
+      console.warn(`cannot ignite ability!`);
       return;
     }
     if(ability.isRemovedAfterIgnite){
