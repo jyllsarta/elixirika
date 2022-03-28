@@ -82,11 +82,11 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
 
-  $palette_gold: #E1CC87;
-  $palette_gold2: #fff7dd;
-  $palette_base: #1F2D4A;
-  $palette_base2: #2f3a52;
-  $palette_expected: #be82b9;
+  $palette_gold: #96ecc4;
+  $palette_gold2: #ddf5ff;
+  $palette_base: #1f4a3d;
+  $palette_base2: #2f523a;
+  $palette_expected: #cde076;
 
   .star_palette{
     position: absolute;
@@ -105,7 +105,7 @@
       top: 0;
       left: 10%;
       width: 80%;
-      height: 80%;
+      height: 72%;
       display: flex;
       align-items: center;
       justify-content: space-around;
@@ -165,7 +165,7 @@
       position: absolute;
       width: 30%;
       height: 30px;
-      bottom: 10px;
+      bottom: 24px;
       left: 35%;
       display: flex;
       justify-content: center;
