@@ -61,8 +61,7 @@
   import axios from 'axios';
   import store from './packs/store.js';
   import GeneralButton from "./GeneralButton.vue";
-
-export default Vue.extend({
+  export default Vue.extend({
     store,
     components: {
       GeneralButton,
@@ -133,6 +132,10 @@ export default Vue.extend({
       },
     },
     methods: {
+      decrypt(binary){
+        // 直ダウンロードしても再生不可能なバイナリにする
+        return binary.slice(6);
+      },
       loadSound(key, response){
         this.audioContext.decodeAudioData(response, (buffer) => {
             this.sounds[key] = buffer;
@@ -145,9 +148,10 @@ export default Vue.extend({
       },
       loadSounds(){
         for(let key of Object.keys(this.sounds)){
-          axios.get(`/game/square/sounds/${key}.wav`, { responseType : 'arraybuffer' })
+          axios.get(`/game/square/sounds/${key}.wav.enc`, { responseType : 'arraybuffer' })
             .then((results) => {
-              this.loadSound(key, results.data);
+              const decrypted = this.decrypt(results.data);
+              this.loadSound(key, decrypted);
             })
             .catch((results) => {
               console.warn(results);
@@ -157,7 +161,7 @@ export default Vue.extend({
       },
       loadBgms(){
         for(let key of Object.keys(this.bgm)){
-          axios.get(`/game/square/sounds/bgm/${key}.mp3`, { responseType : 'arraybuffer' })
+          axios.get(`/game/square/sounds/bgm/${key}.mp3.enc`, { responseType : 'arraybuffer' })
             .then((results) => {
               this.loadBgm(key, results.data);
             })
