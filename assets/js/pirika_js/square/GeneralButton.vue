@@ -60,7 +60,7 @@
       opacity: $disabled-opacity;
     }
     &.flashing{
-      filter: brightness(140%);
+      animation: light 1.5s linear alternate infinite;
     }
     &:active:not(.disabled) {
       background-color: $white;
@@ -73,6 +73,18 @@
     &.blue{
       border: 2px solid $blue1;
       background-color: $blue3;
+    }
+  }
+
+  @keyframes light {
+    0% {
+      filter: brightness(180%);
+    }
+    40% {
+      filter: brightness(120%);
+    }
+    100% {
+      filter: brightness(100%);
     }
   }
 </style>
