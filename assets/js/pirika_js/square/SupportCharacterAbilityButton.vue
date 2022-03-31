@@ -52,8 +52,9 @@
         return ability.category.endsWith("Mp") ? "magic" : "";
       },
       classByCost(ability){
+        // MP制でなければ基本的に全部使える
         if(!this.character.hasSufficientMp){
-          return "";
+          return "enabled";
         }
         return this.character.hasSufficientMp(ability.cost) ? "enabled" : "disabled";
       },
@@ -114,10 +115,8 @@
     width: 114px;
     transition: all 0.3s; 
     @include centeringWithBorder($height: 34px, $border: 2px);
-    &.enabled{
-      &:hover{
-        transform: scale(1.2);
-      };
+    &.enabled:hover{
+      transform: scale(1.2);
     };
     &.disabled{
       border: 1px solid $gray1;
