@@ -33,16 +33,16 @@
     },
     methods: {
       shouldBeCompressed(index){
-        const threshold = this.field.cards.length - 10;
+        const threshold = this.field.cards.length - 5;
         return index < threshold;
       }
     },
     computed: {
       compressedCards(){
-        return this.field.cards.slice(0, -10);
+        return this.field.cards.slice(0, -5);
       },
       normalCards(){
-        return this.field.cards.slice(-10);
+        return this.field.cards.slice(-5);
       },
       colorSchemedStyle(){
         return {
