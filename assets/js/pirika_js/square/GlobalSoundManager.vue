@@ -208,6 +208,9 @@
           setTimeout(()=>{this.playBgm(key)}, 1000);
           return;
         }
+        setTimeout(()=>{this.doPlayBgm(key)}, 500);
+      },
+      doPlayBgm(key){
         let source = this.audioContext.createBufferSource();
         const gainNode = this.audioContext.createGain();
         source.connect(gainNode);
