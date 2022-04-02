@@ -3,7 +3,7 @@
     .background.with_drop_shadow
       img(src="/images/square/svg/star_palette2.svg")
     .container
-      .star(v-for="index in [1,2,3,4,5,6,7,8,9,10]", :class="starClass(index)")
+      .star(v-for="index in [1,2,3,4,5,6,7,8,9,10,11,12]", :class="starClass(index)")
         .pattern_flash(v-if="currentProgressCache >= index")
         .pattern_flash2(v-if="currentProgressCache >= index")
         .fill
@@ -17,7 +17,7 @@
       .description(v-if="params.banCardGap")
         | 差が2か3になるようにカードを積むべからず
       .description
-        | 4: ■  8: ■ ■
+        | 4: ■  8: ■ ■ ■
     .progress
       .current
         | {{ currentProgressCache }}
@@ -67,7 +67,7 @@
           return 1;
         }
         if(length === 8){
-          return 2;
+          return 3;
         }
         return 0        
       },
@@ -84,13 +84,13 @@
         return this.model.starPalette.arityStyleScore();
       },
       totalProgress(){
-        return 10;
+        return 12;
       },
     },
     watch: {
       "model.starPalette.fields.length": function(after, before){
         const afterProgress = this.currentProgress;
-        if(afterProgress - this.currentProgressCache === 2){
+        if(afterProgress - this.currentProgressCache === 3){
           this.$store.commit("playSound", {key: "special4"});
         }
         else if(afterProgress > this.currentProgressCache){
@@ -149,7 +149,7 @@
       display: flex;
       align-items: center;
       justify-content: space-around;
-      gap: $space-ll;
+      gap: $space-m;
       .star{
         position: relative;
         border: 2px solid $palette_gold;

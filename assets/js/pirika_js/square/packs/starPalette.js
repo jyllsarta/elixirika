@@ -27,11 +27,11 @@ module.exports = class StarPalette {
     return this.fields.reduce((x,y)=>x+y.score(), 0);
   }
 
-  // アリティ視点でのスコア は 4を1点、 8を2点として数える
+  // アリティ視点でのスコア は 4を1点、 8を3点として数える
   arityStyleScore(){
     const lengths = this.cardLengthList();
     const fours = lengths.filter(x=>x===4).length;
     const eights = lengths.filter(x=>x===8).length;
-    return fours + eights * 2;
+    return fours + eights * 3;
   }
 };
