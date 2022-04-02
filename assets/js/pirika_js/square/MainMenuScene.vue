@@ -11,6 +11,7 @@
           CharacterBanner(
             :character="characters[characterId]"
             @selected="onCharacterSelected",
+            :bestChapter="findBestChapter(characterId)"
           )
         .tile(v-for="chapter in chapters(characterId)", :key="chapter.id")
           ClearStateTile(
@@ -98,10 +99,16 @@
       highScore(chapter){
         return this.userStatus.high_score[chapter.id] || 0;
       },
+      isChallengeCleared(chapterId, challengeId){
+        const status = this.userStatus.challenges[chapterId]?.indexOf(challengeId);
+        return status !== undefined && status !== -1;
+      },
+      isAllChallengeCleared(chapter){
+        return chapter.challenge_ids.every(x=>this.isChallengeCleared(chapter.id, x));
+      },
       findBestChapter(characterId){
         const chapters = this.chapters(characterId);
-        console.log(chapters)
-        return chapters.find(chapter=>!chapter.challenge_ids.every(x=>this.userStatus.challenges[chapter.id]?.indexOf(x) !== -1)) || chapters[0];
+        return chapters.find(chapter=>!this.isAllChallengeCleared(chapter)) || chapters[chapters.length - 1];
       },
       fetchMyScore(){
         const params = {

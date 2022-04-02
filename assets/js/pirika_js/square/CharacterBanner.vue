@@ -3,8 +3,11 @@
     .base
       img.sheet(:style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}")
       .shadow
-      .name
-        | {{character.name}}
+      .names
+        .name
+          | {{character.name}}
+        .next
+          | NEXT: {{bestChapterIndex}}
 </template>
 
 <script lang="typescript">
@@ -16,6 +19,12 @@
     props: {
       // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
       character: Object,
+      bestChapter: Object,
+    },
+    computed: {
+      bestChapterIndex(){
+        return this.bestChapter?.index || "-";
+      }
     },
     methods: {
       onClick(){
@@ -54,13 +63,20 @@
         // TODO: もしかするとキャラ固有色みたいなものをグラデーションに指定するときれいかも
         background: linear-gradient(to left, $ingame-background 10%, transparent 120%);        
       }
-      .name{
-        font-size: $font-size-medium;
+      .names{
         position: absolute;
         bottom: 0;
         right: 0;
         padding: $space-m;
-        line-height: 100%;
+        .name{
+          font-size: $font-size-medium;
+          line-height: 100%;
+        }
+        .next{
+          transition: font-size 0.1s;
+          font-size: 0;
+          line-height: 100%;
+        }
       }
       &:hover{
         .sheet{
@@ -68,6 +84,21 @@
           background-position: 50px 30%;
         }
         color: $yellow1;
+        .names{
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          padding: $space-m;
+          .name{
+            font-size: $font-size-medium;
+            line-height: 100%;
+          }
+          .next{
+            transition: font-size 0.1s;
+            font-size: $font-size-medium;
+            line-height: 100%;
+          }
+        }
       }
     }
   }
