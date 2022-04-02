@@ -37,7 +37,12 @@
       transition(name="win-character")
         .cleared_character(v-if="!foregroundEnemy.hp")
           .img
-            img(src="/images/square/characters/ayame2.png")            
+            img(src="/images/square/characters/ayame2.png")
+      .notes
+        .note(v-if="thereIsMaxDamageEnemy")
+          | スピカは3以上のダメージを3にする
+        .note(v-if="thereIsShieldEnemy")
+          | 盾はドローボタンで引き直すと復活する
 </template>
 
 <script lang="typescript">
@@ -70,7 +75,13 @@
       },
       backgroundEnemies(){
         return this.aliveEnemies.slice(1, Math.inf);
-      }
+      },
+      thereIsMaxDamageEnemy(){
+        return this.aliveEnemies.some(enemy=>enemy.maxDamage !== -1);
+      },
+      thereIsShieldEnemy(){
+        return this.aliveEnemies.some(enemy=>enemy.shieldMax > 0);
+      },
     },
     methods: {
       syncCurrentHp(){
@@ -362,6 +373,13 @@
         width: 100%;
         height: 100%;
       }
+    }
+
+    .notes{
+      font-size: $font-size-mini;
+      position: absolute;
+      right: 3px;
+      bottom: 3px;
     }
 
     .hp1{
