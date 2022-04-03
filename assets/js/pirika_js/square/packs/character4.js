@@ -19,13 +19,14 @@ module.exports = class Character4 {
 
     this.uniqueParameters = {
       abilities: [
-        new AbilityDamageWithMp(1, 5, 60),
-        new AbilityAddCardWithMp(2, [new Card( 11, "s", "sender"), new Card( 11, "h", "sender")], 40),
-        new AbilityDrawWithMp(3, 1, 2),
+        new AbilityDamageWithMp(1, 5, 70),
+        new AbilityAddCardWithMp(2, [new Card( 11, "s", "sender"), new Card( 11, "h", "sender")], 50),
+        new AbilityDrawWithMp(3, 1, 4),
       ],
       // initializeEnemy で実体化する
       enemies: [],
-      mp: 0,
+      mp: 50,
+      maxMp: 100,
     }
     this.defaultCallback = new Character4_Default();
     this.callbacks = {

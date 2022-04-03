@@ -3,7 +3,7 @@
     .index
       | アヤメの忍法帖
     .mp
-      | MP: {{character.uniqueParameters.mp}}
+      | MP: {{character.uniqueParameters.mp}} {{maxMpMessage}}
     .bar
       .bg
       .current(:style="{width: mpBarWidth}")
@@ -42,6 +42,12 @@
         const percentage = Math.min(this.character.uniqueParameters.mp / 100, 1) * 100;
         console.log(percentage)
         return `${percentage}%`;
+      },
+      maxMpMessage(){
+        if(this.character.uniqueParameters.mp >= this.character.uniqueParameters.maxMp){
+          return "MAX!";
+        }
+        return "";
       }
     },
     methods: {

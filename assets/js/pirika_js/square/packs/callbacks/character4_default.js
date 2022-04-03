@@ -13,7 +13,11 @@ module.exports = class Character4_Default {
   onSendToStarPalette = (character, model, field) => {
     const power = field.cards.length;
     character.damageToNextEnemy(power, model, false);
-    character.uniqueParameters.mp += field.score();
+    const maxMp = character.uniqueParameters.maxMp;
+    const currentMp = character.uniqueParameters.mp;
+    if(currentMp < maxMp){
+      character.uniqueParameters.mp = Math.min(maxMp, currentMp + field.score());
+    }
     model.calculateScore();
   }
 
