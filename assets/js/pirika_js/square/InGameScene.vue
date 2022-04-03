@@ -171,6 +171,7 @@
     .support_character_message{
       top: 110px;
       left: $space-m;
+      pointer-events: none;
     }
     .support_character_ability{
       bottom: $space-m;
