@@ -55,11 +55,16 @@
         return ability.category.endsWith("Mp") ? "magic" : "";
       },
       classByCost(ability){
-        // MP制でなければ基本的に全部使える
-        if(!this.character.hasSufficientMp){
-          return "enabled";
+        // MP制の世界
+        if(this.character.hasSufficientMp){
+          return this.character.hasSufficientMp(ability.cost) ? "enabled" : "disabled";
         }
-        return this.character.hasSufficientMp(ability.cost) ? "enabled" : "disabled";
+        // シャッフルはカウント制の世界
+        if(ability.category === "shuffle"){
+          return ability.count > 0 ? "enabled" : "disabled";
+        }
+        // 原則は使える
+        return "enabled"
       },
       classBySelected(_ability){
         return this.isSelected ? "selected" : "";
@@ -73,9 +78,9 @@
       abilityClass(ability){
         return [
           this.classByCard(ability),
+          this.classByShuffle(ability),
           this.classByCost(ability),
           this.classByPocket(ability),
-          this.classByShuffle(ability),
           this.classByMagic(ability),
           this.classBySelected(ability),
           this.classBySmall(ability),
@@ -122,6 +127,13 @@
     &.enabled:hover{
       transform: scale(1.2);
     };
+    &.shuffle{
+      border-width: 1px;
+      border-style: dotted;
+      border-color: $blue1;
+      background-color: $blue3;
+      border-radius: $radius;
+    }
     &.disabled{
       border: 1px solid $gray1;
       background-color: transparent;
@@ -133,13 +145,6 @@
     &.pocket{
       border-width: 1px;
       border-style: dashed;
-    }
-    &.shuffle{
-      border-width: 1px;
-      border-style: dotted;
-      border-color: $blue1;
-      background-color: $blue3;
-      border-radius: $radius;
     }
     &.magic{
       padding: 0;
