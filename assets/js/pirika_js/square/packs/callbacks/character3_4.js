@@ -1,14 +1,16 @@
 let Card = require("../card");
 let AbilityAddCard = require("../abilityAddCard");
 let AbilityCardPocket = require("../abilityCardPocket");
+let AbilityShuffle = require("../abilityShuffle");
 
 module.exports = class Character3_4 {
   onGameStart(character, model){
     character.uniqueParameters.abilities = [
       new AbilityCardPocket(1),
       new AbilityCardPocket(2),
-      new AbilityAddCard(3, new Card( 0, "x", "special")),
+      new AbilityShuffle(3, 3),
       new AbilityAddCard(4, new Card( 0, "x", "special")),
+      new AbilityAddCard(5, new Card( 0, "x", "special")),
     ]
   }
 

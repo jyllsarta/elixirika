@@ -122,11 +122,8 @@
   .button{
     padding: $space-s;
     width: 114px;
-    transition: all 0.3s; 
+    transition: all 0.3s;
     @include centeringWithBorder($height: 34px, $border: 2px);
-    &.enabled:hover{
-      transform: scale(1.2);
-    };
     &.shuffle{
       border-width: 1px;
       border-style: dotted;
@@ -162,5 +159,8 @@
       background-color: transparent;
       opacity: $disabled-opacity;
     }
+    &.enabled:hover{
+      transform: scale(1.2);
+    };
   }
 </style>
