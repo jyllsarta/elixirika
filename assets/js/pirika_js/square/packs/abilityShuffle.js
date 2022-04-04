@@ -20,7 +20,8 @@ module.exports = class AbilityShuffle {
     }
     model.hand.field.sendAllCardTo(model.deck.field);
     model.deck.shuffle(model.seededRandom);
-    for(let i = 0; i < Constants.handCardNumber; ++i){
+    const maxCount = Math.min(model.deck.field.cards.length, Constants.handCardNumber);
+    for(let i = 0; i < maxCount; ++i){
       model.hand.field.addCard(model.deck.field.draw());
     }
     this.count--;
