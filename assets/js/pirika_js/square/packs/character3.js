@@ -3,6 +3,7 @@ let Character3_1 = require("./callbacks/character3_1");
 let Character3_2 = require("./callbacks/character3_2");
 let Character3_3 = require("./callbacks/character3_3");
 let Character3_4 = require("./callbacks/character3_4");
+let AbilityShuffle = require("./abilityShuffle");
 
 module.exports = class Character3 {
   constructor(){
@@ -12,7 +13,9 @@ module.exports = class Character3 {
     this.bgm = "bgm7";
 
     this.uniqueParameters = {
-      abilities: [],
+      abilities: [
+        new AbilityShuffle(1, 3),
+      ],
     };
     this.defaultCallback = new Character3_Default();
     this.callbacks = {

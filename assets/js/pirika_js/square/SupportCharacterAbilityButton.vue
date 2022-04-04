@@ -48,6 +48,9 @@
       classByPocket(ability){
         return ability.category === "cardPocket" ? "pocket" : "";
       },
+      classByShuffle(ability){
+        return ability.category === "shuffle" ? "shuffle" : "";
+      },
       classByMagic(ability){
         return ability.category.endsWith("Mp") ? "magic" : "";
       },
@@ -72,6 +75,7 @@
           this.classByCard(ability),
           this.classByCost(ability),
           this.classByPocket(ability),
+          this.classByShuffle(ability),
           this.classByMagic(ability),
           this.classBySelected(ability),
           this.classBySmall(ability),
@@ -129,6 +133,13 @@
     &.pocket{
       border-width: 1px;
       border-style: dashed;
+    }
+    &.shuffle{
+      border-width: 1px;
+      border-style: dotted;
+      border-color: $blue1;
+      background-color: $blue3;
+      border-radius: $radius;
     }
     &.magic{
       padding: 0;
