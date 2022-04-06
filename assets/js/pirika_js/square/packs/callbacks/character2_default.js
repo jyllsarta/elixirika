@@ -10,6 +10,7 @@ module.exports = class Character2_Default {
     if(banSendCard){
       character.banSendCard(model, field);
     }
+    model.calculateScore();
   }
 
   onSendCard(character, model, card, field){
@@ -27,7 +28,7 @@ module.exports = class Character2_Default {
   }
 
   calculateScore(character, model){
-    return character.uniqueParameters.score;
+    return model.starPalette.score();
   }
 
   starPaletteParameter(){
