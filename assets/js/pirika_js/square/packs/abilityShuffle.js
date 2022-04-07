@@ -25,7 +25,7 @@ module.exports = class AbilityShuffle {
       model.hand.field.addCard(model.deck.field.draw());
     }
     this.count--;
-    model.messageManager.register("abilityCardPocketSuffle");
+    model.messageManager.register("abilitySuffle");
     model.soundManager.register("special2");
   }
 };
