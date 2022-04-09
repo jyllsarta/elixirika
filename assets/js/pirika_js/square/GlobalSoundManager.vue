@@ -211,6 +211,10 @@
         setTimeout(()=>{this.doPlayBgm(key)}, 500);
       },
       doPlayBgm(key){
+        // カエルの歌対策で、こっちでも音を止める
+        if(this.bgmBufferSource){
+          this.bgmBufferSource.stop();
+        }
         let source = this.audioContext.createBufferSource();
         const gainNode = this.audioContext.createGain();
         source.connect(gainNode);
