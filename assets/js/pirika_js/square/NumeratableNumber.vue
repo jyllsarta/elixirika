@@ -1,5 +1,5 @@
 <template lang="pug">
-._number
+._number(:class="{changing}")
   | {{Math.floor(currentNumber)}}
 </template>
 
@@ -7,12 +7,14 @@
 export default {
   props: {
     number: Number,
-    speed: Number
+    speed: Number,
+    scaled: Boolean,
   },
   data: ()=>{
     return {
       currentNumber: -1,
       updateRatio: 0.1, // 毎フレーム何％目標値に近づけるか
+      changing: false,
     }
   },
   computed: {
@@ -31,7 +33,9 @@ export default {
   methods:{
     react(){
       this.currentNumber = (1 - this.updateRatio) * this.currentNumber + (this.updateRatio) * this.number;
+      this.changing = true;
       if(Math.abs(this.currentNumber - this.number) < 0.8){
+        setTimeout(()=>this.changing = false, 1000);
         this.currentNumber = this.number;
       }
       if(Math.floor(this.currentNumber) != Math.floor(this.number)){
@@ -43,4 +47,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+._number{
+  transition: transform 0.1s linear;
+}
+.changing{
+  transform: scale(3) translateY(-3px);
+}
 </style>

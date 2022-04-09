@@ -3,7 +3,12 @@
     .index
       | アヤメの忍法帖
     .mp
-      | MP: {{character.uniqueParameters.mp}} {{maxMpMessage}}
+      span
+        | MP:
+      span
+        NumeratableNumber(:number="character.uniqueParameters.mp", :speed="0.1", :scaled="true" class="mpvalue")
+      span
+        | {{maxMpMessage}}
     .bar
       .bg
       .current(:style="{width: mpBarWidth}")
@@ -24,6 +29,7 @@
 <script lang="typescript">
   import Vue from 'vue';
   import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue"
+  import NumeratableNumber from "./NumeratableNumber.vue";
 
   export default Vue.extend({
     data(){
@@ -31,7 +37,8 @@
       };
     },
     components: {
-      SupportCharacterAbilityButton
+      SupportCharacterAbilityButton,
+      NumeratableNumber,
     },
     props: {
       character: Object,
@@ -77,6 +84,14 @@
     .index{
       width: 100%;
       text-align: center;
+    }
+    .mp{
+      display: flex;
+      gap: $space-m;
+      .mpvalue{
+        background-color: $ingame-background;
+        border-radius: $radius;
+      }
     }
     .bar{
       width: 100%;

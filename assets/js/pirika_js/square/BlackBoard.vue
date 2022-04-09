@@ -7,7 +7,7 @@
         .label
           | スコア：
         .value
-          NumeratableNumber(:number="model.score", :speed="0.4")
+          NumeratableNumber(:number="model.score", :speed="0.1", :scaled="true")
       .delta(ref="delta")
         | +{{ delta }}
     .challenges
