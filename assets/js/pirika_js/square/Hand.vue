@@ -31,16 +31,39 @@
       Card
     },
     computed: {
-      cards(){
+      actualCards(){
         return this.hand.field.cards;
       },
     },
     data(){
       return {
         touchDragging: false,
+        cards: [],
       }
     },
+    mounted(){
+      this.react();
+    },
+    watch: {
+      actualCards(){
+        this.react();
+      },
+    },
     methods: {
+      react(){
+        const actualCards = this.actualCards;
+        // なくなったカードを消す
+        this.cards = this.cards.filter(card=>actualCards.findIndex(a=>a.id === card.id) !== -1);
+        // 追加されたカードがあれば一つ足す
+        const addedCard = actualCards.find(a=>this.cards.findIndex(card=>card.id === a.id) === -1);
+        if(addedCard){
+          this.cards.push(addedCard);
+        }
+        // 少し待つ
+        if(this.cards.length  !== actualCards.length){
+          setTimeout(()=>this.react(), 70);
+        }
+      },
       checkMove(event){
         const {clientX, type} = event.originalEvent;
         // タッチドラッグの場合においてのみ行き先表示を判定したい
