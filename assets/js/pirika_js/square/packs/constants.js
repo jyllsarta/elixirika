@@ -13,5 +13,6 @@ const constants = {
   defaultWindowWidth: 1200,
   bestEnergyLowLimit: 20,
   bestEnergyHighLimit: 80,
+  maxArityStyleScore: 12,
 }
 module.exports = constants;

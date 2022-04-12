@@ -7,7 +7,7 @@
         .img
           img(src="/images/square/characters/ayame1.png")
       transition(name="enemy-appear")
-        .foreground_enemy(v-if="foregroundEnemy.hp > 0", :key="foregroundEnemy.id")
+        .foreground_enemy(v-if="isAliveForegroundEnemy", :key="foregroundEnemy.id")
           .img
             img(:src="`/images/square/characters/${foregroundEnemy.image}.png`")
       .foreground_enemy_hp(:class="hpClass(referenceCurrentHp)")
@@ -82,6 +82,9 @@
       thereIsShieldEnemy(){
         return this.aliveEnemies.some(enemy=>enemy.shieldMax > 0);
       },
+      isAliveForegroundEnemy(){
+        return this.foregroundEnemy.hp > 0;
+      }
     },
     methods: {
       syncCurrentHp(){
@@ -190,7 +193,7 @@
       "foregroundEnemy.hp": function(newHp, prevHp){
         // リセット検出 ヒストリーが空なら演出しない
         console.log(this.foregroundEnemy.damageHistory);
-        if(this.foregroundEnemy.damageHistory.length === 0){
+        if(this.foregroundEnemy.damageHistory?.length === 0){
           this.syncCurrentHp();
           return;
         }

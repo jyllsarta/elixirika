@@ -31,6 +31,10 @@ module.exports = class Character2_Default {
     return model.starPalette.score();
   }
 
+  isClearedMainTarget(character, model){
+    return model.starPalette.arityStyleScore() >= Constants.maxArityStyleScore;
+  }
+
   starPaletteParameter(){
     console.warn("アリティのパラメータはオーバーライド前提");
     return {

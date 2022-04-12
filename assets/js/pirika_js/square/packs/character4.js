@@ -15,6 +15,7 @@ module.exports = class Character4 {
     this.id = 4;
     this.name = "アヤメ";
     this.defaultMessage = "いきますよー！";
+    this.clearMessage = "見事 敵を全滅させた！";
     this.bgm = "bgm11";
 
     this.uniqueParameters = {
@@ -42,12 +43,6 @@ module.exports = class Character4 {
     return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
   }
 
-  checkForceStalemate(model){
-    if(this.isAllEnemyDefeated()){
-      model.setForceStalemate("見事 敵を全滅させた！", true);
-    }
-  }
-
   damageToNextEnemy(power, model, isAbilityDamage=false){
     let nextEnemy = this.uniqueParameters.enemies.find(enemy=>enemy.hp>0);
     if(!nextEnemy){
@@ -66,7 +61,6 @@ module.exports = class Character4 {
       model.messageManager.register("specialAbilityDefeatEnemy");
     }
     nextEnemy.damageHistory.push({power: power, isAbilityDamage: isAbilityDamage});
-    this.checkForceStalemate(model);
   }
 
   initializeEnemy(enemyParameters){

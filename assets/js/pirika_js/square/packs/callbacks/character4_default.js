@@ -37,6 +37,11 @@ module.exports = class Character4_Default {
     return model.starPalette.score();
   }
 
+  isClearedMainTarget(character, model){
+    return character.isAllEnemyDefeated()
+  }
+
+
   starPaletteParameter(){
     console.warn("エネミーリストはオーバーライド前提");
     return {

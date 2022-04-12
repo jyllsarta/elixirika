@@ -28,6 +28,11 @@ module.exports = class Character3_Default {
     return model.starPalette.score();
   }
 
+  isClearedMainTarget(character, model){
+    const params = character.getCallback("starPaletteParameter", model.chapter.index)().kinds;
+    return params.every(param=>model.starPalette.isSatisfied(param));
+  }
+
   starPaletteParameter(){
     return {
       kinds: [
