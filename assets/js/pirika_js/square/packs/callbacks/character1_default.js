@@ -1,3 +1,5 @@
+const Constants = require("../constants");
+
 module.exports = class Character1_Default {
   onGameStart(character, model){
   }
@@ -12,8 +14,13 @@ module.exports = class Character1_Default {
   onFillDraw(character, model, sentCardLength){
   }
 
-  calculateScore(character, model){
-    return model.starPalette.score();
+  calculateScore = (character, model) => {
+    const restCardBonus = this.isClearedMainTarget(character, model) ? this.restCardBonus(model) : 0;
+    return model.starPalette.score() + restCardBonus;
+  }
+
+  restCardBonus = (model) => {
+    return model.deck.field.cards.length * Constants.restCardBonus;
   }
 
   isClearedMainTarget(character, model){
