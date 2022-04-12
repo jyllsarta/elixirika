@@ -110,6 +110,10 @@ module.exports = class Controller {
     }
     
     this.model.character.getCallback("onSendCard", this.model.chapter.index)(this.model.character, this.model, card, toField);
+    const cleared = this.model.character.getCallback("isClearedMainTarget", this.model.chapter.index)(this.model.character, this.model, card, toField);
+    if(cleared){
+      this.model.setForceStalemate(this.model.character.clearMessage, true);
+    }
     this.model.checkAndUpdateClearedChallenges();
     this.model.messageManager.register("sendCard");
   }

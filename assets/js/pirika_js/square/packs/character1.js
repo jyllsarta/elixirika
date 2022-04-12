@@ -12,6 +12,7 @@ module.exports = class Character1 {
     this.id = 1;
     this.name = "クロネ";
     this.defaultMessage = "はい、こんにちは。\nまずはカード出してみてね";
+    this.clearMessage = "パレット完成！やったね";
     this.bgm = "bgm6";
 
     this.uniqueParameters = {
