@@ -61,6 +61,12 @@ module.exports = class Character4 {
       model.messageManager.register("specialAbilityDefeatEnemy");
     }
     nextEnemy.damageHistory.push({power: power, isAbilityDamage: isAbilityDamage});
+    const cleared = model.character.getCallback("isClearedMainTarget", model.chapter.index)(model.character, model);
+    if(cleared){
+      model.calculateScore();
+      model.checkAndUpdateClearedChallenges();
+      model.setForceStalemate(model.character.clearMessage, true);
+    }
   }
 
   initializeEnemy(enemyParameters){
