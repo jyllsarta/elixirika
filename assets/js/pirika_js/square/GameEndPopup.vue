@@ -10,11 +10,17 @@
           .reason
             | {{model.forceStalemateReason}}
         .content
-          .score
-            .label
-              | スコア
-            .value
-              | {{model.score}}
+          .scores
+            .score.normal
+              .label
+                | スコア
+              .value
+                | {{model.score}}
+            .score.rest
+              .label
+                | 残札ボーナス
+              .value
+                | {{restCardBonus}}
           .challenges
             ChallengeText(
               v-for="challenge, index in challenges"
@@ -23,6 +29,7 @@
               :challenge="challenge",
               :key="index",
               :showDescription="true"
+              :class="`challenge-${index + 1}`"
             )
           .message_area
             transition(name="show-in")
@@ -56,6 +63,9 @@
     computed: {
       challenges(){
         return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
+      },
+      restCardBonus(){
+        return this.model.character.getCallback("restCardBonus", this.model.chapter.index)(this.model.character, this.model);
       },
     },
     methods: {
@@ -145,12 +155,22 @@
           flex-direction: column;
           flex-grow: 1;
           gap: $space-m;
-          .score{
-            padding: $space-s;
+          .scores{
             display: flex;
-            width: 60%;
-            justify-content: space-between;
-            border-bottom: 2px solid $white;
+            gap: $space-m;
+            .score{
+              padding: $space-s;
+              display: flex;
+              width: 60%;
+              justify-content: space-between;
+              border-bottom: 2px solid $white;
+            }
+            .normal{
+              flex: 2;
+            }
+            .rest{
+              flex: 1;
+            }
           }
           .challenges{
             padding: $space-m;
@@ -158,12 +178,40 @@
             display: flex;
             flex-direction: column;
             justify-content: space-around;
+            .challenge-1{
+              animation: challenge-text 1s;
+              animation-delay: 0s;
+            }
+            .challenge-2{
+              animation: challenge-text 1s;
+              animation-delay: 0.2s;
+            }
+            .challenge-3{
+              animation: challenge-text 1s;
+              animation-delay: 0.4s;
+            }
+            .challenge-4{
+              animation: challenge-text 1s;
+              animation-delay: 0.6s;
+            }
           }
           .message_area{
             @include centering($height: 20px);
           }
         }
       }
+    }
+  }
+
+  @keyframes challenge-text {
+    0%{
+      transform: translateY(0px);
+    }
+    20%{
+      transform: translateY(-10px);
+    }
+    100%{
+      transform: translateY(0px);
     }
   }
 

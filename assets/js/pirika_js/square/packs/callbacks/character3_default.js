@@ -27,12 +27,15 @@ module.exports = class Character3_Default {
   }
 
   calculateScore = (character, model) => {
-    const restCardBonus = this.isClearedMainTarget(character, model) ? this.restCardBonus(model) : 0;
+    const restCardBonus = this.restCardBonus(character, model);
     return model.starPalette.score() + restCardBonus;
   }
 
-  restCardBonus = (model) => {
-    return model.deck.field.cards.length * Constants.restCardBonus;
+  restCardBonus = (character, model) => {
+    if(this.isClearedMainTarget(character, model)){
+      return model.deck.field.cards.length * Constants.restCardBonus;
+    }
+    return 0;
   }
 
   isClearedMainTarget(character, model){
