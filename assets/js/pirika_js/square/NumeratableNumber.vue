@@ -21,6 +21,7 @@ export default {
   },
   mounted() {
     this.currentNumber = this.number;
+    this.changing = false;
     if(this.speed){
       this.updateRatio = this.speed;
     }
@@ -34,7 +35,7 @@ export default {
     react(){
       this.currentNumber = (1 - this.updateRatio) * this.currentNumber + (this.updateRatio) * this.number;
       this.changing = true;
-      if(Math.abs(this.currentNumber - this.number) < 0.8){
+      if(Math.abs(this.currentNumber - this.number) < 1.01){
         setTimeout(()=>this.changing = false, 1000);
         this.currentNumber = this.number;
       }
