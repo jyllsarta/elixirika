@@ -15,6 +15,8 @@
         | /
       .total
         | {{ totalProgress }}
+    .note_treasure(v-if="showsNote")
+      | お宝回収は全カード回収するまで終了しない
 </template>
 
 <script lang="typescript">
@@ -62,6 +64,10 @@
       },
       totalProgress(){
         return this.params.length;
+      },
+      showsNote(){
+        // お宝回収はIDベタ打ち判定しちゃう
+        return this.model.chapterId === 4 && this.currentProgress >= this.totalProgress;
       },
     },
     watch: {
@@ -177,6 +183,14 @@
       .total{
         text-shadow: 0px 0px 4px $blue1;
       }
+    }
+    .note_treasure{
+      position: absolute;
+      width: 35%;
+      height: 30px;
+      bottom: 22px;
+      left: 55%;
+      font-size: $font-size-mini;
     }
   }
 

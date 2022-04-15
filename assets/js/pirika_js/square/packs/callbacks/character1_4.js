@@ -11,4 +11,9 @@ module.exports = class Character1_4 {
     model.deck.field.cards = model.deck.field.cards.filter(card=>(card.number <= 7 || card.category != "normal"));
     model.deck.shuffle(model.seededRandom);
   }
+
+  // お宝回収はアーリーグレイスの対象外
+  isClearedMainTarget(character, model){
+    return false;
+  }
 };
