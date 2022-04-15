@@ -42,7 +42,7 @@
         if(newMembers.length === 0){
           return;
         }
-        this.updateChallenge(newMembers[0]);
+        this.updateChallenge(newMembers[newMembers.length -1]);
       }
     }
   })
