@@ -75,7 +75,12 @@ module.exports = class Model {
   }
 
   setForceStalemate(reason, isGood){
-    this.messageManager.register("forceStalemate");
+    if(isGood){
+      this.messageManager.register("gracefullyStalemate");
+    }
+    else{
+      this.messageManager.register("forceStalemate");
+    }
     this.isForceStalemate = true;
     this.forceStalemateReason = reason;
     this.checkAndUpdateClearedChallenges();
