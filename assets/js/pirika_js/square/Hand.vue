@@ -55,9 +55,10 @@
         // なくなったカードを消す
         this.cards = this.cards.filter(card=>actualCards.findIndex(a=>a.id === card.id) !== -1);
         // 追加されたカードがあれば一つ足す
-        const addedCard = actualCards.find(a=>this.cards.findIndex(card=>card.id === a.id) === -1);
-        if(addedCard){
-          this.cards.push(addedCard);
+        const addedCardIndex = actualCards.findIndex(a=>this.cards.findIndex(card=>card.id === a.id) === -1);
+
+        if(addedCardIndex !== -1){
+          this.cards.splice(addedCardIndex, 0, actualCards[addedCardIndex]);
         }
         // 少し待つ
         if(this.cards.length  !== actualCards.length){
