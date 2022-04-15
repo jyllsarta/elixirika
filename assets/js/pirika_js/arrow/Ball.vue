@@ -26,9 +26,9 @@
     background-color: $main-color;
     width: $ball-size;
     height: $ball-size;
-    border-radius: $ball-size / 2;
-    top: -$ball-size / 2;
-    left: -$ball-size / 2;
+    border-radius: $ball-size * 0.5;
+    top: -$ball-size * 0.5;
+    left: -$ball-size * 0.5;
   }
 
 </style>

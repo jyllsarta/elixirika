@@ -83,7 +83,7 @@
         width: 30%;
         padding-left: 5%;
         text-align: left;
-        font-size: $title_font_size / 2;
+        font-size: $title_font_size * 0.5;
         color: $primary_color;
       }
     }

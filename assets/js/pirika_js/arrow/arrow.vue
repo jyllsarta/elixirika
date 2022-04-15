@@ -256,7 +256,7 @@
       width: 30%;
       text-align: center;
       font-family: 'Cute Font', cursive;
-      font-size: $main-font-size / 2;
+      font-size: $main-font-size * 0.5;
       color: $accent-color;
     }
     .is_high_score{

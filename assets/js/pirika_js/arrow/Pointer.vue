@@ -44,17 +44,17 @@
     pointer-events: none;
     will-change: transform;
     position: absolute;
-    top: -$pointer-size / 2;
-    left: -$pointer-size / 2;
+    top: -$pointer-size * 0.5;
+    left: -$pointer-size * 0.5;
     .player{
       position: absolute;
       will-change: transform;
       background-color: $accent-color;
-      top: -$pointer-size / 2;
-      left: -$pointer-size / 2;
+      top: -$pointer-size * 0.5;
+      left: -$pointer-size * 0.5;
       width: $pointer-size;
       height: $pointer-size;
-      border-radius: $pointer-size / 2;
+      border-radius: $pointer-size * 0.5;
       box-shadow: 0px 6px 4px -2px rgba(0, 0, 0, 0.4);
     }
     .hp_area{
@@ -62,7 +62,7 @@
       font-family: 'Cute Font', cursive;
       font-size: 20px;
       top: -20px;
-      left: $pointer-size / 2;
+      left: $pointer-size * 0.5;
     }
     .discharge_circle{
       border-radius: 10000px;

@@ -250,7 +250,7 @@
     width: 60%;
     text-align: center;
     opacity: $transparent_normal;
-    font-size: $title_font_size / 2;
+    font-size: $title_font_size * 0.5;
     color: $primary_color;
   }
 
