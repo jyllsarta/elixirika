@@ -1,41 +1,51 @@
 
 <template lang="pug">
-  .title(@click="onClick")
-    .tops
-      .logo
-        .container
-          .box
-            .letter
-              | す
-          .box
-            .letter
-              | く
-          .box
-            .letter
-              | え
-          .box
-            .letter
-              | あ
-      .start
-        | クリックしてはじめる
-    .bottoms
-      .name_area(@click.stop)
-        NameArea
-      p
-        | 今のすくえあは完全に隠しページで動作確認中フェーズなので、いっさいの説明はありません。マウスでもキーボードでも遊べますが、自己責任かつご自由におたのしみください！
-    transition(
-      name="shutter"
-      @enter="onAnimationEnter"
-      @after-enter="onAnimationComplete"
+  .scene
+    .title(@click="onClick")
+      .tops
+        .logo
+          .container
+            .box
+              .letter
+                | す
+            .box
+              .letter
+                | く
+            .box
+              .letter
+                | え
+            .box
+              .letter
+                | あ
+        .start
+          | クリックしてはじめる
+      .bottoms
+        .name_area(@click.stop)
+          NameArea
+        p
+          | 今のすくえあは完全に隠しページで動作確認中フェーズなので、いっさいの説明はありません。マウスでもキーボードでも遊べますが、自己責任かつご自由におたのしみください！
+      transition(
+        name="shutter"
+        @enter="onAnimationEnter"
+        @after-enter="onAnimationComplete"
+      )
+        .shutters(v-if="closing")
+          .horizontal
+            .shutter1(ref="shutter1")
+            .shutter2(ref="shutter2")
+          .vertical
+            .shutter3(ref="shutter3")
+            .shutter4(ref="shutter4")
+    GeneralButton.credit_button(
+      @click="showCredit()"
+      :disabled="false"
+      :flashing="false"
+      :width="'120px'"
+      :height="'50px'"
+      :color="'blue'"
+      :label="'クレジット'"
     )
-      .shutters(v-if="closing")
-        .horizontal
-          .shutter1(ref="shutter1")
-          .shutter2(ref="shutter2")
-        .vertical
-          .shutter3(ref="shutter3")
-          .shutter4(ref="shutter4")
-
+    Credit.credit(v-if="showsCredit")
 </template>
 
 <script lang="typescript">
@@ -43,15 +53,20 @@
   import NameArea from "./NameArea.vue";
   import gsap from 'gsap';
   import store from "./packs/store";
+  import GeneralButton from "./GeneralButton.vue";
+  import Credit from "./Credit.vue";
 
   export default Vue.extend({
     components: {
       NameArea,
+      GeneralButton,
+      Credit
     },
     store,
     data(){
       return {
         closing: false,
+        showsCredit: false, 
       };
     },
     methods: {
@@ -84,6 +99,9 @@
       },
       onAnimationComplete(){
         this.$emit("loadScene", {sceneName: "mainMenu"});
+      },
+      showCredit(){
+        this.showsCredit = true;
       }
     },
     mounted(){
@@ -96,12 +114,21 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .title{
+  .scene{
     position: relative;
     color: $white;
     width: 100%;
     height: 100%;
     border: 1px solid $gray2;
+  }
+  .credit_button{
+    position: absolute;
+    bottom: $space-m;
+    right: $space-m;
+  }
+  .title{
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
