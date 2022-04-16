@@ -45,7 +45,7 @@
       :color="'blue'"
       :label="'クレジット'"
     )
-    Credit.credit(v-if="showsCredit")
+    Credit.credit(v-if="showsCredit" @close="closeCredit")
 </template>
 
 <script lang="typescript">
@@ -101,8 +101,13 @@
         this.$emit("loadScene", {sceneName: "mainMenu"});
       },
       showCredit(){
+        this.$store.commit("playSound", {key: "menuOpen"});
         this.showsCredit = true;
-      }
+      },
+      closeCredit(){
+        this.$store.commit("playSound", {key: "menuClose"});
+        this.showsCredit = false;
+      },
     },
     mounted(){
       // シーン飛ばし用
