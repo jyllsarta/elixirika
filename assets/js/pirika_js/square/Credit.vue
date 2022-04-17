@@ -2,16 +2,50 @@
   .credit
     ._back(@click="closeMenu")
     .content
-      | クレジット！
+      .header
+        GeneralButton.back_button(
+          @click="closeMenu"
+          :disabled="false"
+          :flashing="false"
+          :width="'160px'"
+          :height="'40px'"
+          :color="'blue'"
+          :label="'とじる'"
+        )   
+        .title
+          | クレジット
+      .body
+        | BGM・効果音
+        | Tsukasa Ichimura / Audiostock
+        | Hazime / Audiostock
+        | 春日章宏 / Audiostock
+        | Hit-Point / Audiostock
+        | すもち / Audiostock
+        | あおくま / Audiostock
+        | ruha(Pastel Tone Music) / Audiostock
+        | OtoLogic / Audiostock
+        | こだまプロダクション / Audiostock
+        | アァ・だり〜べあー / Audiostock
+        | MATSU / Audiostock
+        | 8Neat / Audiostock
+        | ptest / Audiostock
+        | Sound_ken / Audiostock
+        | 
+        | 絵・プログラム
+        | じぃる
+
+
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import store from "./packs/store";
+  import GeneralButton from "./GeneralButton.vue";
 
-export default Vue.extend({
+  export default Vue.extend({
     store,
     components: {
+      GeneralButton,
     },
     methods: {
       closeMenu(){
@@ -44,6 +78,21 @@ export default Vue.extend({
       background-color: $ingame-background;
       width: 100%;
       height: 100%;
+      .header{
+        height: 80px;
+        display: flex;
+        gap: $space-m;
+        align-items: center;
+        .title{
+          line-height: 100%;
+          font-size: $font-size-large;
+        }
+      }
+      .body{
+        white-space: pre-wrap;
+        width: 100%;
+        text-align: center;
+      }
     }
   }
 </style>
