@@ -6,7 +6,7 @@ const constants = {
   normalCardPerSuit: 10,
   senderCardPerSuit: 6,
   senderCardRank: 11,
-  maxScorePerField: 100,
+  maxScorePerField: 200,
   scorePerJewel: 10,
   maxRandomSeed: 1000000000,
   cardCountScoreBonusThreshold: 5,
