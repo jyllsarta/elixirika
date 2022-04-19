@@ -88,8 +88,14 @@ module.exports = class Challenge {
   }
 
   isClearedDiscardCount(challenge, model){
+    if(!model.isStalemate()){
+      return false;
+    }
     // アリティ の強制終了時には捨札条件をクリアさせない
-    return model.isStalemate() && !model.isForceStalemate && model.graveyard.field.cards.length <= challenge.value1;
+    if(!model.isGracefullyStalemate){
+      return false;
+    }
+    return model.graveyard.field.cards.length <= challenge.value1;
   }
 
   isClearedMinusTrickCount(challenge, model){

@@ -77,6 +77,7 @@ module.exports = class Model {
   setForceStalemate(reason, isGood){
     if(isGood){
       this.messageManager.register("gracefullyStalemate");
+      this.isGracefullyStalemate = true;
     }
     else{
       this.messageManager.register("forceStalemate");
