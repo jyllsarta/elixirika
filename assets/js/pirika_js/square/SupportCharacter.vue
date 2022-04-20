@@ -78,10 +78,10 @@
       0% {
       }
       25% {
-        transform: translateY(-4px) scale(1.003);
+        transform: translateY(-4px);
       }
       75% {
-        transform: translateY(4px) scale(0.998);
+        transform: translateY(4px);
       }
       100% {
       }
