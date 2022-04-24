@@ -69,48 +69,54 @@
     data(){
       return {
         sounds: {
-          ok: null,
-          draw: null,
-          reset: null,
-          stack: null,
-          miss: null,
-          special1: null,
-          special2: null,
-          special3: null,
-          special4: null,
-          welcome: null,
-          gameStart: null,
-          gameEnd: null,
-          menuOpen: null,
-          menuClose: null,
-          hover: null,
-          pocket: null,
-          attack: null,
-          defeat: null,
-          damage: null,
-          shield: null,
-          challenge: null,
-          end: null,
-          bad: null,
-        },
-        bgm: {
-          bgm1: null,
-          bgm2: null,
-          bgm3: null,
-          bgm4: null,
-          bgm5: null,
-          bgm6: null,
-          bgm7: null,
-          bgm8: null,
-          bgm9: null,
-          bgm10: null,
-          bgm11: null,
-          bgm12: null,
+          se: {
+            ok: {volume: 0.7},
+            draw: {volume: 1.0},
+            reset: {volume: 1.0},
+            stack: {volume: 1.0},
+            miss: {volume: 1.0},
+            special1: {volume: 1.2},
+            special2: {volume: 0.8},
+            special3: {volume: 0.8},
+            special4: {volume: 0.6},
+            welcome: {volume: 1.0},
+            gameStart: {volume: 1.0},
+            gameEnd: {volume: 1.0},
+            menuOpen: {volume: 1.0},
+            menuClose: {volume: 1.0},
+            hover: {volume: 0.4},
+            pocket: {volume: 0.7},
+            attack: {volume: 1.0},
+            defeat: {volume: 1.0},
+            damage: {volume: 1.0},
+            shield: {volume: 1.0},
+            challenge: {volume: 1.0},
+            end: {volume: 1.0},
+            bad: {volume: 1.0},
+          },
+          bgm: {
+            bgm1: {volume: 1.0},
+            bgm2: {volume: 1.0},
+            bgm3: {volume: 1.0},
+            bgm4: {volume: 1.0},
+            bgm5: {volume: 0.6},
+            bgm6: {volume: 1.0},
+            bgm7: {volume: 0.8},
+            bgm8: {volume: 1.0},
+            bgm9: {volume: 1.0},
+            bgm10: {volume: 1.0},
+            bgm11: {volume: 0.8},
+            bgm12: {volume: 1.0},
+          },
         },
         volumes: {
           master: 0.5,
           bgm: 0.2,
           se: 1,
+        },
+        loadedSounds: {
+          se:{},
+          bgm: {},
         },
         audioContext: null,
         bgmBufferSource: null,
@@ -138,16 +144,16 @@
       },
       loadSound(key, response){
         this.audioContext.decodeAudioData(response, (buffer) => {
-            this.sounds[key] = buffer;
+            this.loadedSounds.se[key] = buffer;
         }, function(msg) {console.error(msg)});
       },
       loadBgm(key, response){
         this.audioContext.decodeAudioData(response, (buffer) => {
-            this.bgm[key] = buffer;
+            this.loadedSounds.bgm[key] = buffer;
         }, function(msg) {console.error(msg)});
       },
       loadSounds(){
-        for(let key of Object.keys(this.sounds)){
+        for(let key of Object.keys(this.sounds.se)){
           axios.get(`/game/square/sounds/${key}.wav.enc`, { responseType : 'arraybuffer' })
             .then((results) => {
               const decrypted = this.decrypt(results.data);
@@ -160,7 +166,7 @@
         }
       },
       loadBgms(){
-        for(let key of Object.keys(this.bgm)){
+        for(let key of Object.keys(this.sounds.bgm)){
           axios.get(`/game/square/sounds/bgm/${key}.mp3.enc`, { responseType : 'arraybuffer' })
             .then((results) => {
               this.loadBgm(key, results.data);
@@ -175,16 +181,24 @@
         this.doPlaySound(key, this.seVolume, tone);
       },
       doPlaySound(key, volume, tone){
-        if(!this.sounds[key]){
+        if(!this.sounds.se[key]){
           console.warn(`undefined sound key: ${key}`);
           return;
         }
+        if(this.loadedSounds.se[key] === null){
+          console.warn(`se not loaded, failed to play`);
+          return;
+        }
+
         let source = this.audioContext.createBufferSource();
         const gainNode = this.audioContext.createGain();
         source.connect(gainNode);
         gainNode.connect(this.audioContext.destination);
-        gainNode.gain.value = volume;
-        source.buffer = this.sounds[key];
+
+        const finalVolune = volume * this.sounds.se[key].volume;
+        gainNode.gain.value = finalVolune;
+
+        source.buffer = this.loadedSounds.se[key];
         source.detune.value += tone * 200;
         source.start(0);
       },
@@ -199,11 +213,11 @@
         if(this.bgmBufferSource){
           this.bgmBufferSource.stop();
         }
-        if(this.bgm[key] === undefined){
+        if(this.sounds.bgm[key] === undefined){
           console.warn(`undefined bgm key: ${key}`);
           return;
         }
-        if(this.bgm[key] === null){
+        if(this.loadedSounds.bgm[key] === null){
           console.warn(`loading bgm, retry...`);
           setTimeout(()=>{this.playBgm(key)}, 1000);
           return;
@@ -215,12 +229,16 @@
         if(this.bgmBufferSource){
           this.bgmBufferSource.stop();
         }
+
         let source = this.audioContext.createBufferSource();
         const gainNode = this.audioContext.createGain();
         source.connect(gainNode);
         gainNode.connect(this.audioContext.destination);
-        gainNode.gain.value = this.bgmVolume;
-        source.buffer = this.bgm[key];
+
+        const finalVolune = this.bgmVolume * this.sounds.bgm[key].volume;
+        gainNode.gain.value = finalVolune;
+
+        source.buffer = this.loadedSounds.bgm[key];
         source.loop = true;
         source.start(0);
         this.bgmBufferSource = source;
