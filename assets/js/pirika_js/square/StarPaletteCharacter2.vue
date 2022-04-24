@@ -7,6 +7,8 @@
         .pattern_flash(v-if="currentProgressCache >= index")
         .pattern_flash2(v-if="currentProgressCache >= index")
         .fill
+          .number
+            | {{romanNumerals[index]}}
     .descriptions
       .description(v-if="!params.banCardGap")
         | ~ ルール ~
@@ -86,6 +88,9 @@
       totalProgress(){
         return 12;
       },
+      romanNumerals(){
+        return ["zero", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"]
+      }
     },
     watch: {
       "model.starPalette.fields.length": function(after, before){
@@ -178,6 +183,13 @@
         .fill{
           width: 100%;
           height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .number{
+            line-height: 100%;
+            font-size: $font-size-mini;
+          }
         }       
       }
       .enabled{
