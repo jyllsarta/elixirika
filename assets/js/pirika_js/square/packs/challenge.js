@@ -99,7 +99,7 @@ module.exports = class Challenge {
   }
 
   isClearedMinusTrickCount(challenge, model){
-    const tricks = model.board.fields.reduce((sum, field)=>sum+field.minusTrickCount(), 0) + model.starPalette.fields.reduce((sum, field)=>sum+field.minusTrickCount(), 0);
+    const tricks = model.character?.countMinusTrick(model) || 0;
     return challenge.value1 <= tricks;
   }
 

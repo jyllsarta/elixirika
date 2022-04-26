@@ -3,8 +3,8 @@
     .index(v-if="!character.uniqueParameters.abilities")
       | とくに
       | やる気がない
-    .index(v-if="character.uniqueParameters.abilities")
-      | ラズの能力
+    .index
+      | マイナス積数: {{character.countMinusTrick(model)}}
     transition-group.buttons(name="ability")
       SupportCharacterAbilityButton(
         v-for="(ability, index) in character.uniqueParameters.abilities"

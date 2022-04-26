@@ -29,4 +29,8 @@ module.exports = class Character3 {
   getCallback(callbackName, index){
     return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
   }
+
+  countMinusTrick(model){
+    return model.board.fields.reduce((sum, field)=>sum+field.minusTrickCount(), 0) + model.starPalette.fields.reduce((sum, field)=>sum+field.minusTrickCount(), 0);
+  }
 };
