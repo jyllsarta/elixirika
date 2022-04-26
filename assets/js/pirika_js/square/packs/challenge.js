@@ -68,7 +68,7 @@ module.exports = class Challenge {
   }
 
   isClearedPoint(challenge, model){
-    const score = model.starPalette.score();
+    const score = model.score;
     return challenge.value1 <= score;
   }
 
