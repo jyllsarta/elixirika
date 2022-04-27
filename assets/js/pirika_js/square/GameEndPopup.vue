@@ -19,7 +19,7 @@
             .score.rest
               .label
                 | 残札ボーナス
-              .value
+              .value.lastcardbonus
                 | {{restCardBonus}}
           .challenges
             ChallengeText(
@@ -180,19 +180,19 @@
             justify-content: space-around;
             .challenge-1{
               animation: challenge-text 1s;
-              animation-delay: 0s;
+              animation-delay: 0.5s;
             }
             .challenge-2{
               animation: challenge-text 1s;
-              animation-delay: 0.2s;
+              animation-delay: 0.7s;
             }
             .challenge-3{
               animation: challenge-text 1s;
-              animation-delay: 0.4s;
+              animation-delay: 0.9s;
             }
             .challenge-4{
               animation: challenge-text 1s;
-              animation-delay: 0.6s;
+              animation-delay: 1.1s;
             }
           }
           .message_area{
@@ -228,5 +228,27 @@
   .show-in-leave-to{
     transform: translateX(10px);
     opacity: 0;
+  }
+
+  .lastcardbonus {
+    animation: last-card 1s;
+  }
+
+  @keyframes last-card {
+    0%{
+      opacity: 0;
+      transform: translateY(0px);
+      color: $white;
+    }
+    40%{
+      opacity: 1;
+      transform: translateY(-10px);
+      color: $purple1;
+    }
+    100%{
+      opacity: 1;
+      transform: translateY(0px);
+      color: $white;
+    }
   }
 </style>
