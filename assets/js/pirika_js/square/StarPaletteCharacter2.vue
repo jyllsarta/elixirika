@@ -15,9 +15,9 @@
       .description(v-if="params.banSendCard")
         | 2枚か3枚でスターパレットに送るべからず
       .description(v-if="params.banDiscard")
-        | 2枚か3枚まとめて捨札にするべからず
+        | 1枚たりとも捨札にするべからず
       .description(v-if="params.banCardGap")
-        | 差が2か3になるようにカードを積むべからず
+        | 同じ数値のカードを重ねるべからず
       .description
         | 4: ■  8: ■ ■ ■
     .progress

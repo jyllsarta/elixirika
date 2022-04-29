@@ -54,14 +54,14 @@ module.exports = class Character2 {
       return;
     }
     const diff = newCard.number - prevCard.number;
-    if(diff === 2 || diff === 3){
-      model.setForceStalemate("「差が2か3になるようにカードを積むべからず」の誓いを破った...", false);
+    if(diff === 0){
+      model.setForceStalemate("「同じ数値のカードを重ねるべからず」の誓いを破った...", false);
     }
   }
 
   banDiscard(model, sentCardLength){
-    if(sentCardLength === 2 || sentCardLength === 3){
-      model.setForceStalemate("「2枚か3枚まとめて捨札にするべからず」の誓いを破った...", false);
+    if(sentCardLength > 0){
+      model.setForceStalemate("「1枚たりとも捨札にするべからず」の誓いを破った...", false);
     }
   }
 };
