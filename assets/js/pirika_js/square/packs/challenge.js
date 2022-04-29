@@ -122,7 +122,7 @@ module.exports = class Challenge {
   }
 
   isClearedCompleteRun(challenge, model){
-    return model.isStalemate() && !model.isForceStalemate;
+    return model.isStalemate() && (!model.isForceStalemate || model.isGracefullyStalemate);
   }
 
   isClearedSustainEnergyRange(challenge, model){
