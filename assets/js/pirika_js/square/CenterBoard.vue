@@ -118,7 +118,7 @@
           border: 2px solid $primary3;
           border-radius: $radius;
           padding: $space-m;
-          width: 160px;
+          width: 180px;
           text-align: center;
           transition: background-color 0.3s;
         }

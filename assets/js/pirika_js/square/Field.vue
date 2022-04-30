@@ -57,7 +57,7 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .field{
-    width: 160px;
+    width: 180px;
     height: 90%;
     max-height: 300px;
     border-radius: $radius;
