@@ -7,7 +7,7 @@
         MainMenuScene(:sceneParameter="sceneParameter.mainMenu", @loadScene="loadScene")
       .in_game(v-if="sceneName == 'inGame'")
         InGameScene(:sceneParameter="sceneParameter.inGame", @loadScene="loadScene")
-    GlobalSoundManager
+      GlobalSoundManager
 </template>
 
 <script lang="typescript">
@@ -99,6 +99,7 @@
     width: 100%;
     height: 100%;
     .game{
+      position: relative;
       width: $window-width;
       height: $window-height;
       min-width: $window-width;
