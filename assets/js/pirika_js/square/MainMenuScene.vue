@@ -30,7 +30,15 @@
         @cancel="showsDetailDialog = false"
         @start="startGame"
       )
-
+    GeneralButton.back_to_title(
+      @click="backToTitle"
+      :disabled="false"
+      :flashing="false"
+      :width="'160px'"
+      :height="'50px'"
+      :color="'blue'"
+      :label="'タイトルに戻る'"
+    )
 </template>
 
 <script lang="typescript">
@@ -38,6 +46,7 @@
   import CharacterBanner from "./CharacterBanner.vue";
   import ClearStateTile from "./ClearStateTile.vue";
   import MainMenuDetailDialog from "./MainMenuDetailDialog.vue";
+  import GeneralButton from "./GeneralButton.vue";
   import CharacterFactory from "./packs/characterFactory";
   import Chapter from "./packs/chapter";
   import Challenge from "./packs/challenge";
@@ -50,6 +59,7 @@
       CharacterBanner,
       ClearStateTile,
       MainMenuDetailDialog,
+      GeneralButton,
     },
     data(){
       // methods は頻繁に呼ばれちゃい、キャラファクトリからまいどまいど生成するのはどう考えても高コスト
@@ -134,6 +144,11 @@
           challenges: challengeIdTable,
         }
       },
+      backToTitle(){
+        this.$store.commit("playSound", {key: "ok"});
+        this.$store.commit("playBgm", "");
+        this.$emit("loadScene", {sceneName: "title", params: {}});
+      }
     },
     mounted(){
       this.fetchMyScore();
@@ -196,5 +211,10 @@
       left: 10%;
       z-index: 100;
     }
+    .back_to_title{
+      position: absolute;
+      bottom: $space-m;
+      right: $space-m;
+    }    
   }
 </style>
