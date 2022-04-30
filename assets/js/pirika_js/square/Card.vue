@@ -111,7 +111,7 @@
       justify-content: center;
       align-items: center;
       .normal_icon{
-        width: 120px;
+        width: 80px;
         height: 80px;
         display: flex;
         justify-content: center;
