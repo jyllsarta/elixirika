@@ -54,6 +54,8 @@
       align-items: center;
       padding-top: $space-m;
       padding-bottom: $space-m;
+      padding-left: 5px;
+      padding-right: 5px;
       .card{
         background-color: $white;
         width: $space-s;

@@ -1,10 +1,10 @@
 <template lang="pug">
   .challenge(:class="isCleared ? 'cleared' : 'not_cleared'")
-    .icon(v-if="isCleared")
+    .icon(v-if="isCleared && showIndex")
       | ◆
-    .icon(v-else="isCleared")
+    .icon(v-if="!isCleared && showIndex")
       | ◇
-    .rank
+    .rank(v-if="showIndex")
       | {{["I","II","III","IV"][index]}}
     .description
       | {{showDescription ? challenge.description : challenge.title}}
@@ -20,6 +20,7 @@
       isCleared: Boolean,
       index: Number,
       showDescription: Boolean,
+      showIndex: Boolean,
     },
   })
 </script>

@@ -121,7 +121,7 @@
   @import "stylesheets/global_settings";
   .button{
     padding: $space-s;
-    width: 114px;
+    width: 124px;
     transition: all 0.3s;
     @include centeringWithBorder($height: 34px, $border: 2px);
     &.shuffle{
@@ -137,7 +137,7 @@
       opacity: $disabled-opacity;
     }
     &.small{
-      width: 53px;
+      width: 58px;
     }
     &.pocket{
       border-width: 1px;

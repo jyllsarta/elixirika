@@ -217,7 +217,7 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .area{
-    width: 900px;
+    width: 840px;
     height: 100px;
     .hand{
       width: 100%;

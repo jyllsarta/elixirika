@@ -18,6 +18,7 @@
         :challenge="challenge"
         :key="index",
         :showDescription="false"
+        :showIndex="false"
       )
 
 </template>
@@ -71,7 +72,7 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .area{
-    width: 210px;
+    width: 160px;
     height: unquote('max(180px, 36%)');
     background-color: $ingame-background;
     border: 2px solid $window-border;
@@ -82,11 +83,12 @@
     .title{
       font-size: $font-size-medium;
       width: 100%;
+      line-height: 100%;
       text-align: center;
     }
     .score{
       position: relative;
-      padding: $space-s;
+      padding: $space-m;
       margin-left: 10%;
       width: 80%;
       border-bottom: 2px solid $gray3;
@@ -104,12 +106,11 @@
       }
     }
     .challenges{
-      padding-top: $space-m;
-      padding-bottom: $space-m;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+      max-height: 200px;
     }
   }
 </style>

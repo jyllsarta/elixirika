@@ -29,6 +29,7 @@
               :challenge="challenge",
               :key="index",
               :showDescription="true"
+              :showIndex="true"
               :class="`challenge-${index + 1}`"
             )
           .message_area

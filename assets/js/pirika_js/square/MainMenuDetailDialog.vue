@@ -29,6 +29,7 @@
               :challenge="challenge",
               :key="index",
               :showDescription="true"
+              :showIndex="true"
             )
 
       .chapter_name
