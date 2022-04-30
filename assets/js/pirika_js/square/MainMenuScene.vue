@@ -35,7 +35,7 @@
       :disabled="false"
       :flashing="false"
       :width="'160px'"
-      :height="'50px'"
+      :height="'40px'"
       :color="'blue'"
       :label="'タイトルに戻る'"
     )

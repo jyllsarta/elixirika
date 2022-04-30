@@ -40,8 +40,8 @@
       @click="showCredit()"
       :disabled="false"
       :flashing="false"
-      :width="'120px'"
-      :height="'50px'"
+      :width="'160px'"
+      :height="'40px'"
       :color="'blue'"
       :label="'クレジット'"
     )
