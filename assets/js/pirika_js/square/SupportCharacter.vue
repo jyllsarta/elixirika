@@ -2,7 +2,7 @@
   .support-character(v-if="gameStarted")
     .character_animation
        .character_action(:key="currentMessage.face")
-        .image_box
+        .image_box(:class="{character_offset: characterOffset}")
           img.character.with_drop_shadow(v-for="index in [1,2,3,4,5,6,7,8,9,10,11]" :class="{hidden: index !== currentMessage.face}" :src="`/images/square/characters/${model.character.id}-${index}.png`")
     draggable#support-character.hit_box(:group="'top'")
 
@@ -34,6 +34,10 @@
     computed: {
       currentMessage(){
         return this.model.messageManager.currentMessage;
+      },
+      // アリティは立ち絵位置が横にずれてるので引っ張り出す
+      characterOffset(){
+        return this.model.character.id == 2;
       }
     }
   })
@@ -72,6 +76,9 @@
           visibility: hidden;
         }
       }
+    }
+    .character_offset{
+      transform: translateX(30px) scale(-1, 1);
     }
 
     @keyframes yurayura {

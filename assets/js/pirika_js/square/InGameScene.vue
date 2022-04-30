@@ -162,7 +162,7 @@
     .support_character{
       height: 90%;
       bottom: -20px;
-      left: 300px;
+      left: 280px;
     }
     .star_palette{
       top: 0px;
@@ -188,7 +188,7 @@
     }
     .hand{
       bottom: 0px;
-      left: 150px;
+      left: 180px;
     }
     .black_board{
       height: 100%;
