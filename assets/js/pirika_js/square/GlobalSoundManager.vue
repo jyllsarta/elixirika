@@ -293,6 +293,7 @@
   position: absolute;
   top: $space-m;
   right: $space-m;
+  background-color: $ingame-background;
   .menu{
     width: 200px;
     display: flex;
