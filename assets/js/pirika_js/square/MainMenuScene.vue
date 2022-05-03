@@ -202,22 +202,27 @@
     height: 100%;
     color: $white;
     padding: $space-m;
-    .title{
-      font-size: $font-size-large;
-    }
-    .description{
-      font-size: $font-size-normal;
-      border-bottom: 1px solid $gray2;
+    display: flex;
+    flex-direction: column;
+    .header{
+      .title{
+        font-size: $font-size-medium;
+      }
+      .description{
+        font-size: $font-size-normal;
+        border-bottom: 1px solid $gray2;
+      }
     }
     .content{
+      flex: 1;
+      min-height: 450px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: $space-m;
-      height: 90%;
       .tile_section{
-        height: 80%;
         .index{
+          margin-top: $space-m;
           margin-bottom: $space-m;
           border-bottom: 1px solid $gray2;
           text-align: center;
@@ -270,9 +275,9 @@
         }
       }
       .score_section{
-        height: 80%;
         width: 100px;
         .index{
+          margin-top: $space-m;
           margin-bottom: $space-m;
           border-bottom: 1px solid $gray2;
           text-align: center;
