@@ -6,20 +6,36 @@
       .description
         | タイルをクリックすると詳細を確認できます。
     .content
-      .row(v-for="characterId, index in [1,2,3,4]", :key="index")
-        .character
-          CharacterBanner(
-            :character="characters[characterId]"
-            @selected="onCharacterSelected",
-            :bestChapter="findBestChapter(characterId)"
-          )
-        .tile(v-for="chapter in chapters(characterId)", :key="chapter.id")
-          ClearStateTile(
-            :chapter="chapter"
-            :character="characters[characterId]"
-            @selected="onTileSelected",
-            :challenge-clear-state="challengeClearState(chapter)"
-          )
+      .tile_section
+        .index
+          | 進捗
+        .body
+          .row(v-for="characterId, index in [1,2,3,4]", :key="index")
+            .character
+              CharacterBanner(
+                :character="characters[characterId]"
+                @selected="onCharacterSelected",
+                :bestChapter="findBestChapter(characterId)"
+              )
+            .tile(v-for="chapter in chapters(characterId)", :key="chapter.id")
+              ClearStateTile(
+                :chapter="chapter"
+                :character="characters[characterId]"
+                @selected="onTileSelected",
+                :challenge-clear-state="challengeClearState(chapter)"
+              )
+            .chapter_scores
+              .score(v-for="chapter in chapters(characterId)", :key="chapter.id")
+                | {{ highScore(chapter) }}
+            .total_score
+              .score
+                | {{totalScore(characterId)}}
+      .score_section
+        .index
+          | 総合スコア
+        .body
+          .score
+            | 10000
     transition(name="detail")
       .main_menu_detail_dialog(v-if="showsDetailDialog")
         MainMenuDetailDialog(
@@ -110,6 +126,10 @@
       highScore(chapter){
         return this.userStatus.high_score[chapter.id] || 0;
       },
+      totalScore(characterId){
+        const chapters = this.chapters(characterId);
+        return chapters.reduce((a,b)=>this.highScore(b)+a, 0);
+      },
       isChallengeCleared(chapterId, challengeId){
         const status = this.userStatus.challenges[chapterId]?.indexOf(challengeId);
         return status !== undefined && status !== -1;
@@ -182,25 +202,46 @@
       border-bottom: 1px solid $gray2;
     }
     .content{
-      margin-left: 10%;
-      margin-top: $space-m;
-      width: 80%;
-      height: 80%;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: $space-m;
-      .row{
-        display: flex;
-        gap: $space-m; 
-        .character{
-          width: 300px;
-          height: 100px;
+      height: 90%;
+      .tile_section{
+        height: 80%;
+        .index{
+          margin-bottom: $space-m;
+          border-bottom: 1px solid $gray2;
+          text-align: center;
         }
-        .tile{
-          width: 100px;
-          height: 100px;
+        .body{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: $space-m;
+          .row{
+            display: flex;
+            gap: $space-m;
+            .character{
+              width: 300px;
+              height: 100px;
+            }
+            .tile{
+              width: 100px;
+              height: 100px;
+            }
+          }
+        }
+      }
+      .score_section{
+        height: 80%;
+        .index{
+          margin-bottom: $space-m;
+          border-bottom: 1px solid $gray2;
+          text-align: center;
+        }
+        .body{
         }
       }
     }
