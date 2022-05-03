@@ -20,16 +20,17 @@
             @selected="onTileSelected",
             :challenge-clear-state="challengeClearState(chapter)"
           )
-    .main_menu_detail_dialog(v-if="showsDetailDialog")
-      MainMenuDetailDialog(
-        :character="selectedCharacter"
-        :chapter="selectedChapter"
-        :challenge-clear-state="challengeClearState(selectedChapter)"
-        :high-score="highScore(selectedChapter)"
-        :challenge-master="challengeMaster"
-        @cancel="showsDetailDialog = false"
-        @start="startGame"
-      )
+    transition(name="detail")
+      .main_menu_detail_dialog(v-if="showsDetailDialog")
+        MainMenuDetailDialog(
+          :character="selectedCharacter"
+          :chapter="selectedChapter"
+          :challenge-clear-state="challengeClearState(selectedChapter)"
+          :high-score="highScore(selectedChapter)"
+          :challenge-master="challengeMaster"
+          @cancel="showsDetailDialog = false"
+          @start="startGame"
+        )
     GeneralButton.back_to_title(
       @click="backToTitle"
       :disabled="false"
@@ -215,6 +216,21 @@
       position: absolute;
       bottom: $space-m;
       right: $space-m;
-    }    
+    }
+  }
+
+  .detail-enter-active {
+    transition: all .1s;
+  }
+  .detail-leave-active {
+    transition: all .1s;
+  }
+  .detail-enter{
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  .detail-leave-to{
+    transform: scale(0.95);
+    opacity: 0;
   }
 </style>

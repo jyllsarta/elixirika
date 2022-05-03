@@ -34,7 +34,7 @@
             opacity: 0,
             ease: 'expo.out',
           });
-        await this.$delay(200);
+        await this.$delay(40);
         this.$emit('selected', {chapterId: this.chapter.id, characterId: this.character.id});
       },
       isCleared(challengeIndex){
