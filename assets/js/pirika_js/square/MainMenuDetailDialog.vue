@@ -8,16 +8,18 @@
         .sheet(:style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}")
         .shadow
         .sheet2(:style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}")
-      .chapter_title
-        | {{chapter.title}}
-      .chapter_description
-        | {{chapter.description}}
-      .texts
+      .content
+        .chapter_title
+          | {{character.name}}-{{["", "I","II","III","IV"][chapter.index]}} / {{chapter.title}}
+        .chapter_description
+          .text
+            | {{chapter.description}}
         .extra_info
           .title
             | 特殊効果
-          .description
-            | {{chapter.extra_effect_description}}
+          .extras
+            .description
+              | {{chapter.extra_effect_description}}
         .challenge_info
           .challenges
             .title
@@ -31,9 +33,6 @@
               :showDescription="true"
               :showIndex="true"
             )
-
-      .chapter_name
-        | {{character.name}} - {{["", "I","II","III","IV"][chapter.index]}}
       .start(@click="$emit('start')")
         .background
         .text
@@ -109,25 +108,6 @@
         left: $space-m;
         pointer-events: none;
       }
-      .chapter_title{
-        position: absolute;
-        width: 600px - $space-m;
-        height: $font-size-large;
-        top: $space-m;
-        right: $space-m;
-        font-size: $font-size-large;
-        line-height: 100%;
-      }
-      .chapter_description{
-        position: absolute;
-        width: 600px - $space-m;
-        height: $font-size-large;
-        top: $space-m * 2 + $font-size-large;
-        right: $space-m;
-        font-size: $font-size-mini;
-        line-height: 100%;
-        border-bottom: 1px solid $gray2;
-      }
       .dialog_background{
         position: absolute;
         width: 100%;
@@ -155,43 +135,49 @@
           position: absolute;
           width: 100%;
           height: 100%;
-          // TODO: もしかするとキャラ固有色みたいなものをグラデーションに指定するときれいかも
           background: linear-gradient(to left, $ingame-background 60%, transparent 90%);        
         }
       }
-      .texts{
+      .content{
         position: absolute;
-        width: 400px;
-        height: 300px;
-        bottom: $font-size-xlarge + $space-m * 2;
-        right: 200px;
+        width: 480px;
+        top: $space-m;
+        height: calc(100% - $space-m * 2);
+        right: 160px;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
         gap: $space-m;
-        .extra_info{
+        .chapter_title{
+          font-size: $font-size-large;
+          line-height: 100%;
+        }
+        .chapter_description{
           border-bottom: 1px solid $gray2;
-          .description {
-            white-space: pre-wrap;
+          padding-bottom: $space-s;
+          white-space: pre-wrap;
+        }
+        .extra_info{
+          flex: 1;
+          border-bottom: 1px solid $gray2;
+          .extras{
+            height: calc(100% - $font-size-normal - $space-m * 2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .description {
+              white-space: pre-wrap;
+            }
           }
         }
         .challenge_info{
-          border-bottom: 1px solid $gray2;
+          flex: 1.5;
           .challenges{
             display: flex;
+            height: 100%;
             flex-direction: column;
+            justify-content: space-around;
           }
         }
-      }
-      .chapter_name{
-        position: absolute;
-        width: 500px;
-        height: $font-size-xlarge; 
-        bottom: $space-m;
-        right: 250px;
-        text-align: right;
-        line-height: 100%;
-        font-size: $font-size-xlarge;
       }
       .start{
         position: absolute;
