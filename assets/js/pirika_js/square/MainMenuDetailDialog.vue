@@ -90,7 +90,7 @@
       top: -100px;
       left: calc((100% - 100vw) / 2);
       width: 100vw;
-      height: calc(100vh - 100px);
+      height: calc(100vh + 50px);
     }
     .dialog{
       position: relative;
