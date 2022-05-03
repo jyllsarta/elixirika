@@ -23,9 +23,10 @@ $gray4: #313131;
 $white: #e1e7e4;
 $white-o: #e1e7e488;
 
-$purple1: #bd84ff;
-$purple2: #8253b8;
-$purple3: #3b2553;
+$purple1: #bc96ff;
+$purple2: #8154da;
+$purple3: #3e1973;
+$purple4: #332150;
 $red1: #e66081;
 $red2: #b93e5d;
 $red3: #4e1f2b;
@@ -45,10 +46,10 @@ $sub3: #3f1d3f;
 
 // 意味のある単位
 $main-color: $blue1;
-$ingame-background: #22222e;
+$ingame-background: #1a1a2c;
 $frame-background: #18181a;
 $shadow: #282729;
-$window-border: #909497;
+$window-border: #c9d2da;
 
 // キャラごとのカラースキーム系はjsから制御したいのでネイティブのCSS変数として扱う
 :root{

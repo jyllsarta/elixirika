@@ -59,7 +59,8 @@
     position: relative;
     width: 100%;
     height: 100%;
-    border: 1px solid $gray2;
+    border-top: 1px solid $purple1;
+    border-left: 1px solid $purple1;
     display: flex;
     flex-wrap: wrap;
     transition: transform 0.1s, filter 0.1s;
@@ -70,9 +71,9 @@
     .flake{
       width: 50%;
       height: 50%;
-      border: 1px solid $gray1;
+      border-bottom: 1px solid $purple1;
+      border-right: 1px solid $purple1;
       background-color: $frame-background;
-      box-shadow: 0px 0px 5px 2px $gray3 inset;
     }
     .flash{
       position: absolute;

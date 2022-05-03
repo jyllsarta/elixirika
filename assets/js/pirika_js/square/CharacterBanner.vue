@@ -46,6 +46,7 @@
       width: 300px;
       height: 100px;
       transition: all 0.1s;
+      border-left: 1px solid $purple1;
       .sheet{
         transition: all 0.1s;
         position: absolute;
@@ -61,7 +62,7 @@
         width: 100%;
         height: 100%;
         // TODO: もしかするとキャラ固有色みたいなものをグラデーションに指定するときれいかも
-        background: linear-gradient(to left, $ingame-background 10%, transparent 120%);        
+        background: linear-gradient(to left, $ingame-background 5%, transparent 80%);        
       }
       .names{
         position: absolute;

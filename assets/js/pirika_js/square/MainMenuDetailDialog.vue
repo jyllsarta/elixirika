@@ -97,7 +97,7 @@
       width: 100%;
       height: 100%;
       background-color: $ingame-background;
-      border: 1px solid $gray1;
+      border: 1px solid $purple1;
       overflow: hidden;
       animation: in 0.2s;
       .tile{
@@ -107,35 +107,39 @@
         top: $space-m;
         left: $space-m;
         pointer-events: none;
+        z-index: 1000;
+        opacity: 0.7;
       }
       .dialog_background{
         position: absolute;
         width: 100%;
         height: 100%;
+        z-index: 500;
         .sheet{
           position: absolute;
           width: 100%;
           height: 100%;
           background-size: 500px;
-          background-position: -5% 35%;
+          background-position: -15% 35%;
           background-repeat: no-repeat;
-          opacity: 0.8;
+          animation: character-in 0.9s;
         }
         .sheet2{
           position: absolute;
           width: 100%;
           height: 100%;
           background-size: 650px;
-          background-position: -70% 60%;
+          background-position: -50% 60%;
           background-repeat: no-repeat;
           transform: scale(-1, 1);
-          opacity: 0.05;
+          animation: character-in-bg 0.9s;
+          opacity: 0.08;
         }
         .shadow{
           position: absolute;
           width: 100%;
           height: 100%;
-          background: linear-gradient(to left, $ingame-background 60%, transparent 90%);        
+          background: linear-gradient(to left, $ingame-background 55%, transparent 88%);        
         }
       }
       .content{
@@ -147,6 +151,7 @@
         display: flex;
         flex-direction: column;
         gap: $space-m;
+        z-index: 800;
         .chapter_title{
           font-size: $font-size-large;
           line-height: 100%;
@@ -183,6 +188,7 @@
         position: absolute;
         bottom: 0;
         right: 0;
+        z-index: 900;
         .background{
           width: 250px;
           height: 250px; 
@@ -224,6 +230,26 @@
       100%{
         opacity: 1;
         transform: scale(1);
+      }
+    }
+
+    @keyframes character-in {
+      0% {
+        opacity: 0;
+        transform: translate(10px, 10px);
+      }
+      100%{
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes character-in-bg {
+      0% {
+        transform: translate(-4px, -2px) scale(-1, 1);
+      }
+      100%{
+        transform: scale(-1, 1);
       }
     }
   }

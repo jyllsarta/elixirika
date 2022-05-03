@@ -210,7 +210,7 @@
       }
       .description{
         font-size: $font-size-normal;
-        border-bottom: 1px solid $gray2;
+        border-bottom: 1px solid $gray1;
       }
     }
     .content{
@@ -224,7 +224,7 @@
         .index{
           margin-top: $space-m;
           margin-bottom: $space-m;
-          border-bottom: 1px solid $gray2;
+          border-bottom: 1px solid $purple1;
           text-align: center;
         }
         .body{
@@ -253,7 +253,7 @@
               .score{
                 text-align: center;
                 width: 100%;
-                background-color: $gray4;
+                background-color: $purple4;
                 &.great{
                   background-color: $purple2;
                 }
@@ -266,7 +266,7 @@
               flex-direction: column;
               justify-content: center;
               align-items: center;
-              background-color: $gray4;
+              background-color: $purple4;
               &.great{
                 background-color: $purple2;
               }
@@ -279,7 +279,7 @@
         .index{
           margin-top: $space-m;
           margin-bottom: $space-m;
-          border-bottom: 1px solid $gray2;
+          border-bottom: 1px solid $purple1;
           text-align: center;
         }
         .body{
@@ -287,9 +287,9 @@
           height: 100px * 4 + $space-m * 3;
           align-items: center;
           justify-content: center;
-          background-color: $gray4;
+          background-color: $purple4;
           &.great{
-            background-color: $purple2;
+            background-color: $purple3;
           }
         }
       }
