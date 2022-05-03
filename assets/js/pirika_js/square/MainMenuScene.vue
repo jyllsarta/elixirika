@@ -4,7 +4,7 @@
       .title
         | メインメニュー
       .description
-        | タイルをクリックすると詳細を確認できます。
+        | タイルをクリックしてステージ詳細を開き、妖精たちのお手伝いをしてみましょう。
     .content
       .tile_section
         .index
@@ -25,17 +25,21 @@
                 :challenge-clear-state="challengeClearState(chapter)"
               )
             .chapter_scores
-              .score(v-for="chapter in chapters(characterId)", :key="chapter.id")
+              .score(
+                v-for="chapter in chapters(characterId)"
+                :key="chapter.id"
+                :class="{great: highScore(chapter) >= 200}"
+              )
                 | {{ highScore(chapter) }}
             .total_score
-              .score
+              .score(:class="{great: totalScore(characterId) >= 1000}")
                 | {{totalScore(characterId)}}
       .score_section
         .index
-          | 総合スコア
+          | まとめて
         .body
-          .score
-            | 10000
+          .score(:class="{great: finalScore() >= 4000}")
+            | {{finalScore()}}
     transition(name="detail")
       .main_menu_detail_dialog(v-if="showsDetailDialog")
         MainMenuDetailDialog(
@@ -84,6 +88,7 @@
       const characterFactory = new CharacterFactory();
       const chapterMaster = new Chapter();
       const challengeMaster = new Challenge();
+
       return {
         characters: [1,2,3,4].reduce((iter, x)=>{const c=characterFactory.getCharacterById(x); iter[c.id]=c; return iter}, {}),
         chapterMaster: chapterMaster,
@@ -129,6 +134,9 @@
       totalScore(characterId){
         const chapters = this.chapters(characterId);
         return chapters.reduce((a,b)=>this.highScore(b)+a, 0);
+      },
+      finalScore(){
+        return Object.values(this.userStatus.high_score).reduce((a,b)=>b+a, 0)
       },
       isChallengeCleared(chapterId, challengeId){
         const status = this.userStatus.challenges[chapterId]?.indexOf(challengeId);
@@ -231,17 +239,53 @@
               width: 100px;
               height: 100px;
             }
+            .chapter_scores{
+              height: 100px;
+              width: 50px;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-around;
+              .score{
+                text-align: center;
+                width: 100%;
+                background-color: $gray4;
+                &.great{
+                  background-color: $purple2;
+                }
+              }
+            }
+            .total_score{
+              height: 100px;
+              width: 50px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              background-color: $gray4;
+              &.great{
+                background-color: $purple2;
+              }
+            }
           }
         }
       }
       .score_section{
         height: 80%;
+        width: 100px;
         .index{
           margin-bottom: $space-m;
           border-bottom: 1px solid $gray2;
           text-align: center;
         }
         .body{
+          display: flex;
+          height: 100px * 4 + $space-m * 3;
+          align-items: center;
+          justify-content: center;
+          background-color: $gray4;
+          &.great{
+            background-color: $purple2;
+          }
         }
       }
     }
