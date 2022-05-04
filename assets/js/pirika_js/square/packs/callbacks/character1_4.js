@@ -1,19 +1,28 @@
 let Card = require("../card");
-const Constants = require("../constants");
+let AbilityAddCard = require("../abilityAddCard");
 
 module.exports = class Character1_4 {
   onGameStart(character, model){
-    for(let i = 1; i <= Constants.normalCardPerSuit; ++i){
-      for(let suit of ["j", "j"]){
-        model.deck.field.addCard(new Card(i, suit, "normal"));
-      }
-    }
-    model.deck.field.cards = model.deck.field.cards.filter(card=>(card.number <= 7 || card.category != "normal"));
+    character.uniqueParameters.abilities = [
+      new AbilityAddCard(1, new Card( 0, "x", "special")),
+      new AbilityAddCard(2, new Card( 11, "s", "sender")),
+      new AbilityAddCard(3, new Card( 11, "h", "sender")),
+    ]
+    model.deck.field.addCard(new Card(0, "x", "special"));
     model.deck.shuffle(model.seededRandom);
   }
-
-  // お宝回収はアーリーグレイスの対象外
-  isClearedMainTarget(character, model){
-    return false;
+  starPaletteParameter(){
+    return {
+      kinds: [
+        {value: 2, order: 1},
+        {value: 3, order: 1},
+        {value: 4, order: 1},
+        {value: 5, order: 1},
+        {value: 6, order: 1},
+        {value: 7, order: 1},
+        {value: 8, order: 1},
+        {value: 9, order: 1, upper: true},
+      ]
+    };
   }
 };
