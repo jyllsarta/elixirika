@@ -21,6 +21,8 @@
       BlackBoard(:model="model")
     .card_game_panel.object
       CardGamePanel(:model="model" @guiEvent="onGuiEvent")
+    .star_palette_effect.object
+      StarPaletteEffect(:model="model")
     .in_game_menu.object
       InGameMenu(@guiEvent="onGuiEvent")
     .game_end_popup.object
@@ -45,6 +47,7 @@
     import Hand from "./Hand.vue"
     import BlackBoard from "./BlackBoard.vue"
     import CardGamePanel from "./CardGamePanel.vue"
+    import StarPaletteEffect from "./StarPaletteEffect.vue"
     import InGameMenu from "./InGameMenu.vue"
     import GameEndPopup from "./GameEndPopup.vue"
     import GameStartPopup from "./GameStartPopup.vue"
@@ -65,6 +68,7 @@
       Hand,
       BlackBoard,
       CardGamePanel,
+      StarPaletteEffect,
       InGameMenu,
       GameEndPopup,
       GameStartPopup,
@@ -199,6 +203,10 @@
     .card_game_panel{
       bottom: $space-m;
       right: $space-m;
+    }
+    .star_palette_effect{
+      top: 50px;
+      left: calc((1200px - 200px) / 2);
     }
     .in_game_menu{
       top: $space-m;
