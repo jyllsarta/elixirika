@@ -31,14 +31,14 @@
                 :class="{great: highScore(chapter) >= 200}"
               )
                 | {{ highScore(chapter) }}
-            .total_score
-              .score(:class="{great: totalScore(characterId) >= 1000}")
+            .total_score(:class="{great: totalScore(characterId) >= 1000}")
+              .score
                 | {{totalScore(characterId)}}
       .score_section
         .index
           | まとめて
-        .body
-          .score(:class="{great: finalScore() >= 4000}")
+        .body(:class="{great: finalScore() >= 4000}")
+          .score
             | {{finalScore()}}
     transition(name="detail")
       .main_menu_detail_dialog(v-if="showsDetailDialog")
@@ -289,7 +289,7 @@
           justify-content: center;
           background-color: $purple4;
           &.great{
-            background-color: $purple3;
+            background-color: $purple2;
           }
         }
       }
