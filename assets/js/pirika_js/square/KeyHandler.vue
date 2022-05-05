@@ -59,6 +59,7 @@
             const characterId = this.controller.model.characterId;
             const chapterId = this.controller.model.chapterId;
             this.controller.newGame(characterId, chapterId);
+            this.controller.model.soundManager.register("reset");
             this.controller.operate("selectHand", 0);
             break;
           case "s":
