@@ -23,6 +23,15 @@
           :label="'とじる'"
         )
         GeneralButton(
+          @click="showPlayGuide()"
+          :disabled="false"
+          :flashing="false"
+          :width="'160px'"
+          :height="'40px'"
+          :color="'blue'"
+          :label="'あそびかた'"
+        )
+        GeneralButton(
           @click="showKeyboardHelp()"
           :disabled="false"
           :flashing="false"
@@ -74,6 +83,11 @@
       closeMenu(){
         this.showingMenu = false;
         this.$store.commit("playSound", {key: "menuClose"});
+      },
+      showPlayGuide(){
+        this.showingMenu = false;
+        this.$store.commit("showPlayGuide");
+        this.$store.commit("playSound", {key: "menuOpen"});
       },
       showKeyboardHelp(){
         this.showingMenu = false;
