@@ -105,7 +105,7 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        padding: $space-m;
+        padding: 0 $space-m $space-m $space-m;
         display: flex;
         flex-direction: column;
         .title{
