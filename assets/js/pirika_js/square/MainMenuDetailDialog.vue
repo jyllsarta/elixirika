@@ -3,7 +3,16 @@
     .back(@click="close")
     .dialog
       .tile
-        ClearStateTile(:character="character", :chapter="chapter", :challenge-clear-state="challengeClearState")
+        ClearStateTile(:character="character", :chapter="chapter", :challenge-clear-state="challengeClearState")      
+      GeneralButton.play_guide_button(
+        @click="showPlayGuide()"
+        :disabled="false"
+        :flashing="false"
+        :width="'160px'"
+        :height="'40px'"
+        :color="'blue'"
+        :label="'あそびかた'"
+      )
       .dialog_background
         .sheet(:style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}")
         .shadow
@@ -46,6 +55,7 @@
   import Vue from 'vue';
   import ClearStateTile from "./ClearStateTile.vue";
   import ChallengeText from "./ChallengeText.vue";
+  import GeneralButton from "./GeneralButton.vue";
   import store from "./packs/store";
 
   export default Vue.extend({
@@ -61,6 +71,7 @@
     components: {
       ClearStateTile,
       ChallengeText,
+      GeneralButton,
     },
     computed: {
       challenges(){
@@ -77,6 +88,10 @@
       close(){
         this.$emit('cancel');
         this.$store.commit("playSound", {key: "miss"});
+      },
+      showPlayGuide(){
+        this.$store.commit("showPlayGuide", this.character.id);
+        this.$store.commit("playSound", {key: "menuOpen"});
       }
     }
   })
@@ -109,6 +124,12 @@
         pointer-events: none;
         z-index: 1000;
         opacity: 0.7;
+      }
+      .play_guide_button{
+        position: absolute;
+        top: $space-m;
+        right: $space-m;
+        z-index: 1000;
       }
       .dialog_background{
         position: absolute;

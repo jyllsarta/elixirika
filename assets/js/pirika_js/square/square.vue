@@ -7,6 +7,7 @@
         MainMenuScene(:sceneParameter="sceneParameter.mainMenu", @loadScene="loadScene")
       .in_game(v-if="sceneName == 'inGame'")
         InGameScene(:sceneParameter="sceneParameter.inGame", @loadScene="loadScene")
+      PlayGuide.play_guide(v-if="$store.state.showsPlayGuide")
       GlobalSoundManager
 </template>
 
@@ -16,13 +17,17 @@
     import MainMenuScene from "./MainMenuScene.vue";
     import InGameScene from "./InGameScene.vue";
     import GlobalSoundManager from "./GlobalSoundManager.vue";
+    import PlayGuide from "./PlayGuide.vue";
+    import store from "./packs/store";
 
     export default Vue.extend({
+      store,
       components: {
         TitleScene,
         MainMenuScene,
         InGameScene,
-        GlobalSoundManager
+        GlobalSoundManager,
+        PlayGuide,
       },
       methods: {
         loadScene(parameter){
@@ -104,6 +109,12 @@
       height: $window-height;
       min-width: $window-width;
       margin: auto;
+      .play_guide{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5000;
+      }
     }
     ::selection{
       background: none;

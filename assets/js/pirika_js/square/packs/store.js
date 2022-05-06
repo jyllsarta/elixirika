@@ -7,6 +7,8 @@ const store = new Vuex.Store({
     sounds: [],
     bgm: "",
     showsKeyboardHelp: false,
+    showsPlayGuide: false,
+    playGuideCharacterId: -1,
   },
   getters: {
   },
@@ -25,6 +27,13 @@ const store = new Vuex.Store({
     },
     closeKeyboardHelp(state){
       state.showsKeyboardHelp = false;
+    },
+    showPlayGuide(state, characterId){
+      state.showsPlayGuide = true;
+      state.playGuideCharacterId = characterId;
+    },
+    closePlayGuide(state){
+      state.showsPlayGuide = false;
     },
   },
 });
