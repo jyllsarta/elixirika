@@ -6,18 +6,21 @@
         .front
           .title
             .text
-              | クロネのあそびかた
+              | {{characterName}}のあそびかた
           .content
-            | そんなものはない
+            PlayGuideContentCharacter1(v-if="$store.state.playGuideCharacterId === 1")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import store from "./packs/store";
+  import PlayGuideContentCharacter1 from "./PlayGuideContentCharacter1.vue";
+  import CharacterFactory from "./packs/characterFactory";
 
   export default Vue.extend({
     store,
-    props: {
+    components: {
+      PlayGuideContentCharacter1,
     },
     data(){
       return {};
@@ -28,6 +31,12 @@
         this.$store.commit("playSound", {key: "menuClose"});
       }
     },
+    computed: {
+      characterName(){
+        const characterFactory = new CharacterFactory();
+        return characterFactory.getCharacterById(this.$store.state.playGuideCharacterId)?.name || "";
+      }
+    }
   })
 </script>
 
