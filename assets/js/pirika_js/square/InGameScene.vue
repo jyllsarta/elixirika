@@ -29,6 +29,8 @@
       GameEndPopup(:model="model" @guiEvent="onGuiEvent" v-if="isStalemate" )
     .challenge_clear_popup.object
       ChallengeClearPopup(:model="model")
+    .keyboard_help_popup.object
+      KeyboardHelpPopup(v-if="$store.state.showsKeyboardHelp")
     .game_start_popup.object
       GameStartPopup(:model="model" @startGame="startGame" :gameStarted="gameStarted")
     KeyHandler(:controller="controller")
@@ -52,12 +54,15 @@
     import GameEndPopup from "./GameEndPopup.vue"
     import GameStartPopup from "./GameStartPopup.vue"
     import ChallengeClearPopup from "./ChallengeClearPopup.vue"
+    import KeyboardHelpPopup from "./KeyboardHelpPopup.vue"
     import Controller from "./packs/controller"
     import KeyHandler from "./KeyHandler.vue"
     import GuiHandler from "./GuiHandler.vue"
     import InGameSoundManager from "./InGameSoundManager.vue"
+    import store from "./packs/store"
 
     export default Vue.extend({
+    store,
     components: {
       SupportCharacter,
       StarPalette,
@@ -73,6 +78,7 @@
       GameEndPopup,
       GameStartPopup,
       ChallengeClearPopup,
+      KeyboardHelpPopup,
       KeyHandler,
       GuiHandler,
       InGameSoundManager,
@@ -213,6 +219,10 @@
       left: $space-m;
     }
     .game_end_popup{
+      top: 0;
+      left: 0;
+    }
+    .keyboard_help_popup{
       top: 0;
       left: 0;
     }

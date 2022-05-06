@@ -6,6 +6,7 @@ const store = new Vuex.Store({
   state: {
     sounds: [],
     bgm: "",
+    showsKeyboardHelp: false,
   },
   getters: {
   },
@@ -18,7 +19,13 @@ const store = new Vuex.Store({
     },
     flushSounds(state){
       state.sounds = [];
-    }
+    },
+    showKeyboardHelp(state){
+      state.showsKeyboardHelp = true;
+    },
+    closeKeyboardHelp(state){
+      state.showsKeyboardHelp = false;
+    },
   },
 });
 export default store;

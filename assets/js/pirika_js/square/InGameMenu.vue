@@ -23,6 +23,15 @@
           :label="'とじる'"
         )
         GeneralButton(
+          @click="showKeyboardHelp()"
+          :disabled="false"
+          :flashing="false"
+          :width="'160px'"
+          :height="'40px'"
+          :color="'blue'"
+          :label="'キーボード操作説明'"
+        )
+        GeneralButton(
           @click="reset()"
           :disabled="false"
           :flashing="false"
@@ -65,6 +74,11 @@
       closeMenu(){
         this.showingMenu = false;
         this.$store.commit("playSound", {key: "menuClose"});
+      },
+      showKeyboardHelp(){
+        this.showingMenu = false;
+        this.$store.commit("showKeyboardHelp");
+        this.$store.commit("playSound", {key: "menuOpen"});
       },
       backToMainMenu(){
         this.showingMenu = false;

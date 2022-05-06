@@ -6,8 +6,10 @@
     import Vue from 'vue';
     import Keyboard from "./packs/keyboard";
     import Controller from "./packs/controller";
+    import store from "./packs/store";
 
     export default Vue.extend({
+    store,
     props: {
       controller: Controller
     },
@@ -51,10 +53,6 @@
       },
       onKeyDownSelectHand(keyCode){
         switch(keyCode){
-          case "o":
-            // デバッグ用
-            this.controller.sendPlayLog();
-            break;
           case "r":
             const characterId = this.controller.model.characterId;
             const chapterId = this.controller.model.chapterId;
@@ -62,15 +60,21 @@
             this.controller.model.soundManager.register("reset");
             this.controller.operate("selectHand", 0);
             break;
-          case "s":
-            // sは強制
-            this.controller.operate("fillDraw", true);
-            break;
           case "x":
             this.proceedGame();
             break;
           case "z":
             this.stageCard();
+            break;
+          case "h":
+            if(this.$store.state.showsKeyboardHelp){
+              this.$store.commit("closeKeyboardHelp");
+              this.$store.commit("playSound", {key: "menuClose"});
+            }
+            else{
+              this.$store.commit("showKeyboardHelp");
+              this.$store.commit("playSound", {key: "menuOpen"});
+            }
             break;
           case "1":
             this.selectOrIgniteAbility(0);
@@ -84,11 +88,11 @@
           case "4":
             this.selectOrIgniteAbility(3);
             break;
-          case "a":
+          case "ArrowUp":
             this.selectOrIgniteAbility(0);
             break;
-          case "ArrowUp":
-            this.stageCard();
+          case "ArrowDown":
+            this.selectOrIgniteAbility(0);
             break;
           case "ArrowRight":
             this.turnRight();
@@ -115,9 +119,6 @@
           case "4":
             this.selectOrIgniteAbility(3);
             break;
-          case "a":
-            this.selectOrIgniteAbility(0);
-            break;
           case "z":
             this.selectOrIgniteAbility(currentIndex);
             break;
@@ -140,9 +141,6 @@
       },
       onKeyDownStaged(keyCode){
         switch(keyCode){
-          case "ArrowUp":
-            this.sendStagedCard();
-            break;
           case "ArrowRight":
             this.controller.operate("selectBoard", this.controller.model.selectingBoardIndex + 1);
             break;
@@ -271,10 +269,6 @@
         }
       },
       proceedGame(){
-        // xはやさしい、事故防止付き
-        if(this.controller.model.hand.field.cards.length === 4){
-          return;
-        }
         if(this.controller.model.deck.field.cards.length === 0){
           this.controller.operate("gracefullyStalemate");
         }
