@@ -126,15 +126,18 @@
             this.selectOrIgniteAbility(currentIndex - 1);
             break;
           case "ArrowRight":
+            this.$store.commit("playSound", {key: "miss"});
             this.controller.operate("disSelectAbility");
             break;
           case "ArrowLeft":
+            this.$store.commit("playSound", {key: "miss"});
             this.controller.operate("disSelectAbility");
             break;
           case "ArrowDown":
             this.selectOrIgniteAbility(currentIndex + 1);
             break;
           case "Escape":
+            this.$store.commit("playSound", {key: "miss"});
             this.controller.operate("disSelectAbility");
             break;
         }
@@ -151,9 +154,11 @@
             }
             break;
           case "ArrowDown":
+            this.$store.commit("playSound", {key: "miss"});
             this.controller.operate("unstageStagedCard");
             break;
           case "Escape":
+            this.$store.commit("playSound", {key: "miss"});
             this.controller.operate("unstageStagedCard");
             break;
         }
@@ -209,6 +214,7 @@
         if(cardIndex === lastHandIndex){
           return;
         }
+        this.$store.commit("playSound", {key: "hover"});
         if(cardIndex === -1){
           this.selectOrSend(lastHandIndex);
         }
@@ -221,6 +227,7 @@
         if(cardIndex === 0){
           return;
         }
+        this.$store.commit("playSound", {key: "hover"});
         if(cardIndex === -1){
           this.selectOrSend(0);
         }
@@ -236,6 +243,7 @@
         if(handIndex === -1){
           return;
         }
+        this.$store.commit("playSound", {key: "hover"});
         this.controller.operate("sendHandToStagedField", handIndex);
       },
       sendStagedCard(){
@@ -266,6 +274,7 @@
         else{
           this.controller.operate("selectAbility", index);
           this.controller.operate("describeSupportAbility", {index: index});
+          this.$store.commit("playSound", {key: "hover"});
         }
       },
       proceedGame(){
