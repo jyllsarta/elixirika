@@ -5,7 +5,7 @@
       .tile
         ClearStateTile(:character="character", :chapter="chapter", :challenge-clear-state="challengeClearState")      
       GeneralButton.play_guide_button(
-        @click="showPlayGuide()"
+        @click="showPlayGuide"
         :disabled="false"
         :flashing="false"
         :width="'160px'"

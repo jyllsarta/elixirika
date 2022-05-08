@@ -24,7 +24,7 @@
     .star_palette_effect.object
       StarPaletteEffect(:model="model")
     .in_game_menu.object
-      InGameMenu(@guiEvent="onGuiEvent")
+      InGameMenu(@guiEvent="onGuiEvent" :model="model")
     .game_end_popup.object
       GameEndPopup(:model="model" @guiEvent="onGuiEvent" v-if="isStalemate" )
     .challenge_clear_popup.object

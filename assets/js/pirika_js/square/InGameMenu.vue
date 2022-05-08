@@ -23,7 +23,7 @@
           :label="'とじる'"
         )
         GeneralButton(
-          @click="showPlayGuide()"
+          @click="showPlayGuide"
           :disabled="false"
           :flashing="false"
           :width="'160px'"
@@ -64,6 +64,7 @@
   import Vue from 'vue';
   import GeneralButton from "./GeneralButton.vue";
   import store from "./packs/store";
+  import Model from "./packs/model";
 
   export default Vue.extend({
     data(){
@@ -74,6 +75,9 @@
     store,
     components: {
       GeneralButton
+    },
+    props: {
+      model: Model,
     },
     methods: {
       showMenu(){
@@ -86,7 +90,7 @@
       },
       showPlayGuide(){
         this.showingMenu = false;
-        this.$store.commit("showPlayGuide");
+        this.$store.commit("showPlayGuide", this.model.characterId);
         this.$store.commit("playSound", {key: "menuOpen"});
       },
       showKeyboardHelp(){
