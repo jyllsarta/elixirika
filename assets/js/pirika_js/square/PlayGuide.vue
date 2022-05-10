@@ -7,7 +7,7 @@
           .title
             .text
               | {{characterName}}のあそびかた
-          .content
+          .content_box
             PlayGuideContentCharacter1(v-if="$store.state.playGuideCharacterId === 1")
 </template>
 
@@ -62,7 +62,7 @@
       background-color: $ingame-background;
       border: 2px solid $white;
       width: 700px;
-      height: 350px;
+      height: 470px;
       border-radius: $radius;
       .front{
         position: absolute;
@@ -84,9 +84,25 @@
             font-size: $font-size-large;
           }
         }
-        .content{
+        .content_box{
           flex-grow: 1;
           width: 100%;
+          padding-left: 5%;
+          overflow-y: scroll;
+          &::-webkit-scrollbar{
+            width: 10px;
+          }
+          &::-webkit-scrollbar-track{
+            background: transparent;
+            border: none;
+            border-radius: $radius;
+            box-shadow: inset 0 0 2px #777;
+          }
+          &::-webkit-scrollbar-thumb{
+            background: $gray2;
+            border-radius: $radius;
+            box-shadow: none;
+          }
         }
       }
     }

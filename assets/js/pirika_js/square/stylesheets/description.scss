@@ -1,0 +1,29 @@
+@import "constants";
+
+.content{
+  width: 90%;
+  padding-left: 5%;
+}
+
+.banner{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .banner_image{
+    width: 500px;
+  }
+}
+.header{
+  font-size: $font-size-medium;
+  border-bottom: 1px solid $gray3;
+}
+.pre{
+  white-space: pre-wrap;
+}
+.li{
+  padding: $space-s $space-s $space-s 20px;
+}
+.li::before{
+  content: " - ";
+  color: $yellow1;
+}
