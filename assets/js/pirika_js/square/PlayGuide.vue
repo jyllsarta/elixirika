@@ -9,18 +9,21 @@
               | {{characterName}}のあそびかた
           .content_box
             PlayGuideContentCharacter1(v-if="$store.state.playGuideCharacterId === 1")
+            PlayGuideContentCharacter2(v-if="$store.state.playGuideCharacterId === 2")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import store from "./packs/store";
   import PlayGuideContentCharacter1 from "./PlayGuideContentCharacter1.vue";
+  import PlayGuideContentCharacter2 from "./PlayGuideContentCharacter2.vue";
   import CharacterFactory from "./packs/characterFactory";
 
   export default Vue.extend({
     store,
     components: {
       PlayGuideContentCharacter1,
+      PlayGuideContentCharacter2,
     },
     data(){
       return {};
