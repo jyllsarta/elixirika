@@ -13,9 +13,16 @@
     width: 500px;
   }
 }
+.mini_image{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .header{
+  padding-top: $space-m;
   font-size: $font-size-medium;
   border-bottom: 1px solid $gray3;
+  margin-bottom: $space-s;
 }
 .pre{
   white-space: pre-wrap;
