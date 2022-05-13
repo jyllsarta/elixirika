@@ -10,6 +10,8 @@
           .content_box
             PlayGuideContentCharacter1(v-if="$store.state.playGuideCharacterId === 1")
             PlayGuideContentCharacter2(v-if="$store.state.playGuideCharacterId === 2")
+            PlayGuideContentCharacter3(v-if="$store.state.playGuideCharacterId === 3")
+            PlayGuideContentCharacter4(v-if="$store.state.playGuideCharacterId === 4")
 </template>
 
 <script lang="typescript">
@@ -17,6 +19,8 @@
   import store from "./packs/store";
   import PlayGuideContentCharacter1 from "./PlayGuideContentCharacter1.vue";
   import PlayGuideContentCharacter2 from "./PlayGuideContentCharacter2.vue";
+  import PlayGuideContentCharacter3 from "./PlayGuideContentCharacter3.vue";
+  import PlayGuideContentCharacter4 from "./PlayGuideContentCharacter4.vue";
   import CharacterFactory from "./packs/characterFactory";
 
   export default Vue.extend({
@@ -24,6 +28,8 @@
     components: {
       PlayGuideContentCharacter1,
       PlayGuideContentCharacter2,
+      PlayGuideContentCharacter3,
+      PlayGuideContentCharacter4,
     },
     data(){
       return {};
