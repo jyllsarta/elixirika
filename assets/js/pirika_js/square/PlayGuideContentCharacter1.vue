@@ -4,6 +4,8 @@
       img.banner_image(src="/images/square/descriptions/description1.png")
     .header
       | 基本ルール
+    .mini_image
+      img(src="/images/square/descriptions/rane.png")
     .pre
       | 手札のカードを順番に積んでいこう！
     .li

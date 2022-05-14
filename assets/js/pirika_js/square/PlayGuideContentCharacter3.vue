@@ -4,6 +4,8 @@
       img.banner_image(src="/images/square/descriptions/description3.png")
     .header
       | 特有の流れ読み
+    .mini_image
+      img(src="/images/square/descriptions/minus.png")
     .pre
       | ラズ固有の能力として、前よりも1低いカードも重ねられる。
       | 4 3 4 5 4 6 みたいに同じ数値帯に長くとどまることもでき、大連鎖を作りやすいぞ！
