@@ -1,8 +1,8 @@
 <template lang="pug">
   .name_input_area
     span.prefix
-      | 名前：
-    .fixed_name( v-if="!inputting")
+      | 名前(進捗の記録に使います)：
+    .fixed_name(v-if="!inputting")
       | {{fullName === "" ? "ななし(ランキング登録されません)" : fullName}}
     button.change_button(@click="setInputMode", v-if="!inputting")
       | 変更
@@ -11,7 +11,7 @@
 
 <script>
 import Vue from 'vue';
-import jsSHA from 'jssha'
+import jsSHA from 'jssha';
 
 export default {
   data: function(){

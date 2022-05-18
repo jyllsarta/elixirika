@@ -22,8 +22,6 @@
       .bottoms
         .name_area(@click.stop)
           NameArea
-        p
-          | 今のすくえあは完全に隠しページで動作確認中フェーズなので、いっさいの説明はありません。マウスでもキーボードでも遊べますが、自己責任かつご自由におたのしみください！
       transition(
         name="shutter"
         @enter="onAnimationEnter"
@@ -145,7 +143,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
         .container{
           width: 200px;
           display: flex;
@@ -154,7 +151,7 @@
           align-items: center;
           gap: $space-m;
           margin: auto;
-          transition: gap 0.2s;
+          transition: gap 0.3s;
           &:hover{            
             gap: $space-m * 3;
           }
@@ -177,9 +174,19 @@
         }
       }
       .start{
+        margin-top: 50px;
         width: 100%;
         text-align: center;
         font-size: $font-size-medium;
+        animation: tika 1s infinite alternate;
+      }
+      @keyframes tika {
+        0%{
+          opacity: 0.5;
+        }
+        100%{
+          opacity: 1;
+        }
       }
     }
     .bottoms{
@@ -203,13 +210,13 @@
         .shutter1{
           width: 100%;
           height: 50%;
-          background-color: $red3;
+          background-color: #4a4566;
           transform-origin: left;
         }
         .shutter2{
           width: 100%;
           height: 50%;
-          background-color: $yellow3;
+          background-color: #311d36;
           transform-origin: right;
         }
       }
@@ -222,13 +229,13 @@
         .shutter3{
           width: 50%;
           height: 100%;
-          background-color: $blue3;
+          background-color: #4a4566;
           transform-origin: top;
         }
         .shutter4{
           width: 50%;
           height: 100%;
-          background-color: $purple3;
+          background-color: #311d36;
           transform-origin: bottom;
         }
       }
