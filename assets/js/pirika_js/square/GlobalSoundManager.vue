@@ -95,18 +95,11 @@
             bad: {volume: 1.0},
           },
           bgm: {
-            bgm1: {volume: 1.0},
-            bgm2: {volume: 1.0},
             bgm3: {volume: 1.0},
-            bgm4: {volume: 1.0},
             bgm5: {volume: 0.6},
             bgm6: {volume: 1.0},
             bgm7: {volume: 0.8},
-            bgm8: {volume: 1.0},
-            bgm9: {volume: 1.0},
-            bgm10: {volume: 1.0},
             bgm11: {volume: 0.8},
-            bgm12: {volume: 1.0},
           },
         },
         volumes: {
