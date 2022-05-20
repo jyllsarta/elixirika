@@ -14,7 +14,7 @@ module.exports = class Character3 {
 
     this.uniqueParameters = {
       abilities: [
-        new AbilityShuffle(1, 3),
+        new AbilityShuffle(1, 6),
       ],
     };
     this.defaultCallback = new Character3_Default();

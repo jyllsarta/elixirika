@@ -8,7 +8,7 @@ module.exports = class Character3_4 {
     character.uniqueParameters.abilities = [
       new AbilityCardPocket(1),
       new AbilityCardPocket(2),
-      new AbilityShuffle(3, 3),
+      new AbilityShuffle(3, 6),
       new AbilityAddCard(4, new Card( 0, "x", "special")),
       new AbilityAddCard(5, new Card( 0, "x", "special")),
     ]
