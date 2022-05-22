@@ -19,7 +19,7 @@
       .description(v-if="params.banCardGap")
         | 同じ数値のカードを重ねるべからず
       .description
-        | 4: ■  8: ■ ■ ■
+        | 4枚で ■ , 8枚で ■ ■ ■ (その他は 0)
     .progress
       .current
         | {{ currentProgressCache }}
