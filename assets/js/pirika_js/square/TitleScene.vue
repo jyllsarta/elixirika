@@ -43,7 +43,17 @@
       :color="'blue'"
       :label="'クレジット'"
     )
+    GeneralButton.ranking_button(
+      @click="showRanking()"
+      :disabled="false"
+      :flashing="false"
+      :width="'160px'"
+      :height="'40px'"
+      :color="'blue'"
+      :label="'ランキング'"
+    )
     Credit.credit(v-if="showsCredit" @close="closeCredit")
+    Ranking.ranking(v-if="showsRanking" @close="closeRanking")
 </template>
 
 <script lang="typescript">
@@ -53,18 +63,21 @@
   import store from "./packs/store";
   import GeneralButton from "./GeneralButton.vue";
   import Credit from "./Credit.vue";
+  import Ranking from "./Ranking.vue";
 
   export default Vue.extend({
     components: {
       NameArea,
       GeneralButton,
-      Credit
+      Credit,
+      Ranking
     },
     store,
     data(){
       return {
         closing: false,
         showsCredit: false, 
+        showsRanking: false, 
       };
     },
     methods: {
@@ -106,6 +119,14 @@
         this.$store.commit("playSound", {key: "menuClose"});
         this.showsCredit = false;
       },
+      showRanking(){
+        this.$store.commit("playSound", {key: "menuOpen"});
+        this.showsRanking = true;
+      },
+      closeRanking(){
+        this.$store.commit("playSound", {key: "menuClose"});
+        this.showsRanking = false;
+      },
     },
     mounted(){
       // シーン飛ばし用
@@ -127,6 +148,11 @@
   .credit_button{
     position: absolute;
     bottom: $space-m;
+    right: $space-m;
+  }
+  .ranking_button{
+    position: absolute;
+    bottom: $space-m * 2 + 40px;
     right: $space-m;
   }
   .title{
