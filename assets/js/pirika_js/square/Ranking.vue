@@ -15,7 +15,17 @@
         .title
           | ランキング
       .body
-        | 中身
+        .ranking
+          .column.index
+            .header
+              | 順位
+            .row(v-for="index in [1,2,3,4,5]")
+              | {{index}}
+          .column(v-for="index in [1,2,3,4,5]")
+            .header
+              | あたま
+            .row(v-for="index in [1,2,3,4,5]")
+              | {{index}}
 
 </template>
 
@@ -71,9 +81,9 @@
         }
       }
       .body{
-        white-space: pre-wrap;
-        width: 100%;
-        text-align: center;
+        .ranking{
+          display: flex;
+        }
       }
     }
   }
