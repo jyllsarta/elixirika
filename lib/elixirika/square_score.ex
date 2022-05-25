@@ -11,6 +11,17 @@ defmodule Elixirika.SquareScore do
     timestamps()
   end
 
+  def register!(user_id, chapter_id, score) do
+    score = %__MODULE__{
+      user_id: user_id,
+      chapter_id: chapter_id,
+      score: score,
+      playlog: "" # TODO けす
+    }
+
+    Elixirika.Repo.insert(score)
+  end
+
   def high_score(user_id) do
     Ecto.Query.from(score in Elixirika.SquareScore,
       select: %{chapter_id: score.chapter_id, score: max(score.score)},
@@ -18,5 +29,9 @@ defmodule Elixirika.SquareScore do
     )
     |> Ecto.Query.where(user_id: ^user_id)
     |> Elixirika.Repo.all()
+  end
+
+  def ranking(character_id) do
+    # TODO
   end
 end

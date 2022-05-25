@@ -30,7 +30,6 @@ defmodule ElixirikaWeb.SquareController do
     :os.cmd(to_charlist(cmd))
     {ret_status, content} = File.read("/tmp/square_result_#{params["seed"]}.json")
 
-    # Elixirにおいてこれくらいの用事で例外を使うべきかどうかは議論がありそうだが、個人的にこれだけ簡単にエラー処理を定義できるのは利益が大きいと思う
     if ret_status != :ok, do: raise(ElixirikaWeb.InvalidOperationError)
 
     result = content |> Jason.decode!()
@@ -44,14 +43,8 @@ defmodule ElixirikaWeb.SquareController do
       &Elixirika.SquareChallenge.register!(user_id, &1, chapter_id)
     )
 
-    score = %Elixirika.SquareScore{
-      user_id: user_id,
-      chapter_id: chapter_id,
-      score: result["score"],
-      playlog: log
-    }
+    Elixirika.SquareScore.register!(user_id, chapter_id, result["score"])
 
-    Elixirika.Repo.insert(score)
     File.rm("/tmp/square_result_#{params["seed"]}.json")
 
     conn
