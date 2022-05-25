@@ -7,6 +7,10 @@ defmodule Elixirika.SquareScore do
     field :score, :integer, default: 0, meta: [null: false]
     field :chapter_id, :integer, default: 0, meta: [null: false]
     field :user_id, :integer, meta: [null: false]
+    # NOTE: playlogのdropとplay_countとindexの追加時にMyXQLが既存レコードのunique制約違反でこけることがある
+    # その場合migtationが中途半端なところで止まることがあり、DB定義を直接見て判断する必要が生まれる
+    # 直接見てマイグレーションが終わってるのにマイグレーション番号だけ上がってなかった場合詰む
+    # そうなったら yacto_schema_migrations の version をごまかす or Elixirika.SquareScore.Migration0001.change/1 の中身を空っぽにして通すだけ通す
     field :play_count, :integer, default: 1, meta: [null: false]
     timestamps()
 
