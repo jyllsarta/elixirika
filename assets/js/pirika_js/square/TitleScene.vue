@@ -77,7 +77,7 @@
       return {
         closing: false,
         showsCredit: false, 
-        showsRanking: false, 
+        showsRanking: true, //実装中
       };
     },
     methods: {

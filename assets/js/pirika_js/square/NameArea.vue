@@ -6,7 +6,7 @@
       | {{fullName === "" ? "ななし(ランキング登録されません)" : fullName}}
     button.change_button(@click="setInputMode", v-if="!inputting")
       | 変更
-    input.name_input_box(type="text", @blur="onBlur", v-model="rawName", v-if="inputting", ref="focusTarget")
+    input.name_input_box(type="text", @blur="onBlur", v-model="rawName", v-if="inputting", ref="focusTarget" maxlength="8")
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {
       const target = splitted.slice(1).join("");
       const sha = new jsSHA("SHA-256", "TEXT");
       sha.update(target);
-      const sliced = sha.getHash("HEX").slice(0, 10);
+      const sliced = sha.getHash("HEX").slice(0, 6);
       return `${displayName}📛${sliced}`;
     },
   },

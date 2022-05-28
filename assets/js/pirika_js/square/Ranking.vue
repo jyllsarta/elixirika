@@ -15,17 +15,20 @@
         .title
           | ランキング
       .body
-        .ranking
-          .column.index
-            .header
-              | 順位
-            .row(v-for="index in [1,2,3,4,5]")
-              | {{index}}
-          .column(v-for="index in [1,2,3,4,5]")
-            .header
-              | あたま
-            .row(v-for="index in [1,2,3,4,5]")
-              | {{index}}
+        .tabs
+          RankingTab(
+            v-for="cid in [1,2,3,4]"
+            :key="cid"
+            :characterId="cid"
+            :characterName="characters[cid].name"
+            @selected="onTabClick(cid)"
+          )
+        .rankings
+          RankingBanner.rank(
+            :characterId="characterId"
+            :characterName="characters[characterId].name"
+            :ranking="rankingContent"
+          )
 
 </template>
 
@@ -34,23 +37,38 @@
   import axios from "axios";
   import store from "./packs/store";
   import GeneralButton from "./GeneralButton.vue";
+  import RankingBanner from "./RankingBanner.vue";
+  import RankingTab from "./RankingTab.vue";
+  import CharacterFactory from "./packs/characterFactory";
 
   export default Vue.extend({
     store,
     data(){
+      const characterFactory = new CharacterFactory();
       return {
-        ranking: []
+        characters: [1,2,3,4].reduce((iter, x)=>{const c=characterFactory.getCharacterById(x); iter[c.id]=c; return iter}, {}),
+        characterId: 1,
+        ranking: [],
       }
     },
     components: {
       GeneralButton,
+      RankingBanner,
+      RankingTab,
     },
     methods: {
       closeMenu(){
         this.$emit("close");
       },
+      onTabClick(cid){
+        console.log(cid)
+        this.characterId = cid;
+      }
     },
     computed: {
+      rankingContent(){
+        return this.ranking[this.characterId] || [];
+      }
     },
     mounted(){
         axios.get(`/square/ranking`)
@@ -61,7 +79,6 @@
           console.warn(results);
           console.warn("NG");
         })
-
     }
   })
 </script>
@@ -98,8 +115,12 @@
         }
       }
       .body{
-        .ranking{
-          display: flex;
+        height: calc(100% - 80px);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        .tabs{
+
         }
       }
     }
