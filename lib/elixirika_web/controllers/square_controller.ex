@@ -22,6 +22,18 @@ defmodule ElixirikaWeb.SquareController do
     |> render("status.json", status: status)
   end
 
+  def ranking(conn, _params) do
+    ranking = %{
+      "1": Elixirika.SquareScore.ranking([1, 2, 3, 4]),
+      "2": Elixirika.SquareScore.ranking([5, 6, 7, 8]),
+      "3": Elixirika.SquareScore.ranking([9, 10,11,12]),
+      "4": Elixirika.SquareScore.ranking([13,14,15,16]),
+    }
+
+    conn
+    |> render("ranking.json", ranking: ranking)
+  end
+
   def register_log(conn, params) do
     log = Jason.encode!(params["log"])
     if String.length(log) >= @max_log_size, do: raise(ElixirikaWeb.PlaylogTooLongError)

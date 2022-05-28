@@ -1,5 +1,5 @@
 <template lang="pug">
-  .credit
+  .ranking
     ._back(@click="closeMenu")
     .content
       .header
@@ -31,11 +31,17 @@
 
 <script lang="typescript">
   import Vue from 'vue';
+  import axios from "axios";
   import store from "./packs/store";
   import GeneralButton from "./GeneralButton.vue";
 
   export default Vue.extend({
     store,
+    data(){
+      return {
+        ranking: []
+      }
+    },
     components: {
       GeneralButton,
     },
@@ -46,12 +52,23 @@
     },
     computed: {
     },
+    mounted(){
+        axios.get(`/square/ranking`)
+        .then((results) => {
+          this.ranking = results.data.ranking;
+        })
+        .catch((results) => {
+          console.warn(results);
+          console.warn("NG");
+        })
+
+    }
   })
 </script>
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .credit{
+  .ranking{
     position: absolute;
     width: 80%;
     height: 80%;
