@@ -37,7 +37,7 @@
         width: 100%;
         height: 100%;
         background-size: 300px;
-        background-position: right, 120px 45%;
+        background-position: -30px 35%;
         background-repeat: no-repeat;
       }
       .shadow{
@@ -51,11 +51,14 @@
         position: absolute;
         width: 100%;
         height: 100%;
+        .name{
+          padding: $space-m;
+        }
       }
       &:hover{
         .sheet{
           background-size: 310px;
-          background-position: right, 20px 44%;
+          background-position: -30px 35%;
         }
       }
     }

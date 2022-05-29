@@ -38,8 +38,10 @@ defmodule Elixirika.SquareScore do
   def ranking(chapter_ids) do
     Ecto.Query.from(
       score in Elixirika.SquareScore,
-      select: %{user_id: score.user_id, score: max(score.score)},
-      order_by: [score.score],
+      join: user in Elixirika.SquareUser,
+      on: user.id == score.user_id,
+      select: %{name: user.username, score: max(score.score)},
+      order_by: [desc: score.score],
       group_by: [score.user_id],
       where: score.chapter_id in ^chapter_ids,
       limit: 10

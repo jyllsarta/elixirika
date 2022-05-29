@@ -27,7 +27,7 @@
           RankingBanner.rank(
             :characterId="characterId"
             :characterName="characters[characterId].name"
-            :ranking="rankingContent"
+            :rankingContent="rankingContent"
           )
 
 </template>
@@ -61,7 +61,6 @@
         this.$emit("close");
       },
       onTabClick(cid){
-        console.log(cid)
         this.characterId = cid;
       }
     },

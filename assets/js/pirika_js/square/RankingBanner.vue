@@ -4,16 +4,16 @@
       img.sheet(:style="{backgroundImage: `url(/images/square/characters/${characterId}-1.png`}")
       .shadow
       .content
-        .name
+        .title
           | {{characterName}}
         .body
-          .rank(v-for="x in [1,2,3,4,5,6,7,8,9,10]")
+          .rank(v-for="rank, index in filledRanking")
             .index
-              | {{x}}
+              | {{index + 1}}
             .name
-              | hoihoi@1231231
+              | {{rank.name}}
             .score
-              | 9999
+              | {{rank.score}}
 </template>
 
 <script lang="typescript">
@@ -27,7 +27,14 @@
       characterName: String,
       rankingContent: Array,
     },
-    methods: {
+    computed: {
+      filledRanking(){
+        const base = {
+          name: "ななしろこ",
+          score: 0
+        }
+        return this.rankingContent.concat(Array.from({length: 10 - this.rankingContent.length}, () => base));
+      }
     }
   })
 </script>
@@ -60,7 +67,8 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
         &::-webkit-scrollbar{
           width: 10px;
         }
@@ -75,23 +83,32 @@
           border-radius: $radius;
           box-shadow: none;
         }
-        .rank{
-          display: flex;
-          .index{
-            width: 10%;
-          }
-          .name{
-            width: 60%;
-          }
-          .score{
-            width: 30%;
-          }
+        .title{
+          width: 100%;
+          text-align: center;
+          font-size: $font-size-medium;
+          padding: $space-s;
         }
-      }
-      &:hover{
-        .sheet{
-          background-size: 310px;
-          background-position: right, 20px 44%;
+        .body{
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          .rank{
+            display: flex;
+            .index{
+              text-align: center;
+              width: 25%;
+            }
+            .name{
+              width: 50%;
+            }
+            .score{
+              text-align: right;
+              width: 20%;
+              padding-right: $space-ll;
+            }
+          }
         }
       }
     }
