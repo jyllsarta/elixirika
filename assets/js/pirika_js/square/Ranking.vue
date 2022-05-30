@@ -23,10 +23,13 @@
             :characterName="characters[cid].name"
             @selected="onTabClick(cid)"
           )
+          RankingTabTotal(
+            @selected="onTabClick(-1)"
+          )
         .rankings
           RankingBanner.rank(
             :characterId="characterId"
-            :characterName="characters[characterId].name"
+            :characterName="characterName"
             :rankingContent="rankingContent"
           )
 
@@ -39,6 +42,7 @@
   import GeneralButton from "./GeneralButton.vue";
   import RankingBanner from "./RankingBanner.vue";
   import RankingTab from "./RankingTab.vue";
+  import RankingTabTotal from "./RankingTabTotal.vue";
   import CharacterFactory from "./packs/characterFactory";
 
   export default Vue.extend({
@@ -55,6 +59,7 @@
       GeneralButton,
       RankingBanner,
       RankingTab,
+      RankingTabTotal
     },
     methods: {
       closeMenu(){
@@ -66,7 +71,16 @@
     },
     computed: {
       rankingContent(){
+        if(this.characterId === -1){
+          return this.ranking.total;
+        }
         return this.ranking[this.characterId] || [];
+      },
+      characterName(){
+        if(this.characterId === -1){
+          return "総合";
+        }
+        return this.characters[this.characterId]?.name;
       }
     },
     mounted(){

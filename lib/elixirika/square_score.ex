@@ -49,6 +49,18 @@ defmodule Elixirika.SquareScore do
     |> Elixirika.Repo.all()
   end
 
+  def total_ranking() do
+    Ecto.Query.from(
+      score in Elixirika.SquareScore,
+      join: user in Elixirika.SquareUser,
+      on: user.id == score.user_id,
+      select: %{name: user.username, score: sum(score.score)},
+      order_by: [desc: score.score],
+      group_by: [score.user_id],
+      limit: 10
+    )
+    |> Elixirika.Repo.all()
+  end
 
   defp current_score(user_id, chapter_id) do
     record = Ecto.Query.from(Elixirika.SquareScore)
