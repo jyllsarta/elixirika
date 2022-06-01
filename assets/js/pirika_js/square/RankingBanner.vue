@@ -1,7 +1,8 @@
 <template lang="pug">
   .banner
     .base
-      img.sheet(:style="{backgroundImage: `url(/images/square/characters/${characterId}-1.png`}")
+      img.sheet(v-if="characterId !== -1" :style="{backgroundImage: `url(/images/square/characters/${characterId}-1.png`}")
+      img.sheet_total(v-if="characterId === -1")
       .shadow
       .content
         .title
@@ -11,7 +12,7 @@
             .index
               | {{index + 1}}
             .name
-              | {{rank.name}}
+              | {{fullName(rank.name)}}
             .score
               | {{rank.score}}
 </template>
@@ -19,6 +20,7 @@
 <script lang="typescript">
   import Vue from 'vue';
   import store from "./packs/store";
+  import jsSHA from 'jssha';
 
   export default Vue.extend({
     store,
@@ -34,7 +36,21 @@
           score: 0
         }
         return this.rankingContent.concat(Array.from({length: 10 - this.rankingContent.length}, () => base));
-      }
+      },
+    },
+    methods: {
+      fullName(name){
+        const splitted = name.replace(/📛/g, "").split("#");
+        const displayName = splitted[0];
+        if (splitted.length === 1) {
+            return displayName;
+        }
+        const target = splitted.slice(1).join("");
+        const sha = new jsSHA("SHA-256", "TEXT");
+        sha.update(target);
+        const sliced = sha.getHash("HEX").slice(0, 8);
+        return `${displayName}📛${sliced}`;
+      },
     }
   })
 </script>
@@ -55,6 +71,16 @@
         background-size: 300px;
         background-position: right, 120px 45%;
         background-repeat: no-repeat;
+      }
+      .sheet_total{
+        transition: all 0.1s;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url("/images/square/characters/total.png");
       }
       .shadow{
         position: absolute;
