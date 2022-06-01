@@ -60,7 +60,7 @@
   .banner{
     .base{
       position: relative;
-      width: 550px;
+      width: 650px;
       height: 100%;
       transition: all 0.1s;
       .sheet{

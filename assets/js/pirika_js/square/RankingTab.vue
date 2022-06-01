@@ -28,7 +28,7 @@
   .tab{
     .base{
       position: relative;
-      width: 150px;
+      width: 200px;
       height: 20%;
       transition: all 0.1s;
       .sheet{

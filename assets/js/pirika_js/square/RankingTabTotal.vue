@@ -22,7 +22,7 @@
   .tab{
     .base{
       position: relative;
-      width: 150px;
+      width: 200px;
       height: 20%;
       transition: all 0.1s;
       .sheet{
@@ -31,7 +31,7 @@
         width: 100%;
         height: 100%;
         background-size: 300px;
-        background-position: -30px 35%;
+        background-position: -10px 35%;
         background-repeat: no-repeat;
       }
       .shadow{
