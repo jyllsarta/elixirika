@@ -1,5 +1,5 @@
 <template lang="pug">
-  .tab(@click="$emit('selected')")
+  .tab(@click="$emit('selected')" @mouseenter="onHover")
     .base
       img.sheet(:style="{backgroundImage: `url(/images/square/characters/${characterId}-1.png`}")
       .shadow
@@ -19,6 +19,9 @@
       characterName: String,
     },
     methods: {
+      onHover(){
+        this.$store.commit("playSound", {key: "hover"});
+      }
     }
   })
 </script>

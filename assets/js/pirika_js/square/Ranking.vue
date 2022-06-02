@@ -67,6 +67,7 @@
       },
       onTabClick(cid){
         this.characterId = cid;
+        this.$store.commit("playSound", {key: "ok"});
       }
     },
     computed: {
