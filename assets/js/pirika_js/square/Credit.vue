@@ -65,6 +65,7 @@
     height: 80%;
     left: 10%;
     top: 10%;
+    border: 2px solid $gray2;
     ._back{
       position: absolute;
       // 画面横幅のなにもない領域 - 20px まで当たり判定を持つ
@@ -78,8 +79,9 @@
       background-color: $ingame-background;
       width: 100%;
       height: 100%;
+      padding: $space-m;
       .header{
-        height: 80px;
+        height: 50px;
         display: flex;
         gap: $space-m;
         align-items: center;
