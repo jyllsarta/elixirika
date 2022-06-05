@@ -28,7 +28,7 @@ defmodule ElixirikaWeb.SquareController do
       "2": Elixirika.SquareScore.ranking([5, 6, 7, 8]),
       "3": Elixirika.SquareScore.ranking([9, 10,11,12]),
       "4": Elixirika.SquareScore.ranking([13,14,15,16]),
-      "total": Elixirika.SquareScore.total_ranking()
+      total: Elixirika.SquareScore.total_ranking()
     }
 
     conn
@@ -62,9 +62,5 @@ defmodule ElixirikaWeb.SquareController do
 
     conn
     |> render("register_log.json", %{})
-  end
-
-  defp title(title) do
-    title <> " - さーたはうす"
   end
 end
