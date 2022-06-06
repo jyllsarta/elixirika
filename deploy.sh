@@ -10,6 +10,10 @@ echo "##### pull masterdata"
 
 (cd ~/elixirika_masterdata; git pull)
 
+echo "##### pull asset"
+
+(cd ~/elixirika_assets; git pull)
+
 echo "##### resolve deps"
 
 mix deps.get --only prod
