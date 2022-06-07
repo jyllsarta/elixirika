@@ -103,9 +103,9 @@
           },
         },
         volumes: {
-          master: 0.5,
-          bgm: 0.2,
-          se: 1,
+          master: 0.7,
+          bgm: 0.7,
+          se: 0.7,
         },
         loadedSounds: {
           se:{},
