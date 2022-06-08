@@ -217,7 +217,7 @@
       flex: 1;
       min-height: 450px;
       display: flex;
-      align-items: center;
+      align-items: top;
       justify-content: center;
       gap: $space-m;
       .tile_section{
@@ -298,7 +298,7 @@
       position: absolute;
       width: 80%;
       height: 70%;
-      top: 15%;
+      top: 5%;
       left: 10%;
       z-index: 100;
     }

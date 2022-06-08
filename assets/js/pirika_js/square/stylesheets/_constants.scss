@@ -147,4 +147,4 @@ $window-border: #c9d2da;
 $disabled-opacity: 0.5;
 
 $window-width: 1200px;
-$window-height: clamp(540px, 100vh, 800px);
+$window-height: clamp(540px, 100vh - 60px, 800px);

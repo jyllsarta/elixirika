@@ -1,14 +1,15 @@
 <template lang="pug">
-  #app
-    .game
-      .title(v-if="sceneName == 'title'")
-        TitleScene(:sceneParameter="sceneParameter.title", @loadScene="loadScene")
-      .main_menu(v-if="sceneName == 'mainMenu'")
-        MainMenuScene(:sceneParameter="sceneParameter.mainMenu", @loadScene="loadScene")
-      .in_game(v-if="sceneName == 'inGame'")
-        InGameScene(:sceneParameter="sceneParameter.inGame", @loadScene="loadScene")
-      PlayGuide.play_guide(v-if="$store.state.showsPlayGuide")
-      GlobalSoundManager
+  .__frame
+    #app
+      .game
+        .title(v-if="sceneName == 'title'")
+          TitleScene(:sceneParameter="sceneParameter.title", @loadScene="loadScene")
+        .main_menu(v-if="sceneName == 'mainMenu'")
+          MainMenuScene(:sceneParameter="sceneParameter.mainMenu", @loadScene="loadScene")
+        .in_game(v-if="sceneName == 'inGame'")
+          InGameScene(:sceneParameter="sceneParameter.inGame", @loadScene="loadScene")
+        PlayGuide.play_guide(v-if="$store.state.showsPlayGuide")
+        GlobalSoundManager
 </template>
 
 <script lang="typescript">
@@ -100,24 +101,26 @@
     overflow: hidden;
   }
 
-  #app {
-    width: 100%;
-    height: 100%;
-    .game{
-      position: relative;
-      width: $window-width;
-      height: $window-height;
-      min-width: $window-width;
-      margin: auto;
-      .play_guide{
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 5000;
+  .__frame{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    #app {
+      .game{
+        position: relative;
+        width: $window-width;
+        height: $window-height;
+        min-width: $window-width;
+        margin: auto;
+        .play_guide{
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 5000;
+        }
       }
-    }
-    ::selection{
-      background: none;
+      ::selection{
+        background: none;
+      }
     }
   }
 </style>
