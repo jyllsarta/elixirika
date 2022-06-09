@@ -10,6 +10,7 @@
           InGameScene(:sceneParameter="sceneParameter.inGame", @loadScene="loadScene")
         PlayGuide.play_guide(v-if="$store.state.showsPlayGuide")
         GlobalSoundManager
+    .bottom
 </template>
 
 <script lang="typescript">
@@ -98,12 +99,11 @@
 
   body{
     background-color: $frame-background;
-    overflow: hidden;
   }
 
   .__frame{
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 20px;
+    padding-bottom: 100px;
     #app {
       .game{
         position: relative;
