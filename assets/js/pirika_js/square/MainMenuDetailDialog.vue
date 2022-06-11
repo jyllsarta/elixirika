@@ -103,9 +103,9 @@
     .back{
       position: absolute;
       top: -100px;
-      left: calc((100% - 100vw) / 2);
+      left: calc((100% - 100vw - 50px) / 2);
       width: 100vw;
-      height: calc(100vh + 50px);
+      height: calc(100vh + 20px);
     }
     .dialog{
       position: relative;

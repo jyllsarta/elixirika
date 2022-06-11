@@ -298,7 +298,7 @@
       position: absolute;
       width: 80%;
       height: 70%;
-      top: 5%;
+      top: 8%;
       left: 10%;
       z-index: 100;
     }
