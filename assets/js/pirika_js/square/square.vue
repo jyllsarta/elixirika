@@ -104,6 +104,8 @@
   .__frame{
     padding-top: 20px;
     padding-bottom: 100px;
+    padding-left: 100px;
+    padding-right: 100px;
     #app {
       .game{
         position: relative;
