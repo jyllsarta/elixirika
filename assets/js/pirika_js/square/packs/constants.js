@@ -10,7 +10,7 @@ const constants = {
   scorePerJewel: 10,
   maxRandomSeed: 1000000000,
   cardCountScoreBonusThreshold: 5,
-  defaultWindowWidth: 1200,
+  defaultWindowWidth: 1400,
   bestEnergyLowLimit: 20,
   bestEnergyHighLimit: 80,
   maxArityStyleScore: 12,

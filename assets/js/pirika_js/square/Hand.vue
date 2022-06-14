@@ -139,7 +139,7 @@
         const aspectRatio = window.screen.width / window.screen.height;
         const width = Math.max(window.screen.width, Constants.defaultWindowWidth);
         const virtualHeight = width / aspectRatio;
-        const touchAreaIndex = Math.floor(clientX * 6 / width);
+        const touchAreaIndex = Math.floor((clientX - 100) / 200);
         const isFloorPart = clientY > (virtualHeight * 4 / 5);
         // 画面下のほうはキャンセル扱いにする
         if(isFloorPart){
