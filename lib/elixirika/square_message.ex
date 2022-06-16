@@ -17,4 +17,13 @@ defmodule Elixirika.SquareMessage do
 
     Elixirika.Repo.insert!(record)
   end
+
+  def update!(id, response) do
+    cs = Ecto.Changeset.change(
+      %__MODULE__{id: id},
+      %{response: response}
+    )
+
+    Elixirika.Repo.update!(cs)
+  end
 end
