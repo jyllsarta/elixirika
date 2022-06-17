@@ -9,6 +9,14 @@ defmodule ElixirikaWeb.SquareController do
     |> render("index.html")
   end
 
+  def admin(conn, _params) do
+    messages = Elixirika.SquareMessage.recent()
+
+    conn
+    |> put_layout(false)
+    |> render("admin.html", messages: messages)
+  end
+
   def status(conn, params) do
     # HACK: user_id: nil で検索はできないので、AUTO INCREMENT 的にuser_id: 0は入らないことを悪用して検索を空振らせている
     user_id = Elixirika.SquareUser.find_by(params["username"] || "") || 0

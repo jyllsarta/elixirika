@@ -1,0 +1,30 @@
+head
+  title
+    | すくえあadmin！
+  meta name="viewport" content="width=1400,initial-scale=1"
+  meta property="og:title" content="すくえあ"
+  meta property="og:url" content="https://jyllsarta.net/square"
+  meta property="og:image" content="https://jyllsarta.net/images/square/ogp.png"
+  meta property="og:site_name" content="さーたはうす(管理用)"
+  meta property="og:description" content="サクサク重ねて連鎖を作る戦略妖精ソリティア！個人開発のブラウザゲーです"
+  meta name="twitter:card" content="summary"
+  meta name="twitter:site" content="@jyll"
+  meta name="csrf-token" content="#{Phoenix.Controller.get_csrf_token()}"
+  meta name="apple-mobile-web-app-capable" content="yes"
+  meta name="mobile-web-app-capable" content="yes"
+  link rel="preconnect" href="https://fonts.googleapis.com"
+  link rel="preconnect" href="https://fonts.gstatic.com" crossorigin
+  link href="https://fonts.googleapis.com/css2?family=M+PLUS+2:wght@300;800&display=swap" rel="stylesheet"
+  link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Coda&family=Nova+Square&display=swap" rel="stylesheet"
+  link rel="stylesheet" href="/css/reset.css"
+  link rel="stylesheet" href="/css/square_admin.css"
+body
+  h1
+    | すくえあアドミン！
+  h2
+    | 管理画面です。おたより返信ができます。
+  p 
+    | 返信用パスワード
+  input.passcode type="text"
+  .messages
+    | #{inspect(@messages)}
