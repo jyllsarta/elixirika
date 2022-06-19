@@ -15,11 +15,8 @@ defmodule Elixirika.SquareMessage do
     # selectするオブジェクトはresponse構造体として定義していいかも
     Ecto.Query.from(
       m in __MODULE__,
-      join: u in Elixirika.SquareUser,
-      on: u.id == m.user_id,
       select: %{
         id: m.id,
-        name: u.username,
         message: m.message,
         response: m.response,
         created_at: m.created_at
@@ -28,6 +25,7 @@ defmodule Elixirika.SquareMessage do
       limit: 100,
     )
     |> Elixirika.Repo.all()
+    |> Enum.map(& %{&1 | created_at: format_datetime(&1.created_at)})
   end
 
   def register!(user_id, message) do
@@ -47,5 +45,12 @@ defmodule Elixirika.SquareMessage do
     )
 
     Elixirika.Repo.update!(cs)
+  end
+
+  defp format_datetime(d) do
+    # https://elixirschool.com/ja/lessons/basics/date_time
+    # Elixir 本体にはtz データベースがなく、インポートするのもだるいのでシンプルに9時間足す
+    d = DateTime.add(d, 9 * 60 * 60)
+    "#{d.month}/#{d.day} #{d.hour}:#{d.minute}"
   end
 end

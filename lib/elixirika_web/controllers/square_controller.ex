@@ -11,10 +11,11 @@ defmodule ElixirikaWeb.SquareController do
 
   def admin(conn, _params) do
     messages = Elixirika.SquareMessage.recent()
+    csrf_token = Phoenix.Controller.get_csrf_token()
 
     conn
     |> put_layout(false)
-    |> render("admin.html", messages: messages)
+    |> render("admin.html", messages: messages, csrf_token: csrf_token)
   end
 
   def status(conn, params) do
