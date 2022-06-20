@@ -5,8 +5,8 @@ defmodule Elixirika.SquareMessage do
 
   schema @auto_source do
     field :user_id, :integer, meta: [null: false]
-    field :message, :string, meta: [null: false]
-    field :response, :string
+    field :message, :binary , meta: [null: false]
+    field :response, :binary 
     field :created_at, :utc_datetime
     index [:created_at]
   end

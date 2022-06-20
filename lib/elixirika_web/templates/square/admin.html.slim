@@ -26,11 +26,13 @@ body
       | 管理画面です。おたより返信ができます。
     p 
       | 返信用パスワード
-    input.passcode type="text"
+    input#passcode type="text"
     .messages
-      = for %{message: message, created_at: created_at, response: response} <- @messages do
-        form.message(action="/square/admin/update" method="post")
-          input.m_csrf(type="text" name="response" value="#{response}")
+      = for %{id: id, message: message, created_at: created_at, response: response} <- @messages do
+        form.message(action="/square/admin/update" method="post" onsubmit="sync();")
+          input.m_id(type="text" name="id" value="#{id}")
+          input.m_csrf(type="text" name="_csrf_token" value="#{@csrf_token}")
+          input.m_passcode(type="text" name="passcode" value="piyo")
           .m_created_at
             | #{created_at}
           .m_message
@@ -38,3 +40,6 @@ body
           input.m_response(type="text" name="response" value="#{response}")
           input.m_send(type="submit")
             | 更新
+  // TODO: m_passcode の更新をする
+  script type="text/javascript"
+    | function sync(){ console.log("hoi"); }

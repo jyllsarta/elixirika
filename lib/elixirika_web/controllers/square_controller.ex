@@ -18,6 +18,15 @@ defmodule ElixirikaWeb.SquareController do
     |> render("admin.html", messages: messages, csrf_token: csrf_token)
   end
 
+  def admin_update(conn, params) do
+    %{"passcode" => _passcode, "response" => response, "id" => id} = params
+    id = String.to_integer(id)
+    Elixirika.SquareMessage.update!(id, response)
+
+    conn
+    |> redirect(to: "/square/admin")
+  end
+
   def status(conn, params) do
     # HACK: user_id: nil で検索はできないので、AUTO INCREMENT 的にuser_id: 0は入らないことを悪用して検索を空振らせている
     user_id = Elixirika.SquareUser.find_by(params["username"] || "") || 0

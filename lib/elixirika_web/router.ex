@@ -64,6 +64,7 @@ defmodule ElixirikaWeb.Router do
     # Square
     get "/square", SquareController, :index
     get "/square/admin", SquareController, :admin
+    post "/square/admin/update", SquareController, :admin_update
     get "/square/status", SquareController, :status
     get "/square/ranking", SquareController, :ranking
     post "/square/register_log", SquareController, :register_log
