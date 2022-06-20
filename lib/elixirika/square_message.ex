@@ -6,7 +6,7 @@ defmodule Elixirika.SquareMessage do
   schema @auto_source do
     field :user_id, :integer, meta: [null: false]
     field :message, :binary , meta: [null: false]
-    field :response, :binary 
+    field :response, :binary
     field :created_at, :utc_datetime
     index [:created_at]
   end
@@ -45,6 +45,10 @@ defmodule Elixirika.SquareMessage do
     )
 
     Elixirika.Repo.update!(cs)
+  end
+
+  defp format_datetime(nil) do
+    "2022/6/22 00:00:00"
   end
 
   defp format_datetime(d) do

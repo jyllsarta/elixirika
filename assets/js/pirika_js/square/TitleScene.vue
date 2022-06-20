@@ -52,6 +52,15 @@
       :color="'blue'"
       :label="'ランキング'"
     )
+    GeneralButton.message_button(
+      @click="showMessage()"
+      :disabled="false"
+      :flashing="false"
+      :width="'160px'"
+      :height="'40px'"
+      :color="'blue'"
+      :label="'一行ごいけん・かんそう'"
+    )
     Credit.credit(v-if="showsCredit" @close="closeCredit")
     Ranking.ranking(v-if="showsRanking" @close="closeRanking")
 </template>
@@ -127,6 +136,10 @@
         this.$store.commit("playSound", {key: "menuClose"});
         this.showsRanking = false;
       },
+      showMessage(){
+        this.$store.commit("playSound", {key: "menuOpen"});
+        this.$store.commit("showMessage");
+      },
     },
     mounted(){
       // シーン飛ばし用
@@ -153,6 +166,11 @@
   .ranking_button{
     position: absolute;
     bottom: $space-m * 2 + 40px;
+    right: $space-m;
+  }
+  .message_button{
+    position: absolute;
+    bottom: $space-m * 3 + 40px * 2;
     right: $space-m;
   }
   .title{

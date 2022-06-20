@@ -9,6 +9,7 @@
         .in_game(v-if="sceneName == 'inGame'")
           InGameScene(:sceneParameter="sceneParameter.inGame", @loadScene="loadScene")
         PlayGuide.play_guide(v-if="$store.state.showsPlayGuide")
+        Message.message(v-if="$store.state.showsMessage")
         GlobalSoundManager
     .bottom
 </template>
@@ -20,6 +21,7 @@
     import InGameScene from "./InGameScene.vue";
     import GlobalSoundManager from "./GlobalSoundManager.vue";
     import PlayGuide from "./PlayGuide.vue";
+    import Message from "./Message.vue";
     import store from "./packs/store";
 
     export default Vue.extend({
@@ -30,6 +32,7 @@
         InGameScene,
         GlobalSoundManager,
         PlayGuide,
+        Message,
       },
       methods: {
         loadScene(parameter){
@@ -118,6 +121,12 @@
           top: 0;
           left: 0;
           z-index: 5000;
+        }
+        .message{
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 5001;
         }
       }
       ::selection{

@@ -11,6 +11,10 @@ defmodule ElixirikaWeb.SquareView do
     status
   end
 
+  def render("messages.json", %{messages: messages}) do
+    messages
+  end
+
   def render("ranking.json", %{ranking: ranking}) do
     %{ranking: ranking}
   end
