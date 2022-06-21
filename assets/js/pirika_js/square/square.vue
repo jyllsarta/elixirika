@@ -124,8 +124,10 @@
         }
         .message{
           position: absolute;
-          top: 0;
-          left: 0;
+          width: 80%;
+          height: 80%;
+          left: 10%;
+          top: 10%;
           z-index: 5001;
         }
       }

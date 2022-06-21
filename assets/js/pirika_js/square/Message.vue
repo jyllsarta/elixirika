@@ -1,18 +1,35 @@
 <template lang="pug">
 transition(name="show-in")
-  .window
-    .bg(@click="close")
-    .body
-      | {{messages}}
+  .message
+    ._back(@click="close")
+    .content
+      .header
+        GeneralButton.back_button(
+          @click="close"
+          :disabled="false"
+          :flashing="false"
+          :width="'160px'"
+          :height="'40px'"
+          :color="'blue'"
+          :label="'とじる'"
+        )   
+        .title
+          | ごいけん
+      .body
+        | {{messages}}
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import store from "./packs/store";
   import axios from "axios";
+  import GeneralButton from "./GeneralButton.vue";
 
   export default Vue.extend({
     store,
+    components: {
+      GeneralButton,
+    },
     data(){
       return {
         messages: []
@@ -44,42 +61,42 @@ transition(name="show-in")
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .window {
-    position: absolute;
-    width: $window-width;
-    height: $window-height;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .message{
+    border: 2px solid $gray2;
     color: $white;
-    .bg{
+    ._back{
       position: absolute;
+      // 画面横幅のなにもない領域 - 20px まで当たり判定を持つ
+      right: calc((#{$window-width} - 100vw + 20px)/2);
       top: -100px;
-      left: calc((100% - 100vw) / 2);
       width: 100vw;
-      height: calc(100vh + 50px);
+      height: 100vh;
     }
-    .body{
+    .content{
       position: absolute;
       background-color: $ingame-background;
-      border: 2px solid $white;
-      width: 700px;
-      height: 470px;
-      border-radius: $radius;
-    }
-    .show-in-enter-active {
-      transition: all .6s;
-    }
-    .show-in-leave-active {
-      transition: all .6s;
-    }
-    .show-in-enter{
-      transform: translateY(10px);
-      opacity: 0;
-    }
-    .show-in-leave-to{
-      transform: translateY(-50px) scale(0);
-      opacity: 0;
+      width: 100%;
+      height: 100%;
+      padding: $space-m;
+      .header{
+        height: 50px;
+        display: flex;
+        gap: $space-m;
+        align-items: center;
+        .title{
+          line-height: 100%;
+          font-size: $font-size-large;
+        }
+      }
+      .body{
+        height: calc(100% - 50px);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        .tabs{
+
+        }
+      }
     }
   }
 </style>
