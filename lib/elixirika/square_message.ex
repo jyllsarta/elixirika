@@ -48,7 +48,7 @@ defmodule Elixirika.SquareMessage do
   end
 
   defp format_datetime(nil) do
-    "2022/6/22 00:00:00"
+    "6/22 00:00"
   end
 
   defp format_datetime(d) do

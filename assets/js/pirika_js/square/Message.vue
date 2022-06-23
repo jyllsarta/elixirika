@@ -1,6 +1,6 @@
 <template lang="pug">
 transition(name="show-in")
-  .message
+  ._message
     ._back(@click="close")
     .content
       .header
@@ -16,7 +16,14 @@ transition(name="show-in")
         .title
           | ごいけん
       .body
-        | {{messages}}
+        .messages
+          .__message(v-for="message in messages")
+            .created_at
+              | {{message.created_at}}
+            .text
+              | {{message.message}}
+            .response
+              | {{message.response}}
 </template>
 
 <script lang="typescript">
@@ -61,7 +68,7 @@ transition(name="show-in")
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
-  .message{
+  ._message{
     border: 2px solid $gray2;
     color: $white;
     ._back{
@@ -93,8 +100,30 @@ transition(name="show-in")
         width: 100%;
         display: flex;
         justify-content: center;
-        .tabs{
+        .messages{
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          height: 100%;
+          overflow-y: scroll;
+          &::-webkit-scrollbar{
+            width: 10px;
+          }
+          &::-webkit-scrollbar-track{
+            background: transparent;
+            border: none;
+            border-radius: $radius;
+            box-shadow: inset 0 0 2px #777;
+          }
+          &::-webkit-scrollbar-thumb{
+            background: $gray2;
+            border-radius: $radius;
+            box-shadow: none;
+          }
 
+          .__message{
+            display: flex;
+          }
         }
       }
     }
