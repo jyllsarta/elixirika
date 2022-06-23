@@ -15,14 +15,23 @@ transition(name="show-in")
         )   
         .title
           | ごいけん
+      .description
+        | 簡単なメッセージを送れます。バグ報告や仕様質問などにご活用ください！感想いただけると大喜びします
       .body
         .messages
+          .__message.index
+            .created_at.column
+              | 日付
+            .text.column
+              | 内容
+            .response.column
+              | 返信
           .__message(v-for="message in messages")
-            .created_at
+            .created_at.column
               | {{message.created_at}}
-            .text
+            .text.column
               | {{message.message}}
-            .response
+            .response.column
               | {{message.response}}
 </template>
 
@@ -95,17 +104,24 @@ transition(name="show-in")
           font-size: $font-size-large;
         }
       }
+      .description{
+        border-bottom: 1px solid $gray3;
+        font-size: $font-size-mini;
+      }
       .body{
         height: calc(100% - 50px);
         width: 100%;
         display: flex;
         justify-content: center;
+        padding-top: $space-m;
         .messages{
           display: flex;
           flex-direction: column;
           width: 100%;
           height: 100%;
           overflow-y: scroll;
+          gap: $space-m;
+          padding-right: $space-m;
           &::-webkit-scrollbar{
             width: 10px;
           }
@@ -123,6 +139,26 @@ transition(name="show-in")
 
           .__message{
             display: flex;
+            gap: $space-m;
+            &.index{
+              border-bottom: 1px solid $gray3;
+              padding-bottom: $space-m;
+            }
+            .column{
+              border-left: 1px solid $gray3;
+              padding-left: $space-m;
+            }
+            .created_at{
+              width: 20%;
+            }
+            .text{
+              width: 30%;
+              white-space: pre-wrap;
+            }
+            .response{
+              flex: 1;
+              white-space: pre-wrap;
+            }
           }
         }
       }
