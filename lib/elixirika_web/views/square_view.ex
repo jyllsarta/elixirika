@@ -15,6 +15,12 @@ defmodule ElixirikaWeb.SquareView do
     messages
   end
 
+  def render("create_message.json", _params) do
+    %{
+      status: "succeeded"
+    }
+  end
+
   def render("ranking.json", %{ranking: ranking}) do
     %{ranking: ranking}
   end

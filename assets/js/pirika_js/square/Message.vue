@@ -17,6 +17,17 @@ transition(name="show-in")
           | ごいけん
       .description
         | 簡単なメッセージを送れます。バグ報告や仕様質問などにご活用ください！感想いただけると大喜びします
+      .sender
+        input.sending_message(type="text" name="sending_message" v-model="sendingMessage")
+        GeneralButton.send(
+          @click="send"
+          :disabled="false"
+          :flashing="false"
+          :width="'160px'"
+          :height="'30px'"
+          :color="'blue'"
+          :label="'送信'"
+        )   
       .body
         .messages
           .__message.index
@@ -48,7 +59,8 @@ transition(name="show-in")
     },
     data(){
       return {
-        messages: []
+        messages: [],
+        sendingMessage: ""
       };
     },
     created(){
@@ -68,7 +80,24 @@ transition(name="show-in")
           console.warn(results);
           console.warn("NG");
         })
-      }
+      },
+      send(){
+        axios.post("/square/messages/create",{
+              _csrf_token: document.querySelector("meta[name=csrf-token]").attributes["content"].textContent,
+              username: localStorage.rawNameSquare,
+              message: this.sendingMessage,
+          }
+        )
+        .then((results) => {
+          this.sendingMessage = "";
+          this.fetch();
+          console.log("OK");
+        })
+        .catch((results) => {
+          console.warn(results);
+          console.warn("NG");
+        })
+      },
     },
     computed: {
     }
@@ -108,8 +137,17 @@ transition(name="show-in")
         border-bottom: 1px solid $gray3;
         font-size: $font-size-mini;
       }
+      .sender{
+        padding: $space-m;
+        display: flex;
+        align-items: center;
+        gap: $space-m;
+        .sending_message {
+          flex: 1;
+        }
+      }
       .body{
-        height: calc(100% - 50px);
+        height: calc(100% - 120px);
         width: 100%;
         display: flex;
         justify-content: center;

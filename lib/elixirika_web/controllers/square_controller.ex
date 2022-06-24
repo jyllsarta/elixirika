@@ -34,6 +34,15 @@ defmodule ElixirikaWeb.SquareController do
     |> render("messages.json", messages: messages)
   end
 
+  def create_message(conn, params) do
+    %{"username" => username, "message" => message} = params
+    id = Elixirika.SquareUser.find_by(username || "") || 0
+    Elixirika.SquareMessage.register!(id, message)
+
+    conn
+    |> render("create_message.json", %{})
+  end
+
   def status(conn, params) do
     # HACK: user_id: nil で検索はできないので、AUTO INCREMENT 的にuser_id: 0は入らないことを悪用して検索を空振らせている
     user_id = Elixirika.SquareUser.find_by(params["username"] || "") || 0
