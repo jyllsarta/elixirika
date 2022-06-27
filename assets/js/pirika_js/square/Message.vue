@@ -178,6 +178,7 @@ transition(name="show-in")
           .__message{
             display: flex;
             gap: $space-m;
+            width: 100%;
             &.index{
               border-bottom: 1px solid $gray3;
               padding-bottom: $space-m;
@@ -187,15 +188,17 @@ transition(name="show-in")
               padding-left: $space-m;
             }
             .created_at{
-              width: 20%;
+              width: 14%;
             }
             .text{
-              width: 30%;
-              white-space: pre-wrap;
+              width: 43%;
+              white-space: pre-line;
+              word-break: break-all;
             }
             .response{
-              flex: 1;
-              white-space: pre-wrap;
+              width: 43%;
+              white-space: pre-line;
+              word-break: break-all;
             }
           }
         }
