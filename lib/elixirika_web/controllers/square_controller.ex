@@ -19,7 +19,8 @@ defmodule ElixirikaWeb.SquareController do
   end
 
   def admin_update(conn, params) do
-    %{"passcode" => _passcode, "response" => response, "id" => id} = params
+    %{"passcode" => passcode, "response" => response, "id" => id} = params
+    validate_passcode(passcode)
     id = String.to_integer(id)
     Elixirika.SquareMessage.update!(id, response)
 
@@ -96,5 +97,14 @@ defmodule ElixirikaWeb.SquareController do
 
     conn
     |> render("register_log.json", %{})
+  end
+
+
+  defp validate_passcode(passcode) do
+    system_passcode = "ADMIN_MESSAGE_UPDATE_KEY" |> System.get_env()
+
+    if is_nil(system_passcode) || system_passcode != passcode do
+      raise(ElixirikaWeb.PasscodeError)
+    end
   end
 end

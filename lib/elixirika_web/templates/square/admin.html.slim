@@ -26,7 +26,7 @@ body
       | 管理画面です。おたより返信ができます。
     p 
       | 返信用パスワード
-    input#passcode type="text"
+    input#passcode type="password"
     .messages
       = for %{id: id, message: message, created_at: created_at, response: response} <- @messages do
         form.message(action="/square/admin/update" method="post" onsubmit="sync();")
@@ -40,6 +40,5 @@ body
           input.m_response(type="text" name="response" value="#{response}")
           input.m_send(type="submit")
             | 更新
-  // TODO: m_passcode の更新をする
   script type="text/javascript"
-    | function sync(){ console.log("hoi"); }
+    | function sync(){ const pc = document.querySelector("#passcode").value; document.querySelectorAll(".m_passcode").forEach(function(d){d.value = pc}) }
