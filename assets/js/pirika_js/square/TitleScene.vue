@@ -59,7 +59,7 @@
       :width="'160px'"
       :height="'40px'"
       :color="'blue'"
-      :label="'一行ごいけん・かんそう'"
+      :label="'おたより'"
     )
     Credit.credit(v-if="showsCredit" @close="closeCredit")
     Ranking.ranking(v-if="showsRanking" @close="closeRanking")

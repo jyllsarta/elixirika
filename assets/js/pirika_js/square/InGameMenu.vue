@@ -22,6 +22,15 @@
           :color="'blue'"
           :label="'とじる'"
         )
+        GeneralButton.message_button(
+          @click="showMessage"
+          :disabled="false"
+          :flashing="false"
+          :width="'160px'"
+          :height="'40px'"
+          :color="'blue'"
+          :label="'おたより'"
+        )
         GeneralButton(
           @click="showPlayGuide"
           :disabled="false"
@@ -87,6 +96,11 @@
       closeMenu(){
         this.showingMenu = false;
         this.$store.commit("playSound", {key: "menuClose"});
+      },
+      showMessage(){
+        this.showingMenu = false;
+        this.$store.commit("playSound", {key: "menuOpen"});
+        this.$store.commit("showMessage");
       },
       showPlayGuide(){
         this.showingMenu = false;

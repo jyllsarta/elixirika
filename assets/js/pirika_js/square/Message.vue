@@ -14,7 +14,7 @@ transition(name="show-in")
           :label="'とじる'"
         )   
         .title
-          | ごいけん
+          | おたより
       .description
         | 簡単なメッセージを送れます。バグ報告や仕様質問などにご活用ください！感想いただけると大喜びします
       .sender
@@ -115,7 +115,7 @@ transition(name="show-in")
       right: calc((#{$window-width} - 100vw + 20px)/2);
       top: -100px;
       width: 100vw;
-      height: 100vh;
+      height: 90vh;
     }
     .content{
       position: absolute;

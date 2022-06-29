@@ -63,8 +63,8 @@
       position: absolute;
       top: -100px;
       left: calc((100% - 100vw) / 2);
-      width: 100vw;
-      height: calc(100vh + 50px);
+      width: 90vw;
+      height: 90vh;
     }
     .body{
       position: absolute;
