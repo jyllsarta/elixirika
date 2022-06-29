@@ -40,5 +40,8 @@ body
           input.m_response(type="text" name="response" value="#{response}")
           input.m_send(type="submit")
             | 更新
+          p.m_delete_label
+            | 削除
+          input.m_delete(type="checkbox" name="delete")
   script type="text/javascript"
     | function sync(){ const pc = document.querySelector("#passcode").value; document.querySelectorAll(".m_passcode").forEach(function(d){d.value = pc}) }

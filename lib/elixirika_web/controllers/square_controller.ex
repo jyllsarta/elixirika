@@ -20,9 +20,15 @@ defmodule ElixirikaWeb.SquareController do
 
   def admin_update(conn, params) do
     %{"passcode" => passcode, "response" => response, "id" => id} = params
+    delete = Map.get(params, "delete")
     validate_passcode(passcode)
     id = String.to_integer(id)
-    Elixirika.SquareMessage.update!(id, response)
+
+    if(delete) do
+      Elixirika.SquareMessage.delete!(id)      
+    else
+      Elixirika.SquareMessage.update!(id, response)
+    end
 
     conn
     |> redirect(to: "/square/admin")

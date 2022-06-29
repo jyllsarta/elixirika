@@ -47,6 +47,10 @@ defmodule Elixirika.SquareMessage do
     Elixirika.Repo.update!(cs)
   end
 
+  def delete!(id) do
+    Elixirika.Repo.delete!(%__MODULE__{id: id})
+  end
+
   defp format_datetime(nil) do
     "6/22 00:00"
   end
