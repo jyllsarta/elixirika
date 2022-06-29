@@ -1,13 +1,15 @@
-defmodule Elixirika.SquareMessage.Migration0002 do
+defmodule Elixirika.SquareMessage.Migration0000 do
   use Ecto.Migration
 
   def change() do
+    create table("elixirika_squaremessage")
     alter table("elixirika_squaremessage") do
-      remove(:message)
-      remove(:response)
-      add(:message, :binary, [])
+      add(:user_id, :integer, [null: false])
+      add(:message, :binary, [null: false])
       add(:response, :binary, [])
+      add(:created_at, :utc_datetime, [])
     end
+    create index("elixirika_squaremessage", [:created_at], [name: "created_at_index"])
     :ok
   end
 
@@ -16,6 +18,6 @@ defmodule Elixirika.SquareMessage.Migration0002 do
   end
 
   def __migration__(:version) do
-    2
+    0
   end
 end
