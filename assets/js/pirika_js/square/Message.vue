@@ -90,6 +90,7 @@ transition(name="show-in")
         )
         .then((results) => {
           this.sendingMessage = "";
+          this.$store.commit("playSound", {key: "special2"});
           this.fetch();
           console.log("OK");
         })
