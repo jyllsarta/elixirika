@@ -4,19 +4,7 @@
     .title(@click="onClick")
       .tops
         .logo
-          .container
-            .box
-              .letter
-                | す
-            .box
-              .letter
-                | く
-            .box
-              .letter
-                | え
-            .box
-              .letter
-                | あ
+          img(src="/images/square/title.png")
         .start
           | クリックしてはじめる
       .bottoms
@@ -182,39 +170,13 @@
     .tops{
       .logo{
         width: 100%;
-        height: 200px;
         margin-bottom: $space-m;
         display: flex;
         justify-content: center;
         align-items: center;
-        .container{
-          width: 200px;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          align-items: center;
-          gap: $space-m;
-          margin: auto;
-          transition: gap 0.3s;
-          &:hover{            
-            gap: $space-m * 3;
-          }
-          .box{
-            width: 80px;
-            height: 80px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: $white;
-            .letter{
-              // 要素は中央に置かれているが、視覚的にセンタリングできていないので調整用
-              margin-top: -6px; 
-              font-weight: bold;
-              font-size: $font-size-xlarge;
-              line-height: 100%;
-              color: $frame-background;
-            }
-          }
+        img{
+          width: 80%;
+          animation: title 4.5s infinite alternate;
         }
       }
       .start{
@@ -230,6 +192,14 @@
         }
         100%{
           opacity: 1;
+        }
+      }
+      @keyframes title {
+        0%{
+          opacity: 0.8;
+        }
+        100%{
+          filter: brightness(110%);
         }
       }
     }
