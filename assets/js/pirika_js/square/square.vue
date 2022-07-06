@@ -1,5 +1,5 @@
 <template lang="pug">
-  .__frame
+  .__frame(:style="{backgroundColor: bgColor}")
     #app
       .game
         .title(v-if="sceneName == 'title'")
@@ -40,6 +40,11 @@
           this.sceneName = sceneName;
           this.sceneParameter[sceneName] = params || {};
         },
+      },
+      computed: {
+        bgColor(){
+          return this.$store.state.bgColor;
+        }
       },
       data(){
         const defaultScene = "title";
@@ -109,8 +114,10 @@
     padding-bottom: 100px;
     padding-left: 100px;
     padding-right: 100px;
+    transition: background-color 1s;
     #app {
       .game{
+        background-color: $frame-background;
         position: relative;
         width: $window-width;
         height: $window-height;

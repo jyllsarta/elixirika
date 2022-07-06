@@ -89,6 +89,7 @@
     mounted(){
       this.controller = new Controller();
       this.controller.newGame(this.characterId, this.chapterId);
+      this.$store.commit("updateBg", this.characterId);
     },
     methods: {
       endGame(){

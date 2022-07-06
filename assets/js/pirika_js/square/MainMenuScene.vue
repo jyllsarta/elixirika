@@ -182,6 +182,7 @@
     mounted(){
       this.fetchMyScore();
       this.$store.commit("playBgm", "bgm5");
+      this.$store.commit("updateBg", this.characterId);
     },
     computed: {
       selectedCharacter(){

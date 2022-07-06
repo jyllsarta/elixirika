@@ -10,6 +10,7 @@ const store = new Vuex.Store({
     showsPlayGuide: false,
     showsMessage: false,
     playGuideCharacterId: -1,
+    bgColor: "#18181a"
   },
   getters: {
   },
@@ -42,6 +43,16 @@ const store = new Vuex.Store({
     closeMessage(state){
       state.showsMessage = false;
     },
+    updateBg(state, characterId){
+      const bgColors = {
+        1: "#131d1b",
+        2: "#201c1e",
+        3: "#161e29",
+        4: "#1d1620",
+        0: "#18181a",
+      };
+      state.bgColor = bgColors[characterId];
+    }
   },
 });
 export default store;
