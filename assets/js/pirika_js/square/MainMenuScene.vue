@@ -38,8 +38,13 @@
         .index
           | まとめて
         .body(:class="{great: finalScore() >= 4000}")
-          .score
-            | {{finalScore()}}
+          .main
+            .score
+              | {{finalScore()}}
+          .clear_button(@click="showClearImage(1)")
+            | > 5000
+          .clear_button(@click="showClearImage(2)")
+            | ■ 64
     transition(name="detail")
       .main_menu_detail_dialog(v-if="showsDetailDialog")
         MainMenuDetailDialog(
@@ -51,6 +56,11 @@
           @cancel="showsDetailDialog = false"
           @start="startGame"
         )
+    transition(name="clear")
+      ClearImage.clear_image(
+        @close="showsClearImage = false"
+        v-if="showsClearImage"
+      )
     GeneralButton.back_to_title(
       @click="backToTitle"
       :disabled="false"
@@ -68,6 +78,7 @@
   import ClearStateTile from "./ClearStateTile.vue";
   import MainMenuDetailDialog from "./MainMenuDetailDialog.vue";
   import GeneralButton from "./GeneralButton.vue";
+  import ClearImage from "./ClearImage.vue";
   import CharacterFactory from "./packs/characterFactory";
   import Chapter from "./packs/chapter";
   import Challenge from "./packs/challenge";
@@ -79,6 +90,7 @@
     components: {
       CharacterBanner,
       ClearStateTile,
+      ClearImage,
       MainMenuDetailDialog,
       GeneralButton,
     },
@@ -94,6 +106,8 @@
         chapterMaster: chapterMaster,
         challengeMaster: challengeMaster,
         showsDetailDialog: false,
+        showsClearImage: false,
+        clearImageId: -1,
         selectedCharacterId: -1,
         selectedChapterId: -1,
         userStatus: {
@@ -177,6 +191,12 @@
         this.$store.commit("playSound", {key: "ok"});
         this.$store.commit("playBgm", "");
         this.$emit("loadScene", {sceneName: "title", params: {}});
+      },
+      showClearImage(clearImageId){
+        // TODO: 進捗でバリデーションする
+        // TODO: 専用の音を出したい
+        this.showsClearImage = true;
+        this.clearImageId = clearImageId;
       }
     },
     mounted(){
@@ -286,11 +306,28 @@
         .body{
           display: flex;
           height: 100px * 4 + $space-m * 3;
-          align-items: center;
-          justify-content: center;
-          background-color: $purple4;
-          &.great{
-            background-color: $purple2;
+          gap: $space-m;
+          flex-direction: column;
+          .main{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $purple4;
+            &.great{
+              background-color: $purple2;
+            }
+          }
+          .clear_button{
+            @include centeringWithBorder($height: 28px, $border: 1px);
+            border: 1px solid $purple2;
+            transition: transform 0.2s;
+            &.great{
+              background-color: $yellow2;
+            }
+            &:hover{
+              transform: scale(1.2);
+            }
           }
         }
       }
@@ -302,6 +339,9 @@
       top: 8%;
       left: 10%;
       z-index: 100;
+    }
+    .clear_image{
+      z-index: 200;
     }
     .back_to_title{
       position: absolute;
