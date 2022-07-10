@@ -60,6 +60,7 @@
       ClearImage.clear_image(
         @close="showsClearImage = false"
         v-if="showsClearImage"
+        :clearImageId="clearImageId"
       )
     GeneralButton.back_to_title(
       @click="backToTitle"

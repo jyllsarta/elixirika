@@ -2,8 +2,7 @@
   transition(name="show-in")
     .window
       .bg(@click="close")
-      // TODO: clearImageIdで制御する
-      img.body(src="/images/square/descriptions/description1.png")
+      img.body(:src="`/images/square/clear/clear${clearImageId}.png`")
 
 </template>
 
@@ -13,8 +12,8 @@
 
   export default Vue.extend({
     store,
-    data(){
-      return {};
+    props: {
+      clearImageId: Number
     },
     methods: {
       close(){
@@ -22,8 +21,6 @@
         this.$store.commit("playSound", {key: "menuClose"});
       }
     },
-    computed: {
-    }
   })
 </script>
 
@@ -46,7 +43,7 @@
     }
     .body{
       position: absolute;
-      width: 900px;
+      height: 100%;
       border-radius: $radius;
 
     }
