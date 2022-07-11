@@ -37,12 +37,12 @@
       .score_section
         .index
           | まとめて
-        .body(:class="{great: finalScore() >= 4000}")
-          .main
+        .body
+          .main(:class="{great: finalScore() >= 5000}")
             .score
               | {{finalScore()}}
           .clear_button(@click="showClearImage(1)")
-            | > 5000
+            | ≧ 5000
           .clear_button(@click="showClearImage(2)")
             | ■ 64
     transition(name="detail")
