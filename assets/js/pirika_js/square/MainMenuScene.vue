@@ -41,9 +41,9 @@
           .main(:class="{great: finalScore() >= 5000}")
             .score
               | {{finalScore()}}
-          .clear_button(@click="showClearImage(1)")
+          .clear_button(@click="showClearImage(1)" :class="{active: isClearedImage(1)}")
             | ≧ 5000
-          .clear_button(@click="showClearImage(2)")
+          .clear_button(@click="showClearImage(2)" :class="{active: isClearedImage(2)}")
             | ■ 64
     transition(name="detail")
       .main_menu_detail_dialog(v-if="showsDetailDialog")
@@ -113,7 +113,8 @@
         selectedChapterId: -1,
         userStatus: {
           challenges: [],
-          high_score: []
+          high_score: [],
+          challengeClearCount: 0,
         },
       }
     },
@@ -186,6 +187,7 @@
         return {
           high_score: highScoreIdTable,
           challenges: challengeIdTable,
+          challengeClearCount: challenge_records.length,
         }
       },
       backToTitle(){
@@ -194,11 +196,24 @@
         this.$emit("loadScene", {sceneName: "title", params: {}});
       },
       showClearImage(clearImageId){
-        // TODO: 進捗でバリデーションする
-        // TODO: 専用の音を出したい
+        if(!this.isClearedImage(clearImageId)){
+          // TODO: 音
+          return;
+        }
         this.showsClearImage = true;
         this.clearImageId = clearImageId;
-      }
+      },
+      isClearedImage(clearImageId){
+        switch(clearImageId){
+          case 1:
+            return this.finalScore() >= 5000;
+          break;
+          case 2:
+            return this.userStatus.challengeClearCount >= 64;
+          break;          
+        }
+        return false;
+      },
     },
     mounted(){
       this.fetchMyScore();
@@ -321,13 +336,23 @@
           }
           .clear_button{
             @include centeringWithBorder($height: 28px, $border: 1px);
-            border: 1px solid $purple2;
+            border: 1px solid $purple1;
             transition: transform 0.2s;
-            &.great{
-              background-color: $yellow2;
+            opacity: 0.5;
+            &.active{
+              opacity: 1;
+              animation: activeclear 5s linear alternate infinite;
             }
-            &:hover{
+            &.active:hover {
               transform: scale(1.2);
+            }
+            @keyframes activeclear {
+              0%{
+                background-color: $purple2;
+              }
+              100%{
+                background-color: $purple1;
+              }
             }
           }
         }
