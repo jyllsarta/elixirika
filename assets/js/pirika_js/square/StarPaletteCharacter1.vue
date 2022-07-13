@@ -67,7 +67,7 @@
       },
       showsNote(){
         // お宝回収はIDベタ打ち判定しちゃう
-        return this.model.chapterId === 4 && this.currentProgress >= this.totalProgress;
+        return this.model.chapterId === 3 && this.currentProgress >= this.totalProgress;
       },
     },
     watch: {
