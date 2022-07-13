@@ -10,6 +10,7 @@ let Chapter = require("./chapter");
 const Challenge = require("./challenge");
 const MessageManager = require("./message_manager");
 const SoundManager = require("./sound_manager");
+const Constants = require("./constants");
 
 module.exports = class Model {
   constructor(characterId, chapterId, seed) {
@@ -61,7 +62,18 @@ module.exports = class Model {
   }
 
   calculateScore(){
-    this.score = this.character.getCallback("calculateScore", this.chapter.index)(this.character, this);
+    const starPaletteScore = this.starPalette.score();
+    const restCardScore = this.restCardBonus();
+    
+    this.score = starPaletteScore + restCardScore;
+  }
+  
+  restCardBonus() {
+    const isClearedMainTarget = this.character.getCallback("isClearedMainTarget", this.chapter.index)(this.character, this);
+    if(isClearedMainTarget){
+      return this.deck.field.cards.length * Constants.restCardBonus;
+    }
+    return 0;
   }
 
   // 特殊効果による手詰まり is isForceStalemate == true この場合は他の条件に関係なくとにかくtrue

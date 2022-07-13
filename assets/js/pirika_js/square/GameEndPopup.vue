@@ -66,7 +66,7 @@
         return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
       },
       restCardBonus(){
-        return this.model.character.getCallback("restCardBonus", this.model.chapter.index)(this.model.character, this.model);
+        return this.model.restCardBonus(this.model.character, this.model);
       },
     },
     methods: {

@@ -27,18 +27,6 @@ module.exports = class Character2_Default {
     }
   }
 
-  calculateScore = (character, model) => {
-    const restCardBonus = this.restCardBonus(character, model);
-    return model.starPalette.score() + restCardBonus;
-  }
-
-  restCardBonus = (character, model) => {
-    if(this.isClearedMainTarget(character, model)){
-      return model.deck.field.cards.length * Constants.restCardBonus;
-    }
-    return 0;
-  }
-
   isClearedMainTarget(character, model){
     return model.starPalette.arityStyleScore() >= Constants.maxArityStyleScore;
   }

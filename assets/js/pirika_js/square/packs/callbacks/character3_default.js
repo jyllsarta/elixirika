@@ -26,18 +26,6 @@ module.exports = class Character3_Default {
   onFillDraw(character, model, sentCardLength){
   }
 
-  calculateScore = (character, model) => {
-    const restCardBonus = this.restCardBonus(character, model);
-    return model.starPalette.score() + restCardBonus;
-  }
-
-  restCardBonus = (character, model) => {
-    if(this.isClearedMainTarget(character, model)){
-      return model.deck.field.cards.length * Constants.restCardBonus;
-    }
-    return 0;
-  }
-
   isClearedMainTarget(character, model){
     const params = character.getCallback("starPaletteParameter", model.chapter.index)().kinds;
     return params.every(param=>model.starPalette.isSatisfied(param));
