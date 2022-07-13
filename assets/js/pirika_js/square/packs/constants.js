@@ -14,6 +14,6 @@ const constants = {
   bestEnergyLowLimit: 20,
   bestEnergyHighLimit: 80,
   maxArityStyleScore: 12,
-  restCardBonus: 10,
+  restCardBonus: 15,
 }
 module.exports = constants;
