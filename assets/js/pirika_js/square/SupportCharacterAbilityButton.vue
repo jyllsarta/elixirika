@@ -98,7 +98,7 @@
           return;
         }
         this.cooltime = true;
-        setTimeout(()=>this.cooltime=false, 1000);
+        setTimeout(()=>this.cooltime=false, 500);
         this.animate();
         this.$emit('popclick');
       },

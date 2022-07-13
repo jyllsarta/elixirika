@@ -56,7 +56,7 @@
           return;
         }
         this.drawing = true;
-        setTimeout(()=>this.drawing=false, 1000);
+        setTimeout(()=>this.drawing=false, 500);
         this.$emit("guiEvent", {type: "fillDraw"});
       },
       gracefullyStalemate(){
@@ -64,7 +64,7 @@
           return;
         }
         this.drawing = true;
-        setTimeout(()=>this.drawing=false, 1000);
+        setTimeout(()=>this.drawing=false, 500);
         this.$emit("guiEvent", {type: "gracefullyStalemate"});
       },
     }
