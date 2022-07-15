@@ -8,6 +8,9 @@
           | スコア：
         .value
           NumeratableNumber(:number="model.score", :speed="0.1", :scaled="true")
+      .bars
+        .bg
+        .bar(:style="{width: progress}")
       .delta(ref="delta")
         | +{{ delta }}
     .challenges
@@ -46,6 +49,14 @@
     computed: {
       challenges(){
         return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
+      },
+      progress(){
+        const scoreChallenge = this.challenges.find(c=>c.type=="point");
+        if(scoreChallenge){
+          const progress = Math.min(1, this.model.score / scoreChallenge.value1) * 100;
+          return `${progress}%`;
+        }
+        return "100%";
       }
     },
     methods: {
@@ -91,11 +102,27 @@
       padding: $space-m;
       margin-left: 10%;
       width: 80%;
-      border-bottom: 2px solid $gray3;
       .values{
         display: flex;
         width: 100%;
         justify-content: space-between;
+      }
+      .bars{
+        width: 100%;
+        height: 2px;
+        position: relative;
+        .bg{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-color: $gray3;
+        }
+        .bar{
+          position: absolute;
+          transition: width 0.3s;
+          height: 100%;
+          background-color: $white;
+        }
       }
       .delta{
         position: absolute;
