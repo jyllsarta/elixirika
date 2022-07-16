@@ -15,24 +15,46 @@
         .title
           | クレジット
       .body
-        | BGM・効果音
-        | Tsukasa Ichimura / Audiostock
-        | Hazime / Audiostock
-        | 春日章宏 / Audiostock
-        | Hit-Point / Audiostock
-        | すもち / Audiostock
-        | あおくま / Audiostock
-        | ruha(Pastel Tone Music) / Audiostock
-        | OtoLogic / Audiostock
-        | こだまプロダクション / Audiostock
-        | アァ・だり〜べあー / Audiostock
-        | MATSU / Audiostock
-        | 8Neat / Audiostock
-        | ptest / Audiostock
-        | Sound_ken / Audiostock
-        | 
-        | 絵・プログラム
-        | じぃる
+        .index
+          | BGM・効果音
+        .persons
+          .item
+            | Tsukasa Ichimura / Audiostock
+          .item
+            | Hazime / Audiostock
+          .item
+            | 春日章宏 / Audiostock
+          .item
+            | Hit-Point / Audiostock
+          .item
+            | すもち / Audiostock
+          .item
+            | あおくま / Audiostock
+          .item
+            | ruha(Pastel Tone Music) / Audiostock
+          .item
+            | OtoLogic / Audiostock
+          .item
+            | こだまプロダクション / Audiostock
+          .item
+            | アァ・だり〜べあー / Audiostock
+          .item
+            | MATSU / Audiostock
+          .item
+            | 8Neat / Audiostock
+          .item
+            | ptest / Audiostock
+          .item
+            | Sound_ken / Audiostock
+          .item
+            | dama / Audiostock
+          .item
+            | Icy Light / Audiostock
+        .index
+          | 絵・プログラム
+        .persons
+          .item
+            | じぃる
 
 
 </template>
@@ -91,9 +113,22 @@
         }
       }
       .body{
-        white-space: pre-wrap;
         width: 100%;
-        text-align: center;
+        .index{
+          width: 100%;
+          text-align: center;
+          border-top: 1px solid $gray3;
+        }
+        .persons{
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          .item{
+            width: 50%;
+            text-align: center;
+          }
+        }
       }
     }
   }
