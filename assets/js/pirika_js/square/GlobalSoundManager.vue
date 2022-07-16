@@ -93,6 +93,7 @@
             challenge: {volume: 1.0},
             end: {volume: 1.0},
             bad: {volume: 1.0},
+            piano: {volume: 1.0},
           },
           bgm: {
             bgm3: {volume: 1.0},
@@ -100,6 +101,7 @@
             bgm6: {volume: 1.0},
             bgm7: {volume: 0.8},
             bgm11: {volume: 0.8},
+            bgm13: {volume: 1.0},
           },
         },
         volumes: {

@@ -58,7 +58,7 @@
         )
     transition(name="clear")
       ClearImage.clear_image(
-        @close="showsClearImage = false"
+        @close="closeClearImage"
         v-if="showsClearImage"
         :clearImageId="clearImageId"
       )
@@ -197,11 +197,17 @@
       },
       showClearImage(clearImageId){
         if(!this.isClearedImage(clearImageId)){
-          // TODO: 音
+          this.$store.commit("playSound", {key: "miss"});
           return;
         }
+        this.$store.commit("playSound", {key: "piano"});
+        this.$store.commit("playBgm", "bgm13");
         this.showsClearImage = true;
         this.clearImageId = clearImageId;
+      },
+      closeClearImage(){
+        this.showsClearImage = false;
+        this.$store.commit("playBgm", "bgm5");
       },
       isClearedImage(clearImageId){
         switch(clearImageId){
