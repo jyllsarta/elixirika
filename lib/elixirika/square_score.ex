@@ -41,7 +41,7 @@ defmodule Elixirika.SquareScore do
       join: user in Elixirika.SquareUser,
       on: user.id == score.user_id,
       select: %{name: user.username, score: sum(score.score)},
-      order_by: [desc: score.score],
+      order_by: [desc: sum(score.score)],
       group_by: [score.user_id],
       where: score.chapter_id in ^chapter_ids,
       limit: 10
@@ -55,7 +55,7 @@ defmodule Elixirika.SquareScore do
       join: user in Elixirika.SquareUser,
       on: user.id == score.user_id,
       select: %{name: user.username, score: sum(score.score)},
-      order_by: [desc: score.score],
+      order_by: [desc: sum(score.score)],
       group_by: [score.user_id],
       limit: 10
     )
