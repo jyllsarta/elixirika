@@ -19,6 +19,11 @@ module.exports = class AbilityAddCardWithMp {
       console.warn("insufficient mp!");
       return;
     }
+    if(model.hand.field.cards.length + this.cards.length > Constants.maxHandCardNumber){
+      model.messageManager.register("cannotIgniteAbilityMagicByCardOver");
+      model.soundManager.register("miss");
+      return;
+    }
     character.uniqueParameters.mp -= this.cost;
     this.cards.map(card=>{
       if(model.hand.field.cards.length < Constants.maxHandCardNumber){

@@ -24,10 +24,10 @@ module.exports = class AbilityDrawWithMp {
       console.warn("insufficient mp!");
       return;
     }
-    if(model.hand.field.cards.length >= Constants.maxHandCardNumber){
+    if(model.hand.field.cards.length + this.drawCount > Constants.maxHandCardNumber){
       console.warn("max hand cards!");
       model.soundManager.register("miss");
-      model.messageManager.register("cannotIgniteAbilityCardPocketMaxCard");
+      model.messageManager.register("cannotIgniteAbilityMagicByCardOver");
       return;
     }
     const drawNum = Math.min(this.drawCount, model.deck.field.cards.length)
