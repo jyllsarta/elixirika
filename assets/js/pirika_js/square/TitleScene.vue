@@ -106,6 +106,7 @@
           });
       },
       onAnimationComplete(){
+        this.tryFillEmptyName();
         this.$emit("loadScene", {sceneName: "mainMenu"});
       },
       showCredit(){
@@ -128,6 +129,12 @@
         this.$store.commit("playSound", {key: "menuOpen"});
         this.$store.commit("showMessage");
       },
+      tryFillEmptyName(){
+        if(!localStorage.rawNameSquare){
+          const randomName = Math.floor(Math.random() * Math.pow(2, 32)).toString(16);
+          localStorage.rawNameSquare = randomName;
+        }
+      }
     },
     mounted(){
       // シーン飛ばし用
