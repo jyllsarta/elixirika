@@ -108,6 +108,7 @@ defmodule ElixirikaWeb.SquareController do
 
   defp validate_passcode(passcode) do
     system_passcode = "ADMIN_MESSAGE_UPDATE_KEY" |> System.get_env()
+    IO.inspect("PC: #{passcode}, SPC:#{system_passcode}")
 
     if is_nil(system_passcode) || system_passcode != passcode do
       raise(ElixirikaWeb.PasscodeError)
