@@ -84,6 +84,7 @@ defmodule ElixirikaWeb.SquareController do
     end
     cmd = ~s(cd assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
     IO.puts(cmd)
+    IO.inspect(:os.cmd(to_charlist("pwd")))
     IO.inspect(:os.cmd(to_charlist(cmd)))
     {ret_status, content} = File.read("/tmp/square_result_#{params["seed"]}.json")
 
