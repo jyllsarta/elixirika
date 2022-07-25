@@ -82,7 +82,7 @@ defmodule ElixirikaWeb.SquareController do
       IO.puts("raise PlaylogTooLongError: #{params["seed"]}")
       raise(ElixirikaWeb.PlaylogTooLongError)
     end
-    cmd = ~s(cd assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
+    cmd = ~s(cd /home/jyll/elixirika/assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
     IO.puts(cmd)
     IO.inspect(:os.cmd(to_charlist("pwd")))
     IO.inspect(:os.cmd(to_charlist(cmd)))
