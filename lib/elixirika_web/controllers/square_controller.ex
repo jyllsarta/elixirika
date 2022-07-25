@@ -78,13 +78,21 @@ defmodule ElixirikaWeb.SquareController do
 
   def register_log(conn, params) do
     log = Jason.encode!(params["log"])
-    if String.length(log) >= @max_log_size, do: raise(ElixirikaWeb.PlaylogTooLongError)
+    if String.length(log) >= @max_log_size do
+      IO.puts("raise PlaylogTooLongError: #{params["seed"]}")
+      raise(ElixirikaWeb.PlaylogTooLongError)
+    end
     cmd = ~s(cd assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
     IO.puts(cmd)
     :os.cmd(to_charlist(cmd))
     {ret_status, content} = File.read("/tmp/square_result_#{params["seed"]}.json")
 
-    if ret_status != :ok, do: raise(ElixirikaWeb.InvalidOperationError)
+    if ret_status != :ok do
+      IO.puts("raise InvalidOperationError: #{params["seed"]}")
+      IO.inspect(ret_status)
+      IO.inspect(content)
+      raise(ElixirikaWeb.InvalidOperationError)
+    end
 
     result = content |> Jason.decode!()
 

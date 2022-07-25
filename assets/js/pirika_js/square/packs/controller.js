@@ -175,7 +175,6 @@ module.exports = class Controller {
   }
 
   selectBoard(boardIndex){
-    console.log(boardIndex)
     // 非選択状態にするために -1 だけ例外で許可する
     if(boardIndex !== -1 && !this.model.board.fields[boardIndex]){
       console.warn(`no board field ${boardIndex}`);
