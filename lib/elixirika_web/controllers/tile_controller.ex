@@ -17,7 +17,7 @@ defmodule ElixirikaWeb.TileController do
   def new(conn, _params) do
     # rubyコマンドは若干重い...
     board =
-      :os.cmd('cd lib/ruby/; ruby tile_cli.rb')
+      :os.cmd('cd /home/jyll/elixirika/lib/ruby/; ruby tile_cli.rb')
       |> Jason.decode!()
 
     conn
@@ -64,7 +64,7 @@ defmodule ElixirikaWeb.TileController do
       |> :string.join(' ')
 
     sim =
-      :os.cmd('cd lib/ruby/; ruby tile_result_cli.rb ' ++ arg)
+      :os.cmd('cd /home/jyll/elixirika/lib/ruby/; ruby tile_result_cli.rb ' ++ arg)
       |> Jason.decode!()
 
     score = %Elixirika.TileScore{
