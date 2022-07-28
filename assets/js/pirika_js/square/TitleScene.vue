@@ -7,7 +7,6 @@
           img(src="/images/square/title.png")
         .start
           | クリックしてはじめる
-          | (現在進捗がリロードで消えちゃうバグが起きてるので、少々お待ちください)
       .bottoms
         .name_area(@click.stop)
           NameArea
