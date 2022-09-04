@@ -70,6 +70,9 @@ defmodule ElixirikaWeb.Router do
     get "/square/status", SquareController, :status
     get "/square/ranking", SquareController, :ranking
     post "/square/register_log", SquareController, :register_log
+
+    # Rhomb
+    get "/rhomb", RhombController, :index
   end
 
   # Other scopes may use custom stacks.
