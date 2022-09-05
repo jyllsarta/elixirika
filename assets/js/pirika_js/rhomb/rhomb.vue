@@ -2,21 +2,48 @@
   .__frame
     #app
       .game
-        | ゲーム画面です
+        .title(v-if="sceneName == 'title'")
+          TitleScene(:sceneParameter="sceneParameter.title", @loadScene="loadScene")
+        .main_menu(v-if="sceneName == 'mainMenu'")
+          MainMenuScene(:sceneParameter="sceneParameter.mainMenu", @loadScene="loadScene")
+        .in_game(v-if="sceneName == 'inGame'")
+          InGameScene(:sceneParameter="sceneParameter.inGame", @loadScene="loadScene")
 </template>
 
 <script lang="typescript">
     import Vue from 'vue';
+    import TitleScene from "./TitleScene.vue";
+    import MainMenuScene from "./MainMenuScene.vue";
+    import InGameScene from "./InGameScene.vue";
 
     export default Vue.extend({
       components: {
+        TitleScene,
+        MainMenuScene,
+        InGameScene
       },
       methods: {
+        loadScene(parameter){
+          const {sceneName: sceneName, params: params} = parameter;
+          this.sceneName = sceneName;
+          this.sceneParameter[sceneName] = params || {};
+        },
       },
       computed: {
       },
       data(){
+        const defaultScene = "title";
+
         return {
+          sceneName: defaultScene,
+          sceneParameter: {
+            title: {
+            },
+            mainMenu: {
+            },
+            inGame: {
+            },
+          }
         };
       },
     });
