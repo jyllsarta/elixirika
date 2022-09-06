@@ -1,14 +1,21 @@
 
 <template lang="pug">
   .scene
-    .title(@click="proceed")
-      | インゲームです
-    .title(@click="backToMenu")
-      | メニューに戻るです
-    .title(@click="startGame")
-      | スタートします
-    .value
-      | {{model.seed}}
+    .screen
+      .enemies
+        .enemy(v-for="enemy in model.enemies" :style="{transform: `translate(${enemy.x * 800}px, ${enemy.y * 800}px)`}")
+    .controls
+      .buttons
+        .button(@click="proceed")
+          | インゲームです
+        .button(@click="backToMenu")
+          | メニューに戻るです
+        .button(@click="startGame")
+          | スタートします
+        .value
+          | {{model.seed}}
+        .value
+          | {{model.enemies}}
 </template>
 
 <script lang="typescript">
@@ -18,7 +25,7 @@
   export default Vue.extend({
     data(){
       return {
-        model: {},
+        model: null,
       };
     },
     methods: {
@@ -29,10 +36,11 @@
         this.$emit("loadScene", {sceneName: "mainMenu"});
       },
       startGame(){
-        this.model = new Model(999);
+        this.model.initialize(999);
       }
     },
-    mounted(){
+    created(){
+      this.model = new Model();
     }
   })
 </script>
@@ -47,9 +55,37 @@
     border: 1px solid white;
   }
 
-  .title{
+  .button{
     width: 200px;
     height: 100px;
     background-color: rgb(157, 222, 135);
+  }
+
+  .controls{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    .buttons{
+      position: absolute;
+      right: 0;
+      width: 200px;
+    }
+  }
+
+  .screen{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    .enemies{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      .enemy{
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: aquamarine;
+      }
+    }
   }
 </style>

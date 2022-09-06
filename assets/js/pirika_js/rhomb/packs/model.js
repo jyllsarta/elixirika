@@ -1,17 +1,24 @@
-let SeededRandom = require("./seededRandom");
+const SeededRandom = require("./seededRandom");
+const EnemyFactory = require("./enemyFactory");
 //const Constants = require("./constants");
 
 module.exports = class Model {
-  constructor(seed) {
-    this.initiate(seed);
+  constructor() {
+    this.boot();
   }
 
-  initiate(seed){
+  boot(){
+    this.seededRandom = new SeededRandom(-1);
+    this.enemies = [];
+  }
+
+  initialize(seed){
     this.seededRandom = new SeededRandom(seed);
-    this.seed = seed;
-    this.onGameStart();
+    this.initializeEnemies();
   }
 
-  onGameStart(){
+  initializeEnemies(){
+    const factory = new EnemyFactory(this.seededRandom);
+    this.enemies = factory.createEnemies();
   }
 };

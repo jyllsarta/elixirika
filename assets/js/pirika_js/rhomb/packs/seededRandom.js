@@ -2,6 +2,7 @@ module.exports = class SeededRandom {
   static INT_MAX = 2147483647;
 
   constructor(seed) {
+      this.seed = seed;
       this.x = 123456789;
       this.y = 362436069;
       this.z = 521288629;
@@ -24,7 +25,7 @@ module.exports = class SeededRandom {
   //setSeedでシード値を指定した乱数を[min,max]で整えて返す
   randInt(min, max){
       let rand = Math.abs(this.rand());
-      let result = rand / (SeededRandom.INT_MAX / (max + 1)) + min;
+      let result = rand / (SeededRandom.INT_MAX / (max - min + 1)) + min;
       return Math.floor(result);
   }
 };
