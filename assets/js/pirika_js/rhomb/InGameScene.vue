@@ -5,14 +5,20 @@
       | インゲームです
     .title(@click="backToMenu")
       | メニューに戻るです
+    .title(@click="startGame")
+      | スタートします
+    .value
+      | {{model.seed}}
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
+  import Model from "./packs/model";
 
   export default Vue.extend({
     data(){
       return {
+        model: {},
       };
     },
     methods: {
@@ -22,6 +28,9 @@
       backToMenu(){
         this.$emit("loadScene", {sceneName: "mainMenu"});
       },
+      startGame(){
+        this.model = new Model(999);
+      }
     },
     mounted(){
     }
