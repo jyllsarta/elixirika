@@ -1,10 +1,10 @@
 
 <template lang="pug">
   .scene
-    .screen
+    #screen.screen(ref="screen")
       .enemies
         Enemy(v-for="enemy in model.enemies" :enemy="enemy", :key="enemy.id")
-    .controls
+      Sight.sight(:model="model", :screen="$refs")
       .buttons
         .button(@click="proceed")
           | インゲームです
@@ -22,10 +22,12 @@
   import Vue from 'vue';
   import Model from "./packs/model";
   import Enemy from "./Enemy.vue";
+  import Sight from "./Sight.vue";
 
   export default Vue.extend({
     components: {
-      Enemy
+      Enemy,
+      Sight
     },
     data(){
       return {
@@ -60,33 +62,30 @@
     border: 1px solid white;
   }
 
-  .button{
-    width: 200px;
-    height: 100px;
-    background-color: rgb(157, 222, 135);
-  }
-
-  .controls{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    .buttons{
-      position: absolute;
-      right: 0;
-      width: 200px;
-    }
-  }
-
   .screen{
     position: absolute;
     width: 100%;
     height: 100%;
     .enemies{
       position: absolute;
+      pointer-events: none;
       width: 100%;
       height: 100%;
       .enemy{
         position: absolute;
+      }
+    }
+    .sight{
+      position: absolute;
+    }
+    .buttons{
+      position: absolute;
+      right: 0;
+      width: 200px;
+      .button{
+        width: 200px;
+        height: 100px;
+        background-color: rgb(157, 222, 135);
       }
     }
   }
