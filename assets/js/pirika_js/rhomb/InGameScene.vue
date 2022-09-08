@@ -36,7 +36,8 @@
         this.$emit("loadScene", {sceneName: "mainMenu"});
       },
       startGame(){
-        this.model.initialize(999);
+        const rand = Math.floor(Math.random() * 100000000)
+        this.model.initialize(rand);
       }
     },
     created(){
