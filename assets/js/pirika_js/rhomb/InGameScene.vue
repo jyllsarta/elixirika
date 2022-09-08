@@ -3,7 +3,7 @@
   .scene
     .screen
       .enemies
-        .enemy(v-for="enemy in model.enemies" :style="{transform: `translate(${enemy.x * 800}px, ${enemy.y * 800}px)`}")
+        Enemy(v-for="enemy in model.enemies" :enemy="enemy", :key="enemy.id")
     .controls
       .buttons
         .button(@click="proceed")
@@ -21,8 +21,12 @@
 <script lang="typescript">
   import Vue from 'vue';
   import Model from "./packs/model";
+  import Enemy from "./Enemy.vue";
 
   export default Vue.extend({
+    components: {
+      Enemy
+    },
     data(){
       return {
         model: null,
@@ -83,9 +87,6 @@
       height: 100%;
       .enemy{
         position: absolute;
-        width: 10px;
-        height: 10px;
-        background-color: aquamarine;
       }
     }
   }
