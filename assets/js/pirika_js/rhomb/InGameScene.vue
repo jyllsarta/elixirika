@@ -4,7 +4,7 @@
     #screen.screen(ref="screen")
       .enemies
         Enemy(v-for="enemy in model.enemies" :enemy="enemy", :key="enemy.id")
-      Sight.sight(:model="model", :screen="$refs")
+      Sight.sight(:model="model", :controller="controller" :screen="$refs")
       .buttons
         .button(@click="proceed")
           | インゲームです
@@ -16,6 +16,8 @@
           | {{model.seed}}
         .value
           | {{model.enemies}}
+        .value
+          | {{model.locks}}
 </template>
 
 <script lang="typescript">
@@ -23,6 +25,7 @@
   import Model from "./packs/model";
   import Enemy from "./Enemy.vue";
   import Sight from "./Sight.vue";
+  import Controller from "./packs/controller";
 
   export default Vue.extend({
     components: {
@@ -48,6 +51,7 @@
     },
     created(){
       this.model = new Model();
+      this.controller = new Controller(this.model);
     }
   })
 </script>

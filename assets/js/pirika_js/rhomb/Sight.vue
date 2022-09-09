@@ -5,11 +5,13 @@
 
 <script lang="typescript">
   import Vue from 'vue';
+  import Controller from "./packs/controller";
   import Model from "./packs/model";
 
   export default Vue.extend({
     props: {
       model: Model,
+      controller: Controller,
       screen: Object,
     },
     data(){
@@ -23,6 +25,7 @@
           return;
         }
         this.model.sight.updatePosition(e.offsetX, e.offsetY);
+        this.controller.tryLock();
       },
       registerWatch(){
         this.screen.screen.addEventListener("mousemove", (e)=>{
