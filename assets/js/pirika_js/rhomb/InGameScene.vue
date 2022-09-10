@@ -4,6 +4,8 @@
     #screen.screen(ref="screen")
       .enemies
         Enemy(v-for="enemy in model.enemies" :enemy="enemy", :key="enemy.id")
+      .locks
+        Lock(v-for="lock in model.locks" :lock="lock", :key="lock.id")
       Sight.sight(:model="model", :controller="controller" :screen="$refs")
       .buttons
         .button(@click="proceed")
@@ -24,13 +26,15 @@
   import Vue from 'vue';
   import Model from "./packs/model";
   import Enemy from "./Enemy.vue";
+  import Lock from "./Lock.vue";
   import Sight from "./Sight.vue";
   import Controller from "./packs/controller";
 
   export default Vue.extend({
     components: {
       Enemy,
-      Sight
+      Sight,
+      Lock
     },
     data(){
       return {
@@ -76,6 +80,15 @@
       width: 100%;
       height: 100%;
       .enemy{
+        position: absolute;
+      }
+    }
+    .locks{
+      position: absolute;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      .lock{
         position: absolute;
       }
     }
