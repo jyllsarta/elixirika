@@ -25,11 +25,26 @@
           return;
         }
         this.model.sight.updatePosition(e.offsetX, e.offsetY);
+        // 将来的にはGUIHandlerに移譲したい
         this.controller.tryLock();
+      },
+      watchMouseDown(e){
+        // 将来的にはGUIHandlerに移譲したい
+        this.controller.startLocking();
+      },
+      watchMouseUp(e){
+        // 将来的にはGUIHandlerに移譲したい
+        this.controller.endLocking();
       },
       registerWatch(){
         this.screen.screen.addEventListener("mousemove", (e)=>{
           this.watchMove(e);
+        });
+        this.screen.screen.addEventListener("mousedown", (e)=>{
+          this.watchMouseDown(e);
+        });
+        this.screen.screen.addEventListener("mouseup", (e)=>{
+          this.watchMouseUp(e);
         });
       }
     },

@@ -15,6 +15,14 @@ module.exports = class Controller {
     lockCandidates.map(enemy=>this.lock(enemy.id));
   }
 
+  startLocking(){
+    this.model.sight.setLockingMode(true);
+  }
+
+  endLocking(){
+    this.model.sight.setLockingMode(false);
+  }
+
   // private
 
   lock(enemy_id){

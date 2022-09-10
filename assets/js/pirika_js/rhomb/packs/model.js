@@ -36,6 +36,9 @@ module.exports = class Model {
     if(!enemy){
       return;
     }
+    if(!this.sight.isLocking){
+      return;
+    }
     this.locks = this.lockFactory.lock(enemy, this.locks);
   }
 
