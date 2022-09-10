@@ -21,6 +21,7 @@ module.exports = class Controller {
 
   endLocking(){
     this.model.sight.setLockingMode(false);
+    this.model.execute();
   }
 
   // private

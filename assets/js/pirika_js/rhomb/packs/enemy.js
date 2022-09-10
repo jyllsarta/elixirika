@@ -9,4 +9,12 @@ module.exports = class Enemy {
     this.y = seededRandom.randInt(0, 800);
     this.hp = 1;    
   }
+
+  damage(value){
+    this.hp -= value;
+  }
+
+  isAlive(){
+    return this.hp > 0;
+  }
 };

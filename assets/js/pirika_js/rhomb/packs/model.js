@@ -42,6 +42,12 @@ module.exports = class Model {
     this.locks = this.lockFactory.lock(enemy, this.locks);
   }
 
+  execute(){
+    this.locks.map(lock=>lock.enemy.damage(1));
+    this.enemies = this.enemies.filter(enemy=>enemy.isAlive());
+    this.locks = [];
+  }
+
   findEnemy(enemy_id){
     return this.enemies.find(enemy=>enemy.id === enemy_id);
   }
