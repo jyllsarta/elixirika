@@ -8,6 +8,7 @@
           MainMenuScene(:sceneParameter="sceneParameter.mainMenu", @loadScene="loadScene")
         .in_game(v-if="sceneName == 'inGame'")
           InGameScene(:sceneParameter="sceneParameter.inGame", @loadScene="loadScene")
+        GlobalSoundManager
 </template>
 
 <script lang="typescript">
@@ -15,12 +16,15 @@
     import TitleScene from "./TitleScene.vue";
     import MainMenuScene from "./MainMenuScene.vue";
     import InGameScene from "./InGameScene.vue";
+    import GlobalSoundManager from "./GlobalSoundManager.vue";
+    import store from "./packs/store";
 
     export default Vue.extend({
       components: {
         TitleScene,
         MainMenuScene,
-        InGameScene
+        InGameScene,
+        GlobalSoundManager
       },
       methods: {
         loadScene(parameter){
@@ -29,6 +33,7 @@
           this.sceneParameter[sceneName] = params || {};
         },
       },
+      store,
       computed: {
       },
       data(){

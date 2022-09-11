@@ -29,6 +29,7 @@
   import Lock from "./Lock.vue";
   import Sight from "./Sight.vue";
   import Controller from "./packs/controller";
+  import store from "./packs/store";
 
   export default Vue.extend({
     components: {
@@ -36,6 +37,7 @@
       Sight,
       Lock
     },
+    store,
     data(){
       return {
         model: null,
@@ -49,8 +51,10 @@
         this.$emit("loadScene", {sceneName: "mainMenu"});
       },
       startGame(){
-        const rand = Math.floor(Math.random() * 100000000)
+        const rand = Math.floor(Math.random() * 100000000);
         this.model.initialize(rand);
+        this.$store.commit("playSound", {key: "ok"});
+        this.$store.commit("playBgm", "bgm3");
       }
     },
     created(){
