@@ -1,6 +1,6 @@
 
 <template lang="pug">
-  .enemy(:style="{transform: `translate(${enemy.x - 5}px, ${enemy.y- 5}px)`}")
+  .enemy
 </template>
 
 <script lang="typescript">

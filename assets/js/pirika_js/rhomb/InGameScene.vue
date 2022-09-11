@@ -2,8 +2,13 @@
 <template lang="pug">
   .scene
     #screen.screen(ref="screen")
-      .enemies
-        Enemy(v-for="enemy in model.enemies" :enemy="enemy", :key="enemy.id")
+      transition-group(class="enemies" name="show")
+        .enemy_locator(
+          v-for="enemy in model.enemies"
+          :key="enemy.id"
+          :style="{transform: `translate(${enemy.x - 5}px, ${enemy.y - 5}px)`}"
+        )
+          Enemy(:enemy="enemy")
       .locks
         Lock(v-for="lock in model.locks" :lock="lock", :key="lock.id")
       Sight.sight(:model="model", :controller="controller" :screen="$refs")
@@ -83,7 +88,7 @@
       pointer-events: none;
       width: 100%;
       height: 100%;
-      .enemy{
+      .enemy_locator{
         position: absolute;
       }
     }
@@ -109,5 +114,18 @@
         background-color: rgb(157, 222, 135);
       }
     }
+  }
+
+  .show-enter-active {
+    transition: all .3s;
+  }
+  .show-leave-active {
+    transition: all .3s;
+  }
+  .show-enter{
+    opacity: 0;
+  }
+  .show-leave-to{
+    opacity: 0;
   }
 </style>
