@@ -7,7 +7,7 @@ module.exports = class Enemy {
     this.id = id;
     this.x = seededRandom.randInt(200, 600);
     this.y = seededRandom.randInt(200, 600);
-    this.hp = 1;    
+    this.hp = 1;
   }
 
   damage(value){
@@ -16,5 +16,9 @@ module.exports = class Enemy {
 
   isAlive(){
     return this.hp > 0;
+  }
+
+  update(){
+    this.y += 0.1;
   }
 };

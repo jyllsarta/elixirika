@@ -58,8 +58,15 @@
       startGame(){
         const rand = Math.floor(Math.random() * 100000000);
         this.model.initialize(rand);
+        // 今後は演出のあとにstartGameする
+        this.model.startGame();
         this.$store.commit("playSound", {key: "ok"});
         this.$store.commit("playBgm", "bgm3");
+        this.mainLoop();
+      },
+      mainLoop(){
+        this.model.mainLoop();
+        requestAnimationFrame(()=>this.mainLoop());
       }
     },
     created(){

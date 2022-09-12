@@ -18,16 +18,14 @@ module.exports = class Model {
     this.sight = new Sight();
     this.locks = [];
     this.range = 50;
+    this.isGameStarted = false;
   }
 
   initialize(seed){
     this.seededRandom = new SeededRandom(seed);
     this.initializeEnemies();
     this.sight.updatePosition(0, 0);
-  }
-
-  initializeEnemies(){
-    this.enemies = this.enemyFactory.createEnemies();
+    this.isGameStarted = false;
   }
 
   // modelに持つとちょっと権限過剰な感じするので、なんとかしたみ
@@ -46,6 +44,23 @@ module.exports = class Model {
     this.locks.map(lock=>lock.enemy.damage(1));
     this.enemies = this.enemies.filter(enemy=>enemy.isAlive());
     this.locks = [];
+  }
+
+  mainLoop(){
+    if(!this.isGameStarted){
+      return;
+    }
+    this.enemies.map(enemy=>enemy.update());
+  }
+
+  startGame(){
+    this.isGameStarted = true;
+  }
+
+  // private
+
+  initializeEnemies(){
+    this.enemies = this.enemyFactory.createEnemies();
   }
 
   findEnemy(enemy_id){
