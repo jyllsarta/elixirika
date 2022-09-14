@@ -5,7 +5,7 @@ p
     | らくがき
   | もあります。そちらは眠いときにちゃちゃっと描いたものです。
 #illustBox
-  = for i <- (Enum.to_list(1..151) |> Enum.reverse) do
+  = for i <- (Enum.to_list(1..@illust_count) |> Enum.reverse) do
     - istr = i |> Integer.to_string |> String.pad_leading(3, "0")
     a[href="/images/illust_all/#{istr}.png"]
       div.thumb[style="background-image: url('/images/illust_thumbnails/#{istr}.png')"]

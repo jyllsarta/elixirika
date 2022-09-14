@@ -52,8 +52,16 @@ defmodule ElixirikaWeb.PageController do
   end
 
   def illusts(conn, _params) do
+
+    illust_count = File.ls!("/home/jyll/elixirika/assets/static/images/illust_all") |> Enum.count()
+
     conn
-    |> render("illusts.html", title: title("Illusts"), og: default_og(), extra: %{})
+    |> render("illusts.html",
+      title: title("Illusts"),
+      illust_count: illust_count,
+      og: default_og(),
+      extra: %{}
+    )
   end
 
   def airryr_introduction(conn, _params) do
