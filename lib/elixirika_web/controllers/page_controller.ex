@@ -52,7 +52,6 @@ defmodule ElixirikaWeb.PageController do
   end
 
   def illusts(conn, _params) do
-
     illust_count = File.ls!("/home/jyll/elixirika/assets/static/images/illust_all") |> Enum.count()
 
     conn
@@ -83,8 +82,16 @@ defmodule ElixirikaWeb.PageController do
   end
 
   def rakugaki(conn, _params) do
+    illust_count = File.ls!("/home/jyll/elixirika/assets/static/images/rakugaki") |> Enum.count()
+
     conn
-    |> render("rakugaki.html", title: title("Illusts(rakugeki)"), og: default_og(), extra: %{})
+    |> render(
+      "rakugaki.html",
+      illust_count: illust_count,
+      title: title("Illusts(rakugeki)"),
+      og: default_og(),
+      extra: %{}
+    )
   end
 
   def sainokawara(conn, _params) do
