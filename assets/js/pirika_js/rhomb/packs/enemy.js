@@ -6,7 +6,7 @@ module.exports = class Enemy {
   initialize(seededRandom, id){
     this.id = id;
     this.x = seededRandom.randInt(200, 600);
-    this.y = seededRandom.randInt(200, 600);
+    this.y = seededRandom.randInt(200, 500);
     this.hp = 1;
   }
 

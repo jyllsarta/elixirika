@@ -19,6 +19,8 @@ module.exports = class Model {
     this.locks = [];
     this.range = 50;
     this.isGameStarted = false;
+    this.isGameOver = false;
+    this.defenceLine = 600;
   }
 
   initialize(seed){
@@ -47,10 +49,11 @@ module.exports = class Model {
   }
 
   mainLoop(){
-    if(!this.isGameStarted){
+    if(!this.isGameStarted || this.isGameOver){
       return;
     }
-    this.enemies.map(enemy=>enemy.update());
+    this.enemies.map(enemy=>enemy.update(this));
+    this.checkGameOver();
   }
 
   startGame(){
@@ -75,5 +78,11 @@ module.exports = class Model {
   // このゲームの距離はマンハッタン距離
   distance(x1, y1, x2, y2){
     return Math.abs(x1 - x2) + Math.abs(y1 - y2);
+  }
+
+  checkGameOver(){
+    if(this.enemies.some(enemy=>enemy.y >= this.defenceLine)){
+      this.isGameOver = true;
+    }
   }
 };

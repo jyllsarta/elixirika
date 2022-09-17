@@ -12,6 +12,7 @@
       .locks
         Lock(v-for="lock in model.locks" :lock="lock", :key="lock.id")
       Sight.sight(:model="model", :controller="controller" :screen="$refs")
+      .line
       .buttons
         .button(@click="proceed")
           | インゲームです
@@ -25,6 +26,8 @@
           | {{model.enemies}}
         .value
           | {{model.locks}}
+        .value
+          | isGameOver: {{model.isGameOver}} / isGameStarted: {{model.isGameStarted}}
 </template>
 
 <script lang="typescript">
@@ -56,6 +59,9 @@
         this.$emit("loadScene", {sceneName: "mainMenu"});
       },
       startGame(){
+        if(this.model.isGameStarted){
+          return;
+        }
         const rand = Math.floor(Math.random() * 100000000);
         this.model.initialize(rand);
         // 今後は演出のあとにstartGameする
@@ -110,6 +116,13 @@
     }
     .sight{
       position: absolute;
+    }
+    .line{
+      position: absolute;
+      background-color: antiquewhite;
+      width: 100%;
+      height: 1px;
+      top: 600px;
     }
     .buttons{
       position: absolute;
