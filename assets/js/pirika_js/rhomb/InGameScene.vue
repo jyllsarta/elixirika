@@ -2,6 +2,24 @@
 <template lang="pug">
   .scene
     .screen
+      .enemy_hp.component
+        .content
+          | エネミーHP
+      .enemy_commands.component
+        .content
+          | コマンド
+      .bullets.component
+        .content
+          | 弾幕
+      .enemy.component
+        .content
+          | 敵イラスト
+      .player.component
+        .content
+          | プレイヤーイラスト
+      .player_ui.component
+        .content
+          | プレイヤーUI
 </template>
 
 <script lang="typescript">
@@ -57,56 +75,48 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    .enemies{
+    .component{
       position: absolute;
-      pointer-events: none;
+      border: 1px dashed #defdef;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .enemy_hp{
+      width: 100%;
+      height: 100px;
+      top: 0;
+      left: 0;
+    }
+    .enemy_commands{
+      width: 20%;
+      height: 200px;
+      top: 100px;
+      left: 0;
+    }
+    .bullets{
       width: 100%;
       height: 100%;
-      .enemy_locator{
-        position: absolute;
-      }
+      top: 0;
+      left: 0;
     }
-    .locks{
-      position: absolute;
-      pointer-events: none;
-      width: 100%;
-      height: 100%;
-      .lock{
-        position: absolute;
-      }
-    }
-    .sight{
-      position: absolute;
-    }
-    .line{
-      position: absolute;
-      background-color: antiquewhite;
-      width: 100%;
-      height: 1px;
-      top: 600px;
-    }
-    .buttons{
-      position: absolute;
+    .enemy{
+      width: 40%;
+      height: 600px;
+      top: 100px;
       right: 0;
-      width: 200px;
-      .button{
-        width: 200px;
-        height: 100px;
-        background-color: rgb(157, 222, 135);
-      }
     }
-  }
-
-  .show-enter-active {
-    transition: all .3s;
-  }
-  .show-leave-active {
-    transition: all .3s;
-  }
-  .show-enter{
-    opacity: 0;
-  }
-  .show-leave-to{
-    opacity: 0;
+    .player{
+      width: 30%;
+      height: 400px;
+      bottom: 0;
+      left: 0;
+    }
+    .player_ui{
+      width: 50%;
+      height: 200px;
+      bottom: 0;
+      left: 0;
+    }
   }
 </style>
