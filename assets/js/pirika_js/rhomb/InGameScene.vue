@@ -1,50 +1,16 @@
 
 <template lang="pug">
   .scene
-    #screen.screen(ref="screen")
-      transition-group(class="enemies" name="show")
-        .enemy_locator(
-          v-for="enemy in model.enemies"
-          :key="enemy.id"
-          :style="{transform: `translate(${enemy.x - 5}px, ${enemy.y - 5}px)`}"
-        )
-          Enemy(:enemy="enemy")
-      .locks
-        Lock(v-for="lock in model.locks" :lock="lock", :key="lock.id")
-      Sight.sight(:model="model", :controller="controller" :screen="$refs")
-      .line
-      .buttons
-        .button(@click="proceed")
-          | インゲームです
-        .button(@click="backToMenu")
-          | メニューに戻るです
-        .button(@click="startGame")
-          | スタートします
-        .value
-          | {{model.seed}}
-        .value
-          | {{model.enemies}}
-        .value
-          | {{model.locks}}
-        .value
-          | isGameOver: {{model.isGameOver}} / isGameStarted: {{model.isGameStarted}}
+    .screen
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import Model from "./packs/model";
-  import Enemy from "./Enemy.vue";
-  import Lock from "./Lock.vue";
-  import Sight from "./Sight.vue";
   import Controller from "./packs/controller";
   import store from "./packs/store";
 
   export default Vue.extend({
-    components: {
-      Enemy,
-      Sight,
-      Lock
-    },
     store,
     data(){
       return {
@@ -68,12 +34,7 @@
         this.model.startGame();
         this.$store.commit("playSound", {key: "ok"});
         this.$store.commit("playBgm", "bgm3");
-        this.mainLoop();
       },
-      mainLoop(){
-        this.model.mainLoop();
-        requestAnimationFrame(()=>this.mainLoop());
-      }
     },
     created(){
       this.model = new Model();
