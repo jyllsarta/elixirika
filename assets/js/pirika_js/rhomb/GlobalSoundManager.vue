@@ -5,8 +5,8 @@
     v-if="!showingMenu"
     :disabled="false"
     :flashing="false"
-    :width="'160px'"
-    :height="'40px'"
+    :width="'100px'"
+    :height="'28px'"
     :color="'blue'"
     :label="'音量'"
   )
@@ -17,8 +17,8 @@
         @click="closeMenu"
         :disabled="false"
         :flashing="false"
-        :width="'160px'"
-        :height="'40px'"
+        :width="'100px'"
+        :height="'28px'"
         :color="'blue'"
         :label="'とじる'"
       )
@@ -264,7 +264,7 @@
   right: 8px;
   background-color: #171744;
   .menu{
-    width: 200px;
+    width: 140px;
     display: flex;
     padding: 8px;
     flex-direction: column;

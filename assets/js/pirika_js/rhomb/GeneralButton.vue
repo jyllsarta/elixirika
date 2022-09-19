@@ -1,11 +1,12 @@
 <template lang="pug">
-  .button.with_shadow(
+  .button(
     @click="onClick"
     @mouseenter="onHover"
     :class="buttonClass"
     :style="{width: width, height: height}"
   )
-    | {{label}}
+    .button_text
+      | {{label}}
 
 </template>
 
@@ -45,11 +46,15 @@
 <style lang="scss" scoped>
   @import "stylesheets/global_settings";
   .button {
-    border-radius: 4px;
+    border-radius: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.1s;
+    line-height: 100%;
+    .button_text{
+      height: 18px;
+    }
     &:hover:not(.disabled) {
       filter: brightness(140%);
       transform: scale(1.05);
@@ -61,22 +66,22 @@
       animation: light 1.5s linear alternate infinite;
     }
     &:active:not(.disabled) {
-      background-color: #ecfdf5;
-      transform: scale(1.3);
+      filter: brightness(140%);
+      transform: scale(1.2);
     }
     &.red{
-      border: 2px solid #fa3740;
+      border: 1px solid #fa3740;
       background-color: #f8a5e3;
     }
     &.blue{
-      border: 2px solid #373bfd;
-      background-color: #b3e0f1;
+      border: 1px solid #7c7ddf;
+      background-color: #9dbfcc13;
     }
   }
 
   @keyframes light {
     0% {
-      filter: brightness(180%);
+      filter: brightness(140%);
     }
     40% {
       filter: brightness(120%);
