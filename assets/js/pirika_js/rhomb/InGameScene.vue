@@ -12,11 +12,9 @@
         .content
           | 弾幕
       .enemy.component
-        .content
-          | 敵イラスト
+        img(src="/images/rhomb/enemy.png")
       .player.component
-        .content
-          | プレイヤーイラスト
+        img(src="/images/rhomb/player_back.png")
       .player_ui.component
         .content
           | プレイヤーUI
@@ -105,12 +103,18 @@
       height: 600px;
       top: 100px;
       right: 0;
+      img{
+        height: 100%;
+      }
     }
     .player{
       width: 30%;
       height: 400px;
       bottom: 0;
       left: 0;
+      img{
+        height: 100%;
+      }
     }
     .player_ui{
       width: 50%;
