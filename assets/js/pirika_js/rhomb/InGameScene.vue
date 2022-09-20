@@ -77,6 +77,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    background-color: rgb(40, 43, 68);
     .component{
       position: absolute;
     }
