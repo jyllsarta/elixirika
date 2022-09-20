@@ -2,17 +2,20 @@
 <template lang="pug">
   .turns
     .bullets
-      Bullet
-      Bullet
-      Bullet
+      Bullet(type="yellow")
+      Bullet(type="yellow")
+      Bullet(type="cyan")
+      Bullet(type="cyan")
+      Bullet(type="red")
     .bullets
-      Bullet
-      Bullet
-      Bullet
+      Bullet(type="red")
+      Bullet(type="red")
     .bullets
-      Bullet
-      Bullet
-      Bullet
+      Bullet(type="cyan")
+      Bullet(type="cyan")
+      Bullet(type="cyan")
+      Bullet(type="cyan")
+      Bullet(type="cyan")
 </template>
 
 <script lang="typescript">
@@ -36,7 +39,7 @@
     .bullets{
       display: flex;
       gap: 8px;
-      padding: 4px;
+      padding: 4px 8px 4px 8px;
       border-radius: 40px;
       &:first-child{
         border: 1px solid rgb(136, 71, 71);
