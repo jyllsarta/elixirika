@@ -2,9 +2,7 @@
 <template lang="pug">
   .scene
     .screen
-      .enemy_hp.component
-        .content
-          | エネミーHP
+      EnemyStats.enemy_stats
       .enemy_commands.component
         .content
           | コマンド
@@ -25,9 +23,13 @@
   import Model from "./packs/model";
   import Controller from "./packs/controller";
   import store from "./packs/store";
+  import EnemyStats from "./EnemyStats.vue"
 
   export default Vue.extend({
     store,
+    components: {
+      EnemyStats
+    },
     data(){
       return {
         model: null,
@@ -80,7 +82,7 @@
       justify-content: center;
       align-items: center;
     }
-    .enemy_hp{
+    .enemy_stats{
       width: 100%;
       height: 100px;
       top: 0;
