@@ -2,20 +2,12 @@
 <template lang="pug">
   .scene
     .screen
-      EnemyStats.enemy_stats
-      .enemy_commands.component
-        .content
-          | コマンド
-      .bullets.component
-        .content
-          | 弾幕
-      .enemy.component
-        img(src="/images/rhomb/enemy.png")
-      .player.component
-        img(src="/images/rhomb/player_back.png")
-      .player_ui.component
-        .content
-          | プレイヤーUI
+      EnemyStats.enemy_stats.component
+      EnemyCommands.enemy_commands.component
+      Bullets.bullets.component
+      EnemyImage.enemy.component
+      PlayerImage.player.component
+      PlayerUI.player_ui.component
 </template>
 
 <script lang="typescript">
@@ -23,12 +15,22 @@
   import Model from "./packs/model";
   import Controller from "./packs/controller";
   import store from "./packs/store";
-  import EnemyStats from "./EnemyStats.vue"
+  import Bullets from "./Bullets.vue";
+  import EnemyCommands from "./EnemyCommands.vue";
+  import EnemyImage from "./EnemyImage.vue";
+  import EnemyStats from "./EnemyStats.vue";
+  import PlayerImage from "./PlayerImage.vue";
+  import PlayerUI from "./PlayerUI.vue";
 
   export default Vue.extend({
     store,
     components: {
-      EnemyStats
+      Bullets,
+      EnemyCommands,
+      EnemyImage,
+      EnemyStats,
+      PlayerImage,
+      PlayerUI,
     },
     data(){
       return {
@@ -77,10 +79,6 @@
     height: 100%;
     .component{
       position: absolute;
-      border: 1px dashed #defdef;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
     .enemy_stats{
       width: 100%;
@@ -105,18 +103,12 @@
       height: 600px;
       top: 100px;
       right: 0;
-      img{
-        height: 100%;
-      }
     }
     .player{
       width: 30%;
       height: 400px;
       bottom: 0;
       left: 0;
-      img{
-        height: 100%;
-      }
     }
     .player_ui{
       width: 50%;
