@@ -82,10 +82,10 @@
       position: absolute;
     }
     .enemy_stats{
-      width: 100%;
-      height: 100px;
+      width: 70%;
+      height: 80px;
       top: 0;
-      left: 0;
+      left: 15%;
     }
     .enemy_commands{
       width: 20%;

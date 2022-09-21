@@ -1,6 +1,8 @@
 
 <template lang="pug">
   .stats
+    .title
+      | ENEMY
     .bar_area
       .skew
         .base
@@ -27,6 +29,15 @@
     align-items: center;
     justify-content: center;
     gap: 4px;
+    border-bottom: 1px solid rgba(229, 255, 188, 0.384);
+    .title{
+      line-height: 100%;
+      font-size: 8px;
+      width: 100%;
+      text-align: center;
+      color: rgb(229, 255, 188);
+    }
+
     .bar_area{
       width: 800px;
       height: 16px;

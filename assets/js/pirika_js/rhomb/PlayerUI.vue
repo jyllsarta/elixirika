@@ -61,8 +61,8 @@
       gap: 8px;
       padding-left: 40px;
       .item_slot{
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
         border: 1px solid cyan;
       }
     }
