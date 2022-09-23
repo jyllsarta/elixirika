@@ -8,6 +8,7 @@
       EnemyImage.enemy.component
       PlayerImage.player.component
       PlayerUI.player_ui.component
+      CanvasTest.canvas_test.component
 </template>
 
 <script lang="typescript">
@@ -21,6 +22,7 @@
   import EnemyStats from "./EnemyStats.vue";
   import PlayerImage from "./PlayerImage.vue";
   import PlayerUI from "./PlayerUI.vue";
+  import CanvasTest from "./CanvasTest.vue";
 
   export default Vue.extend({
     store,
@@ -31,6 +33,7 @@
       EnemyStats,
       PlayerImage,
       PlayerUI,
+      CanvasTest,
     },
     data(){
       return {
@@ -115,6 +118,12 @@
       width: 50%;
       height: 200px;
       bottom: 0;
+      left: 0;
+    }
+    .canvas_test{
+      width: 100%;
+      height: 100%;
+      top: 0;
       left: 0;
     }
   }
