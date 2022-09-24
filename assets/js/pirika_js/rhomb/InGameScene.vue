@@ -2,13 +2,15 @@
 <template lang="pug">
   .scene
     .screen
+      GUIHandler(:model="model", :controller="controller")
       EnemyStats.enemy_stats.component
       EnemyCommands.enemy_commands.component
       Bullets.bullets.component
       EnemyImage.enemy.component
       PlayerImage.player.component
       PlayerUI.player_ui.component
-      DebugUI.debug_ui.component(:model="model", :controller="controller")
+      GameStartDialog.full_screen.component(v-if="currentPhase == 'START'")
+      DebugUI.debug_ui.component(:model="model")
 </template>
 
 <script lang="typescript">
@@ -21,6 +23,8 @@
   import EnemyCommands from "./EnemyCommands.vue";
   import EnemyImage from "./EnemyImage.vue";
   import EnemyStats from "./EnemyStats.vue";
+  import GameStartDialog from "./GameStartDialog.vue";
+  import GUIHandler from "./GUIHandler.vue";
   import PlayerImage from "./PlayerImage.vue";
   import PlayerUI from "./PlayerUI.vue";
 
@@ -32,6 +36,8 @@
       EnemyCommands,
       EnemyImage,
       EnemyStats,
+      GameStartDialog,
+      GUIHandler,
       PlayerImage,
       PlayerUI,
     },
@@ -48,19 +54,16 @@
       backToMenu(){
         this.$emit("loadScene", {sceneName: "mainMenu"});
       },
-      startGame(){
-        if(this.model.isGameStarted){
-          return;
-        }
-        const rand = Math.floor(Math.random() * 100000000);
-        this.model.initialize(rand);
-        this.$store.commit("playSound", {key: "ok"});
-        this.$store.commit("playBgm", "bgm3");
-      },
+    },
+    computed: {
+      currentPhase(){
+        return this.model?.phaseStateMachine.phase;
+      }
     },
     created(){
       this.model = new Model();
       this.controller = new Controller(this.model);
+      this.controller.prepare();
     }
   })
 </script>
@@ -123,6 +126,12 @@
       width: 30%;
       top: 0;
       right: 0;
+    }
+    .full_screen{
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;  
     }
   }
 </style>

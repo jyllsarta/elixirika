@@ -17,7 +17,7 @@ module.exports = class Model {
   initialize(seed){
     this.seededRandom = new SeededRandom(seed);
     this.isGameStarted = false;
-    this.transferPhase("START");
+    this.phaseStateMachine.transferTo("START", this);
   }
 
   nextPhase(){

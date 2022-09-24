@@ -20,7 +20,7 @@ module.exports = class PhaseStateMachine {
     this.phase = "START";
   }
 
-  transfer(nextPhase, model){
+  transferTo(nextPhase, model){
     this.phase = nextPhase;
     this.fireOnPhaseChangeCallback(model);
   }
@@ -28,22 +28,22 @@ module.exports = class PhaseStateMachine {
   transferToNextPhase(model){
     switch(this.phase){
       case "START":
-        this.transfer("ENEMY_SHOOT", model);
+        this.transferTo("ENEMY_SHOOT", model);
         break;
       case "ENEMY_SHOOT":
-        this.transfer("MAIN", model);
+        this.transferTo("MAIN", model);
         break;
       case "MAIN":
-        this.transfer("LOCK", model);
+        this.transferTo("LOCK", model);
         break;
       case "LOCK":
-        this.transfer("EXECUTE", model);
+        this.transferTo("EXECUTE", model);
         break;
       case "EXECUTE":
-        this.transfer("END", model);
+        this.transferTo("END", model);
         break;
       case "END":
-        this.transfer("START", model);
+        this.transferTo("START", model);
         break;
     } 
   }

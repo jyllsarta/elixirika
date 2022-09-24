@@ -7,21 +7,21 @@
       | PHASE: {{model.phaseStateMachine.phase}}
     .item
       | isGameStarted: {{model.isGameStarted}}
-    .button(@click="controller.nextPhase()")
+    .button(@click="$store.commit('guiEvent', {subject: 'nextPhase'})")
       | NEXT PHASE
+    .item
+      | state: {{$store.state}}
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import store from "./packs/store";
   import Model from "./packs/model";
-  import Controller from "./packs/controller";
 
-export default Vue.extend({
+  export default Vue.extend({
     store,
     props: {
-      model : Model,
-      controller: Controller,
+      model : Model
     },
   })
 </script>
