@@ -1,5 +1,9 @@
 module.exports = class PhaseEnd {
-  static enter(model){
+  constructor(){
+    this.name = "END";
+  }
+
+ enter(model){
     console.log("end Phase!");
   }
 };

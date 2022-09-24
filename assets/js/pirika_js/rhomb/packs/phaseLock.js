@@ -1,5 +1,9 @@
 module.exports = class PhaseLock {
-  static enter(model){
+  constructor(){
+    this.name = "LOCK";
+  }
+
+ enter(model){
     console.log("lock Phase!");
   }
 };

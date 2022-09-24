@@ -1,18 +1,30 @@
 <template lang="pug">
-  .dialog(@click="startGame")
+  .dialog(@click="tick")
     .content
-      | ゲームを開始します
+      | {{messages[model.phaseStateMachine.phase.tick]}}
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import store from "./packs/store";
+  import Model from "./packs/model";
 
   export default Vue.extend({
     store,
+    props: {
+      model: Model,
+    },
+    data(){
+      return {
+        messages: [
+          "ゲームを開始します",
+          "いくぞー！",
+        ]
+      }
+    },
     methods: {
-      startGame(){
-        this.$store.commit('guiEvent', {subject: 'nextPhase'})
+      tick(){
+        this.$store.commit('guiEvent', {subject: 'next'})
         this.$store.commit("playSound", {key: "ok"});
         this.$store.commit("playBgm", "bgm3");
       }

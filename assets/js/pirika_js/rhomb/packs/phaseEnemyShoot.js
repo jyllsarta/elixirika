@@ -1,5 +1,9 @@
 module.exports = class PhaseEnemyShoot {
-  static enter(model){
+  constructor(){
+    this.name = "ENEMY_SHOOT";
+  }
+
+ enter(model){
     console.log("enemy shoot Phase!");
   }
 };

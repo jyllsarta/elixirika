@@ -9,7 +9,7 @@
       EnemyImage.enemy.component
       PlayerImage.player.component
       PlayerUI.player_ui.component
-      GameStartDialog.full_screen.component(v-if="currentPhase == 'START'")
+      GameStartDialog.full_screen.component(v-if="currentPhase == 'START'", :model="model")
       DebugUI.debug_ui.component(:model="model")
 </template>
 
@@ -57,7 +57,7 @@
     },
     computed: {
       currentPhase(){
-        return this.model?.phaseStateMachine.phase;
+        return this.model?.phaseStateMachine.phase.name;
       }
     },
     created(){

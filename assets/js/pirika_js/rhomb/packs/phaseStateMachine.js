@@ -17,16 +17,33 @@ module.exports = class PhaseStateMachine {
   // END
 
   constructor() {
-    this.phase = "START";
+    this.phase = new PhaseStart();
   }
 
-  transferTo(nextPhase, model){
-    this.phase = nextPhase;
-    this.fireOnPhaseChangeCallback(model);
+  transferTo(nextPhaseName, model){
+    this.phase = this.phaseEntity(nextPhaseName);
+    this.phase.enter(model);
+  }
+
+  phaseEntity(phaseName){
+    switch(phaseName){
+      case "START":
+        return new PhaseStart();
+      case "ENEMY_SHOOT":
+        return new PhaseEnemyShoot();
+      case "MAIN":
+        return new PhaseMain();
+      case "LOCK":
+        return new PhaseLock();
+      case "EXECUTE":
+        return new PhaseExecute();
+      case "END":
+        return new PhaseEnd();
+    }
   }
 
   transferToNextPhase(model){
-    switch(this.phase){
+    switch(this.phase.name){
       case "START":
         this.transferTo("ENEMY_SHOOT", model);
         break;
@@ -49,27 +66,6 @@ module.exports = class PhaseStateMachine {
   }
 
   // private
-
   fireOnPhaseChangeCallback(model){
-    switch(this.phase){
-      case "START":
-        PhaseStart.enter(model);
-        break;
-      case "ENEMY_SHOOT":
-        PhaseEnemyShoot.enter(model);
-        break;
-      case "MAIN":
-        PhaseMain.enter(model);
-        break;
-      case "LOCK":
-        PhaseLock.enter(model);
-        break;
-      case "EXECUTE":
-        PhaseExecute.enter(model);
-        break;
-      case "END":
-        PhaseEnd.enter(model);
-        break;
-    } 
   }
 };

@@ -4,7 +4,7 @@
     .title
       | DEBUG UI
     .item
-      | PHASE: {{model.phaseStateMachine.phase}}
+      | PHASE: {{model.phaseStateMachine.phase.name}}
     .item
       | isGameStarted: {{model.isGameStarted}}
     .button(@click="$store.commit('guiEvent', {subject: 'nextPhase'})")

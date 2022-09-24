@@ -1,5 +1,9 @@
 module.exports = class PhaseExecute {
-  static enter(model){
+  constructor(){
+    this.name = "EXECUTE";
+  }
+
+ enter(model){
     console.log("execute Phase!");
   }
 };
