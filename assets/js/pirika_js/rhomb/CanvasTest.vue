@@ -56,6 +56,7 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .field{
+    pointer-events: none;
     .title{
       line-height: 100%;
       font-size: 8px;

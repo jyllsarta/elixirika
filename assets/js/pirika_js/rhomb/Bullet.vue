@@ -26,4 +26,9 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
+  .bullet{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+  }
 </style>
