@@ -1,8 +1,10 @@
 
 <template lang="pug">
-  .scene
-    .title(@click="proceed")
-      | タイトルです
+  .scene(@click="proceed")
+    img.enemy(src="/images/rhomb/title.png")
+    img.logo(src="/images/rhomb/logo.png")
+    .text
+      | クリックしてはじめる
 </template>
 
 <script lang="typescript">
@@ -21,7 +23,7 @@
     mounted(){
       // シーン飛ばし用
       //this.$emit("loadScene", {sceneName: "mainMenu"});
-      this.$emit("loadScene", {sceneName: "inGame"});
+      //this.$emit("loadScene", {sceneName: "inGame"});
     }
   })
 </script>
@@ -34,11 +36,37 @@
     width: 100%;
     height: 100%;
     border: 1px solid white;
-  }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    .enemy{
+      width: 600px;
+      animation: fuwa 3.6s alternate infinite;
+    }
+    .logo{
+      width: 500px;
+    }
+    .text{
+      animation: tika 1.1s linear alternate infinite;
+    }
 
-  .title{
-    width: 200px;
-    height: 100px;
-    background-color: burlywood;
+    @keyframes fuwa {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-5px);
+      }
+    }
+
+    @keyframes tika {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0.5;
+      }
+    }
   }
 </style>
