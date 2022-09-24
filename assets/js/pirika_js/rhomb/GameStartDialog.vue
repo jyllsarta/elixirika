@@ -24,9 +24,16 @@
     },
     methods: {
       tick(){
+        if(this.model.phaseStateMachine.phase.tick > 0){
+          return;
+        }
         this.$store.commit('guiEvent', {subject: 'next'})
         this.$store.commit("playSound", {key: "ok"});
         this.$store.commit("playBgm", "bgm3");
+        setTimeout(()=>{
+          this.$store.commit('guiEvent', {subject: 'next'})
+          this.$store.commit("playSound", {key: "ok"});
+        }, 500)
       }
     }
   })
