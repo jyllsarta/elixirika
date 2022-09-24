@@ -8,7 +8,6 @@
       EnemyImage.enemy.component
       PlayerImage.player.component
       PlayerUI.player_ui.component
-      CanvasTest.canvas_test.component
 </template>
 
 <script lang="typescript">
@@ -22,7 +21,6 @@
   import EnemyStats from "./EnemyStats.vue";
   import PlayerImage from "./PlayerImage.vue";
   import PlayerUI from "./PlayerUI.vue";
-  import CanvasTest from "./CanvasTest.vue";
 
   export default Vue.extend({
     store,
@@ -33,7 +31,6 @@
       EnemyStats,
       PlayerImage,
       PlayerUI,
-      CanvasTest,
     },
     data(){
       return {
