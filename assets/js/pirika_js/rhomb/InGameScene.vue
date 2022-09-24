@@ -8,6 +8,7 @@
       EnemyImage.enemy.component
       PlayerImage.player.component
       PlayerUI.player_ui.component
+      DebugUI.debug_ui.component(:model="model", :controller="controller")
 </template>
 
 <script lang="typescript">
@@ -16,6 +17,7 @@
   import Controller from "./packs/controller";
   import store from "./packs/store";
   import Bullets from "./Bullets.vue";
+  import DebugUI from "./DebugUI.vue";
   import EnemyCommands from "./EnemyCommands.vue";
   import EnemyImage from "./EnemyImage.vue";
   import EnemyStats from "./EnemyStats.vue";
@@ -26,6 +28,7 @@
     store,
     components: {
       Bullets,
+      DebugUI,
       EnemyCommands,
       EnemyImage,
       EnemyStats,
@@ -35,6 +38,7 @@
     data(){
       return {
         model: null,
+        controller: null,
       };
     },
     methods: {
@@ -50,8 +54,6 @@
         }
         const rand = Math.floor(Math.random() * 100000000);
         this.model.initialize(rand);
-        // 今後は演出のあとにstartGameする
-        this.model.startGame();
         this.$store.commit("playSound", {key: "ok"});
         this.$store.commit("playBgm", "bgm3");
       },
@@ -117,11 +119,10 @@
       bottom: 0;
       left: 0;
     }
-    .canvas_test{
-      width: 100%;
-      height: 100%;
+    .debug_ui{
+      width: 30%;
       top: 0;
-      left: 0;
+      right: 0;
     }
   }
 </style>
