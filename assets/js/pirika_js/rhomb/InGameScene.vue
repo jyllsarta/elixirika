@@ -5,7 +5,7 @@
       GUIHandler(:model="model", :controller="controller")
       EnemyStats.enemy_stats.component
       EnemyCommands.enemy_commands.component
-      Bullets.bullets.component
+      Bullets.bullets.component(:model="model")
       EnemyImage.enemy.component
       PlayerImage.player.component
       PlayerUI.player_ui.component
@@ -64,6 +64,9 @@
       this.model = new Model();
       this.controller = new Controller(this.model);
       this.controller.prepare();
+      // デバッグ用バックドア
+      window.model = this.model;
+      window.controller = this.controller;
     }
   })
 </script>
