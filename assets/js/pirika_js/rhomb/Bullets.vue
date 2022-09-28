@@ -36,6 +36,7 @@
       drawLines(){
         const canvas = this.$refs.canvas;
         const context = canvas?.getContext("2d");
+        context.clearRect(0, 0, 1200, 800);
         context.translate(.5,.5);
         context.setLineDash([30, 15]);
 
@@ -57,7 +58,12 @@
     },
     computed: {
       bullets(){
-        return this.model.masterdata.master.bullets || [];
+        return this.model.bullets || [];
+      }
+    },
+    watch: {
+      "model.turn": function(){
+        this.drawLines();
       }
     }
   })

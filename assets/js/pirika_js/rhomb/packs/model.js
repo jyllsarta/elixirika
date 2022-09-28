@@ -14,12 +14,16 @@ module.exports = class Model {
     this.phaseStateMachine = new PhaseStateMachine(this);
     this.isGameStarted = false;
     this.isGameOver = false;
+    this.turn = 0;
+    this.bullets = [];
   }
 
   initialize(seed){
     this.seededRandom = new SeededRandom(seed);
     this.isGameStarted = false;
     this.phaseStateMachine.transferTo("START", this);
+    this.turn = 0;
+    this.bullets = [];
   }
 
   nextPhase(){

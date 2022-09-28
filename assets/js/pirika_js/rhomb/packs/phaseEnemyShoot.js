@@ -5,5 +5,12 @@ module.exports = class PhaseEnemyShoot {
 
  enter(model){
     console.log("enemy shoot Phase!");
+    model.turn++;
+    model.bullets = this.bulletsOfTurn(model.turn, model);
+  }
+
+  bulletsOfTurn(turn, model){
+    const bullet_ids = model.masterdata.getOne("turns", "turn", turn).bullet_ids;
+    return model.masterdata.getBy("bullets", "id", bullet_ids);
   }
 };

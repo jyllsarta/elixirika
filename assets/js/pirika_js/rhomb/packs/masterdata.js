@@ -9,6 +9,14 @@ module.exports = class Masterdata {
     return this.master[title];
   }
 
+  getBy(title, key, ids){
+    return this.master[title].filter(record=>ids.includes(record[key]));
+  }
+
+  getOne(title, key, id){
+    return this.master[title].find(record=>(record[key] === id));
+  }
+
   // private
 
   loadMasterData(titles){
