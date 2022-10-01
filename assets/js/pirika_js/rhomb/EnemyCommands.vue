@@ -4,30 +4,29 @@
     .title
       | ENEMY ACTION
     .turns
-      .bullets
-        Bullet(type="yellow")
-        Bullet(type="yellow")
-        Bullet(type="cyan")
-        Bullet(type="cyan")
-        Bullet(type="red")
-      .bullets
-        Bullet(type="red")
-        Bullet(type="red")
-      .bullets
-        Bullet(type="cyan")
-        Bullet(type="cyan")
-        Bullet(type="cyan")
-        Bullet(type="cyan")
-        Bullet(type="cyan")
+      .bullets(v-for="turn in turnsWithBullets", :key="turn.id" :class="{this_turn: model.turn === turn.turn}")
+        Bullet(v-for="bullet of turn.bullets" :type="bullet.type")
 </template>
 
 <script lang="typescript">
   import Vue from 'vue';
   import Bullet from "./Bullet.vue";
+  import Model from "./packs/model";
 
   export default Vue.extend({
     components: {
       Bullet,
+    },
+    props: {
+      model: Model,
+    },
+    computed: {
+      turnsWithBullets(){
+        const turns = this.model.masterdata.getAll("turns").sort(turn=>turn.turn);
+        // この関連を引っ張ってくる処理はマスターデータ構築時点でやっておくべきかも？
+        const withBullets = turns.map(turn=>Object.assign(turn, {bullets: this.model.masterdata.getBy("bullets", "id", turn.bullet_ids)}));
+        return withBullets;
+      }
     }
   })
 </script>
@@ -53,7 +52,8 @@
         gap: 8px;
         padding: 4px 8px 4px 8px;
         border-radius: 40px;
-        &:first-child{
+        border: 1px solid transparent;
+        &.this_turn{
           border: 1px solid rgb(136, 71, 71);
         }
       }

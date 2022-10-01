@@ -4,7 +4,7 @@
     .screen
       GUIHandler(:model="model", :controller="controller")
       EnemyStats.enemy_stats.component
-      EnemyCommands.enemy_commands.component
+      EnemyCommands.enemy_commands.component(:model="model")
       Bullets.bullets.component(:model="model")
       EnemyImage.enemy.component
       PlayerImage.player.component
