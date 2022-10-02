@@ -5,7 +5,7 @@
       | ENEMY ACTION
     .turns
       .bullets(v-for="turn in turnsWithBullets", :key="turn.id" :class="{this_turn: model.turn === turn.turn}")
-        Bullet(v-for="bullet of turn.bullets" :type="bullet.type")
+        Bullet(v-for="bullet of turn.bullets" :type="bullet.type" :key="bullet.id")
 </template>
 
 <script lang="typescript">
