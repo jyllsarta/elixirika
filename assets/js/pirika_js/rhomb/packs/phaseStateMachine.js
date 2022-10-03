@@ -57,7 +57,7 @@ module.exports = class PhaseStateMachine {
         this.transferTo("EXECUTE", model);
         break;
       case "EXECUTE":
-        this.transferTo("END", model);
+        this.transferTo("ENEMY_SHOOT", model);
         break;
       case "END":
         this.transferTo("START", model);
