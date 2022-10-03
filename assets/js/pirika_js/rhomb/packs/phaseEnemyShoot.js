@@ -6,7 +6,7 @@ module.exports = class PhaseEnemyShoot {
  enter(model){
     console.log("enemy shoot Phase!");
     model.turn++;
-    model.bullets = this.bulletsOfTurn(model.turn, model);
+    model.bullets = model.bullets.concat(this.bulletsOfTurn(model.turn, model));
   }
 
   bulletsOfTurn(turn, model){
