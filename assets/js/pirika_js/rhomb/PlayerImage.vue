@@ -10,6 +10,7 @@
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";
   .player{
+    border: 1px solid white;
     img{
         height: 100%;
     }

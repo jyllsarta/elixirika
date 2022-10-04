@@ -114,7 +114,7 @@
       right: 0;
     }
     .player{
-      width: 30%;
+      width: 400px;
       height: 400px;
       bottom: 0;
       left: 0;

@@ -15,4 +15,8 @@ module.exports = class Bullet {
       this.y += stroke.dy;
     }
   }
+
+  isHitToPlayer(){
+    return this.x <= 400 && this.y >= 400;
+  }
 };
