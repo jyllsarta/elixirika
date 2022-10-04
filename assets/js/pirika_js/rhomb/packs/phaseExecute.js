@@ -5,5 +5,6 @@ module.exports = class PhaseExecute {
 
  enter(model){
     console.log("execute Phase!");
+    model.bullets.map(bullet=>bullet.moveOneTurn());
   }
 };

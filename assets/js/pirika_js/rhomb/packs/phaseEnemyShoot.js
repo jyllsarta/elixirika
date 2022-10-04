@@ -1,3 +1,5 @@
+const Bullet = require("./bullet");
+
 module.exports = class PhaseEnemyShoot {
   constructor(){
     this.name = "ENEMY_SHOOT";
@@ -11,6 +13,7 @@ module.exports = class PhaseEnemyShoot {
 
   bulletsOfTurn(turn, model){
     const bullet_ids = model.masterdata.getOne("turns", "turn", turn).bullet_ids;
-    return model.masterdata.getBy("bullets", "id", bullet_ids);
+    const bullets = model.masterdata.getBy("bullets", "id", bullet_ids);
+    return bullets.map((bullet)=>new Bullet(bullet));
   }
 };
