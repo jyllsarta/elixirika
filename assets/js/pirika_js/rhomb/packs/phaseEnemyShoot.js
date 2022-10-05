@@ -5,6 +5,10 @@ module.exports = class PhaseEnemyShoot {
     this.name = "ENEMY_SHOOT";
   }
 
+  nextPhaseName(model){
+    return "MAIN";
+  }
+
  enter(model){
     console.log("enemy shoot Phase!");
     model.turn++;

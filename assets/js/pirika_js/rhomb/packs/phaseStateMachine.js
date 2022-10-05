@@ -43,26 +43,8 @@ module.exports = class PhaseStateMachine {
   }
 
   transferToNextPhase(model){
-    switch(this.phase.name){
-      case "START":
-        this.transferTo("ENEMY_SHOOT", model);
-        break;
-      case "ENEMY_SHOOT":
-        this.transferTo("MAIN", model);
-        break;
-      case "MAIN":
-        this.transferTo("LOCK", model);
-        break;
-      case "LOCK":
-        this.transferTo("EXECUTE", model);
-        break;
-      case "EXECUTE":
-        this.transferTo("ENEMY_SHOOT", model);
-        break;
-      case "END":
-        this.transferTo("START", model);
-        break;
-    } 
+    const nextPhaseName = this.phase.nextPhaseName(model);
+    this.transferTo(nextPhaseName, model);
   }
 
   // private

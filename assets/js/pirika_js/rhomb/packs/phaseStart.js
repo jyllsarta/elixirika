@@ -4,6 +4,10 @@ module.exports = class PhaseStart {
     this.tick = 0;
   }
 
+  nextPhaseName(model){
+    return "ENEMY_SHOOT";
+  }
+
   enter(model){
     console.log("start Phase!");
   }

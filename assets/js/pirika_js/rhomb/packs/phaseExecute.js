@@ -3,6 +3,13 @@ module.exports = class PhaseExecute {
     this.name = "EXECUTE";
   }
 
+  nextPhaseName(model){
+    if(model.isGameOver){
+      return "END";
+    }
+    return "ENEMY_SHOOT";
+  }
+
  enter(model){
     console.log("execute Phase!");
     this.moveBullets(model);
@@ -17,6 +24,7 @@ module.exports = class PhaseExecute {
     const hitBullets = model.bullets.filter(bullet=>bullet.isHitToPlayer());
     const remainBullets = model.bullets.filter(bullet=>!bullet.isHitToPlayer());
     hitBullets.map(bullet=>model.hp--);
+    model.isGameOver = model.hp <= 0;
     model.bullets = remainBullets;
   }
 };

@@ -3,6 +3,10 @@ module.exports = class PhaseMain {
     this.name = "MAIN";
   }
 
+  nextPhaseName(model){
+    return "LOCK";
+  }
+
  enter(model){
     console.log("main Phase!");
   }

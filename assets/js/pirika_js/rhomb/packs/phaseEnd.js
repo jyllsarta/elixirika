@@ -3,6 +3,10 @@ module.exports = class PhaseEnd {
     this.name = "END";
   }
 
+  nextPhaseName(model){
+    return "START";
+  }
+
  enter(model){
     console.log("end Phase!");
   }

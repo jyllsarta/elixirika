@@ -34,8 +34,5 @@ module.exports = class Model {
     this.phaseStateMachine.transferToNextPhase(this);
   }
 
-  isGameOver(){
-    this.hp <= 0;
-  }
   // private
 };
