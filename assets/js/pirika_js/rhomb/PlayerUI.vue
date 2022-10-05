@@ -15,7 +15,7 @@
         .bar
           .skew
             .base
-            .current
+            .current(:style="{width: `${model.hp / model.hpMax * 100}%`}")
     .slot
       .title
         | LOCK
@@ -39,6 +39,14 @@
 </template>
 
 <script lang="typescript">
+  import Vue from 'vue';
+  import Model from "./packs/model";
+
+  export default Vue.extend({
+    props: {
+      model: Model,
+    },
+  })
 </script>
 
 <style lang='scss' scoped>
@@ -115,7 +123,6 @@
       }
       .current{
         position: absolute;
-        width: 40%;
         height: 100%;
         background-color: rgb(0, 255, 255);
       }

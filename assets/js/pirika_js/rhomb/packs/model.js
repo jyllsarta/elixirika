@@ -16,6 +16,8 @@ module.exports = class Model {
     this.isGameOver = false;
     this.turn = 0;
     this.bullets = [];
+    this.hp = 0;
+    this.hpMax = 0;
   }
 
   initialize(seed){
@@ -24,11 +26,16 @@ module.exports = class Model {
     this.phaseStateMachine.transferTo("START", this);
     this.turn = 0;
     this.bullets = [];
+    this.hp = 2;
+    this.hpMax = this.hp;
   }
 
   nextPhase(){
     this.phaseStateMachine.transferToNextPhase(this);
   }
 
+  isGameOver(){
+    this.hp <= 0;
+  }
   // private
 };

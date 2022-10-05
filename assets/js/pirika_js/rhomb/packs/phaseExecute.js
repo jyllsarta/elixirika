@@ -16,7 +16,7 @@ module.exports = class PhaseExecute {
   processHitBullets(model){
     const hitBullets = model.bullets.filter(bullet=>bullet.isHitToPlayer());
     const remainBullets = model.bullets.filter(bullet=>!bullet.isHitToPlayer());
-    hitBullets.map(bullet=>console.log("hit to player!"));
+    hitBullets.map(bullet=>model.hp--);
     model.bullets = remainBullets;
   }
 };

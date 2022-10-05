@@ -8,7 +8,7 @@
       Bullets.bullets.component(:model="model")
       EnemyImage.enemy.component
       PlayerImage.player.component
-      PlayerUI.player_ui.component
+      PlayerUI.player_ui.component(:model="model")
       GameStartDialog.full_screen.component(v-if="currentPhase == 'START'", :model="model")
       DebugUI.debug_ui.component(:model="model")
 </template>
