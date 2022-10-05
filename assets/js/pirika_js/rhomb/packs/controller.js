@@ -22,4 +22,9 @@ module.exports = class Controller {
   next(){
     this.model.phaseStateMachine.phase.next(this.model);
   }
+
+  reset(){
+    this.model.isGameStarted = false;
+    this.prepare();
+  }
 };

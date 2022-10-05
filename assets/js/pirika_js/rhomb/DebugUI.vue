@@ -9,6 +9,8 @@
       | isGameStarted: {{model.isGameStarted}}
     .button(@click="$store.commit('guiEvent', {subject: 'nextPhase'})")
       | NEXT PHASE
+    .button(@click="$store.commit('guiEvent', {subject: 'reset'})")
+      | RESET
     .item
       | state: {{$store.state}}
 </template>
