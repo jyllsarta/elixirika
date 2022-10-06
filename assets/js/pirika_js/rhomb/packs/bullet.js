@@ -19,4 +19,27 @@ module.exports = class Bullet {
   isHitToPlayer(){
     return this.x <= 400 && this.y >= 400;
   }
+
+  // 線分の長さで考えて先端から ratio の割合だけ切り取ったstrokes
+  partialStrokes(ratio){
+    let strokes = [];
+    const strokesWithLength = this.strokes.map(s=>{return {dx: s.dx, dy:s.dy, length: s.dx ** 2 + s.dy ** 2}});
+    const totalLength = strokesWithLength.reduce((iter, s)=>iter + s.length, 0);
+
+    let remainLength = totalLength * ratio;
+    for(let stroke of strokesWithLength){
+      if(stroke.length <= remainLength){
+        strokes.push(stroke);
+        remainLength -= stroke.length;
+      }
+      else{
+        let remainRatio = remainLength / stroke.length;
+        strokes.push({dx: stroke.dx * remainRatio, dy: stroke.dy * remainRatio, length: stroke.length * remainRatio});
+        remainLength = 0;
+      }
+    }
+    return strokes;
+  }
+
+  // private
 };
