@@ -5,9 +5,10 @@
       GUIHandler(:model="model", :controller="controller")
       EnemyStats.enemy_stats.component
       EnemyCommands.enemy_commands.component(:model="model")
-      Bullets.bullets.component(:model="model")
       EnemyImage.enemy.component
       PlayerImage.player.component
+      LockScreen.lock_screen.component(:model="model")
+      Bullets.bullets.component(:model="model")
       PlayerUI.player_ui.component(:model="model")
       GameStartDialog.full_screen.component(v-if="currentPhase == 'START'", :model="model")
       DebugUI.debug_ui.component(:model="model")
@@ -25,6 +26,7 @@
   import EnemyStats from "./EnemyStats.vue";
   import GameStartDialog from "./GameStartDialog.vue";
   import GUIHandler from "./GUIHandler.vue";
+  import LockScreen from "./LockScreen.vue";
   import PlayerImage from "./PlayerImage.vue";
   import PlayerUI from "./PlayerUI.vue";
 
@@ -38,6 +40,7 @@
       EnemyStats,
       GameStartDialog,
       GUIHandler,
+      LockScreen,
       PlayerImage,
       PlayerUI,
     },
@@ -101,12 +104,6 @@
       top: 100px;
       left: 0;
     }
-    .bullets{
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-    }
     .enemy{
       width: 40%;
       height: 600px;
@@ -117,6 +114,12 @@
       width: 400px;
       height: 400px;
       bottom: 0;
+      left: 0;
+    }
+    .lock_screen{
+      width: 100%;
+      height: 100%;
+      top: 0;
       left: 0;
     }
     .player_ui{

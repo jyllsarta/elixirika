@@ -36,5 +36,9 @@ module.exports = class Model {
     this.phaseStateMachine.transferToNextPhase(this);
   }
 
+  currentPhaseName(){
+    return this.phaseStateMachine.phase.name;
+  }
+
   // private
 };
