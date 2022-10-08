@@ -29,8 +29,13 @@
     },
     methods: {
       bulletStyle(bullet){
+        let position = {x: bullet.x, y: bullet.y};
+        for(let stroke of bullet.partialStrokes(this.model.tick)){
+          position.x += stroke.dx;
+          position.y += stroke.dy;
+        }
         return {
-          transform: `translate(${bullet.x}px, ${bullet.y}px)`
+          transform: `translate(${position.x}px, ${position.y}px)`
         }
       },
       drawLines(){

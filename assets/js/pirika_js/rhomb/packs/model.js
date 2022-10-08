@@ -18,6 +18,7 @@ module.exports = class Model {
     this.bullets = [];
     this.hp = 0;
     this.hpMax = 0;
+    this.tick = 0;
   }
 
   initialize(seed){
@@ -28,6 +29,7 @@ module.exports = class Model {
     this.bullets = [];
     this.hp = 2;
     this.hpMax = this.hp;
+    this.tick = 0;
   }
 
   nextPhase(){

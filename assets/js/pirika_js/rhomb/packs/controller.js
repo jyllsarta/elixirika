@@ -3,6 +3,10 @@ module.exports = class Controller {
     this.model = model;
   }
 
+  setTick(tick){
+    this.model.tick = tick;
+  }
+
   prepare(){
     if(this.model.isGameStarted){
       return;
