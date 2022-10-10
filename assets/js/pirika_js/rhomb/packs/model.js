@@ -27,7 +27,7 @@ module.exports = class Model {
     this.phaseStateMachine.transferTo("START", this);
     this.turn = 0;
     this.bullets = [];
-    this.hp = 2;
+    this.hp = 20;
     this.hpMax = this.hp;
     this.tick = 0;
   }

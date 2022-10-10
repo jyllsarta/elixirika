@@ -17,7 +17,11 @@ module.exports = class PhaseEnemyShoot {
   }
 
   bulletsOfTurn(turn, model){
-    const bullet_ids = model.masterdata.getOne("turns", "turn", turn).bullet_ids;
+    // 将来的には turns 全体を舐めるんじゃなくてエネミー単位でとる
+    const totalTurnCount = model.masterdata.master.turns.length;
+    const turnToReference = turn % totalTurnCount + 1;
+
+    const bullet_ids = model.masterdata.getOne("turns", "turn", turnToReference).bullet_ids;
     const bullets = model.masterdata.getBy("bullets", "id", bullet_ids);
     return bullets.map((bullet)=>new Bullet(bullet));
   }

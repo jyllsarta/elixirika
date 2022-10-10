@@ -4,7 +4,7 @@
     .title
       | ENEMY ACTION
     .turns
-      .bullets(v-for="turn in turnsWithBullets", :key="turn.id" :class="{this_turn: model.turn === turn.turn}")
+      .bullets(v-for="turn in turnsWithBullets", :key="turn.id" :class="{this_turn: totalTurnCount === turn.turn}")
         Bullet(v-for="bullet of turn.bullets" :type="bullet.type" :key="bullet.id")
 </template>
 
@@ -26,6 +26,11 @@
         // この関連を引っ張ってくる処理はマスターデータ構築時点でやっておくべきかも？
         const withBullets = turns.map(turn=>Object.assign(turn, {bullets: this.model.masterdata.getBy("bullets", "id", turn.bullet_ids)}));
         return withBullets;
+      },
+      // これ phaseEnemyShoot とロジック重複してる
+      totalTurnCount(){
+        const totalTurnCount = this.model.masterdata.master.turns.length;
+        return this.model.turn % totalTurnCount + 1;
       }
     }
   })
