@@ -57,6 +57,7 @@
     justify-content: flex-end;
     gap: 2px;
     padding: 8px;
+    pointer-events: none;
     .slot{
       .title{
         font-size: 8px;

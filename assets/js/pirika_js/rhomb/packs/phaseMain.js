@@ -14,4 +14,9 @@ module.exports = class PhaseMain {
   handleMouseDown(e, model){
     model.phaseStateMachine.transferToNextPhase(model);
   }
+
+  handleMouseMove(e, model){
+    model.pointer.x = e.offsetX;
+    model.pointer.y = e.offsetY;
+  }
 };

@@ -16,12 +16,14 @@ module.exports = class PhaseLock {
   }
 
   handleMouseMove(e, model){
+    model.pointer.x = e.offsetX;
+    model.pointer.y = e.offsetY;
+
     model.tick += 0.01;
     if(model.tick >= 1){
       this.doFinish(model);
     }
   }
-
   // private
 
   finish(model){

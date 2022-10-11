@@ -8,6 +8,7 @@
       EnemyImage.enemy.component
       PlayerImage.player.component
       LockScreen.lock_screen.component(:model="model")
+      Pointer.pointer.component(:model="model")
       Bullets.bullets.component(:model="model")
       PlayerUI.player_ui.component(:model="model")
       GameStartDialog.full_screen.component(v-if="currentPhase == 'START'", :model="model")
@@ -29,6 +30,7 @@
   import LockScreen from "./LockScreen.vue";
   import PlayerImage from "./PlayerImage.vue";
   import PlayerUI from "./PlayerUI.vue";
+  import Pointer from "./Pointer.vue";
 
   export default Vue.extend({
     store,
@@ -43,6 +45,7 @@
       LockScreen,
       PlayerImage,
       PlayerUI,
+      Pointer,
     },
     data(){
       return {

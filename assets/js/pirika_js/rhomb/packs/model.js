@@ -19,6 +19,7 @@ module.exports = class Model {
     this.hp = 0;
     this.hpMax = 0;
     this.tick = 0;
+    this.pointer = {x: 0, y: 0};
   }
 
   initialize(seed){
