@@ -4,6 +4,7 @@
     BulletRed(v-if="type === 'red'")
     BulletCyan(v-if="type === 'cyan'")
     BulletYellow(v-if="type === 'yellow'")
+    .mark(v-if="isMarked")
 </template>
 
 <script lang="typescript">
@@ -19,7 +20,8 @@
       BulletYellow,
     },
     props: {
-      type: String
+      type: String,
+      isMarked: Boolean,
     },
   })
 </script>
@@ -29,5 +31,18 @@
   .bullet{
     width: 30px;
     height: 30px;
+    .bullet{
+      position: absolute;
+    }
+    .mark{
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      top: -5px;
+      left: -5px;
+      transform: rotate(45deg);
+      background-color: yellow;
+      opacity: 0.8;      
+    }
   }
 </style>

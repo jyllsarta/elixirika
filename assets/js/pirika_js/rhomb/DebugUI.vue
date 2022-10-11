@@ -12,9 +12,7 @@
     .button(@click="$store.commit('guiEvent', {subject: 'reset'})")
       | RESET
     .item
-      | state: {{$store.state}}
-    .item
-      | LS: {{model.lockStrokes}}
+      | BLTS: {{model.bullets}}
 </template>
 
 <script lang="typescript">

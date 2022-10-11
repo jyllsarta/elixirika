@@ -7,6 +7,7 @@ module.exports = class Bullet {
     this.y = master.y;
     this.type = master.type;
     this.strokes = master.strokes;
+    this.isMarked = false;
   }
 
   moveOneTurn(){
@@ -18,6 +19,20 @@ module.exports = class Bullet {
 
   isHitToPlayer(){
     return this.x <= 400 && this.y >= 400;
+  }
+
+  mark(){
+    this.isMarked = true;
+  }
+
+  partialStrokeAppliedPosition(ratio){
+    const strokes = this.partialStrokes(ratio);
+    let position = {x: this.x, y: this.y};
+    for(let stroke of strokes){
+      position.x += stroke.dx;
+      position.y += stroke.dy;
+    }
+    return position;
   }
 
   // 線分の長さで考えて先端から ratio の割合だけ切り取ったstrokes
