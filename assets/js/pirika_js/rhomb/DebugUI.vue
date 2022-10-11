@@ -13,6 +13,8 @@
       | RESET
     .item
       | state: {{$store.state}}
+    .item
+      | LS: {{model.lockStrokes}}
 </template>
 
 <script lang="typescript">

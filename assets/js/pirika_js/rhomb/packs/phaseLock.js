@@ -18,6 +18,8 @@ module.exports = class PhaseLock {
   handleMouseMove(e, model){
     model.pointer.x = e.offsetX;
     model.pointer.y = e.offsetY;
+    const point = {x: e.offsetX, y: e.offsetY, tick: model.tick};
+    model.lockStrokes.push(point);
 
     model.tick += 0.01;
     if(model.tick >= 1){

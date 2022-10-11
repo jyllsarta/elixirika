@@ -20,6 +20,7 @@ module.exports = class Model {
     this.hpMax = 0;
     this.tick = 0;
     this.pointer = {x: 0, y: 0};
+    this.lockStrokes = [];
   }
 
   initialize(seed){
@@ -31,6 +32,7 @@ module.exports = class Model {
     this.hp = 20;
     this.hpMax = this.hp;
     this.tick = 0;
+    this.lockStrokes = [];
   }
 
   nextPhase(){

@@ -14,6 +14,7 @@ module.exports = class PhaseExecute {
     console.log("execute Phase!");
     this.moveBullets(model);
     this.processHitBullets(model);
+    model.lockStrokes = [];
   }
 
   moveBullets(model){
