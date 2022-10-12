@@ -21,6 +21,8 @@ module.exports = class Model {
     this.tick = 0;
     this.pointer = {x: 0, y: 0};
     this.lockStrokes = [];
+    this.hpEnemy = 0;
+    this.hpEnemyMax = this.hpEnemy;
   }
 
   initialize(seed){
@@ -33,6 +35,8 @@ module.exports = class Model {
     this.hpMax = this.hp;
     this.tick = 0;
     this.lockStrokes = [];
+    this.hpEnemy = 10;
+    this.hpEnemyMax = this.hpEnemy;
   }
 
   nextPhase(){

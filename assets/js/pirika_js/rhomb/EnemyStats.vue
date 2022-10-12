@@ -6,7 +6,7 @@
     .bar_area
       .skew
         .base
-        .bar
+        .bar(:style="{width: `${model.hpEnemy / model.hpEnemyMax * 100}%`}")
     .name
       | 縛られない幻影 フェーティ
       
@@ -14,10 +14,12 @@
 
 <script lang="typescript">
   import Vue from 'vue';
-  import store from "./packs/store";
+  import Model from "./packs/model";
 
   export default Vue.extend({
-    store,
+    props: {
+      model: Model,
+    },
   })
 </script>
 

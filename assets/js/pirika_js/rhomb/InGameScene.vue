@@ -3,7 +3,7 @@
   .scene
     .screen
       GUIHandler(:model="model", :controller="controller")
-      EnemyStats.enemy_stats.component
+      EnemyStats.enemy_stats.component(:model="model")
       EnemyCommands.enemy_commands.component(:model="model")
       EnemyImage.enemy.component
       PlayerImage.player.component

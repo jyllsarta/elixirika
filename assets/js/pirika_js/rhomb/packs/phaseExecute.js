@@ -12,9 +12,18 @@ module.exports = class PhaseExecute {
 
  enter(model){
     console.log("execute Phase!");
+    this.processMarkedBullets(model);
     this.moveBullets(model);
     this.processHitBullets(model);
     model.lockStrokes = [];
+  }
+
+  processMarkedBullets(model){
+    const markedBullets = model.bullets.filter(bullet=>bullet.isMarked);
+    for(let bullet of markedBullets){
+      model.hpEnemy--;
+    }
+    model.bullets = model.bullets.filter(bullet=>!bullet.isMarked)
   }
 
   moveBullets(model){
