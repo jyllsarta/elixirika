@@ -21,6 +21,9 @@ module.exports = class PhaseStateMachine {
   }
 
   transferTo(nextPhaseName, model){
+    if(this.phase.leave){
+      this.phase.leave(model);
+    }
     this.phase = this.phaseEntity(nextPhaseName);
     this.phase.enter(model);
   }

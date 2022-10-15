@@ -35,7 +35,7 @@
         .bar
           .skew
             .base
-            .current
+            .current(:style="{width: `${model.mp / model.mpMax * 100}%`}")
 </template>
 
 <script lang="typescript">

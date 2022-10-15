@@ -10,12 +10,16 @@ module.exports = class PhaseExecute {
     return "ENEMY_SHOOT";
   }
 
- enter(model){
+  enter(model){
     console.log("execute Phase!");
     this.processMarkedBullets(model);
     this.moveBullets(model);
     this.processHitBullets(model);
     model.lockStrokes = [];
+  }
+
+  leave(model){
+    model.mp = Math.min(model.mpMax, model.mp + 0.5);
   }
 
   processMarkedBullets(model){

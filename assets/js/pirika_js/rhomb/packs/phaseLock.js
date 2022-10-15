@@ -24,13 +24,14 @@ module.exports = class PhaseLock {
     this.markBullets(model);
 
     // マンハッタン距離な世界でよしとする
-    const delta = Math.abs(e.movementX) + Math.abs(e.movementY);
+    const delta = (Math.abs(e.movementX) + Math.abs(e.movementY)) * 0.0001;
 
     // この 0.0001 とかはマスターデータとして管理できるようにしたい
-    model.tick += delta * 0.0001;
+    model.tick += delta;
+    model.mp -= delta;
 
-    if(model.tick >= 1){
-      this.doFinish(model);
+    if(model.tick >= 1 || model.mp <= 0){
+      this.finish(model);
     }
   }
   // private
