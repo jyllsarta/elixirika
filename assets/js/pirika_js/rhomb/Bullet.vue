@@ -4,7 +4,7 @@
     BulletRed(v-if="type === 'red'")
     BulletCyan(v-if="type === 'cyan'")
     BulletYellow(v-if="type === 'yellow'")
-    .mark(v-if="isMarked")
+    .mark(v-if="markedAt")
 </template>
 
 <script lang="typescript">
@@ -21,7 +21,7 @@
     },
     props: {
       type: String,
-      isMarked: Boolean,
+      markedAt: Number | null,
     },
   })
 </script>

@@ -9,7 +9,7 @@
           :key="bullet.id"
           :style="bulletStyle(bullet)"
           :type="bullet.type"
-          :is-marked="bullet.isMarked"
+          :marked-at="bullet.markedAt"
         )
 </template>
 
@@ -30,7 +30,8 @@
     },
     methods: {
       bulletStyle(bullet){
-        const position = bullet.partialStrokeAppliedPosition(this.model.tick);
+        const appliedTick = bullet.markedAt || this.model.tick;
+        const position = bullet.partialStrokeAppliedPosition(appliedTick);
         return {
           transform: `translate(${position.x}px, ${position.y}px)`
         }

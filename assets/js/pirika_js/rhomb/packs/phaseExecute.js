@@ -19,15 +19,15 @@ module.exports = class PhaseExecute {
   }
 
   leave(model){
-    model.mp = Math.min(model.mpMax, model.mp + 0.5);
+    model.mp = Math.min(model.mpMax, model.mp + 0.2);
   }
 
   processMarkedBullets(model){
-    const markedBullets = model.bullets.filter(bullet=>bullet.isMarked);
+    const markedBullets = model.bullets.filter(bullet=>bullet.markedAt);
     for(let bullet of markedBullets){
       model.hpEnemy--;
     }
-    model.bullets = model.bullets.filter(bullet=>!bullet.isMarked)
+    model.bullets = model.bullets.filter(bullet=>!bullet.markedAt)
   }
 
   moveBullets(model){

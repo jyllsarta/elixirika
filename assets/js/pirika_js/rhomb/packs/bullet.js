@@ -7,7 +7,7 @@ module.exports = class Bullet {
     this.y = master.y;
     this.type = master.type;
     this.strokes = master.strokes;
-    this.isMarked = false;
+    this.markedAt = null;
   }
 
   moveOneTurn(){
@@ -21,8 +21,8 @@ module.exports = class Bullet {
     return this.x <= 400 && this.y >= 400;
   }
 
-  mark(){
-    this.isMarked = true;
+  mark(at){
+    this.markedAt = at;
   }
 
   partialStrokeAppliedPosition(ratio){

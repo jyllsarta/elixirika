@@ -54,8 +54,8 @@ module.exports = class PhaseLock {
     const {x, y} = model.pointer;
     for(let bullet of model.bullets){
       const bulletPosition = bullet.partialStrokeAppliedPosition(model.tick);
-      if(this.isInRange(x, y, bulletPosition.x, bulletPosition.y, 50)){
-        bullet.mark();
+      if(this.isInRange(x, y, bulletPosition.x, bulletPosition.y, 50) && !bullet.markedAt){
+        bullet.mark(model.tick);
       }
     }
   }
