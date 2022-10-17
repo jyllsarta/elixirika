@@ -12,6 +12,7 @@
       Bullets.bullets.component(:model="model")
       PlayerUI.player_ui.component(:model="model")
       GameStartDialog.full_screen.component(v-if="currentPhase == 'START'", :model="model")
+      GameEndDialog.full_screen.component(v-if="model.isGameOver", :model="model")
       DebugUI.debug_ui.component(:model="model")
 </template>
 
@@ -25,6 +26,7 @@
   import EnemyCommands from "./EnemyCommands.vue";
   import EnemyImage from "./EnemyImage.vue";
   import EnemyStats from "./EnemyStats.vue";
+  import GameEndDialog from "./GameEndDialog.vue";
   import GameStartDialog from "./GameStartDialog.vue";
   import GUIHandler from "./GUIHandler.vue";
   import LockScreen from "./LockScreen.vue";
@@ -40,6 +42,7 @@
       EnemyCommands,
       EnemyImage,
       EnemyStats,
+      GameEndDialog,
       GameStartDialog,
       GUIHandler,
       LockScreen,

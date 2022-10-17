@@ -14,6 +14,7 @@ module.exports = class Model {
     this.phaseStateMachine = new PhaseStateMachine(this);
     this.isGameStarted = false;
     this.isGameOver = false;
+    this.isWin = false;
     this.turn = 0;
     this.bullets = [];
     this.hp = 0;
@@ -30,10 +31,12 @@ module.exports = class Model {
   initialize(seed){
     this.seededRandom = new SeededRandom(seed);
     this.isGameStarted = false;
+    this.isGameOver = false;
+    this.isWin = false;
     this.phaseStateMachine.transferTo("START", this);
     this.turn = 0;
     this.bullets = [];
-    this.hp = 20;
+    this.hp = 3;
     this.hpMax = this.hp;
     this.mp = 1;
     this.mpMax = this.mp;
@@ -49,6 +52,11 @@ module.exports = class Model {
 
   currentPhaseName(){
     return this.phaseStateMachine.phase.name;
+  }
+
+  updateWinState(){
+    this.isWin = this.hp > 0 && this.hpEnemy <= 0;
+    this.isGameOver = this.hp <= 0 || this.hpEnemy <= 0;
   }
 
   // private

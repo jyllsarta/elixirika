@@ -7,6 +7,9 @@ module.exports = class PhaseExecute {
     if(model.isGameOver){
       return "END";
     }
+    if(model.isWin){
+      return "END";
+    }
     return "ENEMY_SHOOT";
   }
 
@@ -16,6 +19,7 @@ module.exports = class PhaseExecute {
     this.moveBullets(model);
     this.processHitBullets(model);
     model.lockStrokes = [];
+    model.updateWinState();
     setTimeout(()=>model.nextPhase(), 500);
   }
 
@@ -39,7 +43,6 @@ module.exports = class PhaseExecute {
     const hitBullets = model.bullets.filter(bullet=>bullet.isHitToPlayer());
     const remainBullets = model.bullets.filter(bullet=>!bullet.isHitToPlayer());
     hitBullets.map(bullet=>model.hp--);
-    model.isGameOver = model.hp <= 0;
     model.bullets = remainBullets;
   }
 };
