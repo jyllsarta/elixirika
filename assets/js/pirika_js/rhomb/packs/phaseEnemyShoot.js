@@ -14,6 +14,7 @@ module.exports = class PhaseEnemyShoot {
     model.turn++;
     model.bullets = model.bullets.concat(this.bulletsOfTurn(model.turn, model));
     model.tick = 0;
+    model.nextPhase();
   }
 
   bulletsOfTurn(turn, model){

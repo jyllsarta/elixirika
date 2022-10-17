@@ -1,6 +1,7 @@
 module.exports = class PhaseLock {
   constructor(){
     this.name = "LOCK";
+    this.handler = null; 
   }
 
   nextPhaseName(model){
@@ -31,10 +32,16 @@ module.exports = class PhaseLock {
     model.mp -= delta;
 
     if(model.tick >= 1 || model.mp <= 0){
-      this.finish(model);
+      this.fireFinish(model);
     }
   }
   // private
+
+  fireFinish(model){
+    if(this.handler === null){
+      this.finish(model);
+    }
+  }
 
   finish(model){
     if(model.tick >= 1){
@@ -42,12 +49,14 @@ module.exports = class PhaseLock {
       return;
     }
     model.tick = Math.min(1, model.tick + 0.05);
-    setTimeout(()=>this.finish(model), 20);
+    this.handler = setTimeout(()=>this.finish(model), 20);
   }
 
   doFinish(model){
     model.phaseStateMachine.transferToNextPhase(model);
     model.tick = 0;
+    this.handler = null;
+    clearTimeout(this.handler);
   }
 
   markBullets(model){

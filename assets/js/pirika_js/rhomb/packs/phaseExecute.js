@@ -16,6 +16,7 @@ module.exports = class PhaseExecute {
     this.moveBullets(model);
     this.processHitBullets(model);
     model.lockStrokes = [];
+    setTimeout(()=>model.nextPhase(), 500);
   }
 
   leave(model){

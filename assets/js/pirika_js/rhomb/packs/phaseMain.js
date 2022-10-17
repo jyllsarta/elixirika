@@ -7,7 +7,7 @@ module.exports = class PhaseMain {
     return "LOCK";
   }
 
- enter(model){
+  enter(model){
     console.log("main Phase!");
   }
 
