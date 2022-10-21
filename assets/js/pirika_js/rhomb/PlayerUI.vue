@@ -15,6 +15,7 @@
         .bar
           .skew
             .base
+            .ghost(:style="{width: `${model.hp / model.hpMax * 100}%`}")
             .current(:style="{width: `${model.hp / model.hpMax * 100}%`}")
     .slot
       .title
@@ -35,6 +36,7 @@
         .bar
           .skew
             .base
+            .ghost(:style="{width: `${model.mp / model.mpMax * 100}%`}")
             .current(:style="{width: `${model.mp / model.mpMax * 100}%`}")
 </template>
 
@@ -121,6 +123,14 @@
         width: 100%;
         height: 100%;
         background-color: rgb(52, 69, 73);
+      }
+      .ghost{
+        position: absolute;
+        height: 100%;
+        background-color: rgb(0, 255, 255);
+        opacity: 0.6;
+        transition: width 0.5s;
+        transition-delay: 0.5s;
       }
       .current{
         position: absolute;

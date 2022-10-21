@@ -6,6 +6,7 @@
     .bar_area
       .skew
         .base
+        .ghost(:style="{width: `${model.hpEnemy / model.hpEnemyMax * 100}%`}")
         .bar(:style="{width: `${model.hpEnemy / model.hpEnemyMax * 100}%`}")
     .name
       | 縛られない幻影 フェーティ
@@ -53,6 +54,15 @@
           width: 100%;
           height: 100%;
           background-color: rgb(170, 54, 70);
+        }
+        .ghost{
+          position: absolute;
+          width: 40%;
+          height: 100%;
+          background-color: rgb(217, 255, 113);
+          opacity: 0.6;
+          transition: width 0.5s;
+          transition-delay: 0.5s;
         }
         .bar{
           position: absolute;
