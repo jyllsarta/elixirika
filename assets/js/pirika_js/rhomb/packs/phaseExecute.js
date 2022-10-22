@@ -1,3 +1,4 @@
+const Bullet = require("./bullet");
 module.exports = class PhaseExecute {
   constructor(){
     this.name = "EXECUTE";
@@ -29,10 +30,16 @@ module.exports = class PhaseExecute {
 
   processMarkedBullets(model){
     const markedBullets = model.bullets.filter(bullet=>bullet.markedAt);
+
     for(let bullet of markedBullets){
       model.hpEnemy--;
     }
     model.bullets = model.bullets.filter(bullet=>!bullet.markedAt)
+
+    // FIXME: ID固定
+    // TODO 消した場所にそのまま出る
+    const bonusBullets = this.bonusBullets(model, markedBullets);
+    model.bullets = model.bullets.concat(bonusBullets);
   }
 
   moveBullets(model){
@@ -42,7 +49,22 @@ module.exports = class PhaseExecute {
   processHitBullets(model){
     const hitBullets = model.bullets.filter(bullet=>bullet.isHitToPlayer());
     const remainBullets = model.bullets.filter(bullet=>!bullet.isHitToPlayer());
-    hitBullets.map(bullet=>model.hp--);
+    hitBullets.map(bullet=>model.hp--);    
     model.bullets = remainBullets;
+  }
+
+  bonusBullets(model, markedBullets){
+    let bullets = [];
+    for(let markedBullet of markedBullets){
+      if(markedBullet.isBonusBullet()){
+        continue;
+      }
+      let bullet = new Bullet(model.masterdata.idTables.bullets[9999])
+      bullet.x = markedBullet.x;
+      bullet.y = markedBullet.y;
+      bullets.push(bullet)
+    }
+    console.log(bullets)
+    return bullets;
   }
 };

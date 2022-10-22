@@ -28,6 +28,10 @@ module.exports = class Bullet {
     return this.x <= 400 && this.y >= 400;
   }
 
+  isBonusBullet(){
+    return this.type === "bonus";
+  }
+
   mark(at){
     this.markedAt = at;
   }
