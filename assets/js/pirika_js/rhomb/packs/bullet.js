@@ -1,3 +1,5 @@
+const StrokeStrategyFactory = require("./strokeStrategyFactory");
+
 // マスターデータの bullets はパラメータ、こっちにあるのは画面にある実弾
 // もしかしたらシングルトンなID払い出し機があると便利なのかも
 module.exports = class Bullet {
@@ -6,8 +8,9 @@ module.exports = class Bullet {
     this.x = master.x;
     this.y = master.y;
     this.type = master.type;
-    this.strokes = master.strokes;
+    this.strategy = master.strategy;
     this.markedAt = null;
+    this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(this.x, this.y, 0, 800, 300);
   }
 
   moveOneTurn(){
@@ -15,6 +18,7 @@ module.exports = class Bullet {
       this.x += stroke.dx;
       this.y += stroke.dy;
     }
+    this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(this.x, this.y, 0, 800, 300);
   }
 
   isHitToPlayer(){
