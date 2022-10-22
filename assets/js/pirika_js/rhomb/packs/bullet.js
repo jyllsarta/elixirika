@@ -8,9 +8,11 @@ module.exports = class Bullet {
     this.x = master.x;
     this.y = master.y;
     this.type = master.type;
+    this.speed = master.speed;
     this.strategy = master.strategy;
     this.markedAt = null;
-    this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(this.x, this.y, 0, 800, 300);
+    // FIXME: 0, 800 に自機が存在する決め打ち
+    this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(this.x, this.y, 0, 800, this.speed);
   }
 
   moveOneTurn(){
@@ -18,7 +20,8 @@ module.exports = class Bullet {
       this.x += stroke.dx;
       this.y += stroke.dy;
     }
-    this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(this.x, this.y, 0, 800, 300);
+    // FIXME: 0, 800 に自機が存在する決め打ち
+    this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(this.x, this.y, 0, 800, this.speed);
   }
 
   isHitToPlayer(){

@@ -16,7 +16,6 @@ module.exports = class RandomWalkStrategy {
     const radian = Math.atan2(ux, uy);
     const flucture = 180 * (Math.random() - 0.5) * Math.PI / 180; //180度までぶれる
     const vector = {dx: Math.sin(radian + flucture) * length, dy: Math.cos(radian + flucture) * length};
-    console.log(vector);
     return vector;
   }
 };
