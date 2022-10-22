@@ -1,5 +1,5 @@
 module.exports = [
-  {id: 1, x: 800, y: 600, type: "red", strategy: "linear",
+  {id: 1, x: 800, y: 600, type: "red", strategy: "linearArc",
     strokes: [
       {dx: 0, dy: -80},
       {dx: 80, dy: 0},
@@ -7,12 +7,12 @@ module.exports = [
       {dx: -220, dy: 0},
     ]
   },
-  {id: 2, x: 300, y: 200, type: "yellow", strategy: "linear",
+  {id: 2, x: 300, y: 200, type: "yellow", strategy: "verticalHorizontal",
     strokes: [
       {dx: -200, dy: 200},
     ]
   },
-  {id: 3, x: 900, y: 150, type: "yellow", strategy: "linear",
+  {id: 3, x: 900, y: 150, type: "yellow", strategy: "randomWalk",
     strokes: [
       {dx: -500, dy: 400},
     ]

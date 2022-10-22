@@ -1,4 +1,4 @@
-module.exports = class LinearStrokeStrategy {
+module.exports = class LinearStrategy {
   static strokes(x1, y1, x2, y2, length){
     const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
     const dx = (x2 - x1) * length / distance;
