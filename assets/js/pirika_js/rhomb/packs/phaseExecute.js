@@ -32,7 +32,7 @@ module.exports = class PhaseExecute {
     const markedBullets = model.bullets.filter(bullet=>bullet.markedAt);
 
     for(let bullet of markedBullets){
-      model.hpEnemy--;
+      model.hpEnemy -= bullet.power;
     }
     model.bullets = model.bullets.filter(bullet=>!bullet.markedAt)
 
@@ -51,7 +51,7 @@ module.exports = class PhaseExecute {
   processHitBullets(model){
     const hitBullets = model.bullets.filter(bullet=>bullet.isHitToPlayer());
     const remainBullets = model.bullets.filter(bullet=>!bullet.isHitToPlayer());
-    hitBullets.map(bullet=>model.hp--);    
+    hitBullets.map(bullet=>model.hp -= bullet.powerToPlayer);    
     model.bullets = remainBullets;
   }
 

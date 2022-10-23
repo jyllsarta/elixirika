@@ -10,6 +10,10 @@ module.exports = class Bullet {
     this.type = master.type;
     this.speed = master.speed;
     this.strategy = master.strategy;
+    // こちらの与えるダメージ
+    this.power = master.power;
+    // 被弾時のダメージ
+    this.powerToPlayer = master.powerToPlayer;
     this.markedAt = null;
     // FIXME: 0, 800 に自機が存在する決め打ち
     this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(this.x, this.y, 0, 800, this.speed);
