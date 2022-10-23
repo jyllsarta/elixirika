@@ -5,14 +5,10 @@
       | DEBUG UI
     .item
       | PHASE: {{model.phaseStateMachine.phase.name}}
-    .item
-      | isGameStarted: {{model.isGameStarted}}
     .button(@click="$store.commit('guiEvent', {subject: 'nextPhase'})")
       | NEXT PHASE
     .button(@click="$store.commit('guiEvent', {subject: 'reset'})")
       | RESET
-    .item
-      | BLTS: {{model.bullets}}
 </template>
 
 <script lang="typescript">
@@ -42,9 +38,12 @@
     font-size: 12px;
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
+    padding-top: 50px;
     gap: 4px;
     .item{
       line-height: 100%;
+      pointer-events: none;
     }
     .button{
       width: 100px;
