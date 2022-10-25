@@ -36,13 +36,13 @@ module.exports = class Model {
     this.phaseStateMachine.transferTo("START", this);
     this.turn = 0;
     this.bullets = [];
-    this.hp = 3;
+    this.hp = 5;
     this.hpMax = this.hp;
     this.mp = 1;
     this.mpMax = this.mp;
     this.tick = 0;
     this.lockStrokes = [];
-    this.hpEnemy = 10;
+    this.hpEnemy = 50;
     this.hpEnemyMax = this.hpEnemy;
   }
 
