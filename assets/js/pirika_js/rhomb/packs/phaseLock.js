@@ -17,6 +17,9 @@ module.exports = class PhaseLock {
   }
 
   handleMouseMove(e, model){
+    if(model.tick >= 1 || model.mp <= 0){
+      return;
+    }
     model.pointer.x = e.offsetX;
     model.pointer.y = e.offsetY;
     const point = {x: e.offsetX, y: e.offsetY, tick: model.tick};
@@ -30,10 +33,6 @@ module.exports = class PhaseLock {
 
     model.tick += delta;
     model.mp -= delta;
-
-    if(model.tick >= 1 || model.mp <= 0){
-      this.fireFinish(model);
-    }
   }
   // private
 
