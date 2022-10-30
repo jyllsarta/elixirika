@@ -30,7 +30,7 @@
       // これ phaseEnemyShoot とロジック重複してる
       totalTurnCount(){
         const totalTurnCount = this.model.masterdata.master.turns.length;
-        return this.model.turn % totalTurnCount + 1;
+        return this.model.turn % totalTurnCount;
       }
     }
   })
