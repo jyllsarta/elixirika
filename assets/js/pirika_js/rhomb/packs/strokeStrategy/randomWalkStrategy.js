@@ -5,8 +5,8 @@ module.exports = class RandomWalkStrategy {
     const uy = (y2 - y1) / distance;
 
     let strokes = [];
-    for(let i = 0; i < 10; ++i){
-        let stroke = this.randomWalk(ux, uy, length / 10);
+    for(let i = 0; i < 5; ++i){
+        let stroke = this.randomWalk(ux, uy, length / 5);
         strokes.push(stroke);
     }
     return strokes;
