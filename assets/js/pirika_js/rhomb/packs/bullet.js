@@ -28,8 +28,9 @@ module.exports = class Bullet {
     this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(this.x, this.y, 0, 800, this.speed);
   }
 
+  // FIXME 雑
   isHitToPlayer(){
-    return this.x <= 400 && this.y >= 400;
+    return this.x <= 300 && this.y >= 500;
   }
 
   isBonusBullet(){
