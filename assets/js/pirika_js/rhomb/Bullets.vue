@@ -42,7 +42,7 @@
         context.setTransform(1,0,0,1,0,0);
         context.clearRect(0, 0, 1200, 800);
         context.translate(.5,.5);
-        context.setLineDash([30, 15]);
+        context.setLineDash([4, 10]);
 
         for(let bullet of this.bullets){
           // TODO(jyllsarta): type === color は偶然の一致なのでマスタ管理にする
