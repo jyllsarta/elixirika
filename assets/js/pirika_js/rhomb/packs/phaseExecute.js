@@ -25,7 +25,7 @@ module.exports = class PhaseExecute {
   }
 
   leave(model){
-    model.mp = Math.min(model.mpMax, model.mp + 0.2);
+    model.mp = Math.min(model.mpMax, model.mp + 0.75);
   }
 
   processMarkedBullets(model){
@@ -61,9 +61,10 @@ module.exports = class PhaseExecute {
       if(markedBullet.isBonusBullet()){
         continue;
       }
-      let bullet = new Bullet(model.masterdata.idTables.bullets[9999])
-      bullet.x = markedBullet.x;
-      bullet.y = markedBullet.y;
+      let bullet = new Bullet(model.masterdata.idTables.bullets[9999]);
+      let position = markedBullet.partialStrokeAppliedPosition(markedBullet.markedAt);
+      bullet.x = position.x;
+      bullet.y = position.y;
       bullets.push(bullet)
     }
     console.log(bullets)

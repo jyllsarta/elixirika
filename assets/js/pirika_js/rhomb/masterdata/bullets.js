@@ -30,5 +30,5 @@ module.exports = [
   {id: 45, x: 900, y: 550, type: "red", power: 1, powerToPlayer: 1, speed: 350, strategy: "verticalHorizontal"},
 
   // Ex
-  {id: 9999, x: -1000, y: -1000, type: "bonus", power: 3, powerToPlayer: 1, speed: 0, strategy: "linear"},
+  {id: 9999, x: -1000, y: -1000, type: "bonus", power: 4, powerToPlayer: 1, speed: 0, strategy: "linear"},
 ]
