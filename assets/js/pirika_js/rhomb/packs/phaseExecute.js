@@ -21,7 +21,7 @@ module.exports = class PhaseExecute {
     this.processHitBullets(model);
     model.lockStrokes = [];
     model.updateWinState();
-    setTimeout(()=>model.nextPhase(), 500);
+    model.nextPhase();
   }
 
   leave(model){
