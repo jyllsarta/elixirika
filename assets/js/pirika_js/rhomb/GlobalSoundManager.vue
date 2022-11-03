@@ -71,6 +71,16 @@
         sounds: {
           se: {
             ok: {volume: 0.7},
+            enemy_shoot: {volume: 0.7},
+            execute: {volume: 0.7},
+            game_start: {volume: 0.7},
+            lock_start: {volume: 0.7},
+            lock: {volume: 0.7},
+            lock2: {volume: 0.7},
+            lose: {volume: 0.7},
+            tick: {volume: 0.7},
+            tick_max: {volume: 0.7},
+            win: {volume: 0.7},
           },
           bgm: {
             bgm1: {volume: 1.0},

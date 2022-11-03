@@ -1,6 +1,7 @@
 const SeededRandom = require("./seededRandom");
 const PhaseStateMachine = require("./phaseStateMachine");
 const Masterdata = require("./masterdata");
+const SoundManager = require("./sound_manager");
 //const Constants = require("./constants");
 
 module.exports = class Model {
@@ -12,6 +13,7 @@ module.exports = class Model {
     this.masterdata = new Masterdata();
     this.seededRandom = new SeededRandom(-1);
     this.phaseStateMachine = new PhaseStateMachine(this);
+    this.soundManager = new SoundManager();
     this.isGameStarted = false;
     this.isGameOver = false;
     this.isWin = false;

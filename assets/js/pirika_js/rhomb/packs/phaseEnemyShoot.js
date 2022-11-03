@@ -15,6 +15,7 @@ module.exports = class PhaseEnemyShoot {
     model.turn++;
     model.tick = 0;
     model.nextPhase();
+    model.soundManager.register("enemy_shoot");
   }
 
   bulletsOfTurn(turn, model){

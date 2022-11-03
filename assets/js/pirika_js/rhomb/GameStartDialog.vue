@@ -32,7 +32,7 @@
         this.$store.commit("playBgm", "bgm1");
         setTimeout(()=>{
           this.$store.commit('guiEvent', {subject: 'next'})
-          this.$store.commit("playSound", {key: "ok"});
+          this.$store.commit("playSound", {key: "game_start"});
         }, 500)
       }
     }
