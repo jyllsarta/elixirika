@@ -73,7 +73,7 @@
             ok: {volume: 0.7},
           },
           bgm: {
-            bgm3: {volume: 1.0},
+            bgm1: {volume: 1.0},
           },
         },
         volumes: {
