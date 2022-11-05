@@ -13,6 +13,7 @@ module.exports = class PhaseMain {
 
   handleMouseDown(e, model){
     model.phaseStateMachine.transferToNextPhase(model);
+    model.soundManager.register("lock_start");
   }
 
   handleMouseMove(e, model){

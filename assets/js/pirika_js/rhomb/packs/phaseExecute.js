@@ -21,7 +21,10 @@ module.exports = class PhaseExecute {
     this.processHitBullets(model);
     model.lockStrokes = [];
     model.updateWinState();
-    model.nextPhase();
+    setTimeout(()=>model.nextPhase(), 500);
+    if(!model.isGameOver){
+      model.soundManager.register("execute");
+    }
   }
 
   leave(model){
@@ -67,7 +70,6 @@ module.exports = class PhaseExecute {
       bullet.y = position.y;
       bullets.push(bullet)
     }
-    console.log(bullets)
     return bullets;
   }
 };

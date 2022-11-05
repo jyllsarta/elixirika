@@ -57,8 +57,17 @@ module.exports = class Model {
   }
 
   updateWinState(){
+    const prevIsGameOver = this.isGameOver;
     this.isWin = this.hp > 0 && this.hpEnemy <= 0;
     this.isGameOver = this.hp <= 0 || this.hpEnemy <= 0;
+    if(this.isGameOver && !prevIsGameOver){
+      if(this.isWin){
+        this.soundManager.register("win");
+      }
+      else{
+        this.soundManager.register("lose");
+      }
+    }
   }
 
   // private

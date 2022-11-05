@@ -1,7 +1,8 @@
 module.exports = class PhaseLock {
   constructor(){
     this.name = "LOCK";
-    this.handler = null; 
+    this.handler = null;
+    this.isPrevFrameMoveSucceeded = true;
   }
 
   nextPhaseName(model){
@@ -10,6 +11,7 @@ module.exports = class PhaseLock {
 
  enter(model){
     console.log("lock Phase!");
+    this.isPrevFrameMoveSucceeded = true;
   }
 
   handleMouseUp(e, model){
@@ -18,6 +20,10 @@ module.exports = class PhaseLock {
 
   handleMouseMove(e, model){
     if(model.tick >= 1 || model.mp <= 0){
+      if(this.isPrevFrameMoveSucceeded == true){
+        model.soundManager.register("tick_max");
+      }
+      this.isPrevFrameMoveSucceeded = false;
       return;
     }
     model.pointer.x = e.offsetX;
@@ -33,6 +39,8 @@ module.exports = class PhaseLock {
 
     model.tick += delta;
     model.mp -= delta;
+    model.soundManager.register("tick");
+    this.isPrevFrameMoveSucceeded = true;
   }
   // private
 
@@ -64,6 +72,13 @@ module.exports = class PhaseLock {
       const bulletPosition = bullet.partialStrokeAppliedPosition(model.tick);
       if(this.isInRange(x, y, bulletPosition.x, bulletPosition.y, 50) && !bullet.markedAt){
         bullet.mark(model.tick);
+        // FIXME 同じフレーム中に同じ音を多重で鳴らしてしまう
+        if(bullet.isBonusBullet()){
+          model.soundManager.register("lock2");
+        }
+        else{
+          model.soundManager.register("lock");
+        }
       }
     }
   }
