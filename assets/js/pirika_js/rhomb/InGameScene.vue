@@ -14,6 +14,7 @@
       GameStartDialog.full_screen.component(v-if="currentPhase == 'START'", :model="model")
       GameEndDialog.full_screen.component(v-if="model.isGameOver", :model="model")
       DebugUI.debug_ui.component(:model="model")
+      InGameSoundManager(:model="model")
 </template>
 
 <script lang="typescript">
@@ -29,6 +30,7 @@
   import GameEndDialog from "./GameEndDialog.vue";
   import GameStartDialog from "./GameStartDialog.vue";
   import GUIHandler from "./GUIHandler.vue";
+  import InGameSoundManager from "./InGameSoundManager.vue"
   import LockScreen from "./LockScreen.vue";
   import PlayerImage from "./PlayerImage.vue";
   import PlayerUI from "./PlayerUI.vue";
@@ -45,6 +47,7 @@
       GameEndDialog,
       GameStartDialog,
       GUIHandler,
+      InGameSoundManager,
       LockScreen,
       PlayerImage,
       PlayerUI,
