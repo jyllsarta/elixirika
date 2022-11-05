@@ -15,6 +15,9 @@ module.exports = class PhaseLock {
   }
 
   handleMouseUp(e, model){
+    if(model.tick <= 1){
+      model.soundManager.register("tick_miss");
+    }
     this.finish(model);
   }
 
@@ -43,12 +46,6 @@ module.exports = class PhaseLock {
     this.isPrevFrameMoveSucceeded = true;
   }
   // private
-
-  fireFinish(model){
-    if(this.handler === null){
-      this.finish(model);
-    }
-  }
 
   finish(model){
     if(model.tick >= 1){

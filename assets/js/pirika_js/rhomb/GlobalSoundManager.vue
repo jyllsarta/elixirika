@@ -80,6 +80,7 @@
             lose: {volume: 0.7},
             tick: {volume: 0.7},
             tick_max: {volume: 0.7},
+            tick_miss: {volume: 0.7},
             win: {volume: 0.7},
           },
           bgm: {
