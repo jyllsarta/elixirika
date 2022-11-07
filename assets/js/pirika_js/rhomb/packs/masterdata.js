@@ -1,6 +1,6 @@
 module.exports = class Masterdata {
   constructor(){
-    const titles = ["bullets", "turns"];
+    const titles = ["bullets", "turns", "equipments"];
     this.master = this.loadMasterData(titles);
     this.idTables = this.constructIdTables(titles, this.master);
   }
