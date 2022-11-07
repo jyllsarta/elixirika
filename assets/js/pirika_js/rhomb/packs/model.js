@@ -2,6 +2,7 @@ const SeededRandom = require("./seededRandom");
 const PhaseStateMachine = require("./phaseStateMachine");
 const Masterdata = require("./masterdata");
 const SoundManager = require("./sound_manager");
+const Equipment = require("./equipment");
 //const Constants = require("./constants");
 
 module.exports = class Model {
@@ -19,6 +20,7 @@ module.exports = class Model {
     this.isWin = false;
     this.turn = 0;
     this.bullets = [];
+    this.equipments = [];
     this.hp = 0;
     this.hpMax = 0;
     this.mp = 0;
@@ -38,6 +40,7 @@ module.exports = class Model {
     this.phaseStateMachine.transferTo("START", this);
     this.turn = 0;
     this.bullets = [];
+    this.equipments = this.playerEquipments();
     this.hp = 10;
     this.hpMax = this.hp;
     this.mp = 1.5;
@@ -71,4 +74,11 @@ module.exports = class Model {
   }
 
   // private
+
+  playerEquipments(){
+    // プロトは決め打ち
+    const ids = [1, 2];
+    const equipments = this.masterdata.getBy("equipments", "id", ids);
+    return equipments.map((equipment)=>new Equipment(equipment));
+  }
 };

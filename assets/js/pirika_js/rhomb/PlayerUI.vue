@@ -3,11 +3,11 @@
   .player_ui
     .slot
       .title
-        | ITEM
-      .items.content
-        .item_slot
-        .item_slot
-        .item_slot
+        | EQUIPMENTS
+      .equipments.content
+        .equipment(v-for="equipment in model.equipments" :key="equipment.id")
+          .name
+            | {{equipment.name}}
     .slot
       .title
         | HP
@@ -67,14 +67,17 @@
         line-height: 100%;
       }
     }
-    .items{
+    .equipments{
       display: flex;
       gap: 8px;
       padding-left: 40px;
-      .item_slot{
+      .equipment{
         width: 32px;
         height: 32px;
         border: 1px solid cyan;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
     .hp{
