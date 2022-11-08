@@ -19,6 +19,17 @@ module.exports = class Controller {
     this.model.nextPhase();
   }
 
+  // TODO: この辺の処理も phaseMain の方に書ける設計になるとすごく良さそう
+  equipmentMousedown(guiEvent){
+    const {id} = guiEvent;
+    if(!this.model.phaseStateMachine.phase === "MAIN"){
+      console.log("not main phase!");
+      return;
+    }
+    // TODO: id を何処かに持ち込んでアイテム設置フェーズに移行する
+    console.log(id);
+  }
+
   // NOTE(jyllsarta): UIの自動操作とかでフェーズ内で刻んで演出を動かす場合の1tick分の操作をこれで行う。
   // ex: 敵弾幕展開フェーズで `敵が近づいてくる` → `弾を展開してラインを描画` → `メインフェイズに遷移`
   // これらのステップは実際には EnemyShoot 監視用コンポーネントが

@@ -5,7 +5,11 @@
       .title
         | EQUIPMENTS
       .equipments.content
-        .equipment(v-for="equipment in model.equipments" :key="equipment.id")
+        .equipment(
+          v-for="equipment in model.equipments"
+          :key="equipment.id"
+          @mousedown="$store.commit('guiEvent', {subject: 'equipmentMousedown', id: equipment.id})"
+        )
           .name
             | {{equipment.name}}
     .slot
@@ -78,6 +82,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        pointer-events: auto;
+        &:hover{
+          transform: scale(1.2);
+        }
       }
     }
     .hp{
