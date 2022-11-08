@@ -8,10 +8,14 @@
         .equipment(
           v-for="equipment in model.equipments"
           :key="equipment.id"
-          @mousedown="$store.commit('guiEvent', {subject: 'equipmentMousedown', id: equipment.id})"
         )
-          .name
-            | {{equipment.name}}
+          .base
+            .name
+              | {{equipment.name}}
+          .hit_box(
+            v-if="model.currentPhaseName() == 'MAIN'"
+            @mousedown="$store.commit('guiEvent', {subject: 'equipmentMousedown', id: equipment.id})"
+          )
     .slot
       .title
         | HP
@@ -76,15 +80,28 @@
       gap: 8px;
       padding-left: 40px;
       .equipment{
+        position: relative;
         width: 32px;
         height: 32px;
-        border: 1px solid cyan;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        pointer-events: auto;
-        &:hover{
-          transform: scale(1.2);
+        .base{
+          border: 1px solid cyan;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          &:hover{
+            transform: scale(1.2);
+          }
+        }
+        .hit_box{
+          pointer-events: auto;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          opacity: 0.5;
+          background-color: rebeccapurple;
         }
       }
     }

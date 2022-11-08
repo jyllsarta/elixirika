@@ -1,6 +1,7 @@
 const PhaseStart = require("./phaseStart");
 const PhaseEnemyShoot = require("./phaseEnemyShoot");
 const PhaseMain = require("./phaseMain");
+const PhaseUseEquipment = require("./phaseUseEquipment");
 const PhaseLock = require("./phaseLock");
 const PhaseExecute = require("./phaseExecute");
 const PhaseEnd = require("./phaseEnd");
@@ -11,6 +12,7 @@ module.exports = class PhaseStateMachine {
   // ---- 決着するまでループ ----
   // ENEMY_SHOOT
   // MAIN
+  // (USE_EQUIPMENT -> MAIN)
   // LOCK
   // EXECUTE
   // ---- 決着するまでループ ----
@@ -36,6 +38,8 @@ module.exports = class PhaseStateMachine {
         return new PhaseEnemyShoot();
       case "MAIN":
         return new PhaseMain();
+      case "USE_EQUIPMENT":
+        return new PhaseUseEquipment();
       case "LOCK":
         return new PhaseLock();
       case "EXECUTE":

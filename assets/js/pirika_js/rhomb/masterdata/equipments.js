@@ -2,7 +2,7 @@ module.exports = [
   {
     id: 1,
     name: "A",
-    bullets: [
+    bullet_alignments: [
       {bullet_id: 9999, x: 0, y: 0},
       {bullet_id: 9999, x: -50, y: 0},
       {bullet_id: 9999, x: 50, y: 0},
@@ -13,7 +13,7 @@ module.exports = [
   {
     id: 2,
     name: "B",
-    bullets: [
+    bullet_alignments: [
       {bullet_id: 9999, x: 0, y: -50},
       {bullet_id: 9999, x: 0, y: 0},
       {bullet_id: 9999, x: 0, y: 50},

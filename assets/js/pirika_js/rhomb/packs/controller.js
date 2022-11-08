@@ -26,8 +26,8 @@ module.exports = class Controller {
       console.log("not main phase!");
       return;
     }
-    // TODO: id を何処かに持ち込んでアイテム設置フェーズに移行する
-    console.log(id);
+    this.model.phaseStateMachine.transferTo("USE_EQUIPMENT", model);
+    this.model.phaseStateMachine.phase.embedEquipmentId(id);
   }
 
   // NOTE(jyllsarta): UIの自動操作とかでフェーズ内で刻んで演出を動かす場合の1tick分の操作をこれで行う。
