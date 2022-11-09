@@ -88,6 +88,7 @@
   body{
     background-color: $frame-background;
     color: $white;
+    user-select: none;
   }
 
   .__frame{
