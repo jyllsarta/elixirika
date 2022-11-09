@@ -26,6 +26,11 @@ module.exports = class Controller {
       console.log("not main phase!");
       return;
     }
+    const equipment = model.equipments.find(equipment=>equipment.id === id);
+    if(this.model.tp < equipment.tp){
+      console.log("short of tp!");
+      return;
+    }
     this.model.phaseStateMachine.transferTo("USE_EQUIPMENT", model);
     this.model.phaseStateMachine.phase.embedEquipmentId(id);
   }

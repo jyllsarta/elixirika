@@ -29,6 +29,7 @@ module.exports = class PhaseExecute {
 
   leave(model){
     model.mp = Math.min(model.mpMax, model.mp + 0.75);
+    model.tp = model.tpMax;
   }
 
   processMarkedBullets(model){

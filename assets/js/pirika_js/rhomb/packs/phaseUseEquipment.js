@@ -26,6 +26,8 @@ module.exports = class PhaseUseEquipment {
       bullet.y = e.offsetY + bullet_alignment.y;
       model.bullets.push(bullet);
     }
+    model.tp -= equipment.tp;
+    equipment.tp += equipment.tp_gain;
     model.phaseStateMachine.transferToNextPhase(model);
   }
 };

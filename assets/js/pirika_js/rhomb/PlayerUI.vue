@@ -12,10 +12,22 @@
           .base
             .name
               | {{equipment.name}}
+            .tp
+              | {{equipment.tp}}/{{equipment.tp_gain}}
           .hit_box(
             v-if="model.currentPhaseName() == 'MAIN'"
             @mousedown="$store.commit('guiEvent', {subject: 'equipmentMousedown', id: equipment.id})"
           )
+    .slot
+      .title
+        | TP
+      .locks.content
+        .skew
+          .tp_box
+            .tp(
+              v-for="(i, index) in new Array(model.tpMax)"
+              :class="{filled: index < model.tp}"
+            )
     .slot
       .title
         | HP
@@ -25,18 +37,6 @@
             .base
             .ghost(:style="{width: `${model.hp / model.hpMax * 100}%`}")
             .current(:style="{width: `${model.hp / model.hpMax * 100}%`}")
-    .slot
-      .title
-        | LOCK
-      .locks.content
-        .skew
-          .lock_box
-            .lock_slot.locked
-            .lock_slot.locked
-            .lock_slot.locked
-            .lock_slot.locked
-            .lock_slot
-            .lock_slot
     .slot
       .title
         | MP
@@ -81,8 +81,8 @@
       padding-left: 40px;
       .equipment{
         position: relative;
-        width: 32px;
-        height: 32px;
+        width: 64px;
+        height: 64px;
         .base{
           border: 1px solid cyan;
           width: 100%;
@@ -90,6 +90,8 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          flex-direction: column;
+          gap: 4px;
           position: absolute;
           &:hover{
             transform: scale(1.2);
@@ -105,31 +107,31 @@
         }
       }
     }
-    .hp{
-      width: 240px;
-      padding-left: 32px;
-    }
     .locks{
-      padding-left: 24px;
+      padding-left: 32px;
       .skew{
         transform: skewX(-20deg);
         width: 100%;
         height: 100%;
-        .lock_box {
+        .tp_box {
           width: 100%;
           height: 100%;
           display: flex;
           gap: 8px;
-          .lock_slot{
+          .tp{
             width: 16px;
             height: 32px;
             border: 1px solid cyan;
           }
-          .locked{
+          .filled{
             background-color: cyan;
           }
         }
       }
+    }
+    .hp{
+      width: 240px;
+      padding-left: 24px;
     }
     .mp{
       width: 480px;
