@@ -15,6 +15,10 @@ module.exports = class PhaseLock {
   }
 
   handleMouseUp(e, model){
+    if(this.handler){
+      console.log("finish already started");
+      return;
+    }
     if(model.tick <= 1){
       model.soundManager.register("tick_miss");
     }
