@@ -30,7 +30,7 @@
     },
     methods: {
       bulletStyle(bullet){
-        const appliedTick = bullet.markedAt || this.model.tick;
+        const appliedTick = bullet.markedAt !== null ? bullet.markedAt : this.model.tick;
         const position = bullet.partialStrokeAppliedPosition(appliedTick);
         return {
           transform: `translate(${position.x}px, ${position.y}px)`

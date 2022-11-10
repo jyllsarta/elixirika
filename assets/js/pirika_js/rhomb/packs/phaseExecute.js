@@ -28,17 +28,17 @@ module.exports = class PhaseExecute {
   }
 
   leave(model){
-    model.mp = Math.min(model.mpMax, model.mp + 0.75);
+    model.mp = Math.min(model.mpMax, model.mp + 0.5);
     model.tp = model.tpMax;
   }
 
   processMarkedBullets(model){
-    const markedBullets = model.bullets.filter(bullet=>bullet.markedAt);
+    const markedBullets = model.bullets.filter(bullet=>bullet.markedAt !== null);
 
     for(let bullet of markedBullets){
       model.hpEnemy -= bullet.power;
     }
-    model.bullets = model.bullets.filter(bullet=>!bullet.markedAt)
+    model.bullets = model.bullets.filter(bullet=>bullet.markedAt === null)
 
     // FIXME: ID固定
     // TODO 消した場所にそのまま出る

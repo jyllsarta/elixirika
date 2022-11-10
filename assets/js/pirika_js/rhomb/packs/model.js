@@ -29,7 +29,6 @@ module.exports = class Model {
     this.tpMax = 0;
     this.tick = 0;
     this.pointer = {x: 0, y: 0};
-    this.lockStrokes = [];
     this.hpEnemy = 0;
     this.hpEnemyMax = this.hpEnemy;
   }
@@ -50,7 +49,6 @@ module.exports = class Model {
     this.tp = 5;
     this.tpMax = this.tp;
     this.tick = 0;
-    this.lockStrokes = [];
     this.hpEnemy = 140;
     this.hpEnemyMax = this.hpEnemy;
   }

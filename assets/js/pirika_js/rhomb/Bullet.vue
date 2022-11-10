@@ -6,7 +6,7 @@
     BulletYellow(v-if="type === 'yellow'")
     BulletBonus(v-if="type === 'bonus'")
     BulletSpecial(v-if="type === 'special'")
-    .mark(v-if="markedAt")
+    .mark(v-if="markedAt !== null")
 </template>
 
 <script lang="typescript">

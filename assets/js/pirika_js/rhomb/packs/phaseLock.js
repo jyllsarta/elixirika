@@ -32,7 +32,6 @@ module.exports = class PhaseLock {
     model.pointer.x = e.offsetX;
     model.pointer.y = e.offsetY;
     const point = {x: e.offsetX, y: e.offsetY, tick: model.tick};
-    model.lockStrokes.push(point);
 
     this.markBullets(model);
 
@@ -67,7 +66,7 @@ module.exports = class PhaseLock {
     const {x, y} = model.pointer;
     for(let bullet of model.bullets){
       const bulletPosition = bullet.partialStrokeAppliedPosition(model.tick);
-      if(this.isInRange(x, y, bulletPosition.x, bulletPosition.y, 50) && !bullet.markedAt){
+      if(this.isInRange(x, y, bulletPosition.x, bulletPosition.y, 50) && bullet.markedAt === null){
         bullet.mark(model.tick);
         model.mp += bullet.mp_delta;
         // FIXME 同じフレーム中に同じ音を多重で鳴らしてしまう
