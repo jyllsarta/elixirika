@@ -5,6 +5,7 @@
     BulletCyan(v-if="type === 'cyan'")
     BulletYellow(v-if="type === 'yellow'")
     BulletBonus(v-if="type === 'bonus'")
+    BulletSpecial(v-if="type === 'special'")
     .mark(v-if="markedAt")
 </template>
 
@@ -14,6 +15,7 @@
   import BulletCyan from "./BulletCyan.vue";
   import BulletYellow from "./BulletYellow.vue";
   import BulletBonus from "./BulletBonus.vue";
+  import BulletSpecial from "./BulletSpecial.vue";
 
   export default Vue.extend({
     components: {
@@ -21,6 +23,7 @@
       BulletCyan,
       BulletYellow,
       BulletBonus,
+      BulletSpecial,
     },
     props: {
       type: String,

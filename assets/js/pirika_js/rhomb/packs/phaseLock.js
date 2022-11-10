@@ -69,6 +69,7 @@ module.exports = class PhaseLock {
       const bulletPosition = bullet.partialStrokeAppliedPosition(model.tick);
       if(this.isInRange(x, y, bulletPosition.x, bulletPosition.y, 50) && !bullet.markedAt){
         bullet.mark(model.tick);
+        model.mp += bullet.mp_delta;
         // FIXME 同じフレーム中に同じ音を多重で鳴らしてしまう
         if(bullet.isBonusBullet()){
           model.soundManager.register("lock2");

@@ -81,7 +81,7 @@ module.exports = class Model {
 
   playerEquipments(){
     // プロトは決め打ち
-    const ids = [1, 2];
+    const ids = [1, 2, 3];
     const equipments = this.masterdata.getBy("equipments", "id", ids);
     return equipments.map((equipment)=>new Equipment(equipment));
   }

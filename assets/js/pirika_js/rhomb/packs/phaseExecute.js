@@ -69,7 +69,7 @@ module.exports = class PhaseExecute {
       let position = markedBullet.partialStrokeAppliedPosition(markedBullet.markedAt);
       bullet.x = position.x;
       bullet.y = position.y;
-      bullets.push(bullet)
+      bullets.push(bullet);
     }
     return bullets;
   }

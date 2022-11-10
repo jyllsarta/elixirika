@@ -10,6 +10,7 @@ module.exports = class Bullet {
     this.type = master.type;
     this.speed = master.speed;
     this.strategy = master.strategy;
+    this.mp_delta = master.mp_delta;
     // こちらの与えるダメージ
     this.power = master.power;
     // 被弾時のダメージ
