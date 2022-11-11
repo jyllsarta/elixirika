@@ -11,6 +11,7 @@
       Pointer.pointer.component(:model="model")
       Bullets.bullets.component(:model="model")
       PlayerUI.player_ui.component(:model="model")
+      DamageNumber.damage_number.component(v-if="currentPhase == 'LOCK'", :model="model")
       GameStartDialog.full_screen.component(v-if="currentPhase == 'START'", :model="model")
       GameEndDialog.full_screen.component(v-if="model.isGameOver", :model="model")
       DebugUI.debug_ui.component(:model="model")
@@ -24,6 +25,7 @@
   import store from "./packs/store";
   import Bullets from "./Bullets.vue";
   import DebugUI from "./DebugUI.vue";
+  import DamageNumber from "./DamageNumber.vue";
   import EnemyCommands from "./EnemyCommands.vue";
   import EnemyImage from "./EnemyImage.vue";
   import EnemyStats from "./EnemyStats.vue";
@@ -41,6 +43,7 @@
     components: {
       Bullets,
       DebugUI,
+      DamageNumber,
       EnemyCommands,
       EnemyImage,
       EnemyStats,
@@ -130,6 +133,12 @@
       height: 100%;
       top: 0;
       left: 0;
+    }
+    .damage_number{
+      width: 30%;
+      height: 100px;
+      top: 0;
+      left: 35%;
     }
     .player_ui{
       width: 50%;

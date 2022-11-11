@@ -42,14 +42,14 @@ module.exports = class Model {
     this.turn = 0;
     this.bullets = [];
     this.equipments = this.playerEquipments();
-    this.hp = 10;
+    this.hp = 4;
     this.hpMax = this.hp;
-    this.mp = 1.5;
+    this.mp = 2;
     this.mpMax = this.mp;
     this.tp = 5;
     this.tpMax = this.tp;
     this.tick = 0;
-    this.hpEnemy = 140;
+    this.hpEnemy = 200;
     this.hpEnemyMax = this.hpEnemy;
   }
 
