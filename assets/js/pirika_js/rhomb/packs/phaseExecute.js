@@ -28,7 +28,7 @@ module.exports = class PhaseExecute {
   }
 
   leave(model){
-    model.mp = Math.min(model.mpMax, model.mp + 0.5);
+    model.mp = Math.min(model.mpMax, model.mp + 0.25);
     model.tp = model.tpMax;
   }
 

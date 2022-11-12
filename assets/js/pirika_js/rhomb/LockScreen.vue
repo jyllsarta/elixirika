@@ -1,6 +1,6 @@
 
 <template lang="pug">
-  .cover(@mousedown="handleMouseDown" @mousemove="handleMouseMove" @mouseup="handleMouseUp")
+  .cover(@mousedown="handleMouseDown" @mousemove="handleMouseMove" @mouseup="handleMouseUp" oncontextmenu="return false;")
     .bg(v-if="model.currentPhaseName() == 'LOCK'")
 </template>
 
@@ -26,6 +26,7 @@
         }
       },
       handleMouseUp(e){
+        e.preventDefault();
         if(this.model.phaseStateMachine.phase.handleMouseUp){
           this.model.phaseStateMachine.phase.handleMouseUp(e, this.model);
         }

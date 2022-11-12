@@ -3,6 +3,7 @@ module.exports = class PhaseLock {
     this.name = "LOCK";
     this.handler = null;
     this.isPrevFrameMoveSucceeded = true;
+    this.lockdepth = 1;
   }
 
   nextPhaseName(model){
@@ -14,7 +15,17 @@ module.exports = class PhaseLock {
     this.isPrevFrameMoveSucceeded = true;
   }
 
+  handleMouseDown(e, model){
+    this.lockdepth = 2;
+  }
+
   handleMouseUp(e, model){
+    if(this.lockdepth == 2){
+      console.log("lock minus 1");
+      this.lockdepth = 1;
+      return;
+    }
+
     if(this.handler){
       console.log("finish already started");
       return;
@@ -26,7 +37,7 @@ module.exports = class PhaseLock {
   }
 
   handleMouseMove(e, model){
-    if(model.tick >= 1 || model.mp <= 0){
+    if((this.lockdepth == 1 && model.tick >= 1) || (this.lockdepth == 2 && model.mp <= 0)){
       if(this.isPrevFrameMoveSucceeded == true){
         model.soundManager.register("tick_max");
       }
@@ -35,16 +46,20 @@ module.exports = class PhaseLock {
     }
     model.pointer.x = e.offsetX;
     model.pointer.y = e.offsetY;
-    const point = {x: e.offsetX, y: e.offsetY, tick: model.tick};
 
     this.markBullets(model);
 
     // マンハッタン距離な世界でよしとする
     // この 0.0001 とかはマスターデータとして管理できるようにしたい
-    const delta = (Math.abs(e.movementX) + Math.abs(e.movementY)) * 0.002;
+    const delta = (Math.abs(e.movementX) + Math.abs(e.movementY)) * 0.003;
 
-    model.tick += delta;
-    model.mp -= delta;
+    if(this.lockdepth == 1){
+      model.tick += delta;
+    }
+    else{
+      model.mp -= delta;
+    }
+
     model.soundManager.register("tick");
     this.isPrevFrameMoveSucceeded = true;
   }
@@ -63,6 +78,7 @@ module.exports = class PhaseLock {
     model.phaseStateMachine.transferToNextPhase(model);
     model.tick = 0;
     this.handler = null;
+    this.lockdepth = 1;
     clearTimeout(this.handler);
   }
 
