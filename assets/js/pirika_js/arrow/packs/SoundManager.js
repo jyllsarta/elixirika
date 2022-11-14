@@ -1,18 +1,15 @@
 class SoundManager{
-  sounds: {};
-  volume: number;
-
   constructor(){
     console.log("instantiated sound!");
     this.sounds = {};
     this.volume = 1;
   }
 
-  public register(name: string, path: string, magnifier:number=1){
+  register(name, path, magnifier=1){
     this.sounds[name] = {audio:new Audio(path), magnifier: magnifier};
   }
 
-  public play(soundName: string, interruptPreviousSound=true){
+  play(soundName, interruptPreviousSound=true){
     if(interruptPreviousSound){
       this.sounds[soundName].audio.currentTime = 0;
     }

@@ -4,7 +4,7 @@
     .core
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   
 </script>
 

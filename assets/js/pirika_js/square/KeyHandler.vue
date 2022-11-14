@@ -2,7 +2,7 @@
   .key_helper
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
     import Vue from 'vue';
     import Keyboard from "./packs/keyboard";
     import Controller from "./packs/controller";

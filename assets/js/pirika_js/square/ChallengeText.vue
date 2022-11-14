@@ -11,7 +11,7 @@
         
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
 
   export default Vue.extend({

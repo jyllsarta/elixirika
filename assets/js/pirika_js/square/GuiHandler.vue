@@ -2,7 +2,7 @@
   .key_helper
 </template>
 
-<script lang="typescript">
+<script lang="v">
   import Vue from 'vue';
   import Controller from "./packs/controller";
   import store from "./packs/store";

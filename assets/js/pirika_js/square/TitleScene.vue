@@ -53,7 +53,7 @@
     Ranking.ranking(v-if="showsRanking" @close="closeRanking")
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import NameArea from "./NameArea.vue";
   import gsap from 'gsap';

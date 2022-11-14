@@ -1,12 +1,12 @@
 import axios from "axios"
 
 class OnlineRanking{
-  constructor(private scoreSubmitUrl: string,
-              private rankingUrl: string,
-              private myScoreUrl: string){
+  constructor(scoreSubmitUrl,
+              rankingUrl,
+              myScoreUrl){
   }
 
-  public submit(username: string, score: number, remove_score: number, time_score: number, callback: (results) => void){
+  submit(username, score, remove_score, time_score, callback){
     axios.post(this.scoreSubmitUrl,{
               _csrf_token: document.querySelector("meta[name=csrf-token]").attributes["content"].textContent,
               username: username,
@@ -26,7 +26,7 @@ class OnlineRanking{
         })
   }
 
-  public getHighScore(username: string, callback: (results) => void ){
+  getHighScore(username, callback){
     axios.get(this.myScoreUrl+`?username=${username}`)
         .then((results) => {
             callback(results);
@@ -39,7 +39,7 @@ class OnlineRanking{
         })
   }
 
-  public getRanking(callback: (results) => void ){
+  getRanking(callback){
     axios.get(this.rankingUrl)
         .then((results) => {
           callback(results);

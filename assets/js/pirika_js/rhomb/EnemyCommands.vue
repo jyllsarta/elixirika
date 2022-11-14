@@ -8,7 +8,7 @@
         Bullet(v-for="bullet of turn.bullets" :type="bullet.type" :key="bullet.id" :marked-at="null")
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import Bullet from "./Bullet.vue";
   import Model from "./packs/model";

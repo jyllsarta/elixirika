@@ -4,7 +4,7 @@
     img(src="/images/rhomb/enemy.png")
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
 </script>
 
 <style lang='scss' scoped>

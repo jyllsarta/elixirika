@@ -4,7 +4,7 @@
     img(src="/images/rhomb/player_back.png")
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
 </script>
 
 <style lang='scss' scoped>

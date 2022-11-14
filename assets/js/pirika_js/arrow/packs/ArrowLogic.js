@@ -1,43 +1,11 @@
-import Ball from "./Ball.ts"
-import Pointer from "./Pointer.ts"
-import GameState from "./GameState.ts"
-import SoundManager from "./SoundManager.ts"
-import Constants from "./Constants.ts"
-import OnlineRanking from "./OnlineRanking.ts"
-
+import Ball from "./Ball.js"
+import Pointer from "./Pointer.js"
+import GameState from "./GameState.js"
+import SoundManager from "./SoundManager.js"
+import Constants from "./Constants.js"
+import OnlineRanking from "./OnlineRanking.js"
 
 class ArrowLogic{
-
-  balls: Ball[];
-  pointer: Pointer;
-  gameState: GameState;
-  soundManager: SoundManager;
-  onlineRanking: OnlineRanking;
-  hp: number;
-  initialHp: number;
-  energy: number;
-  charge: number;
-  isCharging: boolean;
-  timeScore: number;
-  removeScore: number;
-  username: string;
-  highScore: number;
-  playtime: number;
-  ranking: {};
-
-  // タイマー類
-  healEventTimer: number;
-  spawnNewBallTimer: number;
-
-  //ディスチャージ演出用
-  isThisFrameDischargeReleased: boolean;
-  lastRemoveResult: number;
-  lastRemovedPositionX: number;
-  lastRemovedPositionY: number;
-
-  // ハイスコア演出要
-  isHighScore: boolean;
-
   constructor(){
     console.log("instantiated logic!");
     this.soundManager = new SoundManager();
@@ -47,11 +15,11 @@ class ArrowLogic{
     this.reset();
   }
 
-  public score(){
+  score(){
     return Math.floor(this.timeScore + this.removeScore);
   }
 
-  public update(timeDelta: number): void{
+  update(timeDelta){
     switch (this.gameState) {
       case GameState.Title:
         break;
@@ -65,29 +33,29 @@ class ArrowLogic{
     }
   }
 
-  public setPointerPosition(x: number, y: number): void{
+  setPointerPosition(x, y){
     this.pointer.setPosition(x, y);
   }
 
-  public startGame(): void{
+  startGame(){
     this.soundManager.play("start");
     this.gameState = GameState.InGame;
   }
 
-  public hpRate(): number{
+  hpRate(){
     return this.hp / this.initialHp;
   }
 
-  public chargeRate(): number{
+  chargeRate(){
     return Math.min(this.charge / Constants.chargeMax, 1);
   }
 
-  public resetCharge(){
+  resetCharge(){
     this.charge = 0;
     this.isCharging = false;
   }
 
-  public onMouseDown(){
+  onMouseDown(){
     // 必殺ゲージ溜め
     this.resetCharge();
     if(this.hasSufficientEnergy()){
@@ -95,7 +63,7 @@ class ArrowLogic{
     }
   }
 
-  public onMouseUp(){
+  onMouseUp(){
     if(this.isChargeFull() && this.hasSufficientEnergy()){
       this.discharge(this.pointer.x, this.pointer.y, Constants.dischargeRadius);
       this.energy = 0;
@@ -105,26 +73,26 @@ class ArrowLogic{
     this.isCharging = false;
   }
 
-  public onMoved(){
+  onMoved(){
     if(this.hasSufficientEnergy() && this.charge > 0){
       this.soundManager.play("phew");
     }
     this.resetCharge();
   }
-  public isChargeFull(){
+  isChargeFull(){
     return this.charge > Constants.chargeMax;
   }
 
-  public hasSufficientEnergy(){
+  hasSufficientEnergy(){
     return this.energy > Constants.energyMax;
   }
 
-  public onClickResetButton(){
+  onClickResetButton(){
     this.soundManager.play("reset");
     this.reset();
   }
 
-  public setName(name: string){
+  setName(name){
     this.username = name;
     this.fetchHighScore();
   }
@@ -133,13 +101,13 @@ class ArrowLogic{
 
   // このフレームにちょうどタイマーが発動したかどうか
   // = 前のフレームではthreshold以下、現在のフレームではthreshold以上である
-  private isThisFrameTimerReached(timeDelta: number, timePiled: number, threshold: number){
+  isThisFrameTimerReached(timeDelta, timePiled, threshold){
     return timePiled - timeDelta <= threshold && threshold < timePiled;
   }
 
   // タイマーによって発動するイベントの処理
   // なーんかちょっとあまりにも愚直なので、いつか registerTimerEvent(callback, everyXSeconds) みたいなインターフェースで登録できるようにしてみたいな
-  private proceedTimerAndFireEvent(timeDelta: number){
+  proceedTimerAndFireEvent(timeDelta){
 
     this.isThisFrameDischargeReleased = false;
     this.playtime += timeDelta;
@@ -172,7 +140,7 @@ class ArrowLogic{
     }
   }
 
-  private currentBallSpawnInterval(){
+  currentBallSpawnInterval(){
     let prevInterval = null;
     for(let [seconds, interval] of Constants.spawnBallIntervalTimes){
       if (this.playtime < seconds){
@@ -183,7 +151,7 @@ class ArrowLogic{
     return prevInterval;
   }
 
-  private moveBall(timeDelta: number): void{
+  moveBall(timeDelta){
     for(let ball of this.balls){
       ball.x += ball.vx * timeDelta;
       ball.y += ball.vy * timeDelta;
@@ -191,7 +159,7 @@ class ArrowLogic{
     }
   }
 
-  private checkDamage(timeDelta: number): void{
+  checkDamage(timeDelta){
     // 全部の弾と当たり判定チェックするのは普通にO(n)なんで遅い
     // パフォーマンスによる問題が出たら枝刈りを頑張る
     // 時刻ベースにしたらここもダメージ量をTimeDeltaに比例させること
@@ -215,18 +183,18 @@ class ArrowLogic{
     }
   }
 
-  private onSucceedSendResult(results){
+  onSucceedSendResult(results){
     this.isHighScore = results.data.is_high_score;
     if(this.isHighScore){
       this.soundManager.play("high_score");
     }
   }
 
-  private distance(x1:number, y1:number ,x2:number ,y2:number){
+  distance(x1, y1 ,x2 ,y2){
     return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
   }
 
-  private heal(value: number){
+  heal(value){
     // すでに全快のときには音を鳴らさない
     if(this.hp >= this.initialHp){
       return;
@@ -241,7 +209,7 @@ class ArrowLogic{
     this.soundManager.play("heal" + rand);
   }
 
-  private createRandomBall(): void{
+  createRandomBall(){
     const vx = Math.random() * Constants.maxBallVelocityX - Constants.maxBallVelocityX / 2;
     const vy = Math.random() * Constants.maxBallVelocityY - Constants.maxBallVelocityY / 2;
 
@@ -253,7 +221,7 @@ class ArrowLogic{
     this.balls.push(new Ball(Math.random(), 0, vx, vy, colorId));
   }
 
-  private discharge(x: number,y: number,r: number){
+  discharge(x,y,r){
     let not_removed = [];
     for(let ball of this.balls){
       let distance = this.distance(x, y, ball.x, ball.y);
@@ -271,7 +239,7 @@ class ArrowLogic{
     this.balls = not_removed;
   }
 
-  private reset(){
+  reset(){
     this.balls = [];
     this.pointer = new Pointer(0.5, 0.5);
     this.gameState = GameState.Title;
@@ -299,19 +267,19 @@ class ArrowLogic{
     this.fetchRanking();
   }
 
-  public fetchRanking(){
+  fetchRanking(){
     this.onlineRanking.getRanking((results)=>{this.ranking = results.data.ranking})
   }
 
-  private onReceiveHighScore(results){
+  onReceiveHighScore(results){
     this.highScore = results.data.high_score;
   }
 
-  private fetchHighScore(){
+  fetchHighScore(){
     this.onlineRanking.getHighScore(this.username, (results)=>{this.onReceiveHighScore(results)});
   }
 
-  private loadSounds(){
+  loadSounds(){
     this.soundManager.register("spawn", "/game/arrow/sounds/spawn.wav", 0.04);
     this.soundManager.register("damage", "/game/arrow/sounds/damage.wav", 0.05);
     this.soundManager.register("damage2", "/game/arrow/sounds/damage.wav");

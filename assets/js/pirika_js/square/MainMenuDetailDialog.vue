@@ -51,7 +51,7 @@
         
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import ClearStateTile from "./ClearStateTile.vue";
   import ChallengeText from "./ChallengeText.vue";

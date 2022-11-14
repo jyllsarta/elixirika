@@ -4,7 +4,7 @@
     .bg(v-if="model.currentPhaseName() == 'LOCK'")
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import Controller from './packs/controller';
   import Model from "./packs/model";

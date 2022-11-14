@@ -9,7 +9,7 @@
     .mark(v-if="markedAt !== null")
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import BulletRed from "./BulletRed.vue";
   import BulletCyan from "./BulletCyan.vue";

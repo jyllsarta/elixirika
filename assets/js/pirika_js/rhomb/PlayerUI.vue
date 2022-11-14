@@ -48,7 +48,7 @@
             .current(:style="{width: `${model.mp / model.mpMax * 100}%`}")
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import Model from "./packs/model";
 

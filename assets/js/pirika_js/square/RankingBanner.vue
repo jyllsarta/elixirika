@@ -17,7 +17,7 @@
               | {{rank.score}}
 </template>
 
-<script lang="typescript">
+<script lang="v">
   import Vue from 'vue';
   import store from "./packs/store";
   import jsSHA from 'jssha';

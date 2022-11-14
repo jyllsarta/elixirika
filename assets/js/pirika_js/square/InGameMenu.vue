@@ -69,7 +69,7 @@
         )
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import GeneralButton from "./GeneralButton.vue";
   import store from "./packs/store";

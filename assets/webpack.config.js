@@ -17,7 +17,7 @@ module.exports = (env, options) => {
       'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
       'loadIka': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/ika/packs/loadIka.js']),
       'loadZxcv': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/zxcv/packs/loadZxcv.js']),
-      'loadArrow': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/arrow/packs/loadArrow.ts']),
+      'loadArrow': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/arrow/packs/loadArrow.js']),
       'loadSquare': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/square/packs/loadSquare.js']),
       'loadRhomb': glob.sync('./vendor/**/*.js').concat(['./js/pirika_js/rhomb/packs/loadRhomb.js']),
     },
@@ -47,25 +47,6 @@ module.exports = (env, options) => {
                 presets: [
                   "@babel/preset-env"
                 ]
-              }
-            }
-          ]
-        },
-        {
-          test: /\.ts$/,
-          use: [
-            {
-              loader: "babel-loader",
-              options: {
-                presets: [
-                  "@babel/preset-env"
-                ]
-              }
-            },
-            {
-              loader: 'ts-loader',
-              options: {
-                  appendTsSuffixTo: [/\.vue$/]
               }
             }
           ]

@@ -19,7 +19,7 @@
       | お宝回収は全カード回収するまで終了しない
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import Model from "./packs/model";
   import store from "./packs/store";

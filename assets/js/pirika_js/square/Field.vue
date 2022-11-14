@@ -15,7 +15,7 @@
     )
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import FieldCard from "./FieldCard.vue";
   import Field from './packs/field';

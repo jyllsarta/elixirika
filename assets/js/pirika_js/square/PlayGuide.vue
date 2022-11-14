@@ -14,7 +14,7 @@
             PlayGuideContentCharacter4(v-if="$store.state.playGuideCharacterId === 4")
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import store from "./packs/store";
   import PlayGuideContentCharacter1 from "./PlayGuideContentCharacter1.vue";

@@ -38,7 +38,7 @@
     InGameSoundManager(:model="model")
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
     import Vue from 'vue';
     import SupportCharacter from "./SupportCharacter.vue"
     import StarPalette from "./StarPalette.vue"

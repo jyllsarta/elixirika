@@ -11,7 +11,7 @@
 
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import SupportCharacterAbilityCharacter1 from "./SupportCharacterAbilityCharacter1.vue"
   import SupportCharacterAbilityCharacter2 from "./SupportCharacterAbilityCharacter2.vue"

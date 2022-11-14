@@ -24,7 +24,7 @@
           | 任意の箇所をクリックしてスタート
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import Model from './packs/model';
   import gsap from 'gsap';

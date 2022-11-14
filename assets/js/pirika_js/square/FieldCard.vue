@@ -9,7 +9,7 @@
           | {{card.stringExpression()}}
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import Card from "./packs/card"
 

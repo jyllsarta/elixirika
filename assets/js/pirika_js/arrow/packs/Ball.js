@@ -1,14 +1,9 @@
 class Ball{
-  id: number;
-  constructor(public x: number,
-              public y: number,
-              public vx: number,
-              public vy: number,
-              public colorId: number){
+  constructor(x,y,vx,vy,colorId){
     this.id = Math.floor(Math.random() * 10000000000);
   }
 
-  public reflect(){
+  reflect(){
     if(this.x < 0){
       this.vx *= -1;
       this.x = 0;

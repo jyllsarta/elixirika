@@ -11,7 +11,7 @@
       | RESET
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import store from "./packs/store";
   import Model from "./packs/model";

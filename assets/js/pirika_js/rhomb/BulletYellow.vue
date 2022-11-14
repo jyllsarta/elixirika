@@ -4,7 +4,7 @@
     img(src="/images/rhomb/bullets/triangle.svg")
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   
 </script>
 

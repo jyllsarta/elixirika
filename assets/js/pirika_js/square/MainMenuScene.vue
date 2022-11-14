@@ -73,7 +73,7 @@
     )
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import CharacterBanner from "./CharacterBanner.vue";
   import ClearStateTile from "./ClearStateTile.vue";

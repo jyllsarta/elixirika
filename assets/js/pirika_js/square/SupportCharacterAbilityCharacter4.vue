@@ -26,7 +26,7 @@
       )
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue"
   import NumeratableNumber from "./NumeratableNumber.vue";

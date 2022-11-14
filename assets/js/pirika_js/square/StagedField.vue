@@ -4,7 +4,7 @@
       Card(:card="stagedField.field.cards[0]", v-if="stagedField.field.cards[0]", :characterId="model.characterId")
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import Card from "./Card.vue"
   import StagedField from "./packs/stagedField";

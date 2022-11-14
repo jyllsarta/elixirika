@@ -82,15 +82,15 @@
 
 </template>
 
-<script lang="typescript">
-    import ArrowLogic from "./packs/ArrowLogic.ts";
-    import GameState from "./packs/GameState.ts";
+<script lang="javascript">
+    import ArrowLogic from "./packs/ArrowLogic.js";
+    import GameState from "./packs/GameState.js";
     import Ball from "./Ball.vue";
     import Pointer from "./Pointer.vue";
     import GameStartButton from "./GameStartButton.vue";
     import ResetButton from "./ResetButton.vue";
-    import Constants from "./packs/Constants.ts"
-    import Timer from "./packs/Timer.ts"
+    import Constants from "./packs/Constants.js"
+    import Timer from "./packs/Timer.js"
     import NameInputArea from "./NameInputArea.vue";
     import RemoveScore from "./RemoveScore.vue";
     import Ranking from "./Ranking.vue";

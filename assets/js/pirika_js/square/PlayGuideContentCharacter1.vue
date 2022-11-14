@@ -35,7 +35,7 @@
 
 </template>
 
-<script lang="typescript">
+<script lang="v">
   import Vue from 'vue';
   export default Vue.extend({
   })

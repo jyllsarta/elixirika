@@ -3,7 +3,7 @@
   .bullet
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   
 </script>
 

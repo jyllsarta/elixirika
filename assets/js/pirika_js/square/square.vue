@@ -14,7 +14,7 @@
     .bottom
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
     import Vue from 'vue';
     import TitleScene from "./TitleScene.vue";
     import MainMenuScene from "./MainMenuScene.vue";

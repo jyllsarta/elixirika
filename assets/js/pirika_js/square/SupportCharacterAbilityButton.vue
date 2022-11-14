@@ -9,7 +9,7 @@
     | {{ability.stringExpression()}}
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import gsap from 'gsap';
   import store from './packs/store';

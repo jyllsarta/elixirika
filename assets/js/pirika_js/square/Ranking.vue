@@ -35,7 +35,7 @@
 
 </template>
 
-<script lang="typescript">
+<script lang="javascript">
   import Vue from 'vue';
   import axios from "axios";
   import store from "./packs/store";
