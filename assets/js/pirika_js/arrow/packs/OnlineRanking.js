@@ -1,9 +1,10 @@
 import axios from "axios"
 
 class OnlineRanking{
-  constructor(scoreSubmitUrl,
-              rankingUrl,
-              myScoreUrl){
+  constructor(scoreSubmitUrl, rankingUrl, myScoreUrl){
+    this.scoreSubmitUrl = scoreSubmitUrl;
+    this.rankingUrl = rankingUrl;
+    this.myScoreUrl = myScoreUrl;
   }
 
   submit(username, score, remove_score, time_score, callback){

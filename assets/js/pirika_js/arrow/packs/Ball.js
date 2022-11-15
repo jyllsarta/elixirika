@@ -1,5 +1,10 @@
 class Ball{
   constructor(x,y,vx,vy,colorId){
+    this.x = x;
+    this.y = y;
+    this.vx = vx;
+    this.vy = vy;
+    this.colorId = colorId;
     this.id = Math.floor(Math.random() * 10000000000);
   }
 

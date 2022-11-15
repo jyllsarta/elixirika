@@ -21,14 +21,14 @@ class ArrowLogic{
 
   update(timeDelta){
     switch (this.gameState) {
-      case GameState.Title:
+      case 0:
         break;
-      case GameState.InGame:
+      case 1:
         this.checkDamage(timeDelta);
         this.moveBall(timeDelta);
         this.proceedTimerAndFireEvent(timeDelta);
         break;
-      case GameState.GameOver:
+      case 2:
         break;
     }
   }
@@ -39,7 +39,7 @@ class ArrowLogic{
 
   startGame(){
     this.soundManager.play("start");
-    this.gameState = GameState.InGame;
+    this.gameState = 1;
   }
 
   hpRate(){
@@ -179,7 +179,7 @@ class ArrowLogic{
       console.log("死んだ");
       this.soundManager.play("dead");
       this.onlineRanking.submit(this.username, this.score(), this.removeScore, this.timeScore, (results) =>{this.onSucceedSendResult(results)});
-      this.gameState = GameState.GameOver;
+      this.gameState = 2;
     }
   }
 
@@ -242,7 +242,7 @@ class ArrowLogic{
   reset(){
     this.balls = [];
     this.pointer = new Pointer(0.5, 0.5);
-    this.gameState = GameState.Title;
+    this.gameState = 0;
     this.hp = Constants.initialHp;
     this.initialHp = Constants.initialHp;
     this.energy = 0;
