@@ -1,6 +1,6 @@
 <template>
     <div class="banner">
-        <div class="base"><img class="sheet" v-if="characterId !== -1" :style="{backgroundImage: `url(/images/square/characters/${characterId}-1.png`}" /><img class="sheet_total" v-if="characterId === -1" />
+        <div class="base"><img class="sheet" v-if="characterId !== -1" :style="{backgroundImage: `url(/images/square/characters/${characterId}-1.png`}" /><img class="sheet_total" v-if="characterId === -1" :style="{backgroundImage: 'url(/images/square/characters/total.png)'}" />
             <div class="shadow"></div>
             <div class="content">
                 <div class="title">{{characterName}}</div>
@@ -79,7 +79,6 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        background-image: url("/images/square/characters/total.png");
       }
       .shadow{
         position: absolute;
