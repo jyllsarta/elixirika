@@ -39,19 +39,6 @@ module.exports = (env, options) => {
           ]
         },
         {
-          test: /\.js$/,
-          use: [
-            {
-              loader: "babel-loader",
-              options: {
-                presets: [
-                  "@babel/preset-env"
-                ]
-              }
-            }
-          ]
-        },
-        {
           test: /\.scss$/,
           use: [
             "vue-style-loader",
@@ -64,13 +51,6 @@ module.exports = (env, options) => {
               options: { sourceMap: true },
             },
           ],
-        },
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader'
-          }
         },
       ]
     },
