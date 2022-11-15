@@ -1,79 +1,53 @@
-<template lang="pug">
-  .main_menu
-    .header
-      .title
-        | メインメニュー
-      .description
-        | タイルをクリックしてステージ詳細を開き、妖精たちのお手伝いをしてみましょう。
-    .content
-      .tile_section
-        .index
-          | 進捗
-        .body
-          .row(v-for="characterId, index in [1,2,3,4]", :key="index")
-            .character
-              CharacterBanner(
-                :character="characters[characterId]"
-                @selected="onCharacterSelected",
-                :bestChapter="findBestChapter(characterId)"
-              )
-            .tile(v-for="chapter in chapters(characterId)", :key="chapter.id")
-              ClearStateTile(
-                :chapter="chapter"
-                :character="characters[characterId]"
-                @selected="onTileSelected",
-                :challenge-clear-state="challengeClearState(chapter)"
-              )
-            .chapter_scores
-              .score(
-                v-for="chapter in chapters(characterId)"
-                :key="chapter.id"
-                :class="{great: highScore(chapter) >= 200}"
-              )
-                | {{ highScore(chapter) }}
-            .total_score(:class="{great: totalScore(characterId) >= 1000}")
-              .score
-                | {{totalScore(characterId)}}
-      .score_section
-        .index
-          | まとめて
-        .body
-          .main(:class="{great: finalScore() >= 5000}")
-            .score
-              | {{finalScore()}}
-          .clear_button(@click="showClearImage(1)" :class="{active: isClearedImage(1)}")
-            | ≧ 5000
-          .clear_button(@click="showClearImage(2)" :class="{active: isClearedImage(2)}")
-            | ■ 64
-    transition(name="detail")
-      .main_menu_detail_dialog(v-if="showsDetailDialog")
-        MainMenuDetailDialog(
-          :character="selectedCharacter"
-          :chapter="selectedChapter"
-          :challenge-clear-state="challengeClearState(selectedChapter)"
-          :high-score="highScore(selectedChapter)"
-          :challenge-master="challengeMaster"
-          @cancel="showsDetailDialog = false"
-          @start="startGame"
-        )
-    transition(name="clear")
-      ClearImage.clear_image(
-        @close="closeClearImage"
-        v-if="showsClearImage"
-        :clearImageId="clearImageId"
-      )
-    GeneralButton.back_to_title(
-      @click="backToTitle"
-      :disabled="false"
-      :flashing="false"
-      :width="'160px'"
-      :height="'40px'"
-      :color="'blue'"
-      :label="'タイトルに戻る'"
-    )
+<template>
+    <div class="main_menu">
+        <div class="header">
+            <div class="title">メインメニュー</div>
+            <div class="description">タイルをクリックしてステージ詳細を開き、妖精たちのお手伝いをしてみましょう。</div>
+        </div>
+        <div class="content">
+            <div class="tile_section">
+                <div class="index">進捗</div>
+                <div class="body">
+                    <div class="row" v-for="characterId, index in [1,2,3,4]" :key="index">
+                        <div class="character">
+                            <CharacterBanner :character="characters[characterId]" @selected="onCharacterSelected" :bestChapter="findBestChapter(characterId)"></CharacterBanner>
+                        </div>
+                        <div class="tile" v-for="chapter in chapters(characterId)" :key="chapter.id">
+                            <ClearStateTile :chapter="chapter" :character="characters[characterId]" @selected="onTileSelected" :challenge-clear-state="challengeClearState(chapter)"></ClearStateTile>
+                        </div>
+                        <div class="chapter_scores">
+                            <div class="score" v-for="chapter in chapters(characterId)" :key="chapter.id" :class="{great: highScore(chapter) &gt;= 200}">{{ highScore(chapter) }}</div>
+                        </div>
+                        <div class="total_score" :class="{great: totalScore(characterId) &gt;= 1000}">
+                            <div class="score">{{totalScore(characterId)}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="score_section">
+                <div class="index">まとめて</div>
+                <div class="body">
+                    <div class="main" :class="{great: finalScore() &gt;= 5000}">
+                        <div class="score">{{finalScore()}}</div>
+                    </div>
+                    <div class="clear_button" @click="showClearImage(1)" :class="{active: isClearedImage(1)}">≧ 5000</div>
+                    <div class="clear_button" @click="showClearImage(2)" :class="{active: isClearedImage(2)}">■ 64</div>
+                </div>
+            </div>
+        </div>
+        <transition name="detail">
+            <div class="main_menu_detail_dialog" v-if="showsDetailDialog">
+                <MainMenuDetailDialog :character="selectedCharacter" :chapter="selectedChapter" :challenge-clear-state="challengeClearState(selectedChapter)" :high-score="highScore(selectedChapter)" :challenge-master="challengeMaster" @cancel="showsDetailDialog = false" @start="startGame"></MainMenuDetailDialog>
+            </div>
+        </transition>
+        <transition name="clear">
+            <ClearImage class="clear_image" @close="closeClearImage" v-if="showsClearImage" :clearImageId="clearImageId"></ClearImage>
+        </transition>
+        <GeneralButton class="back_to_title" @click="backToTitle" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'タイトルに戻る'"></GeneralButton>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import CharacterBanner from "./CharacterBanner.vue";
   import ClearStateTile from "./ClearStateTile.vue";

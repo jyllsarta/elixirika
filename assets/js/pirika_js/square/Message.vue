@@ -1,52 +1,36 @@
-<template lang="pug">
-transition(name="show-in")
-  ._message
-    ._back(@click="close")
-    .content
-      .header
-        GeneralButton.back_button(
-          @click="close"
-          :disabled="false"
-          :flashing="false"
-          :width="'160px'"
-          :height="'40px'"
-          :color="'blue'"
-          :label="'とじる'"
-        )   
-        .title
-          | おたより
-      .description
-        | 簡単なメッセージを送れます。バグ報告や仕様質問などにご活用ください！感想いただけると大喜びします
-      .sender
-        input.sending_message(type="text" name="sending_message" v-model="sendingMessage")
-        GeneralButton.send(
-          @click="send"
-          :disabled="false"
-          :flashing="false"
-          :width="'160px'"
-          :height="'30px'"
-          :color="'blue'"
-          :label="'送信'"
-        )   
-      .body
-        .messages
-          .__message.index
-            .created_at.column
-              | 日付
-            .text.column
-              | 内容
-            .response.column
-              | 返信
-          .__message(v-for="message in messages")
-            .created_at.column
-              | {{message.created_at}}
-            .text.column
-              | {{message.message}}
-            .response.column
-              | {{message.response}}
+<template>
+    <transition name="show-in">
+        <div class="_message">
+            <div class="_back" @click="close"></div>
+            <div class="content">
+                <div class="header">
+                    <GeneralButton class="back_button" @click="close" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'とじる'"> </GeneralButton>
+                    <div class="title">おたより</div>
+                </div>
+                <div class="description">簡単なメッセージを送れます。バグ報告や仕様質問などにご活用ください！感想いただけると大喜びします</div>
+                <div class="sender"><input class="sending_message" type="text" name="sending_message" v-model="sendingMessage" />
+                    <GeneralButton class="send" @click="send" :disabled="false" :flashing="false" :width="'160px'" :height="'30px'" :color="'blue'" :label="'送信'"> </GeneralButton>
+                </div>
+                <div class="body">
+                    <div class="messages">
+                        <div class="__message index">
+                            <div class="created_at column">日付</div>
+                            <div class="text column">内容</div>
+                            <div class="response column">返信</div>
+                        </div>
+                        <div class="__message" v-for="message in messages">
+                            <div class="created_at column">{{message.created_at}}</div>
+                            <div class="text column">{{message.message}}</div>
+                            <div class="response column">{{message.response}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import store from "./packs/store";
   import axios from "axios";

@@ -1,65 +1,41 @@
-<template lang="pug">
-  .credit
-    ._back(@click="closeMenu")
-    .content
-      .header
-        GeneralButton.back_button(
-          @click="closeMenu"
-          :disabled="false"
-          :flashing="false"
-          :width="'160px'"
-          :height="'40px'"
-          :color="'blue'"
-          :label="'とじる'"
-        )   
-        .title
-          | クレジット
-      .body
-        .index
-          | BGM・効果音
-        .persons
-          .item
-            | Tsukasa Ichimura / Audiostock
-          .item
-            | Hazime / Audiostock
-          .item
-            | 春日章宏 / Audiostock
-          .item
-            | Hit-Point / Audiostock
-          .item
-            | すもち / Audiostock
-          .item
-            | あおくま / Audiostock
-          .item
-            | ruha(Pastel Tone Music) / Audiostock
-          .item
-            | OtoLogic / Audiostock
-          .item
-            | こだまプロダクション / Audiostock
-          .item
-            | アァ・だり〜べあー / Audiostock
-          .item
-            | MATSU / Audiostock
-          .item
-            | 8Neat / Audiostock
-          .item
-            | ptest / Audiostock
-          .item
-            | Sound_ken / Audiostock
-          .item
-            | dama / Audiostock
-          .item
-            | Icy Light / Audiostock
-        .index
-          | 絵・プログラム
-        .persons
-          .item
-            | じぃる
-
-
+<template>
+    <div class="credit">
+        <div class="_back" @click="closeMenu"></div>
+        <div class="content">
+            <div class="header">
+                <GeneralButton class="back_button" @click="closeMenu" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'とじる'"> </GeneralButton>
+                <div class="title">クレジット</div>
+            </div>
+            <div class="body">
+                <div class="index">BGM・効果音</div>
+                <div class="persons">
+                    <div class="item">Tsukasa Ichimura / Audiostock</div>
+                    <div class="item">Hazime / Audiostock</div>
+                    <div class="item">春日章宏 / Audiostock</div>
+                    <div class="item">Hit-Point / Audiostock</div>
+                    <div class="item">すもち / Audiostock</div>
+                    <div class="item">あおくま / Audiostock</div>
+                    <div class="item">ruha(Pastel Tone Music) / Audiostock</div>
+                    <div class="item">OtoLogic / Audiostock</div>
+                    <div class="item">こだまプロダクション / Audiostock</div>
+                    <div class="item">アァ・だり〜べあー / Audiostock</div>
+                    <div class="item">MATSU / Audiostock</div>
+                    <div class="item">8Neat / Audiostock</div>
+                    <div class="item">ptest / Audiostock</div>
+                    <div class="item">Sound_ken / Audiostock</div>
+                    <div class="item">dama / Audiostock</div>
+                    <div class="item">Icy Light / Audiostock</div>
+                </div>
+                <div class="index">絵・プログラム</div>
+                <div class="persons">
+                    <div class="item">じぃる</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import store from "./packs/store";
   import GeneralButton from "./GeneralButton.vue";

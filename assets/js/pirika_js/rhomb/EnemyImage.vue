@@ -1,10 +1,8 @@
-
-<template lang="pug">
-  .enemy
-    img(src="/images/rhomb/enemy.png")
+<template>
+    <div class="enemy"><img src="/images/rhomb/enemy.png" /></div>
 </template>
 
-<script lang="javascript">
+<script>
 </script>
 
 <style lang='scss' scoped>

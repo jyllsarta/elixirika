@@ -1,7 +1,7 @@
-<template lang="pug">
-  #app
-    h1
-      | さん！
+<template>
+    <div id="app">
+        <h1>さん！</h1>
+    </div>
 </template>
 
 <script lang="ts">

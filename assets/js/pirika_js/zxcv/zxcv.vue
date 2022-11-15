@@ -1,29 +1,12 @@
-<template lang="pug">
-  #app
-    h1
-      | zxcv
-    back(v-bind:notes="notes", v-bind:initialNoteCount="initialNoteCount")
-    .window
-      notes(v-bind:notes="recentNotes")
-      ui(
-        v-bind:life="life",
-        v-bind:gameState="gameState",
-        v-bind:score="score",
-        v-bind:volume="volume",
-        v-bind:minuses="minuses",
-        v-bind:sparks="sparks",
-        v-bind:speedScore="speedScore",
-        v-bind:totalScore="totalScore",
-        v-bind:highScore="highScore",
-        v-bind:isHighScoreUpdated="isHighScoreUpdated",
-        v-bind:showingRanking="showingRanking",
-        v-bind:ranking="ranking",
-        v-on:setVolume="setVolume",
-        v-on:setName="setName",
-        v-on:hideRanking="showingRanking = false",
-        v-on:showRanking="showingRanking = true",
-        v-on:inputStateChanged="(state)=>{this.inputtingName = state}",
-        )
+<template>
+    <div id="app">
+        <h1>zxcv</h1>
+        <back v-bind:notes="notes" v-bind:initialNoteCount="initialNoteCount"></back>
+        <div class="window">
+            <notes v-bind:notes="recentNotes"></notes>
+            <ui v-bind:life="life" v-bind:gameState="gameState" v-bind:score="score" v-bind:volume="volume" v-bind:minuses="minuses" v-bind:sparks="sparks" v-bind:speedScore="speedScore" v-bind:totalScore="totalScore" v-bind:highScore="highScore" v-bind:isHighScoreUpdated="isHighScoreUpdated" v-bind:showingRanking="showingRanking" v-bind:ranking="ranking" v-on:setVolume="setVolume" v-on:setName="setName" v-on:hideRanking="showingRanking = false" v-on:showRanking="showingRanking = true" v-on:inputStateChanged="(state)=&gt;{this.inputtingName = state}"></ui>
+        </div>
+    </div>
 </template>
 
 <script>

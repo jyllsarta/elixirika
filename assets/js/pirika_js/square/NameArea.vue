@@ -1,12 +1,7 @@
-<template lang="pug">
-  .name_input_area
-    span.prefix
-      | 名前(進捗の記録に使います)：
-    .fixed_name(v-if="!inputting")
-      | {{fullName === "" ? "ななし(適当な名前がランダムに入ります)" : fullName}}
-    button.change_button(@click="setInputMode", v-if="!inputting")
-      | 変更
-    input.name_input_box(type="text", @blur="onBlur", v-model="rawName", v-if="inputting", ref="focusTarget" maxlength="8")
+<template>
+    <div class="name_input_area"><span class="prefix">名前(進捗の記録に使います)：</span>
+        <div class="fixed_name" v-if="!inputting">{{fullName === "" ? "ななし(適当な名前がランダムに入ります)" : fullName}}</div><button class="change_button" @click="setInputMode" v-if="!inputting">変更</button><input class="name_input_box" type="text" @blur="onBlur" v-model="rawName" v-if="inputting" ref="focusTarget" maxlength="8" />
+    </div>
 </template>
 
 <script>

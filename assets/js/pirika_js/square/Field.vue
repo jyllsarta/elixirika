@@ -1,21 +1,10 @@
-<template lang="pug">
-  draggable.field.with_solid_shadow(
-    :id="`field-${field.index}`"
-    :group="'top'"
-    :class="{selected: selected}"
-    :style="colorSchemedStyle"
-  )
-    FieldCard(
-      v-for="(card, index) in field.cards"
-      :key="card.id",
-      :card="card"
-      :isLast="index === field.cards.length -1"
-      :isCompressed="shouldBeCompressed(index)",
-      :characterId="characterId",
-    )
+<template>
+    <draggable class="field with_solid_shadow" :id="`field-${field.index}`" :group="'top'" :class="{selected: selected}" :style="colorSchemedStyle">
+        <FieldCard v-for="(card, index) in field.cards" :key="card.id" :card="card" :isLast="index === field.cards.length -1" :isCompressed="shouldBeCompressed(index)" :characterId="characterId"></FieldCard>
+    </draggable>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import FieldCard from "./FieldCard.vue";
   import Field from './packs/field';

@@ -1,30 +1,10 @@
-<template lang="pug">
-  .result
-    .win
-      | win!
-    .hit_score.result_row
-      span.index
-        | HIT
-      span.delimiter
-        | :
-      span.value
-        | {{score}}
-    .speed_score.result_row
-      span.index
-        | SPEED
-      span.delimiter
-        | :
-      span.value
-        | {{speedScore}}
-    .total_score.result_row(v-bind:class="[isHighScoreUpdated ? 'high_score_updated' : '']")
-      span.index
-        | TOTAL
-      span.delimiter
-        | :
-      span.value
-        | {{totalScore}}
-      span.high_score_text(v-if="isHighScoreUpdated")
-        | high score!
+<template>
+    <div class="result">
+        <div class="win">win!</div>
+        <div class="hit_score result_row"><span class="index">HIT</span><span class="delimiter">:</span><span class="value">{{score}}</span></div>
+        <div class="speed_score result_row"><span class="index">SPEED</span><span class="delimiter">:</span><span class="value">{{speedScore}}</span></div>
+        <div class="total_score result_row" v-bind:class="[isHighScoreUpdated ? 'high_score_updated' : '']"><span class="index">TOTAL</span><span class="delimiter">:</span><span class="value">{{totalScore}}</span><span class="high_score_text" v-if="isHighScoreUpdated">high score!</span></div>
+    </div>
 </template>
 
 <script>

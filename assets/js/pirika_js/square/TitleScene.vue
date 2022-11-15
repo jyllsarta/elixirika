@@ -1,59 +1,37 @@
-
-<template lang="pug">
-  .scene
-    .title(@click="onClick")
-      .tops
-        .logo
-          img(src="/images/square/title.png")
-        .start
-          | クリックしてはじめる
-      .bottoms
-        .name_area(@click.stop)
-          NameArea
-      transition(
-        name="shutter"
-        @enter="onAnimationEnter"
-        @after-enter="onAnimationComplete"
-      )
-        .shutters(v-if="closing")
-          .horizontal
-            .shutter1(ref="shutter1")
-            .shutter2(ref="shutter2")
-          .vertical
-            .shutter3(ref="shutter3")
-            .shutter4(ref="shutter4")
-    GeneralButton.credit_button(
-      @click="showCredit()"
-      :disabled="false"
-      :flashing="false"
-      :width="'160px'"
-      :height="'40px'"
-      :color="'blue'"
-      :label="'クレジット'"
-    )
-    GeneralButton.ranking_button(
-      @click="showRanking()"
-      :disabled="false"
-      :flashing="false"
-      :width="'160px'"
-      :height="'40px'"
-      :color="'blue'"
-      :label="'ランキング'"
-    )
-    GeneralButton.message_button(
-      @click="showMessage()"
-      :disabled="false"
-      :flashing="false"
-      :width="'160px'"
-      :height="'40px'"
-      :color="'blue'"
-      :label="'おたより'"
-    )
-    Credit.credit(v-if="showsCredit" @close="closeCredit")
-    Ranking.ranking(v-if="showsRanking" @close="closeRanking")
+<template>
+    <div class="scene">
+        <div class="title" @click="onClick">
+            <div class="tops">
+                <div class="logo"><img src="/images/square/title.png" /></div>
+                <div class="start">クリックしてはじめる</div>
+            </div>
+            <div class="bottoms">
+                <div class="name_area" @click.stop>
+                    <NameArea></NameArea>
+                </div>
+            </div>
+            <transition name="shutter" @enter="onAnimationEnter" @after-enter="onAnimationComplete">
+                <div class="shutters" v-if="closing">
+                    <div class="horizontal">
+                        <div class="shutter1" ref="shutter1"></div>
+                        <div class="shutter2" ref="shutter2"></div>
+                    </div>
+                    <div class="vertical">
+                        <div class="shutter3" ref="shutter3"></div>
+                        <div class="shutter4" ref="shutter4"></div>
+                    </div>
+                </div>
+            </transition>
+        </div>
+        <GeneralButton class="credit_button" @click="showCredit()" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'クレジット'"></GeneralButton>
+        <GeneralButton class="ranking_button" @click="showRanking()" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'ランキング'"></GeneralButton>
+        <GeneralButton class="message_button" @click="showMessage()" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'おたより'"></GeneralButton>
+        <Credit class="credit" v-if="showsCredit" @close="closeCredit"></Credit>
+        <Ranking class="ranking" v-if="showsRanking" @close="closeRanking"></Ranking>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import NameArea from "./NameArea.vue";
   import gsap from 'gsap';

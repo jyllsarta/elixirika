@@ -1,35 +1,21 @@
-<template lang="pug">
-  .area.with_shadow(v-if="model")
-    .controls
-      GeneralButton.draw(
-        @click="draw()"
-        v-if="model.deck.field.cards.length !== 0"
-        :disabled="drawing"
-        :flashing="model.hand.field.cards.length === 0"
-        :width="'100%'"
-        :height="'50px'"
-        :color="'red'"
-        :label="'ドロー'"
-      )
-      GeneralButton.end(
-        @click="gracefullyStalemate()"
-        v-if="model.deck.field.cards.length === 0"
-        :disabled="drawing"
-        :flashing="model.hand.field.cards.length === 0"
-        :width="'100%'"
-        :height="'50px'"
-        :color="'blue'"
-        :label="'おしまい'"
-      )
-    .informations
-      .deck
-        StackedIconField(:field="model.deck.field" :emphasisTopCards="true", :characterId="model.characterId")
-      .grav
-        StackedIconField(:field="model.graveyard.field" :emphasisTopCards="false", :characterId="model.characterId")
-
+<template>
+    <div class="area with_shadow" v-if="model">
+        <div class="controls">
+            <GeneralButton class="draw" @click="draw()" v-if="model.deck.field.cards.length !== 0" :disabled="drawing" :flashing="model.hand.field.cards.length === 0" :width="'100%'" :height="'50px'" :color="'red'" :label="'ドロー'"></GeneralButton>
+            <GeneralButton class="end" @click="gracefullyStalemate()" v-if="model.deck.field.cards.length === 0" :disabled="drawing" :flashing="model.hand.field.cards.length === 0" :width="'100%'" :height="'50px'" :color="'blue'" :label="'おしまい'"></GeneralButton>
+        </div>
+        <div class="informations">
+            <div class="deck">
+                <StackedIconField :field="model.deck.field" :emphasisTopCards="true" :characterId="model.characterId"></StackedIconField>
+            </div>
+            <div class="grav">
+                <StackedIconField :field="model.graveyard.field" :emphasisTopCards="false" :characterId="model.characterId"></StackedIconField>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from './packs/model';
   import StackedIconField from "./StackedIconField.vue";

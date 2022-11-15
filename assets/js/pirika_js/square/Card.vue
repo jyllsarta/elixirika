@@ -1,34 +1,33 @@
-<template lang="pug">
-  .card(
-    :id="`card-${card.id}`"
-    :class="card.viewClass() + `${touchDragging ? '' : ' not_touch'}`"
-    @mouseenter="onHover"
-    :style="colorSchemedStyleBackground"
-  )
-    .background
-      .line_ur(
-        v-for="(x, index) in rightLineCount"
-        :class="card.suit",
-        :style="{left: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"
-      )
-      .line_ul(v-for="(x, index) in leftLineCount" :class="card.suit", :style="{right: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}")
-    .icon
-      .normal_icon(v-if="card.category==='normal'")
-        .number(:class="card.suit")
-          | {{ card.number }}
-      .sender_icon(v-if="card.category==='sender'")
-        .icon
-          .upper_symbol
-            .inner_cone
-          .downer_symbol
-            .inner_cone
-      .special_icon(v-if="card.category==='special'")
-        .big_symbol
-          .inner_cube
-
+<template>
+    <div class="card" :id="`card-${card.id}`" :class="card.viewClass() + `${touchDragging ? '' : ' not_touch'}`" @mouseenter="onHover" :style="colorSchemedStyleBackground">
+        <div class="background">
+            <div class="line_ur" v-for="(x, index) in rightLineCount" :class="card.suit" :style="{left: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"></div>
+            <div class="line_ul" v-for="(x, index) in leftLineCount" :class="card.suit" :style="{right: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"></div>
+        </div>
+        <div class="icon">
+            <div class="normal_icon" v-if="card.category==='normal'">
+                <div class="number" :class="card.suit">{{ card.number }}</div>
+            </div>
+            <div class="sender_icon" v-if="card.category==='sender'">
+                <div class="icon">
+                    <div class="upper_symbol">
+                        <div class="inner_cone"></div>
+                    </div>
+                    <div class="downer_symbol">
+                        <div class="inner_cone"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="special_icon" v-if="card.category==='special'">
+                <div class="big_symbol">
+                    <div class="inner_cube"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Card from "./packs/card";
   import store from "./packs/store";

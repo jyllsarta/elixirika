@@ -1,9 +1,8 @@
-<template lang="pug">
-  .value(v-if="damageValue")
-    | {{damageValue}}
+<template>
+    <div class="value" v-if="damageValue">{{damageValue}}</div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import store from "./packs/store";
   import Model from "./packs/model";

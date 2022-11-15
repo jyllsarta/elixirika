@@ -1,17 +1,13 @@
-<template lang="pug">
-  .challenge(:class="isCleared ? 'cleared' : 'not_cleared'")
-    .icon(v-if="isCleared && showIndex")
-      | ◆
-    .icon(v-if="!isCleared && showIndex")
-      | ◇
-    .rank(v-if="showIndex")
-      | {{["I","II","III","IV"][index]}}
-    .description
-      | {{showDescription ? challenge.description : challenge.title}}
-        
+<template>
+    <div class="challenge" :class="isCleared ? 'cleared' : 'not_cleared'">
+        <div class="icon" v-if="isCleared &amp;&amp; showIndex">◆</div>
+        <div class="icon" v-if="!isCleared &amp;&amp; showIndex">◇</div>
+        <div class="rank" v-if="showIndex">{{["I","II","III","IV"][index]}}</div>
+        <div class="description">{{showDescription ? challenge.description : challenge.title}}</div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
 
   export default Vue.extend({

@@ -1,12 +1,7 @@
-<template lang="pug">
-  .name_input_area
-    span.prefix
-      | 名前：
-    .fixed_name( v-if="!inputting")
-      | {{fullName === "" ? "ななし(ランキング登録されません)" : fullName}}
-    button.change_button(@click="setInputMode", v-if="!inputting")
-      | 変更
-    input.name_input_box(type="text", @blur="onBlur", v-model="rawName", v-if="inputting")
+<template>
+    <div class="name_input_area"><span class="prefix">名前：</span>
+        <div class="fixed_name" v-if="!inputting">{{fullName === "" ? "ななし(ランキング登録されません)" : fullName}}</div><button class="change_button" @click="setInputMode" v-if="!inputting">変更</button><input class="name_input_box" type="text" @blur="onBlur" v-model="rawName" v-if="inputting" />
+    </div>
 </template>
 
 <script>

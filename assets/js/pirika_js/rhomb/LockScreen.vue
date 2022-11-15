@@ -1,10 +1,10 @@
-
-<template lang="pug">
-  .cover(@mousedown="handleMouseDown" @mousemove="handleMouseMove" @mouseup="handleMouseUp" oncontextmenu="return false;")
-    .bg(v-if="model.currentPhaseName() == 'LOCK'")
+<template>
+    <div class="cover" @mousedown="handleMouseDown" @mousemove="handleMouseMove" @mouseup="handleMouseUp" oncontextmenu="return false;">
+        <div class="bg" v-if="model.currentPhaseName() == 'LOCK'"></div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Controller from './packs/controller';
   import Model from "./packs/model";

@@ -1,14 +1,16 @@
-<template lang="pug">
-  .fields
-    transition-group.field(name="cards" v-if="emphasisTopCards")
-      .card.top(v-for="card in topCards", :style="colorSchemedStyle(card)" :key="card.id")
-      .card(v-for="card in notTopCards",  :style="colorSchemedStyle(card)" :key="card.id")
-    transition-group.field(name="cards" v-if="!emphasisTopCards")
-        .card(v-for="card in field.cards", :style="colorSchemedStyle(card)" :key="card.id")
-
+<template>
+    <div class="fields">
+        <transition-group class="field" name="cards" v-if="emphasisTopCards">
+            <div class="card top" v-for="card in topCards" :style="colorSchemedStyle(card)" :key="card.id"></div>
+            <div class="card" v-for="card in notTopCards" :style="colorSchemedStyle(card)" :key="card.id"></div>
+        </transition-group>
+        <transition-group class="field" name="cards" v-if="!emphasisTopCards">
+            <div class="card" v-for="card in field.cards" :style="colorSchemedStyle(card)" :key="card.id"></div>
+        </transition-group>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Field from './packs/field';
 

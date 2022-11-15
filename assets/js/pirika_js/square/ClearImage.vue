@@ -1,28 +1,14 @@
-<template lang="pug">
-  transition(name="show-in")
-    .window
-      .bg(@click="close")
-      img.body(:src="`/images/square/clear/clear${clearImageId}.png`")
-
+<template>
+    <div class="banner" @click="onClick" @mouseenter="onHover">
+        <div class="base"><img class="sheet" :style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}" />
+            <div class="shadow"></div>
+            <div class="names">
+                <div class="name">{{character.name}}</div>
+                <div class="next">NEXT: {{bestChapterIndex}}</div>
+            </div>
+        </div>
+    </div>
 </template>
-
-<script lang="javascript">
-  import Vue from 'vue';
-  import store from "./packs/store";
-
-  export default Vue.extend({
-    store,
-    props: {
-      clearImageId: Number
-    },
-    methods: {
-      close(){
-        this.$emit("close");
-        this.$store.commit("playSound", {key: "menuClose"});
-      }
-    },
-  })
-</script>
 
 <style lang='scss' scoped>
   @import "stylesheets/global_settings";

@@ -1,7 +1,7 @@
-<template lang="pug">
+<template>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import store from "./packs/store";
   import Model from "./packs/model";

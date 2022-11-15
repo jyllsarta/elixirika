@@ -1,14 +1,15 @@
-<template lang="pug">
-  .support-character(v-if="gameStarted")
-    .character_animation
-       .character_action(:key="currentMessage.face")
-        .image_box(:class="{character_offset: characterOffset}")
-          img.character.with_drop_shadow(v-for="index in [1,2,3,4,5,6,7,8,9,10,11]" :class="{hidden: index !== currentMessage.face}" :src="`/images/square/characters/${model.character.id}-${index}.png`")
-    draggable#support-character.hit_box(:group="'top'")
-
+<template>
+    <div class="support-character" v-if="gameStarted">
+        <div class="character_animation">
+            <div class="character_action" :key="currentMessage.face">
+                <div class="image_box" :class="{character_offset: characterOffset}"><img class="character with_drop_shadow" v-for="index in [1,2,3,4,5,6,7,8,9,10,11]" :class="{hidden: index !== currentMessage.face}" :src="`/images/square/characters/${model.character.id}-${index}.png`" /></div>
+            </div>
+        </div>
+        <draggable class="hit_box" id="support-character" :group="'top'"></draggable>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model";
   import draggable from "vuedraggable";

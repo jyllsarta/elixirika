@@ -1,16 +1,16 @@
-<template lang="pug">
-  .banner(@click="onClick" @mouseenter="onHover")
-    .base
-      img.sheet(:style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}")
-      .shadow
-      .names
-        .name
-          | {{character.name}}
-        .next
-          | NEXT: {{bestChapterIndex}}
+<template>
+    <div class="banner" @click="onClick" @mouseenter="onHover">
+        <div class="base"><img class="sheet" :style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}" />
+            <div class="shadow"></div>
+            <div class="names">
+                <div class="name">{{character.name}}</div>
+                <div class="next">NEXT: {{bestChapterIndex}}</div>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import store from "./packs/store";
 

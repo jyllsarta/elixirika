@@ -1,32 +1,26 @@
-<template lang="pug">
-  .area.with_shadow
-    .title
-      |  - 今回の目標 - 
-    .score
-      .values
-        .label
-          | スコア：
-        .value
-          NumeratableNumber(:number="model.score", :speed="0.1", :scaled="true")
-      .bars
-        .bg
-        .bar(:style="{width: progress}")
-      .delta(ref="delta")
-        | +{{ delta }}
-    .challenges
-      ChallengeText(
-        v-for="challenge, index in challenges"
-        :is-cleared="isCleared(challenge.id)",
-        :index="index",
-        :challenge="challenge"
-        :key="index",
-        :showDescription="false"
-        :showIndex="false"
-      )
-
+<template>
+    <div class="area with_shadow">
+        <div class="title"> - 今回の目標 - </div>
+        <div class="score">
+            <div class="values">
+                <div class="label">スコア：</div>
+                <div class="value">
+                    <NumeratableNumber :number="model.score" :speed="0.1" :scaled="true"></NumeratableNumber>
+                </div>
+            </div>
+            <div class="bars">
+                <div class="bg"></div>
+                <div class="bar" :style="{width: progress}"></div>
+            </div>
+            <div class="delta" ref="delta">+{{ delta }}</div>
+        </div>
+        <div class="challenges">
+            <ChallengeText v-for="challenge, index in challenges" :is-cleared="isCleared(challenge.id)" :index="index" :challenge="challenge" :key="index" :showDescription="false" :showIndex="false"></ChallengeText>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model";
   import ChallengeText from "./ChallengeText.vue";

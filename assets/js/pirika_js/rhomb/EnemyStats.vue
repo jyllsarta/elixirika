@@ -1,19 +1,18 @@
-
-<template lang="pug">
-  .stats
-    .title
-      | ENEMY
-    .bar_area
-      .skew
-        .base
-        .ghost(:style="{width: `${model.hpEnemy / model.hpEnemyMax * 100}%`}")
-        .bar(:style="{width: `${model.hpEnemy / model.hpEnemyMax * 100}%`}")
-    .name
-      | 縛られない幻影 フェーティ
-      
+<template>
+    <div class="stats">
+        <div class="title">ENEMY</div>
+        <div class="bar_area">
+            <div class="skew">
+                <div class="base"></div>
+                <div class="ghost" :style="{width: `${model.hpEnemy / model.hpEnemyMax * 100}%`}"></div>
+                <div class="bar" :style="{width: `${model.hpEnemy / model.hpEnemyMax * 100}%`}"></div>
+            </div>
+        </div>
+        <div class="name">縛られない幻影 フェーティ</div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model";
 

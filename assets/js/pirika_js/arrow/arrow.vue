@@ -1,88 +1,51 @@
-<template lang="pug">
-  #app
-    h1
-      | ふーん
-    .game(
-      :class="{remove_cursor: isInGameScene}"
-      @click.right.prevent
-      )
-      transition(name="left-show-in")
-        .title(v-if="isTitleScene")
-          | ICE BREAK
-      transition(name="left-show-in")
-        .game_over(v-if="isGameOverScene")
-          | GAME OVER
-      transition(name="left-show-in")
-        .high_score_updated(v-if="logic.isHighScore")
-          | HIGH SCORE!
-      transition(name="left-show-in")
-        .score(
-          v-if="!isTitleScene"
-          :class="{is_high_score: logic.isHighScore}"
-          )
-          | {{logic.score()}}
-      transition(name="left-show-in")
-        .high_score(v-if="isTitleScene")
-          | MAX: {{logic.highScore}}
-      .background(@mousemove="updatePointerPosition")
-      transition-group(class="balls" name="delay")
-        Ball(
-          v-for="ball in logic.balls" v-bind:key="ball.id",
-          :x="Math.floor(ball.x * gameWindowWidth)",
-          :y="Math.floor(ball.y * gameWindowHeight)",
-          :colorId="ball.colorId",
-        )
-      Pointer(
-        :x= "Math.floor(logic.pointer.x * gameWindowWidth)",
-        :y= "Math.floor(logic.pointer.y * gameWindowHeight)",
-        :hpRate="logic.hpRate()",
-        :hp="Math.floor(logic.hp)",
-        :initialHp="logic.initialHp",
-        :energy="Math.min(Math.floor(logic.energy), 100)",
-        :charge="Math.floor(logic.charge * 100)",
-        :isCharging="logic.isCharging",
-        :chargeRate="logic.chargeRate()",
-        v-if="isInGameScene",
-      )
-      transition(name="left-show-in")
-        GameStartButton(
-          @startGame="startGame",
-          v-if="isTitleScene"
-        )
-      transition(name="left-show-in")
-        ResetButton(
-          @resetGame="resetGame",
-          v-if="isGameOverScene"
-        )
-      transition(name="left-show-in")
-        NameInputArea(
-          @setName="setName",
-          v-if='isTitleScene',
-        )
-      RemoveScore(
-        v-if="logic.isThisFrameDischargeReleased",
-        :value="logic.lastRemoveResult",
-        :x= "Math.floor(logic.lastRemovedPositionX * gameWindowWidth)",
-        :y= "Math.floor(logic.lastRemovedPositionY * gameWindowHeight)",
-      )
-      .ranking_area(v-if="isTitleScene")
-        transition(name="left-show-in")
-          Ranking(
-              v-if='showingRanking',
-              :ranking="logic.ranking"
-            )
-      .ranking_button(v-if="isTitleScene")
-        transition(name="left-show-in")
-          .hide_ranking_area(v-if='showingRanking', @click="hideRanking")
-          img.show_ranking_button(
-            v-if='!showingRanking',
-            @click="showRanking",
-            src="/images/arrow/ranking.png"
-          )
-
+<template>
+    <div id="app">
+        <h1>ふーん</h1>
+        <div class="game" :class="{remove_cursor: isInGameScene}" @click.right.prevent>
+            <transition name="left-show-in">
+                <div class="title" v-if="isTitleScene">ICE BREAK</div>
+            </transition>
+            <transition name="left-show-in">
+                <div class="game_over" v-if="isGameOverScene">GAME OVER</div>
+            </transition>
+            <transition name="left-show-in">
+                <div class="high_score_updated" v-if="logic.isHighScore">HIGH SCORE!</div>
+            </transition>
+            <transition name="left-show-in">
+                <div class="score" v-if="!isTitleScene" :class="{is_high_score: logic.isHighScore}">{{logic.score()}}</div>
+            </transition>
+            <transition name="left-show-in">
+                <div class="high_score" v-if="isTitleScene">MAX: {{logic.highScore}}</div>
+            </transition>
+            <div class="background" @mousemove="updatePointerPosition"></div>
+            <transition-group class="balls" name="delay">
+                <Ball v-for="ball in logic.balls" v-bind:key="ball.id" :x="Math.floor(ball.x * gameWindowWidth)" :y="Math.floor(ball.y * gameWindowHeight)" :colorId="ball.colorId"></Ball>
+            </transition-group>
+            <Pointer :x="Math.floor(logic.pointer.x * gameWindowWidth)" :y="Math.floor(logic.pointer.y * gameWindowHeight)" :hpRate="logic.hpRate()" :hp="Math.floor(logic.hp)" :initialHp="logic.initialHp" :energy="Math.min(Math.floor(logic.energy), 100)" :charge="Math.floor(logic.charge * 100)" :isCharging="logic.isCharging" :chargeRate="logic.chargeRate()" v-if="isInGameScene"></Pointer>
+            <transition name="left-show-in">
+                <GameStartButton @startGame="startGame" v-if="isTitleScene"></GameStartButton>
+            </transition>
+            <transition name="left-show-in">
+                <ResetButton @resetGame="resetGame" v-if="isGameOverScene"></ResetButton>
+            </transition>
+            <transition name="left-show-in">
+                <NameInputArea @setName="setName" v-if="isTitleScene"></NameInputArea>
+            </transition>
+            <RemoveScore v-if="logic.isThisFrameDischargeReleased" :value="logic.lastRemoveResult" :x="Math.floor(logic.lastRemovedPositionX * gameWindowWidth)" :y="Math.floor(logic.lastRemovedPositionY * gameWindowHeight)"></RemoveScore>
+            <div class="ranking_area" v-if="isTitleScene">
+                <transition name="left-show-in">
+                    <Ranking v-if="showingRanking" :ranking="logic.ranking"></Ranking>
+                </transition>
+            </div>
+            <div class="ranking_button" v-if="isTitleScene">
+                <transition name="left-show-in">
+                    <div class="hide_ranking_area" v-if="showingRanking" @click="hideRanking"></div><img class="show_ranking_button" v-if="!showingRanking" @click="showRanking" src="/images/arrow/ranking.png" />
+                </transition>
+            </div>
+        </div>
+    </div>
 </template>
-
-<script lang="javascript">
+<script>
     import ArrowLogic from "./packs/ArrowLogic.js";
     import GameState from "./packs/GameState.js";
     import Ball from "./Ball.vue";

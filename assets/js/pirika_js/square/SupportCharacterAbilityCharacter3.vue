@@ -1,25 +1,15 @@
-<template lang="pug">
-  .area
-    .index(v-if="!character.uniqueParameters.abilities")
-      | とくに
-      | やる気がない
-    .index
-      | マイナス積数: {{character.countMinusTrick(model)}}
-    transition-group.buttons(name="ability")
-      SupportCharacterAbilityButton(
-        v-for="(ability, index) in character.uniqueParameters.abilities"
-        @popclick="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
-        @popmouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
-        :key="ability.slot"
-        :index="index"
-        :ability="ability"
-        :character="character"
-        :isSelected="isSelected(index)"
-        :isSmall="isSmall(index)"
-      )
+<template>
+    <div class="area">
+        <div class="index" v-if="!character.uniqueParameters.abilities">とくに
+            やる気がない</div>
+        <div class="index">マイナス積数: {{character.countMinusTrick(model)}}</div>
+        <transition-group class="buttons" name="ability">
+            <SupportCharacterAbilityButton v-for="(ability, index) in character.uniqueParameters.abilities" @popclick="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})" @popmouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})" :key="ability.slot" :index="index" :ability="ability" :character="character" :isSelected="isSelected(index)" :isSmall="isSmall(index)"></SupportCharacterAbilityButton>
+        </transition-group>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue"
 

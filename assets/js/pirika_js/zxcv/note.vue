@@ -1,5 +1,5 @@
-<template lang="pug">
-  .note(:class='[noteBackground]' :style="{opacity: opacity}")
+<template>
+    <div class="note" :class="[noteBackground]" :style="{opacity: opacity}"></div>
 </template>
 
 <script>

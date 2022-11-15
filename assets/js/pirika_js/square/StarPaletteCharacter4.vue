@@ -1,51 +1,53 @@
-<template lang="pug">
-  .star_palette
-    .background.with_drop_shadow
-      img(src="/images/square/svg/star_palette5.svg")
-    .field
-      .player(@click="onAttack" ref="player")
-        .img
-          img(src="/images/square/characters/ayame1.png")
-      transition(name="enemy-appear")
-        .foreground_enemy(v-if="isAliveForegroundEnemy", :key="foregroundEnemy.id")
-          .img
-            img(:src="`/images/square/characters/${foregroundEnemy.image}.png`")
-      .foreground_enemy_hp(:class="hpClass(referenceCurrentHp)")
-        | {{referenceCurrentHp}}
-      .damage(ref="damage")
-        | {{referenceDamage}}
-      transition(name="shield-appear")
-        .foreground_enemy_shield_hp(v-if="foregroundEnemy.shield > 0" :class="hpClass(referenceCurrentShieldHp)")
-          | {{referenceCurrentShieldHp}}
-      transition(name="shield-appear")
-        img.foreground_enemy_shield(v-if="foregroundEnemy.shield > 0" src="/images/square/characters/barrier.png")
-      transition-group(class="background_enemies" name="background")
-        .enemy(v-for="enemy in backgroundEnemies" :key="enemy.id")
-          .content
-            .img
-              img(:src="`/images/square/characters/${enemy.image}.png`")
-            .hp(:class="hpClass(enemy.hp)")
-              | {{enemy.hp}}
-      .attack_effect
-        .line1.line(ref="line1")
-        .line2.line(ref="line2")
-        .line3.line(ref="line3")
-      transition(name="win")
-        .cleared(v-if="!foregroundEnemy.hp")
-          .text
-              | 勝利！
-      transition(name="win-character")
-        .cleared_character(v-if="!foregroundEnemy.hp")
-          .img
-            img(src="/images/square/characters/ayame2.png")
-      .notes
-        .note(v-if="thereIsMaxDamageEnemy")
-          | スピカは3以上のダメージを3にする
-        .note(v-if="thereIsShieldEnemy")
-          | 盾はドローボタンで引き直すと復活する
+<template>
+    <div class="star_palette">
+        <div class="background with_drop_shadow"><img src="/images/square/svg/star_palette5.svg" /></div>
+        <div class="field">
+            <div class="player" @click="onAttack" ref="player">
+                <div class="img"><img src="/images/square/characters/ayame1.png" /></div>
+            </div>
+            <transition name="enemy-appear">
+                <div class="foreground_enemy" v-if="isAliveForegroundEnemy" :key="foregroundEnemy.id">
+                    <div class="img"><img :src="`/images/square/characters/${foregroundEnemy.image}.png`" /></div>
+                </div>
+            </transition>
+            <div class="foreground_enemy_hp" :class="hpClass(referenceCurrentHp)">{{referenceCurrentHp}}</div>
+            <div class="damage" ref="damage">{{referenceDamage}}</div>
+            <transition name="shield-appear">
+                <div class="foreground_enemy_shield_hp" v-if="foregroundEnemy.shield &gt; 0" :class="hpClass(referenceCurrentShieldHp)">{{referenceCurrentShieldHp}}</div>
+            </transition>
+            <transition name="shield-appear"><img class="foreground_enemy_shield" v-if="foregroundEnemy.shield &gt; 0" src="/images/square/characters/barrier.png" /></transition>
+            <transition-group class="background_enemies" name="background">
+                <div class="enemy" v-for="enemy in backgroundEnemies" :key="enemy.id">
+                    <div class="content">
+                        <div class="img"><img :src="`/images/square/characters/${enemy.image}.png`" /></div>
+                        <div class="hp" :class="hpClass(enemy.hp)">{{enemy.hp}}</div>
+                    </div>
+                </div>
+            </transition-group>
+            <div class="attack_effect">
+                <div class="line1 line" ref="line1"></div>
+                <div class="line2 line" ref="line2"></div>
+                <div class="line3 line" ref="line3"></div>
+            </div>
+            <transition name="win">
+                <div class="cleared" v-if="!foregroundEnemy.hp">
+                    <div class="text">勝利！</div>
+                </div>
+            </transition>
+            <transition name="win-character">
+                <div class="cleared_character" v-if="!foregroundEnemy.hp">
+                    <div class="img"><img src="/images/square/characters/ayame2.png" /></div>
+                </div>
+            </transition>
+            <div class="notes">
+                <div class="note" v-if="thereIsMaxDamageEnemy">スピカは3以上のダメージを3にする</div>
+                <div class="note" v-if="thereIsShieldEnemy">盾はドローボタンで引き直すと復活する</div>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model";
   import gsap from 'gsap';

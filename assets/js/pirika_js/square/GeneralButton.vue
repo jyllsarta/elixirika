@@ -1,15 +1,8 @@
-<template lang="pug">
-  .button.with_shadow(
-    @click="onClick"
-    @mouseenter="onHover"
-    :class="buttonClass"
-    :style="{width: width, height: height}"
-  )
-    | {{label}}
-
+<template>
+    <div class="button with_shadow" @click="onClick" @mouseenter="onHover" :class="buttonClass" :style="{width: width, height: height}">{{label}}</div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import store from "./packs/store";
 

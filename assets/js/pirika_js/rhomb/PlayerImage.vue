@@ -1,10 +1,8 @@
-
-<template lang="pug">
-  .player
-    img(src="/images/rhomb/player_back.png")
+<template>
+    <div class="player"><img src="/images/rhomb/player_back.png" /></div>
 </template>
 
-<script lang="javascript">
+<script>
 </script>
 
 <style lang='scss' scoped>

@@ -1,10 +1,10 @@
-<template lang="pug">
-  .dialog(@click="tick")
-    .content
-      | {{messages[model.phaseStateMachine.phase.tick]}}
+<template>
+    <div class="dialog" @click="tick">
+        <div class="content">{{messages[model.phaseStateMachine.phase.tick]}}</div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import store from "./packs/store";
   import Model from "./packs/model";

@@ -1,68 +1,44 @@
-<template lang="pug">
-  .ui
-    .score(
-      v-if='gameState === constants.gameStates.inGame || gameState === constants.gameStates.gameOver',
-      v-bind:class="[isHighScoreUpdated ? 'high_score_updated' : '']",
-      )
-      | {{score}}
-    transition(name="left-show-in")
-      .high_score_text(v-if="isHighScoreUpdated && gameState === constants.gameStates.gameOver")
-        | high score!
-    transition(name="left-show-in")
-      result(
-        v-if='gameState === constants.gameStates.cleared'
-        v-bind:score="score",
-        v-bind:speedScore="speedScore",
-        v-bind:isHighScoreUpdated="isHighScoreUpdated",
-        v-bind:totalScore="totalScore",
-      )
-    transition(name="delay")
-      .r_to_reset.delay(v-if='gameState === constants.gameStates.cleared || gameState === constants.gameStates.gameOver')
-        | (r to reset)
-    life-gauge(
-      v-if='gameState !== constants.gameStates.title',
-      v-bind:life="life",
-    )
-    transition(name="left-show-in")
-      .game_over(v-if='gameState === constants.gameStates.gameOver')
-        | GAME OVER
-    transition(name="bounce")
-      .title(v-if='gameState === constants.gameStates.title && loadCompleted')
-        | Z X C V
-        | kick zxcv to start
-    transition(name="bounce")
-      img.tweet(src="/images/zxcv/twitter.png", v-on:click="tweet", v-if='showingTweetButton')
-    transition(name="left-show-in")
-      .ui_background_panel(
-        v-if='gameState === constants.gameStates.title'
-      )
-    transition(name="left-show-in")
-      volume(
-        v-if='gameState === constants.gameStates.title',
-        v-bind:volume="volume",
-        v-on:setVolume="setVolume",
-      )
-    transition(name="left-show-in")
-      name-input-area(
-        v-if='gameState === constants.gameStates.title',
-        v-bind:volume="volume",
-        @setName="setName",
-        @inputStateChanged="(state)=>{this.$emit('inputStateChanged', state)}",
-      )
-    transition(name="left-show-in")
-      .high_score(v-if='gameState === constants.gameStates.title')
-        | ハイスコア： {{highScore}}
-    transition(name="left-show-in")
-      ranking(v-if='showingRanking', v-bind:ranking="ranking")
-    .hide_ranking_area(v-if='showingRanking', @click="$emit('hideRanking')")
-    transition(name="left-show-in")
-      img.show_ranking_button(
-        v-if='gameState === constants.gameStates.title && !showingRanking',
-        @click="$emit('showRanking')",
-        src="/images/zxcv/ranking.png"
-      )
-    minus-list(v-bind:minuses="minuses")
-    spark-list(v-bind:sparks="sparks")
+<template>
+    <div class="ui">
+        <div class="score" v-if="gameState === constants.gameStates.inGame || gameState === constants.gameStates.gameOver" v-bind:class="[isHighScoreUpdated ? 'high_score_updated' : '']">{{score}}</div>
+        <transition name="left-show-in">
+            <div class="high_score_text" v-if="isHighScoreUpdated &amp;&amp; gameState === constants.gameStates.gameOver">high score!</div>
+        </transition>
+        <transition name="left-show-in">
+            <result v-if="gameState === constants.gameStates.cleared" v-bind:score="score" v-bind:speedScore="speedScore" v-bind:isHighScoreUpdated="isHighScoreUpdated" v-bind:totalScore="totalScore"></result>
+        </transition>
+        <transition name="delay">
+            <div class="r_to_reset delay" v-if="gameState === constants.gameStates.cleared || gameState === constants.gameStates.gameOver">(r to reset)</div>
+        </transition>
+        <life-gauge v-if="gameState !== constants.gameStates.title" v-bind:life="life"></life-gauge>
+        <transition name="left-show-in">
+            <div class="game_over" v-if="gameState === constants.gameStates.gameOver">GAME OVER</div>
+        </transition>
+        <transition name="bounce">
+            <div class="title" v-if="gameState === constants.gameStates.title &amp;&amp; loadCompleted">Z X C V
+                kick zxcv to start</div>
+        </transition>
+        <transition name="bounce"><img class="tweet" src="/images/zxcv/twitter.png" v-on:click="tweet" v-if="showingTweetButton" /></transition>
+        <transition name="left-show-in">
+            <div class="ui_background_panel" v-if="gameState === constants.gameStates.title"></div>
+        </transition>
+        <transition name="left-show-in">
+            <volume v-if="gameState === constants.gameStates.title" v-bind:volume="volume" v-on:setVolume="setVolume"></volume>
+        </transition>
+        <transition name="left-show-in">
+            <name-input-area v-if="gameState === constants.gameStates.title" v-bind:volume="volume" @setName="setName" @inputStateChanged="(state)=&gt;{this.$emit('inputStateChanged', state)}"></name-input-area>
+        </transition>
+        <transition name="left-show-in">
+            <div class="high_score" v-if="gameState === constants.gameStates.title">ハイスコア： {{highScore}}</div>
+        </transition>
+        <transition name="left-show-in">
+            <ranking v-if="showingRanking" v-bind:ranking="ranking"></ranking>
+        </transition>
+        <div class="hide_ranking_area" v-if="showingRanking" @click="$emit('hideRanking')"></div>
+        <transition name="left-show-in"><img class="show_ranking_button" v-if="gameState === constants.gameStates.title &amp;&amp; !showingRanking" @click="$emit('showRanking')" src="/images/zxcv/ranking.png" /></transition>
+        <minus-list v-bind:minuses="minuses"></minus-list>
+        <spark-list v-bind:sparks="sparks"></spark-list>
+    </div>
 </template>
 
 <script>

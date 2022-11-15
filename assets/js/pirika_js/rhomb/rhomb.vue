@@ -1,17 +1,23 @@
-<template lang="pug">
-  .__frame
-    #app
-      .game
-        .title(v-if="sceneName == 'title'")
-          TitleScene(:sceneParameter="sceneParameter.title", @loadScene="loadScene")
-        .main_menu(v-if="sceneName == 'mainMenu'")
-          MainMenuScene(:sceneParameter="sceneParameter.mainMenu", @loadScene="loadScene")
-        .in_game(v-if="sceneName == 'inGame'")
-          InGameScene(:sceneParameter="sceneParameter.inGame", @loadScene="loadScene")
-        GlobalSoundManager
+<template>
+    <div class="__frame">
+        <div id="app">
+            <div class="game">
+                <div class="title" v-if="sceneName == 'title'">
+                    <TitleScene :sceneParameter="sceneParameter.title" @loadScene="loadScene"></TitleScene>
+                </div>
+                <div class="main_menu" v-if="sceneName == 'mainMenu'">
+                    <MainMenuScene :sceneParameter="sceneParameter.mainMenu" @loadScene="loadScene"></MainMenuScene>
+                </div>
+                <div class="in_game" v-if="sceneName == 'inGame'">
+                    <InGameScene :sceneParameter="sceneParameter.inGame" @loadScene="loadScene"></InGameScene>
+                </div>
+                <GlobalSoundManager></GlobalSoundManager>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
     import Vue from 'vue';
     import TitleScene from "./TitleScene.vue";
     import MainMenuScene from "./MainMenuScene.vue";

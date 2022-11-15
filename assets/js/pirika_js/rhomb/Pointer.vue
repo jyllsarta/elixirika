@@ -1,9 +1,8 @@
-
-<template lang="pug">
-  .pointer(:style="{transform: `translate(${model.pointer.x - 50}px, ${model.pointer.y - 50}px)`}")
+<template>
+    <div class="pointer" :style="{transform: `translate(${model.pointer.x - 50}px, ${model.pointer.y - 50}px)`}"></div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model";
 

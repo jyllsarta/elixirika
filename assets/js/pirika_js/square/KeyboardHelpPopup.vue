@@ -1,57 +1,53 @@
-<template lang="pug">
-  transition(name="show-in")
-    .window(@click="close")
-      .darkness
-      .body
-        .front
-          .title
-            .text
-              | キーボードそうさ
-          .content
-            .text
-              .key
-                | ⇄
-              .value
-                | 出すカード / カードを置く場所選択
-            .text
-              .key
-                | ⇅
-              .value
-                | キャラ固有能力選択
-            .text
-              .key
-                | z押す
-              .value
-                | 出すカードを決定
-            .text
-              .key
-                | z離す
-              .value
-                | 今ある場所にカードを置く
-            .text
-              .key
-                | x
-              .value
-                | ドロー / (デッキ切れ時)ゲーム終了
-            .text
-              .key
-                | r
-              .value
-                | リセット
-            .text
-              .key
-                | 1~4
-              .value
-                | キャラ固有能力選択
-            .text
-              .key
-                | Esc
-              .value
-                | キャンセル
-
+<template>
+    <transition name="show-in">
+        <div class="window" @click="close">
+            <div class="darkness"></div>
+            <div class="body">
+                <div class="front">
+                    <div class="title">
+                        <div class="text">キーボードそうさ</div>
+                    </div>
+                    <div class="content">
+                        <div class="text">
+                            <div class="key">⇄</div>
+                            <div class="value">出すカード / カードを置く場所選択</div>
+                        </div>
+                        <div class="text">
+                            <div class="key">⇅</div>
+                            <div class="value">キャラ固有能力選択</div>
+                        </div>
+                        <div class="text">
+                            <div class="key">z押す</div>
+                            <div class="value">出すカードを決定</div>
+                        </div>
+                        <div class="text">
+                            <div class="key">z離す</div>
+                            <div class="value">今ある場所にカードを置く</div>
+                        </div>
+                        <div class="text">
+                            <div class="key">x</div>
+                            <div class="value">ドロー / (デッキ切れ時)ゲーム終了</div>
+                        </div>
+                        <div class="text">
+                            <div class="key">r</div>
+                            <div class="value">リセット</div>
+                        </div>
+                        <div class="text">
+                            <div class="key">1~4</div>
+                            <div class="value">キャラ固有能力選択</div>
+                        </div>
+                        <div class="text">
+                            <div class="key">Esc</div>
+                            <div class="value">キャンセル</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from './packs/model';
   import store from "./packs/store";

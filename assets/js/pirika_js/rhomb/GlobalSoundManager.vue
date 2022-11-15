@@ -1,62 +1,19 @@
-<template lang="pug">
-.sound_button_area
-  GeneralButton(
-    @click="showMenu"
-    v-if="!showingMenu"
-    :disabled="false"
-    :flashing="false"
-    :width="'100px'"
-    :height="'28px'"
-    :color="'blue'"
-    :label="'音量'"
-  )
-  .menu(v-if="showingMenu")
-    ._back(@click="closeMenu")
-    .items(v-if="showingMenu")
-      GeneralButton(
-        @click="closeMenu"
-        :disabled="false"
-        :flashing="false"
-        :width="'100px'"
-        :height="'28px'"
-        :color="'blue'"
-        :label="'とじる'"
-      )
-      .text
-        | マスター
-      input.volume(
-        type="range"
-        v-model.number="volumes.master"
-        min="0"
-        max="1"
-        step="any",
-        @change="setVolume"
-      )
-      .text
-        | BGM
-      input.volume(
-        type="range"
-        v-model.number="volumes.bgm"
-        min="0"
-        max="1"
-        step="any",
-        @change="setVolume"
-      )
-      .text
-        | SE
-      input.volume(
-        type="range"
-        v-model.number="volumes.se"
-        min="0"
-        max="1"
-        step="any",
-        @change="setVolume"
-      )
-
+<template>
+    <div class="sound_button_area">
+        <GeneralButton @click="showMenu" v-if="!showingMenu" :disabled="false" :flashing="false" :width="'100px'" :height="'28px'" :color="'blue'" :label="'音量'"></GeneralButton>
+        <div class="menu" v-if="showingMenu">
+            <div class="_back" @click="closeMenu"></div>
+            <div class="items" v-if="showingMenu">
+                <GeneralButton @click="closeMenu" :disabled="false" :flashing="false" :width="'100px'" :height="'28px'" :color="'blue'" :label="'とじる'"></GeneralButton>
+                <div class="text">マスター</div><input class="volume" type="range" v-model.number="volumes.master" min="0" max="1" step="any" @change="setVolume" />
+                <div class="text">BGM</div><input class="volume" type="range" v-model.number="volumes.bgm" min="0" max="1" step="any" @change="setVolume" />
+                <div class="text">SE</div><input class="volume" type="range" v-model.number="volumes.se" min="0" max="1" step="any" @change="setVolume" />
+            </div>
+        </div>
+    </div>
 </template>
 
-
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import axios from 'axios';
   import GeneralButton from "./GeneralButton.vue";

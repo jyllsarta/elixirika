@@ -1,5 +1,5 @@
-<template lang="pug">
-  .key_helper
+<template>
+    <div class="key_helper"></div>
 </template>
 
 <script lang="v">

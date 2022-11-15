@@ -1,19 +1,19 @@
-<template lang="pug">
-  #app
-    .main
-      h1
-        | キャベツを我慢するフグ
-      .words
-        .word(v-for="i in [0,1,2]", @click="stop(i)")
-          | {{words[i][wordIndex[i]]}}
-      .buttons
-        .button(v-for="i in [0,1,2]", @click="stop(i)", :class="shuffling[i] ? 'active' : 'stopped'")
-          | STOP
-      .controls
-        .item.restart(@click="restart", v-if="shuffling.every(c=>!c)")
-          | リスタート
-        .item.tweet(@click="tweet", v-if="shuffling.every(c=>!c)")
-          | ツイート
+<template>
+    <div id="app">
+        <div class="main">
+            <h1>キャベツを我慢するフグ</h1>
+            <div class="words">
+                <div class="word" v-for="i in [0,1,2]" @click="stop(i)">{{words[i][wordIndex[i]]}}</div>
+            </div>
+            <div class="buttons">
+                <div class="button" v-for="i in [0,1,2]" @click="stop(i)" :class="shuffling[i] ? 'active' : 'stopped'">STOP</div>
+            </div>
+            <div class="controls">
+                <div class="item restart" @click="restart" v-if="shuffling.every(c=&gt;!c)">リスタート</div>
+                <div class="item tweet" @click="tweet" v-if="shuffling.every(c=&gt;!c)">ツイート</div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script lang="ts">

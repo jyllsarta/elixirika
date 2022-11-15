@@ -1,8 +1,8 @@
-<template lang="pug">
-._igsound
+<template>
+    <div class="_igsound"></div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from './packs/model';
   import store from './packs/store.js';

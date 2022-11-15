@@ -1,32 +1,20 @@
-<template lang="pug">
-  .area
-    .index
-      | アヤメの忍法帖
-    .mp
-      span
-        | MP:
-      span
-        NumeratableNumber(:number="character.uniqueParameters.mp", :speed="0.1", :scaled="true" class="mpvalue")
-      span
-        | {{maxMpMessage}}
-    .bar
-      .bg
-      .current(:style="{width: mpBarWidth}")
-    transition-group.buttons(name="ability")
-      SupportCharacterAbilityButton(
-        v-for="(ability, index) in character.uniqueParameters.abilities"
-        @popclick="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
-        @popmouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
-        :key="ability.slot"
-        :index="index"
-        :ability="ability"
-        :character="character"
-        :isSelected="isSelected(index)"
-        :isSmall="isSmall(index)"
-      )
+<template>
+    <div class="area">
+        <div class="index">アヤメの忍法帖</div>
+        <div class="mp"><span>MP:</span><span>
+                <NumeratableNumber class="mpvalue" :number="character.uniqueParameters.mp" :speed="0.1" :scaled="true"></NumeratableNumber>
+            </span><span>{{maxMpMessage}}</span></div>
+        <div class="bar">
+            <div class="bg"></div>
+            <div class="current" :style="{width: mpBarWidth}"></div>
+        </div>
+        <transition-group class="buttons" name="ability">
+            <SupportCharacterAbilityButton v-for="(ability, index) in character.uniqueParameters.abilities" @popclick="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})" @popmouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})" :key="ability.slot" :index="index" :ability="ability" :character="character" :isSelected="isSelected(index)" :isSmall="isSmall(index)"></SupportCharacterAbilityButton>
+        </transition-group>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue"
   import NumeratableNumber from "./NumeratableNumber.vue";

@@ -1,75 +1,21 @@
-<template lang="pug">
-  .area
-    GeneralButton(
-      @click="showMenu"
-      v-if="!showingMenu"
-      :disabled="false"
-      :flashing="false"
-      :width="'160px'"
-      :height="'40px'"
-      :color="'blue'"
-      :label="'メニュー'"
-    )
-    .menu(v-if="showingMenu")
-      ._back(@click="closeMenu")
-      .items(v-if="showingMenu")
-        GeneralButton(
-          @click="closeMenu"
-          :disabled="false"
-          :flashing="false"
-          :width="'160px'"
-          :height="'40px'"
-          :color="'blue'"
-          :label="'とじる'"
-        )
-        GeneralButton.message_button(
-          @click="showMessage"
-          :disabled="false"
-          :flashing="false"
-          :width="'160px'"
-          :height="'40px'"
-          :color="'blue'"
-          :label="'おたより'"
-        )
-        GeneralButton(
-          @click="showPlayGuide"
-          :disabled="false"
-          :flashing="false"
-          :width="'160px'"
-          :height="'40px'"
-          :color="'blue'"
-          :label="'あそびかた'"
-        )
-        GeneralButton(
-          @click="showKeyboardHelp()"
-          :disabled="false"
-          :flashing="false"
-          :width="'160px'"
-          :height="'40px'"
-          :color="'blue'"
-          :label="'キーボード操作説明'"
-        )
-        GeneralButton(
-          @click="reset()"
-          :disabled="false"
-          :flashing="false"
-          :width="'160px'"
-          :height="'40px'"
-          :color="'red'"
-          :label="'やりなおす'"
-        )
-        GeneralButton(
-          @click="backToMainMenu()"
-          :disabled="false"
-          :flashing="false"
-          :width="'160px'"
-          :height="'40px'"
-          :color="'red'"
-          :label="'メインメニュー'"
-        )
+<template>
+    <div class="area">
+        <GeneralButton @click="showMenu" v-if="!showingMenu" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'メニュー'"></GeneralButton>
+        <div class="menu" v-if="showingMenu">
+            <div class="_back" @click="closeMenu"></div>
+            <div class="items" v-if="showingMenu">
+                <GeneralButton @click="closeMenu" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'とじる'"></GeneralButton>
+                <GeneralButton class="message_button" @click="showMessage" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'おたより'"></GeneralButton>
+                <GeneralButton @click="showPlayGuide" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'あそびかた'"></GeneralButton>
+                <GeneralButton @click="showKeyboardHelp()" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'キーボード操作説明'"></GeneralButton>
+                <GeneralButton @click="reset()" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'red'" :label="'やりなおす'"></GeneralButton>
+                <GeneralButton @click="backToMainMenu()" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'red'" :label="'メインメニュー'"></GeneralButton>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import GeneralButton from "./GeneralButton.vue";
   import store from "./packs/store";

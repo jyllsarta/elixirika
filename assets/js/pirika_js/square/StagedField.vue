@@ -1,10 +1,12 @@
-<template lang="pug">
-  .area
-    .card_container(:style="{left: leftGap}")
-      Card(:card="stagedField.field.cards[0]", v-if="stagedField.field.cards[0]", :characterId="model.characterId")
+<template>
+    <div class="area">
+        <div class="card_container" :style="{left: leftGap}">
+            <Card :card="stagedField.field.cards[0]" v-if="stagedField.field.cards[0]" :characterId="model.characterId"></Card>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Card from "./Card.vue"
   import StagedField from "./packs/stagedField";

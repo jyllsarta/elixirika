@@ -1,13 +1,10 @@
-
-<template lang="pug">
-  .scene(@click="proceed")
-    img.enemy(src="/images/rhomb/title.png")
-    img.logo(src="/images/rhomb/logo.png")
-    .text
-      | クリックしてはじめる
+<template>
+    <div class="scene" @click="proceed"><img class="enemy" src="/images/rhomb/title.png" /><img class="logo" src="/images/rhomb/logo.png" />
+        <div class="text">クリックしてはじめる</div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
 
   export default Vue.extend({

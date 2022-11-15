@@ -1,57 +1,44 @@
-<template lang="pug">
-  .menu_detail_dialog
-    .back(@click="close")
-    .dialog
-      .tile
-        ClearStateTile(:character="character", :chapter="chapter", :challenge-clear-state="challengeClearState")      
-      GeneralButton.play_guide_button(
-        @click="showPlayGuide"
-        :disabled="false"
-        :flashing="false"
-        :width="'160px'"
-        :height="'40px'"
-        :color="'blue'"
-        :label="'あそびかた'"
-      )
-      .dialog_background
-        .sheet(:style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}")
-        .shadow
-        .sheet2(:style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}")
-      .content
-        .chapter_title
-          | {{character.name}}-{{["", "I","II","III","IV"][chapter.index]}} / {{chapter.title}}
-        .chapter_description
-          .text
-            | {{chapter.description}}
-        .extra_info
-          .title
-            | 特殊効果
-          .extras
-            .description
-              | {{chapter.extra_effect_description}}
-        .challenge_info
-          .challenges
-            .title
-              | チャレンジ
-            ChallengeText(
-              v-for="challenge, index in challenges"
-              :is-cleared="isCleared(challenge.id)",
-              :index="index",
-              :challenge="challenge",
-              :key="index",
-              :showDescription="true"
-              :showIndex="true"
-            )
-      .start(@click="$emit('start')")
-        .background
-        .text
-          | スタート
-        .high_score
-          | ハイスコア：{{highScore}}
-        
+<template>
+    <div class="menu_detail_dialog">
+        <div class="back" @click="close"></div>
+        <div class="dialog">
+            <div class="tile">
+                <ClearStateTile :character="character" :chapter="chapter" :challenge-clear-state="challengeClearState"> </ClearStateTile>
+            </div>
+            <GeneralButton class="play_guide_button" @click="showPlayGuide" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'あそびかた'"></GeneralButton>
+            <div class="dialog_background">
+                <div class="sheet" :style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}"></div>
+                <div class="shadow"></div>
+                <div class="sheet2" :style="{backgroundImage: `url(/images/square/characters/${character.id}-1.png`}"></div>
+            </div>
+            <div class="content">
+                <div class="chapter_title">{{character.name}}-{{["", "I","II","III","IV"][chapter.index]}} / {{chapter.title}}</div>
+                <div class="chapter_description">
+                    <div class="text">{{chapter.description}}</div>
+                </div>
+                <div class="extra_info">
+                    <div class="title">特殊効果</div>
+                    <div class="extras">
+                        <div class="description">{{chapter.extra_effect_description}}</div>
+                    </div>
+                </div>
+                <div class="challenge_info">
+                    <div class="challenges">
+                        <div class="title">チャレンジ</div>
+                        <ChallengeText v-for="challenge, index in challenges" :is-cleared="isCleared(challenge.id)" :index="index" :challenge="challenge" :key="index" :showDescription="true" :showIndex="true"></ChallengeText>
+                    </div>
+                </div>
+            </div>
+            <div class="start" @click="$emit('start')">
+                <div class="background"></div>
+                <div class="text">スタート</div>
+                <div class="high_score">ハイスコア：{{highScore}}</div>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import ClearStateTile from "./ClearStateTile.vue";
   import ChallengeText from "./ChallengeText.vue";

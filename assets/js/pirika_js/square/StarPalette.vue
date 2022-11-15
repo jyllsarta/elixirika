@@ -1,16 +1,21 @@
-<template lang="pug">
-  .area
-    .palette(v-if="model.character.id === 1")
-      StarPaletteCharacter1(:model="model")
-    .palette(v-if="model.character.id === 2")
-      StarPaletteCharacter2(:model="model")
-    .palette(v-if="model.character.id === 3")
-      StarPaletteCharacter3(:model="model")
-    .palette(v-if="model.character.id === 4")
-      StarPaletteCharacter4(:model="model")
+<template>
+    <div class="area">
+        <div class="palette" v-if="model.character.id === 1">
+            <StarPaletteCharacter1 :model="model"></StarPaletteCharacter1>
+        </div>
+        <div class="palette" v-if="model.character.id === 2">
+            <StarPaletteCharacter2 :model="model"></StarPaletteCharacter2>
+        </div>
+        <div class="palette" v-if="model.character.id === 3">
+            <StarPaletteCharacter3 :model="model"></StarPaletteCharacter3>
+        </div>
+        <div class="palette" v-if="model.character.id === 4">
+            <StarPaletteCharacter4 :model="model"></StarPaletteCharacter4>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model"
   import StarPaletteCharacter1 from "./StarPaletteCharacter1.vue";

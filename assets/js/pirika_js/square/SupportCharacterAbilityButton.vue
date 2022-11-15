@@ -1,15 +1,8 @@
-<template lang="pug">
-  .button(
-    @click="onClick"
-    @mouseover="onHover"
-    :class="abilityClass(ability)"
-    :style="colorSchemedStyleBackground"
-    ref="button"
-  )
-    | {{ability.stringExpression()}}
+<template>
+    <div class="button" @click="onClick" @mouseover="onHover" :class="abilityClass(ability)" :style="colorSchemedStyleBackground" ref="button">{{ability.stringExpression()}}</div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import gsap from 'gsap';
   import store from './packs/store';

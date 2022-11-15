@@ -1,10 +1,7 @@
-
-<template lang="pug">
-  .bullet
-    img(src="/images/rhomb/bullets/triangle.svg")
+<template>
+    <div class="bullet"><img src="/images/rhomb/bullets/triangle.svg" /></div>
 </template>
-
-<script lang="javascript">
+<script>
   
 </script>
 

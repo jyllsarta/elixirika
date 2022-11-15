@@ -1,9 +1,6 @@
-<template lang="pug">
-  // この文字列結合でtranslateするのもうちょいスマートにやりたいなあ
-  .ball(
-    :style="{ transform: 'translate(' + x + 'px,' + y + 'px)'}",
-    :class="[`color_${colorId}`]"
-  )
+<template>
+    <!-- この文字列結合でtranslateするのもうちょいスマートにやりたいなあ-->
+    <div class="ball" :style="{ transform: 'translate(' + x + 'px,' + y + 'px)'}" :class="[`color_${colorId}`]"></div>
 </template>
 
 <script lang="ts">

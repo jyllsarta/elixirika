@@ -1,14 +1,15 @@
-<template lang="pug">
-  .tab(@click="$emit('selected')" @mouseenter="onHover")
-    .base
-      img.sheet(:style="{backgroundImage: `url(/images/square/characters/${characterId}-1.png`}")
-      .shadow
-      .content
-        .name
-          | {{characterName}}
+<template>
+    <div class="tab" @click="$emit('selected')" @mouseenter="onHover">
+        <div class="base"><img class="sheet" :style="{backgroundImage: `url(/images/square/characters/${characterId}-1.png`}" />
+            <div class="shadow"></div>
+            <div class="content">
+                <div class="name">{{characterName}}</div>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import store from "./packs/store";
 

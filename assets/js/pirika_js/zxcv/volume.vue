@@ -1,7 +1,5 @@
-<template lang="pug">
-  .volume_area
-      img.volume_icon(v-bind:src="currentImage")
-      input.volume(type="range" v-model.number="localVolume" min="0" max="1" step="any", @change="setVolume")
+<template>
+    <div class="volume_area"><img class="volume_icon" v-bind:src="currentImage" /><input class="volume" type="range" v-model.number="localVolume" min="0" max="1" step="any" @change="setVolume" /></div>
 </template>
 
 <script>

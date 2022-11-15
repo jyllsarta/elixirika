@@ -1,15 +1,18 @@
-<template lang="pug">
-  transition(name="show-in")
-    .card(:class="card.viewClass() + last + compressed" :style="colorSchemedStyleBackground")
-      .background
-        .line_ur(v-for="(x, index) in rightLineCount" :class="card.suit", :style="{left: (index + 2.5) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})` }")
-        .line_ul(v-for="(x, index) in leftLineCount" :class="card.suit", :style="{right: (index + 2.5) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})` }")
-      .front
-        .number
-          | {{card.stringExpression()}}
+<template>
+    <transition name="show-in">
+        <div class="card" :class="card.viewClass() + last + compressed" :style="colorSchemedStyleBackground">
+            <div class="background">
+                <div class="line_ur" v-for="(x, index) in rightLineCount" :class="card.suit" :style="{left: (index + 2.5) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})` }"></div>
+                <div class="line_ul" v-for="(x, index) in leftLineCount" :class="card.suit" :style="{right: (index + 2.5) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})` }"></div>
+            </div>
+            <div class="front">
+                <div class="number">{{card.stringExpression()}}</div>
+            </div>
+        </div>
+    </transition>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Card from "./packs/card"
 

@@ -1,44 +1,39 @@
-<template lang="pug">
-  .game_end(@click="endGame")
-    .darkness
-    .body(:class="{sending: sending}")
-      .background(:style="{backgroundImage: `url(/images/square/characters/${model.characterId}-1.png`}")
-      .front
-        .title
-          .text
-            | 今回の結果
-          .reason
-            | {{model.forceStalemateReason}}
-        .content
-          .scores
-            .score.normal
-              .label
-                | スコア
-              .value
-                | {{model.score}}
-            .score.rest
-              .label
-                | 残札ボーナス
-              .value.lastcardbonus
-                | {{restCardBonus}}
-          .challenges
-            ChallengeText(
-              v-for="challenge, index in challenges"
-              :is-cleared="isCleared(challenge.id)",
-              :index="index",
-              :challenge="challenge",
-              :key="index",
-              :showDescription="true"
-              :showIndex="true"
-              :class="`challenge-${index + 1}`"
-            )
-          .message_area
-            transition(name="show-in")
-              .click_to_send(v-if="!isMarginTime")
-                | クリックすると結果を登録してメニューに戻ります
+<template>
+    <div class="game_end" @click="endGame">
+        <div class="darkness"></div>
+        <div class="body" :class="{sending: sending}">
+            <div class="background" :style="{backgroundImage: `url(/images/square/characters/${model.characterId}-1.png`}"></div>
+            <div class="front">
+                <div class="title">
+                    <div class="text">今回の結果</div>
+                    <div class="reason">{{model.forceStalemateReason}}</div>
+                </div>
+                <div class="content">
+                    <div class="scores">
+                        <div class="score normal">
+                            <div class="label">スコア</div>
+                            <div class="value">{{model.score}}</div>
+                        </div>
+                        <div class="score rest">
+                            <div class="label">残札ボーナス</div>
+                            <div class="value lastcardbonus">{{restCardBonus}}</div>
+                        </div>
+                    </div>
+                    <div class="challenges">
+                        <ChallengeText v-for="challenge, index in challenges" :is-cleared="isCleared(challenge.id)" :index="index" :challenge="challenge" :key="index" :showDescription="true" :showIndex="true" :class="`challenge-${index + 1}`"></ChallengeText>
+                    </div>
+                    <div class="message_area">
+                        <transition name="show-in">
+                            <div class="click_to_send" v-if="!isMarginTime">クリックすると結果を登録してメニューに戻ります</div>
+                        </transition>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from './packs/model';
   import ChallengeText from "./ChallengeText.vue";

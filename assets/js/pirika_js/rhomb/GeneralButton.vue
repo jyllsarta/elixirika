@@ -1,16 +1,10 @@
-<template lang="pug">
-  .button(
-    @click="onClick"
-    @mouseenter="onHover"
-    :class="buttonClass"
-    :style="{width: width, height: height}"
-  )
-    .button_text
-      | {{label}}
-
+<template>
+    <div class="button" @click="onClick" @mouseenter="onHover" :class="buttonClass" :style="{width: width, height: height}">
+        <div class="button_text">{{label}}</div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
 
   export default Vue.extend({

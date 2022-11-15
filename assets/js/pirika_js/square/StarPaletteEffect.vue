@@ -1,18 +1,21 @@
-<template lang="pug">
-  .area
-    .effect
-      .bg(ref="bg")
-      .squares(ref="square")
-        .square.square1
-        .square.square2
-        .square.square3
-        .square.square4
-      .number(ref="number")
-        .value
-          | {{number}}
+<template>
+    <div class="area">
+        <div class="effect">
+            <div class="bg" ref="bg"></div>
+            <div class="squares" ref="square">
+                <div class="square square1"></div>
+                <div class="square square2"></div>
+                <div class="square square3"></div>
+                <div class="square square4"></div>
+            </div>
+            <div class="number" ref="number">
+                <div class="value">{{number}}</div>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model";
   import gsap from 'gsap';

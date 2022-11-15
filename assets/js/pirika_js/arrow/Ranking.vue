@@ -1,27 +1,20 @@
-<template lang="pug">
-    table.ranking
-      tr
-        th.rank_index.cute
-          | RANK
-        th.cute
-          | NAME
-        th.cute
-          | TOTAL
-        th.cute
-          | TIME
-        th.cute
-          | DELETE
-      tr.rank(v-for='rank in ranking')
-        td.rank_index.cute
-          | {{ranking.indexOf(rank) + 1}}
-        td
-          | {{rank.username}}
-        td.cute
-          | {{rank.score}}
-        td.cute
-          | {{rank.time_score}}
-        td.cute
-          | {{rank.remove_score}}
+<template>
+    <table class="ranking">
+        <tr>
+            <th class="rank_index cute">RANK</th>
+            <th class="cute">NAME</th>
+            <th class="cute">TOTAL</th>
+            <th class="cute">TIME</th>
+            <th class="cute">DELETE</th>
+        </tr>
+        <tr class="rank" v-for="rank in ranking">
+            <td class="rank_index cute">{{ranking.indexOf(rank) + 1}}</td>
+            <td>{{rank.username}}</td>
+            <td class="cute">{{rank.score}}</td>
+            <td class="cute">{{rank.time_score}}</td>
+            <td class="cute">{{rank.remove_score}}</td>
+        </tr>
+    </table>
 </template>
 
 <script lang="ts">

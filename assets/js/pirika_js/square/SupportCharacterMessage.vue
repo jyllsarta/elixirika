@@ -1,15 +1,10 @@
-<template lang="pug">
-  .area(ref="message" v-if="gameStarted")
-    img.background.with_drop_shadow(src="images/square/svg/message.svg")
-    .text
-      span.letter(
-        v-for="(t, index) in message"
-        :key="t + index + messageId"
-        :style="{animationDelay: (index*15)+'ms'}"
-        v-text="t")
+<template>
+    <div class="area" ref="message" v-if="gameStarted"><img class="background with_drop_shadow" src="images/square/svg/message.svg" />
+        <div class="text"><span class="letter" v-for="(t, index) in message" :key="t + index + messageId" :style="{animationDelay: (index*15)+'ms'}" v-text="t"></span></div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model";
   import gsap from 'gsap';

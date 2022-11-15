@@ -1,9 +1,8 @@
-
-<template lang="pug">
-  .bullet
+<template>
+    <div class="bullet"></div>
 </template>
 
-<script lang="javascript">
+<script>
   
 </script>
 

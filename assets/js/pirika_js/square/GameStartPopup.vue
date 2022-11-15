@@ -1,30 +1,26 @@
-<template lang="pug">
-  transition(
-    name="pop"
-    @enter="onAnimationEnter"
-    @leave="onAnimationLeave"
-  )
-    .game_start(@click="startGame" v-if="!gameStarted")
-      .background(ref="bg")
-      .front(ref="front")
-        .content
-          .title
-            | {{chapter.title}}
-          .description
-            | {{chapter.extra_effect_description}}
-          .challenges
-            .challenge(v-for="(challenge, index) in challenges")
-              .icon
-                | ◇
-              .rank
-                | {{["I","II","III","IV"][index]}}
-              .description
-                | {{challenge.description}}
-        .close
-          | 任意の箇所をクリックしてスタート
+<template>
+    <transition name="pop" @enter="onAnimationEnter" @leave="onAnimationLeave">
+        <div class="game_start" @click="startGame" v-if="!gameStarted">
+            <div class="background" ref="bg"></div>
+            <div class="front" ref="front">
+                <div class="content">
+                    <div class="title">{{chapter.title}}</div>
+                    <div class="description">{{chapter.extra_effect_description}}</div>
+                    <div class="challenges">
+                        <div class="challenge" v-for="(challenge, index) in challenges">
+                            <div class="icon">◇</div>
+                            <div class="rank">{{["I","II","III","IV"][index]}}</div>
+                            <div class="description">{{challenge.description}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="close">任意の箇所をクリックしてスタート</div>
+            </div>
+        </div>
+    </transition>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from './packs/model';
   import gsap from 'gsap';

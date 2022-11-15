@@ -1,12 +1,11 @@
-<template lang="pug">
-  .dialog(@click="reset")
-    .content(v-if="model.isWin")
-      | WIN
-    .content(v-if="!model.isWin")
-      | LOSE
+<template>
+    <div class="dialog" @click="reset">
+        <div class="content" v-if="model.isWin">WIN</div>
+        <div class="content" v-if="!model.isWin">LOSE</div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import store from "./packs/store";
   import Model from "./packs/model";

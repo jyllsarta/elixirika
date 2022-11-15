@@ -1,20 +1,19 @@
-<template lang="pug">
-  .banner
-    .base
-      img.sheet(v-if="characterId !== -1" :style="{backgroundImage: `url(/images/square/characters/${characterId}-1.png`}")
-      img.sheet_total(v-if="characterId === -1")
-      .shadow
-      .content
-        .title
-          | {{characterName}}
-        .body
-          .rank(v-for="rank, index in filledRanking")
-            .index
-              | {{index + 1}}
-            .name
-              | {{fullName(rank.name)}}
-            .score
-              | {{rank.score}}
+<template>
+    <div class="banner">
+        <div class="base"><img class="sheet" v-if="characterId !== -1" :style="{backgroundImage: `url(/images/square/characters/${characterId}-1.png`}" /><img class="sheet_total" v-if="characterId === -1" />
+            <div class="shadow"></div>
+            <div class="content">
+                <div class="title">{{characterName}}</div>
+                <div class="body">
+                    <div class="rank" v-for="rank, index in filledRanking">
+                        <div class="index">{{index + 1}}</div>
+                        <div class="name">{{fullName(rank.name)}}</div>
+                        <div class="score">{{rank.score}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script lang="v">

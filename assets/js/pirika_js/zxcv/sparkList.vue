@@ -1,7 +1,7 @@
-<template lang="pug">
-  transition-group.spark-list(name="spark-list")
-    .spark(v-for="spark in sparks" v-bind:key="spark.id")
-      | +1
+<template>
+    <transition-group class="spark-list" name="spark-list">
+        <div class="spark" v-for="spark in sparks" v-bind:key="spark.id">+1</div>
+    </transition-group>
 </template>
 
 <script>

@@ -1,14 +1,8 @@
-<template lang="pug">
-  .name_input_area
-    span.prefix
-      | NAME:
-    span.fixed_name( v-if="!inputting")
-      | {{fullName === "" ? "NONAME" : fullName}}
-    img.change_button(@click="setInputMode", v-if="!inputting" src="/images/arrow/pencil.png")
-    input.name_input_box(type="text", @blur="onBlur", v-model="rawName", v-if="inputting" ref="name_input_box" maxlength=6)
+<template>
+    <div class="name_input_area"><span class="prefix">NAME:</span><span class="fixed_name" v-if="!inputting">{{fullName === "" ? "NONAME" : fullName}}</span><img class="change_button" @click="setInputMode" v-if="!inputting" src="/images/arrow/pencil.png" /><input class="name_input_box" type="text" @blur="onBlur" v-model="rawName" v-if="inputting" ref="name_input_box" maxlength="6" /></div>
 </template>
 
-<script lang="js">
+<script>
 import Vue from "vue";
 import jsSHA from "jssha"; // こいつがjsじゃないと動かないのでこのファイルだけjsにする
 export default {

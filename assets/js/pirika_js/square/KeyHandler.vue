@@ -1,8 +1,8 @@
-<template lang="pug">
-  .key_helper
+<template>
+    <div class="key_helper"></div>
 </template>
 
-<script lang="javascript">
+<script>
     import Vue from 'vue';
     import Keyboard from "./packs/keyboard";
     import Controller from "./packs/controller";

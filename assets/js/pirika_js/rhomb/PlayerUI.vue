@@ -1,54 +1,55 @@
-
-<template lang="pug">
-  .player_ui
-    .slot
-      .title
-        | EQUIPMENTS
-      .equipments.content
-        .equipment(
-          v-for="equipment in model.equipments"
-          :key="equipment.id"
-        )
-          .base
-            .name
-              | {{equipment.name}}
-            .tp
-              | {{equipment.tp}}/{{equipment.tp_gain}}
-          .hit_box(
-            v-if="model.currentPhaseName() == 'MAIN'"
-            @mousedown="$store.commit('guiEvent', {subject: 'equipmentMousedown', id: equipment.id})"
-          )
-    .slot
-      .title
-        | TP
-      .locks.content
-        .skew
-          .tp_box
-            .tp(
-              v-for="(i, index) in new Array(model.tpMax)"
-              :class="{filled: index < model.tp}"
-            )
-    .slot
-      .title
-        | HP
-      .hp.content
-        .bar
-          .skew
-            .base
-            .ghost(:style="{width: `${model.hp / model.hpMax * 100}%`}")
-            .current(:style="{width: `${model.hp / model.hpMax * 100}%`}")
-    .slot
-      .title
-        | MP
-      .mp.content
-        .bar
-          .skew
-            .base
-            .ghost(:style="{width: `${model.mp / model.mpMax * 100}%`}")
-            .current(:style="{width: `${model.mp / model.mpMax * 100}%`}")
+<template>
+    <div class="player_ui">
+        <div class="slot">
+            <div class="title">EQUIPMENTS</div>
+            <div class="equipments content">
+                <div class="equipment" v-for="equipment in model.equipments" :key="equipment.id">
+                    <div class="base">
+                        <div class="name">{{equipment.name}}</div>
+                        <div class="tp">{{equipment.tp}}/{{equipment.tp_gain}}</div>
+                    </div>
+                    <div class="hit_box" v-if="model.currentPhaseName() == 'MAIN'" @mousedown="$store.commit('guiEvent', {subject: 'equipmentMousedown', id: equipment.id})"></div>
+                </div>
+            </div>
+        </div>
+        <div class="slot">
+            <div class="title">TP</div>
+            <div class="locks content">
+                <div class="skew">
+                    <div class="tp_box">
+                        <div class="tp" v-for="(i, index) in new Array(model.tpMax)" :class="{filled: index &lt; model.tp}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slot">
+            <div class="title">HP</div>
+            <div class="hp content">
+                <div class="bar">
+                    <div class="skew">
+                        <div class="base"></div>
+                        <div class="ghost" :style="{width: `${model.hp / model.hpMax * 100}%`}"></div>
+                        <div class="current" :style="{width: `${model.hp / model.hpMax * 100}%`}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slot">
+            <div class="title">MP</div>
+            <div class="mp content">
+                <div class="bar">
+                    <div class="skew">
+                        <div class="base"></div>
+                        <div class="ghost" :style="{width: `${model.mp / model.mpMax * 100}%`}"></div>
+                        <div class="current" :style="{width: `${model.mp / model.mpMax * 100}%`}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model";
 

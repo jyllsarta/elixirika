@@ -1,29 +1,18 @@
-<template lang="pug">
-  .area.with_inset_shadow(:style="styleBackground")
-    .background(:style="{backgroundImage: `url(/images/square/svg/symbol_character${model.characterId}_small.svg`}")
-    .front
-      .indice
-        .index.with_solid_shadow(
-          v-for="index in [0,1,2,3]",
-          :key="index",
-          :field="board.fields[index]",
-          :style="styleIndexBackground(index)"
-        )
-          span
-            | {{expectedCardCount(index)}}
-          span
-            | 枚 / {{expectedScore(index)}}点
-      .fields
-        Field(
-          v-for="index in [0,1,2,3]",
-          :key="index",
-          :field="board.fields[index]"
-          :selected="canStackCard(index)"
-          :characterId="model.characterId"
-        )
+<template>
+    <div class="area with_inset_shadow" :style="styleBackground">
+        <div class="background" :style="{backgroundImage: `url(/images/square/svg/symbol_character${model.characterId}_small.svg`}"></div>
+        <div class="front">
+            <div class="indice">
+                <div class="index with_solid_shadow" v-for="index in [0,1,2,3]" :key="index" :field="board.fields[index]" :style="styleIndexBackground(index)"><span>{{expectedCardCount(index)}}</span><span>枚 / {{expectedScore(index)}}点</span></div>
+            </div>
+            <div class="fields">
+                <Field v-for="index in [0,1,2,3]" :key="index" :field="board.fields[index]" :selected="canStackCard(index)" :characterId="model.characterId"></Field>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Field from "./Field.vue"
   import Board from "./packs/board"

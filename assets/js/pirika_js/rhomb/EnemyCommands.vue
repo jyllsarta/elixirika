@@ -1,14 +1,15 @@
-
-<template lang="pug">
-  .commands
-    .title
-      | ENEMY ACTION
-    .turns
-      .bullets(v-for="turn in turnsWithBullets", :key="turn.id" :class="{this_turn: totalTurnCount === turn.turn}")
-        Bullet(v-for="bullet of turn.bullets" :type="bullet.type" :key="bullet.id" :marked-at="null")
+<template>
+    <div class="commands">
+        <div class="title">ENEMY ACTION</div>
+        <div class="turns">
+            <div class="bullets" v-for="turn in turnsWithBullets" :key="turn.id" :class="{this_turn: totalTurnCount === turn.turn}">
+                <Bullet v-for="bullet of turn.bullets" :type="bullet.type" :key="bullet.id" :marked-at="null"></Bullet>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Bullet from "./Bullet.vue";
   import Model from "./packs/model";

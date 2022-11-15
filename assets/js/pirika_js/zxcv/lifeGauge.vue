@@ -1,5 +1,5 @@
-<template lang="pug">
-  .life(v-bind:class='[lifeState]', v-bind:style='{width: lifeLength}')
+<template>
+    <div class="life" v-bind:class="[lifeState]" v-bind:style="{width: lifeLength}"></div>
 </template>
 
 <script>

@@ -1,17 +1,12 @@
-<template lang="pug">
-  .area
-    draggable.hand(:list="cards" @end="onDragEnd" @start="onDragStart" :move="checkMove" :sort="false" :group="'top'")
-      Card(
-        :card="card",
-        v-for="card in cards",
-        :key="card.id",
-        @hover="onCardHover",
-        :characterId="model.characterId",
-        :touchDragging="touchDragging"
-      )
+<template>
+    <div class="area">
+        <draggable class="hand" :list="cards" @end="onDragEnd" @start="onDragStart" :move="checkMove" :sort="false" :group="'top'">
+            <Card :card="card" v-for="card in cards" :key="card.id" @hover="onCardHover" :characterId="model.characterId" :touchDragging="touchDragging"></Card>
+        </draggable>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Card from "./Card.vue"
   import Hand from "./packs/hand"

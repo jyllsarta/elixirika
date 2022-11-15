@@ -1,17 +1,13 @@
-
-<template lang="pug">
-  .debug_ui
-    .title
-      | DEBUG UI
-    .item
-      | PHASE: {{model.phaseStateMachine.phase.name}}
-    .button(@click="$store.commit('guiEvent', {subject: 'nextPhase'})")
-      | NEXT PHASE
-    .button(@click="$store.commit('guiEvent', {subject: 'reset'})")
-      | RESET
+<template>
+    <div class="debug_ui">
+        <div class="title">DEBUG UI</div>
+        <div class="item">PHASE: {{model.phaseStateMachine.phase.name}}</div>
+        <div class="button" @click="$store.commit('guiEvent', {subject: 'nextPhase'})">NEXT PHASE</div>
+        <div class="button" @click="$store.commit('guiEvent', {subject: 'reset'})">RESET</div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import store from "./packs/store";
   import Model from "./packs/model";

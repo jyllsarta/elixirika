@@ -1,9 +1,8 @@
-<template lang="pug">
-  transition(name="show-long")
-    .remove_score( :style="{ transform: 'translate(' + x + 'px,' + y + 'px)'}")
-      | +{{value}}
+<template>
+    <transition name="show-long">
+        <div class="remove_score" :style="{ transform: 'translate(' + x + 'px,' + y + 'px)'}">+{{value}}</div>
+    </transition>
 </template>
-
 <script lang="ts">
   export default {
     name: "RemoveScore",

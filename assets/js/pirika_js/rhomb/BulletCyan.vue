@@ -1,10 +1,10 @@
-
-<template lang="pug">
-  .bullet
-    .core
+<template>
+    <div class="bullet">
+        <div class="core"></div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   
 </script>
 

@@ -1,12 +1,12 @@
-<template lang="pug">
-  .clear_state_tile(@click="onClick" @mouseenter="onHover")
-    .flake(v-for="index in [0, 1, 2, 3]" :class="{cleared: isCleared(index), completed: isCompleted}")
-    .number
-      | {{chapter.index}}
-    .flash(ref="flash")
+<template>
+    <div class="clear_state_tile" @click="onClick" @mouseenter="onHover">
+        <div class="flake" v-for="index in [0, 1, 2, 3]" :class="{cleared: isCleared(index), completed: isCompleted}"></div>
+        <div class="number">{{chapter.index}}</div>
+        <div class="flash" ref="flash"></div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import gsap from 'gsap';
   import store from "./packs/store";

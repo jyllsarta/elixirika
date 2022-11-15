@@ -1,35 +1,31 @@
-<template lang="pug">
-  .star_palette
-    .background.with_drop_shadow
-      img(src="/images/square/svg/star_palette2.svg")
-    .container
-      .star(v-for="index in [1,2,3,4,5,6,7,8,9,10,11,12]", :class="starClass(index)")
-        .pattern_flash(v-if="currentProgressCache >= index")
-        .pattern_flash2(v-if="currentProgressCache >= index")
-        .fill
-          .number
-            | {{romanNumerals[index]}}
-    .descriptions
-      .description(v-if="!params.banCardGap")
-        | ~ ルール ~
-      .description(v-if="params.banSendCard")
-        | 2枚か3枚でスターパレットに送るべからず
-      .description(v-if="params.banDiscard")
-        | 1枚たりとも捨札にするべからず
-      .description(v-if="params.banCardGap")
-        | 同じ数値のカードを重ねるべからず
-      .description
-        | 4枚で ■ , 8枚で ■ ■ ■ (その他は 0)
-    .progress
-      .current
-        | {{ currentProgressCache }}
-      .sep
-        | /
-      .total
-        | {{ totalProgress }}
+<template>
+    <div class="star_palette">
+        <div class="background with_drop_shadow"><img src="/images/square/svg/star_palette2.svg" /></div>
+        <div class="container">
+            <div class="star" v-for="index in [1,2,3,4,5,6,7,8,9,10,11,12]" :class="starClass(index)">
+                <div class="pattern_flash" v-if="currentProgressCache &gt;= index"></div>
+                <div class="pattern_flash2" v-if="currentProgressCache &gt;= index"></div>
+                <div class="fill">
+                    <div class="number">{{romanNumerals[index]}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="descriptions">
+            <div class="description" v-if="!params.banCardGap">~ ルール ~</div>
+            <div class="description" v-if="params.banSendCard">2枚か3枚でスターパレットに送るべからず</div>
+            <div class="description" v-if="params.banDiscard">1枚たりとも捨札にするべからず</div>
+            <div class="description" v-if="params.banCardGap">同じ数値のカードを重ねるべからず</div>
+            <div class="description">4枚で ■ , 8枚で ■ ■ ■ (その他は 0)</div>
+        </div>
+        <div class="progress">
+            <div class="current">{{ currentProgressCache }}</div>
+            <div class="sep">/</div>
+            <div class="total">{{ totalProgress }}</div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model";
   import store from "./packs/store";

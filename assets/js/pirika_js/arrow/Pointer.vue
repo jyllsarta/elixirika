@@ -1,24 +1,10 @@
-<template functional lang="pug">
-  .pointer(
-      :style="{ transform: 'translate(' + props.x + 'px,' + props.y + 'px)', pointerEvents: 'none'}"
-    )
-    .player(
-      :style="{ transform: 'scale('+ props.hpRate +')' }"
-    )
-    .discharge_circle.effective(
-      v-if="props.isCharging"
-    )
-    .discharge_circle.current(
-      v-if="props.isCharging",
-      :style="{ transform: 'scale('+ props.chargeRate +')' }"
-    )
-    .hp_area
-      span.max_hp
-        | {{props.hp}}
-      span.sep
-        | /
-      span.energy
-        | {{props.energy}}%
+<template functional>
+    <div class="pointer" :style="{ transform: 'translate(' + props.x + 'px,' + props.y + 'px)', pointerEvents: 'none'}">
+        <div class="player" :style="{ transform: 'scale('+ props.hpRate +')' }"></div>
+        <div class="discharge_circle effective" v-if="props.isCharging"></div>
+        <div class="discharge_circle current" v-if="props.isCharging" :style="{ transform: 'scale('+ props.chargeRate +')' }"></div>
+        <div class="hp_area"><span class="max_hp">{{props.hp}}</span><span class="sep">/</span><span class="energy">{{props.energy}}%</span></div>
+    </div>
 </template>
 
 <script lang="ts">

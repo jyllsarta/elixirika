@@ -1,11 +1,11 @@
-<template lang="pug">
-  .frame(ref="popup")
-    .bg
-    .content
-      | {{ clearedChallenge.title }} を達成！
+<template>
+    <div class="frame" ref="popup">
+        <div class="bg"></div>
+        <div class="content">{{ clearedChallenge.title }} を達成！</div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from './packs/model';
   import gsap from 'gsap';

@@ -1,5 +1,5 @@
-<template lang="pug">
-  .back(:class="noteBackground")
+<template>
+    <div class="back" :class="noteBackground"></div>
 </template>
 
 <script>

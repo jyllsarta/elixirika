@@ -1,6 +1,5 @@
-<template lang="pug">
-._number(:class="{changing}")
-  | {{Math.floor(currentNumber)}}
+<template>
+    <div class="_number" :class="{changing}">{{Math.floor(currentNumber)}}</div>
 </template>
 
 <script lang="ts">

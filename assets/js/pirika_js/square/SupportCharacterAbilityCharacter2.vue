@@ -1,30 +1,21 @@
-<template lang="pug">
-  .area
-    .content
-      .index
-        | カードポケット
-      transition-group.buttons(name="ability")
-        SupportCharacterAbilityButton(
-          v-for="(ability, index) in character.uniqueParameters.abilities"
-          @popclick="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})"
-          @popmouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})"
-          :key="ability.slot"
-          :index="index"
-          :ability="ability"
-          :character="character"
-          :isSelected="isSelected(index)"
-          :isSmall="isSmall(index)"
-       )
-    .cold_cover(v-if="isAbilityColded")
-      .bg
-      .text
-        | 凍結中！
-        | 次回ドローまで
-        | 交換不可
-
+<template>
+    <div class="area">
+        <div class="content">
+            <div class="index">カードポケット</div>
+            <transition-group class="buttons" name="ability">
+                <SupportCharacterAbilityButton v-for="(ability, index) in character.uniqueParameters.abilities" @popclick="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})" @popmouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})" :key="ability.slot" :index="index" :ability="ability" :character="character" :isSelected="isSelected(index)" :isSmall="isSmall(index)"></SupportCharacterAbilityButton>
+            </transition-group>
+        </div>
+        <div class="cold_cover" v-if="isAbilityColded">
+            <div class="bg"></div>
+            <div class="text">凍結中！
+                次回ドローまで
+                交換不可</div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue"
 

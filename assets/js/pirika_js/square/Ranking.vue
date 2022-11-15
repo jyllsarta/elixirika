@@ -1,41 +1,25 @@
-<template lang="pug">
-  .ranking
-    ._back(@click="closeMenu")
-    .content
-      .header
-        GeneralButton.back_button(
-          @click="closeMenu"
-          :disabled="false"
-          :flashing="false"
-          :width="'160px'"
-          :height="'40px'"
-          :color="'blue'"
-          :label="'とじる'"
-        )   
-        .title
-          | ランキング
-      .body
-        .tabs
-          RankingTab(
-            v-for="cid in [1,2,3,4]"
-            :key="cid"
-            :characterId="cid"
-            :characterName="characters[cid].name"
-            @selected="onTabClick(cid)"
-          )
-          RankingTabTotal(
-            @selected="onTabClick(-1)"
-          )
-        .rankings
-          RankingBanner.rank(
-            :characterId="characterId"
-            :characterName="characterName"
-            :rankingContent="rankingContent"
-          )
-
+<template>
+    <div class="ranking">
+        <div class="_back" @click="closeMenu"></div>
+        <div class="content">
+            <div class="header">
+                <GeneralButton class="back_button" @click="closeMenu" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'とじる'"> </GeneralButton>
+                <div class="title">ランキング</div>
+            </div>
+            <div class="body">
+                <div class="tabs">
+                    <RankingTab v-for="cid in [1,2,3,4]" :key="cid" :characterId="cid" :characterName="characters[cid].name" @selected="onTabClick(cid)"></RankingTab>
+                    <RankingTabTotal @selected="onTabClick(-1)"></RankingTabTotal>
+                </div>
+                <div class="rankings">
+                    <RankingBanner class="rank" :characterId="characterId" :characterName="characterName" :rankingContent="rankingContent"></RankingBanner>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import axios from "axios";
   import store from "./packs/store";

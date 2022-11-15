@@ -1,44 +1,61 @@
-<template lang="pug">
-  .game(v-if="model")
-    .background
-      .color(:style="styleBackground")
-      .image(:style="styleBackgroundImage")
-    .center_board.object
-      CenterBoard(:board="model.board", :model="model")
-    .support_character.object
-      SupportCharacter(:model="model" :gameStarted="gameStarted")
-    .support_character_message.object
-      SupportCharacterMessage(:model="model" :gameStarted="gameStarted")
-    .support_character_ability.object
-      SupportCharacterAbilityBase(:model="model" :character="model.character" @guiEvent="onGuiEvent")
-    .staged_field.object
-      StagedField(:stagedField="model.stagedField", :model="model")
-    .star_palette.object
-      StarPalette(:model="model")
-    .hand.object
-      Hand(:hand="model.hand" @guiEvent="onGuiEvent", :model="model")
-    .black_board.object
-      BlackBoard(:model="model")
-    .card_game_panel.object
-      CardGamePanel(:model="model" @guiEvent="onGuiEvent")
-    .star_palette_effect.object
-      StarPaletteEffect(:model="model")
-    .in_game_menu.object
-      InGameMenu(@guiEvent="onGuiEvent" :model="model")
-    .game_end_popup.object
-      GameEndPopup(:model="model" @guiEvent="onGuiEvent" v-if="isStalemate" )
-    .challenge_clear_popup.object
-      ChallengeClearPopup(:model="model")
-    .keyboard_help_popup.object
-      KeyboardHelpPopup(v-if="$store.state.showsKeyboardHelp")
-    .game_start_popup.object
-      GameStartPopup(:model="model" @startGame="startGame" :gameStarted="gameStarted")
-    KeyHandler(:controller="controller")
-    GuiHandler(:controller="controller" @initiate="registerGuiHandler"  @loadScene="loadScene")
-    InGameSoundManager(:model="model")
+<template>
+    <div class="game" v-if="model">
+        <div class="background">
+            <div class="color" :style="styleBackground"></div>
+            <div class="image" :style="styleBackgroundImage"></div>
+        </div>
+        <div class="center_board object">
+            <CenterBoard :board="model.board" :model="model"></CenterBoard>
+        </div>
+        <div class="support_character object">
+            <SupportCharacter :model="model" :gameStarted="gameStarted"></SupportCharacter>
+        </div>
+        <div class="support_character_message object">
+            <SupportCharacterMessage :model="model" :gameStarted="gameStarted"></SupportCharacterMessage>
+        </div>
+        <div class="support_character_ability object">
+            <SupportCharacterAbilityBase :model="model" :character="model.character" @guiEvent="onGuiEvent"></SupportCharacterAbilityBase>
+        </div>
+        <div class="staged_field object">
+            <StagedField :stagedField="model.stagedField" :model="model"></StagedField>
+        </div>
+        <div class="star_palette object">
+            <StarPalette :model="model"></StarPalette>
+        </div>
+        <div class="hand object">
+            <Hand :hand="model.hand" @guiEvent="onGuiEvent" :model="model"></Hand>
+        </div>
+        <div class="black_board object">
+            <BlackBoard :model="model"></BlackBoard>
+        </div>
+        <div class="card_game_panel object">
+            <CardGamePanel :model="model" @guiEvent="onGuiEvent"></CardGamePanel>
+        </div>
+        <div class="star_palette_effect object">
+            <StarPaletteEffect :model="model"></StarPaletteEffect>
+        </div>
+        <div class="in_game_menu object">
+            <InGameMenu @guiEvent="onGuiEvent" :model="model"></InGameMenu>
+        </div>
+        <div class="game_end_popup object">
+            <GameEndPopup :model="model" @guiEvent="onGuiEvent" v-if="isStalemate"></GameEndPopup>
+        </div>
+        <div class="challenge_clear_popup object">
+            <ChallengeClearPopup :model="model"></ChallengeClearPopup>
+        </div>
+        <div class="keyboard_help_popup object">
+            <KeyboardHelpPopup v-if="$store.state.showsKeyboardHelp"></KeyboardHelpPopup>
+        </div>
+        <div class="game_start_popup object">
+            <GameStartPopup :model="model" @startGame="startGame" :gameStarted="gameStarted"></GameStartPopup>
+        </div>
+        <KeyHandler :controller="controller"></KeyHandler>
+        <GuiHandler :controller="controller" @initiate="registerGuiHandler" @loadScene="loadScene"></GuiHandler>
+        <InGameSoundManager :model="model"></InGameSoundManager>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
     import Vue from 'vue';
     import SupportCharacter from "./SupportCharacter.vue"
     import StarPalette from "./StarPalette.vue"

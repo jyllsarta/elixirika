@@ -1,23 +1,22 @@
-<template lang="pug">
-  .star_palette
-    .background.with_drop_shadow
-      img(src="/images/square/svg/star_palette3.svg")
-    .container
-      .star(v-for="param in params", :class="starClass(param)")
-        .pattern_flash(v-if="model.starPalette.isSatisfied(param)")
-        .pattern_flash2(v-if="model.starPalette.isSatisfied(param)")
-        .text
-          | {{stringExpression(param)}}
-    .progress
-      .current
-        | {{ currentProgressCache }}
-      .sep
-        | /
-      .total
-        | {{ totalProgress }}
+<template>
+    <div class="star_palette">
+        <div class="background with_drop_shadow"><img src="/images/square/svg/star_palette3.svg" /></div>
+        <div class="container">
+            <div class="star" v-for="param in params" :class="starClass(param)">
+                <div class="pattern_flash" v-if="model.starPalette.isSatisfied(param)"></div>
+                <div class="pattern_flash2" v-if="model.starPalette.isSatisfied(param)"></div>
+                <div class="text">{{stringExpression(param)}}</div>
+            </div>
+        </div>
+        <div class="progress">
+            <div class="current">{{ currentProgressCache }}</div>
+            <div class="sep">/</div>
+            <div class="total">{{ totalProgress }}</div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model";
   import store from "./packs/store";

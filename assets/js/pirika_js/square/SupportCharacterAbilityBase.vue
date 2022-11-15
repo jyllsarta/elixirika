@@ -1,17 +1,21 @@
-<template lang="pug">
-  .area.with_shadow
-    .abilities(v-if="character.id === 1")
-      SupportCharacterAbilityCharacter1(:character="character" :model="model" @guiEvent="eventsUp")
-    .abilities(v-if="character.id === 2")
-      SupportCharacterAbilityCharacter2(:character="character" :model="model" @guiEvent="eventsUp")
-    .abilities(v-if="character.id === 3")
-      SupportCharacterAbilityCharacter3(:character="character" :model="model" @guiEvent="eventsUp")
-    .abilities(v-if="character.id === 4")
-      SupportCharacterAbilityCharacter4(:character="character" :model="model" @guiEvent="eventsUp")
-
+<template>
+    <div class="area with_shadow">
+        <div class="abilities" v-if="character.id === 1">
+            <SupportCharacterAbilityCharacter1 :character="character" :model="model" @guiEvent="eventsUp"></SupportCharacterAbilityCharacter1>
+        </div>
+        <div class="abilities" v-if="character.id === 2">
+            <SupportCharacterAbilityCharacter2 :character="character" :model="model" @guiEvent="eventsUp"></SupportCharacterAbilityCharacter2>
+        </div>
+        <div class="abilities" v-if="character.id === 3">
+            <SupportCharacterAbilityCharacter3 :character="character" :model="model" @guiEvent="eventsUp"></SupportCharacterAbilityCharacter3>
+        </div>
+        <div class="abilities" v-if="character.id === 4">
+            <SupportCharacterAbilityCharacter4 :character="character" :model="model" @guiEvent="eventsUp"></SupportCharacterAbilityCharacter4>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import SupportCharacterAbilityCharacter1 from "./SupportCharacterAbilityCharacter1.vue"
   import SupportCharacterAbilityCharacter2 from "./SupportCharacterAbilityCharacter2.vue"

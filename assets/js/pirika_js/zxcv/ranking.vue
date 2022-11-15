@@ -1,27 +1,20 @@
-<template lang="pug">
-    table.ranking
-      tr
-        th.rank_index
-          | RANK
-        th
-          | NAME
-        th
-          | TOTAL
-        th
-          | HIT
-        th
-          | SPEED
-      tr.rank(v-for='rank in ranking')
-        td.rank_index
-          | {{ranking.indexOf(rank) + 1}}
-        td
-          | {{rank.username}}
-        td
-          | {{rank.total_score}}
-        td
-          | {{rank.score}}
-        td
-          | {{rank.speed_score === -1 ? '0' : rank.speed_score}}
+<template>
+    <table class="ranking">
+        <tr>
+            <th class="rank_index">RANK</th>
+            <th>NAME</th>
+            <th>TOTAL</th>
+            <th>HIT</th>
+            <th>SPEED</th>
+        </tr>
+        <tr class="rank" v-for="rank in ranking">
+            <td class="rank_index">{{ranking.indexOf(rank) + 1}}</td>
+            <td>{{rank.username}}</td>
+            <td>{{rank.total_score}}</td>
+            <td>{{rank.score}}</td>
+            <td>{{rank.speed_score === -1 ? '0' : rank.speed_score}}</td>
+        </tr>
+    </table>
 </template>
 
 <script>

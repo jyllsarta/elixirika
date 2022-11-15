@@ -1,11 +1,10 @@
-
-<template lang="pug">
-  .scene
-    .title(@click="proceed")
-      | メニューです
+<template>
+    <div class="scene">
+        <div class="title" @click="proceed">メニューです</div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
 
   export default Vue.extend({

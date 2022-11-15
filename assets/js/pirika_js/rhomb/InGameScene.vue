@@ -1,24 +1,25 @@
-
-<template lang="pug">
-  .scene
-    .screen
-      GUIHandler(:model="model", :controller="controller")
-      EnemyStats.enemy_stats.component(:model="model")
-      EnemyCommands.enemy_commands.component(:model="model")
-      EnemyImage.enemy.component
-      PlayerImage.player.component
-      LockScreen.lock_screen.component(:model="model")
-      Pointer.pointer.component(:model="model")
-      Bullets.bullets.component(:model="model")
-      PlayerUI.player_ui.component(:model="model")
-      DamageNumber.damage_number.component(v-if="currentPhase == 'LOCK'", :model="model")
-      GameStartDialog.full_screen.component(v-if="currentPhase == 'START'", :model="model")
-      GameEndDialog.full_screen.component(v-if="model.isGameOver", :model="model")
-      DebugUI.debug_ui.component(:model="model")
-      InGameSoundManager(:model="model")
+<template>
+    <div class="scene">
+        <div class="screen">
+            <GUIHandler :model="model" :controller="controller"></GUIHandler>
+            <EnemyStats class="enemy_stats component" :model="model"></EnemyStats>
+            <EnemyCommands class="enemy_commands component" :model="model"></EnemyCommands>
+            <EnemyImage class="enemy component"></EnemyImage>
+            <PlayerImage class="player component"></PlayerImage>
+            <LockScreen class="lock_screen component" :model="model"></LockScreen>
+            <Pointer class="pointer component" :model="model"></Pointer>
+            <Bullets class="bullets component" :model="model"></Bullets>
+            <PlayerUI class="player_ui component" :model="model"></PlayerUI>
+            <DamageNumber class="damage_number component" v-if="currentPhase == 'LOCK'" :model="model"></DamageNumber>
+            <GameStartDialog class="full_screen component" v-if="currentPhase == 'START'" :model="model"></GameStartDialog>
+            <GameEndDialog class="full_screen component" v-if="model.isGameOver" :model="model"></GameEndDialog>
+            <DebugUI class="debug_ui component" :model="model"></DebugUI>
+            <InGameSoundManager :model="model"></InGameSoundManager>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Model from "./packs/model";
   import Controller from "./packs/controller";

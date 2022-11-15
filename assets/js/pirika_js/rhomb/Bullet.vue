@@ -1,15 +1,15 @@
-
-<template lang="pug">
-  .bullet
-    BulletRed(v-if="type === 'red'")
-    BulletCyan(v-if="type === 'cyan'")
-    BulletYellow(v-if="type === 'yellow'")
-    BulletBonus(v-if="type === 'bonus'")
-    BulletSpecial(v-if="type === 'special'")
-    .mark(v-if="markedAt !== null")
+<template>
+    <div class="bullet">
+        <BulletRed v-if="type === 'red'"></BulletRed>
+        <BulletCyan v-if="type === 'cyan'"></BulletCyan>
+        <BulletYellow v-if="type === 'yellow'"></BulletYellow>
+        <BulletBonus v-if="type === 'bonus'"></BulletBonus>
+        <BulletSpecial v-if="type === 'special'"></BulletSpecial>
+        <div class="mark" v-if="markedAt !== null"></div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import BulletRed from "./BulletRed.vue";
   import BulletCyan from "./BulletCyan.vue";

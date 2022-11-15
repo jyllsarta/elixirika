@@ -1,19 +1,14 @@
-
-<template lang="pug">
-  .field
-    canvas.lines(ref="canvas" width="1200" height="800")
-    .bullets
-      .bullet
-        Bullet(
-          v-for="bullet in bullets"
-          :key="bullet.id"
-          :style="bulletStyle(bullet)"
-          :type="bullet.type"
-          :marked-at="bullet.markedAt"
-        )
+<template>
+    <div class="field"><canvas class="lines" ref="canvas" width="1200" height="800"></canvas>
+        <div class="bullets">
+            <div class="bullet">
+                <Bullet v-for="bullet in bullets" :key="bullet.id" :style="bulletStyle(bullet)" :type="bullet.type" :marked-at="bullet.markedAt"></Bullet>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script lang="javascript">
+<script>
   import Vue from 'vue';
   import Bullet from "./Bullet.vue";
   import Model from "./packs/model";

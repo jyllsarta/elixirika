@@ -1,11 +1,14 @@
-<template lang="pug">
-  .frame_window
-    transition-group.frames(name='notes', tag='div')
-      .frame.notes-item(v-bind:key='note.id', v-for='note in notes')
-        note(v-bind:note='note', :position='0b0001', :index='notes.indexOf(note)')
-        note(v-bind:note='note', :position='0b0010', :index='notes.indexOf(note)')
-        note(v-bind:note='note', :position='0b0100', :index='notes.indexOf(note)')
-        note(v-bind:note='note', :position='0b1000', :index='notes.indexOf(note)')
+<template>
+    <div class="frame_window">
+        <transition-group class="frames" name="notes" tag="div">
+            <div class="frame notes-item" v-bind:key="note.id" v-for="note in notes">
+                <note v-bind:note="note" :position="0b0001" :index="notes.indexOf(note)"></note>
+                <note v-bind:note="note" :position="0b0010" :index="notes.indexOf(note)"></note>
+                <note v-bind:note="note" :position="0b0100" :index="notes.indexOf(note)"></note>
+                <note v-bind:note="note" :position="0b1000" :index="notes.indexOf(note)"></note>
+            </div>
+        </transition-group>
+    </div>
 </template>
 
 <script>

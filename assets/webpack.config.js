@@ -65,10 +65,6 @@ module.exports = (env, options) => {
             },
           ],
         },
-        { 
-          test: /\.pug$/,
-          loader: 'pug-plain-loader'
-        },
         {
           test: /\.js$/,
           exclude: /node_modules/,
