@@ -21,12 +21,12 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Model from './packs/model';
   import gsap from 'gsap';
   import store from './packs/store';
 
-  export default Vue.extend({
+  export default({
     props: {
       model: Model,
       gameStarted: Boolean,

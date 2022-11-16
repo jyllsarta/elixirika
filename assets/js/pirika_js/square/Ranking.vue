@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import axios from "axios";
   import store from "./packs/store";
   import GeneralButton from "./GeneralButton.vue";
@@ -29,7 +29,7 @@
   import RankingTabTotal from "./RankingTabTotal.vue";
   import CharacterFactory from "./packs/characterFactory";
 
-  export default Vue.extend({
+  export default({
     store,
     data(){
       const characterFactory = new CharacterFactory();

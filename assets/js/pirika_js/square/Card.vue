@@ -28,11 +28,11 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Card from "./packs/card";
   import store from "./packs/store";
 
-  export default Vue.extend({
+  export default({
     store,
     props: {
       card: Card,

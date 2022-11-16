@@ -16,12 +16,12 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import GeneralButton from "./GeneralButton.vue";
   import store from "./packs/store";
   import Model from "./packs/model";
 
-  export default Vue.extend({
+  export default({
     data(){
       return {
         showingMenu: false,

@@ -48,7 +48,7 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import CharacterBanner from "./CharacterBanner.vue";
   import ClearStateTile from "./ClearStateTile.vue";
   import MainMenuDetailDialog from "./MainMenuDetailDialog.vue";
@@ -60,7 +60,7 @@
   import axios from "axios";
   import store from "./packs/store";
 
-  export default Vue.extend({
+  export default({
     store,
     components: {
       CharacterBanner,

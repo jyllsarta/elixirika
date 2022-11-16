@@ -13,10 +13,10 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Card from "./packs/card"
 
-  export default Vue.extend({
+  export default({
     props: {
       card: Card,
       isLast: Boolean,

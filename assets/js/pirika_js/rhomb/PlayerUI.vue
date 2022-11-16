@@ -50,10 +50,10 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Model from "./packs/model";
 
-  export default Vue.extend({
+  export default({
     props: {
       model: Model,
     },

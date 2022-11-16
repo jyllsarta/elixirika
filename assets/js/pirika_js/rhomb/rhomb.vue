@@ -18,14 +18,14 @@
 </template>
 
 <script>
-    import Vue from 'vue';
+    
     import TitleScene from "./TitleScene.vue";
     import MainMenuScene from "./MainMenuScene.vue";
     import InGameScene from "./InGameScene.vue";
     import GlobalSoundManager from "./GlobalSoundManager.vue";
     import store from "./packs/store";
 
-    export default Vue.extend({
+    export default({
       components: {
         TitleScene,
         MainMenuScene,

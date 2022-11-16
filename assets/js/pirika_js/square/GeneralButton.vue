@@ -3,10 +3,10 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import store from "./packs/store";
 
-  export default Vue.extend({
+  export default({
     props: {
       label: String,
       color: String,

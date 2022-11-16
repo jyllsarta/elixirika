@@ -36,11 +36,11 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import store from "./packs/store";
   import GeneralButton from "./GeneralButton.vue";
 
-  export default Vue.extend({
+  export default({
     store,
     components: {
       GeneralButton,

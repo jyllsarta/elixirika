@@ -21,13 +21,13 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Model from "./packs/model";
   import ChallengeText from "./ChallengeText.vue";
   import NumeratableNumber from "./NumeratableNumber.vue";
   import gsap from 'gsap';
 
-  export default Vue.extend({
+  export default({
     props: {
       model: Model,
     },

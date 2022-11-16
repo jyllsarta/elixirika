@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import store from "./packs/store";
   import PlayGuideContentCharacter1 from "./PlayGuideContentCharacter1.vue";
   import PlayGuideContentCharacter2 from "./PlayGuideContentCharacter2.vue";
@@ -28,7 +28,7 @@
   import PlayGuideContentCharacter4 from "./PlayGuideContentCharacter4.vue";
   import CharacterFactory from "./packs/characterFactory";
 
-  export default Vue.extend({
+  export default({
     store,
     components: {
       PlayGuideContentCharacter1,

@@ -56,7 +56,7 @@
 </template>
 
 <script>
-    import Vue from 'vue';
+    
     import SupportCharacter from "./SupportCharacter.vue"
     import StarPalette from "./StarPalette.vue"
     import SupportCharacterMessage from "./SupportCharacterMessage.vue"
@@ -78,7 +78,7 @@
     import InGameSoundManager from "./InGameSoundManager.vue"
     import store from "./packs/store"
 
-    export default Vue.extend({
+    export default({
     store,
     components: {
       SupportCharacter,

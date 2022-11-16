@@ -16,10 +16,10 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue"
 
-  export default Vue.extend({
+  export default({
     data(){
       return {
       };

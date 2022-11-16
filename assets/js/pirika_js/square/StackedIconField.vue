@@ -11,10 +11,10 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Field from './packs/field';
 
-  export default Vue.extend({
+  export default({
     props: {
       field: Field,
       emphasisTopCards: Boolean,

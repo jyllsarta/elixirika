@@ -7,13 +7,13 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Card from "./Card.vue"
   import StagedField from "./packs/stagedField";
   import Model from "./packs/model";
   import Constants from "./packs/constants";
 
-  export default Vue.extend({
+  export default({
     data(){
       return {
         gap: 200,

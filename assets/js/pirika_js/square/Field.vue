@@ -5,12 +5,12 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import FieldCard from "./FieldCard.vue";
   import Field from './packs/field';
   import draggable from "vuedraggable";
 
-  export default Vue.extend({
+  export default({
     props: {
       field: Field,
       selected: Boolean,

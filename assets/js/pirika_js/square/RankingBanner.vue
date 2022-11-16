@@ -17,11 +17,11 @@
 </template>
 
 <script lang="v">
-  import Vue from 'vue';
+  
   import store from "./packs/store";
   import jsSHA from 'jssha';
 
-  export default Vue.extend({
+  export default({
     store,
     props: {
       characterId: Number,

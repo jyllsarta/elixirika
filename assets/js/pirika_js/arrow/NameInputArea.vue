@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 import jsSHA from "jssha"; // こいつがjsじゃないと動かないのでこのファイルだけjsにする
 export default {
   name: "NameInputArea",

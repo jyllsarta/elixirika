@@ -2,12 +2,12 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import store from "./packs/store";
   import Model from "./packs/model";
   import Controller from "./packs/controller";
 
-  export default Vue.extend({
+  export default({
     store,
     props: {
       model: Model,

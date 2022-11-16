@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import gsap from 'gsap';
   import store from './packs/store';
 
-  export default Vue.extend({
+  export default({
     store,
     data(){
       return {

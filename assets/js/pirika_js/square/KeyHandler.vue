@@ -3,12 +3,12 @@
 </template>
 
 <script>
-    import Vue from 'vue';
+    
     import Keyboard from "./packs/keyboard";
     import Controller from "./packs/controller";
     import store from "./packs/store";
 
-    export default Vue.extend({
+    export default({
     store,
     props: {
       controller: Controller

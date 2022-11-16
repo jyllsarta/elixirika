@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Card from "./Card.vue"
   import Hand from "./packs/hand"
   import draggable from 'vuedraggable'
@@ -15,7 +15,7 @@
   import Model from './packs/model';
   import store from './packs/store.js';
 
-  export default Vue.extend({
+  export default({
     props: {
       hand: Hand,
       model: Model

@@ -10,14 +10,13 @@
 </template>
 
 <script>
-  import Vue from 'vue';
   import BulletRed from "./BulletRed.vue";
   import BulletCyan from "./BulletCyan.vue";
   import BulletYellow from "./BulletYellow.vue";
   import BulletBonus from "./BulletBonus.vue";
   import BulletSpecial from "./BulletSpecial.vue";
 
-  export default Vue.extend({
+  export default({
     components: {
       BulletRed,
       BulletCyan,

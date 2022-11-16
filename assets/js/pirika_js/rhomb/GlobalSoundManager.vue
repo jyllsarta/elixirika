@@ -14,12 +14,12 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import axios from 'axios';
   import GeneralButton from "./GeneralButton.vue";
   import store from "./packs/store";
 
-  export default Vue.extend({
+  export default({
     components: {
       GeneralButton,
     },

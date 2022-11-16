@@ -8,9 +8,9 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
 
-  export default Vue.extend({
+  export default({
     props: {
       challenge: Object,
       isCleared: Boolean,

@@ -3,11 +3,11 @@
 </template>
 
 <script lang="v">
-  import Vue from 'vue';
+  
   import Controller from "./packs/controller";
   import store from "./packs/store";
 
-  export default Vue.extend({
+  export default({
     props: {
       controller: Controller
     },

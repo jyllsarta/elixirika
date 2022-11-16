@@ -16,13 +16,13 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import SupportCharacterAbilityCharacter1 from "./SupportCharacterAbilityCharacter1.vue"
   import SupportCharacterAbilityCharacter2 from "./SupportCharacterAbilityCharacter2.vue"
   import SupportCharacterAbilityCharacter3 from "./SupportCharacterAbilityCharacter3.vue"
   import SupportCharacterAbilityCharacter4 from "./SupportCharacterAbilityCharacter4.vue"
 
-  export default Vue.extend({
+  export default({
     components: {
       SupportCharacterAbilityCharacter1,
       SupportCharacterAbilityCharacter2,

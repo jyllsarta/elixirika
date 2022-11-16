@@ -16,13 +16,13 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Model from './packs/model';
   import StackedIconField from "./StackedIconField.vue";
   import GeneralButton from "./GeneralButton.vue";
   import store from "./packs/store";
 
-  export default Vue.extend({
+  export default({
     store,
     data: function(){
       return {

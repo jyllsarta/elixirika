@@ -11,10 +11,10 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import store from "./packs/store";
 
-  export default Vue.extend({
+  export default({
     store,
     props: {
       // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Model from "./packs/model";
   import Controller from "./packs/controller";
   import store from "./packs/store";
@@ -39,7 +39,7 @@
   import PlayerUI from "./PlayerUI.vue";
   import Pointer from "./Pointer.vue";
 
-  export default Vue.extend({
+  export default({
     store,
     components: {
       Bullets,

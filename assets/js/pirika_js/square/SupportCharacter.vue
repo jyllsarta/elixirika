@@ -10,11 +10,11 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Model from "./packs/model";
   import draggable from "vuedraggable";
 
-  export default Vue.extend({
+  export default({
     props: {
       model: Model,
       gameStarted: Boolean,

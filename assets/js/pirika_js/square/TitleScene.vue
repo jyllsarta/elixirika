@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import NameArea from "./NameArea.vue";
   import gsap from 'gsap';
   import store from "./packs/store";
@@ -40,7 +40,7 @@
   import Credit from "./Credit.vue";
   import Ranking from "./Ranking.vue";
 
-  export default Vue.extend({
+  export default({
     components: {
       NameArea,
       GeneralButton,

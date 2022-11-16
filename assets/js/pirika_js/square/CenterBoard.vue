@@ -13,12 +13,12 @@
 </template>
 
 <script>
-  import Vue from 'vue';
+  
   import Field from "./Field.vue"
   import Board from "./packs/board"
   import Model from "./packs/model"
 
-  export default Vue.extend({
+  export default({
     props: {
       board: Board,
       model: Model,

@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import jsSHA from 'jssha'
 export default {
   data: function(){
