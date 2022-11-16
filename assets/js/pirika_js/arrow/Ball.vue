@@ -3,7 +3,7 @@
     <div class="ball" :style="{ transform: 'translate(' + x + 'px,' + y + 'px)'}" :class="[`color_${colorId}`]"></div>
 </template>
 
-<script lang="ts">
+<script>
   export default {
     name: "Ball",
     props: [

@@ -39,7 +39,10 @@
             </div>
             <div class="ranking_button" v-if="isTitleScene">
                 <transition name="left-show-in">
-                    <div class="hide_ranking_area" v-if="showingRanking" @click="hideRanking"></div><img class="show_ranking_button" v-if="!showingRanking" @click="showRanking" src="/images/arrow/ranking.png" />
+                    <div class="hide_ranking_area" v-if="showingRanking" @click="hideRanking" />
+                </transition>
+                <transition name="left-show-in">
+                    <img class="show_ranking_button" v-if="!showingRanking" @click="showRanking" src="/images/arrow/ranking.png" />
                 </transition>
             </div>
         </div>
@@ -57,9 +60,8 @@
     import NameInputArea from "./NameInputArea.vue";
     import RemoveScore from "./RemoveScore.vue";
     import Ranking from "./Ranking.vue";
-    import Vue from 'vue'
 
-    export default Vue.extend({
+    export default ({
     components: {
       Ball,
       Pointer,

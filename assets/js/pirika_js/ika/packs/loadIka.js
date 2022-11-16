@@ -5,12 +5,12 @@
 // like app/views/layouts/application.html.erb.
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from '../ika.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   // デバッグの簡略化のため、グローバルに代入してしまう
-  window.ika = new Vue({
+  window.ika = createApp({
     render: h => h(App)
   }).$mount();
   document.body.appendChild(ika.$el);

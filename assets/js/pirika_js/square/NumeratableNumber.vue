@@ -2,7 +2,7 @@
     <div class="_number" :class="{changing}">{{Math.floor(currentNumber)}}</div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
   props: {
     number: Number,

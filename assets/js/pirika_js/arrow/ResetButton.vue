@@ -1,7 +1,7 @@
 <template>
     <div class="game_start_button" @click="$emit('resetGame')"></div>
 </template>
-<script lang="ts">
+<script>
   export default {
     name: "ResetButton",
   }

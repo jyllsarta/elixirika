@@ -3,7 +3,7 @@
         <div class="remove_score" :style="{ transform: 'translate(' + x + 'px,' + y + 'px)'}">+{{value}}</div>
     </transition>
 </template>
-<script lang="ts">
+<script>
   export default {
     name: "RemoveScore",
     props: [

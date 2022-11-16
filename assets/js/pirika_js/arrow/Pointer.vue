@@ -1,4 +1,4 @@
-<template functional>
+<template>
     <div class="pointer" :style="{ transform: 'translate(' + props.x + 'px,' + props.y + 'px)', pointerEvents: 'none'}">
         <div class="player" :style="{ transform: 'scale('+ props.hpRate +')' }"></div>
         <div class="discharge_circle effective" v-if="props.isCharging"></div>
@@ -7,7 +7,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
   export default {
     name: "Pointer",
     props: [
