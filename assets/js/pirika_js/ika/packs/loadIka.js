@@ -10,10 +10,10 @@ import App from '../ika.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   // デバッグの簡略化のため、グローバルに代入してしまう
-  window.ika = createApp({
-    render: h => h(App)
-  }).$mount();
-  document.body.appendChild(ika.$el);
+  const app = createApp(App);
+
+  window.ika = app;
+  app.mount("#app");
 });
 
 // The above code uses Vue without the compiler, which means you cannot

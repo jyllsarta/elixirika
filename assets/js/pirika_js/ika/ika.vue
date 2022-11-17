@@ -41,12 +41,12 @@
         this.shuffle();
       },
       stop(i){
-        this.$set(this.shuffling, i, false);
+        this.shuffling[i] = false;
       },
       shuffle(){
         for(let i of [0,1,2]){
           if(this.shuffling[i]){
-            this.$set(this.wordIndex, i, this.rand(3));
+            this.wordIndex[i] = this.rand(3);
           }
         }
       },
@@ -55,7 +55,7 @@
       },
       restart(){
         for(let i of [0,1,2]){
-          this.$set(this.shuffling, i, true);
+          this.shuffling[i] = true;
         }
       },
       tweetingMessage(){

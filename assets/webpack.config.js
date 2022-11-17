@@ -1,5 +1,6 @@
 const path = require('path');
 const glob = require('glob');
+const webpack = require('webpack');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const {VueLoaderPlugin} = require("vue-loader")
@@ -8,6 +9,11 @@ module.exports = (env, options) => {
   const devMode = options.mode !== 'production';
 
   return {
+    resolve: {
+      alias: {
+        vue: '@vue/compat'
+      }
+    },
     optimization: {
       minimizer: [
         new CssMinimizerPlugin(),
@@ -34,7 +40,14 @@ module.exports = (env, options) => {
           use: [
             {
               loader: "vue-loader",
-              options: { sourceMap: true },
+              options: {
+                compilerOptions: {
+                  compatConfig: {
+                    MODE: 2
+                  }
+                },
+                sourceMap: true,
+              },
             },
           ]
         },
@@ -56,7 +69,11 @@ module.exports = (env, options) => {
     },
     plugins: [
       new VueLoaderPlugin(),
-      new CopyWebpackPlugin({patterns: [{ from: 'static', to: '../' }]})
+      new CopyWebpackPlugin({patterns: [{ from: 'static', to: '../' }]}),
+      new webpack.DefinePlugin({
+        __VUE_OPTIONS_API__: true,
+        __VUE_PROD_DEVTOOLS__: false
+      })
     ]
   }
 };
