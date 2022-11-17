@@ -1,5 +1,5 @@
 <template>
-    <transition-group class="spark-list" name="spark-list">
+    <transition-group class="spark-list" name="spark-list" tag="span">
         <div class="spark" v-for="spark in sparks" v-bind:key="spark.id">+1</div>
     </transition-group>
 </template>
@@ -15,7 +15,6 @@
 
 <style lang='scss' scoped>
   @import "stylesheets/constants";
-
   .spark-list{
     position: absolute;
     left: 25%;

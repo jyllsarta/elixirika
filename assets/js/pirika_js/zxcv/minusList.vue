@@ -1,7 +1,7 @@
 <template>
-    <transition-group class="minus-list" name="minus-list">
-        <div class="minus" v-for="minus in minuses" v-bind:key="minus.id">-1</div>
-    </transition-group>
+  <transition-group class="minus-list" name="minus-list" tag="span">
+      <div class="minus" v-for="minus in minuses" v-bind:key="minus.id">-1</div>
+  </transition-group>
 </template>
 
 <script>

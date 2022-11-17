@@ -10,10 +10,9 @@ import App from '../zxcv.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   // デバッグの簡略化のため、グローバルに代入してしまう
-  window.zxcv = createApp({
-    render: h => h(App)
-  }).$mount();
-  document.body.appendChild(zxcv.$el);
+  const app = createApp(App);
+  window.zxcv = app;
+  app.mount("#app");
 });
 
 // The above code uses Vue without the compiler, which means you cannot

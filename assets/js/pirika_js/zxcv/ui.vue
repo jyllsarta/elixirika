@@ -15,7 +15,7 @@
             <div class="game_over" v-if="gameState === constants.gameStates.gameOver">GAME OVER</div>
         </transition>
         <transition name="bounce">
-            <div class="title" v-if="gameState === constants.gameStates.title &amp;&amp; loadCompleted">Z X C V
+            <div class="title" v-if="gameState === constants.gameStates.title && loadCompleted">Z X C V<br>
                 kick zxcv to start</div>
         </transition>
         <transition name="bounce"><img class="tweet" src="/images/zxcv/twitter.png" v-on:click="tweet" v-if="showingTweetButton" /></transition>
