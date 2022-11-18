@@ -128,6 +128,8 @@ class ArrowLogic{
     this.timeScore += timeDelta;
     this.healEventTimer += timeDelta;
 
+    this.sweepRemovedBalls();
+
     if(Constants.healIntervalTimeSeconds < this.healEventTimer){
       this.healEventTimer -= Constants.healIntervalTimeSeconds;
       this.heal(Constants.healAmountPerEvent);
@@ -138,6 +140,10 @@ class ArrowLogic{
         this.soundManager.play("discharge_available");
       }
     }
+  }
+
+  sweepRemovedBalls(){
+    this.balls = this.balls.filter(ball=> ball.removedAt === null || this.timeScore < ball.removedAt + 1);
   }
 
   currentBallSpawnInterval(){
@@ -153,6 +159,9 @@ class ArrowLogic{
 
   moveBall(timeDelta){
     for(let ball of this.balls){
+      if(ball.removedAt !== null){
+        continue;
+      }
       ball.x += ball.vx * timeDelta;
       ball.y += ball.vy * timeDelta;
       ball.reflect();
@@ -164,6 +173,9 @@ class ArrowLogic{
     // パフォーマンスによる問題が出たら枝刈りを頑張る
     // 時刻ベースにしたらここもダメージ量をTimeDeltaに比例させること
     for(let ball of this.balls){
+      if(ball.removedAt !== null){
+        continue;
+      }
       let distance = this.distance(this.pointer.x, this.pointer.y, ball.x, ball.y);
       if(distance < Constants.shaveDamageRadius * (this.hpRate() * Constants.ratioOfHpRateToHitBox + Constants.minimumHitBoxSizeRate)){
         this.hp -= Constants.shaveDamageRate * timeDelta;
@@ -222,21 +234,20 @@ class ArrowLogic{
   }
 
   discharge(x,y,r){
-    let not_removed = [];
+    let removedCount = 0;
     for(let ball of this.balls){
       let distance = this.distance(x, y, ball.x, ball.y);
-      if(distance > r){
-        not_removed.push(ball);
+      if(distance < r){
+        ball.removedAt = this.timeScore;
+        ball.removedCount++;
       }
     }
-    const removedCount = this.balls.length - not_removed.length;
+
     this.lastRemoveResult = removedCount;
     this.removeScore += removedCount;
     this.lastRemovedPositionX = this.pointer.x + Math.random() * 0.2 - 0.1; // 横方向は若干ランダム
     this.lastRemovedPositionY = this.pointer.y - 0.1; // 消去リザルトはちょっと上に表示
     this.hp += removedCount * Constants.dischargeRemoveHealPoint;
-
-    this.balls = not_removed;
   }
 
   reset(){

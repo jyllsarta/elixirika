@@ -6,6 +6,7 @@ class Ball{
     this.vy = vy;
     this.colorId = colorId;
     this.id = Math.floor(Math.random() * 10000000000);
+    this.removedAt = null;
   }
 
   reflect(){

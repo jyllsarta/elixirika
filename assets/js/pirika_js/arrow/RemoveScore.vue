@@ -1,6 +1,6 @@
 <template>
     <transition name="show-long">
-        <div class="remove_score" :style="{ transform: 'translate(' + x + 'px,' + y + 'px)'}">+{{value}}</div>
+        <div v-if="show" class="remove_score" :style="{ transform: 'translate(' + x + 'px,' + y + 'px)'}">+{{value}}</div>
     </transition>
 </template>
 <script>
@@ -10,6 +10,7 @@
       "x",
       "y",
       "value",
+      "show"
     ]
   }
 </script>
@@ -29,14 +30,8 @@
     font-size: $main-font-size;
     color: $accent-color;
   }
-  .show-long-enter-active {
-    transition: all 0.1s;
-  }
   .show-long-leave-active {
     transition: all 1s;
-  }
-  .show-long-enter{
-    opacity: 0;
   }
   .show-long-leave-to{
     opacity: 0;

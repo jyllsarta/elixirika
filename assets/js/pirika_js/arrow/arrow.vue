@@ -32,7 +32,7 @@
             <transition name="left-show-in">
                 <NameInputArea @setName="setName" v-if="isTitleScene"></NameInputArea>
             </transition>
-            <RemoveScore v-if="logic.isThisFrameDischargeReleased" :value="logic.lastRemoveResult" :x="Math.floor(logic.lastRemovedPositionX * gameWindowWidth)" :y="Math.floor(logic.lastRemovedPositionY * gameWindowHeight)"></RemoveScore>
+            <RemoveScore :value="logic.lastRemoveResult" :x="Math.floor(logic.lastRemovedPositionX * gameWindowWidth)" :y="Math.floor(logic.lastRemovedPositionY * gameWindowHeight)" :show="logic.isThisFrameDischargeReleased"></RemoveScore>
             <div class="ranking_area" v-if="isTitleScene">
                 <transition name="left-show-in">
                     <Ranking v-if="showingRanking" :ranking="logic.ranking"></Ranking>
