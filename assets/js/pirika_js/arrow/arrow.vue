@@ -18,9 +18,10 @@
                 <div class="high_score" v-if="isTitleScene">MAX: {{logic.highScore}}</div>
             </transition>
             <div class="background" @mousemove="updatePointerPosition"></div>
-            <transition-group class="balls" name="delay">
-                <Ball v-for="ball in logic.balls" v-bind:key="ball.id" :x="Math.floor(ball.x * gameWindowWidth)" :y="Math.floor(ball.y * gameWindowHeight)" :colorId="ball.colorId"></Ball>
-            </transition-group>
+            <!-- <transition-group class="balls" name="delay" tag="span"> があったが、意味不明なエラーが出るので一旦退避中 -->
+            <div class="balls">
+                <Ball v-for="ball in logic.balls" :key="ball.id" :ball="ball" :constants="constants"></Ball>
+            </div>
             <Pointer :x="Math.floor(logic.pointer.x * gameWindowWidth)" :y="Math.floor(logic.pointer.y * gameWindowHeight)" :hpRate="logic.hpRate()" :hp="Math.floor(logic.hp)" :initialHp="logic.initialHp" :energy="Math.min(Math.floor(logic.energy), 100)" :charge="Math.floor(logic.charge * 100)" :isCharging="logic.isCharging" :chargeRate="logic.chargeRate()" v-if="isInGameScene"></Pointer>
             <transition name="left-show-in">
                 <GameStartButton @startGame="startGame" v-if="isTitleScene"></GameStartButton>
@@ -60,8 +61,9 @@
     import NameInputArea from "./NameInputArea.vue";
     import RemoveScore from "./RemoveScore.vue";
     import Ranking from "./Ranking.vue";
-
-    export default ({
+    import { nextTick } from 'vue'
+ 
+  export default ({
     components: {
       Ball,
       Pointer,
@@ -152,6 +154,9 @@
       gameWindowHeight(){
         return Constants.gameWindowPixelSizeY;
       },
+      constants(){
+        return Constants;
+      }
     }
   })
 </script>

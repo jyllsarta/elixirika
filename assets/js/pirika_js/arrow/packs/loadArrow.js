@@ -11,10 +11,9 @@ import App from '../arrow.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   // デバッグの簡略化のため、グローバルに代入してしまう
-  window.arrow = createApp({
-    render: h => h(App)
-  }).$mount();
-  document.body.appendChild(arrow.$el);
+  const app = createApp(App);
+  window.arrow = app;
+  app.mount("#app");
 });
 
 // The above code uses Vue without the compiler, which means you cannot

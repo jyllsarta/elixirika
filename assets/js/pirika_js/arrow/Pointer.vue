@@ -1,9 +1,9 @@
 <template>
-    <div class="pointer" :style="{ transform: 'translate(' + props.x + 'px,' + props.y + 'px)', pointerEvents: 'none'}">
-        <div class="player" :style="{ transform: 'scale('+ props.hpRate +')' }"></div>
-        <div class="discharge_circle effective" v-if="props.isCharging"></div>
-        <div class="discharge_circle current" v-if="props.isCharging" :style="{ transform: 'scale('+ props.chargeRate +')' }"></div>
-        <div class="hp_area"><span class="max_hp">{{props.hp}}</span><span class="sep">/</span><span class="energy">{{props.energy}}%</span></div>
+    <div class="pointer" :style="{ transform: 'translate(' + x + 'px,' + y + 'px)', pointerEvents: 'none'}">
+        <div class="player" :style="{ transform: 'scale('+ hpRate +')' }"></div>
+        <div class="discharge_circle effective" v-if="isCharging"></div>
+        <div class="discharge_circle current" v-if="isCharging" :style="{ transform: 'scale('+ chargeRate +')' }"></div>
+        <div class="hp_area"><span class="max_hp">{{hp}}</span><span class="sep">/</span><span class="energy">{{energy}}%</span></div>
     </div>
 </template>
 

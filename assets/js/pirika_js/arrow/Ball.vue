@@ -1,15 +1,14 @@
 <template>
     <!-- この文字列結合でtranslateするのもうちょいスマートにやりたいなあ-->
-    <div class="ball" :style="{ transform: 'translate(' + x + 'px,' + y + 'px)'}" :class="[`color_${colorId}`]"></div>
+    <div class="ball" :style="{ transform: 'translate(' + (ball.x * constants.gameWindowPixelSizeY) + 'px,' + (ball.y * constants.gameWindowPixelSizeX) + 'px)'}" :class="[`color_${ball.colorId}`]"></div>
 </template>
 
 <script>
   export default {
     name: "Ball",
     props: [
-      "x",
-      "y",
-      "colorId",
+      "ball",
+      "constants",
     ],
   }
 </script>
