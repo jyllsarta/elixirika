@@ -6,7 +6,7 @@
                 <div class="index with_solid_shadow" v-for="index in [0,1,2,3]" :key="index" :field="board.fields[index]" :style="styleIndexBackground(index)"><span>{{expectedCardCount(index)}}</span><span>枚 / {{expectedScore(index)}}点</span></div>
             </div>
             <div class="fields">
-                <Field v-for="index in [0,1,2,3]" :key="index" :field="board.fields[index]" :selected="canStackCard(index)" :characterId="model.characterId"></Field>
+                <Field v-for="index in [0,1,2,3]" @guiEvent="eventsUp" :key="index" :field="board.fields[index]" :selected="canStackCard(index)" :characterId="model.characterId" :fieldIndex="index"></Field>
             </div>
         </div>
     </div>
@@ -61,6 +61,9 @@
           style.border = `2px solid var(--color-i1-${this.model.characterId})`;
         }
         return style;
+      },
+      eventsUp(params){
+        this.$emit("guiEvent", params);
       },
     },
     computed: {

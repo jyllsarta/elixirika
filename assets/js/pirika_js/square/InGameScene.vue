@@ -5,10 +5,10 @@
             <div class="image" :style="styleBackgroundImage"></div>
         </div>
         <div class="center_board object">
-            <CenterBoard :board="model.board" :model="model"></CenterBoard>
+            <CenterBoard :board="model.board" :model="model" @guiEvent="onGuiEvent"></CenterBoard>
         </div>
         <div class="support_character object">
-            <SupportCharacter :model="model" :gameStarted="gameStarted"></SupportCharacter>
+            <SupportCharacter :model="model" :gameStarted="gameStarted" @guiEvent="onGuiEvent"></SupportCharacter>
         </div>
         <div class="support_character_message object">
             <SupportCharacterMessage :model="model" :gameStarted="gameStarted"></SupportCharacterMessage>

@@ -1,5 +1,5 @@
 <template>
-    <div class="field with_solid_shadow" :id="`field-${field.index}`" :class="{selected: selected}" :style="colorSchemedStyle">
+    <div @dragover="dragover" @drop="drop" class="field with_solid_shadow" :id="`field-${field.index}`" :class="{selected: selected}" :style="colorSchemedStyle">
         <FieldCard v-for="(card, index) in field.cards" :key="card.id" :card="card" :isLast="index === field.cards.length -1" :isCompressed="shouldBeCompressed(index)" :characterId="characterId"></FieldCard>
     </div>
 </template>
@@ -13,6 +13,7 @@
       field: Field,
       selected: Boolean,
       characterId: Number,
+      fieldIndex: Number,
     },
     components: {
       FieldCard,
@@ -21,6 +22,26 @@
       shouldBeCompressed(index){
         const threshold = this.field.cards.length - 5;
         return index < threshold;
+      },
+      dragover(e){
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+      },
+      drop(e){
+        e.preventDefault();
+        if (!e.dataTransfer.items) {
+          return;
+        };
+        for (let item of e.dataTransfer.items) {
+          let { kind, type } = item;
+          if (kind === 'file') {
+            continue;
+          } 
+          if (type === 'text/plain' && kind === 'string') {
+            const cardId = e.dataTransfer.getData(type);
+            this.$emit("guiEvent", {type: "sendCard", fieldIndex: this.fieldIndex, cardId: cardId});
+          }
+        }
       }
     },
     computed: {

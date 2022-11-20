@@ -60,6 +60,7 @@
           setTimeout(()=>this.react(), 70);
         }
       },
+      // TODO: ここから下全部いらないはず
       checkMove(event){
         const {clientX, type} = event.originalEvent;
         // タッチドラッグの場合においてのみ行き先表示を判定したい

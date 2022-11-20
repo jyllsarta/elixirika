@@ -2,10 +2,12 @@
     <div class="support-character" v-if="gameStarted">
         <div class="character_animation">
             <div class="character_action" :key="currentMessage.face">
-                <div class="image_box" :class="{character_offset: characterOffset}"><img class="character with_drop_shadow" v-for="index in [1,2,3,4,5,6,7,8,9,10,11]" :class="{hidden: index !== currentMessage.face}" :src="`/images/square/characters/${model.character.id}-${index}.png`" /></div>
+                <div class="image_box" :class="{character_offset: characterOffset}">
+                    <img class="character with_drop_shadow" v-for="index in [1,2,3,4,5,6,7,8,9,10,11]" :key="index" :class="{hidden: index !== currentMessage.face}" :src="`/images/square/characters/${model.character.id}-${index}.png`" />
+                </div>
             </div>
         </div>
-        <div class="hit_box" id="support-character"></div>
+        <div @dragover="dragover" @drop="drop" class="hit_box" id="support-character"></div>
     </div>
 </template>
 
@@ -25,8 +27,30 @@
     },
     methods: {
       interact(){
+        // TODO: いらなそう
         this.actionTime++;
+      },
+      dragover(e){
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+      },
+      drop(e){
+        e.preventDefault();
+        if (!e.dataTransfer.items) {
+          return;
+        };
+        for (let item of e.dataTransfer.items) {
+          let { kind, type } = item;
+          if (kind === 'file') {
+            continue;
+          } 
+          if (type === 'text/plain' && kind === 'string') {
+            const cardId = e.dataTransfer.getData(type);
+            this.$emit("guiEvent", {type: "sendToAbility", cardId: cardId});
+          }
+        }
       }
+
     },
     computed: {
       currentMessage(){

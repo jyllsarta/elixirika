@@ -1,8 +1,16 @@
 <template>
-    <div class="card" :id="`card-${card.id}`" :class="card.viewClass() + `${touchDragging ? '' : ' not_touch'}`" @mouseenter="onHover" :style="colorSchemedStyleBackground">
+    <div 
+      draggable 
+      class="card"
+      :id="`card-${card.id}`"
+      :class="card.viewClass() + `${touchDragging ? '' : ' not_touch'}`"
+      @mouseenter="onHover"
+      :style="colorSchemedStyleBackground"
+      @dragstart="onDragStart"
+    >
         <div class="background">
-            <div class="line_ur" v-for="(x, index) in rightLineCount" :class="card.suit" :style="{left: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"></div>
-            <div class="line_ul" v-for="(x, index) in leftLineCount" :class="card.suit" :style="{right: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"></div>
+            <div class="line_ur" v-for="(x, index) in rightLineCount" :key="index" :class="card.suit" :style="{left: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"></div>
+            <div class="line_ul" v-for="(x, index) in leftLineCount"  :key="index" :class="card.suit" :style="{right: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"></div>
         </div>
         <div class="icon">
             <div class="normal_icon" v-if="card.category==='normal'">
@@ -46,6 +54,9 @@
         }
         this.$emit("hover", this.card);
         this.$store.commit("playSound", {key: "hover"});
+      },
+      onDragStart(e){
+        e.dataTransfer.setData('text/plain', this.card.id);
       }
     },
     computed: {
