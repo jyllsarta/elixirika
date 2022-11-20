@@ -9,15 +9,15 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "@vue/compat": "^3.1.0",
     "axios": "^0.21.1",
     "gsap": "^3.8.0",
     "jssha": "^2.3.1",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "vue": "^3.1.0",
-    "@vue/compat": "^3.1.0",
     "vue-loader": "^16.0.0",
-    "vuedraggable": "^2.24.3",
+    "vuedraggable": "^4.1.0",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

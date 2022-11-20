@@ -53,12 +53,15 @@
       }
     },
     watch: {
-      "model.starPalette.fields": function(newFields, oldFields){
-        if(newFields.length === 0){
-          return;
-        }
-        this.number = newFields[newFields.length - 1].cards.length || 0;
-        this.onSendToStarPalette();
+      "model.starPalette.fields": {
+          handler(newFields, oldFields){
+          if(newFields.length === 0){
+            return;
+          }
+          this.number = newFields[newFields.length - 1].cards.length || 0;
+          this.onSendToStarPalette();
+        },
+        deep: true,
       }
     }
   })

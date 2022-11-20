@@ -16,7 +16,7 @@
                 <div class="foreground_enemy_shield_hp" v-if="foregroundEnemy.shield &gt; 0" :class="hpClass(referenceCurrentShieldHp)">{{referenceCurrentShieldHp}}</div>
             </transition>
             <transition name="shield-appear"><img class="foreground_enemy_shield" v-if="foregroundEnemy.shield &gt; 0" src="/images/square/characters/barrier.png" /></transition>
-            <transition-group class="background_enemies" name="background">
+            <transition-group class="background_enemies" name="background" tag="span">
                 <div class="enemy" v-for="enemy in backgroundEnemies" :key="enemy.id">
                     <div class="content">
                         <div class="img"><img :src="`/images/square/characters/${enemy.image}.png`" /></div>
@@ -172,6 +172,9 @@
         await this.$delay(1000);
         this.syncCurrentHp();
       },
+      $delay (ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+      }
     },
     watch: {
       // HPさがる ID変化あり: 攻撃で倒したに違いない

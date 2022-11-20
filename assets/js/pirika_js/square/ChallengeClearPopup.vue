@@ -37,12 +37,15 @@
       }
     },
     watch: {
-      "model.clearedChallenges": function(after, before){
-        const newMembers = after.filter(x=>!before.includes(x));
-        if(newMembers.length === 0){
-          return;
-        }
-        this.updateChallenge(newMembers[newMembers.length -1]);
+      "model.clearedChallenges": {
+        handler(after, before){
+          const newMembers = after.filter(x=>!before.includes(x));
+          if(newMembers.length === 0){
+            return;
+          }
+          this.updateChallenge(newMembers[newMembers.length -1]);
+        },
+        deep: true,
       }
     }
   })

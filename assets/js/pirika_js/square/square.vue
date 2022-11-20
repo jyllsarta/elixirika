@@ -70,14 +70,6 @@
         };
       },
     });
-
-    Vue.mixin({
-      methods: {
-        $delay (ms) {
-          return new Promise(resolve => setTimeout(resolve, ms))
-        }
-      }
-    })
 </script>
 
 <style lang='scss'>

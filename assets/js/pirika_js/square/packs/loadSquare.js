@@ -8,12 +8,12 @@
 
 import { createApp } from 'vue'
 import App from '../square.vue'
+import { store } from './store'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = createApp({
-    render: h => h(App),
-  }).$mount();
-  document.getElementById("window").appendChild(app.$el);
+  const app = createApp(App);
+  app.use(store);
+  app.mount("#window");
 
   if (process.env.NODE_ENV !== 'production') {
     window.square = app;

@@ -44,6 +44,9 @@
       onHover(){
         this.$store.commit("playSound", {key: "hover"});
       },
+      $delay (ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+      }
     },
     computed: {
       isCompleted(){

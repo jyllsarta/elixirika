@@ -5,7 +5,7 @@
                 <div class="image_box" :class="{character_offset: characterOffset}"><img class="character with_drop_shadow" v-for="index in [1,2,3,4,5,6,7,8,9,10,11]" :class="{hidden: index !== currentMessage.face}" :src="`/images/square/characters/${model.character.id}-${index}.png`" /></div>
             </div>
         </div>
-        <draggable class="hit_box" id="support-character" :group="'top'"></draggable>
+        <draggable class="hit_box" id="support-character" :group="'top'" item-key="id"></draggable>
     </div>
 </template>
 

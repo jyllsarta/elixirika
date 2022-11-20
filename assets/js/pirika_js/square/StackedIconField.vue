@@ -1,10 +1,10 @@
 <template>
     <div class="fields">
-        <transition-group class="field" name="cards" v-if="emphasisTopCards">
+        <transition-group class="field" name="cards" v-if="emphasisTopCards" tag="span">
             <div class="card top" v-for="card in topCards" :style="colorSchemedStyle(card)" :key="card.id"></div>
             <div class="card" v-for="card in notTopCards" :style="colorSchemedStyle(card)" :key="card.id"></div>
         </transition-group>
-        <transition-group class="field" name="cards" v-if="!emphasisTopCards">
+        <transition-group class="field" name="cards" v-if="!emphasisTopCards" tag="span">
             <div class="card" v-for="card in field.cards" :style="colorSchemedStyle(card)" :key="card.id"></div>
         </transition-group>
     </div>

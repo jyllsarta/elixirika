@@ -1,6 +1,6 @@
 <template>
     <div class="area">
-        <draggable class="hand" :list="cards" @end="onDragEnd" @start="onDragStart" :move="checkMove" :sort="false" :group="'top'">
+        <draggable class="hand" :list="cards" @end="onDragEnd" @start="onDragStart" :move="checkMove" :sort="false" :group="'top'" item-key="id">
             <Card :card="card" v-for="card in cards" :key="card.id" @hover="onCardHover" :characterId="model.characterId" :touchDragging="touchDragging"></Card>
         </draggable>
     </div>

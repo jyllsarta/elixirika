@@ -1,7 +1,6 @@
-import Vuex from 'vuex'
-Vue.use(Vuex);
+import { createStore } from 'vuex'
 
-const store = new Vuex.Store({
+export const store = createStore({
   state: {
     sounds: [],
     bgm: "",

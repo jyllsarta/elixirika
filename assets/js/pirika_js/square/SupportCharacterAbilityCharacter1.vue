@@ -1,7 +1,7 @@
 <template>
     <div class="area">
         <div class="index">ひみつカード</div>
-        <transition-group class="buttons" name="ability">
+        <transition-group class="buttons" name="ability" tag="span">
             <SupportCharacterAbilityButton v-for="(ability, index) in character.uniqueParameters.abilities" @popclick="$emit('guiEvent', {type: 'igniteSupportAbility', index: index})" @popmouseover="$emit('guiEvent', {type: 'describeSupportAbility', index: index})" :key="ability.slot" :index="index" :ability="ability" :character="character" :isSelected="isSelected(index)" :isSmall="isSmall(index)"></SupportCharacterAbilityButton>
         </transition-group>
     </div>
