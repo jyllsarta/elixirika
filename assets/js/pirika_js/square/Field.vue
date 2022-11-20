@@ -1,7 +1,10 @@
 <template>
+    <div></div>
+    <!-- draggable直るまで一旦これで
     <draggable class="field with_solid_shadow" :id="`field-${field.index}`" :group="'top'" :class="{selected: selected}" :style="colorSchemedStyle" item-key="id">
         <FieldCard v-for="(card, index) in field.cards" :key="card.id" :card="card" :isLast="index === field.cards.length -1" :isCompressed="shouldBeCompressed(index)" :characterId="characterId"></FieldCard>
     </draggable>
+    -->
 </template>
 
 <script>

@@ -1,8 +1,10 @@
 <template>
     <div class="area">
+        <!-- draggable 直るまで一旦これで
         <draggable class="hand" :list="cards" @end="onDragEnd" @start="onDragStart" :move="checkMove" :sort="false" :group="'top'" item-key="id">
             <Card :card="card" v-for="card in cards" :key="card.id" @hover="onCardHover" :characterId="model.characterId" :touchDragging="touchDragging"></Card>
         </draggable>
+        -->
     </div>
 </template>
 
@@ -40,8 +42,11 @@
       this.react();
     },
     watch: {
-      actualCards(){
-        this.react();
+      "actualCards": {
+        handler(){
+          this.react();
+        },
+        deep: true,
       },
     },
     methods: {

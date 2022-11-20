@@ -1,5 +1,5 @@
 <template>
-    <transition name="pop" @enter="onAnimationEnter" @leave="onAnimationLeave">
+    <transition name="pop">
         <div class="game_start" @click="startGame" v-if="!gameStarted">
             <div class="background" ref="bg"></div>
             <div class="front" ref="front">
@@ -20,10 +20,8 @@
     </transition>
 </template>
 
-<script>
-  
+<script>  
   import Model from './packs/model';
-  import gsap from 'gsap';
   import store from './packs/store';
 
   export default({
@@ -35,6 +33,7 @@
     mounted(){
       this.$store.commit("playSound", {key: "welcome"});
       this.$store.commit("playBgm", "");
+      console.log(this.$refs)
     },
     computed: {
       chapter(){
@@ -49,56 +48,6 @@
         this.$emit("startGame");
         this.$store.commit("playSound", {key: "gameStart"});
         this.$store.commit("playBgm", this.model.character.bgm);
-      },
-      onAnimationEnter(el, completed){
-        gsap.fromTo(
-          [this.$refs.bg],
-          {
-            opacity: 0,
-          },
-          {
-            duration: 0.5,
-            opacity: 0.95,
-            ease: 'linear',
-            onComplete: completed,
-          });
-        gsap.fromTo(
-          [this.$refs.front],
-          {
-            opacity: 0,
-            translateX: -30,
-          },
-          {
-            duration: 0.5,
-            opacity: 0.95,
-            translateX: 0,
-            ease: 'expo.out',
-          });
-      },
-      onAnimationLeave(el, completed){
-        gsap.fromTo(
-          [this.$refs.bg],
-          {
-            opacity: 0.95,
-          },
-          {
-            duration: 0.5,
-            opacity: 0,
-            ease: 'expo.out',
-            onComplete: completed,
-          });
-        gsap.fromTo(
-          [this.$refs.front],
-          {
-            opacity: 1,
-            translateX: 0,
-          },
-          {
-            duration: 0.5,
-            opacity: 0,
-            translateX: 30,
-            ease: 'expo.out',
-          });
       },
     },
   })
@@ -170,5 +119,18 @@
         text-align: center;
       }
     }
+  }
+
+  .pop-enter-active {
+    transition: opacity 0.4s;
+  }
+  .pop-leave-active {
+    transition: opacity 0.4s;
+  }
+  .pop-enter-from {
+    opacity: 0;
+  }
+  .pop-leave-to{
+    opacity: 0;
   }
 </style>
