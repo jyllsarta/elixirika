@@ -1,7 +1,16 @@
 <template>
     <div class="area">
         <div class="hand">
-            <Card :card="card" v-for="card in cards" :key="card.id" @hover="onCardHover" :characterId="model.characterId" :touchDragging="touchDragging"></Card>
+            <Card 
+              :card="card"
+              v-for="card in cards"
+              :key="card.id"
+              @hover="onCardHover"
+              :characterId="model.characterId"
+              :touchDragging="touchDragging"
+              @guiEvent="eventsUp"
+              >
+            </Card>
         </div>
     </div>
 </template>
@@ -45,6 +54,10 @@
       },
     },
     methods: {
+      eventsUp(params){
+        console.log("EVEVEV")
+        this.$emit("guiEvent", params);
+      },
       react(){
         const actualCards = this.actualCards;
         // なくなったカードを消す
@@ -60,7 +73,7 @@
           setTimeout(()=>this.react(), 70);
         }
       },
-      // TODO: ここから下全部いらないはず
+      // TODO: checkMove系が終わればここから下全部いらないはず
       checkMove(event){
         const {clientX, type} = event.originalEvent;
         // タッチドラッグの場合においてのみ行き先表示を判定したい

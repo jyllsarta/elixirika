@@ -4,9 +4,12 @@
       class="card"
       :id="`card-${card.id}`"
       :class="card.viewClass() + `${touchDragging ? '' : ' not_touch'}`"
-      @mouseenter="onHover"
       :style="colorSchemedStyleBackground"
+      @mouseenter="onHover"
       @dragstart="onDragStart"
+      @touchstart="onTouchStart"
+      @touchmove="onTouchMove"
+      @touchend="onTouchEnd"
     >
         <div class="background">
             <div class="line_ur" v-for="(x, index) in rightLineCount" :key="index" :class="card.suit" :style="{left: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"></div>
@@ -57,7 +60,76 @@
       },
       onDragStart(e){
         e.dataTransfer.setData('text/plain', this.card.id);
-      }
+      },
+      onTouchStart(e){
+        e.preventDefault();
+      },
+      onTouchMove(e) {
+        e.preventDefault();
+        const draggedElem = e.target;
+        const touch = e.changedTouches[0];
+        // TODO: この辺は:styleの紐づけで戦いたい
+        e.target.style.position = "fixed";
+        e.target.style.top = (touch.pageY - window.pageYOffset - draggedElem.offsetHeight / 2) + "px";
+        e.target.style.left = (touch.pageX - window.pageXOffset - draggedElem.offsetWidth / 2) + "px";
+      },
+      onTouchEnd(e) {
+        e.preventDefault();
+
+        // TODO: この辺は:styleの紐づけで戦いたい
+        var droppedElem = e.target;
+        droppedElem.style.position = "";
+        e.target.style.top = "";
+        e.target.style.left = "";
+
+        var touch = e.changedTouches[0];
+        var destination = document.elementFromPoint(touch.pageX - window.pageXOffset, touch.pageY - window.pageYOffset);
+        console.log("newParentElem");
+        this.emitEvent(destination.id);
+      },
+      emitEvent(elementId){
+        const fieldIndex = parseInt(elementId.split("field-")[1] || -1);
+        const isToAbility = elementId === "support-character";
+        const cardId = this.card.id;
+        if(isToAbility){
+          this.doSend("ability", cardId);
+        }
+        else{
+          this.doSend(fieldIndex, cardId);
+        }
+      },
+      doSend(target, cardId){
+        if(cardId === -1){
+          console.warn("invalid drag!");
+          this.$store.commit("playSound", {key: "miss"});
+          return;
+        }
+        switch(target){
+          case 0:
+          case 1:
+          case 2:
+          case 3:
+            this.sendToBoard(target, cardId);
+            break;
+          case "ability":
+            this.sendToAbility(cardId);
+            break;  
+          case -1:
+            console.warn("no drag target!");
+            this.cancelDrag();
+            break;
+        }
+      },
+      cancelDrag(){
+        this.$emit("guiEvent", {type: "cancelDrag"});
+        this.$store.commit("playSound", {key: "miss"});
+      },
+      sendToAbility(cardId){
+        this.$emit("guiEvent", {type: "sendToAbility", cardId: cardId});
+      },
+      sendToBoard(fieldIndex, cardId){
+        this.$emit("guiEvent", {type: "sendCard", fieldIndex: fieldIndex, cardId: cardId});
+      },
     },
     computed: {
       rightLineCount(){
