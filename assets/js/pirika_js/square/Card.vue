@@ -28,11 +28,10 @@
 </template>
 
 <script>
-  
   import Card from "./packs/card";
   import store from "./packs/store";
 
-  export default({
+  export default ({
     store,
     props: {
       card: Card,

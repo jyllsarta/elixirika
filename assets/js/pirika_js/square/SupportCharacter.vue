@@ -5,16 +5,13 @@
                 <div class="image_box" :class="{character_offset: characterOffset}"><img class="character with_drop_shadow" v-for="index in [1,2,3,4,5,6,7,8,9,10,11]" :class="{hidden: index !== currentMessage.face}" :src="`/images/square/characters/${model.character.id}-${index}.png`" /></div>
             </div>
         </div>
-        <!-- draggable直るまで一旦これで
-        <draggable class="hit_box" id="support-character" :group="'top'" item-key="id"></draggable>
-        -->
+        <div class="hit_box" id="support-character"></div>
     </div>
 </template>
 
 <script>
   
   import Model from "./packs/model";
-  import draggable from "vuedraggable";
 
   export default({
     props: {
@@ -25,9 +22,6 @@
       return {
         actionTime: 0,
       }
-    },
-    components: {
-      draggable,
     },
     methods: {
       interact(){

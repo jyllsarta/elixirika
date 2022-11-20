@@ -1,17 +1,12 @@
 <template>
-    <div></div>
-    <!-- draggable直るまで一旦これで
-    <draggable class="field with_solid_shadow" :id="`field-${field.index}`" :group="'top'" :class="{selected: selected}" :style="colorSchemedStyle" item-key="id">
+    <div class="field with_solid_shadow" :id="`field-${field.index}`" :class="{selected: selected}" :style="colorSchemedStyle">
         <FieldCard v-for="(card, index) in field.cards" :key="card.id" :card="card" :isLast="index === field.cards.length -1" :isCompressed="shouldBeCompressed(index)" :characterId="characterId"></FieldCard>
-    </draggable>
-    -->
+    </div>
 </template>
 
 <script>
-  
   import FieldCard from "./FieldCard.vue";
   import Field from './packs/field';
-  import draggable from "vuedraggable";
 
   export default({
     props: {
@@ -21,7 +16,6 @@
     },
     components: {
       FieldCard,
-      draggable,
     },
     methods: {
       shouldBeCompressed(index){

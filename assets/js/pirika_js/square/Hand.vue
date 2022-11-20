@@ -1,18 +1,14 @@
 <template>
     <div class="area">
-        <!-- draggable 直るまで一旦これで
-        <draggable class="hand" :list="cards" @end="onDragEnd" @start="onDragStart" :move="checkMove" :sort="false" :group="'top'" item-key="id">
+        <div class="hand">
             <Card :card="card" v-for="card in cards" :key="card.id" @hover="onCardHover" :characterId="model.characterId" :touchDragging="touchDragging"></Card>
-        </draggable>
-        -->
+        </div>
     </div>
 </template>
 
-<script>
-  
+<script>  
   import Card from "./Card.vue"
   import Hand from "./packs/hand"
-  import draggable from 'vuedraggable'
   import Constants from './packs/constants';
   import Model from './packs/model';
   import store from './packs/store.js';
@@ -24,7 +20,6 @@
     },
     store,
     components: {
-      draggable,
       Card
     },
     computed: {
