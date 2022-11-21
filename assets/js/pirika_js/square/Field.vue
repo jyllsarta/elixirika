@@ -1,5 +1,5 @@
 <template>
-    <div @dragover="dragover" @drop="drop" class="field with_solid_shadow" :id="`field-${field.index}`" :class="{selected: selected}" :style="colorSchemedStyle">
+    <div @dragover="dragover" @dragleave="dragleave" @drop="drop" class="field with_solid_shadow" :id="`field-${field.index}`" :class="{selected: selected}" :style="colorSchemedStyle">
         <FieldCard v-for="(card, index) in field.cards" :key="card.id" :card="card" :isLast="index === field.cards.length -1" :isCompressed="shouldBeCompressed(index)" :characterId="characterId"></FieldCard>
     </div>
 </template>
@@ -26,6 +26,10 @@
       dragover(e){
         e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
+        this.selectBoard(this.fieldIndex);
+      },
+      dragleave(e){
+        this.$emit("guiEvent", {type: "selectBoard", index: -1});
       },
       drop(e){
         e.preventDefault();
@@ -42,7 +46,10 @@
             this.$emit("guiEvent", {type: "sendCard", fieldIndex: this.fieldIndex, cardId: cardId});
           }
         }
-      }
+      },
+      selectBoard(index){
+        this.$emit("guiEvent", {type: "selectBoard", index: index});
+      },
     },
     computed: {
       compressedCards(){

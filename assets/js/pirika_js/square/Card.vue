@@ -7,6 +7,7 @@
       :style="computedStyle"
       @mouseenter="onHover"
       @dragstart="onDragStart"
+      @dragend="onDragEnd"
       @touchstart="onTouchStart"
       @touchmove="onTouchMove"
       @touchend="onTouchEnd"
@@ -68,6 +69,14 @@
       },
       onDragStart(e){
         e.dataTransfer.setData('text/plain', this.card.id);
+      },
+      onDragEnd(e){
+        this.$emit("guiEvent", {type: "selectBoard", index: -1});
+        // なんかよく知らないが、sendcardやsendToCharacterの成功時にはpathは1要素なのでありがたく成功判定に使わせていただく
+        // 失敗時は常に14だった
+        if(e.path.length !== 1){
+          this.$store.commit("playSound", {key: "miss"});
+        }
       },
       onTouchStart(e){
         e.preventDefault();

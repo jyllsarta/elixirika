@@ -55,7 +55,6 @@
     },
     methods: {
       eventsUp(params){
-        console.log("EVEVEV")
         this.$emit("guiEvent", params);
       },
       react(){
