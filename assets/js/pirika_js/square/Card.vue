@@ -4,13 +4,14 @@
       class="card"
       :id="`card-${card.id}`"
       :class="card.viewClass() + `${touchDragging ? '' : ' not_touch'}`"
-      :style="colorSchemedStyleBackground"
+      :style="computedStyle"
       @mouseenter="onHover"
       @dragstart="onDragStart"
       @touchstart="onTouchStart"
       @touchmove="onTouchMove"
       @touchend="onTouchEnd"
     >
+    <div class="inner">
         <div class="background">
             <div class="line_ur" v-for="(x, index) in rightLineCount" :key="index" :class="card.suit" :style="{left: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"></div>
             <div class="line_ul" v-for="(x, index) in leftLineCount"  :key="index" :class="card.suit" :style="{right: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"></div>
@@ -36,6 +37,7 @@
             </div>
         </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -46,8 +48,14 @@
     store,
     props: {
       card: Card,
-      characterId: Number,
-      touchDragging: Boolean,
+      characterId: Number
+    },
+    data(){
+      return {
+        top: 0,
+        left: 0,
+        touchDragging: false
+      }
     },
     methods: {
       onHover(event){
@@ -68,26 +76,20 @@
         e.preventDefault();
         const draggedElem = e.target;
         const touch = e.changedTouches[0];
-        // TODO: この辺は:styleの紐づけで戦いたい
-        e.target.style.position = "fixed";
-        e.target.style.top = (touch.pageY - window.pageYOffset - draggedElem.offsetHeight / 2) + "px";
-        e.target.style.left = (touch.pageX - window.pageXOffset - draggedElem.offsetWidth / 2) + "px";
+        this.touchDragging = true;
+        this.top = (touch.pageY - window.pageYOffset - draggedElem.offsetHeight / 2) + "px";
+        this.left = (touch.pageX - window.pageXOffset - draggedElem.offsetWidth / 2) + "px";
       },
       onTouchEnd(e) {
         e.preventDefault();
-
-        // TODO: この辺は:styleの紐づけで戦いたい
-        var droppedElem = e.target;
-        droppedElem.style.position = "";
-        e.target.style.top = "";
-        e.target.style.left = "";
-
         var touch = e.changedTouches[0];
         var destination = document.elementFromPoint(touch.pageX - window.pageXOffset, touch.pageY - window.pageYOffset);
-        console.log("newParentElem");
-        this.emitEvent(destination.id);
+        this.touchDragging = false;
+        this.top = 0;
+        this.left = 0;
+        this.emitSendEvent(destination.id);
       },
-      emitEvent(elementId){
+      emitSendEvent(elementId){
         const fieldIndex = parseInt(elementId.split("field-")[1] || -1);
         const isToAbility = elementId === "support-character";
         const cardId = this.card.id;
@@ -99,11 +101,6 @@
         }
       },
       doSend(target, cardId){
-        if(cardId === -1){
-          console.warn("invalid drag!");
-          this.$store.commit("playSound", {key: "miss"});
-          return;
-        }
         switch(target){
           case 0:
           case 1:
@@ -129,7 +126,7 @@
       },
       sendToBoard(fieldIndex, cardId){
         this.$emit("guiEvent", {type: "sendCard", fieldIndex: fieldIndex, cardId: cardId});
-      },
+      }
     },
     computed: {
       rightLineCount(){
@@ -144,11 +141,18 @@
         }
         return Math.floor(this.card.number / 2);
       },
-      colorSchemedStyleBackground(){
+      computedStyle(){
         let style =  {
           backgroundColor: `var(--color-${this.card.suit}3-${this.characterId})`,
           border: `3px solid var(--color-${this.card.suit}1-${this.characterId})`,
         };
+
+        if(this.touchDragging){
+          style.position = "fixed";
+          style.top = this.top;
+          style.left = this.left;
+          style.pointerEvents = "none";
+        }
         return style;
       },
     }
@@ -163,6 +167,9 @@
     max-width: 200px;
     position: relative;
     border-radius: $radius;
+    .inner{
+      position: relative;
+    }
     .background{
       position: absolute;
       overflow: hidden;
