@@ -212,12 +212,14 @@
             this.playSound(key, tone);
           }
           this.$store.commit("flushSounds");
-        }
+        },
+        deep: true,
       },
       "$store.state.bgm": {
         handler: function(key){
           this.playBgm(key);
-        }
+        },
+        deep: true,
       }
     }
   })

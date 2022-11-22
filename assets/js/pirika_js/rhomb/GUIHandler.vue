@@ -2,7 +2,6 @@
 </template>
 
 <script>
-  
   import store from "./packs/store";
   import Model from "./packs/model";
   import Controller from "./packs/controller";
@@ -20,9 +19,12 @@
       }
     },
     watch: {
-      "$store.state.guiEvents": function(afterEvents) {
-        const unhandledEvents = afterEvents.filter(event => event.orderedId > this.consumedGUIEventId);
-        unhandledEvents.map(event => this.handleEvent(event));
+      "$store.state.guiEvents": {
+        handler(afterEvents) {
+          const unhandledEvents = afterEvents.filter(event => event.orderedId > this.consumedGUIEventId);
+          unhandledEvents.map(event => this.handleEvent(event));
+        },
+        deep: true,
       }
     },
     methods: {
