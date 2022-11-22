@@ -1,6 +1,7 @@
 <template>
-    <div 
-      draggable 
+    <!--ATTR_ENUMERATED_COERCION がdraggable="true" に対して出るけど普通にcompatのバグだと思うので無視-->
+    <div
+      draggable="true"
       class="card"
       :id="`card-${card.id}`"
       :class="card.viewClass() + `${touchDragging ? '' : ' not_touch'}`"
