@@ -70,7 +70,7 @@ head
       = for score <- (@ranking.time_rank_easy) do
         .rank
           .value
-            = score.score
+            = score.remain_time
           .name
             = score.username
     .ranking
@@ -80,7 +80,7 @@ head
       = for score <- (@ranking.time_rank_normal) do
         .rank
           .value
-            = score.score
+            = score.remain_time
           .name
             = score.username
     .ranking
@@ -90,7 +90,7 @@ head
       = for score <- (@ranking.time_rank_hard) do
         .rank
           .value
-            = score.score
+            = score.remain_time
           .name
             = score.username
 
