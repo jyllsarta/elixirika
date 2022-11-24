@@ -8,7 +8,6 @@ let Card = require("./card");
 
 module.exports = class Character1 {
   constructor(){
-    // TODO: 今後キャラマスタ・セリフマスタに移動していく
     this.id = 1;
     this.name = "クロネ";
     this.defaultMessage = "はい、こんにちは。\nまずはカード出してみてね";

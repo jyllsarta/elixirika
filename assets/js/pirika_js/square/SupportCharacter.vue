@@ -20,16 +20,7 @@
       model: Model,
       gameStarted: Boolean,
     },
-    data(){
-      return {
-        actionTime: 0,
-      }
-    },
     methods: {
-      interact(){
-        // TODO: いらなそう
-        this.actionTime++;
-      },
       dragover(e){
         e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';

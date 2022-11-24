@@ -41,7 +41,6 @@ module.exports = class PhaseExecute {
     model.bullets = model.bullets.filter(bullet=>bullet.markedAt === null)
 
     // FIXME: ID固定
-    // TODO 消した場所にそのまま出る
     const bonusBullets = this.bonusBullets(model, markedBullets);
     // 処理順のHACK的に前ターンのボーナス弾を消してしまっているが、生成時のターンを読んだりするほうが賢い
     model.bullets = model.bullets.filter(bullet=>!bullet.isBonusBullet());
