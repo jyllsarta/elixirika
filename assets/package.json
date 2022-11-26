@@ -9,7 +9,6 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
-    "@vue/compat": "^3.1.0",
     "axios": "^0.21.1",
     "gsap": "^3.8.0",
     "jssha": "^2.3.1",

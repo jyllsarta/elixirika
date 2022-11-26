@@ -9,11 +9,6 @@ module.exports = (env, options) => {
   const devMode = options.mode !== 'production';
 
   return {
-    resolve: {
-      alias: {
-        vue: '@vue/compat'
-      }
-    },
     optimization: {
       minimizer: [
         new CssMinimizerPlugin(),
@@ -41,11 +36,6 @@ module.exports = (env, options) => {
             {
               loader: "vue-loader",
               options: {
-                compilerOptions: {
-                  compatConfig: {
-                    MODE: 2
-                  }
-                },
                 sourceMap: true,
               },
             },
