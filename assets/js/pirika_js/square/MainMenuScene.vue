@@ -362,7 +362,7 @@
   .detail-leave-active {
     transition: all .1s;
   }
-  .detail-enter{
+  .detail-enter-from{
     transform: scale(0.95);
     opacity: 0;
   }

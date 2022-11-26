@@ -217,7 +217,7 @@
   .show-in-leave-active {
     transition: all .3s;
   }
-  .show-in-enter{
+  .show-in-enter-from{
     transform: translateX(-10px);
     opacity: 0;
   }

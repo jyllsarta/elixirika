@@ -126,7 +126,7 @@
     .show-in-leave-active {
       transition: all .6s;
     }
-    .show-in-enter{
+    .show-in-enter-from{
       transform: translateY(10px);
       opacity: 0;
     }

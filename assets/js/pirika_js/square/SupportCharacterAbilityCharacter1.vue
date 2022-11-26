@@ -68,7 +68,7 @@
     position: absolute;
     transition: all 0.2s;
   }
-  .ability-enter{
+  .ability-enter-from{
     transform: scale(0);
     opacity: 0;
   }

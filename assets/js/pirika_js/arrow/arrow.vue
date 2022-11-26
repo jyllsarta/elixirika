@@ -288,7 +288,7 @@
   .left-show-in-leave-active {
     transition: all .3s;
   }
-  .left-show-in-enter{
+  .left-show-in-enter-from{
     transform: translateX(10px);
     opacity: 0;
   }

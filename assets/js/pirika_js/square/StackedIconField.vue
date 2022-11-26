@@ -75,7 +75,7 @@
     position: absolute;
     transition: all 1.3s;
   }
-  .cards-enter{
+  .cards-enter-from{
     transform: translateX(20px);
     opacity: 0;
   }

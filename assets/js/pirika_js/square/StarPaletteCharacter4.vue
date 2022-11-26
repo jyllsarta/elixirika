@@ -410,7 +410,7 @@
       transition: all 1s linear;
       transition-delay: 0.5s;
     }
-    .enemy-appear-enter{
+    .enemy-appear-enter-from{
       transform: translateX(30px);
       opacity: 0;
     }
@@ -425,7 +425,7 @@
       // 味方攻撃 -> 倒れる のアニメーションにしたいので、ここで特別にdelayをかけてる
         transition-delay: 0.9s;
     }
-    .background-enter{
+    .background-enter-from{
       transform: translateX(20px);
       opacity: 0;
     }
@@ -444,7 +444,7 @@
       transition: all 0.4s;
       transition-delay: 0.5s;
     }
-    .win-enter{
+    .win-enter-from{
       transform: scale(4);
       opacity: 0;
     }
@@ -454,7 +454,7 @@
       transition: all 0.2s;
       transition-delay: 1.0s;
     }
-    .win-character-enter{
+    .win-character-enter-from{
       transform: translateY(30px);
       opacity: 0;
     }
@@ -467,7 +467,7 @@
       transition: all 0.5s;
       transition-delay: 0.5s;
     }
-    .shield-appear-enter{
+    .shield-appear-enter-from{
       opacity: 0;
     }
     .shield-appear-leave-to{
