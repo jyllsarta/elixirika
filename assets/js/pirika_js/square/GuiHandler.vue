@@ -42,7 +42,6 @@
       endGame(_args){
         this.controller.sendPlayLog()
         .then((_) => {
-          console.log("score send complete");
           this.$emit("loadScene", {sceneName: "mainMenu"});
         });
       },
@@ -51,7 +50,6 @@
       },
       gracefullyStalemate(_args){
         this.controller.operate("gracefullyStalemate");
-        console.log("end")
         this.$store.commit("playSound", {key: "endGame"});
       },
       igniteSupportAbility(args){

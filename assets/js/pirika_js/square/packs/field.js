@@ -39,12 +39,10 @@ module.exports = class Field {
     let preservedSenders = [];
     for(let _index of [1,2]){
       let idx = list.findIndex(card=>card.isSenderCard());
-      console.log(idx);
       if(idx !== -1){
         preservedSenders.push(list.splice(idx, 1)[0]);
       }
     }
-    console.log(preservedSenders);
     list = list.concat(preservedSenders);
 
     this.cards = list;

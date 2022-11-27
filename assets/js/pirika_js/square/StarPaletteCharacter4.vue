@@ -186,7 +186,6 @@
         const enemy = this.model.character.uniqueParameters.enemies.find(enemy=>enemy.id === prevId);
         // リセット検出 出現順が巻き戻っていたら演出しない
         if(newEnemy?.order < enemy?.order){
-          console.log("ID巻き戻り検出")
           this.syncCurrentHp();
           return;
         }

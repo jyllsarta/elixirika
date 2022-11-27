@@ -33,7 +33,6 @@
     mounted(){
       this.$store.commit("playSound", {key: "welcome"});
       this.$store.commit("playBgm", "");
-      console.log(this.$refs)
     },
     computed: {
       chapter(){

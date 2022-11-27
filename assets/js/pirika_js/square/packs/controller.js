@@ -33,7 +33,6 @@ module.exports = class Controller {
   loadOperationHistory(historyString){
     const operations = JSON.parse(historyString);
     this.model = new Model(operations.characterId, operations.chapterId, operations.seed);
-    console.log(operations)
     for(let operation of operations.operationHistory){
       this[operation.name](...operation.arguments);
     }
@@ -48,7 +47,7 @@ module.exports = class Controller {
 
   operate(operation, ...args){
     if(this.model.isStalemate()){
-      console.log("it is stalemate");
+      console.warn("it is stalemate");
       return;
     }
     this.model.registerOperationHistory({arguments: args, name: operation});
@@ -225,7 +224,6 @@ module.exports = class Controller {
               }
             )
             .then((results) => {
-              console.log(results);
               console.log("OK");
             })
             .catch((results) => {

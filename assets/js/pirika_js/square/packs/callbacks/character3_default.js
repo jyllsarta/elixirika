@@ -14,7 +14,6 @@ module.exports = class Character3_Default {
     }
     const thatWasMinusTrick = prevCard.number > card.number;
     if(thatWasMinusTrick){
-      console.log("minus trick detected!")
       model.messageManager.register("specialAbilityMinusTrick");
     }
   }

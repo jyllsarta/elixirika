@@ -49,7 +49,6 @@ export default {
       Vue.nextTick(function (){
         $(".name_input_box")[0].focus();
       });
-      console.log(this.$refs)
     },
     setName: function(){
       this.$emit("setName", this.fullName);
