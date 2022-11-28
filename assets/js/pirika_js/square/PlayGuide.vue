@@ -20,38 +20,38 @@
 </template>
 
 <script>
-  
-  import store from "./packs/store";
-  import PlayGuideContentCharacter1 from "./PlayGuideContentCharacter1.vue";
-  import PlayGuideContentCharacter2 from "./PlayGuideContentCharacter2.vue";
-  import PlayGuideContentCharacter3 from "./PlayGuideContentCharacter3.vue";
-  import PlayGuideContentCharacter4 from "./PlayGuideContentCharacter4.vue";
-  import CharacterFactory from "./packs/characterFactory";
 
-  export default({
-    store,
-    components: {
-      PlayGuideContentCharacter1,
-      PlayGuideContentCharacter2,
-      PlayGuideContentCharacter3,
-      PlayGuideContentCharacter4,
+import store from './packs/store';
+import PlayGuideContentCharacter1 from './PlayGuideContentCharacter1.vue';
+import PlayGuideContentCharacter2 from './PlayGuideContentCharacter2.vue';
+import PlayGuideContentCharacter3 from './PlayGuideContentCharacter3.vue';
+import PlayGuideContentCharacter4 from './PlayGuideContentCharacter4.vue';
+import CharacterFactory from './packs/characterFactory';
+
+export default ({
+  store,
+  components: {
+    PlayGuideContentCharacter1,
+    PlayGuideContentCharacter2,
+    PlayGuideContentCharacter3,
+    PlayGuideContentCharacter4,
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    close() {
+      this.$store.commit('closePlayGuide');
+      this.$store.commit('playSound', {key: 'menuClose'});
     },
-    data(){
-      return {};
+  },
+  computed: {
+    characterName() {
+      const characterFactory = new CharacterFactory();
+      return characterFactory.getCharacterById(this.$store.state.playGuideCharacterId)?.name || '';
     },
-    methods: {
-      close(){
-        this.$store.commit("closePlayGuide");
-        this.$store.commit("playSound", {key: "menuClose"});
-      }
-    },
-    computed: {
-      characterName(){
-        const characterFactory = new CharacterFactory();
-        return characterFactory.getCharacterById(this.$store.state.playGuideCharacterId)?.name || "";
-      }
-    }
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>

@@ -18,46 +18,46 @@
 </template>
 
 <script>
-    
-    import TitleScene from "./TitleScene.vue";
-    import MainMenuScene from "./MainMenuScene.vue";
-    import InGameScene from "./InGameScene.vue";
-    import GlobalSoundManager from "./GlobalSoundManager.vue";
-    import store from "./packs/store";
 
-    export default({
-      components: {
-        TitleScene,
-        MainMenuScene,
-        InGameScene,
-        GlobalSoundManager
-      },
-      methods: {
-        loadScene(parameter){
-          const {sceneName: sceneName, params: params} = parameter;
-          this.sceneName = sceneName;
-          this.sceneParameter[sceneName] = params || {};
+import TitleScene from './TitleScene.vue';
+import MainMenuScene from './MainMenuScene.vue';
+import InGameScene from './InGameScene.vue';
+import GlobalSoundManager from './GlobalSoundManager.vue';
+import store from './packs/store';
+
+export default ({
+  components: {
+    TitleScene,
+    MainMenuScene,
+    InGameScene,
+    GlobalSoundManager,
+  },
+  methods: {
+    loadScene(parameter) {
+      const {sceneName, params} = parameter;
+      this.sceneName = sceneName;
+      this.sceneParameter[sceneName] = params || {};
+    },
+  },
+  store,
+  computed: {
+  },
+  data() {
+    const defaultScene = 'title';
+
+    return {
+      sceneName: defaultScene,
+      sceneParameter: {
+        title: {
+        },
+        mainMenu: {
+        },
+        inGame: {
         },
       },
-      store,
-      computed: {
-      },
-      data(){
-        const defaultScene = "title";
-
-        return {
-          sceneName: defaultScene,
-          sceneParameter: {
-            title: {
-            },
-            mainMenu: {
-            },
-            inGame: {
-            },
-          }
-        };
-      },
-    });
+    };
+  },
+});
 </script>
 
 <style lang='scss'>

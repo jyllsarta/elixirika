@@ -39,49 +39,49 @@
 </template>
 
 <script>
-  
-  import ClearStateTile from "./ClearStateTile.vue";
-  import ChallengeText from "./ChallengeText.vue";
-  import GeneralButton from "./GeneralButton.vue";
-  import store from "./packs/store";
 
-  export default({
-    store,
-    props: {
-      // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
-      character: Object,
-      chapter: Object,
-      challengeClearState: Array,
-      challengeMaster: Object,
-      highScore: Number,
+import ClearStateTile from './ClearStateTile.vue';
+import ChallengeText from './ChallengeText.vue';
+import GeneralButton from './GeneralButton.vue';
+import store from './packs/store';
+
+export default ({
+  store,
+  props: {
+    // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
+    character: Object,
+    chapter: Object,
+    challengeClearState: Array,
+    challengeMaster: Object,
+    highScore: Number,
+  },
+  components: {
+    ClearStateTile,
+    ChallengeText,
+    GeneralButton,
+  },
+  computed: {
+    challenges() {
+      return this.challengeMaster.getByChallengeIds(this.chapter.challenge_ids);
     },
-    components: {
-      ClearStateTile,
-      ChallengeText,
-      GeneralButton,
+  },
+  methods: {
+    challenge(challengeId) {
+      return this.challengeMaster.idTable[challengeId] || {};
     },
-    computed: {
-      challenges(){
-        return this.challengeMaster.getByChallengeIds(this.chapter.challenge_ids);
-      }
+    isCleared(challengeId) {
+      return this.challengeClearState.some((x) => x === challengeId);
     },
-    methods: {
-      challenge(challengeId){
-        return this.challengeMaster.idTable[challengeId] || {};
-      },
-      isCleared(challengeId){
-        return this.challengeClearState.some(x=>x===challengeId);
-      },
-      close(){
-        this.$emit('cancel');
-        this.$store.commit("playSound", {key: "miss"});
-      },
-      showPlayGuide(){
-        this.$store.commit("showPlayGuide", this.character.id);
-        this.$store.commit("playSound", {key: "menuOpen"});
-      }
-    }
-  })
+    close() {
+      this.$emit('cancel');
+      this.$store.commit('playSound', {key: 'miss'});
+    },
+    showPlayGuide() {
+      this.$store.commit('showPlayGuide', this.character.id);
+      this.$store.commit('playSound', {key: 'menuOpen'});
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -147,7 +147,7 @@
           position: absolute;
           width: 100%;
           height: 100%;
-          background: linear-gradient(to left, $ingame-background 55%, transparent 88%);        
+          background: linear-gradient(to left, $ingame-background 55%, transparent 88%);
         }
       }
       .content{
@@ -199,7 +199,7 @@
         z-index: 900;
         .background{
           width: 250px;
-          height: 250px; 
+          height: 250px;
           background-color: $purple3;
           transform: translate(100px, -20px) rotate(40deg) scale(1, 2) rotate(45deg);
           transition: transform 0.2s, background-color 0.2s;

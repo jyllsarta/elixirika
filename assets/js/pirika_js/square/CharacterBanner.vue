@@ -11,31 +11,31 @@
 </template>
 
 <script>
-  
-  import store from "./packs/store";
 
-  export default({
-    store,
-    props: {
-      // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
-      character: Object,
-      bestChapter: Object,
+import store from './packs/store';
+
+export default ({
+  store,
+  props: {
+    // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
+    character: Object,
+    bestChapter: Object,
+  },
+  computed: {
+    bestChapterIndex() {
+      return this.bestChapter?.index || '-';
     },
-    computed: {
-      bestChapterIndex(){
-        return this.bestChapter?.index || "-";
-      }
+  },
+  methods: {
+    onClick() {
+      this.$store.commit('playSound', {key: 'ok'});
+      this.$emit('selected', {characterId: this.character.id});
     },
-    methods: {
-      onClick(){
-        this.$store.commit("playSound", {key: "ok"});
-        this.$emit('selected', {characterId: this.character.id});
-      },
-      onHover(){
-        this.$store.commit("playSound", {key: "hover"});
-      },
-    }
-  })
+    onHover() {
+      this.$store.commit('playSound', {key: 'hover'});
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -62,7 +62,7 @@
         width: 100%;
         height: 100%;
         // TODO: もしかするとキャラ固有色みたいなものをグラデーションに指定するときれいかも
-        background: linear-gradient(to left, $ingame-background 5%, transparent 80%);        
+        background: linear-gradient(to left, $ingame-background 5%, transparent 80%);
       }
       .names{
         position: absolute;

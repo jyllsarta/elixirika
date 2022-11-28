@@ -9,39 +9,39 @@
 import jsSHA from 'jssha';
 
 export default {
-  data: function(){
+  data() {
     return {
-      rawName: "",
+      rawName: '',
       inputting: false,
     };
   },
-  mounted: function(){
-    if(localStorage.rawNameSquare){
+  mounted() {
+    if (localStorage.rawNameSquare) {
       this.rawName = localStorage.rawNameSquare;
     }
   },
   computed: {
-    fullName: function(){
-      const splitted = this.rawName.replace(/📛/g, "").split("#");
+    fullName() {
+      const splitted = this.rawName.replace(/📛/g, '').split('#');
       const displayName = splitted[0];
       if (splitted.length === 1) {
-          return displayName;
+        return displayName;
       }
-      const target = splitted.slice(1).join("");
-      const sha = new jsSHA("SHA-256", "TEXT");
+      const target = splitted.slice(1).join('');
+      const sha = new jsSHA('SHA-256', 'TEXT');
       sha.update(target);
-      const sliced = sha.getHash("HEX").slice(0, 6);
+      const sliced = sha.getHash('HEX').slice(0, 6);
       return `${displayName}📛${sliced}`;
     },
   },
   methods: {
-    onBlur(){
+    onBlur() {
       this.inputting = false;
       localStorage.rawNameSquare = this.rawName;
     },
-    setInputMode(){
+    setInputMode() {
       this.inputting = true;
-      Vue.nextTick(()=>{
+      Vue.nextTick(() => {
         this.$refs.focusTarget.focus();
       });
     },

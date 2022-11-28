@@ -3,9 +3,9 @@
 </template>
 
 <script>
-  export default {
-    name: "GameStartButton",
-  }
+export default {
+  name: 'GameStartButton',
+};
 </script>
 
 <style lang='scss' scoped>

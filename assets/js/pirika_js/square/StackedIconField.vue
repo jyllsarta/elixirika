@@ -11,36 +11,36 @@
 </template>
 
 <script>
-  
-  import Field from './packs/field';
 
-  export default({
-    props: {
-      field: Field,
-      emphasisTopCards: Boolean,
-      characterId: Number,
+import Field from './packs/field';
+
+export default ({
+  props: {
+    field: Field,
+    emphasisTopCards: Boolean,
+    characterId: Number,
+  },
+  computed: {
+    topCards() {
+      return this.field.cards.slice(0, 4);
     },
-    computed: {
-      topCards(){
-        return this.field.cards.slice(0, 4);
-      },
-      notTopCards(){
-        return this.field.cards.slice(4, Math.inf);
-      },
+    notTopCards() {
+      return this.field.cards.slice(4, Math.inf);
     },
-    methods: {
-      colorSchemedStyle(card){
-        if(card.category === 'normal'){
-          return {
-            opacity: 0.6,
-          }
-        }
+  },
+  methods: {
+    colorSchemedStyle(card) {
+      if (card.category === 'normal') {
         return {
-          backgroundColor: `var(--color-${card.suit}1-${this.characterId})`,
+          opacity: 0.6,
         };
-      },
-    }
-  })
+      }
+      return {
+        backgroundColor: `var(--color-${card.suit}1-${this.characterId})`,
+      };
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

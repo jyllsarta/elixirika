@@ -8,20 +8,20 @@
 </template>
 
 <script>
-  export default {
-    name: "Pointer",
-    props: [
-      "x",
-      "y",
-      "hpRate",
-      "hp",
-      "initialHp",
-      "energy",
-      "charge",
-      "isCharging",
-      "chargeRate",
-    ],
-  }
+export default {
+  name: 'Pointer',
+  props: [
+    'x',
+    'y',
+    'hpRate',
+    'hp',
+    'initialHp',
+    'energy',
+    'charge',
+    'isCharging',
+    'chargeRate',
+  ],
+};
 </script>
 
 <style lang='scss' scoped>

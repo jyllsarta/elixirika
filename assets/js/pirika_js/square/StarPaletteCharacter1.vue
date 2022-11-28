@@ -18,69 +18,68 @@
 </template>
 
 <script>
-  
-  import Model from "./packs/model";
-  import store from "./packs/store";
 
-  export default({
-    store,
-    props: {
-      model: Model,
+import Model from './packs/model';
+import store from './packs/store';
+
+export default ({
+  store,
+  props: {
+    model: Model,
+  },
+  data() {
+    return {
+      params: [],
+      currentProgressCache: 0,
+    };
+  },
+  mounted() {
+    this.params = this.model.character.getCallback('starPaletteParameter', this.model.chapter.index)()?.kinds;
+  },
+  methods: {
+    stringExpression(param) {
+      return param.upper ? `${param.value}+` : param.value;
     },
-    data(){
-      return { 
-        params: [],
-        currentProgressCache: 0,
+    expectedCardLength() {
+      const index = this.model.selectingBoardIndex;
+      const card = this.model.getHoldingCard();
+      const board = this.model.board.fields[index];
+      const holdingCardIsSender = card && card.isSenderCard();
+      if (board && card && holdingCardIsSender && this.model.cardStackRule(this.model.character, this.model, card, board)) {
+        return board.cards.length + 1;
       }
+      return 0;
     },
-    mounted(){
-      this.params = this.model.character.getCallback("starPaletteParameter", this.model.chapter.index)()?.kinds;
+    starClass(starPaletteParam) {
+      const satisfiedClass = this.model.starPalette.isSatisfied(starPaletteParam) ? 'enabled' : 'disabled';
+      const expectedClass = this.model.starPalette.willBeSatisfiedWith(starPaletteParam, this.expectedCardLength()) ? 'will_be' : '';
+      return [satisfiedClass, expectedClass].join(' ');
     },
-    methods: {
-      stringExpression(param){
-        return param.upper ? param.value + "+" : param.value;
-      },
-      expectedCardLength(){
-        const index = this.model.selectingBoardIndex;
-        const card = this.model.getHoldingCard();
-        const board = this.model.board.fields[index];
-        const holdingCardIsSender = card && card.isSenderCard();
-        if(board && card && holdingCardIsSender && this.model.cardStackRule(this.model.character, this.model, card, board)){
-          return board.cards.length + 1;
-        }
-        return 0;
-      },
-      starClass(starPaletteParam){
-        const satisfiedClass = this.model.starPalette.isSatisfied(starPaletteParam) ? 'enabled' : 'disabled';
-        const expectedClass = this.model.starPalette.willBeSatisfiedWith(starPaletteParam, this.expectedCardLength()) ? "will_be" : "";
-        return [satisfiedClass, expectedClass].join(" ")
-      },
+  },
+  computed: {
+    currentProgress() {
+      return this.params.filter((param) => this.model.starPalette.isSatisfied(param)).length;
     },
-    computed: {
-      currentProgress(){
-        return this.params.filter(param=>this.model.starPalette.isSatisfied(param)).length;
-      },
-      totalProgress(){
-        return this.params.length;
-      },
-      showsNote(){
-        // お宝回収はIDベタ打ち判定しちゃう
-        return this.model.chapterId === 3 && this.currentProgress >= this.totalProgress;
-      },
+    totalProgress() {
+      return this.params.length;
     },
-    watch: {
-      "model.starPalette.fields.length": function(after, before){
-        const afterProgress = this.currentProgress;
-        if(afterProgress > this.currentProgressCache){
-          this.$store.commit("playSound", {key: "special1"});
-        }
-        else if (afterProgress === this.currentProgressCache && after > before){
-          this.$store.commit("playSound", {key: "special3"});
-        }
-        this.currentProgressCache = afterProgress;
+    showsNote() {
+      // お宝回収はIDベタ打ち判定しちゃう
+      return this.model.chapterId === 3 && this.currentProgress >= this.totalProgress;
+    },
+  },
+  watch: {
+    'model.starPalette.fields.length': function(after, before) {
+      const afterProgress = this.currentProgress;
+      if (afterProgress > this.currentProgressCache) {
+        this.$store.commit('playSound', {key: 'special1'});
+      } else if (afterProgress === this.currentProgressCache && after > before) {
+        this.$store.commit('playSound', {key: 'special3'});
       }
-    }
-  })
+      this.currentProgressCache = afterProgress;
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -149,7 +148,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
-        }        
+        }
       }
       .enabled{
         border: 2px solid $palette_gold;

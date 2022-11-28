@@ -5,67 +5,67 @@
 </template>
 
 <script>
-  import FieldCard from "./FieldCard.vue";
-  import Field from './packs/field';
+import FieldCard from './FieldCard.vue';
+import Field from './packs/field';
 
-  export default({
-    props: {
-      field: Field,
-      selected: Boolean,
-      characterId: Number,
-      fieldIndex: Number,
+export default ({
+  props: {
+    field: Field,
+    selected: Boolean,
+    characterId: Number,
+    fieldIndex: Number,
+  },
+  components: {
+    FieldCard,
+  },
+  methods: {
+    shouldBeCompressed(index) {
+      const threshold = this.field.cards.length - 5;
+      return index < threshold;
     },
-    components: {
-      FieldCard,
+    dragover(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'copy';
+      this.selectBoard(this.fieldIndex);
     },
-    methods: {
-      shouldBeCompressed(index){
-        const threshold = this.field.cards.length - 5;
-        return index < threshold;
-      },
-      dragover(e){
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'copy';
-        this.selectBoard(this.fieldIndex);
-      },
-      dragleave(e){
-        this.$emit("guiEvent", {type: "selectBoard", index: -1});
-      },
-      drop(e){
-        e.preventDefault();
-        if (!e.dataTransfer.items) {
-          return;
-        };
-        for (let item of e.dataTransfer.items) {
-          let { kind, type } = item;
-          if (kind === 'file') {
-            continue;
-          } 
-          if (type === 'text/plain' && kind === 'string') {
-            const cardId = e.dataTransfer.getData(type);
-            this.$emit("guiEvent", {type: "sendCard", fieldIndex: this.fieldIndex, cardId: cardId});
-          }
+    dragleave(e) {
+      this.$emit('guiEvent', {type: 'selectBoard', index: -1});
+    },
+    drop(e) {
+      e.preventDefault();
+      if (!e.dataTransfer.items) {
+        return;
+      }
+      for (const item of e.dataTransfer.items) {
+        const {kind, type} = item;
+        if (kind === 'file') {
+          continue;
         }
-      },
-      selectBoard(index){
-        this.$emit("guiEvent", {type: "selectBoard", index: index});
-      },
+        if (type === 'text/plain' && kind === 'string') {
+          const cardId = e.dataTransfer.getData(type);
+          this.$emit('guiEvent', {type: 'sendCard', fieldIndex: this.fieldIndex, cardId});
+        }
+      }
     },
-    computed: {
-      compressedCards(){
-        return this.field.cards.slice(0, -5);
-      },
-      normalCards(){
-        return this.field.cards.slice(-5);
-      },
-      colorSchemedStyle(){
-        return {
-          backgroundColor: `var(--bg3-${this.characterId})`,
-          border: `2px solid var(--bg1-${this.characterId})`
-        };
-      },
+    selectBoard(index) {
+      this.$emit('guiEvent', {type: 'selectBoard', index});
     },
-  })
+  },
+  computed: {
+    compressedCards() {
+      return this.field.cards.slice(0, -5);
+    },
+    normalCards() {
+      return this.field.cards.slice(-5);
+    },
+    colorSchemedStyle() {
+      return {
+        backgroundColor: `var(--bg3-${this.characterId})`,
+        border: `2px solid var(--bg1-${this.characterId})`,
+      };
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -83,7 +83,7 @@
     }
     &.selected{
       border: 2px solid $primary1 !important;
-      transform: scale(1.05);      
+      transform: scale(1.05);
     }
   }
 </style>

@@ -26,84 +26,82 @@
 </template>
 
 <script>
-  
-  import Model from "./packs/model";
-  import store from "./packs/store";
 
-  export default({
-    store,
-    props: {
-      model: Model,
-    },
-    data(){
-      return {
-        params: {
-          banSendCard: true,
-          banDiscard: true,
-          banCardGap: true
-        },
-        currentProgressCache: 0,
+import Model from './packs/model';
+import store from './packs/store';
+
+export default ({
+  store,
+  props: {
+    model: Model,
+  },
+  data() {
+    return {
+      params: {
+        banSendCard: true,
+        banDiscard: true,
+        banCardGap: true,
+      },
+      currentProgressCache: 0,
+    };
+  },
+  mounted() {
+    this.params = this.model.character.getCallback('starPaletteParameter', this.model.chapter.index)();
+  },
+  methods: {
+    expectedCardLength() {
+      const index = this.model.selectingBoardIndex;
+      const card = this.model.getHoldingCard();
+      const board = this.model.board.fields[index];
+      const holdingCardIsSender = card && card.isSenderCard();
+      if (board && card && holdingCardIsSender && this.model.cardStackRule(this.model.character, this.model, card, board)) {
+        return board.cards.length + 1;
       }
+      return 0;
     },
-    mounted(){
-      this.params = this.model.character.getCallback("starPaletteParameter", this.model.chapter.index)();
-    },
-    methods: {
-      expectedCardLength(){
-        const index = this.model.selectingBoardIndex;
-        const card = this.model.getHoldingCard();
-        const board = this.model.board.fields[index];
-        const holdingCardIsSender = card && card.isSenderCard();
-        if(board && card && holdingCardIsSender && this.model.cardStackRule(this.model.character, this.model, card, board)){
-          return board.cards.length + 1;
-        }
-        return 0;
-      },
-      expectedAdditionalArityStyleScore(){
-        const length = this.expectedCardLength();
-        if(length === 4){
-          return 1;
-        }
-        if(length === 8){
-          return 3;
-        }
-        return 0        
-      },
-      starClass(index){
-        const current = this.currentProgress;
-        const satisfiedClass = current >= index ? 'enabled' : 'disabled';
-        const additionalScore = this.expectedAdditionalArityStyleScore()
-        const expectedClass = (current < index) && (current + additionalScore >= index) ? "will_be" : "";
-        return [satisfiedClass, expectedClass].join(" ")
-      },
-    },
-    computed: {
-      currentProgress(){
-        return this.model.starPalette.arityStyleScore();
-      },
-      totalProgress(){
-        return 12;
-      },
-      romanNumerals(){
-        return ["zero", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"]
+    expectedAdditionalArityStyleScore() {
+      const length = this.expectedCardLength();
+      if (length === 4) {
+        return 1;
       }
-    },
-    watch: {
-      "model.starPalette.fields.length": function(after, before){
-        const afterProgress = this.currentProgress;
-        if(afterProgress - this.currentProgressCache === 3){
-          this.$store.commit("playSound", {key: "special4"});
-        }
-        else if(afterProgress > this.currentProgressCache){
-          this.$store.commit("playSound", {key: "special1"});
-        }
-        else if (afterProgress === this.currentProgressCache && after > before){
-          this.$store.commit("playSound", {key: "special3"});
-        }
-        this.currentProgressCache = afterProgress;
+      if (length === 8) {
+        return 3;
       }
-    }
-  })
+      return 0;
+    },
+    starClass(index) {
+      const current = this.currentProgress;
+      const satisfiedClass = current >= index ? 'enabled' : 'disabled';
+      const additionalScore = this.expectedAdditionalArityStyleScore();
+      const expectedClass = (current < index) && (current + additionalScore >= index) ? 'will_be' : '';
+      return [satisfiedClass, expectedClass].join(' ');
+    },
+  },
+  computed: {
+    currentProgress() {
+      return this.model.starPalette.arityStyleScore();
+    },
+    totalProgress() {
+      return 12;
+    },
+    romanNumerals() {
+      return ['zero', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+    },
+  },
+  watch: {
+    'model.starPalette.fields.length': function(after, before) {
+      const afterProgress = this.currentProgress;
+      if (afterProgress - this.currentProgressCache === 3) {
+        this.$store.commit('playSound', {key: 'special4'});
+      } else if (afterProgress > this.currentProgressCache) {
+        this.$store.commit('playSound', {key: 'special1'});
+      } else if (afterProgress === this.currentProgressCache && after > before) {
+        this.$store.commit('playSound', {key: 'special3'});
+      }
+      this.currentProgressCache = afterProgress;
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -186,7 +184,7 @@
             line-height: 100%;
             font-size: $font-size-mini;
           }
-        }       
+        }
       }
       .enabled{
         border: 2px solid $palette_gold;

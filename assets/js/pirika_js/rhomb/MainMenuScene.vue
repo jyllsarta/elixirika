@@ -5,21 +5,20 @@
 </template>
 
 <script>
-  
 
-  export default({
-    data(){
-      return {
-      };
+export default ({
+  data() {
+    return {
+    };
+  },
+  methods: {
+    proceed() {
+      this.$emit('loadScene', {sceneName: 'inGame'});
     },
-    methods: {
-      proceed(){
-        this.$emit("loadScene", {sceneName: "inGame"});
-      },
-    },
-    mounted(){
-    }
-  })
+  },
+  mounted() {
+  },
+});
 </script>
 
 <style lang='scss' scoped>

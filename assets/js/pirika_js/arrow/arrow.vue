@@ -50,114 +50,116 @@
     </div>
 </template>
 <script>
-    import ArrowLogic from "./packs/ArrowLogic.js";
-    import GameState from "./packs/GameState.js";
-    import Ball from "./Ball.vue";
-    import Pointer from "./Pointer.vue";
-    import GameStartButton from "./GameStartButton.vue";
-    import ResetButton from "./ResetButton.vue";
-    import Constants from "./packs/Constants.js"
-    import Timer from "./packs/Timer.js"
-    import NameInputArea from "./NameInputArea.vue";
-    import RemoveScore from "./RemoveScore.vue";
-    import Ranking from "./Ranking.vue";
-    import { nextTick } from 'vue'
- 
-  export default ({
-    components: {
-      Ball,
-      Pointer,
-      GameStartButton,
-      ResetButton,
-      NameInputArea,
-      RemoveScore,
-      Ranking,
+import {nextTick} from 'vue';
+import ArrowLogic from './packs/ArrowLogic.js';
+import GameState from './packs/GameState.js';
+import Ball from './Ball.vue';
+import Pointer from './Pointer.vue';
+import GameStartButton from './GameStartButton.vue';
+import ResetButton from './ResetButton.vue';
+import Constants from './packs/Constants.js';
+import Timer from './packs/Timer.js';
+import NameInputArea from './NameInputArea.vue';
+import RemoveScore from './RemoveScore.vue';
+import Ranking from './Ranking.vue';
+
+export default ({
+  components: {
+    Ball,
+    Pointer,
+    GameStartButton,
+    ResetButton,
+    NameInputArea,
+    RemoveScore,
+    Ranking,
+  },
+  data() {
+    return {
+      logic: null,
+      latestMouseMoveEvent: null,
+      prevFrameMouseMoveEvent: null,
+      timer: null,
+      showingRanking: false,
+    };
+  },
+  created() {
+    this.logic = new ArrowLogic();
+    this.timer = new Timer();
+    this.registerEvents();
+  },
+  methods: {
+    registerEvents() {
+      window.onmousedown = this.onMouseDown;
+      window.onmouseup = this.onMouseUp;
+      this.update();
     },
-    data(){
-      return {
-        logic: null,
-        latestMouseMoveEvent: null,
-        prevFrameMouseMoveEvent: null,
-        timer: null,
-        showingRanking: false,
-      };
-    },
-    created(){
-      this.logic = new ArrowLogic();
-      this.timer = new Timer();
-      this.registerEvents();
-    },
-    methods: {
-      registerEvents(){
-        window.onmousedown= this.onMouseDown;
-        window.onmouseup= this.onMouseUp;
+    update() {
+      const e = this.latestMouseMoveEvent;
+      if (e !== this.prevFrameMouseMoveEvent) {
+        this.logic.setPointerPosition(e.offsetX / Constants.gameWindowPixelSizeX, e.offsetY / Constants.gameWindowPixelSizeY);
+        this.logic.onMoved();
+        this.prevFrameMouseMoveEvent = e;
+      }
+
+      const timeDelta = this.timer.timeDelta();
+      this.timer.commit();
+
+      this.logic.update(timeDelta);
+      requestAnimationFrame(() => {
         this.update();
-      },
-      update(){
-        let e = this.latestMouseMoveEvent;
-        if(e !== this.prevFrameMouseMoveEvent){
-          this.logic.setPointerPosition(e.offsetX / Constants.gameWindowPixelSizeX, e.offsetY / Constants.gameWindowPixelSizeY);
-          this.logic.onMoved();
-          this.prevFrameMouseMoveEvent = e;
-        }
-
-        const timeDelta = this.timer.timeDelta();
-        this.timer.commit();
-
-        this.logic.update(timeDelta);
-        requestAnimationFrame(() => {this.update();});
-      },
-      updatePointerPosition(e){
-        this.latestMouseMoveEvent = e;
-      },
-      startGame(){
-        this.showingRanking = false;
-        this.logic.startGame();
-      },
-      resetGame(){
-        this.logic.onClickResetButton();
-      },
-      onMouseDown(){
-        this.logic.onMouseDown();
-      },
-      onMouseUp(){
-        this.logic.onMouseUp();
-      },
-      setName(name){
-        this.logic.setName(name);
-      },
-      showRanking(){
-        // ロジックのサウンドマネージャに直接命令するのはだいぶ横着なので良くない...
-        this.logic.soundManager.play("discharge_available");
-        this.logic.fetchRanking();
-        this.showingRanking = true;
-      },
-      hideRanking(){
-        this.logic.soundManager.play("phew");
-        this.showingRanking = false;
-      }
+      });
     },
-    computed: {
-      isTitleScene(){
-        return this.logic.gameState === GameState.Title;
-      },
-      isInGameScene(){
-        return this.logic.gameState === GameState.InGame;
-      },
-      isGameOverScene(){
-        return this.logic.gameState === GameState.GameOver
-      },
-      gameWindowWidth(){
-        return Constants.gameWindowPixelSizeX;
-      },
-      gameWindowHeight(){
-        return Constants.gameWindowPixelSizeY;
-      },
-      constants(){
-        return Constants;
-      }
-    }
-  })
+    updatePointerPosition(e) {
+      this.latestMouseMoveEvent = e;
+    },
+    startGame() {
+      this.showingRanking = false;
+      this.logic.startGame();
+    },
+    resetGame() {
+      this.logic.onClickResetButton();
+    },
+    onMouseDown() {
+      this.logic.onMouseDown();
+    },
+    onMouseUp() {
+      this.logic.onMouseUp();
+    },
+    setName(name) {
+      this.logic.setName(name);
+    },
+    showRanking() {
+      // ロジックのサウンドマネージャに直接命令するのはだいぶ横着なので良くない...
+      this.logic.soundManager.play('discharge_available');
+      this.logic.fetchRanking();
+      this.showingRanking = true;
+    },
+    hideRanking() {
+      this.logic.soundManager.play('phew');
+      this.showingRanking = false;
+    },
+  },
+  computed: {
+    isTitleScene() {
+      return this.logic.gameState === GameState.Title;
+    },
+    isInGameScene() {
+      return this.logic.gameState === GameState.InGame;
+    },
+    isGameOverScene() {
+      return this.logic.gameState === GameState.GameOver;
+    },
+    gameWindowWidth() {
+      return Constants.gameWindowPixelSizeX;
+    },
+    gameWindowHeight() {
+      return Constants.gameWindowPixelSizeY;
+    },
+    constants() {
+      return Constants;
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>

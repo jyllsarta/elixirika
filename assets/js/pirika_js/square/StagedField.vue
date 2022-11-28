@@ -7,32 +7,32 @@
 </template>
 
 <script>
-  
-  import Card from "./Card.vue"
-  import StagedField from "./packs/stagedField";
-  import Model from "./packs/model";
-  import Constants from "./packs/constants";
 
-  export default({
-    data(){
-      return {
-        gap: 200,
-      }
+import Card from './Card.vue';
+import StagedField from './packs/stagedField';
+import Model from './packs/model';
+import Constants from './packs/constants';
+
+export default ({
+  data() {
+    return {
+      gap: 200,
+    };
+  },
+  props: {
+    stagedField: StagedField,
+    model: Model,
+  },
+  components: {
+    Card,
+  },
+  computed: {
+    leftGap() {
+      const px = (this.model.selectingBoardIndex - 1.5) * this.gap;
+      return `${px}px`;
     },
-    props: {
-      stagedField: StagedField,
-      model: Model,
-    },
-    components: {
-      Card,
-    },
-    computed: {
-      leftGap(){
-        const px = (this.model.selectingBoardIndex - 1.5) * this.gap;
-        return px + "px";
-      }
-    }
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>

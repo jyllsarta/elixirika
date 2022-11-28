@@ -34,50 +34,50 @@
 </template>
 
 <script>
-  
-  import Model from './packs/model';
-  import ChallengeText from "./ChallengeText.vue";
-  import store from "./packs/store";
 
-  export default({
-    store,
-    props: {
-      model: Model,
+import Model from './packs/model';
+import ChallengeText from './ChallengeText.vue';
+import store from './packs/store';
+
+export default ({
+  store,
+  props: {
+    model: Model,
+  },
+  data() {
+    return {
+      sending: false,
+      isMarginTime: true,
+    };
+  },
+  mounted() {
+    setTimeout(() => this.isMarginTime = false, 1000);
+  },
+  components: {
+    ChallengeText,
+  },
+  computed: {
+    challenges() {
+      return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
     },
-    data(){
-      return {
-        sending: false,
-        isMarginTime: true,
+    restCardBonus() {
+      return this.model.restCardBonus(this.model.character, this.model);
+    },
+  },
+  methods: {
+    endGame() {
+      if (this.sending || this.isMarginTime) {
+        return;
       }
+      this.sending = true;
+      this.$emit('guiEvent', {type: 'endGame'});
+      this.$store.commit('playSound', {key: 'ok'});
     },
-    mounted(){
-      setTimeout(()=>this.isMarginTime=false, 1000);
+    isCleared(challengeId) {
+      return this.model.clearedChallenges.indexOf(challengeId) !== -1;
     },
-    components: {
-      ChallengeText
-    },
-    computed: {
-      challenges(){
-        return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
-      },
-      restCardBonus(){
-        return this.model.restCardBonus(this.model.character, this.model);
-      },
-    },
-    methods: {
-      endGame(){
-        if(this.sending || this.isMarginTime){
-          return;
-        }
-        this.sending = true;
-        this.$emit("guiEvent", {type: "endGame"});
-        this.$store.commit("playSound", {key: "ok"})
-      },
-      isCleared(challengeId){
-        return this.model.clearedChallenges.indexOf(challengeId) !== -1;
-      }
-    },
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -101,7 +101,7 @@
     height: $window-height;
     display: flex;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
     .body{
       position: absolute;
       background-color: $ingame-background;

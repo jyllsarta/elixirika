@@ -18,18 +18,18 @@
 </template>
 
 <script>
-  export default {
-    data: function(){
-      return {
-      };
-    },
-    name: "Ranking",
-    props: [
-      "ranking",
-    ],
-    mounted: function(){
-    },
-  }
+export default {
+  data() {
+    return {
+    };
+  },
+  name: 'Ranking',
+  props: [
+    'ranking',
+  ],
+  mounted() {
+  },
+};
 </script>
 
 <style lang='scss' scoped>

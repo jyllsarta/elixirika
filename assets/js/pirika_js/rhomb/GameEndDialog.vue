@@ -6,21 +6,21 @@
 </template>
 
 <script>
-  
-  import store from "./packs/store";
-  import Model from "./packs/model";
 
-  export default({
-    store,
-    props: {
-      model: Model,
+import store from './packs/store';
+import Model from './packs/model';
+
+export default ({
+  store,
+  props: {
+    model: Model,
+  },
+  methods: {
+    reset() {
+      this.$store.commit('guiEvent', {subject: 'reset'});
     },
-    methods: {
-      reset(){
-        this.$store.commit('guiEvent', {subject: 'reset'});
-      }
-    }
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>

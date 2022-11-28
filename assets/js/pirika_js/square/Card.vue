@@ -43,130 +43,129 @@
 </template>
 
 <script>
-  import Card from "./packs/card";
-  import store from "./packs/store";
+import Card from './packs/card';
+import store from './packs/store';
 
-  export default ({
-    store,
-    props: {
-      card: Card,
-      characterId: Number
+export default ({
+  store,
+  props: {
+    card: Card,
+    characterId: Number,
+  },
+  data() {
+    return {
+      top: 0,
+      left: 0,
+      touchDragging: false,
+    };
+  },
+  methods: {
+    onHover(event) {
+      if ('ontouchstart' in window) {
+        // タッチデバイスではonHoverをポップさせない
+        return;
+      }
+      this.$emit('hover', this.card);
+      this.$store.commit('playSound', {key: 'hover'});
     },
-    data(){
-      return {
-        top: 0,
-        left: 0,
-        touchDragging: false
+    onDragStart(e) {
+      e.dataTransfer.setData('text/plain', this.card.id);
+    },
+    onDragEnd(e) {
+      this.$emit('guiEvent', {type: 'selectBoard', index: -1});
+      // なんかよく知らないが、sendcardやsendToCharacterの成功時にはpathは1要素なのでありがたく成功判定に使わせていただく
+      // 失敗時は常に14だった
+      if (e.path.length !== 1) {
+        this.$store.commit('playSound', {key: 'miss'});
       }
     },
-    methods: {
-      onHover(event){
-        if ("ontouchstart" in window) {
-          // タッチデバイスではonHoverをポップさせない
-          return;
-        }
-        this.$emit("hover", this.card);
-        this.$store.commit("playSound", {key: "hover"});
-      },
-      onDragStart(e){
-        e.dataTransfer.setData('text/plain', this.card.id);
-      },
-      onDragEnd(e){
-        this.$emit("guiEvent", {type: "selectBoard", index: -1});
-        // なんかよく知らないが、sendcardやsendToCharacterの成功時にはpathは1要素なのでありがたく成功判定に使わせていただく
-        // 失敗時は常に14だった
-        if(e.path.length !== 1){
-          this.$store.commit("playSound", {key: "miss"});
-        }
-      },
-      onTouchStart(e){
-        e.preventDefault();
-      },
-      onTouchMove(e) {
-        e.preventDefault();
-        const draggedElem = e.target;
-        const touch = e.changedTouches[0];
-        this.touchDragging = true;
-        this.top = (touch.pageY - window.pageYOffset - draggedElem.offsetHeight / 2) + "px";
-        this.left = (touch.pageX - window.pageXOffset - draggedElem.offsetWidth / 2) + "px";
-      },
-      onTouchEnd(e) {
-        e.preventDefault();
-        var touch = e.changedTouches[0];
-        var destination = document.elementFromPoint(touch.pageX - window.pageXOffset, touch.pageY - window.pageYOffset);
-        this.touchDragging = false;
-        this.top = 0;
-        this.left = 0;
-        this.emitSendEvent(destination.id);
-      },
-      emitSendEvent(elementId){
-        const fieldIndex = parseInt(elementId.split("field-")[1] || -1);
-        const isToAbility = elementId === "support-character";
-        const cardId = this.card.id;
-        if(isToAbility){
-          this.doSend("ability", cardId);
-        }
-        else{
-          this.doSend(fieldIndex, cardId);
-        }
-      },
-      doSend(target, cardId){
-        switch(target){
-          case 0:
-          case 1:
-          case 2:
-          case 3:
-            this.sendToBoard(target, cardId);
-            break;
-          case "ability":
-            this.sendToAbility(cardId);
-            break;  
-          case -1:
-            console.warn("no drag target!");
-            this.cancelDrag();
-            break;
-        }
-      },
-      cancelDrag(){
-        this.$emit("guiEvent", {type: "cancelDrag"});
-        this.$store.commit("playSound", {key: "miss"});
-      },
-      sendToAbility(cardId){
-        this.$emit("guiEvent", {type: "sendToAbility", cardId: cardId});
-      },
-      sendToBoard(fieldIndex, cardId){
-        this.$emit("guiEvent", {type: "sendCard", fieldIndex: fieldIndex, cardId: cardId});
+    onTouchStart(e) {
+      e.preventDefault();
+    },
+    onTouchMove(e) {
+      e.preventDefault();
+      const draggedElem = e.target;
+      const touch = e.changedTouches[0];
+      this.touchDragging = true;
+      this.top = `${touch.pageY - window.pageYOffset - draggedElem.offsetHeight / 2}px`;
+      this.left = `${touch.pageX - window.pageXOffset - draggedElem.offsetWidth / 2}px`;
+    },
+    onTouchEnd(e) {
+      e.preventDefault();
+      const touch = e.changedTouches[0];
+      const destination = document.elementFromPoint(touch.pageX - window.pageXOffset, touch.pageY - window.pageYOffset);
+      this.touchDragging = false;
+      this.top = 0;
+      this.left = 0;
+      this.emitSendEvent(destination.id);
+    },
+    emitSendEvent(elementId) {
+      const fieldIndex = parseInt(elementId.split('field-')[1] || -1);
+      const isToAbility = elementId === 'support-character';
+      const cardId = this.card.id;
+      if (isToAbility) {
+        this.doSend('ability', cardId);
+      } else {
+        this.doSend(fieldIndex, cardId);
       }
     },
-    computed: {
-      rightLineCount(){
-        if(this.card.category !== 'normal'){
-          return 8;
-        }
-        return Math.ceil(this.card.number / 2);
-      },
-      leftLineCount(){
-        if(this.card.category !== 'normal'){
-          return 8;
-        }
-        return Math.floor(this.card.number / 2);
-      },
-      computedStyle(){
-        let style =  {
-          backgroundColor: `var(--color-${this.card.suit}3-${this.characterId})`,
-          border: `3px solid var(--color-${this.card.suit}1-${this.characterId})`,
-        };
+    doSend(target, cardId) {
+      switch (target) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+          this.sendToBoard(target, cardId);
+          break;
+        case 'ability':
+          this.sendToAbility(cardId);
+          break;
+        case -1:
+          console.warn('no drag target!');
+          this.cancelDrag();
+          break;
+      }
+    },
+    cancelDrag() {
+      this.$emit('guiEvent', {type: 'cancelDrag'});
+      this.$store.commit('playSound', {key: 'miss'});
+    },
+    sendToAbility(cardId) {
+      this.$emit('guiEvent', {type: 'sendToAbility', cardId});
+    },
+    sendToBoard(fieldIndex, cardId) {
+      this.$emit('guiEvent', {type: 'sendCard', fieldIndex, cardId});
+    },
+  },
+  computed: {
+    rightLineCount() {
+      if (this.card.category !== 'normal') {
+        return 8;
+      }
+      return Math.ceil(this.card.number / 2);
+    },
+    leftLineCount() {
+      if (this.card.category !== 'normal') {
+        return 8;
+      }
+      return Math.floor(this.card.number / 2);
+    },
+    computedStyle() {
+      const style = {
+        backgroundColor: `var(--color-${this.card.suit}3-${this.characterId})`,
+        border: `3px solid var(--color-${this.card.suit}1-${this.characterId})`,
+      };
 
-        if(this.touchDragging){
-          style.position = "fixed";
-          style.top = this.top;
-          style.left = this.left;
-          style.pointerEvents = "none";
-        }
-        return style;
-      },
-    }
-  })
+      if (this.touchDragging) {
+        style.position = 'fixed';
+        style.top = this.top;
+        style.left = this.left;
+        style.pointerEvents = 'none';
+      }
+      return style;
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>

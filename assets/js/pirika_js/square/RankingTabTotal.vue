@@ -10,12 +10,12 @@
 </template>
 
 <script>
-  
-  import store from "./packs/store";
 
-  export default({
-    store,
-  })
+import store from './packs/store';
+
+export default ({
+  store,
+});
 </script>
 
 <style lang='scss' scoped>
@@ -40,7 +40,7 @@
         width: 100%;
         height: 100%;
         // TODO: もしかするとキャラ固有色みたいなものをグラデーションに指定するときれいかも
-        background: linear-gradient(to right, $ingame-background 5%, transparent 200%);        
+        background: linear-gradient(to right, $ingame-background 5%, transparent 200%);
       }
       .content{
         position: absolute;

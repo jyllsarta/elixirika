@@ -5,12 +5,12 @@
 </template>
 
 <script>
-  export default {
-    name: "minusList",
-    props: [
-      "minuses",
-    ],
-  }
+export default {
+  name: 'minusList',
+  props: [
+    'minuses',
+  ],
+};
 </script>
 
 <style lang='scss' scoped>

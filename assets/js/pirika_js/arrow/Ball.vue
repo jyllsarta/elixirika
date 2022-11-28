@@ -4,13 +4,13 @@
 </template>
 
 <script>
-  export default {
-    name: "Ball",
-    props: [
-      "ball",
-      "constants",
-    ],
-  }
+export default {
+  name: 'Ball',
+  props: [
+    'ball',
+    'constants',
+  ],
+};
 </script>
 
 <style lang='scss' scoped>

@@ -31,61 +31,60 @@
 </template>
 
 <script>
-  
-  import store from "./packs/store";
-  import axios from "axios";
-  import GeneralButton from "./GeneralButton.vue";
 
-  export default({
-    store,
-    components: {
-      GeneralButton,
+import axios from 'axios';
+import store from './packs/store';
+import GeneralButton from './GeneralButton.vue';
+
+export default ({
+  store,
+  components: {
+    GeneralButton,
+  },
+  data() {
+    return {
+      messages: [],
+      sendingMessage: '',
+    };
+  },
+  created() {
+    this.fetch();
+  },
+  methods: {
+    close() {
+      this.$store.commit('closeMessage');
+      this.$store.commit('playSound', {key: 'menuClose'});
     },
-    data(){
-      return {
-        messages: [],
-        sendingMessage: ""
-      };
+    fetch() {
+      axios.get('/square/messages')
+          .then((results) => {
+            this.messages = results.data;
+          })
+          .catch((results) => {
+            console.warn(results);
+            console.warn('NG');
+          });
     },
-    created(){
-      this.fetch();
+    send() {
+      axios.post('/square/messages/create', {
+        _csrf_token: document.querySelector('meta[name=csrf-token]').attributes.content.textContent,
+        username: localStorage.rawNameSquare,
+        message: this.sendingMessage,
+      })
+          .then((results) => {
+            this.sendingMessage = '';
+            this.$store.commit('playSound', {key: 'special2'});
+            this.fetch();
+          })
+          .catch((results) => {
+            console.warn(results);
+            console.warn('NG');
+          });
     },
-    methods: {
-      close(){
-        this.$store.commit("closeMessage");
-        this.$store.commit("playSound", {key: "menuClose"});
-      },
-      fetch(){
-        axios.get(`/square/messages`)
-        .then((results) => {
-          this.messages = results.data;
-        })
-        .catch((results) => {
-          console.warn(results);
-          console.warn("NG");
-        })
-      },
-      send(){
-        axios.post("/square/messages/create",{
-              _csrf_token: document.querySelector("meta[name=csrf-token]").attributes["content"].textContent,
-              username: localStorage.rawNameSquare,
-              message: this.sendingMessage,
-          }
-        )
-        .then((results) => {
-          this.sendingMessage = "";
-          this.$store.commit("playSound", {key: "special2"});
-          this.fetch();
-        })
-        .catch((results) => {
-          console.warn(results);
-          console.warn("NG");
-        })
-      },
-    },
-    computed: {
-    }
-  })
+  },
+  computed: {
+  },
+});
 </script>
 
 <style lang='scss' scoped>

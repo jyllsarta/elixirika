@@ -17,41 +17,41 @@
 </template>
 
 <script lang="v">
-  
-  import store from "./packs/store";
-  import jsSHA from 'jssha';
 
-  export default({
-    store,
-    props: {
-      characterId: Number,
-      characterName: String,
-      rankingContent: Array,
+import jsSHA from 'jssha';
+import store from './packs/store';
+
+export default ({
+  store,
+  props: {
+    characterId: Number,
+    characterName: String,
+    rankingContent: Array,
+  },
+  computed: {
+    filledRanking() {
+      const base = {
+        name: 'ななしろこ',
+        score: 0,
+      };
+      return this.rankingContent.concat(Array.from({length: 10 - this.rankingContent.length}, () => base));
     },
-    computed: {
-      filledRanking(){
-        const base = {
-          name: "ななしろこ",
-          score: 0
-        }
-        return this.rankingContent.concat(Array.from({length: 10 - this.rankingContent.length}, () => base));
-      },
+  },
+  methods: {
+    fullName(name) {
+      const splitted = name.replace(/📛/g, '').split('#');
+      const displayName = splitted[0];
+      if (splitted.length === 1) {
+        return displayName;
+      }
+      const target = splitted.slice(1).join('');
+      const sha = new jsSHA('SHA-256', 'TEXT');
+      sha.update(target);
+      const sliced = sha.getHash('HEX').slice(0, 8);
+      return `${displayName}📛${sliced}`;
     },
-    methods: {
-      fullName(name){
-        const splitted = name.replace(/📛/g, "").split("#");
-        const displayName = splitted[0];
-        if (splitted.length === 1) {
-            return displayName;
-        }
-        const target = splitted.slice(1).join("");
-        const sha = new jsSHA("SHA-256", "TEXT");
-        sha.update(target);
-        const sliced = sha.getHash("HEX").slice(0, 8);
-        return `${displayName}📛${sliced}`;
-      },
-    }
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -85,7 +85,7 @@
         width: 100%;
         height: 100%;
         // TODO: もしかするとキャラ固有色みたいなものをグラデーションに指定するときれいかも
-        background: linear-gradient(to right, $ingame-background 5%, transparent 200%);        
+        background: linear-gradient(to right, $ingame-background 5%, transparent 200%);
       }
       .content{
         position: absolute;

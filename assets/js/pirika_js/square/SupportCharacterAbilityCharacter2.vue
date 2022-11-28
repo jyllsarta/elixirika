@@ -16,40 +16,40 @@
 </template>
 
 <script>
-  
-  import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue"
 
-  export default({
-    data(){
-      return {
-      };
+import SupportCharacterAbilityButton from './SupportCharacterAbilityButton.vue';
+
+export default ({
+  data() {
+    return {
+    };
+  },
+  components: {
+    SupportCharacterAbilityButton,
+  },
+  props: {
+    character: Object,
+    model: Object,
+  },
+  computed: {
+    isAbilityColded() {
+      const callback = this.character.getCallback('isAbilityColded', this.model.chapter.index);
+      return callback && callback(this.character, this.model);
     },
-    components: {
-      SupportCharacterAbilityButton
+  },
+  methods: {
+    isSelected(index) {
+      return this.model.focusingAbilityIndex === index;
     },
-    props: {
-      character: Object,
-      model: Object,
-    },
-    computed: {
-      isAbilityColded(){
-        const callback = this.character.getCallback("isAbilityColded", this.model.chapter.index);
-        return callback && callback(this.character, this.model);
-      },
-    },
-    methods: {
-      isSelected(index){
-        return this.model.focusingAbilityIndex === index;
-      },
-      isSmall(index){
-        const length = this.character.uniqueParameters.abilities.length;
-        if(length <= 4){
-          return false;
-        }
-        return index >= (8 - length);
+    isSmall(index) {
+      const {length} = this.character.uniqueParameters.abilities;
+      if (length <= 4) {
+        return false;
       }
+      return index >= (8 - length);
     },
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>

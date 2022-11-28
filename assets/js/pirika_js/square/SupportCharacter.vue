@@ -12,47 +12,47 @@
 </template>
 
 <script>
-  
-  import Model from "./packs/model";
 
-  export default({
-    props: {
-      model: Model,
-      gameStarted: Boolean,
+import Model from './packs/model';
+
+export default ({
+  props: {
+    model: Model,
+    gameStarted: Boolean,
+  },
+  methods: {
+    dragover(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'copy';
     },
-    methods: {
-      dragover(e){
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'copy';
-      },
-      drop(e){
-        e.preventDefault();
-        if (!e.dataTransfer.items) {
-          return;
-        };
-        for (let item of e.dataTransfer.items) {
-          let { kind, type } = item;
-          if (kind === 'file') {
-            continue;
-          } 
-          if (type === 'text/plain' && kind === 'string') {
-            const cardId = e.dataTransfer.getData(type);
-            this.$emit("guiEvent", {type: "sendToAbility", cardId: cardId});
-          }
+    drop(e) {
+      e.preventDefault();
+      if (!e.dataTransfer.items) {
+        return;
+      }
+      for (const item of e.dataTransfer.items) {
+        const {kind, type} = item;
+        if (kind === 'file') {
+          continue;
+        }
+        if (type === 'text/plain' && kind === 'string') {
+          const cardId = e.dataTransfer.getData(type);
+          this.$emit('guiEvent', {type: 'sendToAbility', cardId});
         }
       }
-
     },
-    computed: {
-      currentMessage(){
-        return this.model.messageManager.currentMessage;
-      },
-      // アリティは立ち絵位置が横にずれてるので引っ張り出す
-      characterOffset(){
-        return this.model.character.id == 2;
-      }
-    }
-  })
+
+  },
+  computed: {
+    currentMessage() {
+      return this.model.messageManager.currentMessage;
+    },
+    // アリティは立ち絵位置が横にずれてるので引っ張り出す
+    characterOffset() {
+      return this.model.character.id == 2;
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -83,7 +83,7 @@
       transform: scale(-1, 1);
       .character{
         position: absolute;
-        height: 100%;      
+        height: 100%;
         &.hidden{
           visibility: hidden;
         }

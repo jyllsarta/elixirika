@@ -36,23 +36,23 @@
 </template>
 
 <script>
-  
-  import store from "./packs/store";
-  import GeneralButton from "./GeneralButton.vue";
 
-  export default({
-    store,
-    components: {
-      GeneralButton,
+import store from './packs/store';
+import GeneralButton from './GeneralButton.vue';
+
+export default ({
+  store,
+  components: {
+    GeneralButton,
+  },
+  methods: {
+    closeMenu() {
+      this.$emit('close');
     },
-    methods: {
-      closeMenu(){
-        this.$emit("close");
-      },
-    },
-    computed: {
-    },
-  })
+  },
+  computed: {
+  },
+});
 </script>
 
 <style lang='scss' scoped>

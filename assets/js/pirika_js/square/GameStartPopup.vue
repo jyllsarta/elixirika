@@ -20,36 +20,36 @@
     </transition>
 </template>
 
-<script>  
-  import Model from './packs/model';
-  import store from './packs/store';
+<script>
+import Model from './packs/model';
+import store from './packs/store';
 
-  export default({
-    props: {
-      model: Model,
-      gameStarted: Boolean,
+export default ({
+  props: {
+    model: Model,
+    gameStarted: Boolean,
+  },
+  store,
+  mounted() {
+    this.$store.commit('playSound', {key: 'welcome'});
+    this.$store.commit('playBgm', '');
+  },
+  computed: {
+    chapter() {
+      return this.model.chapter;
     },
-    store,
-    mounted(){
-      this.$store.commit("playSound", {key: "welcome"});
-      this.$store.commit("playBgm", "");
+    challenges() {
+      return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
     },
-    computed: {
-      chapter(){
-        return this.model.chapter;
-      },
-      challenges(){
-        return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
-      }
+  },
+  methods: {
+    startGame() {
+      this.$emit('startGame');
+      this.$store.commit('playSound', {key: 'gameStart'});
+      this.$store.commit('playBgm', this.model.character.bgm);
     },
-    methods: {
-      startGame(){
-        this.$emit("startGame");
-        this.$store.commit("playSound", {key: "gameStart"});
-        this.$store.commit("playBgm", this.model.character.bgm);
-      },
-    },
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>

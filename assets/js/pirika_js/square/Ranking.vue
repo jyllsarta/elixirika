@@ -20,65 +20,67 @@
 </template>
 
 <script>
-  
-  import axios from "axios";
-  import store from "./packs/store";
-  import GeneralButton from "./GeneralButton.vue";
-  import RankingBanner from "./RankingBanner.vue";
-  import RankingTab from "./RankingTab.vue";
-  import RankingTabTotal from "./RankingTabTotal.vue";
-  import CharacterFactory from "./packs/characterFactory";
 
-  export default({
-    store,
-    data(){
-      const characterFactory = new CharacterFactory();
-      return {
-        characters: [1,2,3,4].reduce((iter, x)=>{const c=characterFactory.getCharacterById(x); iter[c.id]=c; return iter}, {}),
-        characterId: 1,
-        ranking: [],
+import axios from 'axios';
+import store from './packs/store';
+import GeneralButton from './GeneralButton.vue';
+import RankingBanner from './RankingBanner.vue';
+import RankingTab from './RankingTab.vue';
+import RankingTabTotal from './RankingTabTotal.vue';
+import CharacterFactory from './packs/characterFactory';
+
+export default ({
+  store,
+  data() {
+    const characterFactory = new CharacterFactory();
+    return {
+      characters: [1, 2, 3, 4].reduce((iter, x) => {
+        const c = characterFactory.getCharacterById(x); iter[c.id] = c; return iter;
+      }, {}),
+      characterId: 1,
+      ranking: [],
+    };
+  },
+  components: {
+    GeneralButton,
+    RankingBanner,
+    RankingTab,
+    RankingTabTotal,
+  },
+  methods: {
+    closeMenu() {
+      this.$emit('close');
+    },
+    onTabClick(cid) {
+      this.characterId = cid;
+      this.$store.commit('playSound', {key: 'ok'});
+    },
+  },
+  computed: {
+    rankingContent() {
+      if (this.characterId === -1) {
+        return this.ranking.total;
       }
+      return this.ranking[this.characterId] || [];
     },
-    components: {
-      GeneralButton,
-      RankingBanner,
-      RankingTab,
-      RankingTabTotal
-    },
-    methods: {
-      closeMenu(){
-        this.$emit("close");
-      },
-      onTabClick(cid){
-        this.characterId = cid;
-        this.$store.commit("playSound", {key: "ok"});
+    characterName() {
+      if (this.characterId === -1) {
+        return '総合';
       }
+      return this.characters[this.characterId]?.name;
     },
-    computed: {
-      rankingContent(){
-        if(this.characterId === -1){
-          return this.ranking.total;
-        }
-        return this.ranking[this.characterId] || [];
-      },
-      characterName(){
-        if(this.characterId === -1){
-          return "総合";
-        }
-        return this.characters[this.characterId]?.name;
-      }
-    },
-    mounted(){
-        axios.get(`/square/ranking`)
+  },
+  mounted() {
+    axios.get('/square/ranking')
         .then((results) => {
           this.ranking = results.data.ranking;
         })
         .catch((results) => {
           console.warn(results);
-          console.warn("NG");
-        })
-    }
-  })
+          console.warn('NG');
+        });
+  },
+});
 </script>
 
 <style lang='scss' scoped>

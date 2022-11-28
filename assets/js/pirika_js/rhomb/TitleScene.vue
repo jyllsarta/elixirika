@@ -5,24 +5,23 @@
 </template>
 
 <script>
-  
 
-  export default({
-    data(){
-      return {
-      };
+export default ({
+  data() {
+    return {
+    };
+  },
+  methods: {
+    proceed() {
+      this.$emit('loadScene', {sceneName: 'mainMenu'});
     },
-    methods: {
-      proceed(){
-        this.$emit("loadScene", {sceneName: "mainMenu"});
-      },
-    },
-    mounted(){
-      // シーン飛ばし用
-      //this.$emit("loadScene", {sceneName: "mainMenu"});
-      //this.$emit("loadScene", {sceneName: "inGame"});
-    }
-  })
+  },
+  mounted() {
+    // シーン飛ばし用
+    // this.$emit("loadScene", {sceneName: "mainMenu"});
+    // this.$emit("loadScene", {sceneName: "inGame"});
+  },
+});
 </script>
 
 <style lang='scss' scoped>

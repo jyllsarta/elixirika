@@ -48,25 +48,25 @@
 </template>
 
 <script>
-  
-  import Model from './packs/model';
-  import store from "./packs/store";
 
-  export default({
-    store,
-    props: {
-      model: Model,
+import Model from './packs/model';
+import store from './packs/store';
+
+export default ({
+  store,
+  props: {
+    model: Model,
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    close() {
+      this.$store.commit('closeKeyboardHelp');
+      this.$store.commit('playSound', {key: 'menuClose'});
     },
-    data(){
-      return {};
-    },
-    methods: {
-      close(){
-        this.$store.commit("closeKeyboardHelp");
-        this.$store.commit("playSound", {key: "menuClose"});
-      }
-    },
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>

@@ -5,34 +5,34 @@
 </template>
 
 <script>
-  
-  import Controller from './packs/controller';
-  import Model from "./packs/model";
 
-  export default({
-    props: {
-      model: Model,
-      controller: Controller
+import Controller from './packs/controller';
+import Model from './packs/model';
+
+export default ({
+  props: {
+    model: Model,
+    controller: Controller,
+  },
+  methods: {
+    handleMouseDown(e) {
+      if (this.model.phaseStateMachine.phase.handleMouseDown) {
+        this.model.phaseStateMachine.phase.handleMouseDown(e, this.model);
+      }
     },
-    methods: {
-      handleMouseDown(e){
-        if(this.model.phaseStateMachine.phase.handleMouseDown){
-          this.model.phaseStateMachine.phase.handleMouseDown(e, this.model);
-        }
-      },
-      handleMouseMove(e){
-        if(this.model.phaseStateMachine.phase.handleMouseMove){
-          this.model.phaseStateMachine.phase.handleMouseMove(e, this.model);
-        }
-      },
-      handleMouseUp(e){
-        e.preventDefault();
-        if(this.model.phaseStateMachine.phase.handleMouseUp){
-          this.model.phaseStateMachine.phase.handleMouseUp(e, this.model);
-        }
-      },
+    handleMouseMove(e) {
+      if (this.model.phaseStateMachine.phase.handleMouseMove) {
+        this.model.phaseStateMachine.phase.handleMouseMove(e, this.model);
+      }
     },
-  })
+    handleMouseUp(e) {
+      e.preventDefault();
+      if (this.model.phaseStateMachine.phase.handleMouseUp) {
+        this.model.phaseStateMachine.phase.handleMouseUp(e, this.model);
+      }
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>

@@ -5,53 +5,54 @@
 </template>
 
 <script>
-import jsSHA from 'jssha'
+import jsSHA from 'jssha';
+
 export default {
-  data: function(){
+  data() {
     return {
-      rawName: "",
+      rawName: '',
       inputting: false,
     };
   },
-  name: "nameInputArea",
-  mounted: function(){
-    if(localStorage.rawName){
+  name: 'nameInputArea',
+  mounted() {
+    if (localStorage.rawName) {
       this.rawName = localStorage.rawName;
     }
     this.setName();
   },
   computed: {
-    fullName: function(){
-      const splitted = this.rawName.replace(/📛/g, "").split("#");
+    fullName() {
+      const splitted = this.rawName.replace(/📛/g, '').split('#');
       const displayName = splitted[0];
       if (splitted.length === 1) {
-          return displayName;
+        return displayName;
       }
-      const target = splitted.slice(1).join("");
-      const sha = new jsSHA("SHA-256", "TEXT");
+      const target = splitted.slice(1).join('');
+      const sha = new jsSHA('SHA-256', 'TEXT');
       sha.update(target);
-      const sliced = sha.getHash("B64").slice(0, 10);
+      const sliced = sha.getHash('B64').slice(0, 10);
       return `${displayName}📛${sliced}`;
     },
   },
   methods: {
-    onBlur: function(){
+    onBlur() {
       this.inputting = false;
       localStorage.rawName = this.rawName;
-      this.$emit("inputStateChanged", false);
+      this.$emit('inputStateChanged', false);
       this.setName();
     },
-    setInputMode: function(){
+    setInputMode() {
       this.inputting = true;
-      this.$emit("inputStateChanged", true);
+      this.$emit('inputStateChanged', true);
       // inputtingをオンにしても次のフレームまで待たないとまだ入力欄は作られない
-      Vue.nextTick(function (){
-        $(".name_input_box")[0].focus();
+      Vue.nextTick(() => {
+        $('.name_input_box')[0].focus();
       });
     },
-    setName: function(){
-      this.$emit("setName", this.fullName);
-    }
+    setName() {
+      this.$emit('setName', this.fullName);
+    },
   },
 };
 </script>

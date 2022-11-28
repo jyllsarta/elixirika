@@ -3,18 +3,18 @@
 </template>
 
 <script>
-  export default {
-    name: "back",
-    props: [
-      "notes",
-      "initialNoteCount",
-    ],
-    computed: {
-      noteBackground(){
-        return `b_color_${Math.floor((this.initialNoteCount - this.notes.length) / 100) + 1}`;
-      },
+export default {
+  name: 'back',
+  props: [
+    'notes',
+    'initialNoteCount',
+  ],
+  computed: {
+    noteBackground() {
+      return `b_color_${Math.floor((this.initialNoteCount - this.notes.length) / 100) + 1}`;
     },
-  }
+  },
+};
 </script>
 
 <style lang='scss' scoped>

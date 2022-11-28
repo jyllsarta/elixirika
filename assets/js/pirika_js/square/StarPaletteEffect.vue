@@ -16,55 +16,67 @@
 </template>
 
 <script>
-  
-  import Model from "./packs/model";
-  import gsap from 'gsap';
 
-  export default({
-    data(){
-      return {
-        number: 16,
-      }
-    },
-    props: {
-      model: Model,
-    },
-    computed: {
-    },
-    methods: {
-      play(){
-        gsap.timeline()
-          .to( this.$refs.bg, { opacity:   0, scale: 0, duration:    0 })
-          .to( this.$refs.bg, { opacity: 0.1, scale: 1, duration: 0.35 })
-          .to( this.$refs.bg, { opacity:   0, scale: 2, duration: 0.75 })
+import gsap from 'gsap';
+import Model from './packs/model';
 
-        gsap.timeline()
-          .to( this.$refs.square, { opacity:   0, scale:   2, rotate:  45, duration:    0 })
-          .to( this.$refs.square, { opacity: 0.3, scale:   1, rotate:   0, duration: 0.35 })
-          .to( this.$refs.square, { opacity:   0, scale: 0.7, rotate: -45, duration: 0.75 })
+export default ({
+  data() {
+    return {
+      number: 16,
+    };
+  },
+  props: {
+    model: Model,
+  },
+  computed: {
+  },
+  methods: {
+    play() {
+      gsap.timeline()
+          .to(this.$refs.bg, {opacity: 0, scale: 0, duration: 0})
+          .to(this.$refs.bg, {opacity: 0.1, scale: 1, duration: 0.35})
+          .to(this.$refs.bg, {opacity: 0, scale: 2, duration: 0.75});
 
-        gsap.timeline()
-          .to( this.$refs.number, { opacity:   0, scale:   4, rotate:   0, duration:    0 })
-          .to( this.$refs.number, { opacity:   1, scale:   1, rotate:   0, duration: 0.15 })
-          .to( this.$refs.number, { opacity:   0, scale: 0.9, rotate:   0, duration: 1.05 })
+      gsap.timeline()
+          .to(this.$refs.square, {
+            opacity: 0, scale: 2, rotate: 45, duration: 0,
+          })
+          .to(this.$refs.square, {
+            opacity: 0.3, scale: 1, rotate: 0, duration: 0.35,
+          })
+          .to(this.$refs.square, {
+            opacity: 0, scale: 0.7, rotate: -45, duration: 0.75,
+          });
+
+      gsap.timeline()
+          .to(this.$refs.number, {
+            opacity: 0, scale: 4, rotate: 0, duration: 0,
+          })
+          .to(this.$refs.number, {
+            opacity: 1, scale: 1, rotate: 0, duration: 0.15,
+          })
+          .to(this.$refs.number, {
+            opacity: 0, scale: 0.9, rotate: 0, duration: 1.05,
+          });
+    },
+    onSendToStarPalette() {
+      this.play();
+    },
+  },
+  watch: {
+    'model.starPalette.fields': {
+      handler(newFields, oldFields) {
+        if (newFields.length === 0) {
+          return;
+        }
+        this.number = newFields[newFields.length - 1].cards.length || 0;
+        this.onSendToStarPalette();
       },
-      onSendToStarPalette(){
-        this.play();
-      }
+      deep: true,
     },
-    watch: {
-      "model.starPalette.fields": {
-          handler(newFields, oldFields){
-          if(newFields.length === 0){
-            return;
-          }
-          this.number = newFields[newFields.length - 1].cards.length || 0;
-          this.onSendToStarPalette();
-        },
-        deep: true,
-      }
-    }
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>

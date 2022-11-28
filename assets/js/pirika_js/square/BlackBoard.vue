@@ -21,57 +21,57 @@
 </template>
 
 <script>
-  
-  import Model from "./packs/model";
-  import ChallengeText from "./ChallengeText.vue";
-  import NumeratableNumber from "./NumeratableNumber.vue";
-  import gsap from 'gsap';
 
-  export default({
-    props: {
-      model: Model,
+import gsap from 'gsap';
+import Model from './packs/model';
+import ChallengeText from './ChallengeText.vue';
+import NumeratableNumber from './NumeratableNumber.vue';
+
+export default ({
+  props: {
+    model: Model,
+  },
+  components: {
+    ChallengeText,
+    NumeratableNumber,
+  },
+  data() {
+    return {
+      delta: 0,
+    };
+  },
+  computed: {
+    challenges() {
+      return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
     },
-    components: {
-      ChallengeText,
-      NumeratableNumber,
-    },
-    data: function(){
-      return {
-        delta: 0
+    progress() {
+      const scoreChallenge = this.challenges.find((c) => c.type == 'point');
+      if (scoreChallenge) {
+        const progress = Math.min(1, this.model.score / scoreChallenge.value1) * 100;
+        return `${progress}%`;
       }
+      return '100%';
     },
-    computed: {
-      challenges(){
-        return this.model.challenge.getByChallengeIds(this.model.chapter.challenge_ids);
-      },
-      progress(){
-        const scoreChallenge = this.challenges.find(c=>c.type=="point");
-        if(scoreChallenge){
-          const progress = Math.min(1, this.model.score / scoreChallenge.value1) * 100;
-          return `${progress}%`;
-        }
-        return "100%";
-      }
+  },
+  methods: {
+    isCleared(challengeId) {
+      return this.model.clearedChallenges.indexOf(challengeId) !== -1;
     },
-    methods: {
-      isCleared(challengeId){
-        return this.model.clearedChallenges.indexOf(challengeId) !== -1;
-      },
-      animateDelta(){
-        const tl = gsap.timeline();
-        tl
-          .to( this.$refs.delta, { y:  10, opacity: 0, duration: 0.00 })
-          .to( this.$refs.delta, { y:   0, opacity: 1, duration: 0.40 })
-          .to( this.$refs.delta, { y: -10, opacity: 0, duration: 0.40 });
-      }
+    animateDelta() {
+      const tl = gsap.timeline();
+      tl
+          .to(this.$refs.delta, {y: 10, opacity: 0, duration: 0.00})
+          .to(this.$refs.delta, {y: 0, opacity: 1, duration: 0.40})
+          .to(this.$refs.delta, {y: -10, opacity: 0, duration: 0.40});
     },
-    watch: {
-      "model.score": function(after, before){
-        this.delta = after - before;
-        this.animateDelta();
-      }
-    }
-  })
+  },
+  watch: {
+    'model.score': function(after, before) {
+      this.delta = after - before;
+      this.animateDelta();
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>

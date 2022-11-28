@@ -13,67 +13,66 @@
 </template>
 
 <script>
-  
-  import Field from "./Field.vue"
-  import Board from "./packs/board"
-  import Model from "./packs/model"
 
-  export default({
-    props: {
-      board: Board,
-      model: Model,
-    },
-    components: {
-      Field,
-    },
-    methods: {
-      expectedCardCount(index){
-        if(this.isAttemptingToStack(index)){
-          return this.board.fields[index].cards.length + 1;
-        }
-        return this.board.fields[index].cards.length;
-      },
-      expectedScore(index){
-        if(this.model.selectingBoardIndex === index && this.canStackCard(index)){
-          const card = this.model.getHoldingCard();
-          return this.board.fields[index].scoreWithCard(card);
-        }
-        return this.board.fields[index].score();
-      },
-      canStackCard(index){
-        const card = this.model.getHoldingCard();
-        return card && this.model.cardStackRule(this.model.character, this.model, card, this.model.board.fields[index]);
-      },
-      isAttemptingToStack(index){
-        return this.model.selectingBoardIndex === index && this.canStackCard(index);
-      },
-      styleIndexBackground(index){
-        const card = this.model.getHoldingCard();
-        let style = {};
-        if(this.isAttemptingToStack(index) && card.isSenderCard()){
-          style["background-color"] = `var(--color-i2-${this.model.characterId})`;
-        }
-        else{
-          style["background-color"] = `var(--bg3-${this.model.characterId})`
-        }
+import Field from './Field.vue';
+import Board from './packs/board';
+import Model from './packs/model';
 
-        if(this.canStackCard(index)){
-          style.border = `2px solid var(--color-i1-${this.model.characterId})`;
-        }
-        return style;
-      },
-      eventsUp(params){
-        this.$emit("guiEvent", params);
-      },
+export default ({
+  props: {
+    board: Board,
+    model: Model,
+  },
+  components: {
+    Field,
+  },
+  methods: {
+    expectedCardCount(index) {
+      if (this.isAttemptingToStack(index)) {
+        return this.board.fields[index].cards.length + 1;
+      }
+      return this.board.fields[index].cards.length;
     },
-    computed: {
-      styleBackground(){
-        return {
-          "background-color": `var(--bg2-${this.model.characterId})`,
-        };
-      },
-    }
-  })
+    expectedScore(index) {
+      if (this.model.selectingBoardIndex === index && this.canStackCard(index)) {
+        const card = this.model.getHoldingCard();
+        return this.board.fields[index].scoreWithCard(card);
+      }
+      return this.board.fields[index].score();
+    },
+    canStackCard(index) {
+      const card = this.model.getHoldingCard();
+      return card && this.model.cardStackRule(this.model.character, this.model, card, this.model.board.fields[index]);
+    },
+    isAttemptingToStack(index) {
+      return this.model.selectingBoardIndex === index && this.canStackCard(index);
+    },
+    styleIndexBackground(index) {
+      const card = this.model.getHoldingCard();
+      const style = {};
+      if (this.isAttemptingToStack(index) && card.isSenderCard()) {
+        style['background-color'] = `var(--color-i2-${this.model.characterId})`;
+      } else {
+        style['background-color'] = `var(--bg3-${this.model.characterId})`;
+      }
+
+      if (this.canStackCard(index)) {
+        style.border = `2px solid var(--color-i1-${this.model.characterId})`;
+      }
+      return style;
+    },
+    eventsUp(params) {
+      this.$emit('guiEvent', params);
+    },
+  },
+  computed: {
+    styleBackground() {
+      return {
+        'background-color': `var(--bg2-${this.model.characterId})`,
+      };
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>

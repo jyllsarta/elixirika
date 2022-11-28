@@ -3,34 +3,34 @@
 </template>
 
 <script>
-  export default {
-    name: "note",
-    props: [
-      "note",
-      "position",
-      "index",
-    ],
-    computed: {
-      active(){
-        return (this.note.note & this.position) > 0;
-      },
-      noteBackground(){
-        if(this.active){
-          return this.note.bad ? "bad" : `color_${this.note.colorId}`;
-        }
-        if(this.note.heal){
-          return "heal";
-        }
-        return "";
-      },
-      opacity(){
-        if(!this.active && this.note.heal){
-          return 0.4;
-        }
-        return 0.2 + (this.index * 0.05);
-      }
+export default {
+  name: 'note',
+  props: [
+    'note',
+    'position',
+    'index',
+  ],
+  computed: {
+    active() {
+      return (this.note.note & this.position) > 0;
     },
-  }
+    noteBackground() {
+      if (this.active) {
+        return this.note.bad ? 'bad' : `color_${this.note.colorId}`;
+      }
+      if (this.note.heal) {
+        return 'heal';
+      }
+      return '';
+    },
+    opacity() {
+      if (!this.active && this.note.heal) {
+        return 0.4;
+      }
+      return 0.2 + (this.index * 0.05);
+    },
+  },
+};
 </script>
 
 <style lang='scss' scoped>

@@ -50,14 +50,14 @@
 </template>
 
 <script>
-  
-  import Model from "./packs/model";
 
-  export default({
-    props: {
-      model: Model,
-    },
-  })
+import Model from './packs/model';
+
+export default ({
+  props: {
+    model: Model,
+  },
+});
 </script>
 
 <style lang='scss' scoped>

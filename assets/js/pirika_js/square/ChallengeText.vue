@@ -8,17 +8,16 @@
 </template>
 
 <script>
-  
 
-  export default({
-    props: {
-      challenge: Object,
-      isCleared: Boolean,
-      index: Number,
-      showDescription: Boolean,
-      showIndex: Boolean,
-    },
-  })
+export default ({
+  props: {
+    challenge: Object,
+    isCleared: Boolean,
+    index: Number,
+    showDescription: Boolean,
+    showIndex: Boolean,
+  },
+});
 </script>
 
 <style lang='scss' scoped>

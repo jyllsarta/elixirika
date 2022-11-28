@@ -16,45 +16,45 @@
 </template>
 
 <script>
-  
-  import Model from './packs/model';
-  import StackedIconField from "./StackedIconField.vue";
-  import GeneralButton from "./GeneralButton.vue";
-  import store from "./packs/store";
 
-  export default({
-    store,
-    data: function(){
-      return {
-        drawing: false,
+import Model from './packs/model';
+import StackedIconField from './StackedIconField.vue';
+import GeneralButton from './GeneralButton.vue';
+import store from './packs/store';
+
+export default ({
+  store,
+  data() {
+    return {
+      drawing: false,
+    };
+  },
+  props: {
+    model: Model,
+  },
+  components: {
+    StackedIconField,
+    GeneralButton,
+  },
+  methods: {
+    draw() {
+      if (this.drawing) {
+        return;
       }
+      this.drawing = true;
+      setTimeout(() => this.drawing = false, 500);
+      this.$emit('guiEvent', {type: 'fillDraw'});
     },
-    props: {
-      model: Model
+    gracefullyStalemate() {
+      if (this.drawing) {
+        return;
+      }
+      this.drawing = true;
+      setTimeout(() => this.drawing = false, 500);
+      this.$emit('guiEvent', {type: 'gracefullyStalemate'});
     },
-    components: {
-      StackedIconField,
-      GeneralButton
-    },
-    methods: {
-      draw(){
-        if(this.drawing){
-          return;
-        }
-        this.drawing = true;
-        setTimeout(()=>this.drawing=false, 500);
-        this.$emit("guiEvent", {type: "fillDraw"});
-      },
-      gracefullyStalemate(){
-        if(this.drawing){
-          return;
-        }
-        this.drawing = true;
-        setTimeout(()=>this.drawing=false, 500);
-        this.$emit("guiEvent", {type: "gracefullyStalemate"});
-      },
-    }
-  })
+  },
+});
 </script>
 
 <style lang="scss" scoped>

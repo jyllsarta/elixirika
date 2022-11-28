@@ -5,38 +5,38 @@
 </template>
 
 <script>
-  
-  import store from "./packs/store";
-  import Model from "./packs/model";
 
-  export default({
-    store,
-    props: {
-      model: Model,
-    },
-    data(){
-      return {
-        messages: [
-          "ゲームを開始します",
-          "いくぞー！",
-        ]
+import store from './packs/store';
+import Model from './packs/model';
+
+export default ({
+  store,
+  props: {
+    model: Model,
+  },
+  data() {
+    return {
+      messages: [
+        'ゲームを開始します',
+        'いくぞー！',
+      ],
+    };
+  },
+  methods: {
+    tick() {
+      if (this.model.phaseStateMachine.phase.tick > 0) {
+        return;
       }
+      this.$store.commit('guiEvent', {subject: 'next'});
+      this.$store.commit('playSound', {key: 'ok'});
+      this.$store.commit('playBgm', 'bgm1');
+      setTimeout(() => {
+        this.$store.commit('guiEvent', {subject: 'next'});
+        this.$store.commit('playSound', {key: 'game_start'});
+      }, 500);
     },
-    methods: {
-      tick(){
-        if(this.model.phaseStateMachine.phase.tick > 0){
-          return;
-        }
-        this.$store.commit('guiEvent', {subject: 'next'})
-        this.$store.commit("playSound", {key: "ok"});
-        this.$store.commit("playBgm", "bgm1");
-        setTimeout(()=>{
-          this.$store.commit('guiEvent', {subject: 'next'})
-          this.$store.commit("playSound", {key: "game_start"});
-        }, 500)
-      }
-    }
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>

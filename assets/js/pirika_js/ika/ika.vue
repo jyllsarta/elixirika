@@ -17,61 +17,63 @@
 </template>
 
 <script>
-    export default {
-    data(){
-      return {
-        shuffling: [true, true, true],
-        wordIndex: [0, 0, 0],
-        words: [
-          ["キャベツを", "水を", "昼食を"],
-          ["食べる", "吐く", "我慢する"],
-          ["ウニ", "フグ", "イカ"],
-        ]
-      };
+export default {
+  data() {
+    return {
+      shuffling: [true, true, true],
+      wordIndex: [0, 0, 0],
+      words: [
+        ['キャベツを', '水を', '昼食を'],
+        ['食べる', '吐く', '我慢する'],
+        ['ウニ', 'フグ', 'イカ'],
+      ],
+    };
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    init() {
+      setInterval(() => {
+        this.update();
+      }, 50);
     },
-    mounted(){
-      this.init();
+    update() {
+      this.shuffle();
     },
-    methods: {
-      init(){
-        setInterval(() => {this.update();}, 50);
-      },
-      update(){
-        this.shuffle();
-      },
-      stop(i){
-        this.shuffling[i] = false;
-      },
-      shuffle(){
-        for(let i of [0,1,2]){
-          if(this.shuffling[i]){
-            this.wordIndex[i] = this.rand(3);
-          }
-        }
-      },
-      rand(max){
-        return Math.floor(Math.random() * max);
-      },
-      restart(){
-        for(let i of [0,1,2]){
-          this.shuffling[i] = true;
-        }
-      },
-      tweetingMessage(){
-        let msg = "";
-        for(let i of [0,1,2]){
-          msg += this.words[i][this.wordIndex[i]];
-        }
-        return msg;
-      },
-      tweet(){
-        const tweetContent = encodeURI(this.tweetingMessage());
-        const url = encodeURI("https://jyllsarta.net/ika");
-        const fullUrl = `https://twitter.com/intent/tweet?url=${url}&text=${tweetContent}`;
-        window.open(fullUrl);
-      },
+    stop(i) {
+      this.shuffling[i] = false;
     },
-  }
+    shuffle() {
+      for (const i of [0, 1, 2]) {
+        if (this.shuffling[i]) {
+          this.wordIndex[i] = this.rand(3);
+        }
+      }
+    },
+    rand(max) {
+      return Math.floor(Math.random() * max);
+    },
+    restart() {
+      for (const i of [0, 1, 2]) {
+        this.shuffling[i] = true;
+      }
+    },
+    tweetingMessage() {
+      let msg = '';
+      for (const i of [0, 1, 2]) {
+        msg += this.words[i][this.wordIndex[i]];
+      }
+      return msg;
+    },
+    tweet() {
+      const tweetContent = encodeURI(this.tweetingMessage());
+      const url = encodeURI('https://jyllsarta.net/ika');
+      const fullUrl = `https://twitter.com/intent/tweet?url=${url}&text=${tweetContent}`;
+      window.open(fullUrl);
+    },
+  },
+};
 </script>
 
 <style lang='scss' scoped>

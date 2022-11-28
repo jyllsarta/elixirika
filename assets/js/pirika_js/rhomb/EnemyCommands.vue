@@ -10,31 +10,31 @@
 </template>
 
 <script>
-  
-  import Bullet from "./Bullet.vue";
-  import Model from "./packs/model";
 
-  export default({
-    components: {
-      Bullet,
+import Bullet from './Bullet.vue';
+import Model from './packs/model';
+
+export default ({
+  components: {
+    Bullet,
+  },
+  props: {
+    model: Model,
+  },
+  computed: {
+    turnsWithBullets() {
+      const turns = this.model.masterdata.getAll('turns').sort((turn) => turn.turn);
+      // この関連を引っ張ってくる処理はマスターデータ構築時点でやっておくべきかも？
+      const withBullets = turns.map((turn) => Object.assign(turn, {bullets: this.model.masterdata.getBy('bullets', 'id', turn.bullet_ids)}));
+      return withBullets;
     },
-    props: {
-      model: Model,
+    // これ phaseEnemyShoot とロジック重複してる
+    totalTurnCount() {
+      const totalTurnCount = this.model.masterdata.master.turns.length;
+      return this.model.turn % totalTurnCount;
     },
-    computed: {
-      turnsWithBullets(){
-        const turns = this.model.masterdata.getAll("turns").sort(turn=>turn.turn);
-        // この関連を引っ張ってくる処理はマスターデータ構築時点でやっておくべきかも？
-        const withBullets = turns.map(turn=>Object.assign(turn, {bullets: this.model.masterdata.getBy("bullets", "id", turn.bullet_ids)}));
-        return withBullets;
-      },
-      // これ phaseEnemyShoot とロジック重複してる
-      totalTurnCount(){
-        const totalTurnCount = this.model.masterdata.master.turns.length;
-        return this.model.turn % totalTurnCount;
-      }
-    }
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>

@@ -42,80 +42,80 @@
 </template>
 
 <script>
-  import Constants from './packs/constants.js'
-  import volume from './volume.vue'
-  import result from './result.vue'
-  import ranking from './ranking.vue'
-  import lifeGauge from './lifeGauge.vue'
-  import minusList from './minusList.vue'
-  import sparkList from './sparkList.vue'
-  import nameInputArea from './nameInputArea.vue'
-  export default {
-    components: {
-      volume,
-      result,
-      ranking,
-      lifeGauge,
-      minusList,
-      sparkList,
-      nameInputArea,
+import Constants from './packs/constants.js';
+import volume from './volume.vue';
+import result from './result.vue';
+import ranking from './ranking.vue';
+import lifeGauge from './lifeGauge.vue';
+import minusList from './minusList.vue';
+import sparkList from './sparkList.vue';
+import nameInputArea from './nameInputArea.vue';
+
+export default {
+  components: {
+    volume,
+    result,
+    ranking,
+    lifeGauge,
+    minusList,
+    sparkList,
+    nameInputArea,
+  },
+  data() {
+    return {
+      loadCompleted: false,
+    };
+  },
+  name: 'ui',
+  props: [
+    'gameState',
+    'life',
+    'score',
+    'volume',
+    'minuses',
+    'sparks',
+    'speedScore',
+    'totalScore',
+    'highScore',
+    'isHighScoreUpdated',
+    'showingRanking',
+    'ranking',
+  ],
+  mounted() {
+    this.loadCompleted = true;
+  },
+  computed: {
+    constants() {
+      return Constants;
     },
-    data: function(){
-      return {
-        loadCompleted: false,
-      };
+    tweetingMessage() {
+      return `ZXCVで ${this.totalScore}点取ったよ！`;
     },
-    name: "ui",
-    props: [
-      "gameState",
-      "life",
-      "score",
-      "volume",
-      "minuses",
-      "sparks",
-      "speedScore",
-      "totalScore",
-      "highScore",
-      "isHighScoreUpdated",
-      "showingRanking",
-      "ranking",
-    ],
-    mounted: function(){
-      this.loadCompleted = true;
+    showingTweetButton() {
+      return [this.constants.gameStates.cleared, this.constants.gameStates.gameOver].includes(this.gameState);
     },
-    computed: {
-      constants: function(){
-        return Constants;
-      },
-      tweetingMessage: function(){
-        return `ZXCVで ${this.totalScore}点取ったよ！`;
-      },
-      showingTweetButton: function(){
-        return [this.constants.gameStates.cleared , this.constants.gameStates.gameOver].includes(this.gameState);
-      }
+  },
+  methods: {
+    tweet() {
+      const tweetContent = encodeURI(this.tweetingMessage);
+      const url = encodeURI('http://jyllsarta.net/zxcvs');
+      const fullUrl = `https://twitter.com/intent/tweet?url=${url}&text=${tweetContent}`;
+      window.open(fullUrl);
     },
-    methods: {
-      tweet: function(){
-        const tweetContent = encodeURI(this.tweetingMessage);
-        const url = encodeURI("http://jyllsarta.net/zxcvs");
-        const fullUrl = `https://twitter.com/intent/tweet?url=${url}&text=${tweetContent}`;
-        window.open(fullUrl);
-      },
-      setVolume: function(v){
-        // 最上位のzxcvにvolumeをリレーする
-        this.$emit("setVolume", v);
-      },
-      setName: function(n){
-        // 最上位のzxcvにnameをリレーする
-        this.$emit("setName", n);
-      },
+    setVolume(v) {
+      // 最上位のzxcvにvolumeをリレーする
+      this.$emit('setVolume', v);
     },
-  }
+    setName(n) {
+      // 最上位のzxcvにnameをリレーする
+      this.$emit('setName', n);
+    },
+  },
+};
 </script>
 
 <style lang='scss' scoped>
   @import "stylesheets/constants";
-
 
   div{
     font-family: 'Kanit', sans-serif;

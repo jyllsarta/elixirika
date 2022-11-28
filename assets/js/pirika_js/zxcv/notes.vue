@@ -12,36 +12,37 @@
 </template>
 
 <script>
-  import note from "./note.vue";
-  export default {
-    name: "notes",
-    components: {
-      note,
+import note from './note.vue';
+
+export default {
+  name: 'notes',
+  components: {
+    note,
+  },
+  data() {
+    return {
+    };
+  },
+  props: [
+    'notes',
+  ],
+  created() {
+  },
+  computed: {
+  },
+  methods: {
+    // noteをコンポーネントに切り出してcomputedにねじこみたい
+    noteBackground(note, position) {
+      if ((note.note & position) > 0) {
+        return note.bad ? 'bad' : `color_${note.colorId}`;
+      }
+      if (note.heal) {
+        return 'heal';
+      }
+      return '';
     },
-    data: function(){
-      return {
-      };
-    },
-    props: [
-      "notes",
-    ],
-    created: function(){
-    },
-    computed: {
-    },
-    methods: {
-      // noteをコンポーネントに切り出してcomputedにねじこみたい
-      noteBackground(note, position){
-        if((note.note & position) > 0){
-          return note.bad ? "bad" : `color_${note.colorId}`;
-        }
-        if(note.heal){
-          return "heal";
-        }
-        return "";
-      },
-    },
-  }
+  },
+};
 </script>
 
 <style lang='scss' scoped>

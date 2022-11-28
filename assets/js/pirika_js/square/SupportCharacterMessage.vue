@@ -5,31 +5,31 @@
 </template>
 
 <script>
-  
-  import Model from "./packs/model";
-  import gsap from 'gsap';
 
-  export default({
-    props: {
-      model: Model,
-      gameStarted: Boolean,
+import gsap from 'gsap';
+import Model from './packs/model';
+
+export default ({
+  props: {
+    model: Model,
+    gameStarted: Boolean,
+  },
+  computed: {
+    message() {
+      return this.model.messageManager.currentMessage.message;
     },
-    computed: {
-      message(){
-        return this.model.messageManager.currentMessage.message;
-      },
-      messageId(){
-        return this.model.messageManager.id;
-      }
+    messageId() {
+      return this.model.messageManager.id;
     },
-    watch: {
-      "model.messageManager.id": function() {
-        this.receiveAnimation();
-      }
+  },
+  watch: {
+    'model.messageManager.id': function() {
+      this.receiveAnimation();
     },
-    methods: {
-      receiveAnimation(){
-        gsap.fromTo(
+  },
+  methods: {
+    receiveAnimation() {
+      gsap.fromTo(
           this.$refs.message,
           {
             scale: 1.1,
@@ -38,10 +38,11 @@
             duration: 0.2,
             scale: 1,
             ease: 'expo.out',
-          });
-      }
-    }
-  })
+          },
+      );
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>

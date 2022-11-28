@@ -4,15 +4,15 @@
     </transition>
 </template>
 <script>
-  export default {
-    name: "RemoveScore",
-    props: [
-      "x",
-      "y",
-      "value",
-      "show"
-    ]
-  }
+export default {
+  name: 'RemoveScore',
+  props: [
+    'x',
+    'y',
+    'value',
+    'show',
+  ],
+};
 </script>
 
 <style lang='scss' scoped>

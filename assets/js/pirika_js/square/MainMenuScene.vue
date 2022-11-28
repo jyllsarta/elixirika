@@ -48,167 +48,173 @@
 </template>
 
 <script>
-  
-  import CharacterBanner from "./CharacterBanner.vue";
-  import ClearStateTile from "./ClearStateTile.vue";
-  import MainMenuDetailDialog from "./MainMenuDetailDialog.vue";
-  import GeneralButton from "./GeneralButton.vue";
-  import ClearImage from "./ClearImage.vue";
-  import CharacterFactory from "./packs/characterFactory";
-  import Chapter from "./packs/chapter";
-  import Challenge from "./packs/challenge";
-  import axios from "axios";
-  import store from "./packs/store";
 
-  export default({
-    store,
-    components: {
-      CharacterBanner,
-      ClearStateTile,
-      ClearImage,
-      MainMenuDetailDialog,
-      GeneralButton,
+import axios from 'axios';
+import CharacterBanner from './CharacterBanner.vue';
+import ClearStateTile from './ClearStateTile.vue';
+import MainMenuDetailDialog from './MainMenuDetailDialog.vue';
+import GeneralButton from './GeneralButton.vue';
+import ClearImage from './ClearImage.vue';
+import CharacterFactory from './packs/characterFactory';
+import Chapter from './packs/chapter';
+import Challenge from './packs/challenge';
+import store from './packs/store';
+
+export default ({
+  store,
+  components: {
+    CharacterBanner,
+    ClearStateTile,
+    ClearImage,
+    MainMenuDetailDialog,
+    GeneralButton,
+  },
+  data() {
+    // methods は頻繁に呼ばれちゃい、キャラファクトリからまいどまいど生成するのはどう考えても高コスト
+    // このシーンではマスタの取得結果をストアしちゃう
+    const characterFactory = new CharacterFactory();
+    const chapterMaster = new Chapter();
+    const challengeMaster = new Challenge();
+
+    return {
+      characters: [1, 2, 3, 4].reduce((iter, x) => {
+        const c = characterFactory.getCharacterById(x); iter[c.id] = c; return iter;
+      }, {}),
+      chapterMaster,
+      challengeMaster,
+      showsDetailDialog: false,
+      showsClearImage: false,
+      clearImageId: -1,
+      selectedCharacterId: -1,
+      selectedChapterId: -1,
+      userStatus: {
+        challenges: [],
+        high_score: [],
+        challengeClearCount: 0,
+      },
+    };
+  },
+  methods: {
+    onTileSelected(params) {
+      const {characterId, chapterId} = params;
+      this.selectedCharacterId = characterId;
+      this.selectedChapterId = chapterId;
+      this.showsDetailDialog = true;
     },
-    data(){
-      // methods は頻繁に呼ばれちゃい、キャラファクトリからまいどまいど生成するのはどう考えても高コスト
-      // このシーンではマスタの取得結果をストアしちゃう
-      const characterFactory = new CharacterFactory();
-      const chapterMaster = new Chapter();
-      const challengeMaster = new Challenge();
-
+    onCharacterSelected(params) {
+      const {characterId} = params;
+      this.selectedCharacterId = characterId;
+      this.selectedChapterId = this.findBestChapter(characterId)?.id;
+      this.showsDetailDialog = true;
+    },
+    hideDetailDialog() {
+      this.showsDetailDialog = false;
+    },
+    startGame() {
+      this.hideDetailDialog();
+      this.$emit('loadScene', {sceneName: 'inGame', params: {characterId: this.selectedCharacterId, chapterId: this.selectedChapterId}});
+    },
+    chapters(characterId) {
+      return this.chapterMaster.getByCharacterId(characterId).sort((x) => x.index);
+    },
+    challengeClearState(chapter) {
+      return this.userStatus.challenges[chapter.id] || [];
+    },
+    highScore(chapter) {
+      return this.userStatus.high_score[chapter.id] || 0;
+    },
+    totalScore(characterId) {
+      const chapters = this.chapters(characterId);
+      return chapters.reduce((a, b) => this.highScore(b) + a, 0);
+    },
+    finalScore() {
+      return Object.values(this.userStatus.high_score).reduce((a, b) => b + a, 0);
+    },
+    isChallengeCleared(chapterId, challengeId) {
+      const status = this.userStatus.challenges[chapterId]?.indexOf(challengeId);
+      return status !== undefined && status !== -1;
+    },
+    isAllChallengeCleared(chapter) {
+      return chapter.challenge_ids.every((x) => this.isChallengeCleared(chapter.id, x));
+    },
+    findBestChapter(characterId) {
+      const chapters = this.chapters(characterId);
+      return chapters.find((chapter) => !this.isAllChallengeCleared(chapter)) || chapters[chapters.length - 1];
+    },
+    fetchMyScore() {
+      const params = {
+        username: localStorage.rawNameSquare,
+      };
+      axios.get('/square/status', {params})
+          .then((results) => {
+            this.userStatus = this.constructUserStatus(results.data);
+          })
+          .catch((results) => {
+            console.warn(results);
+            console.warn('NG');
+          });
+    },
+    constructUserStatus(apiResponse) {
+      const {high_score: high_scores, challenges: challenge_records} = apiResponse;
+      // chapter_id: score の形にしちゃう
+      const highScoreIdTable = high_scores.reduce((iter, x) => {
+        iter[x.chapter_id] = x.score; return iter;
+      }, {});
+      // chapter_id: [challenge_ids(NOT sorted)] の形にしちゃう
+      const challengeIdTable = challenge_records.reduce((iter, x) => {
+        iter[x.chapter_id] = (iter[x.chapter_id] ? iter[x.chapter_id].concat(x.challenge_id) : [x.challenge_id]); return iter;
+      }, {});
       return {
-        characters: [1,2,3,4].reduce((iter, x)=>{const c=characterFactory.getCharacterById(x); iter[c.id]=c; return iter}, {}),
-        chapterMaster: chapterMaster,
-        challengeMaster: challengeMaster,
-        showsDetailDialog: false,
-        showsClearImage: false,
-        clearImageId: -1,
-        selectedCharacterId: -1,
-        selectedChapterId: -1,
-        userStatus: {
-          challenges: [],
-          high_score: [],
-          challengeClearCount: 0,
-        },
-      }
+        high_score: highScoreIdTable,
+        challenges: challengeIdTable,
+        challengeClearCount: challenge_records.length,
+      };
     },
-    methods: {
-      onTileSelected(params){
-        const {characterId: characterId, chapterId: chapterId} = params;
-        this.selectedCharacterId = characterId;
-        this.selectedChapterId = chapterId;
-        this.showsDetailDialog = true;
-      },
-      onCharacterSelected(params){
-        const {characterId: characterId} = params;
-        this.selectedCharacterId = characterId;
-        this.selectedChapterId = this.findBestChapter(characterId)?.id;
-        this.showsDetailDialog = true;
-      },
-      hideDetailDialog(){
-        this.showsDetailDialog = false;
-      },
-      startGame(){
-        this.hideDetailDialog();
-        this.$emit("loadScene", {sceneName: "inGame", params: {characterId: this.selectedCharacterId, chapterId: this.selectedChapterId}});
-      },
-      chapters(characterId){
-        return this.chapterMaster.getByCharacterId(characterId).sort(x=>x.index);
-      },
-      challengeClearState(chapter){
-        return this.userStatus.challenges[chapter.id] || [];
-      },
-      highScore(chapter){
-        return this.userStatus.high_score[chapter.id] || 0;
-      },
-      totalScore(characterId){
-        const chapters = this.chapters(characterId);
-        return chapters.reduce((a,b)=>this.highScore(b)+a, 0);
-      },
-      finalScore(){
-        return Object.values(this.userStatus.high_score).reduce((a,b)=>b+a, 0)
-      },
-      isChallengeCleared(chapterId, challengeId){
-        const status = this.userStatus.challenges[chapterId]?.indexOf(challengeId);
-        return status !== undefined && status !== -1;
-      },
-      isAllChallengeCleared(chapter){
-        return chapter.challenge_ids.every(x=>this.isChallengeCleared(chapter.id, x));
-      },
-      findBestChapter(characterId){
-        const chapters = this.chapters(characterId);
-        return chapters.find(chapter=>!this.isAllChallengeCleared(chapter)) || chapters[chapters.length - 1];
-      },
-      fetchMyScore(){
-        const params = {
-          username: localStorage.rawNameSquare
-        }
-        axios.get(`/square/status`, {params: params})
-        .then((results) => {
-          this.userStatus = this.constructUserStatus(results.data);
-        })
-        .catch((results) => {
-          console.warn(results);
-          console.warn("NG");
-        })
-      },
-      constructUserStatus(apiResponse){
-        const {high_score: high_scores, challenges: challenge_records} = apiResponse;
-        // chapter_id: score の形にしちゃう
-        const highScoreIdTable = high_scores.reduce((iter, x)=>{iter[x.chapter_id]=x.score; return iter}, {})
-        // chapter_id: [challenge_ids(NOT sorted)] の形にしちゃう
-        const challengeIdTable = challenge_records.reduce((iter, x)=>{iter[x.chapter_id]=(iter[x.chapter_id] ? iter[x.chapter_id].concat(x.challenge_id) : [x.challenge_id]); return iter}, {})
-        return {
-          high_score: highScoreIdTable,
-          challenges: challengeIdTable,
-          challengeClearCount: challenge_records.length,
-        }
-      },
-      backToTitle(){
-        this.$store.commit("playSound", {key: "ok"});
-        this.$store.commit("playBgm", "");
-        this.$emit("loadScene", {sceneName: "title", params: {}});
-      },
-      showClearImage(clearImageId){
-        if(!this.isClearedImage(clearImageId)){
-          this.$store.commit("playSound", {key: "miss"});
-          return;
-        }
-        this.$store.commit("playSound", {key: "piano"});
-        this.$store.commit("playBgm", "bgm13");
-        this.showsClearImage = true;
-        this.clearImageId = clearImageId;
-      },
-      closeClearImage(){
-        this.showsClearImage = false;
-        this.$store.commit("playBgm", "bgm5");
-      },
-      isClearedImage(clearImageId){
-        switch(clearImageId){
-          case 1:
-            return this.finalScore() >= 5000;
+    backToTitle() {
+      this.$store.commit('playSound', {key: 'ok'});
+      this.$store.commit('playBgm', '');
+      this.$emit('loadScene', {sceneName: 'title', params: {}});
+    },
+    showClearImage(clearImageId) {
+      if (!this.isClearedImage(clearImageId)) {
+        this.$store.commit('playSound', {key: 'miss'});
+        return;
+      }
+      this.$store.commit('playSound', {key: 'piano'});
+      this.$store.commit('playBgm', 'bgm13');
+      this.showsClearImage = true;
+      this.clearImageId = clearImageId;
+    },
+    closeClearImage() {
+      this.showsClearImage = false;
+      this.$store.commit('playBgm', 'bgm5');
+    },
+    isClearedImage(clearImageId) {
+      switch (clearImageId) {
+        case 1:
+          return this.finalScore() >= 5000;
           break;
-          case 2:
-            return this.userStatus.challengeClearCount >= 64;
-          break;          
-        }
-        return false;
-      },
-    },
-    mounted(){
-      this.fetchMyScore();
-      this.$store.commit("playBgm", "bgm5");
-      this.$store.commit("updateBg", this.characterId);
-    },
-    computed: {
-      selectedCharacter(){
-        return this.characters[this.selectedCharacterId];
-      },
-      selectedChapter(){
-        return this.chapterMaster.idTable[this.selectedChapterId];
+        case 2:
+          return this.userStatus.challengeClearCount >= 64;
+          break;
       }
-    }
-  })
+      return false;
+    },
+  },
+  mounted() {
+    this.fetchMyScore();
+    this.$store.commit('playBgm', 'bgm5');
+    this.$store.commit('updateBg', this.characterId);
+  },
+  computed: {
+    selectedCharacter() {
+      return this.characters[this.selectedCharacterId];
+    },
+    selectedChapter() {
+      return this.chapterMaster.idTable[this.selectedChapterId];
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>

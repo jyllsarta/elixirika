@@ -56,107 +56,107 @@
 </template>
 
 <script>
-    
-    import SupportCharacter from "./SupportCharacter.vue"
-    import StarPalette from "./StarPalette.vue"
-    import SupportCharacterMessage from "./SupportCharacterMessage.vue"
-    import SupportCharacterAbilityBase from "./SupportCharacterAbilityBase.vue"
-    import CenterBoard from "./CenterBoard.vue"
-    import StagedField from "./StagedField.vue"
-    import Hand from "./Hand.vue"
-    import BlackBoard from "./BlackBoard.vue"
-    import CardGamePanel from "./CardGamePanel.vue"
-    import StarPaletteEffect from "./StarPaletteEffect.vue"
-    import InGameMenu from "./InGameMenu.vue"
-    import GameEndPopup from "./GameEndPopup.vue"
-    import GameStartPopup from "./GameStartPopup.vue"
-    import ChallengeClearPopup from "./ChallengeClearPopup.vue"
-    import KeyboardHelpPopup from "./KeyboardHelpPopup.vue"
-    import Controller from "./packs/controller"
-    import KeyHandler from "./KeyHandler.vue"
-    import GuiHandler from "./GuiHandler.vue"
-    import InGameSoundManager from "./InGameSoundManager.vue"
-    import store from "./packs/store"
 
-    export default({
-    store,
-    components: {
-      SupportCharacter,
-      StarPalette,
-      SupportCharacterMessage,
-      SupportCharacterAbilityBase,
-      CenterBoard,
-      StagedField,
-      Hand,
-      BlackBoard,
-      CardGamePanel,
-      StarPaletteEffect,
-      InGameMenu,
-      GameEndPopup,
-      GameStartPopup,
-      ChallengeClearPopup,
-      KeyboardHelpPopup,
-      KeyHandler,
-      GuiHandler,
-      InGameSoundManager,
+import SupportCharacter from './SupportCharacter.vue';
+import StarPalette from './StarPalette.vue';
+import SupportCharacterMessage from './SupportCharacterMessage.vue';
+import SupportCharacterAbilityBase from './SupportCharacterAbilityBase.vue';
+import CenterBoard from './CenterBoard.vue';
+import StagedField from './StagedField.vue';
+import Hand from './Hand.vue';
+import BlackBoard from './BlackBoard.vue';
+import CardGamePanel from './CardGamePanel.vue';
+import StarPaletteEffect from './StarPaletteEffect.vue';
+import InGameMenu from './InGameMenu.vue';
+import GameEndPopup from './GameEndPopup.vue';
+import GameStartPopup from './GameStartPopup.vue';
+import ChallengeClearPopup from './ChallengeClearPopup.vue';
+import KeyboardHelpPopup from './KeyboardHelpPopup.vue';
+import Controller from './packs/controller';
+import KeyHandler from './KeyHandler.vue';
+import GuiHandler from './GuiHandler.vue';
+import InGameSoundManager from './InGameSoundManager.vue';
+import store from './packs/store';
+
+export default ({
+  store,
+  components: {
+    SupportCharacter,
+    StarPalette,
+    SupportCharacterMessage,
+    SupportCharacterAbilityBase,
+    CenterBoard,
+    StagedField,
+    Hand,
+    BlackBoard,
+    CardGamePanel,
+    StarPaletteEffect,
+    InGameMenu,
+    GameEndPopup,
+    GameStartPopup,
+    ChallengeClearPopup,
+    KeyboardHelpPopup,
+    KeyHandler,
+    GuiHandler,
+    InGameSoundManager,
+  },
+  props: {
+    sceneParameter: Object,
+  },
+  mounted() {
+    this.controller = new Controller();
+    this.controller.newGame(this.characterId, this.chapterId);
+    this.$store.commit('updateBg', this.characterId);
+  },
+  methods: {
+    endGame() {
+      this.$emit('loadScene', {sceneName: 'title'});
     },
-    props: {
-      sceneParameter: Object,
+    registerGuiHandler(guiHandler) {
+      this.guiHandler = guiHandler;
     },
-    mounted(){
-      this.controller = new Controller();
-      this.controller.newGame(this.characterId, this.chapterId);
-      this.$store.commit("updateBg", this.characterId);
+    onGuiEvent(args) {
+      this.guiHandler[args.type](args);
     },
-    methods: {
-      endGame(){
-        this.$emit("loadScene", {sceneName: "title"});
-      },
-      registerGuiHandler(guiHandler){
-        this.guiHandler = guiHandler;
-      },
-      onGuiEvent(args){
-        this.guiHandler[args.type](args);
-      },
-      loadScene(args){
-        this.$emit("loadScene", args);
-      },
-      startGame(){
-        this.gameStarted = true;
-      },
+    loadScene(args) {
+      this.$emit('loadScene', args);
     },
-    data(){
+    startGame() {
+      this.gameStarted = true;
+    },
+  },
+  data() {
+    return {
+      controller: null,
+      guiHandler: null,
+      gameStarted: false,
+    };
+  },
+  computed: {
+    model() {
+      return this.controller?.model;
+    },
+    isStalemate() {
+      return this.model?.isStalemate();
+    },
+    characterId() {
+      return this.sceneParameter.characterId;
+    },
+    chapterId() {
+      return this.sceneParameter.chapterId;
+    },
+    styleBackgroundImage() {
       return {
-        controller: null,
-        guiHandler: null,
-        gameStarted: false,
+        backgroundImage: `url(/images/square/svg/symbol_character${this.model.characterId}_small.svg`,
       };
     },
-    computed: {
-      model(){
-        return this.controller?.model;
-      },
-      isStalemate(){
-        return this.model?.isStalemate();
-      },
-      characterId(){
-         return this.sceneParameter.characterId;
-      },
-      chapterId(){
-         return this.sceneParameter.chapterId;
-      },
-      styleBackgroundImage(){
-        return {
-          backgroundImage: `url(/images/square/svg/symbol_character${this.model.characterId}_small.svg`,
-        };
-      },
-      styleBackground(){
-        return {
-          "background-color": `var(--bg3-${this.model.characterId})`,
-        };
-      },
-    }
-  })
+    styleBackground() {
+      return {
+        'background-color': `var(--bg3-${this.model.characterId})`,
+      };
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>

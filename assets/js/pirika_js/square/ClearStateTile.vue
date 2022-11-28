@@ -7,22 +7,22 @@
 </template>
 
 <script>
-  
-  import gsap from 'gsap';
-  import store from "./packs/store";
 
-  export default({
-    store,
-    props: {
-      // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
-      character: Object,
-      chapter: Object,
-      challengeClearState: Array,
-    },
-    methods: {
-      async onClick(){
-        this.$store.commit("playSound", {key: "ok"});        
-        gsap.fromTo(
+import gsap from 'gsap';
+import store from './packs/store';
+
+export default ({
+  store,
+  props: {
+    // 各キャラは CharacterMizuha みたいに個別クラスだし共通の基底があるわけでもないので縛れない
+    character: Object,
+    chapter: Object,
+    challengeClearState: Array,
+  },
+  methods: {
+    async onClick() {
+      this.$store.commit('playSound', {key: 'ok'});
+      gsap.fromTo(
           this.$refs.flash,
           {
             scale: 0,
@@ -33,27 +33,28 @@
             scale: 2,
             opacity: 0,
             ease: 'expo.out',
-          });
-        await this.$delay(40);
-        this.$emit('selected', {chapterId: this.chapter.id, characterId: this.character.id});
-      },
-      isCleared(challengeIndex){
-        const challengeId = this.chapter.challenge_ids[challengeIndex];
-        return this.challengeClearState.some(x=>x===challengeId);
-      },
-      onHover(){
-        this.$store.commit("playSound", {key: "hover"});
-      },
-      $delay (ms) {
-        return new Promise(resolve => setTimeout(resolve, ms))
-      }
+          },
+      );
+      await this.$delay(40);
+      this.$emit('selected', {chapterId: this.chapter.id, characterId: this.character.id});
     },
-    computed: {
-      isCompleted(){
-        return this.chapter.challenge_ids.every(x=>this.challengeClearState.indexOf(x) !== -1);
-      }
-    }
-  })
+    isCleared(challengeIndex) {
+      const challengeId = this.chapter.challenge_ids[challengeIndex];
+      return this.challengeClearState.some((x) => x === challengeId);
+    },
+    onHover() {
+      this.$store.commit('playSound', {key: 'hover'});
+    },
+    $delay(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    },
+  },
+  computed: {
+    isCompleted() {
+      return this.chapter.challenge_ids.every((x) => this.challengeClearState.indexOf(x) !== -1);
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>

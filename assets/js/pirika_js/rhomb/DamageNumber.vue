@@ -3,21 +3,21 @@
 </template>
 
 <script>
-  
-  import store from "./packs/store";
-  import Model from "./packs/model";
 
-  export default({
-    store,
-    props: {
-      model: Model,
+import store from './packs/store';
+import Model from './packs/model';
+
+export default ({
+  store,
+  props: {
+    model: Model,
+  },
+  computed: {
+    damageValue() {
+      return this.model.bullets.filter((bullet) => bullet.markedAt !== null).reduce((a, b) => a + b.power, 0);
     },
-    computed: {
-      damageValue(){
-        return this.model.bullets.filter(bullet=>bullet.markedAt !== null).reduce((a,b)=>a + b.power, 0);
-      }
-    }
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>

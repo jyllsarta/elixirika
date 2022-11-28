@@ -32,36 +32,36 @@
 </template>
 
 <script>
-  
-  import NameArea from "./NameArea.vue";
-  import gsap from 'gsap';
-  import store from "./packs/store";
-  import GeneralButton from "./GeneralButton.vue";
-  import Credit from "./Credit.vue";
-  import Ranking from "./Ranking.vue";
 
-  export default({
-    components: {
-      NameArea,
-      GeneralButton,
-      Credit,
-      Ranking
+import gsap from 'gsap';
+import NameArea from './NameArea.vue';
+import store from './packs/store';
+import GeneralButton from './GeneralButton.vue';
+import Credit from './Credit.vue';
+import Ranking from './Ranking.vue';
+
+export default ({
+  components: {
+    NameArea,
+    GeneralButton,
+    Credit,
+    Ranking,
+  },
+  store,
+  data() {
+    return {
+      closing: false,
+      showsCredit: false,
+      showsRanking: false,
+    };
+  },
+  methods: {
+    onClick() {
+      this.closing = true;
+      this.$store.commit('playSound', {key: 'gameStart'});
     },
-    store,
-    data(){
-      return {
-        closing: false,
-        showsCredit: false, 
-        showsRanking: false,
-      };
-    },
-    methods: {
-      onClick(){
-        this.closing = true;
-        this.$store.commit("playSound", {key: "gameStart"});
-      },
-      onAnimationEnter(el, completed){
-        gsap.fromTo(
+    onAnimationEnter(el, completed) {
+      gsap.fromTo(
           [this.$refs.shutter1, this.$refs.shutter2],
           {
             scaleX: 0,
@@ -71,8 +71,9 @@
             scaleX: 1,
             ease: 'expo.out',
             onComplete: completed,
-          });
-        gsap.fromTo(
+          },
+      );
+      gsap.fromTo(
           [this.$refs.shutter3, this.$refs.shutter4],
           {
             scaleY: 0,
@@ -81,45 +82,46 @@
             duration: 0.8,
             scaleY: 1,
             ease: 'expo.out',
-          });
-      },
-      onAnimationComplete(){
-        this.tryFillEmptyName();
-        this.$emit("loadScene", {sceneName: "mainMenu"});
-      },
-      showCredit(){
-        this.$store.commit("playSound", {key: "menuOpen"});
-        this.showsCredit = true;
-      },
-      closeCredit(){
-        this.$store.commit("playSound", {key: "menuClose"});
-        this.showsCredit = false;
-      },
-      showRanking(){
-        this.$store.commit("playSound", {key: "menuOpen"});
-        this.showsRanking = true;
-      },
-      closeRanking(){
-        this.$store.commit("playSound", {key: "menuClose"});
-        this.showsRanking = false;
-      },
-      showMessage(){
-        this.$store.commit("playSound", {key: "menuOpen"});
-        this.$store.commit("showMessage");
-      },
-      tryFillEmptyName(){
-        if(!localStorage.rawNameSquare){
-          const randomName = Math.floor(Math.random() * Math.pow(2, 32)).toString(16);
-          localStorage.rawNameSquare = randomName;
-        }
+          },
+      );
+    },
+    onAnimationComplete() {
+      this.tryFillEmptyName();
+      this.$emit('loadScene', {sceneName: 'mainMenu'});
+    },
+    showCredit() {
+      this.$store.commit('playSound', {key: 'menuOpen'});
+      this.showsCredit = true;
+    },
+    closeCredit() {
+      this.$store.commit('playSound', {key: 'menuClose'});
+      this.showsCredit = false;
+    },
+    showRanking() {
+      this.$store.commit('playSound', {key: 'menuOpen'});
+      this.showsRanking = true;
+    },
+    closeRanking() {
+      this.$store.commit('playSound', {key: 'menuClose'});
+      this.showsRanking = false;
+    },
+    showMessage() {
+      this.$store.commit('playSound', {key: 'menuOpen'});
+      this.$store.commit('showMessage');
+    },
+    tryFillEmptyName() {
+      if (!localStorage.rawNameSquare) {
+        const randomName = Math.floor(Math.random() * 2 ** 32).toString(16);
+        localStorage.rawNameSquare = randomName;
       }
     },
-    mounted(){
-      // シーン飛ばし用
-      //this.$emit("loadScene", {sceneName: "mainMenu"});
-      //this.$emit("loadScene", {sceneName: "inGame", params: {characterId: 1, chapterId: 1}});
-    }
-  })
+  },
+  mounted() {
+    // シーン飛ばし用
+    // this.$emit("loadScene", {sceneName: "mainMenu"});
+    // this.$emit("loadScene", {sceneName: "inGame", params: {characterId: 1, chapterId: 1}});
+  },
+});
 </script>
 
 <style lang='scss' scoped>

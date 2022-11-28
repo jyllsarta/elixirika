@@ -3,38 +3,38 @@
 </template>
 
 <script>
-  
-  import store from "./packs/store";
 
-  export default({
-    props: {
-      label: String,
-      color: String,
-      disabled: Boolean,
-      flashing: Boolean,
-      width: String,
-      height: String,
-    },
-    methods: {
-      onClick(){
-        if(this.disabled){
-          return;
-        }
-        this.$emit('click');
-      },
-      onHover(){
-        this.$store.commit("playSound", {key: "hover"});
-        this.$emit('hover');
+import store from './packs/store';
+
+export default ({
+  props: {
+    label: String,
+    color: String,
+    disabled: Boolean,
+    flashing: Boolean,
+    width: String,
+    height: String,
+  },
+  methods: {
+    onClick() {
+      if (this.disabled) {
+        return;
       }
+      this.$emit('click');
     },
-    computed: {
-      buttonClass(){
-        let base = {disabled: this.disabled, flashing: this.flashing};
-        base[this.color] = true;
-        return base;
-      }
-    }
-  })
+    onHover() {
+      this.$store.commit('playSound', {key: 'hover'});
+      this.$emit('hover');
+    },
+  },
+  computed: {
+    buttonClass() {
+      const base = {disabled: this.disabled, flashing: this.flashing};
+      base[this.color] = true;
+      return base;
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

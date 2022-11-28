@@ -3,27 +3,28 @@
 </template>
 
 <script>
-  import Constants from '../zxcv/packs/constants.js'
-  export default {
-    name: "lifeGauge",
-    props: [
-      "life",
-    ],
-    computed: {
-      lifeLength: function(){
-        return (this.life / Constants.maxLife * 100) + "%"
-      },
-      lifeState: function(){
-        if(this.life >= Constants.safeLine){
-          return "max";
-        }
-        if(this.life >= Constants.dangerLine){
-          return "normal";
-        }
-        return "danger";
-      },
+import Constants from './packs/constants.js';
+
+export default {
+  name: 'lifeGauge',
+  props: [
+    'life',
+  ],
+  computed: {
+    lifeLength() {
+      return `${this.life / Constants.maxLife * 100}%`;
     },
-  }
+    lifeState() {
+      if (this.life >= Constants.safeLine) {
+        return 'max';
+      }
+      if (this.life >= Constants.dangerLine) {
+        return 'normal';
+      }
+      return 'danger';
+    },
+  },
+};
 </script>
 
 <style lang='scss' scoped>

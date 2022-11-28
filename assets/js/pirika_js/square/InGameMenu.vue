@@ -16,58 +16,58 @@
 </template>
 
 <script>
-  
-  import GeneralButton from "./GeneralButton.vue";
-  import store from "./packs/store";
-  import Model from "./packs/model";
 
-  export default({
-    data(){
-      return {
-        showingMenu: false,
-      }
+import GeneralButton from './GeneralButton.vue';
+import store from './packs/store';
+import Model from './packs/model';
+
+export default ({
+  data() {
+    return {
+      showingMenu: false,
+    };
+  },
+  store,
+  components: {
+    GeneralButton,
+  },
+  props: {
+    model: Model,
+  },
+  methods: {
+    showMenu() {
+      this.$store.commit('playSound', {key: 'menuOpen'});
+      this.showingMenu = true;
     },
-    store,
-    components: {
-      GeneralButton
+    closeMenu() {
+      this.showingMenu = false;
+      this.$store.commit('playSound', {key: 'menuClose'});
     },
-    props: {
-      model: Model,
+    showMessage() {
+      this.showingMenu = false;
+      this.$store.commit('playSound', {key: 'menuOpen'});
+      this.$store.commit('showMessage');
     },
-    methods: {
-      showMenu(){
-        this.$store.commit("playSound", {key: "menuOpen"});
-        this.showingMenu = true;
-      },
-      closeMenu(){
-        this.showingMenu = false;
-        this.$store.commit("playSound", {key: "menuClose"});
-      },
-      showMessage(){
-        this.showingMenu = false;
-        this.$store.commit("playSound", {key: "menuOpen"});
-        this.$store.commit("showMessage");
-      },
-      showPlayGuide(){
-        this.showingMenu = false;
-        this.$store.commit("showPlayGuide", this.model.characterId);
-        this.$store.commit("playSound", {key: "menuOpen"});
-      },
-      showKeyboardHelp(){
-        this.showingMenu = false;
-        this.$store.commit("showKeyboardHelp");
-        this.$store.commit("playSound", {key: "menuOpen"});
-      },
-      backToMainMenu(){
-        this.showingMenu = false;
-        this.$emit("guiEvent", {type: "backToMainMenu"});
-      },
-      reset(){
-        this.showingMenu = false;
-        this.$emit("guiEvent", {type: "reset"});
-      },
-    }
-  })
+    showPlayGuide() {
+      this.showingMenu = false;
+      this.$store.commit('showPlayGuide', this.model.characterId);
+      this.$store.commit('playSound', {key: 'menuOpen'});
+    },
+    showKeyboardHelp() {
+      this.showingMenu = false;
+      this.$store.commit('showKeyboardHelp');
+      this.$store.commit('playSound', {key: 'menuOpen'});
+    },
+    backToMainMenu() {
+      this.showingMenu = false;
+      this.$emit('guiEvent', {type: 'backToMainMenu'});
+    },
+    reset() {
+      this.showingMenu = false;
+      this.$emit('guiEvent', {type: 'reset'});
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

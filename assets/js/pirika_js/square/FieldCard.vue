@@ -13,43 +13,43 @@
 </template>
 
 <script>
-  
-  import Card from "./packs/card"
 
-  export default({
-    props: {
-      card: Card,
-      isLast: Boolean,
-      isCompressed: Boolean,
-      characterId: Number,
+import Card from './packs/card';
+
+export default ({
+  props: {
+    card: Card,
+    isLast: Boolean,
+    isCompressed: Boolean,
+    characterId: Number,
+  },
+  computed: {
+    last() {
+      return this.isLast ? ' last' : '';
     },
-    computed: {
-      last(){
-        return this.isLast ? " last" : "";
-      },
-      compressed(){
-        return this.isCompressed ? " compressed" : "";
-      },
-      rightLineCount(){
-        if(this.card.category !== 'normal'){
-          return 8;
-        }
-        return Math.ceil(this.card.number / 2);
-      },
-      leftLineCount(){
-        if(this.card.category !== 'normal'){
-          return 8;
-        }
-        return Math.floor(this.card.number / 2);
-      },
-      colorSchemedStyleBackground(){
-        return {
-          backgroundColor: `var(--color-${this.card.suit}3-${this.characterId})`,
-          border: `3px solid var(--color-${this.card.suit}1-${this.characterId})`,
-        };
-      },
-    }
-  })
+    compressed() {
+      return this.isCompressed ? ' compressed' : '';
+    },
+    rightLineCount() {
+      if (this.card.category !== 'normal') {
+        return 8;
+      }
+      return Math.ceil(this.card.number / 2);
+    },
+    leftLineCount() {
+      if (this.card.category !== 'normal') {
+        return 8;
+      }
+      return Math.floor(this.card.number / 2);
+    },
+    colorSchemedStyleBackground() {
+      return {
+        backgroundColor: `var(--color-${this.card.suit}3-${this.characterId})`,
+        border: `3px solid var(--color-${this.card.suit}1-${this.characterId})`,
+      };
+    },
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -70,7 +70,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-    }    
+    }
     &.last{
       font-weight: bold;
       font-size: $font-size-medium;

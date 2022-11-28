@@ -3,36 +3,36 @@
 </template>
 
 <script>
-  export default {
-    name: "volume",
-    data: function(){
-      return {
-        localVolume: 1,
-      };
-    },
-    props: [
-      "volume",
-    ],
-    mounted: function(){
-      this.localVolume = this.volume;
-    },
-    computed: {
-      currentImage: function () {
-        if(0.5 < this.localVolume){
-          return "/images/zxcv/volume.png";
-        }
-        if(0 < this.localVolume){
-          return "/images/zxcv/volume_low.png";
-        }
-        return "/images/zxcv/volume_muted.png";
-      },
-    },
-    methods: {
-      setVolume: function(){
-        this.$emit("setVolume", this.localVolume);
+export default {
+  name: 'volume',
+  data() {
+    return {
+      localVolume: 1,
+    };
+  },
+  props: [
+    'volume',
+  ],
+  mounted() {
+    this.localVolume = this.volume;
+  },
+  computed: {
+    currentImage() {
+      if (this.localVolume > 0.5) {
+        return '/images/zxcv/volume.png';
       }
-    }
-  }
+      if (this.localVolume > 0) {
+        return '/images/zxcv/volume_low.png';
+      }
+      return '/images/zxcv/volume_muted.png';
+    },
+  },
+  methods: {
+    setVolume() {
+      this.$emit('setVolume', this.localVolume);
+    },
+  },
+};
 </script>
 
 <style lang='scss' scoped>

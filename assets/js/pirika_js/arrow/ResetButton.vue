@@ -2,9 +2,9 @@
     <div class="game_start_button" @click="$emit('resetGame')"></div>
 </template>
 <script>
-  export default {
-    name: "ResetButton",
-  }
+export default {
+  name: 'ResetButton',
+};
 </script>
 
 <style lang='scss' scoped>

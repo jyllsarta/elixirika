@@ -10,25 +10,25 @@
 </template>
 
 <script>
-  import BulletRed from "./BulletRed.vue";
-  import BulletCyan from "./BulletCyan.vue";
-  import BulletYellow from "./BulletYellow.vue";
-  import BulletBonus from "./BulletBonus.vue";
-  import BulletSpecial from "./BulletSpecial.vue";
+import BulletRed from './BulletRed.vue';
+import BulletCyan from './BulletCyan.vue';
+import BulletYellow from './BulletYellow.vue';
+import BulletBonus from './BulletBonus.vue';
+import BulletSpecial from './BulletSpecial.vue';
 
-  export default({
-    components: {
-      BulletRed,
-      BulletCyan,
-      BulletYellow,
-      BulletBonus,
-      BulletSpecial,
-    },
-    props: {
-      type: String,
-      markedAt: Number | null,
-    },
-  })
+export default ({
+  components: {
+    BulletRed,
+    BulletCyan,
+    BulletYellow,
+    BulletBonus,
+    BulletSpecial,
+  },
+  props: {
+    type: String,
+    markedAt: Number | null,
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -47,7 +47,7 @@
       left: -5px;
       transform: rotate(45deg);
       background-color: yellow;
-      opacity: 0.8;      
+      opacity: 0.8;
     }
   }
 </style>

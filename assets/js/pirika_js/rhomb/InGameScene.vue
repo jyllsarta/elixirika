@@ -20,71 +20,71 @@
 </template>
 
 <script>
-  
-  import Model from "./packs/model";
-  import Controller from "./packs/controller";
-  import store from "./packs/store";
-  import Bullets from "./Bullets.vue";
-  import DebugUI from "./DebugUI.vue";
-  import DamageNumber from "./DamageNumber.vue";
-  import EnemyCommands from "./EnemyCommands.vue";
-  import EnemyImage from "./EnemyImage.vue";
-  import EnemyStats from "./EnemyStats.vue";
-  import GameEndDialog from "./GameEndDialog.vue";
-  import GameStartDialog from "./GameStartDialog.vue";
-  import GUIHandler from "./GUIHandler.vue";
-  import InGameSoundManager from "./InGameSoundManager.vue"
-  import LockScreen from "./LockScreen.vue";
-  import PlayerImage from "./PlayerImage.vue";
-  import PlayerUI from "./PlayerUI.vue";
-  import Pointer from "./Pointer.vue";
 
-  export default({
-    store,
-    components: {
-      Bullets,
-      DebugUI,
-      DamageNumber,
-      EnemyCommands,
-      EnemyImage,
-      EnemyStats,
-      GameEndDialog,
-      GameStartDialog,
-      GUIHandler,
-      InGameSoundManager,
-      LockScreen,
-      PlayerImage,
-      PlayerUI,
-      Pointer,
+import Model from './packs/model';
+import Controller from './packs/controller';
+import store from './packs/store';
+import Bullets from './Bullets.vue';
+import DebugUI from './DebugUI.vue';
+import DamageNumber from './DamageNumber.vue';
+import EnemyCommands from './EnemyCommands.vue';
+import EnemyImage from './EnemyImage.vue';
+import EnemyStats from './EnemyStats.vue';
+import GameEndDialog from './GameEndDialog.vue';
+import GameStartDialog from './GameStartDialog.vue';
+import GUIHandler from './GUIHandler.vue';
+import InGameSoundManager from './InGameSoundManager.vue';
+import LockScreen from './LockScreen.vue';
+import PlayerImage from './PlayerImage.vue';
+import PlayerUI from './PlayerUI.vue';
+import Pointer from './Pointer.vue';
+
+export default ({
+  store,
+  components: {
+    Bullets,
+    DebugUI,
+    DamageNumber,
+    EnemyCommands,
+    EnemyImage,
+    EnemyStats,
+    GameEndDialog,
+    GameStartDialog,
+    GUIHandler,
+    InGameSoundManager,
+    LockScreen,
+    PlayerImage,
+    PlayerUI,
+    Pointer,
+  },
+  data() {
+    return {
+      model: null,
+      controller: null,
+    };
+  },
+  methods: {
+    proceed() {
+      this.$emit('loadScene', {sceneName: 'title'});
     },
-    data(){
-      return {
-        model: null,
-        controller: null,
-      };
+    backToMenu() {
+      this.$emit('loadScene', {sceneName: 'mainMenu'});
     },
-    methods: {
-      proceed(){
-        this.$emit("loadScene", {sceneName: "title"});
-      },
-      backToMenu(){
-        this.$emit("loadScene", {sceneName: "mainMenu"});
-      },
+  },
+  computed: {
+    currentPhase() {
+      return this.model?.phaseStateMachine.phase.name;
     },
-    computed: {
-      currentPhase(){
-        return this.model?.phaseStateMachine.phase.name;
-      }
-    },
-    created(){
-      this.model = new Model();
-      this.controller = new Controller(this.model);
-      this.controller.prepare();
-      // デバッグ用バックドア
-      window.model = this.model;
-      window.controller = this.controller;
-    }
-  })
+  },
+  created() {
+    this.model = new Model();
+    this.controller = new Controller(this.model);
+    this.controller.prepare();
+    // デバッグ用バックドア
+    window.model = this.model;
+    window.controller = this.controller;
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -156,7 +156,7 @@
       width: 100%;
       height: 100%;
       top: 0;
-      left: 0;  
+      left: 0;
     }
   }
 </style>

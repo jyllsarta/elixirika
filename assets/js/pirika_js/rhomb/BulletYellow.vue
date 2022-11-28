@@ -2,7 +2,7 @@
     <div class="bullet"><img src="/images/rhomb/bullets/triangle.svg" /></div>
 </template>
 <script>
-  
+
 </script>
 
 <style lang='scss' scoped>

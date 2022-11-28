@@ -5,36 +5,35 @@
 </template>
 
 <script>
-  
 
-  export default({
-    props: {
-      label: String,
-      color: String,
-      disabled: Boolean,
-      flashing: Boolean,
-      width: String,
-      height: String,
-    },
-    methods: {
-      onClick(){
-        if(this.disabled){
-          return;
-        }
-        this.$emit('click');
-      },
-      onHover(){
-        this.$emit('hover');
+export default ({
+  props: {
+    label: String,
+    color: String,
+    disabled: Boolean,
+    flashing: Boolean,
+    width: String,
+    height: String,
+  },
+  methods: {
+    onClick() {
+      if (this.disabled) {
+        return;
       }
+      this.$emit('click');
     },
-    computed: {
-      buttonClass(){
-        let base = {disabled: this.disabled, flashing: this.flashing};
-        base[this.color] = true;
-        return base;
-      }
-    }
-  })
+    onHover() {
+      this.$emit('hover');
+    },
+  },
+  computed: {
+    buttonClass() {
+      const base = {disabled: this.disabled, flashing: this.flashing};
+      base[this.color] = true;
+      return base;
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

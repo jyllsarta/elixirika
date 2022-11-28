@@ -15,48 +15,48 @@
 </template>
 
 <script>
-  
-  import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue"
-  import NumeratableNumber from "./NumeratableNumber.vue";
 
-  export default({
-    data(){
-      return {
-      };
+import SupportCharacterAbilityButton from './SupportCharacterAbilityButton.vue';
+import NumeratableNumber from './NumeratableNumber.vue';
+
+export default ({
+  data() {
+    return {
+    };
+  },
+  components: {
+    SupportCharacterAbilityButton,
+    NumeratableNumber,
+  },
+  props: {
+    character: Object,
+    model: Object,
+  },
+  computed: {
+    mpBarWidth() {
+      const percentage = Math.min(this.character.uniqueParameters.mp / 100, 1) * 100;
+      return `${percentage}%`;
     },
-    components: {
-      SupportCharacterAbilityButton,
-      NumeratableNumber,
-    },
-    props: {
-      character: Object,
-      model: Object,
-    },
-    computed: {
-      mpBarWidth(){
-        const percentage = Math.min(this.character.uniqueParameters.mp / 100, 1) * 100;
-        return `${percentage}%`;
-      },
-      maxMpMessage(){
-        if(this.character.uniqueParameters.mp >= this.character.uniqueParameters.maxMp){
-          return "MAX!";
-        }
-        return "";
+    maxMpMessage() {
+      if (this.character.uniqueParameters.mp >= this.character.uniqueParameters.maxMp) {
+        return 'MAX!';
       }
+      return '';
     },
-    methods: {
-      isSelected(index){
-        return this.model.focusingAbilityIndex === index;
-      },
-      isSmall(index){
-        const length = this.character.uniqueParameters.abilities.length;
-        if(length <= 4){
-          return false;
-        }
-        return index >= (8 - length);
+  },
+  methods: {
+    isSelected(index) {
+      return this.model.focusingAbilityIndex === index;
+    },
+    isSmall(index) {
+      const {length} = this.character.uniqueParameters.abilities;
+      if (length <= 4) {
+        return false;
       }
+      return index >= (8 - length);
     },
-  })
+  },
+});
 </script>
 
 <style lang='scss' scoped>
@@ -102,7 +102,7 @@
       gap: $space-m;
     }
   }
-  
+
   .ability-enter-active {
     position: absolute;
     transition: all 0.2s;

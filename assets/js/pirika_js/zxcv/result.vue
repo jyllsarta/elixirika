@@ -8,15 +8,15 @@
 </template>
 
 <script>
-  export default {
-    name: "result",
-    props: [
-      "score",
-      "speedScore",
-      "totalScore",
-      "isHighScoreUpdated",
-    ],
-  }
+export default {
+  name: 'result',
+  props: [
+    'score',
+    'speedScore',
+    'totalScore',
+    'isHighScoreUpdated',
+  ],
+};
 </script>
 
 <style lang='scss' scoped>

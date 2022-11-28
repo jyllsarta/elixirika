@@ -5,12 +5,12 @@
 </template>
 
 <script>
-  export default {
-    name: "sparkList",
-    props: [
-      "sparks",
-    ],
-  }
+export default {
+  name: 'sparkList',
+  props: [
+    'sparks',
+  ],
+};
 </script>
 
 <style lang='scss' scoped>
