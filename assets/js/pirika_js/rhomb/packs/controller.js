@@ -23,12 +23,12 @@ module.exports = class Controller {
   equipmentMousedown(guiEvent){
     const {id} = guiEvent;
     if(!this.model.phaseStateMachine.phase === "MAIN"){
-      console.log("not main phase!");
+      console.warn("not main phase!");
       return;
     }
     const equipment = model.equipments.find(equipment=>equipment.id === id);
     if(this.model.tp < equipment.tp){
-      console.log("short of tp!");
+      console.warn("short of tp!");
       return;
     }
     this.model.phaseStateMachine.transferTo("USE_EQUIPMENT", model);

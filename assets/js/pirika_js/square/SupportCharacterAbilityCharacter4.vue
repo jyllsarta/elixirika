@@ -35,7 +35,6 @@
     computed: {
       mpBarWidth(){
         const percentage = Math.min(this.character.uniqueParameters.mp / 100, 1) * 100;
-        console.log(percentage)
         return `${percentage}%`;
       },
       maxMpMessage(){

@@ -7,7 +7,6 @@ import OnlineRanking from "./OnlineRanking.js"
 
 class ArrowLogic{
   constructor(){
-    console.log("instantiated logic!");
     this.soundManager = new SoundManager();
     this.onlineRanking = new OnlineRanking(location.href, location.href + "/ranking", location.href + "/high_score")
     this.highScore = 0;
@@ -188,7 +187,6 @@ class ArrowLogic{
     }
 
     if(this.hp <= 0){
-      console.log("死んだ");
       this.soundManager.play("dead");
       this.onlineRanking.submit(this.username, this.score(), this.removeScore, this.timeScore, (results) =>{this.onSucceedSendResult(results)});
       this.gameState = 2;

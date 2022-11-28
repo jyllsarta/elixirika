@@ -26,7 +26,6 @@
       "notes",
     ],
     created: function(){
-      console.log("loaded notes!");
     },
     computed: {
     },

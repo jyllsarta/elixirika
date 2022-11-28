@@ -381,8 +381,6 @@
             this.isHighScoreUpdated = true;
             this.playSound("high_score", false);
           }
-          console.log(results);
-          console.log("OK");
         }).catch((results) => {
           console.warn(results);
           console.warn("NG");
@@ -392,14 +390,12 @@
       getHighScore: function(){
         axios.get(location.href + `/high_score?username=${this.username}`
         ).then((results) => {
-          console.log(results);
           if(this.username !== ""){
             this.highScore = results.data.high_score;
           }
           else{
             console.warn("ユーザ名未設定のためハイスコアは埋めません");
           }
-          console.log("OK");
         }).catch((results) => {
           console.warn(results);
           console.warn("NG");
@@ -409,9 +405,7 @@
       getRanking: function(){
         axios.get(location.href + `/ranking`
         ).then((results) => {
-          console.log(results);
           this.ranking = results.data.ranking;
-          console.log("OK");
         }).catch((results) => {
           console.warn(results);
           console.warn("NG");
@@ -424,7 +418,6 @@
       },
       setName: function(name){
         this.username = name;
-        console.log("name set!");
         this.getHighScore();
       },
     }

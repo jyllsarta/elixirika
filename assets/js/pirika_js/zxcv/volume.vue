@@ -14,7 +14,6 @@
       "volume",
     ],
     mounted: function(){
-      console.log("loaded volume!!");
       this.localVolume = this.volume;
     },
     computed: {

@@ -196,7 +196,6 @@
       },
       "foregroundEnemy.hp": function(newHp, prevHp){
         // リセット検出 ヒストリーが空なら演出しない
-        console.log(this.foregroundEnemy.damageHistory);
         if(this.foregroundEnemy.damageHistory?.length === 0){
           this.syncCurrentHp();
           return;

@@ -83,7 +83,6 @@
       };
     },
     created(){
-      console.log("loaded arrow!");
       this.logic = new ArrowLogic();
       this.timer = new Timer();
       this.registerEvents();

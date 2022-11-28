@@ -76,7 +76,6 @@
           this.sendingMessage = "";
           this.$store.commit("playSound", {key: "special2"});
           this.fetch();
-          console.log("OK");
         })
         .catch((results) => {
           console.warn(results);

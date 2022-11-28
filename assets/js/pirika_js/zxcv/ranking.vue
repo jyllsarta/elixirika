@@ -28,7 +28,6 @@
       "ranking",
     ],
     mounted: function(){
-      console.log("loaded ui!");
     },
     computed: {
     },

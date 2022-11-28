@@ -8,6 +8,5 @@ module.exports = class PhaseEnd {
   }
 
  enter(model){
-    console.log("end Phase!");
   }
 };

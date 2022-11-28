@@ -18,7 +18,6 @@ export default {
     if(localStorage.rawName){
       this.rawName = localStorage.rawName;
     }
-    console.log("loaded name!");
     this.setName();
   },
   computed: {

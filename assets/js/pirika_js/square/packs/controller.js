@@ -224,7 +224,6 @@ module.exports = class Controller {
               }
             )
             .then((results) => {
-              console.log("OK");
             })
             .catch((results) => {
               console.warn(results);

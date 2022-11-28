@@ -81,7 +81,6 @@
       "ranking",
     ],
     mounted: function(){
-      console.log("loaded ui!");
       this.loadCompleted = true;
     },
     computed: {

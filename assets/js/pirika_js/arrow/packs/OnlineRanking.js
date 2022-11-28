@@ -18,8 +18,6 @@ class OnlineRanking{
         )
         .then((results) => {
           callback(results);
-          console.log(results);
-          console.log("OK");
         })
         .catch((results) => {
           console.warn(results);
@@ -31,8 +29,6 @@ class OnlineRanking{
     axios.get(this.myScoreUrl+`?username=${username}`)
         .then((results) => {
             callback(results);
-            console.log(results);
-            console.log("OK");
         })
         .catch((results) => {
             console.warn(results);
@@ -44,8 +40,6 @@ class OnlineRanking{
     axios.get(this.rankingUrl)
         .then((results) => {
           callback(results);
-          console.log(results);
-          console.log("OK");
         })
         .catch((results) => {
           console.warn(results);

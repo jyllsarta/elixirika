@@ -16,7 +16,6 @@ export default {
     if (localStorage.rawName) {
       this.rawName = localStorage.rawName;
     }
-    console.log("loaded name!");
     this.setName();
   },
   computed: {
@@ -47,7 +46,6 @@ export default {
       Vue.nextTick( ()=> {
         this.$refs.name_input_box.focus()
       });
-      console.log(this.$refs);
     },
     setName: function() {
       this.$emit("setName", this.fullName);

@@ -30,7 +30,6 @@
       };
     },
     mounted(){
-      console.log("loaded ika!");
       this.init();
     },
     methods: {

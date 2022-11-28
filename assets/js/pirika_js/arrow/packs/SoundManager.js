@@ -1,6 +1,5 @@
 class SoundManager{
   constructor(){
-    console.log("instantiated sound!");
     this.sounds = {};
     this.volume = 1;
   }
