@@ -11,7 +11,6 @@ module.exports = class PhaseUseEquipment {
   }
 
   enter(model){
-    console.log("use equip Phase!");
   }
 
   embedEquipmentId(equipmentId){

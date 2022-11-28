@@ -9,7 +9,6 @@ module.exports = class PhaseStart {
   }
 
   enter(model){
-    console.log("start Phase!");
   }
 
   next(model){

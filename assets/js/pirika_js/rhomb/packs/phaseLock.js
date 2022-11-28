@@ -11,7 +11,6 @@ module.exports = class PhaseLock {
   }
 
  enter(model){
-    console.log("lock Phase!");
     this.isPrevFrameMoveSucceeded = true;
   }
 
@@ -21,13 +20,12 @@ module.exports = class PhaseLock {
 
   handleMouseUp(e, model){
     if(this.lockdepth == 2){
-      console.log("lock minus 1");
       this.lockdepth = 1;
       return;
     }
 
     if(this.handler){
-      console.log("finish already started");
+      console.warn("finish already started");
       return;
     }
     if(model.tick <= 1){

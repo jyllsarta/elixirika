@@ -8,7 +8,6 @@ module.exports = class PhaseMain {
   }
 
   enter(model){
-    console.log("main Phase!");
   }
 
   handleMouseDown(e, model){

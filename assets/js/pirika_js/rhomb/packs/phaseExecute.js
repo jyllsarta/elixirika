@@ -15,7 +15,6 @@ module.exports = class PhaseExecute {
   }
 
   enter(model){
-    console.log("execute Phase!");
     this.processMarkedBullets(model);
     this.moveBullets(model);
     this.processHitBullets(model);
