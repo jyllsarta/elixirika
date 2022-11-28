@@ -7,17 +7,17 @@ module.exports = class Board {
     this.initiate();
   }
 
-  initiate(){
+  initiate() {
     this.fields = [];
-    for(let i = 0; i < Constants.fieldCardNumber; ++i ){
+    for (let i = 0; i < Constants.fieldCardNumber; ++i) {
       this.fields.push(new Field(i));
     }
   }
 
   // ボードからのsend == 星座盤への投入
-  isSendable(fieldIndex){
+  isSendable(fieldIndex) {
     const lastCard = this.fields[fieldIndex]?.getLastCard();
-    if(!lastCard){
+    if (!lastCard) {
       return false;
     }
     return lastCard.isSenderCard();

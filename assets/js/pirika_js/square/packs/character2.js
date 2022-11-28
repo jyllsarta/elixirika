@@ -7,7 +7,7 @@ let AbilityCardPocket = require("./abilityCardPocket");
 let Card = require("./card");
 
 module.exports = class Character2 {
-  constructor(){
+  constructor() {
     this.id = 2;
     this.name = "アリティ";
     this.defaultMessage = "イニシャライズ走りきりました、疎通確認いけます";
@@ -24,44 +24,55 @@ module.exports = class Character2 {
       ],
       sandStormCount: 0,
       energyHistory: [],
-    }
+    };
     this.defaultCallback = new Character2_Default();
     this.callbacks = {
       1: new Character2_1(),
       2: new Character2_2(),
       3: new Character2_3(),
-      4: new Character2_4()
-    }
+      4: new Character2_4(),
+    };
   }
 
-  getCallback(callbackName, index){
-    return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
+  getCallback(callbackName, index) {
+    return (
+      this.callbacks[index][callbackName] || this.defaultCallback[callbackName]
+    );
   }
 
-  banSendCard(model, sendingField){
+  banSendCard(model, sendingField) {
     const length = sendingField.cards.length;
-    if(length === 2 || length === 3){
-      model.setForceStalemate("「2枚か3枚でスターパレットに送るべからず」の誓いを破った...", false);
+    if (length === 2 || length === 3) {
+      model.setForceStalemate(
+        "「2枚か3枚でスターパレットに送るべからず」の誓いを破った...",
+        false,
+      );
     }
   }
 
-  banCardGap(model, toField){
+  banCardGap(model, toField) {
     const [prevCard, newCard] = toField.cards.slice(-2);
-    if(!prevCard || !newCard){
+    if (!prevCard || !newCard) {
       return;
     }
-    if(newCard.isSenderCard()){
+    if (newCard.isSenderCard()) {
       return;
     }
     const diff = newCard.number - prevCard.number;
-    if(diff === 0){
-      model.setForceStalemate("「同じ数値のカードを重ねるべからず」の誓いを破った...", false);
+    if (diff === 0) {
+      model.setForceStalemate(
+        "「同じ数値のカードを重ねるべからず」の誓いを破った...",
+        false,
+      );
     }
   }
 
-  banDiscard(model, sentCardLength){
-    if(sentCardLength > 0){
-      model.setForceStalemate("「1枚たりとも捨札にするべからず」の誓いを破った...", false);
+  banDiscard(model, sentCardLength) {
+    if (sentCardLength > 0) {
+      model.setForceStalemate(
+        "「1枚たりとも捨札にするべからず」の誓いを破った...",
+        false,
+      );
     }
   }
 };

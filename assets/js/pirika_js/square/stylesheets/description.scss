@@ -1,36 +1,36 @@
 @import "constants";
 
-.content{
+.content {
   width: 90%;
   padding-left: 5%;
 }
 
-.banner{
+.banner {
   width: 100%;
   display: flex;
   justify-content: center;
-  .banner_image{
+  .banner_image {
     width: 500px;
   }
 }
-.mini_image{
+.mini_image {
   width: 100%;
   display: flex;
   justify-content: center;
 }
-.header{
+.header {
   padding-top: $space-m;
   font-size: $font-size-medium;
   border-bottom: 1px solid $gray3;
   margin-bottom: $space-s;
 }
-.pre{
+.pre {
   white-space: pre-wrap;
 }
-.li{
+.li {
   padding: $space-s $space-s $space-s 20px;
 }
-.li::before{
+.li::before {
   content: " - ";
   color: $yellow1;
 }

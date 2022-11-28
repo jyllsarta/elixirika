@@ -6,31 +6,40 @@ let Character3_4 = require("./callbacks/character3_4");
 let AbilityShuffle = require("./abilityShuffle");
 
 module.exports = class Character3 {
-  constructor(){
+  constructor() {
     this.id = 3;
     this.name = "ラズ";
     this.defaultMessage = "ラズでーす♡。\n今回も頑張っていきましょうね";
     this.bgm = "bgm7";
 
     this.uniqueParameters = {
-      abilities: [
-        new AbilityShuffle(1, 6),
-      ],
+      abilities: [new AbilityShuffle(1, 6)],
     };
     this.defaultCallback = new Character3_Default();
     this.callbacks = {
       1: new Character3_1(),
       2: new Character3_2(),
       3: new Character3_3(),
-      4: new Character3_4()
-    }
+      4: new Character3_4(),
+    };
   }
 
-  getCallback(callbackName, index){
-    return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
+  getCallback(callbackName, index) {
+    return (
+      this.callbacks[index][callbackName] || this.defaultCallback[callbackName]
+    );
   }
 
-  countMinusTrick(model){
-    return model.board.fields.reduce((sum, field)=>sum+field.minusTrickCount(), 0) + model.starPalette.fields.reduce((sum, field)=>sum+field.minusTrickCount(), 0);
+  countMinusTrick(model) {
+    return (
+      model.board.fields.reduce(
+        (sum, field) => sum + field.minusTrickCount(),
+        0,
+      ) +
+      model.starPalette.fields.reduce(
+        (sum, field) => sum + field.minusTrickCount(),
+        0,
+      )
+    );
   }
 };

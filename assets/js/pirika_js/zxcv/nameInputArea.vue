@@ -1,7 +1,19 @@
 <template>
-    <div class="name_input_area"><span class="prefix">名前：</span>
-        <div class="fixed_name" v-if="!inputting">{{fullName === "" ? "ななし(ランキング登録されません)" : fullName}}</div><button class="change_button" @click="setInputMode" v-if="!inputting">変更</button><input class="name_input_box" type="text" @blur="onBlur" v-model="rawName" v-if="inputting" />
+  <div class="name_input_area">
+    <span class="prefix">名前：</span>
+    <div class="fixed_name" v-if="!inputting">
+      {{ fullName === "" ? "ななし(ランキング登録されません)" : fullName }}
     </div>
+    <button class="change_button" @click="setInputMode" v-if="!inputting">
+      変更</button
+    ><input
+      class="name_input_box"
+      type="text"
+      @blur="onBlur"
+      v-model="rawName"
+      v-if="inputting"
+    />
+  </div>
 </template>
 
 <script>
@@ -57,31 +69,31 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/constants";
+<style lang="scss" scoped>
+@import "stylesheets/constants";
 
-  .name_input_area {
-    position: absolute;
-    top: 18%;
-    left: 0;
-    width: 50%;
-    .prefix{
-      color: $white;
-    }
-    .fixed_name{
-      color: $white;
-      position: absolute;
-      top: 0;
-      left: 55px;
-    }
-    .name_input_box{
-      position: absolute;
-      top: 0;
-      left: 55px;
-    }
-    .change_button{
-      position: absolute;
-      right: 2%;
-    }
+.name_input_area {
+  position: absolute;
+  top: 18%;
+  left: 0;
+  width: 50%;
+  .prefix {
+    color: $white;
   }
+  .fixed_name {
+    color: $white;
+    position: absolute;
+    top: 0;
+    left: 55px;
+  }
+  .name_input_box {
+    position: absolute;
+    top: 0;
+    left: 55px;
+  }
+  .change_button {
+    position: absolute;
+    right: 2%;
+  }
+}
 </style>

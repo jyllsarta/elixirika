@@ -1,12 +1,33 @@
 <template>
-    <div id="app">
-        <h1>zxcv</h1>
-        <back v-bind:notes="notes" v-bind:initialNoteCount="initialNoteCount"></back>
-        <div class="window">
-            <notes v-bind:notes="recentNotes"></notes>
-            <ui v-bind:life="life" v-bind:gameState="gameState" v-bind:score="score" v-bind:volume="volume" v-bind:minuses="minuses" v-bind:sparks="sparks" v-bind:speedScore="speedScore" v-bind:totalScore="totalScore" v-bind:highScore="highScore" v-bind:isHighScoreUpdated="isHighScoreUpdated" v-bind:showingRanking="showingRanking" v-bind:ranking="ranking" v-on:setVolume="setVolume" v-on:setName="setName" v-on:hideRanking="showingRanking = false" v-on:showRanking="showingRanking = true" v-on:inputStateChanged="(state)=&gt;{this.inputtingName = state}"></ui>
-        </div>
+  <div id="app">
+    <h1>zxcv</h1>
+    <back
+      v-bind:notes="notes"
+      v-bind:initialNoteCount="initialNoteCount"
+    ></back>
+    <div class="window">
+      <notes v-bind:notes="recentNotes"></notes>
+      <ui
+        v-bind:life="life"
+        v-bind:gameState="gameState"
+        v-bind:score="score"
+        v-bind:volume="volume"
+        v-bind:minuses="minuses"
+        v-bind:sparks="sparks"
+        v-bind:speedScore="speedScore"
+        v-bind:totalScore="totalScore"
+        v-bind:highScore="highScore"
+        v-bind:isHighScoreUpdated="isHighScoreUpdated"
+        v-bind:showingRanking="showingRanking"
+        v-bind:ranking="ranking"
+        v-on:setVolume="setVolume"
+        v-on:setName="setName"
+        v-on:hideRanking="showingRanking = false"
+        v-on:showRanking="showingRanking = true"
+        v-on:inputStateChanged="(state)=&gt;{this.inputtingName = state}"
+      ></ui>
     </div>
+  </div>
 </template>
 
 <script>
@@ -79,7 +100,11 @@ export default {
       return this.life > 0;
     },
     bpm() {
-      return Math.floor(this.initialNoteCount / (this.clearedTime - this.startedTime) * 60 * 1000);
+      return Math.floor(
+          (this.initialNoteCount / (this.clearedTime - this.startedTime)) *
+          60 *
+          1000,
+      );
     },
     speedScore() {
       return Math.floor(this.bpm / 5) || 0;
@@ -242,10 +267,13 @@ export default {
         return;
       }
 
-      let damage = Math.max(this.score * Constants.damageIncreaseSpeed, Constants.minDamagePerLife);
+      let damage = Math.max(
+          this.score * Constants.damageIncreaseSpeed,
+          Constants.minDamagePerLife,
+      );
       damage *= this.timeDelta / 17; // 1F=17msに合わせて補正する
       if (this.isDanger) {
-        damage *= (1 - Constants.dangerDamageReduceRate);
+        damage *= 1 - Constants.dangerDamageReduceRate;
       }
       this.life -= damage;
     },
@@ -265,7 +293,9 @@ export default {
           this.handleKeyCleared();
           break;
         default:
-          console.error(`undefined game mode set: ${this.gameState} on trigger Key Event`);
+          console.error(
+              `undefined game mode set: ${this.gameState} on trigger Key Event`,
+          );
           break;
       }
     },
@@ -367,46 +397,55 @@ export default {
     },
 
     sendResult() {
-      axios.post(
-          location.href,
-          {
+      axios
+          .post(location.href, {
             _csrf_token: $('meta[name=csrf-token]').attr('content'),
             username: this.username,
             speed_score: this.speedScore,
             score: this.score,
             total_score: this.totalScore,
-          },
-      ).then((results) => {
-        if (results.data.is_high_score && this.gameState !== Constants.gameStates.title) {
-          this.isHighScoreUpdated = true;
-          this.playSound('high_score', false);
-        }
-      }).catch((results) => {
-        console.warn(results);
-        console.warn('NG');
-      });
+          })
+          .then((results) => {
+            if (
+              results.data.is_high_score &&
+            this.gameState !== Constants.gameStates.title
+            ) {
+              this.isHighScoreUpdated = true;
+              this.playSound('high_score', false);
+            }
+          })
+          .catch((results) => {
+            console.warn(results);
+            console.warn('NG');
+          });
     },
 
     getHighScore() {
-      axios.get(`${location.href}/high_score?username=${this.username}`).then((results) => {
-        if (this.username !== '') {
-          this.highScore = results.data.high_score;
-        } else {
-          console.warn('ユーザ名未設定のためハイスコアは埋めません');
-        }
-      }).catch((results) => {
-        console.warn(results);
-        console.warn('NG');
-      });
+      axios
+          .get(`${location.href}/high_score?username=${this.username}`)
+          .then((results) => {
+            if (this.username !== '') {
+              this.highScore = results.data.high_score;
+            } else {
+              console.warn('ユーザ名未設定のためハイスコアは埋めません');
+            }
+          })
+          .catch((results) => {
+            console.warn(results);
+            console.warn('NG');
+          });
     },
 
     getRanking() {
-      axios.get(`${location.href}/ranking`).then((results) => {
-        this.ranking = results.data.ranking;
-      }).catch((results) => {
-        console.warn(results);
-        console.warn('NG');
-      });
+      axios
+          .get(`${location.href}/ranking`)
+          .then((results) => {
+            this.ranking = results.data.ranking;
+          })
+          .catch((results) => {
+            console.warn(results);
+            console.warn('NG');
+          });
     },
 
     setVolume(vol) {
@@ -421,23 +460,27 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/constants";
-  .menu_item{
-    font-size: 100px;
-  }
+<style lang="scss" scoped>
+@import "stylesheets/constants";
+#app{
+  position: relative;
+  padding: 10px;
+}
 
-  .window{
-    display: block;
-    position: relative;
-    width: $note_width * 4 + 50;
-    height: $note_height * $note_count + 100;
-    padding: 50px 25px 150px 25px;
-    margin: auto;
-  }
+.menu_item {
+  font-size: 100px;
+}
 
-  .ui{
-    z-index: 100;
-  }
+.window {
+  display: block;
+  position: relative;
+  width: $note_width * 4 + 50;
+  height: $note_height * $note_count + 100;
+  padding: 50px 25px 150px 25px;
+  margin: auto;
+}
 
+.ui {
+  z-index: 100;
+}
 </style>

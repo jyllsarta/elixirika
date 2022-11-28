@@ -1,31 +1,29 @@
 let Constants = require("./constants");
 const GlobalIdFactory = require("./globalIdFactory");
 
-
 // カードが積まれる場所
 // Ex. 手札 星座盤の1~8+それぞれ ボードの4箇所 デッキ 墓地 選択中カード
 // 「カードを送っていいかどうか」はここでは扱わない。そのバリデーションは一個上の層で行う。こっちは実エンティティ操作の低レベルAPIみたいな想定
 module.exports = class Field {
-  constructor(index=null) {
+  constructor(index = null) {
     this.truncate();
     this.id = GlobalIdFactory.next();
     this.index = index;
   }
 
-  addCard(card, options){
-    if(options?.index !== undefined){
+  addCard(card, options) {
+    if (options?.index !== undefined) {
       this.cards.splice(options.index, 0, card);
-    }
-    else{
+    } else {
       this.cards.push(card);
     }
   }
 
-  truncate(){
+  truncate() {
     this.cards = [];
   }
 
-  shuffle(seededRandom){
+  shuffle(seededRandom) {
     let list = this.cards;
 
     for (var i = list.length - 1; i > 0; i--) {
@@ -37,9 +35,9 @@ module.exports = class Field {
     }
 
     let preservedSenders = [];
-    for(let _index of [1,2]){
-      let idx = list.findIndex(card=>card.isSenderCard());
-      if(idx !== -1){
+    for (let _index of [1, 2]) {
+      let idx = list.findIndex((card) => card.isSenderCard());
+      if (idx !== -1) {
         preservedSenders.push(list.splice(idx, 1)[0]);
       }
     }
@@ -48,45 +46,45 @@ module.exports = class Field {
     this.cards = list;
   }
 
-  sendAllCardTo(toField){
+  sendAllCardTo(toField) {
     toField.cards = toField.cards.concat(this.cards);
     this.cards = [];
   }
 
-  draw(){
-    if(this.cards.length == 0){
+  draw() {
+    if (this.cards.length == 0) {
       console.warn("trying to draw from empty field");
     }
     return this.cards.shift(0);
   }
 
-  sendCardById(cardId, toField, options){
-    let sendCard = this.cards.find(card=>card.id==cardId);
-    if(!sendCard || !toField){
+  sendCardById(cardId, toField, options) {
+    let sendCard = this.cards.find((card) => card.id == cardId);
+    if (!sendCard || !toField) {
       console.error(`sendCard ${cardId} or toField ${toField} is not valid`);
       return;
     }
-    this.cards = this.cards.filter(card=>card!=sendCard)
+    this.cards = this.cards.filter((card) => card != sendCard);
     toField.addCard(sendCard, options);
   }
 
-  getLastCard(){
+  getLastCard() {
     return this.cards.slice(-1)[0];
   }
 
-  score(){
+  score() {
     return this.calculateScore(this.cards);
   }
 
-  scoreWithCard(card){
+  scoreWithCard(card) {
     return this.calculateScore(this.cards.concat(card));
   }
 
-  minusTrickCount(){
+  minusTrickCount() {
     let count = 0;
     let prevCardNmber = 0;
-    for(let card of this.cards){
-      if(card.number < prevCardNmber){
+    for (let card of this.cards) {
+      if (card.number < prevCardNmber) {
         count++;
       }
       prevCardNmber = card.number;
@@ -94,9 +92,11 @@ module.exports = class Field {
     return count;
   }
 
-  calculateScore(cards){
+  calculateScore(cards) {
     const n = cards.length;
-    const scoreByJewel = cards.filter(card=>card.suit === "j").length * Constants.scorePerJewel;
+    const scoreByJewel =
+      cards.filter((card) => card.suit === "j").length *
+      Constants.scorePerJewel;
     return Math.min(n * n + scoreByJewel, Constants.maxScorePerField);
   }
 };

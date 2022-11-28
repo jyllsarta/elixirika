@@ -1,19 +1,19 @@
 @import "constants";
 
-@mixin centering($height){
+@mixin centering($height) {
   height: $height;
   padding-top: (($height - $font-size-normal) * 0.5);
   line-height: 100%;
   text-align: center;
 }
 
-@mixin centeringWithBorder($height, $border){
+@mixin centeringWithBorder($height, $border) {
   height: $height;
   padding-top: (($height - $font-size-normal - $border * 2) * 0.5);
   line-height: 100%;
   text-align: center;
 }
 
-body{
-  font-family: 'M PLUS 2', sans-serif;
+body {
+  font-family: "M PLUS 2", sans-serif;
 }

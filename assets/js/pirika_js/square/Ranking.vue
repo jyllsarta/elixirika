@@ -1,26 +1,46 @@
 <template>
-    <div class="ranking">
-        <div class="_back" @click="closeMenu"></div>
-        <div class="content">
-            <div class="header">
-                <GeneralButton class="back_button" @click="closeMenu" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'とじる'"> </GeneralButton>
-                <div class="title">ランキング</div>
-            </div>
-            <div class="body">
-                <div class="tabs">
-                    <RankingTab v-for="cid in [1,2,3,4]" :key="cid" :characterId="cid" :characterName="characters[cid].name" @selected="onTabClick(cid)"></RankingTab>
-                    <RankingTabTotal @selected="onTabClick(-1)"></RankingTabTotal>
-                </div>
-                <div class="rankings">
-                    <RankingBanner class="rank" :characterId="characterId" :characterName="characterName" :rankingContent="rankingContent"></RankingBanner>
-                </div>
-            </div>
+  <div class="ranking">
+    <div class="_back" @click="closeMenu"></div>
+    <div class="content">
+      <div class="header">
+        <GeneralButton
+          class="back_button"
+          @click="closeMenu"
+          :disabled="false"
+          :flashing="false"
+          :width="'160px'"
+          :height="'40px'"
+          :color="'blue'"
+          :label="'とじる'"
+        >
+        </GeneralButton>
+        <div class="title">ランキング</div>
+      </div>
+      <div class="body">
+        <div class="tabs">
+          <RankingTab
+            v-for="cid in [1, 2, 3, 4]"
+            :key="cid"
+            :characterId="cid"
+            :characterName="characters[cid].name"
+            @selected="onTabClick(cid)"
+          ></RankingTab>
+          <RankingTabTotal @selected="onTabClick(-1)"></RankingTabTotal>
         </div>
+        <div class="rankings">
+          <RankingBanner
+            class="rank"
+            :characterId="characterId"
+            :characterName="characterName"
+            :rankingContent="rankingContent"
+          ></RankingBanner>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-
 import axios from 'axios';
 import store from './packs/store';
 import GeneralButton from './GeneralButton.vue';
@@ -29,13 +49,15 @@ import RankingTab from './RankingTab.vue';
 import RankingTabTotal from './RankingTabTotal.vue';
 import CharacterFactory from './packs/characterFactory';
 
-export default ({
+export default {
   store,
   data() {
     const characterFactory = new CharacterFactory();
     return {
       characters: [1, 2, 3, 4].reduce((iter, x) => {
-        const c = characterFactory.getCharacterById(x); iter[c.id] = c; return iter;
+        const c = characterFactory.getCharacterById(x);
+        iter[c.id] = c;
+        return iter;
       }, {}),
       characterId: 1,
       ranking: [],
@@ -71,7 +93,8 @@ export default ({
     },
   },
   mounted() {
-    axios.get('/square/ranking')
+    axios
+        .get('/square/ranking')
         .then((results) => {
           this.ranking = results.data.ranking;
         })
@@ -80,52 +103,51 @@ export default ({
           console.warn('NG');
         });
   },
-});
+};
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/global_settings";
-  .ranking{
+<style lang="scss" scoped>
+@import "stylesheets/global_settings";
+.ranking {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  max-height: 600px;
+  left: 10%;
+  top: 10%;
+  border: 2px solid $gray2;
+  ._back {
     position: absolute;
-    width: 80%;
-    height: 80%;
-    max-height: 600px;
-    left: 10%;
-    top: 10%;
-    border: 2px solid $gray2;
-    ._back{
-      position: absolute;
-      // 画面横幅のなにもない領域 - 20px まで当たり判定を持つ
-      right: calc((#{$window-width} - 100vw + 20px)/2);
-      top: -100px;
-      width: 100vw;
-      height: 100vh;
-    }
-    .content{
-      position: absolute;
-      background-color: $ingame-background;
-      width: 100%;
-      height: 100%;
-      padding: $space-m;
-      .header{
-        height: 50px;
-        display: flex;
-        gap: $space-m;
-        align-items: center;
-        .title{
-          line-height: 100%;
-          font-size: $font-size-large;
-        }
+    // 画面横幅のなにもない領域 - 20px まで当たり判定を持つ
+    right: calc((#{$window-width} - 100vw + 20px) / 2);
+    top: -100px;
+    width: 100vw;
+    height: 100vh;
+  }
+  .content {
+    position: absolute;
+    background-color: $ingame-background;
+    width: 100%;
+    height: 100%;
+    padding: $space-m;
+    .header {
+      height: 50px;
+      display: flex;
+      gap: $space-m;
+      align-items: center;
+      .title {
+        line-height: 100%;
+        font-size: $font-size-large;
       }
-      .body{
-        height: calc(100% - 50px);
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        .tabs{
-
-        }
+    }
+    .body {
+      height: calc(100% - 50px);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      .tabs {
       }
     }
   }
+}
 </style>

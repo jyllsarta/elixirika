@@ -1,5 +1,24 @@
 <template>
-    <div class="name_input_area"><span class="prefix">NAME:</span><span class="fixed_name" v-if="!inputting">{{fullName === "" ? "NONAME" : fullName}}</span><img class="change_button" @click="setInputMode" v-if="!inputting" src="/images/arrow/pencil.png" /><input class="name_input_box" type="text" @blur="onBlur" v-model="rawName" v-if="inputting" ref="name_input_box" maxlength="6" /></div>
+  <div class="name_input_area">
+    <span class="prefix">NAME:</span
+    ><span class="fixed_name" v-if="!inputting">{{
+      fullName === "" ? "NONAME" : fullName
+    }}</span
+    ><img
+      class="change_button"
+      @click="setInputMode"
+      v-if="!inputting"
+      src="/images/arrow/pencil.png"
+    /><input
+      class="name_input_box"
+      type="text"
+      @blur="onBlur"
+      v-model="rawName"
+      v-if="inputting"
+      ref="name_input_box"
+      maxlength="6"
+    />
+  </div>
 </template>
 
 <script>
@@ -55,7 +74,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .name_input_area {
   position: absolute;
   top: 25%;
@@ -64,7 +83,7 @@ export default {
   text-align: center;
   .prefix {
     display: inline-block;
-    font-family: 'Cute Font', cursive;
+    font-family: "Cute Font", cursive;
     font-size: 60px;
   }
   .fixed_name {

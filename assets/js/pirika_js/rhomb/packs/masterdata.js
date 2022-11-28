@@ -1,37 +1,40 @@
 module.exports = class Masterdata {
-  constructor(){
+  constructor() {
     const titles = ["bullets", "turns", "equipments"];
     this.master = this.loadMasterData(titles);
     this.idTables = this.constructIdTables(titles, this.master);
   }
 
-  getAll(title){
+  getAll(title) {
     return this.master[title];
   }
 
-  getBy(title, key, ids){
-    return this.master[title].filter(record=>ids.includes(record[key]));
+  getBy(title, key, ids) {
+    return this.master[title].filter((record) => ids.includes(record[key]));
   }
 
-  getOne(title, key, id){
-    return this.master[title].find(record=>(record[key] === id));
+  getOne(title, key, id) {
+    return this.master[title].find((record) => record[key] === id);
   }
 
   // private
 
-  loadMasterData(titles){
+  loadMasterData(titles) {
     let master = {};
-    for(let title of titles){
+    for (let title of titles) {
       let masterdata = require(`../masterdata/${title}.js`);
       master[title] = masterdata;
     }
     return master;
   }
 
-  constructIdTables(titles, loadedMaster){
+  constructIdTables(titles, loadedMaster) {
     let idTables = {};
-    for(let title of titles){
-      idTables[title] = loadedMaster[title].reduce((iter, x)=>{iter[x.id]=x; return iter}, {});
+    for (let title of titles) {
+      idTables[title] = loadedMaster[title].reduce((iter, x) => {
+        iter[x.id] = x;
+        return iter;
+      }, {});
     }
     return idTables;
   }

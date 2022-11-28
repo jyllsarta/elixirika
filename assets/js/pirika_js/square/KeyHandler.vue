@@ -1,14 +1,13 @@
 <template>
-    <div class="key_helper"></div>
+  <div class="key_helper"></div>
 </template>
 
 <script>
-
 import Keyboard from './packs/keyboard';
 import Controller from './packs/controller';
 import store from './packs/store';
 
-export default ({
+export default {
   store,
   props: {
     controller: Controller,
@@ -144,10 +143,16 @@ export default ({
     onKeyDownStaged(keyCode) {
       switch (keyCode) {
         case 'ArrowRight':
-          this.controller.operate('selectBoard', this.controller.model.selectingBoardIndex + 1);
+          this.controller.operate(
+              'selectBoard',
+              this.controller.model.selectingBoardIndex + 1,
+          );
           break;
         case 'ArrowLeft':
-          this.controller.operate('selectBoard', this.controller.model.selectingBoardIndex - 1);
+          this.controller.operate(
+              'selectBoard',
+              this.controller.model.selectingBoardIndex - 1,
+          );
           if (this.controller.model.selectingBoardIndex === -1) {
             this.controller.prepareSendToAbility();
           }
@@ -201,7 +206,11 @@ export default ({
     },
     selectOrSend(idx) {
       if (this.controller.model.hand.field.cards[idx]?.isSelected()) {
-        this.controller.operate('sendHandToBoard', idx, this.controller.model.selectingBoardIndex);
+        this.controller.operate(
+            'sendHandToBoard',
+            idx,
+            this.controller.model.selectingBoardIndex,
+        );
       } else {
         this.controller.operate('selectHand', idx);
       }
@@ -232,7 +241,9 @@ export default ({
       }
     },
     currentCardIndex() {
-      return this.controller.model.hand.field.cards.findIndex((card) => card.isSelected());
+      return this.controller.model.hand.field.cards.findIndex((card) =>
+        card.isSelected(),
+      );
     },
     stageCard() {
       const handIndex = this.currentCardIndex();
@@ -248,9 +259,16 @@ export default ({
         const handIndex = this.currentCardIndex();
         this.controller.operate('sendHandToEmptyPocketAbility', handIndex);
       } else {
-        this.controller.operate('sendStagedCardToBoard', this.controller.model.selectingBoardIndex);
+        this.controller.operate(
+            'sendStagedCardToBoard',
+            this.controller.model.selectingBoardIndex,
+        );
       }
-      if (this.controller.model.hand.field.cards.every((card) => !card.isSelected())) {
+      if (
+        this.controller.model.hand.field.cards.every(
+            (card) => !card.isSelected(),
+        )
+      ) {
         const handCount = this.controller.model.hand.field.cards.length;
         const boardIndex = this.controller.model.selectingBoardIndex;
         const nearby = Math.min(handCount - 1, boardIndex);
@@ -258,7 +276,8 @@ export default ({
       }
     },
     selectOrIgniteAbility(index) {
-      const abilityCount = this.controller.model.character.uniqueParameters.abilities.length;
+      const abilityCount =
+        this.controller.model.character.uniqueParameters.abilities.length;
       if (index < 0 || index >= abilityCount) {
         return;
       }
@@ -285,9 +304,9 @@ export default ({
       keyboard: null,
     };
   },
-});
+};
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/global_settings";
+<style lang="scss" scoped>
+@import "stylesheets/global_settings";
 </style>

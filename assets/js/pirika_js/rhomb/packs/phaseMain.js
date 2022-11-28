@@ -1,21 +1,20 @@
 module.exports = class PhaseMain {
-  constructor(){
+  constructor() {
     this.name = "MAIN";
   }
 
-  nextPhaseName(model){
+  nextPhaseName(model) {
     return "LOCK";
   }
 
-  enter(model){
-  }
+  enter(model) {}
 
-  handleMouseDown(e, model){
+  handleMouseDown(e, model) {
     model.phaseStateMachine.transferToNextPhase(model);
     model.soundManager.register("lock_start");
   }
 
-  handleMouseMove(e, model){
+  handleMouseMove(e, model) {
     model.pointer.x = e.offsetX;
     model.pointer.y = e.offsetY;
   }

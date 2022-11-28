@@ -1,5 +1,5 @@
-class Ball{
-  constructor(x,y,vx,vy,colorId){
+class Ball {
+  constructor(x, y, vx, vy, colorId) {
     this.x = x;
     this.y = y;
     this.vx = vx;
@@ -9,20 +9,20 @@ class Ball{
     this.removedAt = null;
   }
 
-  reflect(){
-    if(this.x < 0){
+  reflect() {
+    if (this.x < 0) {
       this.vx *= -1;
       this.x = 0;
     }
-    if(this.x > 1){
+    if (this.x > 1) {
       this.vx *= -1;
       this.x = 1;
     }
-    if(this.y < 0){
+    if (this.y < 0) {
       this.vy *= -1;
       this.y = 0;
     }
-    if(this.y > 1){
+    if (this.y > 1) {
       this.y = 0;
     }
   }

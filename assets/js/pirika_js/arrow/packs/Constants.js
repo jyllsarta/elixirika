@@ -33,19 +33,19 @@ const Constants = {
   // seconds 秒 経過後は interval 秒ごとに弾を追加する
   spawnBallIntervalTimes: [
     //[seconds, interval]
-    [ 0, 1.0],
+    [0, 1.0],
     [20, 0.8],
     [40, 0.7],
     [55, 0.6],
     [80, 0.5],
     [99, 0.4],
   ],
-  maxBallVelocityX: 0.50,
+  maxBallVelocityX: 0.5,
   maxBallVelocityY: 0.75,
 
   // 非常に残念ながら constants.scss と相互依存してしまっているところ
-  gameWindowPixelSizeX : 600.0,
-  gameWindowPixelSizeY : 600.0,
+  gameWindowPixelSizeX: 600.0,
+  gameWindowPixelSizeY: 600.0,
   colorIdNum: 3,
 };
 export default Constants;

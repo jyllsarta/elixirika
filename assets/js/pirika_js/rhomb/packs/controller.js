@@ -3,31 +3,31 @@ module.exports = class Controller {
     this.model = model;
   }
 
-  setTick(tick){
+  setTick(tick) {
     this.model.tick = tick;
   }
 
-  prepare(){
-    if(this.model.isGameStarted){
+  prepare() {
+    if (this.model.isGameStarted) {
       return;
     }
     const rand = Math.floor(Math.random() * 100000000);
     this.model.initialize(rand);
   }
 
-  nextPhase(){
+  nextPhase() {
     this.model.nextPhase();
   }
 
   // TODO: この辺の処理も phaseMain の方に書ける設計になるとすごく良さそう
-  equipmentMousedown(guiEvent){
-    const {id} = guiEvent;
-    if(!this.model.phaseStateMachine.phase === "MAIN"){
+  equipmentMousedown(guiEvent) {
+    const { id } = guiEvent;
+    if (!this.model.phaseStateMachine.phase === "MAIN") {
       console.warn("not main phase!");
       return;
     }
-    const equipment = model.equipments.find(equipment=>equipment.id === id);
-    if(this.model.tp < equipment.tp){
+    const equipment = model.equipments.find((equipment) => equipment.id === id);
+    if (this.model.tp < equipment.tp) {
       console.warn("short of tp!");
       return;
     }
@@ -39,11 +39,11 @@ module.exports = class Controller {
   // ex: 敵弾幕展開フェーズで `敵が近づいてくる` → `弾を展開してラインを描画` → `メインフェイズに遷移`
   // これらのステップは実際には EnemyShoot 監視用コンポーネントが
   // タイムラインを使って PhaseEnemyShootの next() を 3 回 controller 経由で叩いている
-  next(){
+  next() {
     this.model.phaseStateMachine.phase.next(this.model);
   }
 
-  reset(){
+  reset() {
     this.model.isGameStarted = false;
     this.prepare();
   }

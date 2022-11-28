@@ -1,15 +1,20 @@
 <template>
-    <div class="cover" @mousedown="handleMouseDown" @mousemove="handleMouseMove" @mouseup="handleMouseUp" oncontextmenu="return false;">
-        <div class="bg" v-if="model.currentPhaseName() == 'LOCK'"></div>
-    </div>
+  <div
+    class="cover"
+    @mousedown="handleMouseDown"
+    @mousemove="handleMouseMove"
+    @mouseup="handleMouseUp"
+    oncontextmenu="return false;"
+  >
+    <div class="bg" v-if="model.currentPhaseName() == 'LOCK'"></div>
+  </div>
 </template>
 
 <script>
-
 import Controller from './packs/controller';
 import Model from './packs/model';
 
-export default ({
+export default {
   props: {
     model: Model,
     controller: Controller,
@@ -32,18 +37,18 @@ export default ({
       }
     },
   },
-});
+};
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/global_settings";
-  .cover{
-    width: 1200px;
-    height: 800px;
-    .bg{
-      width: 100%;
-      height: 100%;
-      background-color: rgba(60, 55, 55, 0.702);
-    }
+<style lang="scss" scoped>
+@import "stylesheets/global_settings";
+.cover {
+  width: 1200px;
+  height: 800px;
+  .bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(60, 55, 55, 0.702);
   }
+}
 </style>

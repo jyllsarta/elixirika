@@ -1,25 +1,23 @@
 <template>
-    <div class="dialog" @click="tick">
-        <div class="content">{{messages[model.phaseStateMachine.phase.tick]}}</div>
+  <div class="dialog" @click="tick">
+    <div class="content">
+      {{ messages[model.phaseStateMachine.phase.tick] }}
     </div>
+  </div>
 </template>
 
 <script>
-
 import store from './packs/store';
 import Model from './packs/model';
 
-export default ({
+export default {
   store,
   props: {
     model: Model,
   },
   data() {
     return {
-      messages: [
-        'ゲームを開始します',
-        'いくぞー！',
-      ],
+      messages: ['ゲームを開始します', 'いくぞー！'],
     };
   },
   methods: {
@@ -36,18 +34,18 @@ export default ({
       }, 500);
     },
   },
-});
+};
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/global_settings";
-  .dialog{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.642);
-    .content{
-      color: white;
-    }
+<style lang="scss" scoped>
+@import "stylesheets/global_settings";
+.dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.642);
+  .content {
+    color: white;
   }
+}
 </style>

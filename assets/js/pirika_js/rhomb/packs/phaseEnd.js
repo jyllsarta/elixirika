@@ -1,12 +1,11 @@
 module.exports = class PhaseEnd {
-  constructor(){
+  constructor() {
     this.name = "END";
   }
 
-  nextPhaseName(model){
+  nextPhaseName(model) {
     return "START";
   }
 
- enter(model){
-  }
+  enter(model) {}
 };

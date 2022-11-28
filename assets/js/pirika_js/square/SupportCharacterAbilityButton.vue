@@ -1,13 +1,21 @@
 <template>
-    <div class="button" @click="onClick" @mouseover="onHover" :class="abilityClass(ability)" :style="colorSchemedStyleBackground" ref="button">{{ability.stringExpression()}}</div>
+  <div
+    class="button"
+    @click="onClick"
+    @mouseover="onHover"
+    :class="abilityClass(ability)"
+    :style="colorSchemedStyleBackground"
+    ref="button"
+  >
+    {{ ability.stringExpression() }}
+  </div>
 </template>
 
 <script>
-
 import gsap from 'gsap';
 import store from './packs/store';
 
-export default ({
+export default {
   store,
   data() {
     return {
@@ -26,7 +34,8 @@ export default ({
       if (!this.ability?.card?.suit) {
         return {};
       }
-      const lineStyle = this.ability.category === 'cardPocket' ? 'dashed' : 'solid';
+      const lineStyle =
+        this.ability.category === 'cardPocket' ? 'dashed' : 'solid';
       const style = {
         backgroundColor: `var(--color-${this.ability?.card?.suit}3-${this.character.id})`,
         border: `1px ${lineStyle} var(--color-${this.ability?.card?.suit}1-${this.character.id})`,
@@ -50,7 +59,9 @@ export default ({
     classByCost(ability) {
       // MP制の世界
       if (this.character.hasSufficientMp) {
-        return this.character.hasSufficientMp(ability.cost) ? 'enabled' : 'disabled';
+        return this.character.hasSufficientMp(ability.cost) ?
+          'enabled' :
+          'disabled';
       }
       // シャッフルはカウント制の世界
       if (ability.category === 'shuffle') {
@@ -82,16 +93,17 @@ export default ({
     },
     animate() {
       const tl = gsap.timeline();
-      tl
-          .to(this.$refs.button, {scale: 0.7, duration: 0.10})
-          .to(this.$refs.button, {scale: 1, duration: 0.10});
+      tl.to(this.$refs.button, {scale: 0.7, duration: 0.1}).to(
+          this.$refs.button,
+          {scale: 1, duration: 0.1},
+      );
     },
     onClick() {
       if (this.cooltime) {
         return;
       }
       this.cooltime = true;
-      setTimeout(() => this.cooltime = false, 500);
+      setTimeout(() => (this.cooltime = false), 500);
       this.animate();
       this.$emit('popclick');
     },
@@ -107,53 +119,53 @@ export default ({
       }
     },
   },
-});
+};
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/global_settings";
-  .button{
-    padding: $space-s;
-    width: 124px;
-    transition: all 0.3s;
-    @include centeringWithBorder($height: 34px, $border: 2px);
-    &.shuffle{
-      border-width: 1px;
-      border-style: dotted;
-      border-color: $blue1;
-      background-color: $blue3;
-      border-radius: $radius;
-    }
-    &.disabled{
-      border: 1px solid $gray1;
-      background-color: transparent;
-      opacity: $disabled-opacity;
-    }
-    &.small{
-      width: 58px;
-    }
-    &.pocket{
-      border-width: 1px;
-      border-style: dashed;
-    }
-    &.magic{
-      padding: 0;
-      @include centeringWithBorder($height: 42px, $border: 2px);
-      border: 1px solid $red2;
-      background-color: $red3;
-    }
-    &.selected{
-      border-width: 2px;
-      border-color: $white;
-      filter: brightness(150%);
-    }
-    &.cooltime{
-      border: 1px solid $gray1;
-      background-color: transparent;
-      opacity: $disabled-opacity;
-    }
-    &.enabled:hover{
-      transform: scale(1.2);
-    };
+<style lang="scss" scoped>
+@import "stylesheets/global_settings";
+.button {
+  padding: $space-s;
+  width: 124px;
+  transition: all 0.3s;
+  @include centeringWithBorder($height: 34px, $border: 2px);
+  &.shuffle {
+    border-width: 1px;
+    border-style: dotted;
+    border-color: $blue1;
+    background-color: $blue3;
+    border-radius: $radius;
   }
+  &.disabled {
+    border: 1px solid $gray1;
+    background-color: transparent;
+    opacity: $disabled-opacity;
+  }
+  &.small {
+    width: 58px;
+  }
+  &.pocket {
+    border-width: 1px;
+    border-style: dashed;
+  }
+  &.magic {
+    padding: 0;
+    @include centeringWithBorder($height: 42px, $border: 2px);
+    border: 1px solid $red2;
+    background-color: $red3;
+  }
+  &.selected {
+    border-width: 2px;
+    border-color: $white;
+    filter: brightness(150%);
+  }
+  &.cooltime {
+    border: 1px solid $gray1;
+    background-color: transparent;
+    opacity: $disabled-opacity;
+  }
+  &.enabled:hover {
+    transform: scale(1.2);
+  }
+}
 </style>

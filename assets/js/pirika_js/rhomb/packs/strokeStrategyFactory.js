@@ -4,8 +4,8 @@ const VerticalHorizontalStrategy = require("./strokeStrategy/verticalHorizontalS
 const RandomWalkStrategy = require("./strokeStrategy/randomWalkStrategy");
 
 module.exports = class StrokeStrategyFactory {
-  static getStrategy(type){
-    switch(type){
+  static getStrategy(type) {
+    switch (type) {
       case "linear":
         return LinearStrategy;
       case "linearArc":

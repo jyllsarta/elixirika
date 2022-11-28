@@ -1,43 +1,61 @@
 <template>
-    <!--ATTR_ENUMERATED_COERCION がdraggable="true" に対して出るけど普通にcompatのバグだと思うので無視-->
-    <div
-      draggable="true"
-      class="card"
-      :id="`card-${card.id}`"
-      :class="card.viewClass() + `${touchDragging ? '' : ' not_touch'}`"
-      :style="computedStyle"
-      @mouseenter="onHover"
-      @dragstart="onDragStart"
-      @dragend="onDragEnd"
-      @touchstart="onTouchStart"
-      @touchmove="onTouchMove"
-      @touchend="onTouchEnd"
-    >
+  <!--ATTR_ENUMERATED_COERCION がdraggable="true" に対して出るけど普通にcompatのバグだと思うので無視-->
+  <div
+    draggable="true"
+    class="card"
+    :id="`card-${card.id}`"
+    :class="card.viewClass() + `${touchDragging ? '' : ' not_touch'}`"
+    :style="computedStyle"
+    @mouseenter="onHover"
+    @dragstart="onDragStart"
+    @dragend="onDragEnd"
+    @touchstart="onTouchStart"
+    @touchmove="onTouchMove"
+    @touchend="onTouchEnd"
+  >
     <div class="inner">
-        <div class="background">
-            <div class="line_ur" v-for="(x, index) in rightLineCount" :key="index" :class="card.suit" :style="{left: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"></div>
-            <div class="line_ul" v-for="(x, index) in leftLineCount"  :key="index" :class="card.suit" :style="{right: (index + 1) * 10 + 'px', backgroundColor: `var(--color-${card.suit}1-${characterId})`}"></div>
+      <div class="background">
+        <div
+          class="line_ur"
+          v-for="(x, index) in rightLineCount"
+          :key="index"
+          :class="card.suit"
+          :style="{
+            left: (index + 1) * 10 + 'px',
+            backgroundColor: `var(--color-${card.suit}1-${characterId})`,
+          }"
+        ></div>
+        <div
+          class="line_ul"
+          v-for="(x, index) in leftLineCount"
+          :key="index"
+          :class="card.suit"
+          :style="{
+            right: (index + 1) * 10 + 'px',
+            backgroundColor: `var(--color-${card.suit}1-${characterId})`,
+          }"
+        ></div>
+      </div>
+      <div class="icon">
+        <div class="normal_icon" v-if="card.category === 'normal'">
+          <div class="number" :class="card.suit">{{ card.number }}</div>
         </div>
-        <div class="icon">
-            <div class="normal_icon" v-if="card.category==='normal'">
-                <div class="number" :class="card.suit">{{ card.number }}</div>
+        <div class="sender_icon" v-if="card.category === 'sender'">
+          <div class="icon">
+            <div class="upper_symbol">
+              <div class="inner_cone"></div>
             </div>
-            <div class="sender_icon" v-if="card.category==='sender'">
-                <div class="icon">
-                    <div class="upper_symbol">
-                        <div class="inner_cone"></div>
-                    </div>
-                    <div class="downer_symbol">
-                        <div class="inner_cone"></div>
-                    </div>
-                </div>
+            <div class="downer_symbol">
+              <div class="inner_cone"></div>
             </div>
-            <div class="special_icon" v-if="card.category==='special'">
-                <div class="big_symbol">
-                    <div class="inner_cube"></div>
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="special_icon" v-if="card.category === 'special'">
+          <div class="big_symbol">
+            <div class="inner_cube"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,7 +64,7 @@
 import Card from './packs/card';
 import store from './packs/store';
 
-export default ({
+export default {
   store,
   props: {
     card: Card,
@@ -87,13 +105,20 @@ export default ({
       const draggedElem = e.target;
       const touch = e.changedTouches[0];
       this.touchDragging = true;
-      this.top = `${touch.pageY - window.pageYOffset - draggedElem.offsetHeight / 2}px`;
-      this.left = `${touch.pageX - window.pageXOffset - draggedElem.offsetWidth / 2}px`;
+      this.top = `${
+        touch.pageY - window.pageYOffset - draggedElem.offsetHeight / 2
+      }px`;
+      this.left = `${
+        touch.pageX - window.pageXOffset - draggedElem.offsetWidth / 2
+      }px`;
     },
     onTouchEnd(e) {
       e.preventDefault();
       const touch = e.changedTouches[0];
-      const destination = document.elementFromPoint(touch.pageX - window.pageXOffset, touch.pageY - window.pageYOffset);
+      const destination = document.elementFromPoint(
+          touch.pageX - window.pageXOffset,
+          touch.pageY - window.pageYOffset,
+      );
       this.touchDragging = false;
       this.top = 0;
       this.left = 0;
@@ -165,131 +190,131 @@ export default ({
       return style;
     },
   },
-});
+};
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/global_settings";
-  .card{
-    height: 140px;
-    width: 100%;
-    max-width: 200px;
+<style lang="scss" scoped>
+@import "stylesheets/global_settings";
+.card {
+  height: 140px;
+  width: 100%;
+  max-width: 200px;
+  position: relative;
+  border-radius: $radius;
+  .inner {
     position: relative;
-    border-radius: $radius;
-    .inner{
-      position: relative;
-    }
-    .background{
+  }
+  .background {
+    position: absolute;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    .line_ur {
       position: absolute;
-      overflow: hidden;
-      height: 100%;
-      width: 100%;
-      .line_ur{
-        position: absolute;
-        width: 1px;
-        height: 200px;
-        top: 0;
-        left: 5px;
-        transform: rotate(-10deg);
-      }
-      .line_ul{
-        position: absolute;
-        width: 1px;
-        height: 200px;
-        top: 0;
-        right: 5px;
-        transform: rotate(10deg);
-      }
+      width: 1px;
+      height: 200px;
+      top: 0;
+      left: 5px;
+      transform: rotate(-10deg);
     }
-    .icon{
-      width: 100%;
-      height: 100%;
+    .line_ul {
+      position: absolute;
+      width: 1px;
+      height: 200px;
+      top: 0;
+      right: 5px;
+      transform: rotate(10deg);
+    }
+  }
+  .icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .normal_icon {
+      width: 80px;
+      height: 80px;
       display: flex;
       justify-content: center;
       align-items: center;
-      .normal_icon{
-        width: 80px;
-        height: 80px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: $space_m;
-        .number{
-          font-size: 64px;
-        }
-        // この辺カラースキーム対応してもいいけど割と違和感ないのでそのままで
-        .s{
-          font-family: 'Nova Square', cursive;
-          text-shadow: 0px 0px 4px $blue1;
-        }
-        .h{
-          font-family: 'Cinzel Decorative', cursive;
-          text-shadow: 0px 0px 4px $red1;
-        }
-        .j{
-          font-family: 'Coda', cursive;
-          text-shadow: 0px 0px 4px $purple1;
-        }
-        .x{
-          // Xでは文字描写はない想定
-          font-family: 'Nova Square', cursive;
-          text-shadow: 0px 0px 4px $yellow1;
-        }
+      gap: $space_m;
+      .number {
+        font-size: 64px;
       }
-      .sender_icon{
+      // この辺カラースキーム対応してもいいけど割と違和感ないのでそのままで
+      .s {
+        font-family: "Nova Square", cursive;
+        text-shadow: 0px 0px 4px $blue1;
+      }
+      .h {
+        font-family: "Cinzel Decorative", cursive;
+        text-shadow: 0px 0px 4px $red1;
+      }
+      .j {
+        font-family: "Coda", cursive;
+        text-shadow: 0px 0px 4px $purple1;
+      }
+      .x {
+        // Xでは文字描写はない想定
+        font-family: "Nova Square", cursive;
+        text-shadow: 0px 0px 4px $yellow1;
+      }
+    }
+    .sender_icon {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .icon {
         width: 80px;
         height: 80px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .icon{
+        position: absolute;
+        .upper_symbol {
           width: 80px;
           height: 80px;
           position: absolute;
-          .upper_symbol{
-            width: 80px;
-            height: 80px;
-            position: absolute;
-            top: 0px;
-          }
-          .downer_symbol{
-            width: 80px;
-            height: 80px;
-            position: absolute;
-            top: 20px;
-          }
-          .inner_cone{
-            position: absolute;
-            border-top: 10px solid $white;
-            border-left: 10px solid $white;
-            width: 80px;
-            height: 80px;
-            transform: scale(0.707) rotate(45deg);
-            border-radius: 4px;
-          }
+          top: 0px;
         }
-      }
-      .special_icon{
-        .big_symbol{
+        .downer_symbol {
           width: 80px;
           height: 80px;
-          position: relative;
-          .inner_cube{
-            position: absolute;
-            border: 10px solid $white;
-            width: 80px;
-            height: 80px;
-            transform: scale(0.707) rotate(45deg);
-            border-radius: 4px;
-          }
+          position: absolute;
+          top: 20px;
+        }
+        .inner_cone {
+          position: absolute;
+          border-top: 10px solid $white;
+          border-left: 10px solid $white;
+          width: 80px;
+          height: 80px;
+          transform: scale(0.707) rotate(45deg);
+          border-radius: 4px;
         }
       }
     }
-    &.selected.not_touch{
-      transition: transform 0.2s;
-      transform: rotate(5deg) translateY(-20px);
-      transform-origin: bottom;
-      border: 2px solid $white;
+    .special_icon {
+      .big_symbol {
+        width: 80px;
+        height: 80px;
+        position: relative;
+        .inner_cube {
+          position: absolute;
+          border: 10px solid $white;
+          width: 80px;
+          height: 80px;
+          transform: scale(0.707) rotate(45deg);
+          border-radius: 4px;
+        }
+      }
     }
   }
+  &.selected.not_touch {
+    transition: transform 0.2s;
+    transform: rotate(5deg) translateY(-20px);
+    transform-origin: bottom;
+    border: 2px solid $white;
+  }
+}
 </style>

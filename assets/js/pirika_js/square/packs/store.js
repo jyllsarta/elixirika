@@ -1,4 +1,4 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 
 export const store = createStore({
   state: {
@@ -8,40 +8,39 @@ export const store = createStore({
     showsPlayGuide: false,
     showsMessage: false,
     playGuideCharacterId: -1,
-    bgColor: "#18181a"
+    bgColor: "#18181a",
   },
-  getters: {
-  },
+  getters: {},
   mutations: {
-    playBgm(state, bgmKey){
+    playBgm(state, bgmKey) {
       state.bgm = bgmKey;
     },
-    playSound(state, payload){
+    playSound(state, payload) {
       state.sounds.push(payload);
     },
-    flushSounds(state){
+    flushSounds(state) {
       state.sounds = [];
     },
-    showKeyboardHelp(state){
+    showKeyboardHelp(state) {
       state.showsKeyboardHelp = true;
     },
-    closeKeyboardHelp(state){
+    closeKeyboardHelp(state) {
       state.showsKeyboardHelp = false;
     },
-    showPlayGuide(state, characterId){
+    showPlayGuide(state, characterId) {
       state.showsPlayGuide = true;
       state.playGuideCharacterId = characterId;
     },
-    closePlayGuide(state){
+    closePlayGuide(state) {
       state.showsPlayGuide = false;
     },
-    showMessage(state){
+    showMessage(state) {
       state.showsMessage = true;
     },
-    closeMessage(state){
+    closeMessage(state) {
       state.showsMessage = false;
     },
-    updateBg(state, characterId){
+    updateBg(state, characterId) {
       const bgColors = {
         1: "#131d1b",
         2: "#201c1e",
@@ -50,7 +49,7 @@ export const store = createStore({
         0: "#18181a",
       };
       state.bgColor = bgColors[characterId];
-    }
+    },
   },
 });
 export default store;

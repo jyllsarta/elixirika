@@ -6,15 +6,15 @@ module.exports = class Hand {
     this.initiate();
   }
 
-  initiate(){
+  initiate() {
     this.field = new Field();
   }
 
-  disselectAllCard(){
-    this.field.cards.map(card=>card.setSelected(false));
+  disselectAllCard() {
+    this.field.cards.map((card) => card.setSelected(false));
   }
 
-  isNoCardSelected(){
-    return !this.field.cards.some(card=>card.isSelected());
+  isNoCardSelected() {
+    return !this.field.cards.some((card) => card.isSelected());
   }
 };

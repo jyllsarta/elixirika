@@ -1,25 +1,68 @@
 <template>
-    <div class="sound_button_area">
-        <GeneralButton @click="showMenu" v-if="!showingMenu" :disabled="false" :flashing="false" :width="'100px'" :height="'28px'" :color="'blue'" :label="'音量'"></GeneralButton>
-        <div class="menu" v-if="showingMenu">
-            <div class="_back" @click="closeMenu"></div>
-            <div class="items" v-if="showingMenu">
-                <GeneralButton @click="closeMenu" :disabled="false" :flashing="false" :width="'100px'" :height="'28px'" :color="'blue'" :label="'とじる'"></GeneralButton>
-                <div class="text">マスター</div><input class="volume" type="range" v-model.number="volumes.master" min="0" max="1" step="any" @change="setVolume" />
-                <div class="text">BGM</div><input class="volume" type="range" v-model.number="volumes.bgm" min="0" max="1" step="any" @change="setVolume" />
-                <div class="text">SE</div><input class="volume" type="range" v-model.number="volumes.se" min="0" max="1" step="any" @change="setVolume" />
-            </div>
-        </div>
+  <div class="sound_button_area">
+    <GeneralButton
+      @click="showMenu"
+      v-if="!showingMenu"
+      :disabled="false"
+      :flashing="false"
+      :width="'100px'"
+      :height="'28px'"
+      :color="'blue'"
+      :label="'音量'"
+    ></GeneralButton>
+    <div class="menu" v-if="showingMenu">
+      <div class="_back" @click="closeMenu"></div>
+      <div class="items" v-if="showingMenu">
+        <GeneralButton
+          @click="closeMenu"
+          :disabled="false"
+          :flashing="false"
+          :width="'100px'"
+          :height="'28px'"
+          :color="'blue'"
+          :label="'とじる'"
+        ></GeneralButton>
+        <div class="text">マスター</div>
+        <input
+          class="volume"
+          type="range"
+          v-model.number="volumes.master"
+          min="0"
+          max="1"
+          step="any"
+          @change="setVolume"
+        />
+        <div class="text">BGM</div>
+        <input
+          class="volume"
+          type="range"
+          v-model.number="volumes.bgm"
+          min="0"
+          max="1"
+          step="any"
+          @change="setVolume"
+        />
+        <div class="text">SE</div>
+        <input
+          class="volume"
+          type="range"
+          v-model.number="volumes.se"
+          min="0"
+          max="1"
+          step="any"
+          @change="setVolume"
+        />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-
 import axios from 'axios';
 import GeneralButton from './GeneralButton.vue';
 import store from './packs/store';
 
-export default ({
+export default {
   components: {
     GeneralButton,
   },
@@ -78,22 +121,31 @@ export default ({
       return binary.slice(6);
     },
     loadSound(key, response) {
-      this.audioContext.decodeAudioData(response, (buffer) => {
-        this.loadedSounds.se[key] = buffer;
-      }, (msg) => {
-        console.error(msg);
-      });
+      this.audioContext.decodeAudioData(
+          response,
+          (buffer) => {
+            this.loadedSounds.se[key] = buffer;
+          },
+          (msg) => {
+            console.error(msg);
+          },
+      );
     },
     loadBgm(key, response) {
-      this.audioContext.decodeAudioData(response, (buffer) => {
-        this.loadedSounds.bgm[key] = buffer;
-      }, (msg) => {
-        console.error(msg);
-      });
+      this.audioContext.decodeAudioData(
+          response,
+          (buffer) => {
+            this.loadedSounds.bgm[key] = buffer;
+          },
+          (msg) => {
+            console.error(msg);
+          },
+      );
     },
     loadSounds() {
       for (const key of Object.keys(this.sounds.se)) {
-        axios.get(`/game/rhomb/se/${key}.wav.enc`, {responseType: 'arraybuffer'})
+        axios
+            .get(`/game/rhomb/se/${key}.wav.enc`, {responseType: 'arraybuffer'})
             .then((results) => {
               const decrypted = this.decrypt(results.data);
               this.loadSound(key, decrypted);
@@ -106,7 +158,10 @@ export default ({
     },
     loadBgms() {
       for (const key of Object.keys(this.sounds.bgm)) {
-        axios.get(`/game/rhomb/bgm/${key}.mp3.enc`, {responseType: 'arraybuffer'})
+        axios
+            .get(`/game/rhomb/bgm/${key}.mp3.enc`, {
+              responseType: 'arraybuffer',
+            })
             .then((results) => {
               const decrypted = this.decrypt(results.data);
               this.loadBgm(key, decrypted);
@@ -230,18 +285,18 @@ export default ({
       deep: true,
     },
   },
-});
+};
 </script>
 
 <style lang="scss" scoped>
 @import "stylesheets/global_settings";
-.sound_button_area{
+.sound_button_area {
   color: #eafff6;
   position: absolute;
   top: 8px;
   right: 8px;
   background-color: #171744;
-  .menu{
+  .menu {
     width: 140px;
     display: flex;
     padding: 8px;
@@ -251,10 +306,10 @@ export default ({
     gap: 8px;
     border-radius: 4px;
     border: 2px solid #6c6c9c;
-    .text{
+    .text {
       width: 100%;
     }
-    input{
+    input {
       width: 100%;
     }
   }

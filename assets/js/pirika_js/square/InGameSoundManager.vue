@@ -1,13 +1,12 @@
 <template>
-    <div class="_igsound"></div>
+  <div class="_igsound"></div>
 </template>
 
 <script>
-
 import Model from './packs/model';
 import store from './packs/store.js';
 
-export default ({
+export default {
   props: {
     model: Model,
   },
@@ -35,8 +34,7 @@ export default ({
       deep: true,
     },
   },
-});
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -6,7 +6,7 @@ module.exports = class Graveyard {
     this.initiate();
   }
 
-  initiate(){
+  initiate() {
     this.field = new Field();
   }
 };

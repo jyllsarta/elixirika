@@ -1,18 +1,25 @@
 <template>
-    <div class="field"><canvas class="lines" ref="canvas" width="1200" height="800"></canvas>
-        <div class="bullets">
-            <div class="bullet">
-                <Bullet v-for="bullet in bullets" :key="bullet.id" :style="bulletStyle(bullet)" :type="bullet.type" :marked-at="bullet.markedAt"></Bullet>
-            </div>
-        </div>
+  <div class="field">
+    <canvas class="lines" ref="canvas" width="1200" height="800"></canvas>
+    <div class="bullets">
+      <div class="bullet">
+        <Bullet
+          v-for="bullet in bullets"
+          :key="bullet.id"
+          :style="bulletStyle(bullet)"
+          :type="bullet.type"
+          :marked-at="bullet.markedAt"
+        ></Bullet>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 import Bullet from './Bullet.vue';
 import Model from './packs/model';
 
-export default ({
+export default {
   components: {
     Bullet,
   },
@@ -24,7 +31,8 @@ export default ({
   },
   methods: {
     bulletStyle(bullet) {
-      const appliedTick = bullet.markedAt !== null ? bullet.markedAt : this.model.tick;
+      const appliedTick =
+        bullet.markedAt !== null ? bullet.markedAt : this.model.tick;
       const position = bullet.partialStrokeAppliedPosition(appliedTick);
       return {
         transform: `translate(${position.x}px, ${position.y}px)`,
@@ -64,24 +72,24 @@ export default ({
       this.drawLines();
     },
   },
-});
+};
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/global_settings";
-  .lines{
+<style lang="scss" scoped>
+@import "stylesheets/global_settings";
+.lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.bullets {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  .bullet {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    transform: translate(-15px, -15px);
   }
-  .bullets{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    .bullet{
-      position: absolute;
-      transform: translate(-15px, -15px);
-    }
-  }
+}
 </style>

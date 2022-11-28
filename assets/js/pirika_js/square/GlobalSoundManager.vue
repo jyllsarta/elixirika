@@ -1,25 +1,68 @@
 <template>
-    <div class="sound_button_area">
-        <GeneralButton @click="showMenu" v-if="!showingMenu" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'音量'"></GeneralButton>
-        <div class="menu" v-if="showingMenu">
-            <div class="_back" @click="closeMenu"></div>
-            <div class="items" v-if="showingMenu">
-                <GeneralButton @click="closeMenu" :disabled="false" :flashing="false" :width="'160px'" :height="'40px'" :color="'blue'" :label="'とじる'"></GeneralButton>
-                <div class="text">マスター</div><input class="volume" type="range" v-model.number="volumes.master" min="0" max="1" step="any" @change="setVolume" />
-                <div class="text">BGM</div><input class="volume" type="range" v-model.number="volumes.bgm" min="0" max="1" step="any" @change="setVolume" />
-                <div class="text">SE</div><input class="volume" type="range" v-model.number="volumes.se" min="0" max="1" step="any" @change="setVolume" />
-            </div>
-        </div>
+  <div class="sound_button_area">
+    <GeneralButton
+      @click="showMenu"
+      v-if="!showingMenu"
+      :disabled="false"
+      :flashing="false"
+      :width="'160px'"
+      :height="'40px'"
+      :color="'blue'"
+      :label="'音量'"
+    ></GeneralButton>
+    <div class="menu" v-if="showingMenu">
+      <div class="_back" @click="closeMenu"></div>
+      <div class="items" v-if="showingMenu">
+        <GeneralButton
+          @click="closeMenu"
+          :disabled="false"
+          :flashing="false"
+          :width="'160px'"
+          :height="'40px'"
+          :color="'blue'"
+          :label="'とじる'"
+        ></GeneralButton>
+        <div class="text">マスター</div>
+        <input
+          class="volume"
+          type="range"
+          v-model.number="volumes.master"
+          min="0"
+          max="1"
+          step="any"
+          @change="setVolume"
+        />
+        <div class="text">BGM</div>
+        <input
+          class="volume"
+          type="range"
+          v-model.number="volumes.bgm"
+          min="0"
+          max="1"
+          step="any"
+          @change="setVolume"
+        />
+        <div class="text">SE</div>
+        <input
+          class="volume"
+          type="range"
+          v-model.number="volumes.se"
+          min="0"
+          max="1"
+          step="any"
+          @change="setVolume"
+        />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-
 import axios from 'axios';
 import store from './packs/store.js';
 import GeneralButton from './GeneralButton.vue';
 
-export default ({
+export default {
   store,
   components: {
     GeneralButton,
@@ -96,22 +139,33 @@ export default ({
       return binary.slice(6);
     },
     loadSound(key, response) {
-      this.audioContext.decodeAudioData(response, (buffer) => {
-        this.loadedSounds.se[key] = buffer;
-      }, (msg) => {
-        console.error(msg);
-      });
+      this.audioContext.decodeAudioData(
+          response,
+          (buffer) => {
+            this.loadedSounds.se[key] = buffer;
+          },
+          (msg) => {
+            console.error(msg);
+          },
+      );
     },
     loadBgm(key, response) {
-      this.audioContext.decodeAudioData(response, (buffer) => {
-        this.loadedSounds.bgm[key] = buffer;
-      }, (msg) => {
-        console.error(msg);
-      });
+      this.audioContext.decodeAudioData(
+          response,
+          (buffer) => {
+            this.loadedSounds.bgm[key] = buffer;
+          },
+          (msg) => {
+            console.error(msg);
+          },
+      );
     },
     loadSounds() {
       for (const key of Object.keys(this.sounds.se)) {
-        axios.get(`/game/square/sounds/${key}.wav.enc`, {responseType: 'arraybuffer'})
+        axios
+            .get(`/game/square/sounds/${key}.wav.enc`, {
+              responseType: 'arraybuffer',
+            })
             .then((results) => {
               const decrypted = this.decrypt(results.data);
               this.loadSound(key, decrypted);
@@ -124,7 +178,10 @@ export default ({
     },
     loadBgms() {
       for (const key of Object.keys(this.sounds.bgm)) {
-        axios.get(`/game/square/sounds/bgm/${key}.mp3.enc`, {responseType: 'arraybuffer'})
+        axios
+            .get(`/game/square/sounds/bgm/${key}.mp3.enc`, {
+              responseType: 'arraybuffer',
+            })
             .then((results) => {
               this.loadBgm(key, results.data);
             })
@@ -245,18 +302,18 @@ export default ({
       },
     },
   },
-});
+};
 </script>
 
 <style lang="scss" scoped>
 @import "stylesheets/global_settings";
-.sound_button_area{
+.sound_button_area {
   color: $white;
   position: absolute;
   top: $space-m;
   right: $space-m;
   background-color: $ingame-background;
-  .menu{
+  .menu {
     width: 200px;
     display: flex;
     padding: $space-m;
@@ -266,10 +323,10 @@ export default ({
     gap: $space-m;
     border-radius: $radius;
     border: 2px solid $gray2;
-    .text{
+    .text {
       width: 100%;
     }
-    input{
+    input {
       width: 100%;
     }
   }

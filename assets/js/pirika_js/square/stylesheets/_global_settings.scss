@@ -1,33 +1,33 @@
 @import "constants";
 
-@mixin centering($height){
+@mixin centering($height) {
   height: $height;
   padding-top: (($height - $font-size-normal) * 0.5);
   line-height: 100%;
   text-align: center;
 }
 
-@mixin centeringWithBorder($height, $border){
+@mixin centeringWithBorder($height, $border) {
   height: $height;
   padding-top: (($height - $font-size-normal - $border * 2) * 0.5);
   line-height: 100%;
   text-align: center;
 }
 
-body{
-  font-family: 'M PLUS 2', sans-serif;
+body {
+  font-family: "M PLUS 2", sans-serif;
 }
 
-.with_inset_shadow{
+.with_inset_shadow {
   box-shadow: inset 9px 9px 9px $shadow, inset -5px -5px 9px $shadow;
 }
-.with_shadow{
+.with_shadow {
   box-shadow: 7px 7px 7px $shadow, 5px 5px 5px $shadow;
 }
-.with_solid_shadow{
-  box-shadow: 0px 7px 0px $ingame-background, 0px 5px 0px $ingame-background, 7px 7px 7px $shadow, 5px 8px 5px $shadow;
+.with_solid_shadow {
+  box-shadow: 0px 7px 0px $ingame-background, 0px 5px 0px $ingame-background,
+    7px 7px 7px $shadow, 5px 8px 5px $shadow;
 }
-.with_drop_shadow{
+.with_drop_shadow {
   filter: drop-shadow(5px 5px 5px $shadow) drop-shadow(7px 7px 7px $shadow);
 }
-

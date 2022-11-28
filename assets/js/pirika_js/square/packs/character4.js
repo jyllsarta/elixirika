@@ -9,9 +9,8 @@ let AbilityDrawWithMp = require("./abilityDrawWithMp");
 let Constants = require("./constants");
 let Card = require("./card");
 
-
 module.exports = class Character4 {
-  constructor(){
+  constructor() {
     this.id = 4;
     this.name = "アヤメ";
     this.defaultMessage = "いきますよー！";
@@ -21,56 +20,70 @@ module.exports = class Character4 {
     this.uniqueParameters = {
       abilities: [
         new AbilityDamageWithMp(1, 5, 70),
-        new AbilityAddCardWithMp(2, [new Card( 11, "s", "sender"), new Card( 11, "h", "sender")], 50),
+        new AbilityAddCardWithMp(
+          2,
+          [new Card(11, "s", "sender"), new Card(11, "h", "sender")],
+          50,
+        ),
         new AbilityDrawWithMp(3, 1, 4),
       ],
       // initializeEnemy で実体化する
       enemies: [],
       mp: 50,
       maxMp: 100,
-    }
+    };
     this.defaultCallback = new Character4_Default();
     this.callbacks = {
       1: new Character4_1(),
       2: new Character4_2(),
       3: new Character4_3(),
-      4: new Character4_4()
-    }
+      4: new Character4_4(),
+    };
   }
 
-  getCallback(callbackName, index){
-    return this.callbacks[index][callbackName] || this.defaultCallback[callbackName];
+  getCallback(callbackName, index) {
+    return (
+      this.callbacks[index][callbackName] || this.defaultCallback[callbackName]
+    );
   }
 
-  damageToNextEnemy(power, model, isAbilityDamage=false){
-    let nextEnemy = this.uniqueParameters.enemies.find(enemy=>enemy.hp>0);
-    if(!nextEnemy){
-      console.warn("no damage target!")
+  damageToNextEnemy(power, model, isAbilityDamage = false) {
+    let nextEnemy = this.uniqueParameters.enemies.find((enemy) => enemy.hp > 0);
+    if (!nextEnemy) {
+      console.warn("no damage target!");
       return;
     }
-    if(nextEnemy.shield > 0){
+    if (nextEnemy.shield > 0) {
       nextEnemy.shield = Math.max(nextEnemy.shield - power, 0);
-    }
-    else{
+    } else {
       // maxDamage はシールドの場合取り扱わず、本体のダメージ時のみ かつ -1 以外が指定されている場合に有効
-      const adjustedDamage = nextEnemy.maxDamage === -1 ? power : Math.min(power, nextEnemy.maxDamage);
+      const adjustedDamage =
+        nextEnemy.maxDamage === -1
+          ? power
+          : Math.min(power, nextEnemy.maxDamage);
       nextEnemy.hp = Math.max(nextEnemy.hp - adjustedDamage, 0);
     }
-    if(nextEnemy.hp <= 0){
+    if (nextEnemy.hp <= 0) {
       model.messageManager.register("specialAbilityDefeatEnemy");
     }
-    nextEnemy.damageHistory.push({power: power, isAbilityDamage: isAbilityDamage});
-    const cleared = model.character.getCallback("isClearedMainTarget", model.chapter.index)(model.character, model);
-    if(cleared){
+    nextEnemy.damageHistory.push({
+      power: power,
+      isAbilityDamage: isAbilityDamage,
+    });
+    const cleared = model.character.getCallback(
+      "isClearedMainTarget",
+      model.chapter.index,
+    )(model.character, model);
+    if (cleared) {
       model.calculateScore();
       model.checkAndUpdateClearedChallenges();
       model.setForceStalemate(model.character.clearMessage, true);
     }
   }
 
-  initializeEnemy(enemyParameters){
+  initializeEnemy(enemyParameters) {
     let enemies = [];
-    for(let param of enemyParameters){
+    for (let param of enemyParameters) {
       let enemy = {
         id: param.id,
         order: param.order,
@@ -82,17 +95,17 @@ module.exports = class Character4 {
         // maxDamage は マイナス1の場合無効扱いとして処理する
         maxDamage: param.maxDamage || -1,
         damageHistory: [],
-      }
-      enemies.push(enemy)
-    };
+      };
+      enemies.push(enemy);
+    }
     this.uniqueParameters.enemies = enemies;
   }
 
-  hasSufficientMp(cost){
+  hasSufficientMp(cost) {
     return this.uniqueParameters.mp >= cost;
   }
 
-  isAllEnemyDefeated(){
-    return this.uniqueParameters.enemies.every(enemy=>enemy.hp<=0)
+  isAllEnemyDefeated() {
+    return this.uniqueParameters.enemies.every((enemy) => enemy.hp <= 0);
   }
 };

@@ -3,7 +3,7 @@ const MessagePriority = require("./message_priority");
 const Constants = require("./constants");
 
 module.exports = class MessageManager {
-  constructor(model){
+  constructor(model) {
     this.model = model;
     this.messageMaster = new Message();
     this.messagePriorityMaster = new MessagePriority();
@@ -13,22 +13,26 @@ module.exports = class MessageManager {
     this.lastOperationHistoryLength = 0; // アクション単位
   }
 
-  register(when, params){
+  register(when, params) {
     const calibratedWhen = this.calibrateWhen(when, params);
-    const records = this.messageMaster.getBySituation(this.model.characterId, calibratedWhen, this.model.chapter.index);
-    this.pickAndUpdateMessage(records)
+    const records = this.messageMaster.getBySituation(
+      this.model.characterId,
+      calibratedWhen,
+      this.model.chapter.index,
+    );
+    this.pickAndUpdateMessage(records);
   }
 
-  pickAndUpdateMessage(records){
-    if(records.length === 0){
-      console.warn(`no availvable message`); 
+  pickAndUpdateMessage(records) {
+    if (records.length === 0) {
+      console.warn(`no availvable message`);
       return;
     }
-    
+
     // ロジックに関わらない部分なので天然の乱数を使う
     const record = this.pickRecordPreferAnother(records, this.currentMessage);
     const priority = this.messagePriorityMaster.getPriorityByWhen(record?.when);
-    if(this.hasLessPriority(priority)){
+    if (this.hasLessPriority(priority)) {
       return;
     }
     this.currentMessage = record;
@@ -37,73 +41,80 @@ module.exports = class MessageManager {
     this.lastOperationHistoryLength = this.model.operationHistory.length;
   }
 
-  hasLessPriority(priority){
+  hasLessPriority(priority) {
     // プライオリティ -1 は特別にコンフリクトに絶対負けず強制上書きを通す
-    if(priority === -1){
+    if (priority === -1) {
       return false;
     }
     // アクションカウントが更新されていたらプライオリティ負けはしない
-    if(this.lastOperationHistoryLength < this.model.operationHistory.length){
+    if (this.lastOperationHistoryLength < this.model.operationHistory.length) {
       return false;
     }
     // 1アクションの中で複数メッセージが誘発した場合、プライオリティが高いほうが勝つ。同着は更新を許す
     return priority < this.priority;
   }
 
-  reseedId(){
+  reseedId() {
     return Math.floor(Math.random() * 1000000000);
   }
 
-  pickRecordPreferAnother(records, currentRecord){
-    if(records.length === 1){
+  pickRecordPreferAnother(records, currentRecord) {
+    if (records.length === 1) {
       return records[0];
     }
-    const exceptCurrentRecords = records.filter(record=>record.id!==currentRecord.id);
-    return exceptCurrentRecords[Math.floor(Math.random() * exceptCurrentRecords.length)];
+    const exceptCurrentRecords = records.filter(
+      (record) => record.id !== currentRecord.id,
+    );
+    return exceptCurrentRecords[
+      Math.floor(Math.random() * exceptCurrentRecords.length)
+    ];
   }
 
   // メッセージ だしわけ 機構
 
-  calibrateWhen(when, params){
-    if(this[`${when}Calibration`]){
+  calibrateWhen(when, params) {
+    if (this[`${when}Calibration`]) {
       return this[`${when}Calibration`](when, this.model, params);
     }
     return when;
   }
 
-  sendCardCalibration(when, model, params){
-    if(model.hand.field.cards.length === 0){
+  sendCardCalibration(when, model, params) {
+    if (model.hand.field.cards.length === 0) {
       return "noHand";
     }
-    if(model.deck.field.cards.length > 30){
+    if (model.deck.field.cards.length > 30) {
       return "sendCard1";
     }
-    if(model.deck.field.cards.length > 10){
+    if (model.deck.field.cards.length > 10) {
       return "sendCard2";
     }
     return "sendCard3";
   }
 
-  drawCalibration(when, model, params){
-    if(model.deck.field.cards.length === 0){
+  drawCalibration(when, model, params) {
+    if (model.deck.field.cards.length === 0) {
       // && と等価だけど 変数名に意図を残す
-      const canGetSenderCardFromSkill = model.character.getCallback("canGetSenderCardFromSkill", model.chapter.index)(model.character, model);
-      if(canGetSenderCardFromSkill){
+      const canGetSenderCardFromSkill = model.character.getCallback(
+        "canGetSenderCardFromSkill",
+        model.chapter.index,
+      )(model.character, model);
+      if (canGetSenderCardFromSkill) {
         return "noDeckButRemainsAbility";
       }
     }
-    if(model.deck.field.cards.length > 30){
+    if (model.deck.field.cards.length > 30) {
       return "draw1";
     }
-    if(model.deck.field.cards.length > 10){
+    if (model.deck.field.cards.length > 10) {
       return "draw2";
     }
     return "draw3";
   }
 
-  sendToStarPaletteCalibration(when, model, params){
+  sendToStarPaletteCalibration(when, model, params) {
     const { toField } = params;
-    if(toField.cards.length >= Constants.cardCountScoreBonusThreshold){
+    if (toField.cards.length >= Constants.cardCountScoreBonusThreshold) {
       return "starPaletteNew2";
     }
     return "starPaletteNew1";

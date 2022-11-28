@@ -6,22 +6,22 @@ module.exports = class StagedField {
     this.initiate();
   }
 
-  initiate(){
+  initiate() {
     // ボードインデックスとかぶらないIDを振っておく
     this.field = new Field(100);
     // 手札の何枚目から来たのかの記憶
     this.stagedCardIsFromIndex = 0;
   }
 
-  isStaged(){
+  isStaged() {
     return this.field.cards.length !== 0;
   }
 
-  memoryStagedCardIsFrom(index){
+  memoryStagedCardIsFrom(index) {
     this.stagedCardIsFromIndex = index;
   }
 
-  isSendable(){
+  isSendable() {
     // カードがなければ置けちゃう、あればダメ
     return this.field.cards.length === 0;
   }

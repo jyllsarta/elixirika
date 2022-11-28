@@ -1,53 +1,103 @@
 <template>
-    <div id="app">
-        <h1>ふーん</h1>
-        <div class="game" :class="{remove_cursor: isInGameScene}" @click.right.prevent>
-            <transition name="left-show-in">
-                <div class="title" v-if="isTitleScene">ICE BREAK</div>
-            </transition>
-            <transition name="left-show-in">
-                <div class="game_over" v-if="isGameOverScene">GAME OVER</div>
-            </transition>
-            <transition name="left-show-in">
-                <div class="high_score_updated" v-if="logic.isHighScore">HIGH SCORE!</div>
-            </transition>
-            <transition name="left-show-in">
-                <div class="score" v-if="!isTitleScene" :class="{is_high_score: logic.isHighScore}">{{logic.score()}}</div>
-            </transition>
-            <transition name="left-show-in">
-                <div class="high_score" v-if="isTitleScene">MAX: {{logic.highScore}}</div>
-            </transition>
-            <div class="background" @mousemove="updatePointerPosition"></div>
-            <!-- <transition-group class="balls" name="delay" tag="span"> があったが、意味不明なエラーが出るので一旦退避中 -->
-            <div class="balls">
-                <Ball v-for="ball in logic.balls" :key="ball.id" :ball="ball" :constants="constants"></Ball>
-            </div>
-            <Pointer :x="Math.floor(logic.pointer.x * gameWindowWidth)" :y="Math.floor(logic.pointer.y * gameWindowHeight)" :hpRate="logic.hpRate()" :hp="Math.floor(logic.hp)" :initialHp="logic.initialHp" :energy="Math.min(Math.floor(logic.energy), 100)" :charge="Math.floor(logic.charge * 100)" :isCharging="logic.isCharging" :chargeRate="logic.chargeRate()" v-if="isInGameScene"></Pointer>
-            <transition name="left-show-in">
-                <GameStartButton @startGame="startGame" v-if="isTitleScene"></GameStartButton>
-            </transition>
-            <transition name="left-show-in">
-                <ResetButton @resetGame="resetGame" v-if="isGameOverScene"></ResetButton>
-            </transition>
-            <transition name="left-show-in">
-                <NameInputArea @setName="setName" v-if="isTitleScene"></NameInputArea>
-            </transition>
-            <RemoveScore :value="logic.lastRemoveResult" :x="Math.floor(logic.lastRemovedPositionX * gameWindowWidth)" :y="Math.floor(logic.lastRemovedPositionY * gameWindowHeight)" :show="logic.isThisFrameDischargeReleased"></RemoveScore>
-            <div class="ranking_area" v-if="isTitleScene">
-                <transition name="left-show-in">
-                    <Ranking v-if="showingRanking" :ranking="logic.ranking"></Ranking>
-                </transition>
-            </div>
-            <div class="ranking_button" v-if="isTitleScene">
-                <transition name="left-show-in">
-                    <div class="hide_ranking_area" v-if="showingRanking" @click="hideRanking" />
-                </transition>
-                <transition name="left-show-in">
-                    <img class="show_ranking_button" v-if="!showingRanking" @click="showRanking" src="/images/arrow/ranking.png" />
-                </transition>
-            </div>
+  <div id="app">
+    <h1>ふーん</h1>
+    <div
+      class="game"
+      :class="{ remove_cursor: isInGameScene }"
+      @click.right.prevent
+    >
+      <transition name="left-show-in">
+        <div class="title" v-if="isTitleScene">ICE BREAK</div>
+      </transition>
+      <transition name="left-show-in">
+        <div class="game_over" v-if="isGameOverScene">GAME OVER</div>
+      </transition>
+      <transition name="left-show-in">
+        <div class="high_score_updated" v-if="logic.isHighScore">
+          HIGH SCORE!
         </div>
+      </transition>
+      <transition name="left-show-in">
+        <div
+          class="score"
+          v-if="!isTitleScene"
+          :class="{ is_high_score: logic.isHighScore }"
+        >
+          {{ logic.score() }}
+        </div>
+      </transition>
+      <transition name="left-show-in">
+        <div class="high_score" v-if="isTitleScene">
+          MAX: {{ logic.highScore }}
+        </div>
+      </transition>
+      <div class="background" @mousemove="updatePointerPosition"></div>
+      <!-- <transition-group class="balls" name="delay" tag="span"> があったが、意味不明なエラーが出るので一旦退避中 -->
+      <div class="balls">
+        <Ball
+          v-for="ball in logic.balls"
+          :key="ball.id"
+          :ball="ball"
+          :constants="constants"
+        ></Ball>
+      </div>
+      <Pointer
+        :x="Math.floor(logic.pointer.x * gameWindowWidth)"
+        :y="Math.floor(logic.pointer.y * gameWindowHeight)"
+        :hpRate="logic.hpRate()"
+        :hp="Math.floor(logic.hp)"
+        :initialHp="logic.initialHp"
+        :energy="Math.min(Math.floor(logic.energy), 100)"
+        :charge="Math.floor(logic.charge * 100)"
+        :isCharging="logic.isCharging"
+        :chargeRate="logic.chargeRate()"
+        v-if="isInGameScene"
+      ></Pointer>
+      <transition name="left-show-in">
+        <GameStartButton
+          @startGame="startGame"
+          v-if="isTitleScene"
+        ></GameStartButton>
+      </transition>
+      <transition name="left-show-in">
+        <ResetButton
+          @resetGame="resetGame"
+          v-if="isGameOverScene"
+        ></ResetButton>
+      </transition>
+      <transition name="left-show-in">
+        <NameInputArea @setName="setName" v-if="isTitleScene"></NameInputArea>
+      </transition>
+      <RemoveScore
+        :value="logic.lastRemoveResult"
+        :x="Math.floor(logic.lastRemovedPositionX * gameWindowWidth)"
+        :y="Math.floor(logic.lastRemovedPositionY * gameWindowHeight)"
+        :show="logic.isThisFrameDischargeReleased"
+      ></RemoveScore>
+      <div class="ranking_area" v-if="isTitleScene">
+        <transition name="left-show-in">
+          <Ranking v-if="showingRanking" :ranking="logic.ranking"></Ranking>
+        </transition>
+      </div>
+      <div class="ranking_button" v-if="isTitleScene">
+        <transition name="left-show-in">
+          <div
+            class="hide_ranking_area"
+            v-if="showingRanking"
+            @click="hideRanking"
+          />
+        </transition>
+        <transition name="left-show-in">
+          <img
+            class="show_ranking_button"
+            v-if="!showingRanking"
+            @click="showRanking"
+            src="/images/arrow/ranking.png"
+          />
+        </transition>
+      </div>
     </div>
+  </div>
 </template>
 <script>
 import {nextTick} from 'vue';
@@ -63,7 +113,7 @@ import NameInputArea from './NameInputArea.vue';
 import RemoveScore from './RemoveScore.vue';
 import Ranking from './Ranking.vue';
 
-export default ({
+export default {
   components: {
     Ball,
     Pointer,
@@ -96,7 +146,10 @@ export default ({
     update() {
       const e = this.latestMouseMoveEvent;
       if (e !== this.prevFrameMouseMoveEvent) {
-        this.logic.setPointerPosition(e.offsetX / Constants.gameWindowPixelSizeX, e.offsetY / Constants.gameWindowPixelSizeY);
+        this.logic.setPointerPosition(
+            e.offsetX / Constants.gameWindowPixelSizeX,
+            e.offsetY / Constants.gameWindowPixelSizeY,
+        );
         this.logic.onMoved();
         this.prevFrameMouseMoveEvent = e;
       }
@@ -159,143 +212,144 @@ export default ({
       return Constants;
     },
   },
-});
+};
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/constants";
+<style lang="scss" scoped>
+@import "stylesheets/constants";
 
-  .game{
-    user-select: none;
-    width: $field-width;
-    height: $field-height;
-    margin: 50px auto 50px auto;
-    position: relative;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    color: $main-color;
-    .background{
-      z-index: 0;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: $light-gray;
-    }
-    .balls{
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-    .game_start_button{
-      position: absolute;
-      width: 10%;
-      height: 10%;
-      left: 45%;
-      top: 45%;
-    }
-    .title, .game_over{
-      pointer-events: none;
-      z-index: 10;
-      position: absolute;
-      top: 10%;
-      left: 20%;
-      width: 60%;
-      text-align: center;
-      font-family: 'Cute Font', cursive;
-      font-size: $main-font-size;
-    }
-    .score, .high_score{
-      pointer-events: none;
-      z-index: 10;
-      position: absolute;
-      top: 17.5%;
-      left: 20%;
-      width: 60%;
-      text-align: center;
-      font-family: 'Cute Font', cursive;
-      font-size: $main-font-size;
-    }
-    // ui text 共通の指定が結構あるからまとめたいかも
-    .high_score_updated{
-      pointer-events: none;
-      z-index: 10;
-      position: absolute;
-      top: 22%;
-      left: 53%;
-      width: 30%;
-      text-align: center;
-      font-family: 'Cute Font', cursive;
-      font-size: $main-font-size * 0.5;
-      color: $accent-color;
-    }
-    .is_high_score{
-      color: $accent-color;
-    }
-  }
-  .remove_cursor{
-    cursor: none;
-  }
-  .delay-enter-active {
-    animation: delay 1.5s;
-  }
-  .delay-leave-active {
-    animation: delay 0.6s reverse;
-  }
-  @keyframes delay {
-    0% {
-      background-color: $blight;
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  .ranking{
+.game {
+  user-select: none;
+  width: $field-width;
+  height: $field-height;
+  margin: 50px auto 50px auto;
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  color: $main-color;
+  .background {
+    z-index: 0;
     position: absolute;
-    top: 2%;
-    left: 10%;
-    width: 80%;
-    height: 96%;
-    color: $light-gray;
-    background-color: $main-color;
-    border-radius: 8px;
-    padding: 10px;
-    z-index: 100;
-  }
-  .hide_ranking_area{
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;
+    background-color: $light-gray;
   }
-  .show_ranking_button{
+  .balls {
     position: absolute;
-    bottom: 5%;
-    left: 5%;
-    width: 64px;
-    height: 64px;
-    padding: 10px;
-    background-color: $main-color;
-    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
   }
+  .game_start_button {
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    left: 45%;
+    top: 45%;
+  }
+  .title,
+  .game_over {
+    pointer-events: none;
+    z-index: 10;
+    position: absolute;
+    top: 10%;
+    left: 20%;
+    width: 60%;
+    text-align: center;
+    font-family: "Cute Font", cursive;
+    font-size: $main-font-size;
+  }
+  .score,
+  .high_score {
+    pointer-events: none;
+    z-index: 10;
+    position: absolute;
+    top: 17.5%;
+    left: 20%;
+    width: 60%;
+    text-align: center;
+    font-family: "Cute Font", cursive;
+    font-size: $main-font-size;
+  }
+  // ui text 共通の指定が結構あるからまとめたいかも
+  .high_score_updated {
+    pointer-events: none;
+    z-index: 10;
+    position: absolute;
+    top: 22%;
+    left: 53%;
+    width: 30%;
+    text-align: center;
+    font-family: "Cute Font", cursive;
+    font-size: $main-font-size * 0.5;
+    color: $accent-color;
+  }
+  .is_high_score {
+    color: $accent-color;
+  }
+}
+.remove_cursor {
+  cursor: none;
+}
+.delay-enter-active {
+  animation: delay 1.5s;
+}
+.delay-leave-active {
+  animation: delay 0.6s reverse;
+}
+@keyframes delay {
+  0% {
+    background-color: $blight;
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.ranking {
+  position: absolute;
+  top: 2%;
+  left: 10%;
+  width: 80%;
+  height: 96%;
+  color: $light-gray;
+  background-color: $main-color;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 100;
+}
+.hide_ranking_area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.show_ranking_button {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  width: 64px;
+  height: 64px;
+  padding: 10px;
+  background-color: $main-color;
+  border-radius: 8px;
+}
 
-  .left-show-in-enter-active {
-    transition: all .3s;
-  }
-  .left-show-in-leave-active {
-    transition: all .3s;
-  }
-  .left-show-in-enter-from{
-    transform: translateX(10px);
-    opacity: 0;
-  }
-  .left-show-in-leave-to{
-    transform: translateX(-10px);
-    opacity: 0;
-  }
-
+.left-show-in-enter-active {
+  transition: all 0.3s;
+}
+.left-show-in-leave-active {
+  transition: all 0.3s;
+}
+.left-show-in-enter-from {
+  transform: translateX(10px);
+  opacity: 0;
+}
+.left-show-in-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
+}
 </style>

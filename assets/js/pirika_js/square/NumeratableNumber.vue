@@ -1,5 +1,7 @@
 <template>
-    <div class="_number" :class="{changing}">{{Math.floor(currentNumber)}}</div>
+  <div class="_number" :class="{ changing }">
+    {{ Math.floor(currentNumber) }}
+  </div>
 </template>
 
 <script>
@@ -14,8 +16,7 @@ export default {
     updateRatio: 0.1, // 毎フレーム何％目標値に近づけるか
     changing: false,
   }),
-  computed: {
-  },
+  computed: {},
   mounted() {
     this.currentNumber = this.number;
     this.changing = false;
@@ -30,10 +31,12 @@ export default {
   },
   methods: {
     react() {
-      this.currentNumber = (1 - this.updateRatio) * this.currentNumber + (this.updateRatio) * this.number;
+      this.currentNumber =
+        (1 - this.updateRatio) * this.currentNumber +
+        this.updateRatio * this.number;
       this.changing = true;
       if (Math.abs(this.currentNumber - this.number) < 1.01) {
-        setTimeout(() => this.changing = false, 1000);
+        setTimeout(() => (this.changing = false), 1000);
         this.currentNumber = this.number;
       }
       if (Math.floor(this.currentNumber) != Math.floor(this.number)) {
@@ -45,10 +48,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-._number{
+._number {
   transition: transform 0.1s linear;
 }
-.changing{
+.changing {
   transform: scale(3) translateY(-3px);
 }
 </style>

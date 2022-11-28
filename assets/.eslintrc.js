@@ -4,7 +4,9 @@ module.exports = {
     es2021: true,
   },
   extends: [
+    "eslint:recommended",
     'plugin:vue/vue3-essential',
+    "prettier",
     'google',
   ],
   overrides: [
@@ -16,6 +18,9 @@ module.exports = {
     'vue',
   ],
   rules: {
-    "max-len": ["error", { "code": 150 }]
+    "max-len": ["error", { "code": 150 }],
+    "require-jsdoc": 0,
+    "vue/multi-word-component-names": 0,
+    "quotes": "double",
   },
 };

@@ -1,33 +1,40 @@
-let challengeMaster = require("../masterdata/challenges.js")
+let challengeMaster = require("../masterdata/challenges.js");
 
 module.exports = class Challenge {
-  constructor(){
-    this.idTable = this.getAll().reduce((iter, x)=>{iter[x.id]=x; return iter}, {});
+  constructor() {
+    this.idTable = this.getAll().reduce((iter, x) => {
+      iter[x.id] = x;
+      return iter;
+    }, {});
   }
 
-  getAll(){
+  getAll() {
     return challengeMaster;
   }
 
-  getByChallengeIds(challengeIds){
-    return this.getAll().filter(x=>challengeIds.some(challengeId=>challengeId===x.id))
+  getByChallengeIds(challengeIds) {
+    return this.getAll().filter((x) =>
+      challengeIds.some((challengeId) => challengeId === x.id),
+    );
   }
 
   // model の状態を解析してクリアした実積のIDのリストを返す
-  clearedChallengeIds(model, targetChallengeIds){
+  clearedChallengeIds(model, targetChallengeIds) {
     const challenges = this.getByChallengeIds(targetChallengeIds);
-    return challenges.filter(challenge=>this.isCleared(challenge, model)).map(challenge=>challenge.id)    
+    return challenges
+      .filter((challenge) => this.isCleared(challenge, model))
+      .map((challenge) => challenge.id);
   }
 
-  isCleared(challenge, model){
-    switch(challenge.type){
+  isCleared(challenge, model) {
+    switch (challenge.type) {
       case "point":
         return this.isClearedPoint(challenge, model);
         break;
       case "arityStyleScore":
         return this.isClearedArityStyleScore(challenge, model);
         break;
-        case "starPaletteKind":
+      case "starPaletteKind":
         return this.isClearedStarPaletteKind(challenge, model);
         break;
       case "discardCount":
@@ -56,132 +63,162 @@ module.exports = class Challenge {
         break;
       case "defeatEnemy":
         return this.isClearedDefeatEnemy(challenge, model);
-        break;  
+        break;
       case "defeatEnemyCount":
         return this.isClearedDefeatEnemyCount(challenge, model);
-        break;  
+        break;
       default:
-        console.warn(`unknown challenge type: ${challenge.type}`)
+        console.warn(`unknown challenge type: ${challenge.type}`);
         return false;
         break;
     }
   }
 
-  isClearedPoint(challenge, model){
+  isClearedPoint(challenge, model) {
     const score = model.score;
     return challenge.value1 <= score;
   }
 
-  isClearedArityStyleScore(challenge, model){
+  isClearedArityStyleScore(challenge, model) {
     const score = model.starPalette.arityStyleScore();
     return challenge.value1 <= score;
   }
 
-  isClearedStarPaletteKind(challenge, model){
-    const kinds = model.character.getCallback("starPaletteParameter", model.chapter.index)()?.kinds;
-    if(!kinds){
+  isClearedStarPaletteKind(challenge, model) {
+    const kinds = model.character.getCallback(
+      "starPaletteParameter",
+      model.chapter.index,
+    )()?.kinds;
+    if (!kinds) {
       console.warn("starPaletteParameter.kinds was not found");
       return;
     }
-    const kindCount = kinds.filter(kind=>model.starPalette.isSatisfied(kind)).length;
-    return challenge.value1 <= kindCount
+    const kindCount = kinds.filter((kind) =>
+      model.starPalette.isSatisfied(kind),
+    ).length;
+    return challenge.value1 <= kindCount;
   }
 
-  isClearedDiscardCount(challenge, model){
-    if(!model.isStalemate()){
+  isClearedDiscardCount(challenge, model) {
+    if (!model.isStalemate()) {
       return false;
     }
     // アリティ の強制終了時には捨札条件をクリアさせない
-    if(!model.isGracefullyStalemate){
+    if (!model.isGracefullyStalemate) {
       return false;
     }
     return model.graveyard.field.cards.length <= challenge.value1;
   }
 
-  isClearedMinusTrickCount(challenge, model){
+  isClearedMinusTrickCount(challenge, model) {
     const tricks = model.character?.countMinusTrick(model) || 0;
     return challenge.value1 <= tricks;
   }
 
-  isClearedBiggestStack(challenge, model){
-    const maxStackSize = Math.max(...(model.starPalette.fields.map(field=>field.cards.length)));
+  isClearedBiggestStack(challenge, model) {
+    const maxStackSize = Math.max(
+      ...model.starPalette.fields.map((field) => field.cards.length),
+    );
     return challenge.value1 <= maxStackSize;
   }
 
-  isClearedSandStormCount(challenge, model){
+  isClearedSandStormCount(challenge, model) {
     const count = model.character.uniqueParameters.sandStormCount;
     return challenge.value1 <= count;
   }
 
   // 「すべての j を回収している」とは「ゲーム終了時、手札にも捨札にもボードにも j がない状態」である
-  isClearedGetAllTreasure(challenge, model){
-    return model.isStalemate() && 
-      this.hasNoJewelCard(model.graveyard.field) && 
-      this.hasNoJewelCard(model.hand.field) && 
-      model.board.fields.every(field => this.hasNoJewelCard(field));
+  isClearedGetAllTreasure(challenge, model) {
+    return (
+      model.isStalemate() &&
+      this.hasNoJewelCard(model.graveyard.field) &&
+      this.hasNoJewelCard(model.hand.field) &&
+      model.board.fields.every((field) => this.hasNoJewelCard(field))
+    );
   }
 
-  isClearedCompleteRun(challenge, model){
-    return model.isStalemate() && (!model.isForceStalemate || model.isGracefullyStalemate);
+  isClearedCompleteRun(challenge, model) {
+    return (
+      model.isStalemate() &&
+      (!model.isForceStalemate || model.isGracefullyStalemate)
+    );
   }
 
-  isClearedSustainEnergyRange(challenge, model){
+  isClearedSustainEnergyRange(challenge, model) {
     const energyHistory = model.character.uniqueParameters.energyHistory;
-    if(energyHistory === undefined){
-      console.warn("character has no energy history but challenge SustainEnergyRange is set");
+    if (energyHistory === undefined) {
+      console.warn(
+        "character has no energy history but challenge SustainEnergyRange is set",
+      );
       return;
     }
     const min = challenge.value1;
     const max = challenge.value2;
     // 最後まで維持チャレンジの場合は両端を含まない
-    return model.isStalemate() && energyHistory.every(energy=>this.isInRange(min, max, energy, false));
+    return (
+      model.isStalemate() &&
+      energyHistory.every((energy) => this.isInRange(min, max, energy, false))
+    );
   }
 
-  isClearedBeEnergyRange(challenge, model){
+  isClearedBeEnergyRange(challenge, model) {
     const energyHistory = model.character.uniqueParameters.energyHistory;
-    if(energyHistory === undefined){
-      console.warn("character has no energy history but challenge SustainEnergyRange is set");
+    if (energyHistory === undefined) {
+      console.warn(
+        "character has no energy history but challenge SustainEnergyRange is set",
+      );
       return;
     }
     const min = challenge.value1;
     const max = challenge.value2;
     // 一回でもその範囲に入ればOKチャレンジは両端を含む
-    return energyHistory.some(energy=>this.isInRange(min, max, energy, true));
+    return energyHistory.some((energy) =>
+      this.isInRange(min, max, energy, true),
+    );
   }
 
-  isClearedDefeatEnemy(challenge, model){
+  isClearedDefeatEnemy(challenge, model) {
     const enemies = model.character.uniqueParameters.enemies;
-    if(enemies === undefined){
+    if (enemies === undefined) {
       console.warn("character has no enemies but challenge DefeatEnemy is set");
       return;
     }
     const enemyId = challenge.value1;
     const shouldOneShot = challenge.value2 !== 0;
     const shouldNoAbilityDamage = challenge.value3 === 1;
-    const enemy = enemies.find(enemy=>enemy.id === enemyId);
-    if(shouldOneShot && enemy.damageHistory.length !== 1){
+    const enemy = enemies.find((enemy) => enemy.id === enemyId);
+    if (shouldOneShot && enemy.damageHistory.length !== 1) {
       return false;
     }
-    if(shouldNoAbilityDamage && enemy.damageHistory.some(damage=>damage.isAbilityDamage)){
+    if (
+      shouldNoAbilityDamage &&
+      enemy.damageHistory.some((damage) => damage.isAbilityDamage)
+    ) {
       return false;
     }
     return enemy.hp <= 0;
   }
 
-  isClearedDefeatEnemyCount(challenge, model){
+  isClearedDefeatEnemyCount(challenge, model) {
     let enemies = model.character.uniqueParameters.enemies;
-    if(enemies === undefined){
-      console.warn("character has no enemies but challenge DefeatEnemyCount is set");
+    if (enemies === undefined) {
+      console.warn(
+        "character has no enemies but challenge DefeatEnemyCount is set",
+      );
       return;
     }
     const count = challenge.value1;
     const requredRemainCardCount = challenge.value2;
     const shouldDoneByAbilityDamage = challenge.value3 !== 0;
-    enemies = enemies.filter(enemy=>enemy.hp <= 0);
-    if(shouldDoneByAbilityDamage){
-      enemies = enemies.filter(enemy=>enemy.damageHistory[enemy.damageHistory.length - 1]?.isAbilityDamage === true)
+    enemies = enemies.filter((enemy) => enemy.hp <= 0);
+    if (shouldDoneByAbilityDamage) {
+      enemies = enemies.filter(
+        (enemy) =>
+          enemy.damageHistory[enemy.damageHistory.length - 1]
+            ?.isAbilityDamage === true,
+      );
     }
-    if(model.deck.field.cards.length < requredRemainCardCount){
+    if (model.deck.field.cards.length < requredRemainCardCount) {
       return false;
     }
     return count <= enemies.length;
@@ -189,15 +226,14 @@ module.exports = class Challenge {
 
   // private
 
-  hasNoJewelCard(field){
-    return field.cards.every(card => card.suit !== "j");
+  hasNoJewelCard(field) {
+    return field.cards.every((card) => card.suit !== "j");
   }
 
-  isInRange(min, max, value, includeBothEnds){
-    if(includeBothEnds){
+  isInRange(min, max, value, includeBothEnds) {
+    if (includeBothEnds) {
       return min <= value && value <= max;
-    }
-    else{
+    } else {
       return min < value && value < max;
     }
   }

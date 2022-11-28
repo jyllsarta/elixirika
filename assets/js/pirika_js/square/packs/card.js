@@ -12,75 +12,68 @@ module.exports = class Card {
 
   // カード生成系アビリティで使う
   // そのままコピーすると同一IDのカードが複数生成されてしまうため、 GlobalIdFactory もう一度振ってもらう
-  createCopy(){
-    return new Card(
-      this.number,
-      this.suit,
-      this.category
-    )
+  createCopy() {
+    return new Card(this.number, this.suit, this.category);
   }
 
-  stringExpression(){
-    switch(this.category){
+  stringExpression() {
+    switch (this.category) {
       case "sender":
-        return `^`; 
+        return `^`;
       case "special":
-        return `◇`; 
+        return `◇`;
       case "normal":
-        return `${this.number}`; 
+        return `${this.number}`;
       default:
         return `!`;
     }
   }
 
-  viewClass(){
+  viewClass() {
     let classes = [];
-    if(this.isSelected()){
+    if (this.isSelected()) {
       classes.push("selected");
     }
 
-    if(this.suit === "h"){
+    if (this.suit === "h") {
       classes.push("h");
-    }
-    else if(this.suit === "s"){
+    } else if (this.suit === "s") {
       classes.push("s");
-    }
-    else if(this.suit === "j"){
+    } else if (this.suit === "j") {
       classes.push("j");
-    }
-    else {
+    } else {
       classes.push("special");
     }
 
     return classes.join(" ");
   }
 
-  color(){
-    if(this.suit == "s" || this.suit == "c"){
-      return "b"
+  color() {
+    if (this.suit == "s" || this.suit == "c") {
+      return "b";
     }
-    if(this.suit == "h" || this.suit == "d"){
-      return "w"
+    if (this.suit == "h" || this.suit == "d") {
+      return "w";
     }
-    if(this.suit == "j"){
-      return "j"
+    if (this.suit == "j") {
+      return "j";
     }
-    return "?"
+    return "?";
   }
 
-  isSenderCard(){
+  isSenderCard() {
     return this.category === "sender";
   }
 
-  isSpecialCard(){
+  isSpecialCard() {
     return this.category === "special";
   }
 
-  setSelected(state){
+  setSelected(state) {
     this.selected = state;
   }
 
-  isSelected(){
+  isSelected() {
     return this.selected;
   }
 };

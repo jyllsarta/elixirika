@@ -1,5 +1,9 @@
 <template>
-    <div class="life" v-bind:class="[lifeState]" v-bind:style="{width: lifeLength}"></div>
+  <div
+    class="life"
+    v-bind:class="[lifeState]"
+    v-bind:style="{ width: lifeLength }"
+  ></div>
 </template>
 
 <script>
@@ -7,12 +11,10 @@ import Constants from './packs/constants.js';
 
 export default {
   name: 'lifeGauge',
-  props: [
-    'life',
-  ],
+  props: ['life'],
   computed: {
     lifeLength() {
-      return `${this.life / Constants.maxLife * 100}%`;
+      return `${(this.life / Constants.maxLife) * 100}%`;
     },
     lifeState() {
       if (this.life >= Constants.safeLine) {
@@ -27,24 +29,24 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/constants";
+<style lang="scss" scoped>
+@import "stylesheets/constants";
 
-  .life{
-    height: 20px;
-    transform: translateY(-100px);
-    opacity: $transparent_pale;
-  }
+.life {
+  height: 20px;
+  transform: translateY(-100px);
+  opacity: $transparent_pale;
+}
 
-  .normal{
-    background-color: $primary_color;
-  }
+.normal {
+  background-color: $primary_color;
+}
 
-  .danger{
-    background-color: $negative_color;
-  }
+.danger {
+  background-color: $negative_color;
+}
 
-  .max{
-    background-color: $accent_color;
-  }
+.max {
+  background-color: $accent_color;
+}
 </style>

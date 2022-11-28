@@ -1,15 +1,26 @@
 <template>
-    <div class="area" ref="message" v-if="gameStarted"><img class="background with_drop_shadow" src="images/square/svg/message.svg" />
-        <div class="text"><span class="letter" v-for="(t, index) in message" :key="t + index + messageId" :style="{animationDelay: (index*15)+'ms'}" v-text="t"></span></div>
+  <div class="area" ref="message" v-if="gameStarted">
+    <img
+      class="background with_drop_shadow"
+      src="images/square/svg/message.svg"
+    />
+    <div class="text">
+      <span
+        class="letter"
+        v-for="(t, index) in message"
+        :key="t + index + messageId"
+        :style="{ animationDelay: index * 15 + 'ms' }"
+        v-text="t"
+      ></span>
     </div>
+  </div>
 </template>
 
 <script>
-
 import gsap from 'gsap';
 import Model from './packs/model';
 
-export default ({
+export default {
   props: {
     model: Model,
     gameStarted: Boolean,
@@ -42,54 +53,55 @@ export default ({
       );
     },
   },
-});
+};
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/global_settings";
-  .area{
-    width: 250px;
-    height: 100px;
-    position: relative;
-    animation: show 2s;
-    .background{
-      position: absolute;
-      width: 100%;
-    }
-    .text {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      line-height: 140%;
-      white-space: pre-wrap;
-      padding: $space-m;
-      color: $white;
-    }
+<style lang="scss" scoped>
+@import "stylesheets/global_settings";
+.area {
+  width: 250px;
+  height: 100px;
+  position: relative;
+  animation: show 2s;
+  .background {
+    position: absolute;
+    width: 100%;
   }
+  .text {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    line-height: 140%;
+    white-space: pre-wrap;
+    padding: $space-m;
+    color: $white;
+  }
+}
 
-  @keyframes vertical-text-in {
-    0% {
-      opacity: 0;
-    }
-    99% {
-      opacity: 0;
-    }
+@keyframes vertical-text-in {
+  0% {
+    opacity: 0;
   }
-  .letter {
-    display: inline-block;
-    min-width: 0.3em;
-    animation: vertical-text-in .01s cubic-bezier(0.22, 0.15, 0.25, 1.43) 0s backwards;
+  99% {
+    opacity: 0;
   }
+}
+.letter {
+  display: inline-block;
+  min-width: 0.3em;
+  animation: vertical-text-in 0.01s cubic-bezier(0.22, 0.15, 0.25, 1.43) 0s
+    backwards;
+}
 
-  @keyframes show {
-    0% {
-      opacity: 0;
-    }
-    50%{
-      opacity: 0;
-    }
-    100%{
-      opacity: 1;
-    }
+@keyframes show {
+  0% {
+    opacity: 0;
   }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 </style>

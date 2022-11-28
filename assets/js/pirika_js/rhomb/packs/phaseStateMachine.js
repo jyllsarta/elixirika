@@ -22,16 +22,16 @@ module.exports = class PhaseStateMachine {
     this.phase = new PhaseStart();
   }
 
-  transferTo(nextPhaseName, model){
-    if(this.phase.leave){
+  transferTo(nextPhaseName, model) {
+    if (this.phase.leave) {
       this.phase.leave(model);
     }
     this.phase = this.phaseEntity(nextPhaseName);
     this.phase.enter(model);
   }
 
-  phaseEntity(phaseName){
-    switch(phaseName){
+  phaseEntity(phaseName) {
+    switch (phaseName) {
       case "START":
         return new PhaseStart();
       case "ENEMY_SHOOT":
@@ -49,12 +49,11 @@ module.exports = class PhaseStateMachine {
     }
   }
 
-  transferToNextPhase(model){
+  transferToNextPhase(model) {
     const nextPhaseName = this.phase.nextPhaseName(model);
     this.transferTo(nextPhaseName, model);
   }
 
   // private
-  fireOnPhaseChangeCallback(model){
-  }
+  fireOnPhaseChangeCallback(model) {}
 };

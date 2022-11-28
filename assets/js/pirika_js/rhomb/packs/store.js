@@ -1,4 +1,4 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 
 export const store = createStore({
   state: {
@@ -7,22 +7,21 @@ export const store = createStore({
     guiEvents: [],
     guiEventOrderedId: 30000,
   },
-  getters: {
-  },
+  getters: {},
   mutations: {
-    playBgm(state, bgmKey){
+    playBgm(state, bgmKey) {
       state.bgm = bgmKey;
     },
-    playSound(state, payload){
+    playSound(state, payload) {
       state.sounds.push(payload);
     },
-    flushSounds(state){
+    flushSounds(state) {
       state.sounds = [];
     },
-    guiEvent(state, payload){
+    guiEvent(state, payload) {
       payload.orderedId = state.guiEventOrderedId++;
       state.guiEvents.push(payload);
-    }
+    },
   },
 });
 export default store;

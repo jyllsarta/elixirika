@@ -1,5 +1,5 @@
 <template>
-    <div class="key_helper"></div>
+  <div class="key_helper"></div>
 </template>
 
 <script lang="v">
@@ -81,6 +81,6 @@ export default ({
 });
 </script>
 
-<style lang='scss' scoped>
-  @import "stylesheets/global_settings";
+<style lang="scss" scoped>
+@import "stylesheets/global_settings";
 </style>

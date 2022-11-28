@@ -17,35 +17,47 @@ module.exports = class Bullet {
     this.powerToPlayer = master.powerToPlayer;
     this.markedAt = null;
     // FIXME: 0, 800 に自機が存在する決め打ち
-    this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(this.x, this.y, 0, 800, this.speed);
+    this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(
+      this.x,
+      this.y,
+      0,
+      800,
+      this.speed,
+    );
   }
 
-  moveOneTurn(){
-    for(let stroke of this.strokes){
+  moveOneTurn() {
+    for (let stroke of this.strokes) {
       this.x += stroke.dx;
       this.y += stroke.dy;
     }
     // FIXME: 0, 800 に自機が存在する決め打ち
-    this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(this.x, this.y, 0, 800, this.speed);
+    this.strokes = StrokeStrategyFactory.getStrategy(this.strategy).strokes(
+      this.x,
+      this.y,
+      0,
+      800,
+      this.speed,
+    );
   }
 
   // FIXME 雑
-  isHitToPlayer(){
+  isHitToPlayer() {
     return this.x <= 300 && this.y >= 500;
   }
 
-  isBonusBullet(){
+  isBonusBullet() {
     return this.type === "bonus";
   }
 
-  mark(at){
+  mark(at) {
     this.markedAt = at;
   }
 
-  partialStrokeAppliedPosition(ratio){
+  partialStrokeAppliedPosition(ratio) {
     const strokes = this.partialStrokes(ratio);
-    let position = {x: this.x, y: this.y};
-    for(let stroke of strokes){
+    let position = { x: this.x, y: this.y };
+    for (let stroke of strokes) {
       position.x += stroke.dx;
       position.y += stroke.dy;
     }
@@ -53,20 +65,28 @@ module.exports = class Bullet {
   }
 
   // 線分の長さで考えて先端から ratio の割合だけ切り取ったstrokes
-  partialStrokes(ratio){
+  partialStrokes(ratio) {
     let strokes = [];
-    const strokesWithLength = this.strokes.map(s=>{return {dx: s.dx, dy:s.dy, length: s.dx ** 2 + s.dy ** 2}});
-    const totalLength = strokesWithLength.reduce((iter, s)=>iter + s.length, 0);
+    const strokesWithLength = this.strokes.map((s) => {
+      return { dx: s.dx, dy: s.dy, length: s.dx ** 2 + s.dy ** 2 };
+    });
+    const totalLength = strokesWithLength.reduce(
+      (iter, s) => iter + s.length,
+      0,
+    );
 
     let remainLength = totalLength * ratio;
-    for(let stroke of strokesWithLength){
-      if(stroke.length <= remainLength){
+    for (let stroke of strokesWithLength) {
+      if (stroke.length <= remainLength) {
         strokes.push(stroke);
         remainLength -= stroke.length;
-      }
-      else{
+      } else {
         let remainRatio = remainLength / stroke.length;
-        strokes.push({dx: stroke.dx * remainRatio, dy: stroke.dy * remainRatio, length: stroke.length * remainRatio});
+        strokes.push({
+          dx: stroke.dx * remainRatio,
+          dy: stroke.dy * remainRatio,
+          length: stroke.length * remainRatio,
+        });
         remainLength = 0;
       }
     }

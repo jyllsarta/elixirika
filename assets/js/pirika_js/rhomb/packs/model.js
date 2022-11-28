@@ -10,7 +10,7 @@ module.exports = class Model {
     this.boot();
   }
 
-  boot(){
+  boot() {
     this.masterdata = new Masterdata();
     this.seededRandom = new SeededRandom(-1);
     this.phaseStateMachine = new PhaseStateMachine(this);
@@ -28,12 +28,12 @@ module.exports = class Model {
     this.tp = 0;
     this.tpMax = 0;
     this.tick = 0;
-    this.pointer = {x: 0, y: 0};
+    this.pointer = { x: 0, y: 0 };
     this.hpEnemy = 0;
     this.hpEnemyMax = this.hpEnemy;
   }
 
-  initialize(seed){
+  initialize(seed) {
     this.seededRandom = new SeededRandom(seed);
     this.isGameStarted = false;
     this.isGameOver = false;
@@ -53,23 +53,22 @@ module.exports = class Model {
     this.hpEnemyMax = this.hpEnemy;
   }
 
-  nextPhase(){
+  nextPhase() {
     this.phaseStateMachine.transferToNextPhase(this);
   }
 
-  currentPhaseName(){
+  currentPhaseName() {
     return this.phaseStateMachine.phase.name;
   }
 
-  updateWinState(){
+  updateWinState() {
     const prevIsGameOver = this.isGameOver;
     this.isWin = this.hp > 0 && this.hpEnemy <= 0;
     this.isGameOver = this.hp <= 0 || this.hpEnemy <= 0;
-    if(this.isGameOver && !prevIsGameOver){
-      if(this.isWin){
+    if (this.isGameOver && !prevIsGameOver) {
+      if (this.isWin) {
         this.soundManager.register("win");
-      }
-      else{
+      } else {
         this.soundManager.register("lose");
       }
     }
@@ -77,10 +76,10 @@ module.exports = class Model {
 
   // private
 
-  playerEquipments(){
+  playerEquipments() {
     // プロトは決め打ち
     const ids = [1, 2, 3];
     const equipments = this.masterdata.getBy("equipments", "id", ids);
-    return equipments.map((equipment)=>new Equipment(equipment));
+    return equipments.map((equipment) => new Equipment(equipment));
   }
 };
