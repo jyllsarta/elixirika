@@ -14,7 +14,6 @@
 import Card from './Card.vue';
 import StagedField from './packs/stagedField';
 import Model from './packs/model';
-import Constants from './packs/constants';
 
 export default {
   data() {

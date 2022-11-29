@@ -100,7 +100,6 @@
   </div>
 </template>
 <script>
-import {nextTick} from 'vue';
 import ArrowLogic from './packs/ArrowLogic.js';
 import GameState from './packs/GameState.js';
 import Ball from './Ball.vue';

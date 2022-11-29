@@ -1,4 +1,6 @@
-<template></template>
+<template>
+  <div class="gui_handler"></div>
+</template>
 
 <script>
 import store from './packs/store';
@@ -46,4 +48,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.gui_handler{
+  display: none;
+}
+</style>

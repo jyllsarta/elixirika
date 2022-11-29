@@ -36,7 +36,6 @@ import notes from './notes.vue';
 import back from './back.vue';
 import ui from './ui.vue';
 import DefaultNotePattern from './packs/defaultNotePattern.js';
-import RandaNotePattern from './packs/randaNotePattern.js';
 import Constants from './packs/constants.js';
 import Keyboard from './packs/keyboard.js';
 
@@ -399,6 +398,8 @@ export default {
     sendResult() {
       axios
           .post(location.href, {
+            // jQueryを別途読み込んでいる
+            // eslint-disable-next-line no-undef
             _csrf_token: $('meta[name=csrf-token]').attr('content'),
             username: this.username,
             speed_score: this.speedScore,

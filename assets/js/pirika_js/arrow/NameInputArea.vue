@@ -22,7 +22,9 @@
 </template>
 
 <script>
+import {nextTick} from 'vue';
 import jsSHA from 'jssha';
+
 // こいつがjsじゃないと動かないのでこのファイルだけjsにする
 export default {
   name: 'NameInputArea',
@@ -46,6 +48,7 @@ export default {
         return displayName;
       }
       const target = splitted.slice(1).join('');
+      // eslint-disable-next-line new-cap
       const sha = new jsSHA('SHA-256', 'TEXT');
       sha.update(target);
       const sliced = sha.getHash('B64').slice(0, 6);
@@ -63,7 +66,7 @@ export default {
       this.inputting = true;
       this.$emit('inputStateChanged', true);
       // inputtingをオンにしても次のフレームまで待たないとまだ入力欄は作られない
-      Vue.nextTick(() => {
+      nextTick(() => {
         this.$refs.name_input_box.focus();
       });
     },

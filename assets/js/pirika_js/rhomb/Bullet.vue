@@ -26,7 +26,7 @@ export default {
   },
   props: {
     type: String,
-    markedAt: Number | null,
+    markedAt: [Number, null],
   },
 };
 </script>

@@ -51,10 +51,10 @@ export default {
       }
     },
     onKeyDownSelectHand(keyCode) {
+      const {characterId} = this.controller.model;
+      const {chapterId} = this.controller.model;
       switch (keyCode) {
         case 'r':
-          const {characterId} = this.controller.model;
-          const {chapterId} = this.controller.model;
           this.controller.newGame(characterId, chapterId);
           this.controller.model.soundManager.register('reset');
           this.controller.operate('selectHand', 0);

@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import store from './packs/store';
-
 export default {
   props: {
     label: String,

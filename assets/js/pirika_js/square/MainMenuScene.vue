@@ -237,15 +237,15 @@ export default {
           });
     },
     constructUserStatus(apiResponse) {
-      const {high_score: high_scores, challenges: challenge_records} =
+      const {high_score: highScores, challenges: challengeRecords} =
         apiResponse;
       // chapter_id: score の形にしちゃう
-      const highScoreIdTable = high_scores.reduce((iter, x) => {
+      const highScoreIdTable = highScores.reduce((iter, x) => {
         iter[x.chapter_id] = x.score;
         return iter;
       }, {});
       // chapter_id: [challenge_ids(NOT sorted)] の形にしちゃう
-      const challengeIdTable = challenge_records.reduce((iter, x) => {
+      const challengeIdTable = challengeRecords.reduce((iter, x) => {
         iter[x.chapter_id] = iter[x.chapter_id] ?
           iter[x.chapter_id].concat(x.challenge_id) :
           [x.challenge_id];
@@ -254,7 +254,7 @@ export default {
       return {
         high_score: highScoreIdTable,
         challenges: challengeIdTable,
-        challengeClearCount: challenge_records.length,
+        challengeClearCount: challengeRecords.length,
       };
     },
     backToTitle() {
@@ -280,10 +280,8 @@ export default {
       switch (clearImageId) {
         case 1:
           return this.finalScore() >= 5000;
-          break;
         case 2:
           return this.userStatus.challengeClearCount >= 64;
-          break;
       }
       return false;
     },

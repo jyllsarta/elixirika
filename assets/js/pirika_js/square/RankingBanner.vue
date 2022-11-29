@@ -56,6 +56,7 @@ export default ({
         return displayName;
       }
       const target = splitted.slice(1).join('');
+      // eslint-disable-next-line new-cap
       const sha = new jsSHA('SHA-256', 'TEXT');
       sha.update(target);
       const sliced = sha.getHash('HEX').slice(0, 8);

@@ -22,6 +22,7 @@
 
 <script>
 import jsSHA from 'jssha';
+import {nextTick} from 'vue';
 
 export default {
   data() {
@@ -43,6 +44,7 @@ export default {
         return displayName;
       }
       const target = splitted.slice(1).join('');
+      // eslint-disable-next-line new-cap
       const sha = new jsSHA('SHA-256', 'TEXT');
       sha.update(target);
       const sliced = sha.getHash('HEX').slice(0, 6);
@@ -56,7 +58,7 @@ export default {
     },
     setInputMode() {
       this.inputting = true;
-      Vue.nextTick(() => {
+      nextTick(() => {
         this.$refs.focusTarget.focus();
       });
     },
