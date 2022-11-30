@@ -7,8 +7,7 @@
   "scripts": {
     "deploy": "webpack --mode production",
     "watch": "webpack --mode development --watch",
-    "lint": "eslint --fix --ext .vue js",
-    "pret": "prettier --write js"
+    "lint": "eslint --fix --ext .vue js && prettier --write js"
   },
   "dependencies": {
     "axios": "^0.21.1",
