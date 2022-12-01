@@ -25,7 +25,7 @@ defmodule ElixirikaWeb.SquareController do
     id = String.to_integer(id)
 
     if(delete) do
-      Elixirika.SquareMessage.delete!(id)      
+      Elixirika.SquareMessage.delete!(id)
     else
       Elixirika.SquareMessage.update!(id, response)
     end
@@ -82,10 +82,9 @@ defmodule ElixirikaWeb.SquareController do
       IO.puts("raise PlaylogTooLongError: #{params["seed"]}")
       raise(ElixirikaWeb.PlaylogTooLongError)
     end
-    cmd = ~s(cd /home/jyll/elixirika/assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
-    IO.puts(cmd)
-    IO.inspect(:os.cmd(to_charlist("pwd")))
-    IO.inspect(:os.cmd(to_charlist(cmd)))
+    project_path = System.get_env("PROJECT_PATH")
+    cmd = ~s(cd #{project_path}/assets/js/pirika_js/square/packs; node cli.js '#{log}' #{params["seed"]})
+    :os.cmd(to_charlist(cmd))
     {ret_status, content} = File.read("/tmp/square_result_#{params["seed"]}.json")
 
     if ret_status != :ok do

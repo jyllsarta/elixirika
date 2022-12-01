@@ -63,8 +63,10 @@ defmodule ElixirikaWeb.TileController do
       |> Enum.map(&to_charlist/1)
       |> :string.join(' ')
 
+    project_path = System.get_env("PROJECT_PATH")
+
     sim =
-      :os.cmd('cd /home/jyll/elixirika/lib/ruby/; ruby tile_result_cli.rb ' ++ arg)
+      :os.cmd('cd #{project_path}/lib/ruby/; ruby tile_result_cli.rb ' ++ arg)
       |> Jason.decode!()
 
     score = %Elixirika.TileScore{
