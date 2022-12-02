@@ -4,6 +4,7 @@
       class="flake"
       v-for="index in [0, 1, 2, 3]"
       :class="{ cleared: isCleared(index), completed: isCompleted }"
+      :key="index"
     ></div>
     <div class="number">{{ chapter.index }}</div>
     <div class="flash" ref="flash"></div>

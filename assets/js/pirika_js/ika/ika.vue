@@ -3,7 +3,7 @@
     <div class="main">
       <h1>キャベツを我慢するフグ</h1>
       <div class="words">
-        <div class="word" v-for="i in [0, 1, 2]" @click="stop(i)">
+        <div class="word" v-for="i in [0, 1, 2]" @click="stop(i)" :key="i">
           {{ words[i][wordIndex[i]] }}
         </div>
       </div>
@@ -13,6 +13,7 @@
           v-for="i in [0, 1, 2]"
           @click="stop(i)"
           :class="shuffling[i] ? 'active' : 'stopped'"
+          :key="i"
         >
           STOP
         </div>

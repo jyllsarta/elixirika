@@ -46,7 +46,7 @@
               <div class="text column">内容</div>
               <div class="response column">返信</div>
             </div>
-            <div class="__message" v-for="message in messages">
+            <div class="__message" v-for="(message, index) in messages" :key="index">
               <div class="created_at column">{{ message.created_at }}</div>
               <div class="text column">{{ message.message }}</div>
               <div class="response column">{{ message.response }}</div>

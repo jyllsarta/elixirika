@@ -7,7 +7,7 @@
       <th>HIT</th>
       <th>SPEED</th>
     </tr>
-    <tr class="rank" v-for="rank in ranking">
+    <tr class="rank" v-for="rank in ranking" :key="rank">
       <td class="rank_index">{{ ranking.indexOf(rank) + 1 }}</td>
       <td>{{ rank.username }}</td>
       <td>{{ rank.total_score }}</td>

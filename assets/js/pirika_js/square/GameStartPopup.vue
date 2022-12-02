@@ -7,7 +7,7 @@
           <div class="title">{{ chapter.title }}</div>
           <div class="description">{{ chapter.extra_effect_description }}</div>
           <div class="challenges">
-            <div class="challenge" v-for="(challenge, index) in challenges">
+            <div class="challenge" v-for="(challenge, index) in challenges" :key="challenge.id">
               <div class="icon">◇</div>
               <div class="rank">{{ ["I", "II", "III", "IV"][index] }}</div>
               <div class="description">{{ challenge.description }}</div>

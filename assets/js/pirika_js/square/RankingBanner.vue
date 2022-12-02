@@ -16,7 +16,7 @@
       <div class="content">
         <div class="title">{{ characterName }}</div>
         <div class="body">
-          <div class="rank" v-for="(rank, index) in filledRanking">
+          <div class="rank" v-for="(rank, index) in filledRanking" :key="index">
             <div class="index">{{ index + 1 }}</div>
             <div class="name">{{ fullName(rank.name) }}</div>
             <div class="score">{{ rank.score }}</div>

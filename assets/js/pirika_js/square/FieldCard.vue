@@ -14,6 +14,7 @@
             left: (index + 2.5) * 10 + 'px',
             backgroundColor: `var(--color-${card.suit}1-${characterId})`,
           }"
+          :key="index"
         ></div>
         <div
           class="line_ul"
@@ -23,6 +24,7 @@
             right: (index + 2.5) * 10 + 'px',
             backgroundColor: `var(--color-${card.suit}1-${characterId})`,
           }"
+          :key="index"
         ></div>
       </div>
       <div class="front">

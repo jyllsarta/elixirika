@@ -34,6 +34,7 @@
               class="tp"
               v-for="(i, index) in new Array(model.tpMax)"
               :class="{filled: index &lt; model.tp}"
+              :key="index"
             ></div>
           </div>
         </div>

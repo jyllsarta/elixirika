@@ -4,7 +4,7 @@
       <img src="/images/square/svg/star_palette3.svg" />
     </div>
     <div class="container">
-      <div class="star" v-for="param in params" :class="starClass(param)">
+      <div class="star" v-for="param in params" :class="starClass(param)" :key="param">
         <div
           class="pattern_flash"
           v-if="model.starPalette.isSatisfied(param)"

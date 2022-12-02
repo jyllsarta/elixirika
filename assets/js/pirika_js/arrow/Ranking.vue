@@ -7,7 +7,7 @@
       <th class="cute">TIME</th>
       <th class="cute">DELETE</th>
     </tr>
-    <tr class="rank" v-for="rank in ranking">
+    <tr class="rank" v-for="rank in ranking" :key="rank.username">
       <td class="rank_index cute">{{ ranking.indexOf(rank) + 1 }}</td>
       <td>{{ rank.username }}</td>
       <td class="cute">{{ rank.score }}</td>
