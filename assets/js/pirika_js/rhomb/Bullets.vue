@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import Bullet from './Bullet.vue';
-import Model from './packs/model';
+import Bullet from "./Bullet.vue";
+import Model from "./packs/model";
 
 export default {
   components: {
@@ -39,8 +39,8 @@ export default {
       };
     },
     drawLines() {
-      const {canvas} = this.$refs;
-      const context = canvas?.getContext('2d');
+      const { canvas } = this.$refs;
+      const context = canvas?.getContext("2d");
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.clearRect(0, 0, 1200, 800);
       context.translate(0.5, 0.5);
@@ -50,8 +50,8 @@ export default {
         // TODO(jyllsarta): type === color は偶然の一致なのでマスタ管理にする
         context.strokeStyle = bullet.type;
         context.beginPath();
-        let {x} = bullet;
-        let {y} = bullet;
+        let { x } = bullet;
+        let { y } = bullet;
         context.moveTo(x, y);
         for (const stroke of bullet.strokes) {
           x += stroke.dx;
@@ -68,7 +68,7 @@ export default {
     },
   },
   watch: {
-    'model.turn': function() {
+    "model.turn": function () {
       this.drawLines();
     },
   },

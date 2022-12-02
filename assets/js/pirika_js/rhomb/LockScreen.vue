@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import Controller from './packs/controller';
-import Model from './packs/model';
+import Controller from "./packs/controller";
+import Model from "./packs/model";
 
 export default {
   props: {

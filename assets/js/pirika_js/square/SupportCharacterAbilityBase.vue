@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import SupportCharacterAbilityCharacter1 from './SupportCharacterAbilityCharacter1.vue';
-import SupportCharacterAbilityCharacter2 from './SupportCharacterAbilityCharacter2.vue';
-import SupportCharacterAbilityCharacter3 from './SupportCharacterAbilityCharacter3.vue';
-import SupportCharacterAbilityCharacter4 from './SupportCharacterAbilityCharacter4.vue';
+import SupportCharacterAbilityCharacter1 from "./SupportCharacterAbilityCharacter1.vue";
+import SupportCharacterAbilityCharacter2 from "./SupportCharacterAbilityCharacter2.vue";
+import SupportCharacterAbilityCharacter3 from "./SupportCharacterAbilityCharacter3.vue";
+import SupportCharacterAbilityCharacter4 from "./SupportCharacterAbilityCharacter4.vue";
 
 export default {
   components: {
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     eventsUp(params) {
-      this.$emit('guiEvent', params);
+      this.$emit("guiEvent", params);
     },
   },
 };

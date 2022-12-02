@@ -7,23 +7,23 @@
 </template>
 
 <script>
-import Constants from './packs/constants.js';
+import Constants from "./packs/constants.js";
 
 export default {
-  name: 'lifeGauge',
-  props: ['life'],
+  name: "lifeGauge",
+  props: ["life"],
   computed: {
     lifeLength() {
       return `${(this.life / Constants.maxLife) * 100}%`;
     },
     lifeState() {
       if (this.life >= Constants.safeLine) {
-        return 'max';
+        return "max";
       }
       if (this.life >= Constants.dangerLine) {
-        return 'normal';
+        return "normal";
       }
-      return 'danger';
+      return "danger";
     },
   },
 };

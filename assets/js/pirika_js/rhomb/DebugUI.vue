@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import store from './packs/store';
-import Model from './packs/model';
+import store from "./packs/store";
+import Model from "./packs/model";
 
 export default {
   store,

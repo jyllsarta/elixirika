@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import store from './packs/store';
-import GeneralButton from './GeneralButton.vue';
+import store from "./packs/store";
+import GeneralButton from "./GeneralButton.vue";
 
 export default {
   store,
@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     closeMenu() {
-      this.$emit('close');
+      this.$emit("close");
     },
   },
   computed: {},

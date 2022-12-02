@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import Keyboard from './packs/keyboard';
-import Controller from './packs/controller';
-import store from './packs/store';
+import Keyboard from "./packs/keyboard";
+import Controller from "./packs/controller";
+import store from "./packs/store";
 
 export default {
   store,
@@ -27,75 +27,75 @@ export default {
     },
     gameStatus() {
       if (this.controller.model.stagedField.isStaged()) {
-        return 'staged';
+        return "staged";
       }
       if (this.controller.model.focusingAbilityIndex !== -1) {
-        return 'selectAbility';
+        return "selectAbility";
       }
-      return 'selectHand';
+      return "selectHand";
     },
     triggerKeyboardEvents(keyCode) {
       switch (this.gameStatus()) {
-        case 'staged':
+        case "staged":
           this.onKeyDownStaged(keyCode);
           break;
-        case 'selectHand':
+        case "selectHand":
           this.onKeyDownSelectHand(keyCode);
           break;
-        case 'selectAbility':
+        case "selectAbility":
           this.onKeyDownSelectAbility(keyCode);
           break;
         default:
-          console.warn('no handler mode selected!');
+          console.warn("no handler mode selected!");
           break;
       }
     },
     onKeyDownSelectHand(keyCode) {
-      const {characterId} = this.controller.model;
-      const {chapterId} = this.controller.model;
+      const { characterId } = this.controller.model;
+      const { chapterId } = this.controller.model;
       switch (keyCode) {
-        case 'r':
+        case "r":
           this.controller.newGame(characterId, chapterId);
-          this.controller.model.soundManager.register('reset');
-          this.controller.operate('selectHand', 0);
+          this.controller.model.soundManager.register("reset");
+          this.controller.operate("selectHand", 0);
           break;
-        case 'x':
+        case "x":
           this.proceedGame();
           break;
-        case 'z':
+        case "z":
           this.stageCard();
           break;
-        case 'h':
+        case "h":
           if (this.$store.state.showsKeyboardHelp) {
-            this.$store.commit('closeKeyboardHelp');
-            this.$store.commit('playSound', {key: 'menuClose'});
+            this.$store.commit("closeKeyboardHelp");
+            this.$store.commit("playSound", { key: "menuClose" });
           } else {
-            this.$store.commit('showKeyboardHelp');
-            this.$store.commit('playSound', {key: 'menuOpen'});
+            this.$store.commit("showKeyboardHelp");
+            this.$store.commit("playSound", { key: "menuOpen" });
           }
           break;
-        case '1':
+        case "1":
           this.selectOrIgniteAbility(0);
           break;
-        case '2':
+        case "2":
           this.selectOrIgniteAbility(1);
           break;
-        case '3':
+        case "3":
           this.selectOrIgniteAbility(2);
           break;
-        case '4':
+        case "4":
           this.selectOrIgniteAbility(3);
           break;
-        case 'ArrowUp':
+        case "ArrowUp":
           this.selectOrIgniteAbility(0);
           break;
-        case 'ArrowDown':
+        case "ArrowDown":
           this.selectOrIgniteAbility(0);
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           this.turnRight();
           break;
-        case 'ArrowLeft':
+        case "ArrowLeft":
           this.turnLeft();
           break;
         default:
@@ -105,81 +105,81 @@ export default {
     onKeyDownSelectAbility(keyCode) {
       const currentIndex = this.controller.model.focusingAbilityIndex;
       switch (keyCode) {
-        case '1':
+        case "1":
           this.selectOrIgniteAbility(0);
           break;
-        case '2':
+        case "2":
           this.selectOrIgniteAbility(1);
           break;
-        case '3':
+        case "3":
           this.selectOrIgniteAbility(2);
           break;
-        case '4':
+        case "4":
           this.selectOrIgniteAbility(3);
           break;
-        case 'z':
+        case "z":
           this.selectOrIgniteAbility(currentIndex);
           break;
-        case 'ArrowUp':
+        case "ArrowUp":
           this.selectOrIgniteAbility(currentIndex - 1);
           break;
-        case 'ArrowRight':
-          this.$store.commit('playSound', {key: 'miss'});
-          this.controller.operate('disSelectAbility');
+        case "ArrowRight":
+          this.$store.commit("playSound", { key: "miss" });
+          this.controller.operate("disSelectAbility");
           break;
-        case 'ArrowLeft':
-          this.$store.commit('playSound', {key: 'miss'});
-          this.controller.operate('disSelectAbility');
+        case "ArrowLeft":
+          this.$store.commit("playSound", { key: "miss" });
+          this.controller.operate("disSelectAbility");
           break;
-        case 'ArrowDown':
+        case "ArrowDown":
           this.selectOrIgniteAbility(currentIndex + 1);
           break;
-        case 'Escape':
-          this.$store.commit('playSound', {key: 'miss'});
-          this.controller.operate('disSelectAbility');
+        case "Escape":
+          this.$store.commit("playSound", { key: "miss" });
+          this.controller.operate("disSelectAbility");
           break;
       }
     },
     onKeyDownStaged(keyCode) {
       switch (keyCode) {
-        case 'ArrowRight':
+        case "ArrowRight":
           this.controller.operate(
-              'selectBoard',
-              this.controller.model.selectingBoardIndex + 1,
+            "selectBoard",
+            this.controller.model.selectingBoardIndex + 1,
           );
           break;
-        case 'ArrowLeft':
+        case "ArrowLeft":
           this.controller.operate(
-              'selectBoard',
-              this.controller.model.selectingBoardIndex - 1,
+            "selectBoard",
+            this.controller.model.selectingBoardIndex - 1,
           );
           if (this.controller.model.selectingBoardIndex === -1) {
             this.controller.prepareSendToAbility();
           }
           break;
-        case 'ArrowDown':
-          this.$store.commit('playSound', {key: 'miss'});
-          this.controller.operate('unstageStagedCard');
+        case "ArrowDown":
+          this.$store.commit("playSound", { key: "miss" });
+          this.controller.operate("unstageStagedCard");
           break;
-        case 'Escape':
-          this.$store.commit('playSound', {key: 'miss'});
-          this.controller.operate('unstageStagedCard');
+        case "Escape":
+          this.$store.commit("playSound", { key: "miss" });
+          this.controller.operate("unstageStagedCard");
           break;
       }
     },
     triggerKeyboardEventsKeyUp(keyCode) {
       switch (this.gameStatus()) {
-        case 'staged':
+        case "staged":
           this.onKeyUpStaged(keyCode);
           break;
-        case 'selectHand':
+        case "selectHand":
           this.onKeyUpSelectHand(keyCode);
           break;
-        case 'selectAbility':
+        case "selectAbility":
           this.onKeyUpSelectHand(keyCode);
           break;
         default:
-          console.warn('no handler mode selected!');
+          console.warn("no handler mode selected!");
           break;
       }
     },
@@ -197,7 +197,7 @@ export default {
     },
     onKeyUpStaged(keyCode) {
       switch (keyCode) {
-        case 'z':
+        case "z":
           this.sendStagedCard();
           break;
         default:
@@ -207,12 +207,12 @@ export default {
     selectOrSend(idx) {
       if (this.controller.model.hand.field.cards[idx]?.isSelected()) {
         this.controller.operate(
-            'sendHandToBoard',
-            idx,
-            this.controller.model.selectingBoardIndex,
+          "sendHandToBoard",
+          idx,
+          this.controller.model.selectingBoardIndex,
         );
       } else {
-        this.controller.operate('selectHand', idx);
+        this.controller.operate("selectHand", idx);
       }
     },
     turnRight() {
@@ -221,7 +221,7 @@ export default {
       if (cardIndex === lastHandIndex) {
         return;
       }
-      this.$store.commit('playSound', {key: 'hover'});
+      this.$store.commit("playSound", { key: "hover" });
       if (cardIndex === -1) {
         this.selectOrSend(lastHandIndex);
       } else {
@@ -233,7 +233,7 @@ export default {
       if (cardIndex === 0) {
         return;
       }
-      this.$store.commit('playSound', {key: 'hover'});
+      this.$store.commit("playSound", { key: "hover" });
       if (cardIndex === -1) {
         this.selectOrSend(0);
       } else {
@@ -250,23 +250,23 @@ export default {
       if (handIndex === -1) {
         return;
       }
-      this.$store.commit('playSound', {key: 'hover'});
-      this.controller.operate('sendHandToStagedField', handIndex);
+      this.$store.commit("playSound", { key: "hover" });
+      this.controller.operate("sendHandToStagedField", handIndex);
     },
     sendStagedCard() {
       if (this.controller.model.selectingBoardIndex === -1) {
-        this.controller.operate('unstageStagedCard');
+        this.controller.operate("unstageStagedCard");
         const handIndex = this.currentCardIndex();
-        this.controller.operate('sendHandToEmptyPocketAbility', handIndex);
+        this.controller.operate("sendHandToEmptyPocketAbility", handIndex);
       } else {
         this.controller.operate(
-            'sendStagedCardToBoard',
-            this.controller.model.selectingBoardIndex,
+          "sendStagedCardToBoard",
+          this.controller.model.selectingBoardIndex,
         );
       }
       if (
         this.controller.model.hand.field.cards.every(
-            (card) => !card.isSelected(),
+          (card) => !card.isSelected(),
         )
       ) {
         const handCount = this.controller.model.hand.field.cards.length;
@@ -282,20 +282,20 @@ export default {
         return;
       }
       if (this.controller.model.focusingAbilityIndex === index) {
-        this.controller.operate('igniteSupportAbility', {index});
-        this.controller.operate('disSelectAbility');
+        this.controller.operate("igniteSupportAbility", { index });
+        this.controller.operate("disSelectAbility");
       } else {
-        this.controller.operate('selectAbility', index);
-        this.controller.operate('describeSupportAbility', {index});
-        this.$store.commit('playSound', {key: 'hover'});
+        this.controller.operate("selectAbility", index);
+        this.controller.operate("describeSupportAbility", { index });
+        this.$store.commit("playSound", { key: "hover" });
       }
     },
     proceedGame() {
       if (this.controller.model.deck.field.cards.length === 0) {
-        this.controller.operate('gracefullyStalemate');
+        this.controller.operate("gracefullyStalemate");
       } else {
-        this.controller.operate('fillDraw');
-        this.controller.operate('selectHand', 0);
+        this.controller.operate("fillDraw");
+        this.controller.operate("selectHand", 0);
       }
     },
   },

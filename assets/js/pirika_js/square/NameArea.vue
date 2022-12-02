@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import jsSHA from 'jssha';
-import {nextTick} from 'vue';
+import jsSHA from "jssha";
+import { nextTick } from "vue";
 
 export default {
   data() {
     return {
-      rawName: '',
+      rawName: "",
       inputting: false,
     };
   },
@@ -38,16 +38,16 @@ export default {
   },
   computed: {
     fullName() {
-      const splitted = this.rawName.replace(/📛/g, '').split('#');
+      const splitted = this.rawName.replace(/📛/g, "").split("#");
       const displayName = splitted[0];
       if (splitted.length === 1) {
         return displayName;
       }
-      const target = splitted.slice(1).join('');
+      const target = splitted.slice(1).join("");
       // eslint-disable-next-line new-cap
-      const sha = new jsSHA('SHA-256', 'TEXT');
+      const sha = new jsSHA("SHA-256", "TEXT");
       sha.update(target);
-      const sliced = sha.getHash('HEX').slice(0, 6);
+      const sliced = sha.getHash("HEX").slice(0, 6);
       return `${displayName}📛${sliced}`;
     },
   },

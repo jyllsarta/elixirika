@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import gsap from 'gsap';
-import store from './packs/store';
+import gsap from "gsap";
+import store from "./packs/store";
 
 export default {
   store,
@@ -25,22 +25,22 @@ export default {
   },
   methods: {
     async onClick() {
-      this.$store.commit('playSound', {key: 'ok'});
+      this.$store.commit("playSound", { key: "ok" });
       gsap.fromTo(
-          this.$refs.flash,
-          {
-            scale: 0,
-            opacity: 0.5,
-          },
-          {
-            duration: 1,
-            scale: 2,
-            opacity: 0,
-            ease: 'expo.out',
-          },
+        this.$refs.flash,
+        {
+          scale: 0,
+          opacity: 0.5,
+        },
+        {
+          duration: 1,
+          scale: 2,
+          opacity: 0,
+          ease: "expo.out",
+        },
       );
       await this.$delay(40);
-      this.$emit('selected', {
+      this.$emit("selected", {
         chapterId: this.chapter.id,
         characterId: this.character.id,
       });
@@ -50,7 +50,7 @@ export default {
       return this.challengeClearState.some((x) => x === challengeId);
     },
     onHover() {
-      this.$store.commit('playSound', {key: 'hover'});
+      this.$store.commit("playSound", { key: "hover" });
     },
     $delay(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms));
@@ -59,7 +59,7 @@ export default {
   computed: {
     isCompleted() {
       return this.chapter.challenge_ids.every(
-          (x) => this.challengeClearState.indexOf(x) !== -1,
+        (x) => this.challengeClearState.indexOf(x) !== -1,
       );
     },
   },

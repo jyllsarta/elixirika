@@ -11,7 +11,7 @@ export default {
   },
   methods: {
     proceed() {
-      this.$emit('loadScene', {sceneName: 'inGame'});
+      this.$emit("loadScene", { sceneName: "inGame" });
     },
   },
   mounted() {},

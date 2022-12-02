@@ -8,20 +8,20 @@
 
 <script>
 export default {
-  name: 'note',
-  props: ['note', 'position', 'index'],
+  name: "note",
+  props: ["note", "position", "index"],
   computed: {
     active() {
       return (this.note.note & this.position) > 0;
     },
     noteBackground() {
       if (this.active) {
-        return this.note.bad ? 'bad' : `color_${this.note.colorId}`;
+        return this.note.bad ? "bad" : `color_${this.note.colorId}`;
       }
       if (this.note.heal) {
-        return 'heal';
+        return "heal";
       }
-      return '';
+      return "";
     },
     opacity() {
       if (!this.active && this.note.heal) {

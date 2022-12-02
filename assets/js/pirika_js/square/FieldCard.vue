@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import Card from './packs/card';
+import Card from "./packs/card";
 
 export default {
   props: {
@@ -46,19 +46,19 @@ export default {
   },
   computed: {
     last() {
-      return this.isLast ? ' last' : '';
+      return this.isLast ? " last" : "";
     },
     compressed() {
-      return this.isCompressed ? ' compressed' : '';
+      return this.isCompressed ? " compressed" : "";
     },
     rightLineCount() {
-      if (this.card.category !== 'normal') {
+      if (this.card.category !== "normal") {
         return 8;
       }
       return Math.ceil(this.card.number / 2);
     },
     leftLineCount() {
-      if (this.card.category !== 'normal') {
+      if (this.card.category !== "normal") {
         return 8;
       }
       return Math.floor(this.card.number / 2);

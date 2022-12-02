@@ -19,8 +19,8 @@
 
 <script>
 export default {
-  name: 'Ball',
-  props: ['ball', 'constants'],
+  name: "Ball",
+  props: ["ball", "constants"],
 };
 </script>
 

@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: 'sparkList',
-  props: ['sparks'],
+  name: "sparkList",
+  props: ["sparks"],
 };
 </script>
 

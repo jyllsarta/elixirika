@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import FieldCard from './FieldCard.vue';
-import Field from './packs/field';
+import FieldCard from "./FieldCard.vue";
+import Field from "./packs/field";
 
 export default {
   props: {
@@ -40,11 +40,11 @@ export default {
     },
     dragover(e) {
       e.preventDefault();
-      e.dataTransfer.dropEffect = 'copy';
+      e.dataTransfer.dropEffect = "copy";
       this.selectBoard(this.fieldIndex);
     },
     dragleave(e) {
-      this.$emit('guiEvent', {type: 'selectBoard', index: -1});
+      this.$emit("guiEvent", { type: "selectBoard", index: -1 });
     },
     drop(e) {
       e.preventDefault();
@@ -52,14 +52,14 @@ export default {
         return;
       }
       for (const item of e.dataTransfer.items) {
-        const {kind, type} = item;
-        if (kind === 'file') {
+        const { kind, type } = item;
+        if (kind === "file") {
           continue;
         }
-        if (type === 'text/plain' && kind === 'string') {
+        if (type === "text/plain" && kind === "string") {
           const cardId = e.dataTransfer.getData(type);
-          this.$emit('guiEvent', {
-            type: 'sendCard',
+          this.$emit("guiEvent", {
+            type: "sendCard",
             fieldIndex: this.fieldIndex,
             cardId,
           });
@@ -67,7 +67,7 @@ export default {
       }
     },
     selectBoard(index) {
-      this.$emit('guiEvent', {type: 'selectBoard', index});
+      this.$emit("guiEvent", { type: "selectBoard", index });
     },
   },
   computed: {

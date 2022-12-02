@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import store from './packs/store';
+import store from "./packs/store";
 
 export default {
   store,
@@ -28,16 +28,16 @@ export default {
   },
   computed: {
     bestChapterIndex() {
-      return this.bestChapter?.index || '-';
+      return this.bestChapter?.index || "-";
     },
   },
   methods: {
     onClick() {
-      this.$store.commit('playSound', {key: 'ok'});
-      this.$emit('selected', {characterId: this.character.id});
+      this.$store.commit("playSound", { key: "ok" });
+      this.$emit("selected", { characterId: this.character.id });
     },
     onHover() {
-      this.$store.commit('playSound', {key: 'hover'});
+      this.$store.commit("playSound", { key: "hover" });
     },
   },
 };

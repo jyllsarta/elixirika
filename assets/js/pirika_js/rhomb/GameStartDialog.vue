@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import store from './packs/store';
-import Model from './packs/model';
+import store from "./packs/store";
+import Model from "./packs/model";
 
 export default {
   store,
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      messages: ['ゲームを開始します', 'いくぞー！'],
+      messages: ["ゲームを開始します", "いくぞー！"],
     };
   },
   methods: {
@@ -25,12 +25,12 @@ export default {
       if (this.model.phaseStateMachine.phase.tick > 0) {
         return;
       }
-      this.$store.commit('guiEvent', {subject: 'next'});
-      this.$store.commit('playSound', {key: 'ok'});
-      this.$store.commit('playBgm', 'bgm1');
+      this.$store.commit("guiEvent", { subject: "next" });
+      this.$store.commit("playSound", { key: "ok" });
+      this.$store.commit("playBgm", "bgm1");
       setTimeout(() => {
-        this.$store.commit('guiEvent', {subject: 'next'});
-        this.$store.commit('playSound', {key: 'game_start'});
+        this.$store.commit("guiEvent", { subject: "next" });
+        this.$store.commit("playSound", { key: "game_start" });
       }, 500);
     },
   },

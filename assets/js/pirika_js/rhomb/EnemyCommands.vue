@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import Bullet from './Bullet.vue';
-import Model from './packs/model';
+import Bullet from "./Bullet.vue";
+import Model from "./packs/model";
 
 export default {
   components: {
@@ -33,15 +33,15 @@ export default {
   computed: {
     turnsWithBullets() {
       const turns = this.model.masterdata
-          .getAll('turns')
-          .sort((turn) => turn.turn);
+        .getAll("turns")
+        .sort((turn) => turn.turn);
       // この関連を引っ張ってくる処理はマスターデータ構築時点でやっておくべきかも？
       const withBullets = turns.map((turn) =>
         Object.assign(turn, {
           bullets: this.model.masterdata.getBy(
-              'bullets',
-              'id',
-              turn.bullet_ids,
+            "bullets",
+            "id",
+            turn.bullet_ids,
           ),
         }),
       );

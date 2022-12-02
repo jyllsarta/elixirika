@@ -35,23 +35,23 @@
 </template>
 
 <script>
-import Model from './packs/model';
-import Controller from './packs/controller';
-import store from './packs/store';
-import Bullets from './Bullets.vue';
-import DebugUI from './DebugUI.vue';
-import DamageNumber from './DamageNumber.vue';
-import EnemyCommands from './EnemyCommands.vue';
-import EnemyImage from './EnemyImage.vue';
-import EnemyStats from './EnemyStats.vue';
-import GameEndDialog from './GameEndDialog.vue';
-import GameStartDialog from './GameStartDialog.vue';
-import GUIHandler from './GUIHandler.vue';
-import InGameSoundManager from './InGameSoundManager.vue';
-import LockScreen from './LockScreen.vue';
-import PlayerImage from './PlayerImage.vue';
-import PlayerUI from './PlayerUI.vue';
-import Pointer from './Pointer.vue';
+import Model from "./packs/model";
+import Controller from "./packs/controller";
+import store from "./packs/store";
+import Bullets from "./Bullets.vue";
+import DebugUI from "./DebugUI.vue";
+import DamageNumber from "./DamageNumber.vue";
+import EnemyCommands from "./EnemyCommands.vue";
+import EnemyImage from "./EnemyImage.vue";
+import EnemyStats from "./EnemyStats.vue";
+import GameEndDialog from "./GameEndDialog.vue";
+import GameStartDialog from "./GameStartDialog.vue";
+import GUIHandler from "./GUIHandler.vue";
+import InGameSoundManager from "./InGameSoundManager.vue";
+import LockScreen from "./LockScreen.vue";
+import PlayerImage from "./PlayerImage.vue";
+import PlayerUI from "./PlayerUI.vue";
+import Pointer from "./Pointer.vue";
 
 export default {
   store,
@@ -79,10 +79,10 @@ export default {
   },
   methods: {
     proceed() {
-      this.$emit('loadScene', {sceneName: 'title'});
+      this.$emit("loadScene", { sceneName: "title" });
     },
     backToMenu() {
-      this.$emit('loadScene', {sceneName: 'mainMenu'});
+      this.$emit("loadScene", { sceneName: "mainMenu" });
     },
   },
   computed: {

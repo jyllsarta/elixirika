@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Model from './packs/model';
+import Model from "./packs/model";
 
 export default {
   props: {

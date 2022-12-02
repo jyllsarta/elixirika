@@ -4,7 +4,12 @@
       <img src="/images/square/svg/star_palette3.svg" />
     </div>
     <div class="container">
-      <div class="star" v-for="param in params" :class="starClass(param)" :key="param">
+      <div
+        class="star"
+        v-for="param in params"
+        :class="starClass(param)"
+        :key="param"
+      >
         <div
           class="pattern_flash"
           v-if="model.starPalette.isSatisfied(param)"
@@ -25,8 +30,8 @@
 </template>
 
 <script>
-import Model from './packs/model';
-import store from './packs/store';
+import Model from "./packs/model";
+import store from "./packs/store";
 
 export default {
   store,
@@ -41,8 +46,8 @@ export default {
   },
   mounted() {
     this.params = this.model.character.getCallback(
-        'starPaletteParameter',
-        this.model.chapter.index,
+      "starPaletteParameter",
+      this.model.chapter.index,
     )()?.kinds;
   },
   methods: {
@@ -66,17 +71,17 @@ export default {
     },
     starClass(starPaletteParam) {
       const satisfiedClass = this.model.starPalette.isSatisfied(
-          starPaletteParam,
-      ) ?
-        'enabled' :
-        'disabled';
+        starPaletteParam,
+      )
+        ? "enabled"
+        : "disabled";
       const expectedClass = this.model.starPalette.willBeSatisfiedWith(
-          starPaletteParam,
-          this.expectedCardLength(),
-      ) ?
-        'will_be' :
-        '';
-      return [satisfiedClass, expectedClass].join(' ');
+        starPaletteParam,
+        this.expectedCardLength(),
+      )
+        ? "will_be"
+        : "";
+      return [satisfiedClass, expectedClass].join(" ");
     },
   },
   computed: {
@@ -90,15 +95,15 @@ export default {
     },
   },
   watch: {
-    'model.starPalette.fields.length': function(after, before) {
+    "model.starPalette.fields.length": function (after, before) {
       const afterProgress = this.currentProgress;
       if (afterProgress > this.currentProgressCache) {
-        this.$store.commit('playSound', {key: 'special1'});
+        this.$store.commit("playSound", { key: "special1" });
       } else if (
         afterProgress === this.currentProgressCache &&
         after > before
       ) {
-        this.$store.commit('playSound', {key: 'special3'});
+        this.$store.commit("playSound", { key: "special3" });
       }
       this.currentProgressCache = afterProgress;
     },

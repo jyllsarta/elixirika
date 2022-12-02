@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import SupportCharacterAbilityButton from './SupportCharacterAbilityButton.vue';
-import NumeratableNumber from './NumeratableNumber.vue';
+import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue";
+import NumeratableNumber from "./NumeratableNumber.vue";
 
 export default {
   data() {
@@ -63,9 +63,9 @@ export default {
         this.character.uniqueParameters.mp >=
         this.character.uniqueParameters.maxMp
       ) {
-        return 'MAX!';
+        return "MAX!";
       }
-      return '';
+      return "";
     },
   },
   methods: {
@@ -73,7 +73,7 @@ export default {
       return this.model.focusingAbilityIndex === index;
     },
     isSmall(index) {
-      const {length} = this.character.uniqueParameters.abilities;
+      const { length } = this.character.uniqueParameters.abilities;
       if (length <= 4) {
         return false;
       }

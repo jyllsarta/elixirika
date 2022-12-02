@@ -28,29 +28,29 @@
 </template>
 
 <script>
-import note from './note.vue';
+import note from "./note.vue";
 
 export default {
-  name: 'notes',
+  name: "notes",
   components: {
     note,
   },
   data() {
     return {};
   },
-  props: ['notes'],
+  props: ["notes"],
   created() {},
   computed: {},
   methods: {
     // noteをコンポーネントに切り出してcomputedにねじこみたい
     noteBackground(note, position) {
       if ((note.note & position) > 0) {
-        return note.bad ? 'bad' : `color_${note.colorId}`;
+        return note.bad ? "bad" : `color_${note.colorId}`;
       }
       if (note.heal) {
-        return 'heal';
+        return "heal";
       }
-      return '';
+      return "";
     },
   },
 };

@@ -110,14 +110,14 @@
 </template>
 
 <script>
-import Constants from './packs/constants.js';
-import volume from './volume.vue';
-import result from './result.vue';
-import ranking from './ranking.vue';
-import lifeGauge from './lifeGauge.vue';
-import minusList from './minusList.vue';
-import sparkList from './sparkList.vue';
-import nameInputArea from './nameInputArea.vue';
+import Constants from "./packs/constants.js";
+import volume from "./volume.vue";
+import result from "./result.vue";
+import ranking from "./ranking.vue";
+import lifeGauge from "./lifeGauge.vue";
+import minusList from "./minusList.vue";
+import sparkList from "./sparkList.vue";
+import nameInputArea from "./nameInputArea.vue";
 
 export default {
   components: {
@@ -134,20 +134,20 @@ export default {
       loadCompleted: false,
     };
   },
-  name: 'ui',
+  name: "ui",
   props: [
-    'gameState',
-    'life',
-    'score',
-    'volume',
-    'minuses',
-    'sparks',
-    'speedScore',
-    'totalScore',
-    'highScore',
-    'isHighScoreUpdated',
-    'showingRanking',
-    'ranking',
+    "gameState",
+    "life",
+    "score",
+    "volume",
+    "minuses",
+    "sparks",
+    "speedScore",
+    "totalScore",
+    "highScore",
+    "isHighScoreUpdated",
+    "showingRanking",
+    "ranking",
   ],
   mounted() {
     this.loadCompleted = true;
@@ -169,17 +169,17 @@ export default {
   methods: {
     tweet() {
       const tweetContent = encodeURI(this.tweetingMessage);
-      const url = encodeURI('http://jyllsarta.net/zxcvs');
+      const url = encodeURI("http://jyllsarta.net/zxcvs");
       const fullUrl = `https://twitter.com/intent/tweet?url=${url}&text=${tweetContent}`;
       window.open(fullUrl);
     },
     setVolume(v) {
       // 最上位のzxcvにvolumeをリレーする
-      this.$emit('setVolume', v);
+      this.$emit("setVolume", v);
     },
     setName(n) {
       // 最上位のzxcvにnameをリレーする
-      this.$emit('setName', n);
+      this.$emit("setName", n);
     },
   },
 };

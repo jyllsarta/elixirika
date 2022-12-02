@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: 'back',
-  props: ['notes', 'initialNoteCount'],
+  name: "back",
+  props: ["notes", "initialNoteCount"],
   computed: {
     noteBackground() {
       return `b_color_${

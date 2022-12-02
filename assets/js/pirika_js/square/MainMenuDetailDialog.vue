@@ -78,10 +78,10 @@
 </template>
 
 <script>
-import ClearStateTile from './ClearStateTile.vue';
-import ChallengeText from './ChallengeText.vue';
-import GeneralButton from './GeneralButton.vue';
-import store from './packs/store';
+import ClearStateTile from "./ClearStateTile.vue";
+import ChallengeText from "./ChallengeText.vue";
+import GeneralButton from "./GeneralButton.vue";
+import store from "./packs/store";
 
 export default {
   store,
@@ -111,12 +111,12 @@ export default {
       return this.challengeClearState.some((x) => x === challengeId);
     },
     close() {
-      this.$emit('cancel');
-      this.$store.commit('playSound', {key: 'miss'});
+      this.$emit("cancel");
+      this.$store.commit("playSound", { key: "miss" });
     },
     showPlayGuide() {
-      this.$store.commit('showPlayGuide', this.character.id);
-      this.$store.commit('playSound', {key: 'menuOpen'});
+      this.$store.commit("showPlayGuide", this.character.id);
+      this.$store.commit("playSound", { key: "menuOpen" });
     },
   },
 };

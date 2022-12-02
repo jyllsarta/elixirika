@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import Model from './packs/model';
-import StarPaletteCharacter1 from './StarPaletteCharacter1.vue';
-import StarPaletteCharacter2 from './StarPaletteCharacter2.vue';
-import StarPaletteCharacter3 from './StarPaletteCharacter3.vue';
-import StarPaletteCharacter4 from './StarPaletteCharacter4.vue';
+import Model from "./packs/model";
+import StarPaletteCharacter1 from "./StarPaletteCharacter1.vue";
+import StarPaletteCharacter2 from "./StarPaletteCharacter2.vue";
+import StarPaletteCharacter3 from "./StarPaletteCharacter3.vue";
+import StarPaletteCharacter4 from "./StarPaletteCharacter4.vue";
 
 export default {
   props: {

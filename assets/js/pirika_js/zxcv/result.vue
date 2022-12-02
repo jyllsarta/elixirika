@@ -24,8 +24,8 @@
 
 <script>
 export default {
-  name: 'result',
-  props: ['score', 'speedScore', 'totalScore', 'isHighScoreUpdated'],
+  name: "result",
+  props: ["score", "speedScore", "totalScore", "isHighScoreUpdated"],
 };
 </script>
 

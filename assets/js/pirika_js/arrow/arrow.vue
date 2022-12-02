@@ -100,17 +100,17 @@
   </div>
 </template>
 <script>
-import ArrowLogic from './packs/ArrowLogic.js';
-import GameState from './packs/GameState.js';
-import Ball from './Ball.vue';
-import Pointer from './Pointer.vue';
-import GameStartButton from './GameStartButton.vue';
-import ResetButton from './ResetButton.vue';
-import Constants from './packs/Constants.js';
-import Timer from './packs/Timer.js';
-import NameInputArea from './NameInputArea.vue';
-import RemoveScore from './RemoveScore.vue';
-import Ranking from './Ranking.vue';
+import ArrowLogic from "./packs/ArrowLogic.js";
+import GameState from "./packs/GameState.js";
+import Ball from "./Ball.vue";
+import Pointer from "./Pointer.vue";
+import GameStartButton from "./GameStartButton.vue";
+import ResetButton from "./ResetButton.vue";
+import Constants from "./packs/Constants.js";
+import Timer from "./packs/Timer.js";
+import NameInputArea from "./NameInputArea.vue";
+import RemoveScore from "./RemoveScore.vue";
+import Ranking from "./Ranking.vue";
 
 export default {
   components: {
@@ -146,8 +146,8 @@ export default {
       const e = this.latestMouseMoveEvent;
       if (e !== this.prevFrameMouseMoveEvent) {
         this.logic.setPointerPosition(
-            e.offsetX / Constants.gameWindowPixelSizeX,
-            e.offsetY / Constants.gameWindowPixelSizeY,
+          e.offsetX / Constants.gameWindowPixelSizeX,
+          e.offsetY / Constants.gameWindowPixelSizeY,
         );
         this.logic.onMoved();
         this.prevFrameMouseMoveEvent = e;
@@ -182,12 +182,12 @@ export default {
     },
     showRanking() {
       // ロジックのサウンドマネージャに直接命令するのはだいぶ横着なので良くない...
-      this.logic.soundManager.play('discharge_available');
+      this.logic.soundManager.play("discharge_available");
       this.logic.fetchRanking();
       this.showingRanking = true;
     },
     hideRanking() {
-      this.logic.soundManager.play('phew');
+      this.logic.soundManager.play("phew");
       this.showingRanking = false;
     },
   },

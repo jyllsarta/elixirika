@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import Card from './Card.vue';
-import Hand from './packs/hand';
-import Model from './packs/model';
-import store from './packs/store.js';
+import Card from "./Card.vue";
+import Hand from "./packs/hand";
+import Model from "./packs/model";
+import store from "./packs/store.js";
 
 export default {
   props: {
@@ -53,17 +53,17 @@ export default {
   },
   methods: {
     eventsUp(params) {
-      this.$emit('guiEvent', params);
+      this.$emit("guiEvent", params);
     },
     react() {
-      const {actualCards} = this;
+      const { actualCards } = this;
       // なくなったカードを消す
       this.cards = this.cards.filter(
-          (card) => actualCards.findIndex((a) => a.id === card.id) !== -1,
+        (card) => actualCards.findIndex((a) => a.id === card.id) !== -1,
       );
       // 追加されたカードがあれば一つ足す
       const addedCardIndex = actualCards.findIndex(
-          (a) => this.cards.findIndex((card) => card.id === a.id) === -1,
+        (a) => this.cards.findIndex((card) => card.id === a.id) === -1,
       );
 
       if (addedCardIndex !== -1) {
@@ -75,7 +75,7 @@ export default {
       }
     },
     onCardHover(card) {
-      this.$emit('guiEvent', {type: 'selectCard', card});
+      this.$emit("guiEvent", { type: "selectCard", card });
     },
   },
 };

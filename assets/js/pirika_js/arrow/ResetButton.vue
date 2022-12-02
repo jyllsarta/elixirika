@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: 'ResetButton',
+  name: "ResetButton",
 };
 </script>
 

@@ -48,8 +48,8 @@
 </template>
 
 <script>
-import Model from './packs/model';
-import store from './packs/store';
+import Model from "./packs/model";
+import store from "./packs/store";
 
 export default {
   store,
@@ -61,8 +61,8 @@ export default {
   },
   methods: {
     close() {
-      this.$store.commit('closeKeyboardHelp');
-      this.$store.commit('playSound', {key: 'menuClose'});
+      this.$store.commit("closeKeyboardHelp");
+      this.$store.commit("playSound", { key: "menuClose" });
     },
   },
 };

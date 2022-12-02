@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import SupportCharacterAbilityButton from './SupportCharacterAbilityButton.vue';
+import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue";
 
 export default {
   data() {
@@ -44,8 +44,8 @@ export default {
   computed: {
     isAbilityColded() {
       const callback = this.character.getCallback(
-          'isAbilityColded',
-          this.model.chapter.index,
+        "isAbilityColded",
+        this.model.chapter.index,
       );
       return callback && callback(this.character, this.model);
     },
@@ -55,7 +55,7 @@ export default {
       return this.model.focusingAbilityIndex === index;
     },
     isSmall(index) {
-      const {length} = this.character.uniqueParameters.abilities;
+      const { length } = this.character.uniqueParameters.abilities;
       if (length <= 4) {
         return false;
       }

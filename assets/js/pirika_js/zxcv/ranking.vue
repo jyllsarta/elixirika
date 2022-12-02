@@ -22,8 +22,8 @@ export default {
   data() {
     return {};
   },
-  name: 'ranking',
-  props: ['ranking'],
+  name: "ranking",
+  props: ["ranking"],
   mounted() {},
   computed: {},
   methods: {},

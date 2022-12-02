@@ -44,10 +44,10 @@
 </template>
 
 <script>
-import Model from './packs/model';
-import StackedIconField from './StackedIconField.vue';
-import GeneralButton from './GeneralButton.vue';
-import store from './packs/store';
+import Model from "./packs/model";
+import StackedIconField from "./StackedIconField.vue";
+import GeneralButton from "./GeneralButton.vue";
+import store from "./packs/store";
 
 export default {
   store,
@@ -70,7 +70,7 @@ export default {
       }
       this.drawing = true;
       setTimeout(() => (this.drawing = false), 500);
-      this.$emit('guiEvent', {type: 'fillDraw'});
+      this.$emit("guiEvent", { type: "fillDraw" });
     },
     gracefullyStalemate() {
       if (this.drawing) {
@@ -78,7 +78,7 @@ export default {
       }
       this.drawing = true;
       setTimeout(() => (this.drawing = false), 500);
-      this.$emit('guiEvent', {type: 'gracefullyStalemate'});
+      this.$emit("guiEvent", { type: "gracefullyStalemate" });
     },
   },
 };

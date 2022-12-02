@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import gsap from 'gsap';
-import Model from './packs/model';
-import ChallengeText from './ChallengeText.vue';
-import NumeratableNumber from './NumeratableNumber.vue';
+import gsap from "gsap";
+import Model from "./packs/model";
+import ChallengeText from "./ChallengeText.vue";
+import NumeratableNumber from "./NumeratableNumber.vue";
 
 export default {
   props: {
@@ -54,17 +54,17 @@ export default {
   computed: {
     challenges() {
       return this.model.challenge.getByChallengeIds(
-          this.model.chapter.challenge_ids,
+        this.model.chapter.challenge_ids,
       );
     },
     progress() {
-      const scoreChallenge = this.challenges.find((c) => c.type == 'point');
+      const scoreChallenge = this.challenges.find((c) => c.type == "point");
       if (scoreChallenge) {
         const progress =
           Math.min(1, this.model.score / scoreChallenge.value1) * 100;
         return `${progress}%`;
       }
-      return '100%';
+      return "100%";
     },
   },
   methods: {
@@ -73,13 +73,13 @@ export default {
     },
     animateDelta() {
       const tl = gsap.timeline();
-      tl.to(this.$refs.delta, {y: 10, opacity: 0, duration: 0.0})
-          .to(this.$refs.delta, {y: 0, opacity: 1, duration: 0.4})
-          .to(this.$refs.delta, {y: -10, opacity: 0, duration: 0.4});
+      tl.to(this.$refs.delta, { y: 10, opacity: 0, duration: 0.0 })
+        .to(this.$refs.delta, { y: 0, opacity: 1, duration: 0.4 })
+        .to(this.$refs.delta, { y: -10, opacity: 0, duration: 0.4 });
     },
   },
   watch: {
-    'model.score': function(after, before) {
+    "model.score": function (after, before) {
       this.delta = after - before;
       this.animateDelta();
     },

@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import TitleScene from './TitleScene.vue';
-import MainMenuScene from './MainMenuScene.vue';
-import InGameScene from './InGameScene.vue';
-import GlobalSoundManager from './GlobalSoundManager.vue';
-import store from './packs/store';
+import TitleScene from "./TitleScene.vue";
+import MainMenuScene from "./MainMenuScene.vue";
+import InGameScene from "./InGameScene.vue";
+import GlobalSoundManager from "./GlobalSoundManager.vue";
+import store from "./packs/store";
 
 export default {
   components: {
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     loadScene(parameter) {
-      const {sceneName, params} = parameter;
+      const { sceneName, params } = parameter;
       this.sceneName = sceneName;
       this.sceneParameter[sceneName] = params || {};
     },
@@ -50,7 +50,7 @@ export default {
   store,
   computed: {},
   data() {
-    const defaultScene = 'title';
+    const defaultScene = "title";
 
     return {
       sceneName: defaultScene,

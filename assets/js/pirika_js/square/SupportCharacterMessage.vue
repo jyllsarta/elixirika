@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import gsap from 'gsap';
-import Model from './packs/model';
+import gsap from "gsap";
+import Model from "./packs/model";
 
 export default {
   props: {
@@ -34,22 +34,22 @@ export default {
     },
   },
   watch: {
-    'model.messageManager.id': function() {
+    "model.messageManager.id": function () {
       this.receiveAnimation();
     },
   },
   methods: {
     receiveAnimation() {
       gsap.fromTo(
-          this.$refs.message,
-          {
-            scale: 1.1,
-          },
-          {
-            duration: 0.2,
-            scale: 1,
-            ease: 'expo.out',
-          },
+        this.$refs.message,
+        {
+          scale: 1.1,
+        },
+        {
+          duration: 0.2,
+          scale: 1,
+          ease: "expo.out",
+        },
       );
     },
   },

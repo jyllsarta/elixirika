@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import store from './packs/store';
-import Model from './packs/model';
+import store from "./packs/store";
+import Model from "./packs/model";
 
 export default {
   store,
@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     reset() {
-      this.$store.commit('guiEvent', {subject: 'reset'});
+      this.$store.commit("guiEvent", { subject: "reset" });
     },
   },
 };

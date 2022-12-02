@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import Field from './packs/field';
+import Field from "./packs/field";
 
 export default {
   props: {
@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     colorSchemedStyle(card) {
-      if (card.category === 'normal') {
+      if (card.category === "normal") {
         return {
           opacity: 0.6,
         };

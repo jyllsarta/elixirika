@@ -35,9 +35,9 @@
 </template>
 
 <script>
-import Field from './Field.vue';
-import Board from './packs/board';
-import Model from './packs/model';
+import Field from "./Field.vue";
+import Board from "./packs/board";
+import Model from "./packs/model";
 
 export default {
   props: {
@@ -69,10 +69,10 @@ export default {
       return (
         card &&
         this.model.cardStackRule(
-            this.model.character,
-            this.model,
-            card,
-            this.model.board.fields[index],
+          this.model.character,
+          this.model,
+          card,
+          this.model.board.fields[index],
         )
       );
     },
@@ -85,9 +85,9 @@ export default {
       const card = this.model.getHoldingCard();
       const style = {};
       if (this.isAttemptingToStack(index) && card.isSenderCard()) {
-        style['background-color'] = `var(--color-i2-${this.model.characterId})`;
+        style["background-color"] = `var(--color-i2-${this.model.characterId})`;
       } else {
-        style['background-color'] = `var(--bg3-${this.model.characterId})`;
+        style["background-color"] = `var(--bg3-${this.model.characterId})`;
       }
 
       if (this.canStackCard(index)) {
@@ -96,13 +96,13 @@ export default {
       return style;
     },
     eventsUp(params) {
-      this.$emit('guiEvent', params);
+      this.$emit("guiEvent", params);
     },
   },
   computed: {
     styleBackground() {
       return {
-        'background-color': `var(--bg2-${this.model.characterId})`,
+        "background-color": `var(--bg2-${this.model.characterId})`,
       };
     },
   },

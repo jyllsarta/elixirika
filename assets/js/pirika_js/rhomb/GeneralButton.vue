@@ -25,15 +25,15 @@ export default {
       if (this.disabled) {
         return;
       }
-      this.$emit('click');
+      this.$emit("click");
     },
     onHover() {
-      this.$emit('hover');
+      this.$emit("hover");
     },
   },
   computed: {
     buttonClass() {
-      const base = {disabled: this.disabled, flashing: this.flashing};
+      const base = { disabled: this.disabled, flashing: this.flashing };
       base[this.color] = true;
       return base;
     },

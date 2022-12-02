@@ -22,17 +22,17 @@
 
 <script>
 export default {
-  name: 'Pointer',
+  name: "Pointer",
   props: [
-    'x',
-    'y',
-    'hpRate',
-    'hp',
-    'initialHp',
-    'energy',
-    'charge',
-    'isCharging',
-    'chargeRate',
+    "x",
+    "y",
+    "hpRate",
+    "hp",
+    "initialHp",
+    "energy",
+    "charge",
+    "isCharging",
+    "chargeRate",
   ],
 };
 </script>

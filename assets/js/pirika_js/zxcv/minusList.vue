@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: 'minusList',
-  props: ['minuses'],
+  name: "minusList",
+  props: ["minuses"],
 };
 </script>
 

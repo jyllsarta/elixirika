@@ -74,9 +74,9 @@
 </template>
 
 <script>
-import GeneralButton from './GeneralButton.vue';
-import store from './packs/store';
-import Model from './packs/model';
+import GeneralButton from "./GeneralButton.vue";
+import store from "./packs/store";
+import Model from "./packs/model";
 
 export default {
   data() {
@@ -93,35 +93,35 @@ export default {
   },
   methods: {
     showMenu() {
-      this.$store.commit('playSound', {key: 'menuOpen'});
+      this.$store.commit("playSound", { key: "menuOpen" });
       this.showingMenu = true;
     },
     closeMenu() {
       this.showingMenu = false;
-      this.$store.commit('playSound', {key: 'menuClose'});
+      this.$store.commit("playSound", { key: "menuClose" });
     },
     showMessage() {
       this.showingMenu = false;
-      this.$store.commit('playSound', {key: 'menuOpen'});
-      this.$store.commit('showMessage');
+      this.$store.commit("playSound", { key: "menuOpen" });
+      this.$store.commit("showMessage");
     },
     showPlayGuide() {
       this.showingMenu = false;
-      this.$store.commit('showPlayGuide', this.model.characterId);
-      this.$store.commit('playSound', {key: 'menuOpen'});
+      this.$store.commit("showPlayGuide", this.model.characterId);
+      this.$store.commit("playSound", { key: "menuOpen" });
     },
     showKeyboardHelp() {
       this.showingMenu = false;
-      this.$store.commit('showKeyboardHelp');
-      this.$store.commit('playSound', {key: 'menuOpen'});
+      this.$store.commit("showKeyboardHelp");
+      this.$store.commit("playSound", { key: "menuOpen" });
     },
     backToMainMenu() {
       this.showingMenu = false;
-      this.$emit('guiEvent', {type: 'backToMainMenu'});
+      this.$emit("guiEvent", { type: "backToMainMenu" });
     },
     reset() {
       this.showingMenu = false;
-      this.$emit('guiEvent', {type: 'reset'});
+      this.$emit("guiEvent", { type: "reset" });
     },
   },
 };

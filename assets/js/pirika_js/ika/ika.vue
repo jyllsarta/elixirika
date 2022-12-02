@@ -41,9 +41,9 @@ export default {
       shuffling: [true, true, true],
       wordIndex: [0, 0, 0],
       words: [
-        ['キャベツを', '水を', '昼食を'],
-        ['食べる', '吐く', '我慢する'],
-        ['ウニ', 'フグ', 'イカ'],
+        ["キャベツを", "水を", "昼食を"],
+        ["食べる", "吐く", "我慢する"],
+        ["ウニ", "フグ", "イカ"],
       ],
     };
   },
@@ -78,7 +78,7 @@ export default {
       }
     },
     tweetingMessage() {
-      let msg = '';
+      let msg = "";
       for (const i of [0, 1, 2]) {
         msg += this.words[i][this.wordIndex[i]];
       }
@@ -86,7 +86,7 @@ export default {
     },
     tweet() {
       const tweetContent = encodeURI(this.tweetingMessage());
-      const url = encodeURI('https://jyllsarta.net/ika');
+      const url = encodeURI("https://jyllsarta.net/ika");
       const fullUrl = `https://twitter.com/intent/tweet?url=${url}&text=${tweetContent}`;
       window.open(fullUrl);
     },

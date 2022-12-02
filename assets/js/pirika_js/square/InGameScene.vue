@@ -88,26 +88,26 @@
 </template>
 
 <script>
-import SupportCharacter from './SupportCharacter.vue';
-import StarPalette from './StarPalette.vue';
-import SupportCharacterMessage from './SupportCharacterMessage.vue';
-import SupportCharacterAbilityBase from './SupportCharacterAbilityBase.vue';
-import CenterBoard from './CenterBoard.vue';
-import StagedField from './StagedField.vue';
-import Hand from './Hand.vue';
-import BlackBoard from './BlackBoard.vue';
-import CardGamePanel from './CardGamePanel.vue';
-import StarPaletteEffect from './StarPaletteEffect.vue';
-import InGameMenu from './InGameMenu.vue';
-import GameEndPopup from './GameEndPopup.vue';
-import GameStartPopup from './GameStartPopup.vue';
-import ChallengeClearPopup from './ChallengeClearPopup.vue';
-import KeyboardHelpPopup from './KeyboardHelpPopup.vue';
-import Controller from './packs/controller';
-import KeyHandler from './KeyHandler.vue';
-import GuiHandler from './GuiHandler.vue';
-import InGameSoundManager from './InGameSoundManager.vue';
-import store from './packs/store';
+import SupportCharacter from "./SupportCharacter.vue";
+import StarPalette from "./StarPalette.vue";
+import SupportCharacterMessage from "./SupportCharacterMessage.vue";
+import SupportCharacterAbilityBase from "./SupportCharacterAbilityBase.vue";
+import CenterBoard from "./CenterBoard.vue";
+import StagedField from "./StagedField.vue";
+import Hand from "./Hand.vue";
+import BlackBoard from "./BlackBoard.vue";
+import CardGamePanel from "./CardGamePanel.vue";
+import StarPaletteEffect from "./StarPaletteEffect.vue";
+import InGameMenu from "./InGameMenu.vue";
+import GameEndPopup from "./GameEndPopup.vue";
+import GameStartPopup from "./GameStartPopup.vue";
+import ChallengeClearPopup from "./ChallengeClearPopup.vue";
+import KeyboardHelpPopup from "./KeyboardHelpPopup.vue";
+import Controller from "./packs/controller";
+import KeyHandler from "./KeyHandler.vue";
+import GuiHandler from "./GuiHandler.vue";
+import InGameSoundManager from "./InGameSoundManager.vue";
+import store from "./packs/store";
 
 export default {
   store,
@@ -137,11 +137,11 @@ export default {
   mounted() {
     this.controller = new Controller();
     this.controller.newGame(this.characterId, this.chapterId);
-    this.$store.commit('updateBg', this.characterId);
+    this.$store.commit("updateBg", this.characterId);
   },
   methods: {
     endGame() {
-      this.$emit('loadScene', {sceneName: 'title'});
+      this.$emit("loadScene", { sceneName: "title" });
     },
     registerGuiHandler(guiHandler) {
       this.guiHandler = guiHandler;
@@ -150,7 +150,7 @@ export default {
       this.guiHandler[args.type](args);
     },
     loadScene(args) {
-      this.$emit('loadScene', args);
+      this.$emit("loadScene", args);
     },
     startGame() {
       this.gameStarted = true;
@@ -183,7 +183,7 @@ export default {
     },
     styleBackground() {
       return {
-        'background-color': `var(--bg3-${this.model.characterId})`,
+        "background-color": `var(--bg3-${this.model.characterId})`,
       };
     },
   },

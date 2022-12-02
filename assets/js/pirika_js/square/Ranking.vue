@@ -41,13 +41,13 @@
 </template>
 
 <script>
-import axios from 'axios';
-import store from './packs/store';
-import GeneralButton from './GeneralButton.vue';
-import RankingBanner from './RankingBanner.vue';
-import RankingTab from './RankingTab.vue';
-import RankingTabTotal from './RankingTabTotal.vue';
-import CharacterFactory from './packs/characterFactory';
+import axios from "axios";
+import store from "./packs/store";
+import GeneralButton from "./GeneralButton.vue";
+import RankingBanner from "./RankingBanner.vue";
+import RankingTab from "./RankingTab.vue";
+import RankingTabTotal from "./RankingTabTotal.vue";
+import CharacterFactory from "./packs/characterFactory";
 
 export default {
   store,
@@ -71,11 +71,11 @@ export default {
   },
   methods: {
     closeMenu() {
-      this.$emit('close');
+      this.$emit("close");
     },
     onTabClick(cid) {
       this.characterId = cid;
-      this.$store.commit('playSound', {key: 'ok'});
+      this.$store.commit("playSound", { key: "ok" });
     },
   },
   computed: {
@@ -87,21 +87,21 @@ export default {
     },
     characterName() {
       if (this.characterId === -1) {
-        return '総合';
+        return "総合";
       }
       return this.characters[this.characterId]?.name;
     },
   },
   mounted() {
     axios
-        .get('/square/ranking')
-        .then((results) => {
-          this.ranking = results.data.ranking;
-        })
-        .catch((results) => {
-          console.warn(results);
-          console.warn('NG');
-        });
+      .get("/square/ranking")
+      .then((results) => {
+        this.ranking = results.data.ranking;
+      })
+      .catch((results) => {
+        console.warn(results);
+        console.warn("NG");
+      });
   },
 };
 </script>

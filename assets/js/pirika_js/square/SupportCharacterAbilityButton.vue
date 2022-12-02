@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import gsap from 'gsap';
-import store from './packs/store';
+import gsap from "gsap";
+import store from "./packs/store";
 
 export default {
   store,
@@ -35,7 +35,7 @@ export default {
         return {};
       }
       const lineStyle =
-        this.ability.category === 'cardPocket' ? 'dashed' : 'solid';
+        this.ability.category === "cardPocket" ? "dashed" : "solid";
       const style = {
         backgroundColor: `var(--color-${this.ability?.card?.suit}3-${this.character.id})`,
         border: `1px ${lineStyle} var(--color-${this.ability?.card?.suit}1-${this.character.id})`,
@@ -45,39 +45,39 @@ export default {
   },
   methods: {
     classByCard(ability) {
-      return ability.card?.suit || '';
+      return ability.card?.suit || "";
     },
     classByPocket(ability) {
-      return ability.category === 'cardPocket' ? 'pocket' : '';
+      return ability.category === "cardPocket" ? "pocket" : "";
     },
     classByShuffle(ability) {
-      return ability.category === 'shuffle' ? 'shuffle' : '';
+      return ability.category === "shuffle" ? "shuffle" : "";
     },
     classByMagic(ability) {
-      return ability.category.endsWith('Mp') ? 'magic' : '';
+      return ability.category.endsWith("Mp") ? "magic" : "";
     },
     classByCost(ability) {
       // MP制の世界
       if (this.character.hasSufficientMp) {
-        return this.character.hasSufficientMp(ability.cost) ?
-          'enabled' :
-          'disabled';
+        return this.character.hasSufficientMp(ability.cost)
+          ? "enabled"
+          : "disabled";
       }
       // シャッフルはカウント制の世界
-      if (ability.category === 'shuffle') {
-        return ability.count > 0 ? 'enabled' : 'disabled';
+      if (ability.category === "shuffle") {
+        return ability.count > 0 ? "enabled" : "disabled";
       }
       // 原則は使える
-      return 'enabled';
+      return "enabled";
     },
     classBySelected(_ability) {
-      return this.isSelected ? 'selected' : '';
+      return this.isSelected ? "selected" : "";
     },
     classBySmall(_ability) {
-      return this.isSmall ? 'small' : '';
+      return this.isSmall ? "small" : "";
     },
     classByCooltime(_ability) {
-      return this.cooltime ? 'cooltime' : '';
+      return this.cooltime ? "cooltime" : "";
     },
     abilityClass(ability) {
       return [
@@ -89,13 +89,13 @@ export default {
         this.classBySelected(ability),
         this.classBySmall(ability),
         this.classByCooltime(ability),
-      ].join(' ');
+      ].join(" ");
     },
     animate() {
       const tl = gsap.timeline();
-      tl.to(this.$refs.button, {scale: 0.7, duration: 0.1}).to(
-          this.$refs.button,
-          {scale: 1, duration: 0.1},
+      tl.to(this.$refs.button, { scale: 0.7, duration: 0.1 }).to(
+        this.$refs.button,
+        { scale: 1, duration: 0.1 },
       );
     },
     onClick() {
@@ -105,15 +105,15 @@ export default {
       this.cooltime = true;
       setTimeout(() => (this.cooltime = false), 500);
       this.animate();
-      this.$emit('popclick');
+      this.$emit("popclick");
     },
     onHover() {
-      this.$emit('popmouseover');
-      this.$store.commit('playSound', {key: 'hover'});
+      this.$emit("popmouseover");
+      this.$store.commit("playSound", { key: "hover" });
     },
   },
   watch: {
-    'ability.card': function(after, before) {
+    "ability.card": function (after, before) {
       if (after !== null && before === null) {
         this.animate();
       }

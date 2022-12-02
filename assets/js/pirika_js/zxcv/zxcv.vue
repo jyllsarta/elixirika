@@ -31,13 +31,13 @@
 </template>
 
 <script>
-import axios from 'axios';
-import notes from './notes.vue';
-import back from './back.vue';
-import ui from './ui.vue';
-import DefaultNotePattern from './packs/defaultNotePattern.js';
-import Constants from './packs/constants.js';
-import Keyboard from './packs/keyboard.js';
+import axios from "axios";
+import notes from "./notes.vue";
+import back from "./back.vue";
+import ui from "./ui.vue";
+import DefaultNotePattern from "./packs/defaultNotePattern.js";
+import Constants from "./packs/constants.js";
+import Keyboard from "./packs/keyboard.js";
 
 export default {
   components: {
@@ -49,7 +49,7 @@ export default {
     return {
       notes: [],
       keyboard: null,
-      username: '',
+      username: "",
       highScore: 0,
       score: 0,
       life: 0,
@@ -85,7 +85,7 @@ export default {
       localStorage.volume = altered;
     },
     showingRanking(altered) {
-      this.playSound('heal', true);
+      this.playSound("heal", true);
     },
   },
   computed: {
@@ -100,7 +100,7 @@ export default {
     },
     bpm() {
       return Math.floor(
-          (this.initialNoteCount / (this.clearedTime - this.startedTime)) *
+        (this.initialNoteCount / (this.clearedTime - this.startedTime)) *
           60 *
           1000,
       );
@@ -109,7 +109,7 @@ export default {
       return Math.floor(this.bpm / 5) || 0;
     },
     totalScore() {
-      let {score} = this;
+      let { score } = this;
       if (this.gameState === Constants.gameStates.cleared) {
         score += this.speedScore;
       }
@@ -194,17 +194,17 @@ export default {
     },
 
     loadSounds() {
-      this.sounds.z = new Audio('/game/zxcv/sounds/z.wav');
-      this.sounds.x = new Audio('/game/zxcv/sounds/x.wav');
-      this.sounds.c = new Audio('/game/zxcv/sounds/c.wav');
-      this.sounds.v = new Audio('/game/zxcv/sounds/v.wav');
-      this.sounds.miss = new Audio('/game/zxcv/sounds/miss.wav');
-      this.sounds.heal = new Audio('/game/zxcv/sounds/heal.wav');
-      this.sounds.dead = new Audio('/game/zxcv/sounds/dead.wav');
-      this.sounds.clear = new Audio('/game/zxcv/sounds/clear.wav');
-      this.sounds.reset = new Audio('/game/zxcv/sounds/reset.wav');
-      this.sounds.start = new Audio('/game/zxcv/sounds/start.wav');
-      this.sounds.high_score = new Audio('/game/zxcv/sounds/high_score.wav');
+      this.sounds.z = new Audio("/game/zxcv/sounds/z.wav");
+      this.sounds.x = new Audio("/game/zxcv/sounds/x.wav");
+      this.sounds.c = new Audio("/game/zxcv/sounds/c.wav");
+      this.sounds.v = new Audio("/game/zxcv/sounds/v.wav");
+      this.sounds.miss = new Audio("/game/zxcv/sounds/miss.wav");
+      this.sounds.heal = new Audio("/game/zxcv/sounds/heal.wav");
+      this.sounds.dead = new Audio("/game/zxcv/sounds/dead.wav");
+      this.sounds.clear = new Audio("/game/zxcv/sounds/clear.wav");
+      this.sounds.reset = new Audio("/game/zxcv/sounds/reset.wav");
+      this.sounds.start = new Audio("/game/zxcv/sounds/start.wav");
+      this.sounds.high_score = new Audio("/game/zxcv/sounds/high_score.wav");
     },
 
     loadCookieSoundVolume() {
@@ -260,15 +260,15 @@ export default {
 
       // 死亡判定
       if (!this.alive) {
-        this.playSound('dead', false);
+        this.playSound("dead", false);
         this.sendResult();
         this.gameState = Constants.gameStates.gameOver;
         return;
       }
 
       let damage = Math.max(
-          this.score * Constants.damageIncreaseSpeed,
-          Constants.minDamagePerLife,
+        this.score * Constants.damageIncreaseSpeed,
+        Constants.minDamagePerLife,
       );
       damage *= this.timeDelta / 17; // 1F=17msに合わせて補正する
       if (this.isDanger) {
@@ -293,7 +293,7 @@ export default {
           break;
         default:
           console.error(
-              `undefined game mode set: ${this.gameState} on trigger Key Event`,
+            `undefined game mode set: ${this.gameState} on trigger Key Event`,
           );
           break;
       }
@@ -316,12 +316,12 @@ export default {
           return key;
         }
       }
-      return '';
+      return "";
     },
 
     handleKeyTitle() {
       if (this.keyboardStatus() && !this.inputtingName) {
-        this.playSound('start', false);
+        this.playSound("start", false);
         this.startedTime = new Date().getTime();
         this.showingRanking = false;
         this.gameState = Constants.gameStates.inGame;
@@ -335,8 +335,8 @@ export default {
       }
 
       // rでいつでもリトライ可能(でもプレイログ送信はする)
-      if (this.keyboard.get('r')) {
-        this.playSound('reset', false);
+      if (this.keyboard.get("r")) {
+        this.playSound("reset", false);
         this.sendResult();
         this.reset();
         return;
@@ -352,7 +352,7 @@ export default {
         this.score -= 1;
         this.life -= Constants.badDamage;
         this.notes[0].bad = true;
-        this.playSound('miss');
+        this.playSound("miss");
         this.createMinusEffect();
         return;
       }
@@ -363,7 +363,7 @@ export default {
         this.score++;
         if (this.notes[0].heal) {
           this.life += Constants.recoverPerHealNote;
-          this.playSound('heal', false);
+          this.playSound("heal", false);
         } else {
           this.life += Constants.recoverPerNote;
         }
@@ -374,7 +374,7 @@ export default {
 
       // クリア判定
       if (this.notes.length === 0) {
-        this.playSound('clear', false);
+        this.playSound("clear", false);
         this.clearedTime = new Date().getTime();
         this.gameState = Constants.gameStates.cleared;
         this.sendResult();
@@ -382,76 +382,76 @@ export default {
     },
 
     handleKeyGameOver() {
-      if (this.keyboard.get('r')) {
-        this.playSound('reset', false);
+      if (this.keyboard.get("r")) {
+        this.playSound("reset", false);
         this.reset();
       }
     },
 
     handleKeyCleared() {
-      if (this.keyboard.get('r')) {
-        this.playSound('reset', false);
+      if (this.keyboard.get("r")) {
+        this.playSound("reset", false);
         this.reset();
       }
     },
 
     sendResult() {
       axios
-          .post(location.href, {
-            // jQueryを別途読み込んでいる
-            // eslint-disable-next-line no-undef
-            _csrf_token: $('meta[name=csrf-token]').attr('content'),
-            username: this.username,
-            speed_score: this.speedScore,
-            score: this.score,
-            total_score: this.totalScore,
-          })
-          .then((results) => {
-            if (
-              results.data.is_high_score &&
+        .post(location.href, {
+          // jQueryを別途読み込んでいる
+          // eslint-disable-next-line no-undef
+          _csrf_token: $("meta[name=csrf-token]").attr("content"),
+          username: this.username,
+          speed_score: this.speedScore,
+          score: this.score,
+          total_score: this.totalScore,
+        })
+        .then((results) => {
+          if (
+            results.data.is_high_score &&
             this.gameState !== Constants.gameStates.title
-            ) {
-              this.isHighScoreUpdated = true;
-              this.playSound('high_score', false);
-            }
-          })
-          .catch((results) => {
-            console.warn(results);
-            console.warn('NG');
-          });
+          ) {
+            this.isHighScoreUpdated = true;
+            this.playSound("high_score", false);
+          }
+        })
+        .catch((results) => {
+          console.warn(results);
+          console.warn("NG");
+        });
     },
 
     getHighScore() {
       axios
-          .get(`${location.href}/high_score?username=${this.username}`)
-          .then((results) => {
-            if (this.username !== '') {
-              this.highScore = results.data.high_score;
-            } else {
-              console.warn('ユーザ名未設定のためハイスコアは埋めません');
-            }
-          })
-          .catch((results) => {
-            console.warn(results);
-            console.warn('NG');
-          });
+        .get(`${location.href}/high_score?username=${this.username}`)
+        .then((results) => {
+          if (this.username !== "") {
+            this.highScore = results.data.high_score;
+          } else {
+            console.warn("ユーザ名未設定のためハイスコアは埋めません");
+          }
+        })
+        .catch((results) => {
+          console.warn(results);
+          console.warn("NG");
+        });
     },
 
     getRanking() {
       axios
-          .get(`${location.href}/ranking`)
-          .then((results) => {
-            this.ranking = results.data.ranking;
-          })
-          .catch((results) => {
-            console.warn(results);
-            console.warn('NG');
-          });
+        .get(`${location.href}/ranking`)
+        .then((results) => {
+          this.ranking = results.data.ranking;
+        })
+        .catch((results) => {
+          console.warn(results);
+          console.warn("NG");
+        });
     },
 
     setVolume(vol) {
       this.volume = vol;
-      this.playSound('z');
+      this.playSound("z");
     },
     setName(name) {
       this.username = name;
@@ -463,7 +463,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "stylesheets/constants";
-#app{
+#app {
   position: relative;
   padding: 10px;
 }

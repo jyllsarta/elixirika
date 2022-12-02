@@ -58,9 +58,9 @@
 </template>
 
 <script>
-import axios from 'axios';
-import store from './packs/store.js';
-import GeneralButton from './GeneralButton.vue';
+import axios from "axios";
+import store from "./packs/store.js";
+import GeneralButton from "./GeneralButton.vue";
 
 export default {
   store,
@@ -71,38 +71,38 @@ export default {
     return {
       sounds: {
         se: {
-          ok: {volume: 0.7},
-          draw: {volume: 1.0},
-          reset: {volume: 1.0},
-          stack: {volume: 1.0},
-          miss: {volume: 1.0},
-          special1: {volume: 1.2},
-          special2: {volume: 0.8},
-          special3: {volume: 0.8},
-          special4: {volume: 0.6},
-          welcome: {volume: 1.0},
-          gameStart: {volume: 1.0},
-          gameEnd: {volume: 1.0},
-          menuOpen: {volume: 1.0},
-          menuClose: {volume: 1.0},
-          hover: {volume: 0.4},
-          pocket: {volume: 0.7},
-          attack: {volume: 1.0},
-          defeat: {volume: 1.0},
-          damage: {volume: 1.0},
-          shield: {volume: 1.0},
-          challenge: {volume: 1.0},
-          end: {volume: 1.0},
-          bad: {volume: 1.0},
-          piano: {volume: 1.0},
+          ok: { volume: 0.7 },
+          draw: { volume: 1.0 },
+          reset: { volume: 1.0 },
+          stack: { volume: 1.0 },
+          miss: { volume: 1.0 },
+          special1: { volume: 1.2 },
+          special2: { volume: 0.8 },
+          special3: { volume: 0.8 },
+          special4: { volume: 0.6 },
+          welcome: { volume: 1.0 },
+          gameStart: { volume: 1.0 },
+          gameEnd: { volume: 1.0 },
+          menuOpen: { volume: 1.0 },
+          menuClose: { volume: 1.0 },
+          hover: { volume: 0.4 },
+          pocket: { volume: 0.7 },
+          attack: { volume: 1.0 },
+          defeat: { volume: 1.0 },
+          damage: { volume: 1.0 },
+          shield: { volume: 1.0 },
+          challenge: { volume: 1.0 },
+          end: { volume: 1.0 },
+          bad: { volume: 1.0 },
+          piano: { volume: 1.0 },
         },
         bgm: {
-          bgm3: {volume: 1.0},
-          bgm5: {volume: 0.6},
-          bgm6: {volume: 1.0},
-          bgm7: {volume: 0.8},
-          bgm11: {volume: 0.8},
-          bgm13: {volume: 1.0},
+          bgm3: { volume: 1.0 },
+          bgm5: { volume: 0.6 },
+          bgm6: { volume: 1.0 },
+          bgm7: { volume: 0.8 },
+          bgm11: { volume: 0.8 },
+          bgm13: { volume: 1.0 },
         },
       },
       volumes: {
@@ -140,55 +140,55 @@ export default {
     },
     loadSound(key, response) {
       this.audioContext.decodeAudioData(
-          response,
-          (buffer) => {
-            this.loadedSounds.se[key] = buffer;
-          },
-          (msg) => {
-            console.error(msg);
-          },
+        response,
+        (buffer) => {
+          this.loadedSounds.se[key] = buffer;
+        },
+        (msg) => {
+          console.error(msg);
+        },
       );
     },
     loadBgm(key, response) {
       this.audioContext.decodeAudioData(
-          response,
-          (buffer) => {
-            this.loadedSounds.bgm[key] = buffer;
-          },
-          (msg) => {
-            console.error(msg);
-          },
+        response,
+        (buffer) => {
+          this.loadedSounds.bgm[key] = buffer;
+        },
+        (msg) => {
+          console.error(msg);
+        },
       );
     },
     loadSounds() {
       for (const key of Object.keys(this.sounds.se)) {
         axios
-            .get(`/game/square/sounds/${key}.wav.enc`, {
-              responseType: 'arraybuffer',
-            })
-            .then((results) => {
-              const decrypted = this.decrypt(results.data);
-              this.loadSound(key, decrypted);
-            })
-            .catch((results) => {
-              console.warn(results);
-              console.warn('NG');
-            });
+          .get(`/game/square/sounds/${key}.wav.enc`, {
+            responseType: "arraybuffer",
+          })
+          .then((results) => {
+            const decrypted = this.decrypt(results.data);
+            this.loadSound(key, decrypted);
+          })
+          .catch((results) => {
+            console.warn(results);
+            console.warn("NG");
+          });
       }
     },
     loadBgms() {
       for (const key of Object.keys(this.sounds.bgm)) {
         axios
-            .get(`/game/square/sounds/bgm/${key}.mp3.enc`, {
-              responseType: 'arraybuffer',
-            })
-            .then((results) => {
-              this.loadBgm(key, results.data);
-            })
-            .catch((results) => {
-              console.warn(results);
-              console.warn('NG');
-            });
+          .get(`/game/square/sounds/bgm/${key}.mp3.enc`, {
+            responseType: "arraybuffer",
+          })
+          .then((results) => {
+            this.loadBgm(key, results.data);
+          })
+          .catch((results) => {
+            console.warn(results);
+            console.warn("NG");
+          });
       }
     },
     playSound(key, tone = 0) {
@@ -200,7 +200,7 @@ export default {
         return;
       }
       if (this.loadedSounds.se[key] === null) {
-        console.warn('se not loaded, failed to play');
+        console.warn("se not loaded, failed to play");
         return;
       }
 
@@ -232,7 +232,7 @@ export default {
         return;
       }
       if (this.loadedSounds.bgm[key] === null) {
-        console.warn('loading bgm, retry...');
+        console.warn("loading bgm, retry...");
         setTimeout(() => {
           this.playBgm(key);
         }, 1000);
@@ -283,20 +283,20 @@ export default {
     },
   },
   watch: {
-    '$store.state.sounds': {
+    "$store.state.sounds": {
       handler(afterSounds, oldSounds) {
         if (afterSounds.length === 0) {
           return;
         }
         for (const sound of afterSounds) {
-          const {key, tone} = sound;
+          const { key, tone } = sound;
           this.playSound(key, tone);
         }
-        this.$store.commit('flushSounds');
+        this.$store.commit("flushSounds");
       },
       deep: true,
     },
-    '$store.state.bgm': {
+    "$store.state.bgm": {
       handler(key) {
         this.playBgm(key);
       },

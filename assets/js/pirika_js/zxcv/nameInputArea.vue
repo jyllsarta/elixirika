@@ -17,17 +17,17 @@
 </template>
 
 <script>
-import jsSHA from 'jssha';
-import {nextTick} from 'vue';
+import jsSHA from "jssha";
+import { nextTick } from "vue";
 
 export default {
   data() {
     return {
-      rawName: '',
+      rawName: "",
       inputting: false,
     };
   },
-  name: 'nameInputArea',
+  name: "nameInputArea",
   mounted() {
     if (localStorage.rawName) {
       this.rawName = localStorage.rawName;
@@ -36,16 +36,16 @@ export default {
   },
   computed: {
     fullName() {
-      const splitted = this.rawName.replace(/📛/g, '').split('#');
+      const splitted = this.rawName.replace(/📛/g, "").split("#");
       const displayName = splitted[0];
       if (splitted.length === 1) {
         return displayName;
       }
-      const target = splitted.slice(1).join('');
+      const target = splitted.slice(1).join("");
       // eslint-disable-next-line new-cap
-      const sha = new jsSHA('SHA-256', 'TEXT');
+      const sha = new jsSHA("SHA-256", "TEXT");
       sha.update(target);
-      const sliced = sha.getHash('B64').slice(0, 10);
+      const sliced = sha.getHash("B64").slice(0, 10);
       return `${displayName}📛${sliced}`;
     },
   },
@@ -53,21 +53,21 @@ export default {
     onBlur() {
       this.inputting = false;
       localStorage.rawName = this.rawName;
-      this.$emit('inputStateChanged', false);
+      this.$emit("inputStateChanged", false);
       this.setName();
     },
     setInputMode() {
       this.inputting = true;
-      this.$emit('inputStateChanged', true);
+      this.$emit("inputStateChanged", true);
       // inputtingをオンにしても次のフレームまで待たないとまだ入力欄は作られない
       nextTick(() => {
         // jQueryを別途読み込んでいる
         // eslint-disable-next-line no-undef
-        $('.name_input_box')[0].focus();
+        $(".name_input_box")[0].focus();
       });
     },
     setName() {
-      this.$emit('setName', this.fullName);
+      this.$emit("setName", this.fullName);
     },
   },
 };

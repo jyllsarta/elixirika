@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import Model from './packs/model';
-import store from './packs/store.js';
+import Model from "./packs/model";
+import store from "./packs/store.js";
 
 export default {
   props: {
@@ -13,11 +13,11 @@ export default {
   store,
   methods: {
     playSound(key, tone) {
-      this.$store.commit('playSound', {key, tone});
+      this.$store.commit("playSound", { key, tone });
     },
   },
   watch: {
-    'model.soundManager.unplayedSounds': {
+    "model.soundManager.unplayedSounds": {
       handler(newSounds, prevSounds) {
         // 自分でflushするのでもう一回watchに流れてきちゃう
         if (newSounds.length === 0) {

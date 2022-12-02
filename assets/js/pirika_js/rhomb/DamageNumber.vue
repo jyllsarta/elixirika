@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import store from './packs/store';
-import Model from './packs/model';
+import store from "./packs/store";
+import Model from "./packs/model";
 
 export default {
   store,
@@ -14,8 +14,8 @@ export default {
   computed: {
     damageValue() {
       return this.model.bullets
-          .filter((bullet) => bullet.markedAt !== null)
-          .reduce((a, b) => a + b.power, 0);
+        .filter((bullet) => bullet.markedAt !== null)
+        .reduce((a, b) => a + b.power, 0);
     },
   },
 };

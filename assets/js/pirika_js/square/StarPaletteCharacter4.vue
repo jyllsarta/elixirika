@@ -81,9 +81,9 @@
 </template>
 
 <script>
-import gsap from 'gsap';
-import Model from './packs/model';
-import store from './packs/store';
+import gsap from "gsap";
+import Model from "./packs/model";
+import store from "./packs/store";
 
 export default {
   store,
@@ -103,7 +103,7 @@ export default {
   computed: {
     aliveEnemies() {
       return this.model.character.uniqueParameters.enemies.filter(
-          (enemy) => enemy.hp > 0,
+        (enemy) => enemy.hp > 0,
       );
     },
     foregroundEnemy() {
@@ -132,82 +132,82 @@ export default {
     },
     hpClass(hp) {
       if (hp >= 10) {
-        return 'hp3';
+        return "hp3";
       }
       if (hp >= 5) {
-        return 'hp2';
+        return "hp2";
       }
-      return 'hp1';
+      return "hp1";
     },
     movePlayer() {
       const playerTimeline = gsap.timeline();
       playerTimeline
-          .to(this.$refs.player, {
-            x: 45,
-            y: -20,
-            duration: 0.08,
-          })
-          .to(this.$refs.player, {
-            x: 60,
+        .to(this.$refs.player, {
+          x: 45,
+          y: -20,
+          duration: 0.08,
+        })
+        .to(this.$refs.player, {
+          x: 60,
+          y: 0,
+          duration: 0.08,
+        })
+        .to(
+          this.$refs.player,
+          {
+            x: 0,
             y: 0,
-            duration: 0.08,
-          })
-          .to(
-              this.$refs.player,
-              {
-                x: 0,
-                y: 0,
-                duration: 0.2,
-              },
-              '+=0.5',
-          );
+            duration: 0.2,
+          },
+          "+=0.5",
+        );
     },
     slashEffect() {
       const effectTimeline1 = gsap.timeline();
       effectTimeline1
-          .to(this.$refs.line1, {x: -50, opacity: 0, duration: 0.15})
-          .to(this.$refs.line1, {x: 0, opacity: 0.7, duration: 0.15})
-          .to(this.$refs.line1, {x: 50, opacity: 0, duration: 0.15});
+        .to(this.$refs.line1, { x: -50, opacity: 0, duration: 0.15 })
+        .to(this.$refs.line1, { x: 0, opacity: 0.7, duration: 0.15 })
+        .to(this.$refs.line1, { x: 50, opacity: 0, duration: 0.15 });
 
       const effectTimeline2 = gsap.timeline();
       effectTimeline2
-          .to(this.$refs.line2, {x: -50, opacity: 0, duration: 0.2})
-          .to(this.$refs.line2, {x: 0, opacity: 0.7, duration: 0.15})
-          .to(this.$refs.line2, {x: 50, opacity: 0, duration: 0.15});
+        .to(this.$refs.line2, { x: -50, opacity: 0, duration: 0.2 })
+        .to(this.$refs.line2, { x: 0, opacity: 0.7, duration: 0.15 })
+        .to(this.$refs.line2, { x: 50, opacity: 0, duration: 0.15 });
 
       const effectTimeline3 = gsap.timeline();
       effectTimeline3
-          .to(this.$refs.line3, {x: -50, opacity: 0, duration: 0.3})
-          .to(this.$refs.line3, {x: 0, opacity: 0.7, duration: 0.15})
-          .to(this.$refs.line3, {x: 50, opacity: 0, duration: 0.15});
+        .to(this.$refs.line3, { x: -50, opacity: 0, duration: 0.3 })
+        .to(this.$refs.line3, { x: 0, opacity: 0.7, duration: 0.15 })
+        .to(this.$refs.line3, { x: 50, opacity: 0, duration: 0.15 });
     },
     popDamageValue() {
       const damageTimeline = gsap.timeline();
       damageTimeline
-          .to(this.$refs.damage, {
-            x: -5,
-            opacity: 0,
-            scale: 1.2,
-            duration: 0.0,
-          })
-          .to(this.$refs.damage, {
-            x: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.1,
-          })
-          .to(this.$refs.damage, {
-            x: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 1.0,
-          })
-          .to(this.$refs.damage, {
-            x: 5,
-            opacity: 0,
-            scale: 1.2,
-            duration: 0.1,
-          });
+        .to(this.$refs.damage, {
+          x: -5,
+          opacity: 0,
+          scale: 1.2,
+          duration: 0.0,
+        })
+        .to(this.$refs.damage, {
+          x: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.1,
+        })
+        .to(this.$refs.damage, {
+          x: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1.0,
+        })
+        .to(this.$refs.damage, {
+          x: 5,
+          opacity: 0,
+          scale: 1.2,
+          duration: 0.1,
+        });
     },
     async onAttack(showDamageValue = false) {
       this.movePlayer();
@@ -215,7 +215,7 @@ export default {
       if (showDamageValue) {
         this.popDamageValue();
       }
-      this.$store.commit('playSound', {key: 'attack'});
+      this.$store.commit("playSound", { key: "attack" });
       // アニメーションの最後に合わせるほうが行儀良くはある
       await this.$delay(1000);
       this.syncCurrentHp();
@@ -229,12 +229,12 @@ export default {
     // HPあがる ID変化あり: 攻撃で倒したに違いない もしくはリセット
     // HPさがる ID変化なし: 攻撃で削ったに違いない
     // HPあがる ID変化なし: リセット
-    'foregroundEnemy.id': function(newId, prevId) {
+    "foregroundEnemy.id": function (newId, prevId) {
       const newEnemy = this.model.character.uniqueParameters.enemies.find(
-          (enemy) => enemy.id === newId,
+        (enemy) => enemy.id === newId,
       );
       const enemy = this.model.character.uniqueParameters.enemies.find(
-          (enemy) => enemy.id === prevId,
+        (enemy) => enemy.id === prevId,
       );
       // リセット検出 出現順が巻き戻っていたら演出しない
       if (newEnemy?.order < enemy?.order) {
@@ -242,13 +242,13 @@ export default {
         return;
       }
       this.onAttack(true);
-      const {power} = enemy.damageHistory[enemy.damageHistory.length - 1];
+      const { power } = enemy.damageHistory[enemy.damageHistory.length - 1];
       this.referenceDamage = power;
       setTimeout(() => {
-        this.$store.commit('playSound', {key: 'defeat'});
+        this.$store.commit("playSound", { key: "defeat" });
       }, 1000);
     },
-    'foregroundEnemy.hp': function(newHp, prevHp) {
+    "foregroundEnemy.hp": function (newHp, prevHp) {
       // リセット検出 ヒストリーが空なら演出しない
       if (this.foregroundEnemy.damageHistory?.length === 0) {
         this.syncCurrentHp();
@@ -264,16 +264,16 @@ export default {
       }
       if (newHp > 0) {
         setTimeout(() => {
-          this.$store.commit('playSound', {key: 'damage'});
+          this.$store.commit("playSound", { key: "damage" });
         }, 1000);
       }
     },
-    'foregroundEnemy.shield': function(after, before) {
+    "foregroundEnemy.shield": function (after, before) {
       if (before > 0) {
         // シールドが削れたタイミングではHPは減らない
         this.onAttack(false);
         setTimeout(() => {
-          this.$store.commit('playSound', {key: 'shield'});
+          this.$store.commit("playSound", { key: "shield" });
         }, 1000);
       }
       if (before === 0 && after > 0) {

@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     proceed() {
-      this.$emit('loadScene', {sceneName: 'mainMenu'});
+      this.$emit("loadScene", { sceneName: "mainMenu" });
     },
   },
   mounted() {

@@ -11,8 +11,8 @@
 </template>
 <script>
 export default {
-  name: 'RemoveScore',
-  props: ['x', 'y', 'value', 'show'],
+  name: "RemoveScore",
+  props: ["x", "y", "value", "show"],
 };
 </script>
 

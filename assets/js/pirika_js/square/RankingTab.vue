@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import store from './packs/store';
+import store from "./packs/store";
 
 export default {
   store,
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     onHover() {
-      this.$store.commit('playSound', {key: 'hover'});
+      this.$store.commit("playSound", { key: "hover" });
     },
   },
 };

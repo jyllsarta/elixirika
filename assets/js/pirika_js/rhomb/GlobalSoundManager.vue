@@ -58,9 +58,9 @@
 </template>
 
 <script>
-import axios from 'axios';
-import GeneralButton from './GeneralButton.vue';
-import store from './packs/store';
+import axios from "axios";
+import GeneralButton from "./GeneralButton.vue";
+import store from "./packs/store";
 
 export default {
   components: {
@@ -70,21 +70,21 @@ export default {
     return {
       sounds: {
         se: {
-          ok: {volume: 0.7},
-          enemy_shoot: {volume: 0.7},
-          execute: {volume: 0.7},
-          game_start: {volume: 0.7},
-          lock_start: {volume: 0.7},
-          lock: {volume: 0.7},
-          lock2: {volume: 0.7},
-          lose: {volume: 0.7},
-          tick: {volume: 0.7},
-          tick_max: {volume: 0.7},
-          tick_miss: {volume: 0.7},
-          win: {volume: 0.7},
+          ok: { volume: 0.7 },
+          enemy_shoot: { volume: 0.7 },
+          execute: { volume: 0.7 },
+          game_start: { volume: 0.7 },
+          lock_start: { volume: 0.7 },
+          lock: { volume: 0.7 },
+          lock2: { volume: 0.7 },
+          lose: { volume: 0.7 },
+          tick: { volume: 0.7 },
+          tick_max: { volume: 0.7 },
+          tick_miss: { volume: 0.7 },
+          win: { volume: 0.7 },
         },
         bgm: {
-          bgm1: {volume: 1.0},
+          bgm1: { volume: 1.0 },
         },
       },
       volumes: {
@@ -122,54 +122,54 @@ export default {
     },
     loadSound(key, response) {
       this.audioContext.decodeAudioData(
-          response,
-          (buffer) => {
-            this.loadedSounds.se[key] = buffer;
-          },
-          (msg) => {
-            console.error(msg);
-          },
+        response,
+        (buffer) => {
+          this.loadedSounds.se[key] = buffer;
+        },
+        (msg) => {
+          console.error(msg);
+        },
       );
     },
     loadBgm(key, response) {
       this.audioContext.decodeAudioData(
-          response,
-          (buffer) => {
-            this.loadedSounds.bgm[key] = buffer;
-          },
-          (msg) => {
-            console.error(msg);
-          },
+        response,
+        (buffer) => {
+          this.loadedSounds.bgm[key] = buffer;
+        },
+        (msg) => {
+          console.error(msg);
+        },
       );
     },
     loadSounds() {
       for (const key of Object.keys(this.sounds.se)) {
         axios
-            .get(`/game/rhomb/se/${key}.wav.enc`, {responseType: 'arraybuffer'})
-            .then((results) => {
-              const decrypted = this.decrypt(results.data);
-              this.loadSound(key, decrypted);
-            })
-            .catch((results) => {
-              console.warn(results);
-              console.warn('NG');
-            });
+          .get(`/game/rhomb/se/${key}.wav.enc`, { responseType: "arraybuffer" })
+          .then((results) => {
+            const decrypted = this.decrypt(results.data);
+            this.loadSound(key, decrypted);
+          })
+          .catch((results) => {
+            console.warn(results);
+            console.warn("NG");
+          });
       }
     },
     loadBgms() {
       for (const key of Object.keys(this.sounds.bgm)) {
         axios
-            .get(`/game/rhomb/bgm/${key}.mp3.enc`, {
-              responseType: 'arraybuffer',
-            })
-            .then((results) => {
-              const decrypted = this.decrypt(results.data);
-              this.loadBgm(key, decrypted);
-            })
-            .catch((results) => {
-              console.warn(results);
-              console.warn('NG');
-            });
+          .get(`/game/rhomb/bgm/${key}.mp3.enc`, {
+            responseType: "arraybuffer",
+          })
+          .then((results) => {
+            const decrypted = this.decrypt(results.data);
+            this.loadBgm(key, decrypted);
+          })
+          .catch((results) => {
+            console.warn(results);
+            console.warn("NG");
+          });
       }
     },
     playSound(key, tone = 0) {
@@ -181,7 +181,7 @@ export default {
         return;
       }
       if (this.loadedSounds.se[key] === null) {
-        console.warn('se not loaded, failed to play');
+        console.warn("se not loaded, failed to play");
         return;
       }
 
@@ -213,7 +213,7 @@ export default {
         return;
       }
       if (this.loadedSounds.bgm[key] === null) {
-        console.warn('loading bgm, retry...');
+        console.warn("loading bgm, retry...");
         setTimeout(() => {
           this.playBgm(key);
         }, 1000);
@@ -265,20 +265,20 @@ export default {
   },
   store,
   watch: {
-    '$store.state.sounds': {
+    "$store.state.sounds": {
       handler(afterSounds, oldSounds) {
         if (afterSounds.length === 0) {
           return;
         }
         for (const sound of afterSounds) {
-          const {key, tone} = sound;
+          const { key, tone } = sound;
           this.playSound(key, tone);
         }
-        this.$store.commit('flushSounds');
+        this.$store.commit("flushSounds");
       },
       deep: true,
     },
-    '$store.state.bgm': {
+    "$store.state.bgm": {
       handler(key) {
         this.playBgm(key);
       },

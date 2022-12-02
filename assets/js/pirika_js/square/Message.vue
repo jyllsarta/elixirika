@@ -46,7 +46,11 @@
               <div class="text column">内容</div>
               <div class="response column">返信</div>
             </div>
-            <div class="__message" v-for="(message, index) in messages" :key="index">
+            <div
+              class="__message"
+              v-for="(message, index) in messages"
+              :key="index"
+            >
               <div class="created_at column">{{ message.created_at }}</div>
               <div class="text column">{{ message.message }}</div>
               <div class="response column">{{ message.response }}</div>
@@ -59,9 +63,9 @@
 </template>
 
 <script>
-import axios from 'axios';
-import store from './packs/store';
-import GeneralButton from './GeneralButton.vue';
+import axios from "axios";
+import store from "./packs/store";
+import GeneralButton from "./GeneralButton.vue";
 
 export default {
   store,
@@ -71,7 +75,7 @@ export default {
   data() {
     return {
       messages: [],
-      sendingMessage: '',
+      sendingMessage: "",
     };
   },
   created() {
@@ -79,37 +83,37 @@ export default {
   },
   methods: {
     close() {
-      this.$store.commit('closeMessage');
-      this.$store.commit('playSound', {key: 'menuClose'});
+      this.$store.commit("closeMessage");
+      this.$store.commit("playSound", { key: "menuClose" });
     },
     fetch() {
       axios
-          .get('/square/messages')
-          .then((results) => {
-            this.messages = results.data;
-          })
-          .catch((results) => {
-            console.warn(results);
-            console.warn('NG');
-          });
+        .get("/square/messages")
+        .then((results) => {
+          this.messages = results.data;
+        })
+        .catch((results) => {
+          console.warn(results);
+          console.warn("NG");
+        });
     },
     send() {
       axios
-          .post('/square/messages/create', {
-            _csrf_token: document.querySelector('meta[name=csrf-token]')
-                .attributes.content.textContent,
-            username: localStorage.rawNameSquare,
-            message: this.sendingMessage,
-          })
-          .then((results) => {
-            this.sendingMessage = '';
-            this.$store.commit('playSound', {key: 'special2'});
-            this.fetch();
-          })
-          .catch((results) => {
-            console.warn(results);
-            console.warn('NG');
-          });
+        .post("/square/messages/create", {
+          _csrf_token: document.querySelector("meta[name=csrf-token]")
+            .attributes.content.textContent,
+          username: localStorage.rawNameSquare,
+          message: this.sendingMessage,
+        })
+        .then((results) => {
+          this.sendingMessage = "";
+          this.$store.commit("playSound", { key: "special2" });
+          this.fetch();
+        })
+        .catch((results) => {
+          console.warn(results);
+          console.warn("NG");
+        });
     },
   },
   computed: {},

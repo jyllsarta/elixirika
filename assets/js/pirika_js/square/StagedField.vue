@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import Card from './Card.vue';
-import StagedField from './packs/stagedField';
-import Model from './packs/model';
+import Card from "./Card.vue";
+import StagedField from "./packs/stagedField";
+import Model from "./packs/model";
 
 export default {
   data() {

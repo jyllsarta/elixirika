@@ -67,12 +67,12 @@
 </template>
 
 <script>
-import gsap from 'gsap';
-import NameArea from './NameArea.vue';
-import store from './packs/store';
-import GeneralButton from './GeneralButton.vue';
-import Credit from './Credit.vue';
-import Ranking from './Ranking.vue';
+import gsap from "gsap";
+import NameArea from "./NameArea.vue";
+import store from "./packs/store";
+import GeneralButton from "./GeneralButton.vue";
+import Credit from "./Credit.vue";
+import Ranking from "./Ranking.vue";
 
 export default {
   components: {
@@ -92,56 +92,56 @@ export default {
   methods: {
     onClick() {
       this.closing = true;
-      this.$store.commit('playSound', {key: 'gameStart'});
+      this.$store.commit("playSound", { key: "gameStart" });
     },
     onAnimationEnter(el, completed) {
       gsap.fromTo(
-          [this.$refs.shutter1, this.$refs.shutter2],
-          {
-            scaleX: 0,
-          },
-          {
-            duration: 0.5,
-            scaleX: 1,
-            ease: 'expo.out',
-            onComplete: completed,
-          },
+        [this.$refs.shutter1, this.$refs.shutter2],
+        {
+          scaleX: 0,
+        },
+        {
+          duration: 0.5,
+          scaleX: 1,
+          ease: "expo.out",
+          onComplete: completed,
+        },
       );
       gsap.fromTo(
-          [this.$refs.shutter3, this.$refs.shutter4],
-          {
-            scaleY: 0,
-          },
-          {
-            duration: 0.8,
-            scaleY: 1,
-            ease: 'expo.out',
-          },
+        [this.$refs.shutter3, this.$refs.shutter4],
+        {
+          scaleY: 0,
+        },
+        {
+          duration: 0.8,
+          scaleY: 1,
+          ease: "expo.out",
+        },
       );
     },
     onAnimationComplete() {
       this.tryFillEmptyName();
-      this.$emit('loadScene', {sceneName: 'mainMenu'});
+      this.$emit("loadScene", { sceneName: "mainMenu" });
     },
     showCredit() {
-      this.$store.commit('playSound', {key: 'menuOpen'});
+      this.$store.commit("playSound", { key: "menuOpen" });
       this.showsCredit = true;
     },
     closeCredit() {
-      this.$store.commit('playSound', {key: 'menuClose'});
+      this.$store.commit("playSound", { key: "menuClose" });
       this.showsCredit = false;
     },
     showRanking() {
-      this.$store.commit('playSound', {key: 'menuOpen'});
+      this.$store.commit("playSound", { key: "menuOpen" });
       this.showsRanking = true;
     },
     closeRanking() {
-      this.$store.commit('playSound', {key: 'menuClose'});
+      this.$store.commit("playSound", { key: "menuClose" });
       this.showsRanking = false;
     },
     showMessage() {
-      this.$store.commit('playSound', {key: 'menuOpen'});
-      this.$store.commit('showMessage');
+      this.$store.commit("playSound", { key: "menuOpen" });
+      this.$store.commit("showMessage");
     },
     tryFillEmptyName() {
       if (!localStorage.rawNameSquare) {

@@ -7,7 +7,11 @@
           <div class="title">{{ chapter.title }}</div>
           <div class="description">{{ chapter.extra_effect_description }}</div>
           <div class="challenges">
-            <div class="challenge" v-for="(challenge, index) in challenges" :key="challenge.id">
+            <div
+              class="challenge"
+              v-for="(challenge, index) in challenges"
+              :key="challenge.id"
+            >
               <div class="icon">◇</div>
               <div class="rank">{{ ["I", "II", "III", "IV"][index] }}</div>
               <div class="description">{{ challenge.description }}</div>
@@ -21,8 +25,8 @@
 </template>
 
 <script>
-import Model from './packs/model';
-import store from './packs/store';
+import Model from "./packs/model";
+import store from "./packs/store";
 
 export default {
   props: {
@@ -31,8 +35,8 @@ export default {
   },
   store,
   mounted() {
-    this.$store.commit('playSound', {key: 'welcome'});
-    this.$store.commit('playBgm', '');
+    this.$store.commit("playSound", { key: "welcome" });
+    this.$store.commit("playBgm", "");
   },
   computed: {
     chapter() {
@@ -40,15 +44,15 @@ export default {
     },
     challenges() {
       return this.model.challenge.getByChallengeIds(
-          this.model.chapter.challenge_ids,
+        this.model.chapter.challenge_ids,
       );
     },
   },
   methods: {
     startGame() {
-      this.$emit('startGame');
-      this.$store.commit('playSound', {key: 'gameStart'});
-      this.$store.commit('playBgm', this.model.character.bgm);
+      this.$emit("startGame");
+      this.$store.commit("playSound", { key: "gameStart" });
+      this.$store.commit("playBgm", this.model.character.bgm);
     },
   },
 };

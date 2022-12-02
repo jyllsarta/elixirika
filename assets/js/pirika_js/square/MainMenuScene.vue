@@ -111,16 +111,16 @@
 </template>
 
 <script>
-import axios from 'axios';
-import CharacterBanner from './CharacterBanner.vue';
-import ClearStateTile from './ClearStateTile.vue';
-import MainMenuDetailDialog from './MainMenuDetailDialog.vue';
-import GeneralButton from './GeneralButton.vue';
-import ClearImage from './ClearImage.vue';
-import CharacterFactory from './packs/characterFactory';
-import Chapter from './packs/chapter';
-import Challenge from './packs/challenge';
-import store from './packs/store';
+import axios from "axios";
+import CharacterBanner from "./CharacterBanner.vue";
+import ClearStateTile from "./ClearStateTile.vue";
+import MainMenuDetailDialog from "./MainMenuDetailDialog.vue";
+import GeneralButton from "./GeneralButton.vue";
+import ClearImage from "./ClearImage.vue";
+import CharacterFactory from "./packs/characterFactory";
+import Chapter from "./packs/chapter";
+import Challenge from "./packs/challenge";
+import store from "./packs/store";
 
 export default {
   store,
@@ -160,13 +160,13 @@ export default {
   },
   methods: {
     onTileSelected(params) {
-      const {characterId, chapterId} = params;
+      const { characterId, chapterId } = params;
       this.selectedCharacterId = characterId;
       this.selectedChapterId = chapterId;
       this.showsDetailDialog = true;
     },
     onCharacterSelected(params) {
-      const {characterId} = params;
+      const { characterId } = params;
       this.selectedCharacterId = characterId;
       this.selectedChapterId = this.findBestChapter(characterId)?.id;
       this.showsDetailDialog = true;
@@ -176,8 +176,8 @@ export default {
     },
     startGame() {
       this.hideDetailDialog();
-      this.$emit('loadScene', {
-        sceneName: 'inGame',
+      this.$emit("loadScene", {
+        sceneName: "inGame",
         params: {
           characterId: this.selectedCharacterId,
           chapterId: this.selectedChapterId,
@@ -186,8 +186,8 @@ export default {
     },
     chapters(characterId) {
       return this.chapterMaster
-          .getByCharacterId(characterId)
-          .sort((x) => x.index);
+        .getByCharacterId(characterId)
+        .sort((x) => x.index);
     },
     challengeClearState(chapter) {
       return this.userStatus.challenges[chapter.id] || [];
@@ -201,8 +201,8 @@ export default {
     },
     finalScore() {
       return Object.values(this.userStatus.high_score).reduce(
-          (a, b) => b + a,
-          0,
+        (a, b) => b + a,
+        0,
       );
     },
     isChallengeCleared(chapterId, challengeId) {
@@ -227,17 +227,17 @@ export default {
         username: localStorage.rawNameSquare,
       };
       axios
-          .get('/square/status', {params})
-          .then((results) => {
-            this.userStatus = this.constructUserStatus(results.data);
-          })
-          .catch((results) => {
-            console.warn(results);
-            console.warn('NG');
-          });
+        .get("/square/status", { params })
+        .then((results) => {
+          this.userStatus = this.constructUserStatus(results.data);
+        })
+        .catch((results) => {
+          console.warn(results);
+          console.warn("NG");
+        });
     },
     constructUserStatus(apiResponse) {
-      const {high_score: highScores, challenges: challengeRecords} =
+      const { high_score: highScores, challenges: challengeRecords } =
         apiResponse;
       // chapter_id: score の形にしちゃう
       const highScoreIdTable = highScores.reduce((iter, x) => {
@@ -246,9 +246,9 @@ export default {
       }, {});
       // chapter_id: [challenge_ids(NOT sorted)] の形にしちゃう
       const challengeIdTable = challengeRecords.reduce((iter, x) => {
-        iter[x.chapter_id] = iter[x.chapter_id] ?
-          iter[x.chapter_id].concat(x.challenge_id) :
-          [x.challenge_id];
+        iter[x.chapter_id] = iter[x.chapter_id]
+          ? iter[x.chapter_id].concat(x.challenge_id)
+          : [x.challenge_id];
         return iter;
       }, {});
       return {
@@ -258,23 +258,23 @@ export default {
       };
     },
     backToTitle() {
-      this.$store.commit('playSound', {key: 'ok'});
-      this.$store.commit('playBgm', '');
-      this.$emit('loadScene', {sceneName: 'title', params: {}});
+      this.$store.commit("playSound", { key: "ok" });
+      this.$store.commit("playBgm", "");
+      this.$emit("loadScene", { sceneName: "title", params: {} });
     },
     showClearImage(clearImageId) {
       if (!this.isClearedImage(clearImageId)) {
-        this.$store.commit('playSound', {key: 'miss'});
+        this.$store.commit("playSound", { key: "miss" });
         return;
       }
-      this.$store.commit('playSound', {key: 'piano'});
-      this.$store.commit('playBgm', 'bgm13');
+      this.$store.commit("playSound", { key: "piano" });
+      this.$store.commit("playBgm", "bgm13");
       this.showsClearImage = true;
       this.clearImageId = clearImageId;
     },
     closeClearImage() {
       this.showsClearImage = false;
-      this.$store.commit('playBgm', 'bgm5');
+      this.$store.commit("playBgm", "bgm5");
     },
     isClearedImage(clearImageId) {
       switch (clearImageId) {
@@ -288,8 +288,8 @@ export default {
   },
   mounted() {
     this.fetchMyScore();
-    this.$store.commit('playBgm', 'bgm5');
-    this.$store.commit('updateBg', this.characterId);
+    this.$store.commit("playBgm", "bgm5");
+    this.$store.commit("updateBg", this.characterId);
   },
   computed: {
     selectedCharacter() {

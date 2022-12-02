@@ -50,9 +50,9 @@
 </template>
 
 <script>
-import Model from './packs/model';
-import ChallengeText from './ChallengeText.vue';
-import store from './packs/store';
+import Model from "./packs/model";
+import ChallengeText from "./ChallengeText.vue";
+import store from "./packs/store";
 
 export default {
   store,
@@ -74,7 +74,7 @@ export default {
   computed: {
     challenges() {
       return this.model.challenge.getByChallengeIds(
-          this.model.chapter.challenge_ids,
+        this.model.chapter.challenge_ids,
       );
     },
     restCardBonus() {
@@ -87,8 +87,8 @@ export default {
         return;
       }
       this.sending = true;
-      this.$emit('guiEvent', {type: 'endGame'});
-      this.$store.commit('playSound', {key: 'ok'});
+      this.$emit("guiEvent", { type: "endGame" });
+      this.$store.commit("playSound", { key: "ok" });
     },
     isCleared(challengeId) {
       return this.model.clearedChallenges.indexOf(challengeId) !== -1;

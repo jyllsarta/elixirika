@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import BulletRed from './BulletRed.vue';
-import BulletCyan from './BulletCyan.vue';
-import BulletYellow from './BulletYellow.vue';
-import BulletBonus from './BulletBonus.vue';
-import BulletSpecial from './BulletSpecial.vue';
+import BulletRed from "./BulletRed.vue";
+import BulletCyan from "./BulletCyan.vue";
+import BulletYellow from "./BulletYellow.vue";
+import BulletBonus from "./BulletBonus.vue";
+import BulletSpecial from "./BulletSpecial.vue";
 
 export default {
   components: {

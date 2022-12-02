@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Model from './packs/model';
+import Model from "./packs/model";
 
 export default {
   props: {
@@ -33,7 +33,7 @@ export default {
   methods: {
     dragover(e) {
       e.preventDefault();
-      e.dataTransfer.dropEffect = 'copy';
+      e.dataTransfer.dropEffect = "copy";
     },
     drop(e) {
       e.preventDefault();
@@ -41,13 +41,13 @@ export default {
         return;
       }
       for (const item of e.dataTransfer.items) {
-        const {kind, type} = item;
-        if (kind === 'file') {
+        const { kind, type } = item;
+        if (kind === "file") {
           continue;
         }
-        if (type === 'text/plain' && kind === 'string') {
+        if (type === "text/plain" && kind === "string") {
           const cardId = e.dataTransfer.getData(type);
-          this.$emit('guiEvent', {type: 'sendToAbility', cardId});
+          this.$emit("guiEvent", { type: "sendToAbility", cardId });
         }
       }
     },

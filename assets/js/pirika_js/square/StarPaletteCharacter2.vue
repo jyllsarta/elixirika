@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import Model from './packs/model';
-import store from './packs/store';
+import Model from "./packs/model";
+import store from "./packs/store";
 
 export default {
   store,
@@ -65,8 +65,8 @@ export default {
   },
   mounted() {
     this.params = this.model.character.getCallback(
-        'starPaletteParameter',
-        this.model.chapter.index,
+      "starPaletteParameter",
+      this.model.chapter.index,
     )();
   },
   methods: {
@@ -97,11 +97,11 @@ export default {
     },
     starClass(index) {
       const current = this.currentProgress;
-      const satisfiedClass = current >= index ? 'enabled' : 'disabled';
+      const satisfiedClass = current >= index ? "enabled" : "disabled";
       const additionalScore = this.expectedAdditionalArityStyleScore();
       const expectedClass =
-        current < index && current + additionalScore >= index ? 'will_be' : '';
-      return [satisfiedClass, expectedClass].join(' ');
+        current < index && current + additionalScore >= index ? "will_be" : "";
+      return [satisfiedClass, expectedClass].join(" ");
     },
   },
   computed: {
@@ -113,34 +113,34 @@ export default {
     },
     romanNumerals() {
       return [
-        'zero',
-        'I',
-        'II',
-        'III',
-        'IV',
-        'V',
-        'VI',
-        'VII',
-        'VIII',
-        'IX',
-        'X',
-        'XI',
-        'XII',
+        "zero",
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI",
+        "VII",
+        "VIII",
+        "IX",
+        "X",
+        "XI",
+        "XII",
       ];
     },
   },
   watch: {
-    'model.starPalette.fields.length': function(after, before) {
+    "model.starPalette.fields.length": function (after, before) {
       const afterProgress = this.currentProgress;
       if (afterProgress - this.currentProgressCache === 3) {
-        this.$store.commit('playSound', {key: 'special4'});
+        this.$store.commit("playSound", { key: "special4" });
       } else if (afterProgress > this.currentProgressCache) {
-        this.$store.commit('playSound', {key: 'special1'});
+        this.$store.commit("playSound", { key: "special1" });
       } else if (
         afterProgress === this.currentProgressCache &&
         after > before
       ) {
-        this.$store.commit('playSound', {key: 'special3'});
+        this.$store.commit("playSound", { key: "special3" });
       }
       this.currentProgressCache = afterProgress;
     },

@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import SupportCharacterAbilityButton from './SupportCharacterAbilityButton.vue';
+import SupportCharacterAbilityButton from "./SupportCharacterAbilityButton.vue";
 
 export default {
   data() {
@@ -40,7 +40,7 @@ export default {
       return this.model.focusingAbilityIndex === index;
     },
     isSmall(index) {
-      const {length} = this.character.uniqueParameters.abilities;
+      const { length } = this.character.uniqueParameters.abilities;
       if (length <= 4) {
         return false;
       }
