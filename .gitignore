@@ -40,3 +40,7 @@ npm-debug.log
 
 /assets/js/pirika_js/square/masterdata
 /assets/static
+
+# VSCodeの "esLint.WorkingDirectories" に何を指定しても /assets/.eslintrc.js を読んでくれない
+# 諦めて、ルートにコピーしている 原因は不明
+/.eslintrc.js
