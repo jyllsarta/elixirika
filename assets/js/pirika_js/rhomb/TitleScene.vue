@@ -9,13 +9,32 @@
 </template>
 
 <script>
+const Hand = require('pokersolver').Hand;
+
 export default {
   data() {
     return {};
   },
   methods: {
     proceed() {
-      this.$emit("loadScene", { sceneName: "mainMenu" });
+      window.hand = Hand;
+      let results = {};
+      for(const suit of ["d", "s", "c", "h"]){
+        for(const rank of ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]){
+          for(const suit2 of ["d", "s", "c", "h"]){
+            for(const rank2 of ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]){
+              let cards = ['Ad', 'As', 'Jc', 'Th', '2d'];
+              let adds = [rank + suit, rank2 + suit2];
+              if(cards.some(card=>adds.includes(card)) || adds[0] == adds[1]){
+                continue;
+              }
+              let result = Hand.solve(cards.concat(adds));
+              results[result.name] = results[result.name] ? results[result.name] + 1 : 1;
+            }
+          }
+        }
+      }
+      console.log(results)
     },
   },
   mounted() {
