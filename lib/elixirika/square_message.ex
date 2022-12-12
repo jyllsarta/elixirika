@@ -22,7 +22,7 @@ defmodule Elixirika.SquareMessage do
         created_at: m.created_at
       },
       order_by: [desc: m.created_at],
-      limit: 100,
+      limit: 100
     )
     |> Elixirika.Repo.all()
     |> Enum.map(& %{&1 | created_at: format_datetime(&1.created_at)})
