@@ -1,12 +1,21 @@
 <template>
-  <div>くいーんず！</div>
+  <div>
+    <h1>
+      くいーんず！
+    </h1>
+    <state />
+  </div>
 </template>
 
 <script>
 import store from "./packs/store";
+import State from "./State.vue"
 
 export default {
   store,
+  components: {
+    State
+  }
 };
 </script>
 
