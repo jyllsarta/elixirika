@@ -26,22 +26,33 @@
       <div>
         BoardNext: {{state.boardNext.cards}}
       </div>
+
+      <h3>なんでもボタン</h3>
+      <button @click="setup">setup</button>
     </div>
   </div>
 </template>
 
 <script>
-import State from "./packs/state";
+import State from "./packs/model/state";
+import Controller from "./packs/service/controller";
 
 export default {
   data(){
     return {
       state: null,
+      controller: null,
     }
   },
   mounted(){
     this.state = new State();
     window.state = this.state;
+    this.controller = new Controller(state);
+  },
+  methods: {
+    setup(){
+      this.controller.setup();
+    }
   }
 };
 </script>

@@ -2,6 +2,10 @@ import Field from "./field";
 
 export class State {
   constructor(){
+    this.reset();
+  }
+
+  reset(){
     this.deck = new Field();
     this.discard = new Field();
     this.enemyHand = new Field();
