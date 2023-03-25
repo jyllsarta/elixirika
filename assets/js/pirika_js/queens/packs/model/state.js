@@ -14,6 +14,7 @@ export class State {
     this.playerBoard = new Field();
     this.board = new Field();
     this.boardNext = new Field();
+    this.phase = "unstarted";
   }
 };
 export default State;

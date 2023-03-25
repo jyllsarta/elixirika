@@ -23,5 +23,8 @@ export class SetupPhase {
     state.boardNext.add(state.deck.draw());
   }
 
+  nextPhase(state){
+    state.phase = "turn_start";
+  }
 };
 export default SetupPhase;
