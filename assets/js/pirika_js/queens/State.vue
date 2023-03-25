@@ -3,28 +3,28 @@
     <div v-if="state">
       <h2>state:</h2>
       <div>
-        Deck: {{state.deck.cards}}
+        Deck({{state.deck.cards.length}}): {{state.deck.cards}}
       </div>
       <div>
-        Discard: {{state.discard.cards}}
+        Discard({{state.discard.cards.length}}): {{state.discard.cards}}
       </div>
       <div>
-        EnemyHand: {{state.enemyHand.cards}}
+        EnemyHand({{state.enemyHand.cards.length}}): {{state.enemyHand.cards}}
       </div>
       <div>
-        EnemyBoard: {{state.enemyBoard.cards}}
+        EnemyBoard({{state.enemyBoard.cards.length}}): {{state.enemyBoard.cards}}
       </div>
       <div>
-        PlayerHand: {{state.playerHand.cards}}
+        PlayerHand({{state.playerHand.cards.length}}): {{state.playerHand.cards}}
       </div>
       <div>
-        PlayerBoard: {{state.playerBoard.cards}}
+        PlayerBoard({{state.playerBoard.cards.length}}): {{state.playerBoard.cards}}
       </div>
       <div>
-        Board: {{state.board.cards}}
+        Board({{state.board.cards.length}}): {{state.board.cards}}
       </div>
       <div>
-        BoardNext: {{state.boardNext.cards}}
+        BoardNext({{state.boardNext.cards.length}}): {{state.boardNext.cards}}
       </div>
       <div>
         phase: {{state.phase}}

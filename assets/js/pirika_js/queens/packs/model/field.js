@@ -30,5 +30,10 @@ export class Field {
   add(card){
     this.cards.push(card);
   }
+
+  sendAllCardsTo(field){
+    field.cards = field.cards.concat(this.cards);
+    this.cards = [];
+  }
 };
 export default Field;
