@@ -15,6 +15,10 @@ export class State {
     this.playerBoard = new Field();
     this.board = new Field();
     this.boardNext = new Field();
+    this.playerScore = 0;
+    this.enemyScore = 0;
+    this.pot = 0;
+    this.round = 0;
   }
 };
 export default State;

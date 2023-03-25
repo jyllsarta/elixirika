@@ -8,6 +8,12 @@
       <div>
         phase: {{state.phase}}
       </div>
+      <div>
+        [playerScore / enemyScore / pot / round]
+      </div>
+      <div>
+        [{{state.playerScore}} / {{state.enemyScore}} / {{state.pot}} / {{state.round}}]
+      </div>
 
       <h3>なんでもボタン</h3>
       <button @click="setup">setup</button>

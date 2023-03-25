@@ -3,7 +3,8 @@ export class PhaseGameEnd {
   }
 
   nextPhase(state){
-    state.phase = "unstarted";
+    // ゲームエンドしたら基本戻らない
+    state.phase = "game_end";
   }
 };
 export default PhaseGameEnd;

@@ -7,6 +7,9 @@ export class PhaseTurnStart {
     state.playerHand.add(state.deck.draw());
     state.boardNext.add(state.deck.draw());
     state.boardNext.add(state.deck.draw());
+
+    state.round++;
+    state.pot += state.round;
   }
 
   nextPhase(state){
