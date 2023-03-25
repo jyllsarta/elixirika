@@ -35,5 +35,12 @@ export class Field {
     field.cards = field.cards.concat(this.cards);
     this.cards = [];
   }
+
+  // referenceTargetValue を超えない範囲で、フィールドのカードのなるべく大きく解釈する
+  // ゲームの実用上問題ない範囲でデフォルト値を決めておく
+  // 現在はまだカードに多態性を持たせていないので、素朴に総和を取るだけでOK
+  targetValue(referenceTargetValue = 999999){
+    return this.cards.reduce((acc, card)=>acc + card.n, 0);
+  }
 };
 export default Field;
