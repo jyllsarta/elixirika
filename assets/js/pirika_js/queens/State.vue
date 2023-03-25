@@ -26,9 +26,13 @@
       <div>
         BoardNext: {{state.boardNext.cards}}
       </div>
+      <div>
+        phase: {{state.phase}}
+      </div>
 
       <h3>なんでもボタン</h3>
       <button @click="setup">setup</button>
+      <button @click="nextPhase">nextPhase</button>
     </div>
   </div>
 </template>
@@ -52,6 +56,9 @@ export default {
   methods: {
     setup(){
       this.controller.setup();
+    },
+    nextPhase(){
+      this.controller.nextPhase();
     }
   }
 };

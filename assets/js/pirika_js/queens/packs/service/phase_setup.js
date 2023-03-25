@@ -1,6 +1,6 @@
 import Card from "../model/card";
 
-export class SetupPhase {
+export class PhaseSetup {
   enter(state){
     state.reset();
     const cards = [];
@@ -27,4 +27,4 @@ export class SetupPhase {
     state.phase = "turn_start";
   }
 };
-export default SetupPhase;
+export default PhaseSetup;
