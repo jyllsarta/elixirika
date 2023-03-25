@@ -47,6 +47,7 @@ export default {
     this.state = new State();
     window.state = this.state;
     this.controller = new Controller(state);
+    window.controller = this.controller;
   },
   methods: {
     setup(){

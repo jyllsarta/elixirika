@@ -1,11 +1,12 @@
 export class PhasePlayerSelect {
   enter(state){
-    // 将来的にはControllerからカードを選ばせる
-    state.playerBoard.add(state.playerHand.draw());
-    state.playerBoard.add(state.playerHand.draw());
   }
 
   nextPhase(state){
+    // FIXME: ポチポチで進まないとだるいので、カードを選択していない状態だったら適当に端っこから切っていく
+    while(state.playerBoard.cards.length < 2){
+      state.playerBoard.add(state.deck.draw());
+    }
     state.phase = "showdown";
   }
 };

@@ -42,5 +42,10 @@ export class Field {
   targetValue(referenceTargetValue = 999999){
     return this.cards.reduce((acc, card)=>acc + card.n, 0);
   }
+
+  pick(index){
+    const picked = this.cards.splice(index, 1);
+    return picked[0];
+  }    
 };
 export default Field;
