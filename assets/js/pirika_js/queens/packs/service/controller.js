@@ -7,6 +7,7 @@ export class Controller {
   }
 
   setup(){
+    this.state.phase = "unstarted";
     let psm = new PhaseStateMachine();
     psm.proceedToNextPhase(this.state);
   }
