@@ -9,10 +9,10 @@
         phase: {{state.phase}}
       </div>
       <div>
-        [playerScore / enemyScore / pot / round]
+        [playerScore / enemyScore / playerSP / enemySP / pot / round]
       </div>
       <div>
-        [{{state.playerScore}} / {{state.enemyScore}} / {{state.pot}} / {{state.round}}]
+        [{{state.playerScore}} / {{state.enemyScore}} / {{state.playerSpecialPoint}} / {{state.enemySpecialPoint}} / {{state.pot}} / {{state.round}}]
       </div>
 
       <h3>なんでもボタン</h3>

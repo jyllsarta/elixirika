@@ -24,6 +24,10 @@ export class Field {
   }
 
   draw(){
+    if(this.cards.length == 0){
+      console.warn("drawing from empty field!");
+      return null;
+    }
     return this.cards.shift();
   }
 

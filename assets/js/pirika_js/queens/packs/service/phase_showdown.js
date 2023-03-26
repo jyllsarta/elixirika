@@ -6,10 +6,12 @@ export class PhaseShowdown {
     console.log(turn_result);
     if(turn_result == "win"){
       state.enemyScore += state.pot;
+      state.enemySpecialPoint += state.pot;
       state.pot = 0;
     }
     else if(turn_result == "lose"){
       state.playerScore += state.pot;
+      state.playerSpecialPoint += state.pot;
       state.pot = 0;
     }
     // 引き分けは何もしない

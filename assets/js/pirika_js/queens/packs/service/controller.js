@@ -26,5 +26,18 @@ export class Controller {
       this.state.playerBoard.add(card);
     }
   }
+
+  changeCard(index){
+    if(this.state.playerScore < 2){
+      console.warn("insufficient MP");
+      return;
+    }
+    const card = this.state.playerHand.pick(index);
+    if(card){
+      this.state.discard.add(card);
+      this.state.playerHand.add(this.state.deck.draw());
+      this.state.playerScore -= 2;
+    }
+  }
 };
 export default Controller;

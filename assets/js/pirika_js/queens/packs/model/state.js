@@ -17,6 +17,8 @@ export class State {
     this.boardNext = new Field();
     this.playerScore = 0;
     this.enemyScore = 0;
+    this.playerSpecialPoint = 0;
+    this.enemySpecialPoint = 0;
     this.pot = 0;
     this.round = 0;
   }
