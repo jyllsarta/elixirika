@@ -19,6 +19,11 @@ export class PhaseShowdown {
     state.board.sendAllCardsTo(state.discard);
     state.playerBoard.sendAllCardsTo(state.discard);
     state.enemyBoard.sendAllCardsTo(state.discard);
+
+    if(state.deck.cards.length < 15){
+      state.discard.sendAllCardsTo(state.deck);
+      state.deck.shuffle();
+    }
   }
 
   nextPhase(state){
