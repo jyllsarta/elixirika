@@ -23,14 +23,13 @@
 </template>
 
 <script>
-import State from "./packs/model/state";
-import Controller from "./packs/service/controller";
-
 export default {
+  props: {
+    state: Object,
+    controller: Object
+  },
   data(){
     return {
-      state: null,
-      controller: null,
       fieldNames: [
         "deck",
         "discard",
@@ -43,12 +42,6 @@ export default {
       ]
     }
   },
-  mounted(){
-    this.state = new State();
-    window.state = this.state;
-    this.controller = new Controller(state);
-    window.controller = this.controller;
-  },
   methods: {
     setup(){
       this.controller.setup();
@@ -57,6 +50,7 @@ export default {
       this.controller.nextPhase();
     }
   }
+
 };
 </script>
 

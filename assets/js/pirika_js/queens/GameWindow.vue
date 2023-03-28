@@ -8,10 +8,40 @@
     <div class="table component">テーブル</div>
     <div class="player_hand component">手札</div>
     <div class="side_pane component">サイドパネル</div>
+    <debug-state class="debug_state" :state="state" :controller="controller"></debug-state>
   </div>
 </template>
 
 <script>
+import State from "./packs/model/state";
+import DebugState from "./DebugState.vue";
+import Controller from "./packs/service/controller";
+
+export default {
+  components: {
+    DebugState
+  },
+  data(){
+    return {
+      state: null,
+      controller: null,
+    }
+  },
+  mounted(){
+    this.state = new State();
+    window.state = this.state;
+    this.controller = new Controller(state);
+    window.controller = this.controller;
+  },
+  methods: {
+    setup(){
+      this.controller.setup();
+    },
+    nextPhase(){
+      this.controller.nextPhase();
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -74,6 +104,11 @@
     right: 10px;
     width: 300px;
     height: 780px;
+  }
+  .debug_state{
+    position: absolute;
+    top: 800px;
+    background-color: #121232;
   }
 }
 </style>
