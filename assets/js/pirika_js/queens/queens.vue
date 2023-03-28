@@ -1,20 +1,20 @@
 <template>
   <div>
-    <h1>
-      くいーんず！
-    </h1>
-    <state />
+    <game-window />
+    <screen />
   </div>
 </template>
 
 <script>
 import store from "./packs/store";
 import State from "./State.vue"
+import GameWindow from "./GameWindow.vue"
 
 export default {
   store,
   components: {
-    State
+    State,
+    GameWindow,
   }
 };
 </script>
