@@ -107,5 +107,6 @@ a {
 body {
   user-select: none;
   font-family: "M PLUS 2", sans-serif;
+  background-color: rgb(14, 14, 15);
 }
 </style>
