@@ -6,7 +6,9 @@
     <div class="enemy_message component">ふきだし</div>
     <div class="bankroll component">バンクロール</div>
     <div class="table component">テーブル</div>
-    <div class="player_hand component">手札</div>
+    <div class="player_hand component">
+      <player-hand :state="state" />
+    </div>
     <div class="side_pane component">サイドパネル</div>
     <debug-state class="debug_state" :state="state" :controller="controller"></debug-state>
   </div>
@@ -16,10 +18,12 @@
 import State from "./packs/model/state";
 import DebugState from "./DebugState.vue";
 import Controller from "./packs/service/controller";
+import PlayerHand from "./PlayerHand.vue";
 
 export default {
   components: {
-    DebugState
+    DebugState,
+    PlayerHand,
   },
   data(){
     return {
