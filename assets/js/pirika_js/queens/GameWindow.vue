@@ -7,11 +7,15 @@
     </div>
     <div class="enemy_message component">ふきだし</div>
     <div class="bankroll component">バンクロール</div>
-    <div class="table component">テーブル</div>
+    <div class="table component">
+      <game-table :state="state" />
+    </div>
     <div class="player_hand component">
       <player-hand :state="state" />
     </div>
-    <div class="side_pane component">サイドパネル</div>
+    <div class="side_pane component">
+      <side-pane :state="state" />
+    </div>
     <debug-state class="debug_state" :state="state" :controller="controller"></debug-state>
   </div>
 </template>
@@ -22,12 +26,16 @@ import DebugState from "./DebugState.vue";
 import Controller from "./packs/service/controller";
 import EnemyHand from "./EnemyHand.vue";
 import PlayerHand from "./PlayerHand.vue";
+import GameTable from "./GameTable.vue";
+import SidePane from './SidePane.vue';
 
 export default {
   components: {
     DebugState,
     PlayerHand,
     EnemyHand,
+    GameTable,
+    SidePane,
   },
   data(){
     return {
@@ -56,7 +64,7 @@ export default {
 @import "stylesheets/global_settings";
 .game_window{
   width: 1200px;
-  height: 800px;
+  height: 600px;
   border: 1px solid cyan;
   position: relative;
   background-color: #121232;
@@ -75,19 +83,19 @@ export default {
     top: 0px;
     left: 30px;
     width: 400px;
-    height: 300px;
+    height: 200px;
   }
   .enemy_hand{
-    top: 250px;
+    top: 220px;
     left: 10px;
     width: 500px;
-    height: 100px;
+    height: 80px;
   }
   .enemy_message{
-    top: 100px;
+    top: 60px;
     left: 300px;
     width: 450px;
-    height: 140px;
+    height: 120px;
   }
   .bankroll{
     top: 10px;
@@ -99,23 +107,23 @@ export default {
     top: 330px;
     left: 10px;
     width: 870px;
-    height: 300px;
+    height: 250px;
   }
   .player_hand{
     bottom: 10px;
     left: 10px;
     width: 870px;
-    height: 150px;
+    height: 100px;
   }
   .side_pane{
     top: 10px;
     right: 10px;
     width: 300px;
-    height: 780px;
+    height: 580px;
   }
   .debug_state{
     position: absolute;
-    top: 800px;
+    top: 600px;
     background-color: #121232;
   }
 }
