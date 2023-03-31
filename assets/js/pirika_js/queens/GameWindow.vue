@@ -2,7 +2,9 @@
   <div class="game_window">
     <div class="menu component">メニュー</div>
     <div class="enemy_image component">敵画像</div>
-    <div class="enemy_hand component">敵手札</div>
+    <div class="enemy_hand component">
+      <enemy-hand :state="state" />
+    </div>
     <div class="enemy_message component">ふきだし</div>
     <div class="bankroll component">バンクロール</div>
     <div class="table component">テーブル</div>
@@ -18,12 +20,14 @@
 import State from "./packs/model/state";
 import DebugState from "./DebugState.vue";
 import Controller from "./packs/service/controller";
+import EnemyHand from "./EnemyHand.vue";
 import PlayerHand from "./PlayerHand.vue";
 
 export default {
   components: {
     DebugState,
     PlayerHand,
+    EnemyHand,
   },
   data(){
     return {
