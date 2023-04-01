@@ -7,7 +7,7 @@
     </div>
     <div class="enemy_message component">ふきだし</div>
     <div class="bankroll component">バンクロール</div>
-    <div class="table component">
+    <div class="game_table component">
       <game-table :state="state" />
     </div>
     <div class="player_hand component">
@@ -103,7 +103,7 @@ export default {
     width: 200px;
     height: 100px;
   }
-  .table{
+  .game_table{
     top: 330px;
     left: 10px;
     width: 870px;
