@@ -17,6 +17,7 @@
       <side-pane :state="state" />
     </div>
     <debug-state class="debug_state" :state="state" :controller="controller"></debug-state>
+    <phase-mover :state="state" :controller="controller" />
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import EnemyHand from "./EnemyHand.vue";
 import PlayerHand from "./PlayerHand.vue";
 import GameTable from "./GameTable.vue";
 import SidePane from './SidePane.vue';
+import PhaseMover from './PhaseMover.vue';
 
 export default {
   components: {
@@ -36,6 +38,7 @@ export default {
     EnemyHand,
     GameTable,
     SidePane,
+    PhaseMover,
   },
   data(){
     return {
