@@ -50,6 +50,15 @@ export class Field {
   pick(index){
     const picked = this.cards.splice(index, 1);
     return picked[0];
-  }    
+  }
+  
+  pickByCardId(cardId){
+    const cardIndex = this.cards.findIndex(card=>card.id == cardId);
+    if(cardIndex === -1){
+      console.warn(`couldn't find card.id == ${cardId}`);
+      return null;
+    }
+    return this.pick(cardIndex);
+  }
 };
 export default Field;

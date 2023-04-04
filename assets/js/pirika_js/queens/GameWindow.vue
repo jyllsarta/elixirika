@@ -8,10 +8,10 @@
     <div class="enemy_message component">ふきだし</div>
     <div class="bankroll component">バンクロール</div>
     <div class="game_table component">
-      <game-table :state="state" />
+      <game-table :state="state" :controller="controller" />
     </div>
     <div class="player_hand component">
-      <player-hand :state="state" />
+      <player-hand :state="state" :controller="controller"/>
     </div>
     <div class="side_pane component">
       <side-pane :state="state" />

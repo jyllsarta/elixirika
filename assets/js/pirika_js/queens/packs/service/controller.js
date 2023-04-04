@@ -28,6 +28,27 @@ export class Controller {
     }
   }
 
+  sendToBoardByCardId(cardId){
+    if(this.state.playerBoard.cards.length >= 2){
+      console.warn("already picked 2 cards");
+      return;
+    }
+    const card = this.state.playerHand.pickByCardId(cardId);
+    if(card){
+      this.state.playerBoard.add(card);
+    }
+  }
+
+  unstage(cardId){
+    const card = this.state.playerBoard.pickByCardId(cardId);
+    if(card){
+      this.state.playerHand.add(card);
+    }
+    else{
+      console.warn("couldn't find card");
+    }
+  }
+
   changeCard(index){
     if(this.state.playerScore < 2){
       console.warn("insufficient MP");
