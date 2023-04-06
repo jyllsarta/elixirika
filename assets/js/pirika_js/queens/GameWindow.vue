@@ -63,7 +63,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "stylesheets/global_settings";
 .game_window{
   width: 1200px;
