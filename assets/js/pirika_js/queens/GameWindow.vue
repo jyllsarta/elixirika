@@ -1,7 +1,9 @@
 <template>
   <div class="game_window">
     <div class="menu component">メニュー</div>
-    <div class="enemy_image component">敵画像</div>
+    <div class="enemy_image component">
+      <enemy-image :state="state" />
+    </div>
     <div class="enemy_hand component">
       <enemy-hand :state="state" />
     </div>
@@ -26,6 +28,7 @@ import State from "./packs/model/state";
 import DebugState from "./DebugState.vue";
 import Controller from "./packs/service/controller";
 import EnemyHand from "./EnemyHand.vue";
+import EnemyImage from "./EnemyImage.vue";
 import PlayerHand from "./PlayerHand.vue";
 import GameTable from "./GameTable.vue";
 import SidePane from './SidePane.vue';
@@ -36,6 +39,7 @@ export default {
     DebugState,
     PlayerHand,
     EnemyHand,
+    EnemyImage,
     GameTable,
     SidePane,
     PhaseMover,
@@ -72,6 +76,8 @@ export default {
   position: relative;
   background-color: #121232;
   color: azure;
+  overflow: hidden;
+
   .component{
     border: 1px solid cyan;
     position: absolute;
