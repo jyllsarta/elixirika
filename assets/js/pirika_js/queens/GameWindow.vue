@@ -7,7 +7,9 @@
     <div class="enemy_hand component">
       <enemy-hand :state="state" />
     </div>
-    <div class="enemy_message component">ふきだし</div>
+    <div class="enemy_message component">
+      <enemy-message :state="state" />
+    </div>
     <div class="bankroll component">バンクロール</div>
     <div class="game_table component">
       <game-table :state="state" :controller="controller" />
@@ -18,7 +20,7 @@
     <div class="side_pane component">
       <side-pane :state="state" />
     </div>
-    <debug-state class="debug_state" :state="state" :controller="controller"></debug-state>
+    <debug-state class="debug_state" :state="state" :controller="controller" />
     <phase-mover :state="state" :controller="controller" />
   </div>
 </template>
@@ -29,6 +31,7 @@ import DebugState from "./DebugState.vue";
 import Controller from "./packs/service/controller";
 import EnemyHand from "./EnemyHand.vue";
 import EnemyImage from "./EnemyImage.vue";
+import EnemyMessage from "./EnemyMessage.vue";
 import PlayerHand from "./PlayerHand.vue";
 import GameTable from "./GameTable.vue";
 import SidePane from './SidePane.vue';
@@ -40,6 +43,7 @@ export default {
     PlayerHand,
     EnemyHand,
     EnemyImage,
+    EnemyMessage,
     GameTable,
     SidePane,
     PhaseMover,
@@ -72,14 +76,15 @@ export default {
 .game_window{
   width: 1200px;
   height: 600px;
-  border: 1px solid cyan;
   position: relative;
   background-color: #121232;
   color: azure;
-  overflow: hidden;
+
+  * {
+    outline: 1px solid cyan;
+  }
 
   .component{
-    border: 1px solid cyan;
     position: absolute;
   }
   .menu{

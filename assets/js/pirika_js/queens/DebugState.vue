@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="debug_state">
     <div v-if="state">
       <h3>なんでもボタン</h3>
       <button @click="setup">setup</button>
@@ -56,4 +56,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "stylesheets/global_settings";
+.debug_state{
+  font-size: 12px;
+  line-height: 110%;
+}
 </style>
