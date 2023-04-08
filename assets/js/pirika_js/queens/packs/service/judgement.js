@@ -1,9 +1,13 @@
 export class Judgement {
-  static judge(playerBoard, enemyBoard, board){
+  static judge(board, playerBoard, enemyBoard){
     const target = board.targetValue();
     const player = playerBoard.targetValue(target);
     const enemy = enemyBoard.targetValue(target);
+    return this.judgeValue(target, player, enemy);
+  }
 
+  static judgeValue(target, player, enemy){
+    console.log(target, player, enemy)
     // 引き分けは同値の場合のみで、それ以外は必ず決着する
     if(player == enemy){
       return "draw";
@@ -20,10 +24,10 @@ export class Judgement {
     }
 
     // 片方バーストはバーストしていないほうが勝ち
-    if(player > target && enemy < target){
+    if(player > target && enemy <= target){
       return "lose";
     }
-    if(player < target && enemy > target){
+    if(player <= target && enemy > target){
       return "win";
     }
 
