@@ -59,5 +59,9 @@ export default {
 .debug_state{
   font-size: 12px;
   line-height: 110%;
+  button{
+    width: 100px;
+    height: 80px;
+  }
 }
 </style>
