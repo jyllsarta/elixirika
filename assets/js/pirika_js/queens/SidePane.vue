@@ -5,13 +5,13 @@
       敵スキル
     </div>
     <div class="enemy_score">
-      8
+      {{state.enemyScore}}
     </div>
     <div class="pot">
-      3
+      {{state.pot}}
     </div>
     <div class="player_score">
-      5
+      {{state.playerScore}}
     </div>
     <div class="skill_icon_player">
       自分スキル
@@ -20,14 +20,7 @@
   <div class="mps">
     <div class="enemy_mp_area">
       <div class="enemy_mp">
-        <div class="mp available"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
+        <div class="mp" v-for="i in [1,2,3,4,5,6,7,8]" :class="{available: i <= state.enemySpecialPoint}" :key="i"/>
       </div>
       <div class="label">
         MP
@@ -38,7 +31,7 @@
         ROUND
       </div>
       <div class="value">
-        3
+        {{state.round}}
       </div>
     </div>
     <div class="player_mp_area">
@@ -46,14 +39,7 @@
         MP
       </div>
       <div class="player_mp">
-        <div class="mp"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
-        <div class="mp"></div>
+        <div class="mp" v-for="i in [1,2,3,4,5,6,7,8]" :class="{available: i <= state.playerSpecialPoint}" :key="i"/>
       </div>
     </div>
   </div>
