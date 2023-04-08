@@ -1,18 +1,21 @@
 <template>
 <div class="table" v-if="state">
-  <div class="area">
-  <h2>EnemyBoard</h2>
-    <field-area :field="state.board" :hidden="true" @click-card="onCardClick" :showValue="state.phase == 'showdown'"/>
-  </div>
+  <div class="players">
+    <div class="area">
+      <h2>EnemyBoard</h2>
+      <field-area :field="state.enemyBoard" :hidden="state.phase !== 'showdown'" @click-card="onCardClick" :showValue="state.phase == 'showdown'"/>
+    </div>
 
-  <div class="area">
-    <h2>Target</h2>
-    <field-area :field="state.board" :hidden="false" @click-card="onCardClick" :showValue="true"/>
+    <div class="area">
+      <h2>PlayerBoard</h2>
+      <field-area :field="state.playerBoard" :hidden="false" @click-card="onCardClick" :showValue="true"/>
+    </div>
   </div>
-
-  <div class="area">
-    <h2>PlayerBoard</h2>
-    <field-area :field="state.playerBoard" :hidden="false" @click-card="onCardClick" :showValue="true"/>
+  <div class="targets">
+    <div class="area">
+      <h2>Target</h2>
+      <field-area :field="state.board" :hidden="false" @click-card="onCardClick" :showValue="true"/>
+    </div>
   </div>
 </div>
 </template>
@@ -42,6 +45,25 @@ export default {
 @import "stylesheets/global_settings";
 .table{
   display: flex;
-
+  .players{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    .area{
+      width: 100%;
+    }
+  }
+  .targets{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .area{
+      width: 100%;
+    }
+  }
 }
 </style>

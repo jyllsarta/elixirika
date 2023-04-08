@@ -100,7 +100,7 @@ export default {
     height: 200px;
   }
   .enemy_hand{
-    top: 220px;
+    top: 170px;
     left: 10px;
     width: 500px;
     height: 80px;
@@ -118,10 +118,10 @@ export default {
     height: 100px;
   }
   .game_table{
-    top: 330px;
+    top: 260px;
     left: 10px;
     width: 870px;
-    height: 250px;
+    height: 220px;
   }
   .player_hand{
     bottom: 10px;

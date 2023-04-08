@@ -26,18 +26,21 @@ export default {
 <style lang="scss" scoped>
 @import "stylesheets/global_settings";
 .field{
+  display: flex;
   .value{
     font-size: 20px;
+    width: 20%;
   }
   .cards{
+    width: 80%;
     display: flex;
     padding: 5px;
     gap: 10px;
     .card{
       border: 1px solid white;
       background-color: #35313a;
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       display: flex;
       justify-content: center;
       align-items: center;
