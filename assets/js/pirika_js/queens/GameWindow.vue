@@ -1,6 +1,8 @@
 <template>
   <div class="game_window">
-    <div class="menu component">メニュー</div>
+    <div class="menu component">
+      <option-menu />
+    </div>
     <div class="enemy_image component">
       <enemy-image :state="state" />
     </div>
@@ -36,6 +38,7 @@ import PlayerHand from "./PlayerHand.vue";
 import GameTable from "./GameTable.vue";
 import SidePane from './SidePane.vue';
 import PhaseMover from './PhaseMover.vue';
+import OptionMenu from './OptionMenu.vue';
 
 export default {
   components: {
@@ -47,6 +50,7 @@ export default {
     GameTable,
     SidePane,
     PhaseMover,
+    OptionMenu
   },
   data(){
     return {
