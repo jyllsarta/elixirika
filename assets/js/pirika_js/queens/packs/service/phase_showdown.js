@@ -2,18 +2,19 @@ import { Judgement } from "./judgement";
 
 export class PhaseShowdown {
   enter(state){
-
+    const turnResult = Judgement.judge(state.board, state.playerBoard, state.enemyBoard);
+    state.lastRoundResult = turnResult;
   }
 
   nextPhase(state){
-    const turn_result = Judgement.judge(state.board, state.playerBoard, state.enemyBoard);
-    console.log(turn_result);
-    if(turn_result == "win"){
+    const turnResult = Judgement.judge(state.board, state.playerBoard, state.enemyBoard);
+    console.log(turnResult);
+    if(turnResult == "win"){
       state.enemyScore += state.pot;
       state.enemySpecialPoint += state.pot;
       state.pot = 0;
     }
-    else if(turn_result == "lose"){
+    else if(turnResult == "lose"){
       state.playerScore += state.pot;
       state.playerSpecialPoint += state.pot;
       state.pot = 0;

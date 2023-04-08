@@ -1,5 +1,6 @@
 export class PhasePlayerSelect {
   enter(state){
+    state.lastRoundResult = "-";
   }
 
   nextPhase(state){

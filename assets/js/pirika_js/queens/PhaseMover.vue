@@ -29,7 +29,7 @@ export default {
       if(!this.autoProceedPhases.includes(new_phase)){
         return;
       }
-      const delay = new_phase == "showdown" ? 1500 : 500;
+      const delay = new_phase == "showdown" ? 1000 : 500;
       setTimeout(()=>{this.proceedPhaseIfNotChanged(new_phase)}, delay);
     },
   }

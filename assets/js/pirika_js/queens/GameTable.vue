@@ -11,6 +11,9 @@
       <field-area :field="state.playerBoard" :hidden="false" @click-card="onCardClick" :showValue="true"/>
     </div>
   </div>
+  <div class="last_round_result">
+    {{state.lastRoundResult}}
+  </div>
   <div class="targets">
     <div class="area">
       <h2>Target</h2>
@@ -51,13 +54,19 @@ export default {
     gap: 10px;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: 40%;
     .area{
       width: 100%;
     }
   }
+  .last_round_result{
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .targets{
-    width: 50%;
+    width: 40%;
     display: flex;
     align-items: center;
     justify-content: center;

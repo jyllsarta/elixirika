@@ -21,6 +21,7 @@ export class State {
     this.enemySpecialPoint = 0;
     this.pot = 0;
     this.round = 0;
+    this.lastRoundResult = "-";
   }
 };
 export default State;
