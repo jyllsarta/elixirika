@@ -12,7 +12,9 @@
     <div class="enemy_message component">
       <enemy-message :state="state" />
     </div>
-    <div class="bankroll component">バンクロール</div>
+    <div class="bankroll component">
+      <bankroll />
+    </div>
     <div class="game_table component">
       <game-table :state="state" :controller="controller" />
     </div>
@@ -39,6 +41,7 @@ import GameTable from "./GameTable.vue";
 import SidePane from './SidePane.vue';
 import PhaseMover from './PhaseMover.vue';
 import OptionMenu from './OptionMenu.vue';
+import Bankroll from './Bankroll.vue';
 
 export default {
   components: {
@@ -50,7 +53,8 @@ export default {
     GameTable,
     SidePane,
     PhaseMover,
-    OptionMenu
+    OptionMenu,
+    Bankroll
   },
   data(){
     return {
