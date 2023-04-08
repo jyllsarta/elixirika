@@ -1,8 +1,11 @@
+import { EnemyAiGreedy } from "./enemyAiGreedy";
+
 export class PhaseEnemySelect {
   enter(state){
-    // 将来的には敵AIを実装して出すカードを決定する
-    state.enemyBoard.add(state.enemyHand.draw());
-    state.enemyBoard.add(state.enemyHand.draw());    
+    const ai = new EnemyAiGreedy();
+    const cardIds = ai.select(state);
+    state.enemyBoard.add(state.enemyHand.pickByCardId(cardIds[0]));
+    state.enemyBoard.add(state.enemyHand.pickByCardId(cardIds[1]));
   }
 
   nextPhase(state){
