@@ -2,7 +2,11 @@ import { Judgement } from "./judgement";
 
 export class PhaseShowdown {
   enter(state){
-    const turn_result = Judgement.judge(state.playerBoard, state.enemyBoard, state.board);
+
+  }
+
+  nextPhase(state){
+    const turn_result = Judgement.judge(state.board, state.playerBoard, state.enemyBoard);
     console.log(turn_result);
     if(turn_result == "win"){
       state.enemyScore += state.pot;
@@ -24,9 +28,7 @@ export class PhaseShowdown {
       state.discard.sendAllCardsTo(state.deck);
       state.deck.shuffle();
     }
-  }
 
-  nextPhase(state){
     if(state.playerScore >= 8 || state.enemyScore >= 8){
       state.phase = "game_end";
       return;
