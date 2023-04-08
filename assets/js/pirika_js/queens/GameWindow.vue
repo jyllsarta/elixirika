@@ -80,10 +80,6 @@ export default {
   background-color: #121232;
   color: azure;
 
-  * {
-    //outline: 1px solid cyan;
-  }
-
   .component{
     position: absolute;
   }

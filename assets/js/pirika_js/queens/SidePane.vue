@@ -1,12 +1,62 @@
 <template>
-<div class="table" v-if="state">
-  <div>phase: {{state.phase}}</div>
-  <div>round: {{state.round}}</div>
-  <div>pot: {{state.pot}}</div>
-  <div>EnemyScore: {{state.enemyScore}}</div>
-  <div>EnemySP: {{state.enemySpecialPoint}}</div>
-  <div>PlayerScore: {{state.playerScore}}</div>
-  <div>PlayerSP: {{state.playerSpecialPoint}}</div>
+<div class="side_pane" v-if="state">
+  <div class="pots">
+    <div class="skill_icon_enemy">
+      敵スキル
+    </div>
+    <div class="enemy_score">
+      8
+    </div>
+    <div class="pot">
+      3
+    </div>
+    <div class="player_score">
+      5
+    </div>
+    <div class="skill_icon_player">
+      自分スキル
+    </div>
+  </div>
+  <div class="mps">
+    <div class="enemy_mp_area">
+      <div class="enemy_mp">
+        <div class="mp available"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+      </div>
+      <div class="label">
+        MP
+      </div>
+    </div>
+    <div class="round">
+      <div class="label">
+        ROUND
+      </div>
+      <div class="value">
+        3
+      </div>
+    </div>
+    <div class="player_mp_area">
+      <div class="label">
+        MP
+      </div>
+      <div class="player_mp">
+        <div class="mp"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+        <div class="mp"></div>
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -21,4 +71,109 @@ export default {
 
 <style lang="scss" scoped>
 @import "stylesheets/global_settings";
+.side_pane{
+  display: flex;
+  height: 100%;
+  .pots{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    .skill_icon_enemy{
+      width: 80px;
+      height: 60px;
+      border-radius: 0 20px  0 20px;
+      border: 1px solid cyan;
+    }
+    .enemy_score{
+      width: 120px;
+      height: 80px;
+      border: 1px solid cyan;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .pot{
+      width: 120px;
+      height: 80px;
+      border: 1px solid cyan;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .player_score{
+      width: 120px;
+      height: 80px;
+      font-size: 20px;
+      border: 1px solid cyan;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .skill_icon_player{
+      width: 80px;
+      height: 60px;
+      border-radius: 0 20px  0 20px;
+      border: 1px solid cyan;
+    }
+  }
+  .mps{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    .enemy_mp_area{
+      .enemy_mp{
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 4px;
+        .mp{
+          width: 18px;
+          height: 18px;
+          border: 1px solid aquamarine;
+        }
+        .available{
+          background-color: aquamarine;
+        }
+      }
+    }
+    .round{
+      height: 100px;
+      width: 100%;
+      border: 1px solid cyan;
+      .label{
+        text-align: center;
+        height: 20%;
+        border-bottom: 1px solid gray;
+      }
+      .value{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80%;
+      }
+    }
+    .player_mp_area{
+            .player_mp{
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        .mp{
+          width: 18px;
+          height: 18px;
+          border: 1px solid aquamarine;
+        }
+        .available{
+          background-color: aquamarine;
+        }
+      }
+    }
+  }
+}
 </style>
