@@ -81,7 +81,7 @@ export default {
   color: azure;
 
   * {
-    outline: 1px solid cyan;
+    //outline: 1px solid cyan;
   }
 
   .component{
@@ -108,8 +108,8 @@ export default {
   .enemy_message{
     top: 60px;
     left: 300px;
-    width: 450px;
-    height: 120px;
+    width: 250px;
+    height: 80px;
   }
   .bankroll{
     top: 10px;

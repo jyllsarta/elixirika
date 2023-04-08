@@ -27,6 +27,10 @@ export default {
 @import "stylesheets/global_settings";
 .field{
   display: flex;
+  height: 70px;
+  align-items: center;
+  background-color: #35313a;
+  padding: 5px;
   .value{
     font-size: 20px;
     width: 20%;

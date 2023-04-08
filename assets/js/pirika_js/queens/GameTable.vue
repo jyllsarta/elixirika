@@ -19,6 +19,10 @@
       <h2>Target</h2>
       <field-area :field="state.board" :hidden="false" @click-card="onCardClick" :showValue="true"/>
     </div>
+    <div class="area">
+      <h2>TargetNext</h2>
+      <div>V: {{state.boardNext.targetValue()}}</div>
+    </div>
   </div>
 </div>
 </template>
@@ -48,6 +52,7 @@ export default {
 @import "stylesheets/global_settings";
 .table{
   display: flex;
+  background-color: rgb(25, 54, 78);
   .players{
     display: flex;
     flex-direction: column;
@@ -67,6 +72,7 @@ export default {
   }
   .targets{
     width: 40%;
+    flex-direction: column;
     display: flex;
     align-items: center;
     justify-content: center;
