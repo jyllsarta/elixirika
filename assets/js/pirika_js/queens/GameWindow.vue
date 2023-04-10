@@ -1,9 +1,5 @@
 <template>
-  <div class="game_window">
-    <div class="menu component">
-      <option-menu />
-    </div>
-    <div class="enemy_image component">
+  <div class="game_window">    <div class="enemy_image component">
       <enemy-image :state="state" />
     </div>
     <div class="enemy_hand component">
@@ -24,6 +20,12 @@
     <div class="side_pane component">
       <side-pane :state="state" />
     </div>
+    <div class="menu component">
+      <option-menu @click="showTutorial = true"/>
+    </div>
+    <div class="tutorial_dialog component" v-if="showTutorial">
+      <tutorial-dialog  @close="showTutorial = false"/>
+    </div>
     <debug-state class="debug_state" :state="state" :controller="controller" />
     <phase-mover :state="state" :controller="controller" />
   </div>
@@ -42,6 +44,7 @@ import SidePane from './SidePane.vue';
 import PhaseMover from './PhaseMover.vue';
 import OptionMenu from './OptionMenu.vue';
 import Bankroll from './Bankroll.vue';
+import TutorialDialog from './TutorialDialog.vue';
 
 export default {
   components: {
@@ -54,12 +57,14 @@ export default {
     SidePane,
     PhaseMover,
     OptionMenu,
-    Bankroll
+    Bankroll,
+    TutorialDialog,
   },
   data(){
     return {
       state: null,
       controller: null,
+      showTutorial: true,
     }
   },
   mounted(){
@@ -138,6 +143,12 @@ export default {
     right: 10px;
     width: 300px;
     height: 580px;
+  }
+  .tutorial_dialog{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
   .debug_state{
     position: absolute;
