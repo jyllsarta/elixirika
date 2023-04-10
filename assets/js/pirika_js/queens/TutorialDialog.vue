@@ -10,10 +10,16 @@
           <img src="images/queens/characters/face-ikari1.png" alt="" class="character">
         </div>
         <div class="skit">
-          <div class="say">~チュートリアル~</div>
-          <div class="say">チュートリアルということで、クイーンズの解説をしていくわ</div>
-          <div class="say">だいたいギャンブル漫画のオリジナルカードゲームって感じよ</div>
-          <div class="say">5枚から2枚出して目標値に近いほうが勝ちってわけ</div>
+          <div class="covers">
+            <div class="upper"/>
+            <div class="downer"/>
+          </div>
+          <div class="says">
+            <div class="say">~チュートリアル~</div>
+            <div class="say">チュートリアルということで、クイーンズの解説をしていくわ</div>
+            <div class="say">だいたいギャンブル漫画のオリジナルカードゲームって感じよ</div>
+            <div class="say">5枚から2枚出して目標値に近いほうが勝ちってわけ</div>
+          </div>
         </div>
         <div class="right_character">
           <img src="images/queens/characters/face-queens1.png" alt="" class="character">
@@ -78,29 +84,52 @@ export default {
         }
       }
       .skit{
-        display: flex;
-        flex-direction: column;
-        overflow-y: scroll;
-        gap: 10px;
         height: 100%;
-        padding: 10px;
-        &::-webkit-scrollbar {
-          width: 10px;
+        position: relative;
+        .covers{
+          position: absolute;
+          pointer-events: none;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          width: 100%;
+          height: 100%;
+          .upper{
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(to bottom, black 20%, transparent 100%);
+          }
+          .downer{
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(to top, black 20%, transparent 100%);
+          }
         }
-        &::-webkit-scrollbar-track {
-          background: transparent;
-          border: none;
-          border-radius: 4px;
-          box-shadow: inset 0 0 2px #292828;
-        }
-        &::-webkit-scrollbar-thumb {
-          background: rgb(47, 47, 48);
-          border-radius: 4px;
-          box-shadow: none;
-        }
-        .say{
-          border: 1px solid white;
-          padding: 10px;
+        .says{
+          display: flex;
+          flex-direction: column;
+          overflow-y: scroll;
+          gap: 10px;
+          height: 100%;
+          padding: 30px 10px 10px 10px;
+          &::-webkit-scrollbar {
+            width: 10px;
+          }
+          &::-webkit-scrollbar-track {
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            box-shadow: inset 0 0 2px #292828;
+          }
+          &::-webkit-scrollbar-thumb {
+            background: rgb(47, 47, 48);
+            border-radius: 4px;
+            box-shadow: none;
+          }
+          .say{
+            border: 1px solid white;
+            padding: 10px;
+          }
         }
       }
       .right_character{
