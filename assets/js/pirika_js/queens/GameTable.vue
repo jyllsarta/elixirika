@@ -8,7 +8,7 @@
 
     <div class="area">
       <h2>PlayerBoard</h2>
-      <field-area :field="state.playerBoard" :hidden="false" @click-card="onCardClick" :showValue="true"/>
+      <field-area :field="state.playerBoard" :hidden="false" @click-card="onCardClick" :showValue="true" :canClick="true"/>
     </div>
   </div>
   <div class="last_round_result">

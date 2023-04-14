@@ -4,7 +4,7 @@
     V: {{showValue ? field.targetValue() : '-'}}
   </div>
   <div class="cards">
-    <div class="card" v-for="card in field.cards" :key="card.id" @click="$emit('click-card', card.id)">
+    <div class="card" v-for="card in field.cards" :key="card.id" :class="{canClick: canClick}" @click="$emit('click-card', card.id)">
       {{hidden ? '-' : card.n}}
     </div>
   </div>
@@ -18,7 +18,8 @@ export default {
   props: {
     field: Field,
     hidden: Boolean,
-    showValue: Boolean
+    showValue: Boolean,
+    canClick: Boolean,
   },
 }
 </script>
@@ -48,6 +49,9 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+    .canclick{
+      cursor: pointer;
     }
   }
 }

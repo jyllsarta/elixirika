@@ -1,6 +1,6 @@
 <template>
 <div class="player_hand" v-if="state">
-  <field-area :field="state.playerHand" :hidden="false" @click-card="onCardClick"/>
+  <field-area :field="state.playerHand" :hidden="false" @click-card="onCardClick" :canClick="true"/>
 </div>
 </template>
 
