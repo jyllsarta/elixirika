@@ -7,19 +7,19 @@
       </div>
       <div class="skit_area">
         <div class="left_character">
-          <img src="images/queens/characters/face-ikari1.png" alt="" class="character">
+          <img :src="`images/queens/characters/face-ikari${currentSay.face_id}.png`" alt="" class="character">
         </div>
         <div class="skit">
           <div class="covers">
             <div class="upper"/>
             <div class="downer"/>
           </div>
-          <div class="says">
-            <div class="say" v-for="say in says" :key="say.id">{{say.text}}</div>
+          <div class="says" ref="says" @scroll="updateFace">
+            <div :class="['say', say.side]" v-for="say in says" :key="say.id">{{say.text}}</div>
           </div>
         </div>
         <div class="right_character">
-          <img src="images/queens/characters/face-queens1.png" alt="" class="character">
+          <img :src="`images/queens/characters/face-queens1.png`" alt="" class="character">
         </div>
       </div>
     </div>
@@ -29,8 +29,7 @@
 <script>
 export default {
   data(){
-    return {
-      says: [
+    const says = [
         {"id": 1, "side": "center", "character_id": 1, "face_id": 1, "text": "～ようこそ～"},
         {"id": 2, "side": "left", "character_id": 2, "face_id": 4, "text": "クイーンズクラブへようこそ、おにーさん♡"},
         {"id": 3, "side": "left", "character_id": 2, "face_id": 1, "text": "支配人のイカリだよ♡"},
@@ -67,13 +66,22 @@ export default {
         {"id": 34, "side": "left", "character_id": 2, "face_id": 4, "text": "...と、ここまでいっぺんに話しちゃったんだけど、まあ覚えてるよね？"},
         {"id": 35, "side": "left", "character_id": 2, "face_id": 3, "text": "完璧に覚えてなくてもUI上である程度察せるようにはなってるはずだから、一回やってから見直すくらいでいいと思うね♡"},
         {"id": 36, "side": "left", "character_id": 2, "face_id": 5, "text": "がんばってねおにーさん♡借金稼ぎきらないと帰れないぞー♡"},
-      ]
-    }
+    ];
+    return {
+      currentSay: says[0],
+      says: says,
+    };
   },
   methods: {
     closeMenu() {
       this.$emit("close");
     },
+    updateFace(){
+      // 要素90px + gap30px
+      const index = Math.floor(this.$refs.says.scrollTop / 120);
+      console.log(index);
+      this.currentSay = this.says[index];
+    }
   },
 };
 </script>
@@ -148,9 +156,9 @@ export default {
           display: flex;
           flex-direction: column;
           overflow-y: scroll;
-          gap: 10px;
+          gap: 30px;
           height: 100%;
-          padding: 30px 10px 30px 10px;
+          padding: 120px 10px 120px 10px;
           &::-webkit-scrollbar {
             width: 10px;
           }
@@ -168,6 +176,21 @@ export default {
           .say{
             border: 1px solid white;
             padding: 10px;
+            min-height: 90px;
+          }
+          .center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 25px;
+            margin-left: 25px;
+            background-color: rgb(66, 69, 89);
+          }
+          .left{
+            margin-right: 50px;
+          }
+          .right{
+            margin-left: 50px;
           }
         }
       }
