@@ -1,31 +1,14 @@
 <template>
-  <div class="game_window">    <div class="enemy_image component">
-      <enemy-image :state="state" />
-    </div>
-    <div class="enemy_hand component">
-      <enemy-hand :state="state" />
-    </div>
-    <div class="enemy_message component">
-      <enemy-message :state="state" />
-    </div>
-    <div class="bankroll component">
-      <bankroll />
-    </div>
-    <div class="game_table component">
-      <game-table :state="state" :controller="controller" />
-    </div>
-    <div class="player_hand component">
-      <player-hand :state="state" :controller="controller"/>
-    </div>
-    <div class="side_pane component">
-      <side-pane :state="state" />
-    </div>
-    <div class="menu component">
-      <option-menu @click="showTutorial = true"/>
-    </div>
-    <div class="tutorial_dialog component" v-if="showTutorial">
-      <tutorial-dialog  @close="showTutorial = false"/>
-    </div>
+  <div class="game_window">
+    <enemy-image class="enemy_image component" :state="state" />
+    <enemy-hand class="enemy_hand component" :state="state" />
+    <enemy-message class="enemy_message component" :state="state" />
+    <bankroll class="bankroll component" />
+    <game-table class="game_table component" :state="state" :controller="controller" />
+    <player-hand class="player_hand component" :state="state" :controller="controller"/>
+    <side-pane class="side_pane component" :state="state" />
+    <option-menu class="menu component" @click="showTutorial = true"/>
+    <tutorial-dialog class="tutorial_dialog component" v-if="showTutorial" @close="showTutorial = false"/>
     <debug-state class="debug_state" :state="state" :controller="controller" />
     <phase-mover :state="state" :controller="controller" />
   </div>
@@ -64,7 +47,7 @@ export default {
     return {
       state: null,
       controller: null,
-      showTutorial: true,
+      showTutorial: false,
     }
   },
   mounted(){
