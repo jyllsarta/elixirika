@@ -28,7 +28,16 @@ export class Controller {
     }
   }
 
-  sendToBoardByCardId(cardId){
+  selectCardByCardId(cardId){
+    if(this.state.uiState.selectSkillTarget){
+      this._doUseSkillPlayer(cardId);
+    }
+    else{
+      this._doSendToBoard(cardId);
+    }
+  }
+
+  _doSendToBoard(cardId){
     if(this.state.playerBoard.cards.length >= 2){
       console.warn("already picked 2 cards");
       return;
@@ -37,6 +46,21 @@ export class Controller {
     if(card){
       this.state.playerBoard.add(card);
     }
+  }
+
+  _doUseSkillPlayer(cardId){
+    if(this.state.playerSpecialPoint < 2){
+      console.warn("insufficient sp");
+      this.state.uiState.selectSkillTarget = false;
+      return;
+    }
+    const card = this.state.playerHand.pickByCardId(cardId);
+    if(card){
+      this.state.discard.add(card);
+      this.state.playerHand.add(this.state.deck.draw());
+      this.state.playerSpecialPoint -= 2;
+    }
+    this.state.uiState.selectSkillTarget = false;
   }
 
   unstage(cardId){
@@ -60,6 +84,15 @@ export class Controller {
       this.state.playerHand.add(this.state.deck.draw());
       this.state.playerScore -= 2;
     }
+  }
+
+  toSkillSelectMode(){
+    if(this.state.playerSpecialPoint < 2){
+      console.warn("insufficient sp");
+      this.state.uiState.selectSkillTarget = false;
+      return;
+    }
+    this.state.uiState.selectSkillTarget = true;
   }
 };
 export default Controller;

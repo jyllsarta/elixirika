@@ -22,6 +22,9 @@ export class State {
     this.pot = 0;
     this.round = 0;
     this.lastRoundResult = "-";
+    this.uiState = {
+      selectSkillTarget: false,
+    };
   }
 };
 export default State;

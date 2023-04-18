@@ -1,5 +1,5 @@
 <template>
-<div class="player_hand" v-if="state">
+<div class="player_hand" v-if="state" :class="{waitSelect: state.uiState.selectSkillTarget}">
   <field-area :field="state.playerHand" :hidden="false" @click-card="onCardClick" :canClick="true"/>
 </div>
 </template>
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     onCardClick(cardId){
-      this.controller.sendToBoardByCardId(cardId);
+      this.controller.selectCardByCardId(cardId);
     }
   }
 }
@@ -27,4 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "stylesheets/global_settings";
+.waitselect{
+  background-color: yellow;
+}
 </style>

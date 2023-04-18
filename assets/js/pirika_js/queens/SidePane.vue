@@ -13,7 +13,7 @@
     <div class="player_score">
       {{state.playerScore}}
     </div>
-    <div class="skill_icon_player">
+    <div @click="onSkillClick" :class="{available: state.playerSpecialPoint >= 2, skill_icon_player: true}">
       自分スキル
     </div>
   </div>
@@ -48,10 +48,18 @@
 
 <script>
 import State from "./packs/model/state";
+import Controller from './packs/service/controller';
+
 export default {
   props: {
-    state: State
+    state: State,
+    controller: Controller
   },
+  methods: {
+    onSkillClick(){
+      this.controller.toSkillSelectMode();
+    }
+  }
 }
 </script>
 
@@ -105,6 +113,9 @@ export default {
       height: 60px;
       border-radius: 0 20px  0 20px;
       border: 1px solid cyan;
+      &.available{
+        background-color: yellow;
+      }
     }
   }
   .mps{

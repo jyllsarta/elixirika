@@ -6,7 +6,7 @@
     <bankroll class="bankroll component" />
     <game-table class="game_table component" :state="state" :controller="controller" />
     <player-hand class="player_hand component" :state="state" :controller="controller"/>
-    <side-pane class="side_pane component" :state="state" />
+    <side-pane class="side_pane component" :state="state" :controller="controller"/>
     <option-menu class="menu component" @click="showTutorial = true"/>
     <tutorial-dialog class="tutorial_dialog component" v-if="showTutorial" @close="showTutorial = false"/>
     <debug-state class="debug_state" :state="state" :controller="controller" />
