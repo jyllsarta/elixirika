@@ -79,12 +79,12 @@ export default {
       width: 80px;
       height: 60px;
       border-radius: 0 20px  0 20px;
-      border: 1px solid cyan;
+      border: 1px solid $accent2;
     }
     .enemy_score{
       width: 120px;
       height: 80px;
-      border: 1px solid cyan;
+      border: 1px solid $gray2;
       font-size: 20px;
       display: flex;
       justify-content: center;
@@ -93,7 +93,7 @@ export default {
     .pot{
       width: 120px;
       height: 80px;
-      border: 1px solid cyan;
+      border: 1px solid $gray2;
       font-size: 20px;
       display: flex;
       justify-content: center;
@@ -103,7 +103,7 @@ export default {
       width: 120px;
       height: 80px;
       font-size: 20px;
-      border: 1px solid cyan;
+      border: 1px solid $gray2;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -112,9 +112,9 @@ export default {
       width: 80px;
       height: 60px;
       border-radius: 0 20px  0 20px;
-      border: 1px solid cyan;
+      border: 1px solid $accent2;
       &.available{
-        background-color: yellow;
+        background-color: $accent2;
       }
     }
   }
@@ -133,21 +133,21 @@ export default {
         .mp{
           width: 18px;
           height: 18px;
-          border: 1px solid aquamarine;
+          border: 1px solid $accent2;
         }
         .available{
-          background-color: aquamarine;
+          background-color: $accent2;
         }
       }
     }
     .round{
       height: 100px;
       width: 100%;
-      border: 1px solid cyan;
+      border: 1px solid $gray2;
       .label{
         text-align: center;
         height: 20%;
-        border-bottom: 1px solid gray;
+        border-bottom: 1px solid $gray3;
       }
       .value{
         display: flex;
@@ -157,17 +157,17 @@ export default {
       }
     }
     .player_mp_area{
-            .player_mp{
+      .player_mp{
         display: flex;
         flex-direction: column;
         gap: 4px;
         .mp{
           width: 18px;
           height: 18px;
-          border: 1px solid aquamarine;
+          border: 1px solid $accent2;
         }
         .available{
-          background-color: aquamarine;
+          background-color: $accent2;
         }
       }
     }

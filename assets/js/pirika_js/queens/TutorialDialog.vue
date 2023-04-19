@@ -105,8 +105,8 @@ export default {
     left: 5%;
     height: 96%;
     width: 90%;
-    background-color: rgb(38, 40, 42);
-    border: 1px solid rgb(255, 254, 254);
+    background-color: $bg3;
+    border: 2px solid $base2;
     .main_image{
       padding-top: 10px;
       height: 70%;
@@ -145,12 +145,12 @@ export default {
           .upper{
             width: 100%;
             height: 40px;
-            background: linear-gradient(to bottom, black 20%, transparent 100%);
+            background: linear-gradient(to bottom, $bg3 20%, transparent 100%);
           }
           .downer{
             width: 100%;
             height: 40px;
-            background: linear-gradient(to top, black 20%, transparent 100%);
+            background: linear-gradient(to top, $bg3 20%, transparent 100%);
           }
         }
         .says{
@@ -167,15 +167,15 @@ export default {
             background: transparent;
             border: none;
             border-radius: 4px;
-            box-shadow: inset 0 0 2px #292828;
+            box-shadow: inset 0 0 2px $gray3;
           }
           &::-webkit-scrollbar-thumb {
-            background: rgb(47, 47, 48);
+            background: $base2;
             border-radius: 4px;
             box-shadow: none;
           }
           .say{
-            border: 1px solid white;
+            border: 1px solid $gray2;
             padding: 10px;
             min-height: 90px;
           }
@@ -185,13 +185,15 @@ export default {
             align-items: center;
             margin-right: 25px;
             margin-left: 25px;
-            background-color: rgb(66, 69, 89);
+            background-color: $bg2;
           }
           .left{
             margin-right: 50px;
+            background-color: $bg3;
           }
           .right{
             margin-left: 50px;
+            background-color: $bg3;
           }
         }
       }

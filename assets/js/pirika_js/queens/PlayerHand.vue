@@ -28,6 +28,6 @@ export default {
 <style lang="scss" scoped>
 @import "stylesheets/global_settings";
 .waitselect{
-  background-color: yellow;
+  background-color: $accent3;
 }
 </style>

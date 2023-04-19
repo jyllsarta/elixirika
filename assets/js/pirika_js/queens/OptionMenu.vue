@@ -12,7 +12,7 @@
 <style lang="scss" scoped>
 @import "stylesheets/global_settings";
 .menu{
-  border: 1px solid white;
+  border: 1px solid $white;
   border-radius: 2px;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@
   .ai{
     width: 30px;
     height: 1px;
-    background-color: white;
+    background-color: $white;
   }
 }
 </style>

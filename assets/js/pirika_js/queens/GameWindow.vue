@@ -73,8 +73,8 @@ export default {
   width: 1200px;
   height: 600px;
   position: relative;
-  background-color: #121232;
-  color: azure;
+  background-color: $bg4;
+  color: $white;
 
   .component{
     position: absolute;
@@ -136,7 +136,7 @@ export default {
   .debug_state{
     position: absolute;
     top: 600px;
-    background-color: #121232;
+    background-color: $bg4;
   }
 }
 </style>

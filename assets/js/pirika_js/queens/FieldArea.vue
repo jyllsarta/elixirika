@@ -30,7 +30,8 @@ export default {
   display: flex;
   height: 70px;
   align-items: center;
-  background-color: #35313a;
+  background-color: $bg3;
+  border: 1px solid $gray3;
   padding: 5px;
   .value{
     font-size: 20px;
@@ -42,8 +43,8 @@ export default {
     padding: 5px;
     gap: 10px;
     .card{
-      border: 1px solid white;
-      background-color: #35313a;
+      border: 1px solid $base1;
+      background-color: $base3;
       width: 60px;
       height: 60px;
       display: flex;

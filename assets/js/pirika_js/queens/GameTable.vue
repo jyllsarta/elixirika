@@ -52,7 +52,9 @@ export default {
 @import "stylesheets/global_settings";
 .table{
   display: flex;
-  background-color: rgb(25, 54, 78);
+  background-color: $bg3;
+  padding: 8px;
+  border: 1px solid $gray2;
   .players{
     display: flex;
     flex-direction: column;

@@ -36,11 +36,17 @@
 .bankroll{
   height: 100%;
   width: 100%;
+  background-color: $bg3;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid $gray2;
+
   h2{
     height: 30%;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid $gray3;
     padding: 4px;
   }
+
   .content{
     display: flex;
     flex-direction: column;
@@ -48,7 +54,7 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 4px;
     .line{
      display: flex;
        width: 100%;

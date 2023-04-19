@@ -18,6 +18,7 @@ export default {
 .enemy_message{
   border-radius: 10px;
   padding: 8px;
-  border: 1px solid white;
+  border: 1px solid $gray2;
+  background-color: $bg3;
 }
 </style>
