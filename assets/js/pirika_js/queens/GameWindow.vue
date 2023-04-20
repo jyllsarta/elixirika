@@ -3,12 +3,13 @@
     <enemy-image class="enemy_image component" :state="state" />
     <enemy-hand class="enemy_hand component" :state="state" />
     <enemy-message class="enemy_message component" :state="state" />
-    <bankroll class="bankroll component" />
+    <bankroll class="bankroll component" :state="state" />
     <game-table class="game_table component" :state="state" :controller="controller" />
     <player-hand class="player_hand component" :state="state" :controller="controller"/>
     <side-pane class="side_pane component" :state="state" :controller="controller"/>
     <option-menu class="menu component" @click="showTutorial = true"/>
     <tutorial-dialog class="tutorial_dialog component" v-if="showTutorial" @close="showTutorial = false"/>
+    <gameset-dialog class="gameset_dialog component" v-if="state?.phase == 'game_end'" @close="setup"/>
     <debug-state class="debug_state" :state="state" :controller="controller" />
     <phase-mover :state="state" :controller="controller" />
   </div>
@@ -28,6 +29,7 @@ import PhaseMover from './PhaseMover.vue';
 import OptionMenu from './OptionMenu.vue';
 import Bankroll from './Bankroll.vue';
 import TutorialDialog from './TutorialDialog.vue';
+import GamesetDialog from './GamesetDialog.vue';
 
 export default {
   components: {
@@ -42,6 +44,7 @@ export default {
     OptionMenu,
     Bankroll,
     TutorialDialog,
+    GamesetDialog
   },
   data(){
     return {
@@ -128,6 +131,12 @@ export default {
     height: 580px;
   }
   .tutorial_dialog{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .gameset_dialog{
     top: 0;
     left: 0;
     width: 100%;

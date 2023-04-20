@@ -4,6 +4,7 @@ export class State {
   constructor(){
     this.phase = "unstarted";
     this.reset();
+    this.persistentData = this.initializePersistentData();
   }
 
   reset(){
@@ -25,6 +26,13 @@ export class State {
     this.uiState = {
       selectSkillTarget: false,
     };
+  }
+
+  initializePersistentData(){
+    return {
+      enemyBankroll: 50,
+      playerBankroll: 50
+    }
   }
 };
 export default State;

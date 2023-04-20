@@ -1,5 +1,5 @@
 <template>
-  <div class="bankroll">
+  <div class="bankroll" v-if="state">
     <h2>バンクロール</h2>
     <div class="content">
       <div class="enemy line">
@@ -10,7 +10,7 @@
           ◆
         </div>
         <div class="value">
-          82
+          {{state.persistentData.enemyBankroll}}
         </div>
       </div>
       <div class="player line">
@@ -21,7 +21,7 @@
           ◆
         </div>
         <div class="value">
-          82
+          {{state.persistentData.playerBankroll}}
         </div>
       </div>
     </div>
@@ -29,6 +29,14 @@
 </template>
 
 <script>
+import State from "./packs/model/state";
+
+export default {
+  props: {
+    state: State,
+  },
+}
+
 </script>
 
 <style lang="scss" scoped>
