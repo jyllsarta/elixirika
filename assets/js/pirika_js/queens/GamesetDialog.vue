@@ -1,25 +1,48 @@
 <template>
-  <div class="dialog">
+  <div class="dialog" v-if="state">
     <div class="_back" @click="closeMenu"/>
     <div class="content">
-      ゲームセット！
+      <div class="result">
+        <div class="score_row">
+          <div class="name">プレイヤー</div>
+          <div class="score">{{state.playerScore}}</div>
+          <div class="tie">-</div>
+          <div class="score">{{state.enemyScore}}</div>
+          <div class="name">トローズ</div>
+        </div>
+        <div class="row">
+          <div class="name">トローズ</div>
+          <div class="before">{{state.uiState.prevPersistentData.enemyBankroll}}</div>
+          <div class="arrow">→</div>
+          <div class="after">{{state.persistentData.enemyBankroll}}</div>
+        </div>
+        <div class="row">
+          <div class="name">プレイヤー</div>
+          <div class="before">{{state.uiState.prevPersistentData.playerBankroll}}</div>
+          <div class="arrow">→</div>
+          <div class="after">{{state.persistentData.playerBankroll}}</div>
+        </div>
+      </div>
+      <div class="close">
+        <div class="button" @click="closeMenu">
+          とじる
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import State from "./packs/model/state";
+
 export default {
+  props: {
+    state: State,
+  },
   methods: {
     closeMenu() {
       this.$emit("close");
     },
-    updateFace(){
-      // 要素90px + gap30px
-      const scroll = Math.max(this.$refs.says.scrollTop - 60, 0);
-      const index = Math.floor(scroll / 120);
-      console.log(index);
-      this.currentSay = this.says[index];
-    }
   },
 };
 </script>
@@ -44,6 +67,48 @@ export default {
     width: 60%;
     background-color: $bg3;
     border: 2px solid $base2;
+    .result{
+      width: 100%;
+      height: 70%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      .score_row{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        gap: 8px;
+        font-size: 20px;
+        div{
+          width: 15%;
+          text-align: center;
+        }
+      }
+      .row{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        div{
+          width: 15%;
+          text-align: center;
+        }
+      }
+    }
+    .close{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .button{
+        border: 1px solid $base2;
+        padding: 20px;
+      }
+    }
   }
 }
 </style>

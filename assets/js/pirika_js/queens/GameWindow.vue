@@ -9,7 +9,7 @@
     <side-pane class="side_pane component" :state="state" :controller="controller"/>
     <option-menu class="menu component" @click="showTutorial = true"/>
     <tutorial-dialog class="tutorial_dialog component" v-if="showTutorial" @close="showTutorial = false"/>
-    <gameset-dialog class="gameset_dialog component" v-if="state?.phase == 'game_end'" @close="setup"/>
+    <gameset-dialog class="gameset_dialog component" v-if="state?.phase == 'game_end'" @close="setup" :state="state" />
     <debug-state class="debug_state" :state="state" :controller="controller" />
     <phase-mover :state="state" :controller="controller" />
   </div>

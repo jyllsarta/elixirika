@@ -25,6 +25,7 @@ export class State {
     this.lastRoundResult = "-";
     this.uiState = {
       selectSkillTarget: false,
+      prevPersistentData: this.initializePersistentData(),
     };
   }
 

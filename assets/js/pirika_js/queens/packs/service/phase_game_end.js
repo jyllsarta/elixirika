@@ -1,5 +1,6 @@
 export class PhaseGameEnd {
   enter(state){
+    state.uiState.prevPersistentData = {...state.persistentData};
     // 負け
     if(state.playerScore >= 8){
       state.persistentData.playerBankroll -= state.playerScore;
