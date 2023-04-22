@@ -63,6 +63,26 @@ export class Controller {
     this.state.uiState.selectSkillTarget = false;
   }
 
+  useRejectDuplicateSkillPlayer(){
+    if(this.state.playerSpecialPoint < 1){
+      console.warn("insufficient sp");
+      return;
+    }
+    this.state.playerBoard.sendAllCardsTo(state.playerHand);
+    const duplications = this.state.playerHand.cards.filter(card => this.state.playerHand.cards.some(anotherCard => anotherCard.n == card.n && card.id !== anotherCard.id));
+    if(duplications.length === 0){
+      console.warn("no duplications");
+      return;
+    }
+    for(let card of duplications){
+      this.state.discard.add(this.state.playerHand.pickByCardId(card.id));
+    }
+    for(let i = 0; i < duplications.length; i++){
+      state.playerHand.add(state.deck.draw());
+    }
+    this.state.playerSpecialPoint -= 1;
+  }
+
   unstage(cardId){
     const card = this.state.playerBoard.pickByCardId(cardId);
     if(card){

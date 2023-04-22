@@ -14,7 +14,10 @@
       {{state.playerScore}}
     </div>
     <div @click="onSkillClick" :class="{available: state.playerSpecialPoint >= 2, skill_icon_player: true}">
-      自分スキル
+      引き直し
+    </div>
+    <div @click="onSkillClickDuplication" :class="{available: state.playerSpecialPoint >= 1, skill_icon_player: true}">
+      重複排除
     </div>
   </div>
   <div class="mps">
@@ -58,6 +61,9 @@ export default {
   methods: {
     onSkillClick(){
       this.controller.toSkillSelectMode();
+    },
+    onSkillClickDuplication(){
+      this.controller.useRejectDuplicateSkillPlayer();
     }
   }
 }

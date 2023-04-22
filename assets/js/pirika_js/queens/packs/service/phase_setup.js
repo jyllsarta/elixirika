@@ -16,6 +16,10 @@ export class PhaseSetup {
     state.enemyHand.add(state.deck.draw());
     state.enemyHand.add(state.deck.draw());
     state.enemyHand.add(state.deck.draw());
+    state.enemyHand.add(state.deck.draw());
+    state.enemyHand.add(state.deck.draw());
+    state.playerHand.add(state.deck.draw());
+    state.playerHand.add(state.deck.draw());
     state.playerHand.add(state.deck.draw());
     state.playerHand.add(state.deck.draw());
     state.playerHand.add(state.deck.draw());
