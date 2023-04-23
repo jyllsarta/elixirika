@@ -15,11 +15,8 @@
             <div class="downer"/>
           </div>
           <div class="says" ref="says" @scroll="updateFace">
-            <div :class="['say', say.side]" v-for="say in says" :key="say.id">{{say.text}}</div>
+            <div :class="['say', say.side]" v-for="say in says" :key="say.id" @mousedown="nextSay(say.id)">{{say.text}}</div>
           </div>
-        </div>
-        <div class="right_character">
-          <img :src="`images/queens/characters/face-queens1.png`" alt="" class="character">
         </div>
       </div>
     </div>
@@ -78,11 +75,20 @@ export default {
     },
     updateFace(){
       // 要素90px + gap30px
-      const scroll = Math.max(this.$refs.says.scrollTop - 60, 0);
+      const scroll = Math.max(this.$refs.says.scrollTop + 40, 0);
       const index = Math.floor(scroll / 120);
       console.log(index);
       this.currentSay = this.says[index];
-    }
+    },
+    nextSay(id){
+      if(id >= this.says.length){
+        console.log("this is last");
+        return;
+      }
+      console.log(this.says[id].text)
+      this.currentSay = this.says[id];
+      this.$refs.says.scrollTop = 120 * id;
+    },
   },
 };
 </script>
@@ -102,14 +108,15 @@ export default {
   .content{
     position: absolute;
     top: 2%;
-    left: 5%;
+    left: 15%;
     height: 96%;
-    width: 90%;
+    width: 70%;
     background-color: $bg3;
     border: 2px solid $base2;
     .main_image{
-      padding-top: 10px;
-      height: 70%;
+      position: absolute;
+      height: 100%;
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -118,8 +125,10 @@ export default {
       }
     }
     .skit_area{
+      position: absolute;
       display: flex;
-      height: 30%;
+      height: 40%;
+      bottom: 0;
       .left_character{
         padding: 10px;
         display: flex;
@@ -142,11 +151,6 @@ export default {
           justify-content: space-between;
           width: 100%;
           height: 100%;
-          .upper{
-            width: 100%;
-            height: 40px;
-            background: linear-gradient(to bottom, $bg3 20%, transparent 100%);
-          }
           .downer{
             width: 100%;
             height: 40px;
@@ -186,14 +190,17 @@ export default {
             margin-right: 25px;
             margin-left: 25px;
             background-color: $bg2;
+            opacity: 0.8;
           }
           .left{
             margin-right: 50px;
             background-color: $bg3;
+            opacity: 0.8;
           }
           .right{
             margin-left: 50px;
             background-color: $bg3;
+            opacity: 0.8;
           }
         }
       }

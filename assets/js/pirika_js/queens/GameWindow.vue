@@ -50,7 +50,7 @@ export default {
     return {
       state: null,
       controller: null,
-      showTutorial: false,
+      showTutorial: true,
     }
   },
   mounted(){
