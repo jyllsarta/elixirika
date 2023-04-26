@@ -5,6 +5,7 @@
     <enemy-message class="enemy_message component" :state="state" />
     <bankroll class="bankroll component" :state="state" />
     <game-table class="game_table component" :state="state" :controller="controller" />
+    <turn-end-button class="turn_end_button component" :state="state" :controller="controller" />
     <player-hand class="player_hand component" :state="state" :controller="controller"/>
     <side-pane class="side_pane component" :state="state" :controller="controller"/>
     <option-menu class="menu component" @click="showTutorial = true"/>
@@ -32,6 +33,7 @@ import Bankroll from './Bankroll.vue';
 import TutorialDialog from './TutorialDialog.vue';
 import FirstBreakDialog from './FirstBreakDialog.vue';
 import GamesetDialog from './GamesetDialog.vue';
+import TurnEndButton from './TurnEndButton.vue';
 
 export default {
   components: {
@@ -47,7 +49,8 @@ export default {
     Bankroll,
     TutorialDialog,
     FirstBreakDialog,
-    GamesetDialog
+    GamesetDialog,
+    TurnEndButton
   },
   data(){
     return {
@@ -112,6 +115,12 @@ export default {
   }
   .bankroll{
     top: 10px;
+    right: 320px;
+    width: 200px;
+    height: 100px;
+  }
+  .turn_end_button{
+    top: 200px;
     right: 320px;
     width: 200px;
     height: 100px;
