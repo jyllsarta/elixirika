@@ -3,7 +3,7 @@
     <div class="_back" @click="closeMenu"/>
     <div class="content">
       <div class="main_image">
-        <img class="image" :src="`images/queens/tutorial${currentSay.main_image_id}.png`" alt="">
+        <img class="image" :src="`images/queens/trim_scene${currentSay.main_image_id}.png`" alt="">
       </div>
       <div class="skit_area">
         <div class="left_character">
@@ -28,7 +28,11 @@ export default {
   data(){
     const says = [
       {"id": 1, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 1, "text": "～FirstBreak~"},
-      {"id": 2, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 1, "text": "よくやったわね、あんたの勝ちよ。そこの負け犬は好きにしちゃってちょうだい"},
+      {"id": 2, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 2, "text": "よくやったわね、あんたの勝ちよ。そこの負け犬は好きにしちゃってちょうだい"},
+      {"id": 3, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 3, "text": "3"},
+      {"id": 4, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 4, "text": "4"},
+      {"id": 5, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 5, "text": "5"},
+      {"id": 6, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 6, "text": "6"},
  ];
     return {
       currentSay: says[0],
@@ -93,8 +97,9 @@ export default {
     .skit_area{
       position: absolute;
       display: flex;
-      height: 40%;
+      height: 35%;
       bottom: 0;
+      background-color: $bg3;
       .left_character{
         padding: 10px;
         display: flex;
