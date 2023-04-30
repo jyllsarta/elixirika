@@ -3,7 +3,7 @@
     <div class="_back" @click="closeMenu"/>
     <div class="content">
       <div class="main_image">
-        <img class="image" :src="`images/queens/trim_scene${currentSay.main_image_id}.png`" alt="">
+        <img class="image" :src="`images/queens/trim_scene2_${currentSay.main_image_id}.png`" alt="">
       </div>
       <div class="skit_area">
         <div class="left_character">
@@ -27,7 +27,7 @@
 export default {
   data(){
     const says = [
-      {"id": 1, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 1, "text": "～FirstBreak~"},
+      {"id": 1, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 1, "text": "～SecondBreak~"},
       {"id": 2, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 2, "text": "よくやったわね、あんたの勝ちよ。そこの負け犬は好きにしちゃってちょうだい"},
       {"id": 3, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 3, "text": "3"},
       {"id": 4, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 4, "text": "4"},

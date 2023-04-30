@@ -11,6 +11,7 @@
     <option-menu class="menu component" @click="showTutorial = true"/>
     <tutorial-dialog class="dialog component" v-if="showTutorial" @close="showTutorial = false"/>
     <first-break-dialog class="dialog component" v-if="showFirstBreak" @close="showFirstBreak = false"/>
+    <second-break-dialog class="dialog component" v-if="showSecondBreak" @close="showSecondBreak = false"/>
     <gameset-dialog class="dialog component" v-if="state?.phase == 'game_end'" @close="setup" :state="state" />
     <debug-state class="debug_state" :state="state" :controller="controller" />
     <phase-mover :state="state" :controller="controller" />
@@ -32,6 +33,7 @@ import OptionMenu from './OptionMenu.vue';
 import Bankroll from './Bankroll.vue';
 import TutorialDialog from './TutorialDialog.vue';
 import FirstBreakDialog from './FirstBreakDialog.vue';
+import SecondBreakDialog from './SecondBreakDialog.vue';
 import GamesetDialog from './GamesetDialog.vue';
 import TurnEndButton from './TurnEndButton.vue';
 
@@ -49,6 +51,7 @@ export default {
     Bankroll,
     TutorialDialog,
     FirstBreakDialog,
+    SecondBreakDialog,
     GamesetDialog,
     TurnEndButton
   },
@@ -57,7 +60,8 @@ export default {
       state: null,
       controller: null,
       showTutorial: false,
-      showFirstBreak: true,
+      showFirstBreak: false,
+      showSecondBreak: true,
     }
   },
   mounted(){
