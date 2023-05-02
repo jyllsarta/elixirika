@@ -32,7 +32,8 @@ export class State {
   initializePersistentData(){
     return {
       enemyBankroll: 50,
-      playerBankroll: 50
+      playerBankroll: 50,
+      winCount: 0,
     }
   }
 };

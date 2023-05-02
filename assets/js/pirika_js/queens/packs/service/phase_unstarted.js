@@ -1,6 +1,5 @@
 export class PhaseUnstarted {
   enter(state){
-    console.warn("unstarted ステートへの遷移は想定外")
   }
 
   nextPhase(state){

@@ -10,9 +10,9 @@
     <side-pane class="side_pane component" :state="state" :controller="controller"/>
     <option-menu class="menu component" @click="showTutorial = true"/>
     <tutorial-dialog class="dialog component" v-if="showTutorial" @close="showTutorial = false"/>
-    <first-break-dialog class="dialog component" v-if="showFirstBreak" @close="showFirstBreak = false"/>
-    <second-break-dialog class="dialog component" v-if="showSecondBreak" @close="showSecondBreak = false"/>
-    <gameset-dialog class="dialog component" v-if="state?.phase == 'game_end'" @close="setup" :state="state" />
+    <first-break-dialog class="dialog component" v-if="showFirstBreak" @close="nextPhase"/>
+    <second-break-dialog class="dialog component" v-if="showSecondBreak" @close="nextPhase"/>
+    <gameset-dialog class="dialog component" v-if="state?.phase == 'game_end'" @close="nextPhase" :state="state" />
     <debug-state class="debug_state" :state="state" :controller="controller" />
     <phase-mover :state="state" :controller="controller" />
   </div>
@@ -60,8 +60,6 @@ export default {
       state: null,
       controller: null,
       showTutorial: false,
-      showFirstBreak: false,
-      showSecondBreak: true,
     }
   },
   mounted(){
@@ -71,12 +69,23 @@ export default {
     window.controller = this.controller;
   },
   methods: {
-    setup(){
-      this.controller.setup();
-    },
     nextPhase(){
       this.controller.nextPhase();
     }
+  },
+  computed: {
+    showFirstBreak(){
+      if(!this.state){
+        return false;
+      }
+      return this.state.phase == "unstarted" && this.state.persistentData.winCount == 1;
+    },
+    showSecondBreak(){
+      if(!this.state){
+        return false;
+      }
+      return this.state.phase == "unstarted" && this.state.persistentData.winCount == 2;
+    },
   }
 }
 </script>

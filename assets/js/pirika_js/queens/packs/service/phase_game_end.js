@@ -14,8 +14,13 @@ export class PhaseGameEnd {
   }
 
   nextPhase(state){
-    // ゲームエンドしたら基本戻らない
-    state.phase = "game_end";
+    if(state.persistentData.enemyBankroll <= 0){
+      state.persistentData.winCount++;
+      state.persistentData.enemyBankroll = 50;
+      state.phase = "unstarted";
+      return;
+    }
+    state.phase = "setup";
   }
 };
 export default PhaseGameEnd;
