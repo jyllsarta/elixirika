@@ -7,7 +7,7 @@
       </div>
       <div class="skit_area">
         <div class="left_character">
-          <img :src="`images/queens/characters/face-ikari${currentSay.face_id}.png`" alt="" class="character">
+          <img :src="`images/queens/characters/face-queens${currentSay.face_id}.png`" alt="" class="character">
         </div>
         <div class="skit">
           <div class="covers">
@@ -27,13 +27,21 @@
 export default {
   data(){
     const says = [
-      {"id": 1, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 1, "text": "～FirstBreak~"},
-      {"id": 2, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 2, "text": "よくやったわね、あんたの勝ちよ。そこの負け犬は好きにしちゃってちょうだい"},
-      {"id": 3, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 3, "text": "3"},
-      {"id": 4, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 4, "text": "4"},
-      {"id": 5, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 5, "text": "5"},
-      {"id": 6, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 6, "text": "6"},
- ];
+    {"id": 1, "side": "center", "character_id": 1, "face_id": 4, "main_image_id": 1, "text": "~ 一度きりの復活チャンス ~"},
+    {"id": 2, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 1, "text": "な、なんなんですかこれ、どうしてお腹を見せなければいけないんですか..."},
+    {"id": 3, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 1, "text": "あの、たしかに私負けたんですけどこんなことになるって聞いてなくて、お金払えないのは本当に申し訳ないんですけどひどいです..."},
+    {"id": 4, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 2, "text": "あの...男の人に見られるのってすごく恥ずかしいんですけど...お願いです見ないでください！ ...って言っても聞いてくれませんよね..."},
+    {"id": 5, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 2, "text": "い、今からもっとひどいことになるってどういうことですか！？　言う通りにすれば手は出さないって約束じゃ...!"},
+    {"id": 6, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 3, "text": "動くなって...? は、はい......"},
+    {"id": 7, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 4, "text": "あつっ！？　うううぅううううっっ！！"},
+    {"id": 8, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 4, "text": "うああああぁっ！？？"},
+    {"id": 9, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 5, "text": "あぐっ...  ......あああ..."},
+    {"id": 10, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 6, "text": "な...なんですかこれ... すごくお腹熱くて... わたしに何したんですか...？"},
+    {"id": 11, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 6, "text": "借金のカタって... え、これつまりお金返さないとこれでなにか悪いことが...？"},
+    {"id": 12, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 5, "text": "ひぐぅああっ！？ な、なか掻き回されてっ！？ わ、わかりましたっ！！わかりましたからあっ！！"},
+    {"id": 13, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 6, "text": "はい... この印を身元保証に50G... お貸しいただきました... 一週間以内に返しますので、許してください..."},
+    {"id": 14, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 6, "text": "(こんなのがつけられてたらカジノの外には出られない... またここで勝負して取り返すしかないってこと...！？)"},
+    ];
     return {
       currentSay: says[0],
       says: says,
