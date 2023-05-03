@@ -7,7 +7,7 @@
       </div>
       <div class="skit_area">
         <div class="left_character">
-          <img :src="`images/queens/characters/face-ikari${currentSay.face_id}.png`" alt="" class="character">
+          <img :src="`images/queens/characters/face-queens${currentSay.face_id}.png`" alt="" class="character">
         </div>
         <div class="skit">
           <div class="covers">
@@ -26,14 +26,23 @@
 <script>
 export default {
   data(){
-    const says = [
-      {"id": 1, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 1, "text": "～SecondBreak~"},
-      {"id": 2, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 2, "text": "よくやったわね、あんたの勝ちよ。そこの負け犬は好きにしちゃってちょうだい"},
-      {"id": 3, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 3, "text": "3"},
-      {"id": 4, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 4, "text": "4"},
-      {"id": 5, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 5, "text": "5"},
-      {"id": 6, "side": "center", "character_id": 1, "face_id": 1, "main_image_id": 6, "text": "6"},
- ];
+  const says = [
+    {"id": 1, "side": "center", "character_id": 1, "face_id": 4, "main_image_id": 1, "text": "~ 完全敗北 ~"},
+    {"id": 2, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 1, "text": "うう... か、完全に負けてしまった......"},
+    {"id": 3, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 1, "text": "あ、あの... ほんとうに差し出がましいお願いなんですが、もう一回チャンスをいただけたり... しませんよね... あともう私から持っていけるものないですもんね......"},
+    {"id": 4, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 2, "text": "うう...ううううっ......! はい...言う通りにします......なんでも指示してください...！　お好きにどうぞ...！"},
+    {"id": 5, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 2, "text": "一番敏感な場所...！？　うう...言います、はい... く、クリトリスですよ普通に......"},
+    {"id": 6, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 2, "text": "別に大きくも小さくもないと思いますけど...え、大きいんですか？"},
+    {"id": 7, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 3, "text": "(うう... 見られてる...勝負してるときもこの人には全部見透かされてるみたいだった、今どんな気持ちでいるかも全部バレて...って意識したらゾワゾワしてきた！)"},
+    {"id": 8, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 3, "text": "触れ...はい......まあそうなりますよね......うう.....んうっ..."},
+    {"id": 9, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 4, "text": "ん...うぅ... ...ん..... んぁっ...... っく..."},
+    {"id": 10, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 4, "text": "(見られてる見られてる見られてるっ！視線で腰がビリビリする！さっきまで全然そんな気持ちじゃなかったつもりなのに...！)"},
+    {"id": 11, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 5, "text": "......んうっ！！ ...んうぅぁあああっ！！！！"},
+    {"id": 12, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 5, "text": "......ああ......っ... はぅ......"},
+    {"id": 13, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 6, "text": "はい...イきました......うう...一人ではこんなならないのに...まだ全身がぞわってするのが残ってて......"},
+    {"id": 14, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 6, "text": "...え？そこまで説明してくれて嬉しい？ ～～～っ！？　私今雰囲気に乗せられてとんでもないことを口走って...！！！！"},
+    {"id": 14, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 6, "text": "...ぐすっ......ううっ......こんな...はずかしっ......うぅ...最悪です......"},
+  ];
     return {
       currentSay: says[0],
       says: says,
