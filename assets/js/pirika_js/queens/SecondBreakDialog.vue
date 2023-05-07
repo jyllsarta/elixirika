@@ -86,12 +86,10 @@ export default {
 
   .content{
     position: absolute;
-    top: 2%;
-    left: 15%;
-    height: 96%;
-    width: 70%;
+    height: 100%;
+    width: 94%;
+    left: 3%;
     background-color: $bg3;
-    border: 2px solid $base2;
     .main_image{
       position: absolute;
       height: 100%;
@@ -106,9 +104,10 @@ export default {
     .skit_area{
       position: absolute;
       display: flex;
-      height: 35%;
+      height: 20%;
       bottom: 0;
       background-color: $bg3;
+      opacity: 0.8;
       .left_character{
         padding: 10px;
         display: flex;
@@ -143,7 +142,7 @@ export default {
           overflow-y: scroll;
           gap: 30px;
           height: 100%;
-          padding: 60px 10px 60px 10px;
+          padding: 10px 10px 60px 10px;
           &::-webkit-scrollbar {
             width: 10px;
           }
