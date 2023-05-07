@@ -59,9 +59,21 @@ Square というゲームが https://github.com/jyllsarta/elixirika_masterdata �
 cd ~
 git clone git@github.com:jyllsarta/elixirika_masterdata.git
 cd ~/elixirika/assets/js/pirika_js/square
-ln -s ~/elixirika_masterdata/js masterdata
+ln -s ~/elixirika_masterdata/square masterdata
 ```
 
+## (queens ゲーム用) マスターデータのリンク
+
+queens というゲームも https://github.com/jyllsarta/elixirika_masterdata を利用しています。
+マスターデータのディレクトリを参照できるようにシンボリックリンクを張ります。
+以下はelixirika, elixirika_masterdata ともにホームディレクトリにある前提のサンプルです。
+
+```
+cd ~
+git clone git@github.com:jyllsarta/elixirika_masterdata.git
+cd ~/elixirika/assets/js/pirika_js/queens
+ln -s ~/elixirika_masterdata/queens masterdata
+```
 ## アセットの構築
 
 ```
