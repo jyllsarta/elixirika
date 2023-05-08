@@ -13,14 +13,12 @@
     <first-break-dialog class="dialog component" v-if="showFirstBreak" @close="nextPhase"/>
     <second-break-dialog class="dialog component" v-if="showSecondBreak" @close="nextPhase"/>
     <gameset-dialog class="dialog component" v-if="state?.phase == 'game_end'" @close="nextPhase" :state="state" />
-    <debug-state class="debug_state" :state="state" :controller="controller" />
     <phase-mover :state="state" :controller="controller" />
   </div>
 </template>
 
 <script>
 import State from "./packs/model/state";
-import DebugState from "./DebugState.vue";
 import Controller from "./packs/service/controller";
 import EnemyHand from "./EnemyHand.vue";
 import EnemyImage from "./EnemyImage.vue";
@@ -39,7 +37,6 @@ import TurnEndButton from './TurnEndButton.vue';
 
 export default {
   components: {
-    DebugState,
     PlayerHand,
     EnemyHand,
     EnemyImage,
@@ -93,8 +90,8 @@ export default {
 <style lang="scss" scoped>
 @import "stylesheets/global_settings";
 .game_window{
-  width: 1200px;
-  height: 600px;
+  width: $window-width;
+  height: $window-height;
   position: relative;
   background-color: $bg4;
   color: $white;
@@ -154,18 +151,13 @@ export default {
     top: 10px;
     right: 10px;
     width: 300px;
-    height: 580px;
+    height: 540px;
   }
   .dialog{
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-  }
-  .debug_state{
-    position: absolute;
-    top: 600px;
-    background-color: $bg4;
   }
 }
 </style>

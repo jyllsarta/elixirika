@@ -14,3 +14,6 @@ $gray1: #a5a2a8;
 $gray2: #828085;
 $gray3: #6d6871;
 $white: #ebe9f0;
+
+$window-width: clamp(1200px, 100vw, 1920px);
+$window-height: clamp(540px, 100vh, 800px);

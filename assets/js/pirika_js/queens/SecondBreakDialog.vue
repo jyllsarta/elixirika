@@ -77,11 +77,10 @@ export default {
 .dialog{
   ._back {
     position: absolute;
-    // 画面横幅のなにもない領域 - 20px まで当たり判定を持つ
-    right: calc((1200px - 100vw + 20px) / 2);
+    right: 0;
     top: 0;
     width: 100vw;
-    height: 90vh;
+    height: 100vh;
   }
 
   .content{
@@ -92,6 +91,7 @@ export default {
     background-color: $bg3;
     .main_image{
       position: absolute;
+      top: -1.5vw;
       height: 100%;
       width: 100%;
       display: flex;
@@ -104,10 +104,11 @@ export default {
     .skit_area{
       position: absolute;
       display: flex;
+      width: 100%;
       height: 20%;
       bottom: 0;
       background-color: $bg3;
-      opacity: 0.8;
+      opacity: 0.9;
       .left_character{
         padding: 10px;
         display: flex;
