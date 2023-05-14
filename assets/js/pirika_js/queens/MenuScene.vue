@@ -1,6 +1,6 @@
 <template>
   <div class="game_window">
-    <div class="logo" @click="loadInGame">
+    <div class="tentative_button button" @click="loadInGame">
       メニューだよー
     </div>
   </div>
@@ -28,14 +28,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  .logo{
-    border: 1px dotted $white;
+  .button{
     width: 80%;
     height: 80%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }
 </style>

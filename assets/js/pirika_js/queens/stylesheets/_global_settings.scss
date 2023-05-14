@@ -17,3 +17,15 @@ $white: #ebe9f0;
 
 $window-width: clamp(1200px, 100vw, 1920px);
 $window-height: clamp(540px, 100vh, 800px);
+
+.tentative_button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px dotted $white;
+  background-color: $base3;
+  &:hover{
+    filter: brightness(140%);
+  }
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="game_window">
-    <div class="logo" @click="loadMenu">
+    <div class="tentative_button logo" @click="loadMenu">
       タイトルだよー
     </div>
   </div>
@@ -30,13 +30,8 @@ export default {
   justify-content: center;
   align-items: center;
   .logo{
-    border: 1px dotted $white;
     width: 80%;
     height: 80%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }
 </style>
