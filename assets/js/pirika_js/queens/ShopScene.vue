@@ -1,13 +1,7 @@
 <template>
   <div class="game_window">
-    <div class="tentative_button button" @click="loadScene('in_game')">
-      インゲームへ
-    </div>
-    <div class="tentative_button button" @click="loadScene('shop')">
-      ショップへ
-    </div>
-    <div class="tentative_button button" @click="loadScene('equipment')">
-      装備へ
+    <div class="tentative_button button" @click="loadMenu">
+      ショップだよー(クリックでメニューに戻る)
     </div>
   </div>
 </template>
@@ -18,8 +12,8 @@ import store from "./packs/store";
 export default {
   store, 
   methods: {
-    loadScene(name){
-      this.$store.commit("loadScene", {name: name});
+    loadMenu(){
+      this.$store.commit("loadScene", {name: "menu"});
     }
   },
 }
@@ -34,10 +28,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10%;
-  gap: 10px;
   .button{
-    flex: 1;
+    width: 80%;
     height: 80%;
   }
 }

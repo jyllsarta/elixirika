@@ -3,6 +3,8 @@
     <title-scene v-if="$store.state.scene.name === 'title'"/>
     <menu-scene v-if="$store.state.scene.name === 'menu'"/>
     <in-game-scene v-if="$store.state.scene.name === 'in_game'"/>
+    <equipment-scene v-if="$store.state.scene.name === 'equipment'"/>
+    <shop-scene v-if="$store.state.scene.name === 'shop'"/>
   </div>
 </template>
 
@@ -10,6 +12,8 @@
 import TitleScene from './TitleScene.vue';
 import MenuScene from './MenuScene.vue';
 import InGameScene from './InGameScene.vue';
+import EquipmentScene from './EquipmentScene.vue';
+import ShopScene from './ShopScene.vue';
 import store from "./packs/store";
 
 export default {
@@ -18,6 +22,8 @@ export default {
     TitleScene,
     MenuScene,
     InGameScene,
+    ShopScene,
+    EquipmentScene,
   },
   mounted(){
   },
