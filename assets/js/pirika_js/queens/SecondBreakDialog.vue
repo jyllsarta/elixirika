@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog">
+  <div class="dialog" v-if="says.length > 0">
     <div class="_back" @click="closeMenu"/>
     <div class="content">
       <div class="main_image">
@@ -15,7 +15,7 @@
             <div class="downer"/>
           </div>
           <div class="says" ref="says" @scroll="updateFace">
-            <div :class="['say', say.side]" v-for="say in says" :key="say.id" @mousedown="nextSay(say.id)">{{say.text}}</div>
+            <div :class="['say', say.side]" v-for="say in says" :key="say.id" @mousedown="nextSay(say.order)">{{say.text}}</div>
           </div>
         </div>
       </div>
@@ -24,29 +24,18 @@
 </template>
 
 <script>
+import masterdata from "./packs/masterdata";
+
 export default {
   data(){
-  const says = [
-    {"id": 1, "side": "center", "character_id": 1, "face_id": 4, "main_image_id": 1, "text": "~ 完全敗北 ~"},
-    {"id": 2, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 1, "text": "うう... か、完全に負けてしまった......"},
-    {"id": 3, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 1, "text": "あ、あの... ほんとうに差し出がましいお願いなんですが、もう一回チャンスをいただけたり... しませんよね... あともう私から持っていけるものないですもんね......"},
-    {"id": 4, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 2, "text": "うう...ううううっ......! はい...言う通りにします......なんでも指示してください...！　お好きにどうぞ...！"},
-    {"id": 5, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 2, "text": "一番敏感な場所...！？　うう...言います、はい... く、クリトリスですよ普通に......"},
-    {"id": 6, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 2, "text": "別に大きくも小さくもないと思いますけど...え、大きいんですか？"},
-    {"id": 7, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 3, "text": "(うう... 見られてる...勝負してるときもこの人には全部見透かされてるみたいだった、今どんな気持ちでいるかも全部バレて...って意識したらゾワゾワしてきた！)"},
-    {"id": 8, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 3, "text": "触れ...はい......まあそうなりますよね......うう.....んうっ..."},
-    {"id": 9, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 4, "text": "ん...うぅ... ...ん..... んぁっ...... っく..."},
-    {"id": 10, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 4, "text": "(見られてる見られてる見られてるっ！視線で腰がビリビリする！さっきまで全然そんな気持ちじゃなかったつもりなのに...！)"},
-    {"id": 11, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 5, "text": "......んうっ！！ ...んうぅぁあああっ！！！！"},
-    {"id": 12, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 5, "text": "......ああ......っ... はぅ......"},
-    {"id": 13, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 6, "text": "はい...イきました......うう...一人ではこんなならないのに...まだ全身がぞわってするのが残ってて......"},
-    {"id": 14, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 6, "text": "...え？そこまで説明してくれて嬉しい？ ～～～っ！？　私今雰囲気に乗せられてとんでもないことを口走って...！！！！"},
-    {"id": 14, "side": "left", "character_id": 1, "face_id": 4, "main_image_id": 6, "text": "...ぐすっ......ううっ......こんな...はずかしっ......うぅ...最悪です......"},
-  ];
     return {
-      currentSay: says[0],
-      says: says,
+      currentSay: null,
+      says: [],
     };
+  },
+  mounted(){
+    this.says = masterdata.getAll("scripts").filter(s => s.scene_id === 3);
+    this.currentSay = this.says[0];
   },
   methods: {
     closeMenu() {
@@ -64,8 +53,7 @@ export default {
         console.log("this is last");
         return;
       }
-      console.log(this.says[id].text)
-      this.currentSay = this.says[id];
+      this.currentSay = this.says.find(say => say.order == id + 1);
       this.$refs.says.scrollTop = 120 * id;
     },
   },
@@ -82,7 +70,6 @@ export default {
     width: 100vw;
     height: 100vh;
   }
-
   .content{
     position: absolute;
     height: 100%;
@@ -91,7 +78,8 @@ export default {
     background-color: $bg3;
     .main_image{
       position: absolute;
-      top: -1.5vw;
+      overflow: hidden;
+      top: calc(280px - 24vw);
       height: 100%;
       width: 100%;
       display: flex;
