@@ -15,7 +15,7 @@
     </div>
     <div class="content">
       <div class="characters">
-        <div class="character">
+        <div class="character" @click="showDetail(1)">
           <div class="tentative_button floating_image">
             キャラ1
           </div>
@@ -23,7 +23,7 @@
             色々と説明するよ！
           </div>
         </div>
-        <div class="character">
+        <div class="character" @click="showDetail(2)">
           <div class="tentative_button floating_image">
             キャラ2
           </div>
@@ -31,7 +31,7 @@
             色々と説明するよ！
           </div>
         </div>
-        <div class="character">
+        <div class="character" @click="showDetail(3)">
           <div class="tentative_button floating_image">
             キャラ3
           </div>
@@ -39,7 +39,7 @@
             色々と説明するよ！
           </div>
         </div>
-        <div class="character">
+        <div class="character" @click="showDetail(4)">
           <div class="tentative_button floating_image">
             キャラ4
           </div>
@@ -49,8 +49,14 @@
         </div>
       </div>
       <div class="footer">
-        <div class="tentative_button button" @click="loadScene('in_game')">
-          インゲームへ
+        <div class="tentative_panel coin">
+          所持コイン: 150
+        </div>
+        <div class="tentative_panel skill">
+          スキル1
+        </div>
+        <div class="tentative_panel skill">
+          スキル2
         </div>
         <div class="tentative_button button" @click="loadScene('shop')">
           ショップへ
@@ -63,17 +69,30 @@
         </div>
       </div>
     </div>
+    <character-detail-dialog v-if="showingDetail" @close="showingDetail = false"/>
   </div>
 </template>
 
 <script>
+import CharacterDetailDialog from './CharacterDetailDialog.vue';
 import store from "./packs/store";
 
 export default {
-  store, 
+  store,
+  components: {
+    CharacterDetailDialog
+  },
+  data(){
+    return {
+      showingDetail: false
+    }
+  },
   methods: {
     loadScene(name){
       this.$store.commit("loadScene", {name: name});
+    },
+    showDetail(id){
+      this.showingDetail = true;
     }
   },
 }
@@ -142,8 +161,17 @@ export default {
     .footer{
       height: 20%;
       display: flex;
+      justify-content: space-around;
       gap: 10px;
       padding: 10px;
+      .coin{
+        width: 100px;
+        height: 100px;
+      }
+      .skill{
+        width: 150px;
+        height: 100px;
+      }
       .button{
         width: 250px;
         height: 100px;
