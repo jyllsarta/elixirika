@@ -1,13 +1,67 @@
 <template>
   <div class="game_window">
-    <div class="tentative_button button" @click="loadScene('in_game')">
-      インゲームへ
+    <div class="floating_menu">
+      <div class="buttons">
+        <div class="tentative_button button disabled">
+          戻る
+        </div>
+        <div class="tentative_button button disabled">
+          メニュー
+        </div>
+      </div>
+      <div class="title tentative_panel disabled">
+        メインメニュー
+      </div>
     </div>
-    <div class="tentative_button button" @click="loadScene('shop')">
-      ショップへ
-    </div>
-    <div class="tentative_button button" @click="loadScene('equipment')">
-      装備へ
+    <div class="content">
+      <div class="characters">
+        <div class="character">
+          <div class="tentative_button floating_image">
+            キャラ1
+          </div>
+          <div class="tentative_panel panel">
+            色々と説明するよ！
+          </div>
+        </div>
+        <div class="character">
+          <div class="tentative_button floating_image">
+            キャラ2
+          </div>
+          <div class="tentative_panel panel">
+            色々と説明するよ！
+          </div>
+        </div>
+        <div class="character">
+          <div class="tentative_button floating_image">
+            キャラ3
+          </div>
+          <div class="tentative_panel panel">
+            色々と説明するよ！
+          </div>
+        </div>
+        <div class="character">
+          <div class="tentative_button floating_image">
+            キャラ4
+          </div>
+          <div class="tentative_panel panel">
+            色々と説明するよ！
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="tentative_button button" @click="loadScene('in_game')">
+          インゲームへ
+        </div>
+        <div class="tentative_button button" @click="loadScene('shop')">
+          ショップへ
+        </div>
+        <div class="tentative_button button" @click="loadScene('equipment')">
+          装備へ
+        </div>
+        <div class="tentative_button button disabled">
+          実績へ
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -31,14 +85,70 @@ export default {
   width: 100%;
   height: 100%;
   background-color: $bg4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10%;
-  gap: 10px;
-  .button{
-    flex: 1;
-    height: 80%;
+  position: relative;
+  .floating_menu{
+    position: absolute;
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    z-index: 10;
+    .buttons{
+      height: 140px;
+      gap: 10px;
+      display: flex;
+      flex-direction: column;
+      .button{
+        width: 60px;
+        height: 60px;
+      }
+    }
+    .title{
+      font-size: 30px;
+      width: 300px;
+      height: 60px;
+    }
+  }
+  .content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    z-index: 5;
+    .characters{
+      height: 80%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 10px;
+      .character{
+        width: 200px;
+        height: 400px;
+        position: relative;
+        .floating_image{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+        .panel{
+          width: 100%;
+          height: 100px;
+          position: absolute;
+          bottom: 0;
+        }
+      }
+    }
+    .footer{
+      height: 20%;
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      .button{
+        width: 250px;
+        height: 100px;
+      }
+    }
   }
 }
 </style>

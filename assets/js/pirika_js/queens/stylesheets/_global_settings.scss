@@ -1,9 +1,9 @@
 $base1: #ec6e8d;
 $base2: #a3435b;
 $base3: #4f1a27;
-$accent1: #eaec68;
-$accent2: #aea948;
-$accent3: #57531e;
+$accent1: #84a0b0;
+$accent2: #48687b;
+$accent3: #333553;
 
 $bg1: #55354b;
 $bg2: #461d35;
@@ -25,7 +25,21 @@ $window-height: clamp(540px, 100vh, 800px);
   text-align: center;
   border: 1px dotted $white;
   background-color: $base3;
+  line-height: 100%;
+  &.disabled{
+    opacity: 0.5;
+  }
   &:hover{
     filter: brightness(140%);
   }
+}
+
+.tentative_panel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px dotted $accent1;
+  background-color: $accent3;
+  line-height: 100%;
 }
