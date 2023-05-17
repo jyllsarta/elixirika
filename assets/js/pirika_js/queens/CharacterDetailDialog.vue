@@ -2,8 +2,52 @@
   <div class="dialog">
     <div class="_back" @click="closeMenu"/>
     <div class="content">
-      <div class="tentative_button button" @click="loadScene('in_game')">
-        キャラ詳細だよー(クリックでインゲームへ)
+      <div class="tentative_panel character">
+        キャライラスト
+      </div>
+      <div class="tentative_panel profile">
+        <div class="tentative_panel name">
+          キャラ名
+        </div>
+        <div class="tentative_panel description1">
+          プロフィール1
+        </div>
+        <div class="tentative_panel description2">
+          プロフィール2
+        </div>
+      </div>
+      <div class="tentative_panel controls">
+        <div class="tentative_panel scenes">
+          <div class="tentative_panel scene">
+            シーン1
+          </div>
+          <div class="tentative_panel scene">
+            シーン2
+          </div>
+          <div class="tentative_panel scene">
+            シーン3
+          </div>
+          <div class="tentative_panel scene">
+            シーン4
+          </div>
+        </div>
+        <div class="tentative_panel progresses">
+          <div class="tentative_panel progress">
+            1
+          </div>
+          <div class="tentative_panel progress">
+            2
+          </div>
+          <div class="tentative_panel progress">
+            3
+          </div>
+          <div class="tentative_panel progress">
+            4
+          </div>
+        </div>
+        <div class="tentative_button start" @click="loadScene('in_game')">
+          START
+        </div>
       </div>
     </div>
   </div>
@@ -18,8 +62,8 @@ export default {
     closeMenu(){
       this.$emit("close");
     },
-    loadScene(){
-      this.$store.commit("loadScene", {name: "in_game"});
+    loadScene(name){
+      this.$store.commit("loadScene", {name: name});
     }
   },
 }
@@ -43,9 +87,64 @@ export default {
     width: 80%;
     background-color: $bg3;
     border: 2px solid $base2;
-    .button{
-      width: 50%;
-      height: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    .character{
+      width: 25%;
+    }
+    .profile{
+      width: 35%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      .name{
+        height: 100px;
+        width: 100%;
+      };
+      .description1{
+        flex: 1;
+        width: 100%;
+      };
+      .description2{
+        flex: 1;
+        width: 100%;
+      };
+    }
+    .controls{
+      width: 35%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      .scenes{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+        gap: 10px;
+        .scene{
+          width: calc(50% - 10px);
+          height: calc(50% - 10px);
+        }
+      }
+      .progresses{
+        width: 100%;
+        height: 15%;
+        display: flex;
+        padding: 10px;
+        gap: 10px;
+        .progress{
+          width: 70px;
+          height: 70px;
+        }
+      }
+      .start{
+        flex: 1;
+        width: 100%;
+      }
     }
   }
 }
