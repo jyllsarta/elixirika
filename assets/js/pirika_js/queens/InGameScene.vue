@@ -1,62 +1,38 @@
 <template>
-  <div class="game_window">
-    <enemy-image class="enemy_image component" :state="state" />
-    <enemy-hand class="enemy_hand component" :state="state" />
-    <enemy-message class="enemy_message component" :state="state" />
-    <bankroll class="bankroll component" :state="state" />
-    <game-table class="game_table component" :state="state" :controller="controller" />
-    <turn-end-button class="turn_end_button component" :state="state" :controller="controller" />
-    <player-hand class="player_hand component" :state="state" :controller="controller"/>
-    <side-pane class="side_pane component" :state="state" :controller="controller"/>
-    <option-menu class="menu component" @click="showTutorial = true"/>
-    <tutorial-dialog class="dialog component" v-if="showTutorial" @close="showTutorial = false"/>
-    <first-break-dialog class="dialog component" v-if="showFirstBreak" @close="nextPhase"/>
-    <second-break-dialog class="dialog component" v-if="showSecondBreak" @close="nextPhase"/>
-    <gameset-dialog class="dialog component" v-if="state?.phase == 'game_end'" @close="nextPhase" :state="state" />
-    <phase-mover :state="state" :controller="controller" />
+  <div class="in_game_scene">
+    <div class="floating_menu tentative_panel">
+      三
+    </div>
+    <div class="content">
+      <div class="main_area">
+        <div class="character_area tentative_panel">
+          キャラ
+        </div>
+        <div class="table_area tentative_panel">
+          テーブル
+        </div>
+        <player-hand-vue class="player_hand"/>
+      </div>
+      <div class="right_area tentative_panel">
+        右
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import PlayerHandVue from './in_game/PlayerHand.vue';
 import State from "./packs/model/state";
 import Controller from "./packs/service/controller";
-import EnemyHand from "./EnemyHand.vue";
-import EnemyImage from "./EnemyImage.vue";
-import EnemyMessage from "./EnemyMessage.vue";
-import PlayerHand from "./PlayerHand.vue";
-import GameTable from "./GameTable.vue";
-import SidePane from './SidePane.vue';
-import PhaseMover from './PhaseMover.vue';
-import OptionMenu from './OptionMenu.vue';
-import Bankroll from './Bankroll.vue';
-import TutorialDialog from './TutorialDialog.vue';
-import FirstBreakDialog from './FirstBreakDialog.vue';
-import SecondBreakDialog from './SecondBreakDialog.vue';
-import GamesetDialog from './GamesetDialog.vue';
-import TurnEndButton from './TurnEndButton.vue';
 
 export default {
   components: {
-    PlayerHand,
-    EnemyHand,
-    EnemyImage,
-    EnemyMessage,
-    GameTable,
-    SidePane,
-    PhaseMover,
-    OptionMenu,
-    Bankroll,
-    TutorialDialog,
-    FirstBreakDialog,
-    SecondBreakDialog,
-    GamesetDialog,
-    TurnEndButton
+    PlayerHandVue
   },
   data(){
     return {
       state: null,
       controller: null,
-      showTutorial: false,
     }
   },
   mounted(){
@@ -66,96 +42,46 @@ export default {
     window.controller = this.controller;
   },
   methods: {
-    nextPhase(){
-      this.controller.nextPhase();
-    }
   },
-  computed: {
-    showFirstBreak(){
-      if(!this.state){
-        return false;
-      }
-      return this.state.phase == "unstarted" && this.state.persistentData.winCount == 1;
-    },
-    showSecondBreak(){
-      if(!this.state){
-        return false;
-      }
-      return this.state.phase == "unstarted" && this.state.persistentData.winCount == 2;
-    },
-  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "stylesheets/global_settings";
-.game_window{
+.in_game_scene{
   width: 100%;
   height: 100%;
   background-color: $bg4;
 
-  .component{
+  .floating_menu{
     position: absolute;
-  }
-  .menu{
     top: 10px;
     left: 10px;
-    width: 50px;
-    height: 50px;
-  }
-  .enemy_image{
-    top: 0px;
-    left: 30px;
-    width: 400px;
-    height: 200px;
-  }
-  .enemy_hand{
-    top: 170px;
-    left: 10px;
-    width: 500px;
+    width: 80px;
     height: 80px;
   }
-  .enemy_message{
-    top: 60px;
-    left: 300px;
-    width: 250px;
-    height: 80px;
-  }
-  .bankroll{
-    top: 10px;
-    right: 320px;
-    width: 200px;
-    height: 100px;
-  }
-  .turn_end_button{
-    top: 200px;
-    right: 320px;
-    width: 200px;
-    height: 100px;
-  }
-  .game_table{
-    top: 260px;
-    left: 10px;
-    width: 870px;
-    height: 220px;
-  }
-  .player_hand{
-    bottom: 10px;
-    left: 10px;
-    width: 870px;
-    height: 100px;
-  }
-  .side_pane{
-    top: 10px;
-    right: 10px;
-    width: 300px;
-    height: 540px;
-  }
-  .dialog{
-    top: 0;
-    left: 0;
+
+  .content{
     width: 100%;
     height: 100%;
+    display: flex;
+    .main_area{
+      height: 100%;
+      width: 70%;
+      .character_area{
+        height: 50%;
+      }
+      .table_area{
+        height: 30%;
+      }
+      .player_hand{
+        height: 20%;
+      }
+    }
+    .right_area{
+      height: 100%;
+      width: 30%;
+    }
   }
 }
 </style>

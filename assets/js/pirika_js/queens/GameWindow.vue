@@ -26,6 +26,7 @@ export default {
     EquipmentScene,
   },
   mounted(){
+    this.$store.commit("loadScene", {name: "in_game"});
   },
   methods: {
   },
