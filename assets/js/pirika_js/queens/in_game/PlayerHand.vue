@@ -1,7 +1,10 @@
 <template>
   <div class="player_hand">
-    <div class="hand_area tentative_panel">
-      ハンド
+    <div class="hands">
+      <div class="hand tentative_panel">1</div>
+      <div class="hand tentative_panel">2</div>
+      <div class="hand tentative_panel">3</div>
+      <div class="hand tentative_panel">7</div>
     </div>
   </div>
 </template>
@@ -19,9 +22,19 @@ export default {
 .player_hand{
   height: 100%;
   width: 100%;
-  .hand_area{
+  .hands{
     height: 100%;
     width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    gap: 10px;
+    .hand{
+      flex: 1;
+      height: 80%;
+      max-width: 200px;
+    }
   }
 }
 </style>
