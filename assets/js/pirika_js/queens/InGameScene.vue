@@ -5,29 +5,29 @@
     </div>
     <div class="content">
       <div class="main_area">
-        <div class="character_area tentative_panel">
-          キャラ
-        </div>
-        <div class="table_area tentative_panel">
-          テーブル
-        </div>
+        <character-area-vue class="character_area"/>
+        <table-area-vue class="table_area"/>
         <player-hand-vue class="player_hand"/>
       </div>
-      <div class="right_area tentative_panel">
-        右
-      </div>
+        <right-area-vue class="right_area"/>
     </div>
   </div>
 </template>
 
 <script>
 import PlayerHandVue from './in_game/PlayerHand.vue';
+import CharacterAreaVue from './in_game/CharacterArea.vue';
+import TableAreaVue from './in_game/TableArea.vue';
+import RightAreaVue from './in_game/RightArea.vue';
 import State from "./packs/model/state";
 import Controller from "./packs/service/controller";
 
 export default {
   components: {
-    PlayerHandVue
+    CharacterAreaVue,
+    PlayerHandVue,
+    TableAreaVue,
+    RightAreaVue
   },
   data(){
     return {
