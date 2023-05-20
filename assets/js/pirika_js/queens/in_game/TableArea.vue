@@ -1,8 +1,6 @@
 <template>
   <div class="table_area">
-    <div class="bankroll_area tentative_panel">
-      バンクロール
-    </div>
+    <bank-roll-vue class="bankroll" />
     <div class="targets_area tentative_panel">
       ターゲット
     </div>
@@ -17,9 +15,13 @@
 
 <script>
 import store from "../packs/store";
+import BankRollVue from './BankRoll.vue';
 
 export default {
   store, 
+  components: {
+    BankRollVue
+  }
 }
 </script>
 
@@ -29,6 +31,7 @@ export default {
   height: 100%;
   width: 100%;
   display: flex;
+  border-top: 1px dotted $white;
 
   .bankroll_area{
     width: 20%;
