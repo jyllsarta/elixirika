@@ -1,6 +1,6 @@
 <template>
   <div class="in_game_scene">
-    <div class="floating_menu tentative_panel">
+    <div class="floating_menu tentative_button disabled">
       三
     </div>
     <div class="content">

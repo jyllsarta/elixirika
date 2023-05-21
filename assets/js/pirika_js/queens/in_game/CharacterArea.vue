@@ -1,25 +1,27 @@
 <template>
   <div class="character_area">
-    <div class="character tentative_panel">
-      キャラ！
-    </div>
-    <div class="enemy_hands tentative_panel">
-      エネミーハンド
-    </div>
-    <div class="baloon tentative_panel">
-      ふきだし
-    </div>
-    <div class="challenge_board tentative_panel">
-      チャレンジボード
-    </div>
+    <character-image-vue class="character_image" />
+    <enemy-hand-vue class="enemy_hand" />
+    <baloon-vue class="baloon" />
+    <challenge-board-vue class="challenge-board" />
   </div>
 </template>
 
 <script>
 import store from "../packs/store";
+import BaloonVue from './Baloon.vue';
+import CharacterImageVue from "./CharacterImage.vue";
+import ChallengeBoardVue from "./ChallengeBoard.vue";
+import EnemyHandVue from "./EnemyHand.vue";
 
 export default {
-  store, 
+  store,
+  components: {
+    CharacterImageVue,
+    EnemyHandVue,
+    BaloonVue,
+    ChallengeBoardVue
+  }
 }
 </script>
 
@@ -29,17 +31,18 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+  pointer-events: none;
 
-  .character{
+  .character_image{
     position: absolute;
-    width: 60%;
+    width: 50%;
     height: 100%;
     left: 5%;
     z-index: 100;
   }
-  .enemy_hands{
+  .enemy_hand{
     position: absolute;
-    left: 20%;
+    left: 10%;
     width: 70%;
     height: 20%;
     bottom: 0;
@@ -49,15 +52,15 @@ export default {
     position: absolute;
     width: 30%;
     height: 30%;
-    top: 45%;
-    right: 20%;
+    top: 30%;
+    right: 32%;
     z-index: 400;
   }
   .challenge_board{
     position: absolute;
     width: 30%;
-    height: 40%;
-    right: 5%;
+    height: 80%;
+    right: 0;
     z-index: 400;
   }
 }

@@ -1,10 +1,10 @@
 <template>
   <div class="player_hand">
     <div class="hands">
-      <div class="hand tentative_panel">1</div>
-      <div class="hand tentative_panel">2</div>
-      <div class="hand tentative_panel">3</div>
-      <div class="hand tentative_panel">7</div>
+      <div class="hand tentative_button disabled">1</div>
+      <div class="hand tentative_button disabled">2</div>
+      <div class="hand tentative_button disabled">3</div>
+      <div class="hand tentative_button disabled">7</div>
     </div>
   </div>
 </template>
