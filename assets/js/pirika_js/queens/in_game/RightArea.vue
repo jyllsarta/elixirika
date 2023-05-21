@@ -33,19 +33,19 @@ export default {
   flex-direction: column;
   .skills{
     width: 100%;
-    height: 20%;
-    max-height: 120px;
+    height: 15%;
+    max-height: 100px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     .skill{
       width: 150px;
-      height: 90px;
+      height: 80px;
     }
   }
   .right_main_area{
     width: 100%;
-    height: 60%;
+    height: 70%;
     flex: 1;
   }
 }
