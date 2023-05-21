@@ -108,12 +108,12 @@ export default {
   .floating_menu{
     position: absolute;
     display: flex;
-    padding: 10px;
-    gap: 10px;
+    padding: 8px;
+    gap: 8px;
     z-index: 10;
     .buttons{
       height: 140px;
-      gap: 10px;
+      gap: 8px;
       display: flex;
       flex-direction: column;
       .button{
@@ -131,7 +131,7 @@ export default {
     width: 100%;
     height: 100%;
     display: flex;
-    gap: 10px;
+    gap: 8px;
     flex-direction: column;
     z-index: 5;
     .characters{
@@ -140,7 +140,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-around;
-      gap: 10px;
+      gap: 8px;
       .character{
         width: 200px;
         height: 400px;
@@ -162,8 +162,8 @@ export default {
       height: 20%;
       display: flex;
       justify-content: space-around;
-      gap: 10px;
-      padding: 10px;
+      gap: 8px;
+      padding: 8px;
       .coin{
         width: 100px;
         height: 100px;

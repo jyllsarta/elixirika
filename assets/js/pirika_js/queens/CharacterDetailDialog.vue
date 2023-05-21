@@ -87,7 +87,7 @@ export default {
     width: 80%;
     background-color: $bg3;
     border: 2px solid $base2;
-    padding: 10px;
+    padding: 8px;
     display: flex;
     justify-content: space-around;
     .character{
@@ -97,8 +97,8 @@ export default {
       width: 35%;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding: 10px;
+      gap: 8px;
+      padding: 8px;
       .name{
         height: 100px;
         width: 100%;
@@ -116,26 +116,26 @@ export default {
       width: 35%;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding: 10px;
+      gap: 8px;
+      padding: 8px;
       .scenes{
         width: 100%;
         height: 50%;
         display: flex;
         flex-wrap: wrap;
-        padding: 10px;
-        gap: 10px;
+        padding: 8px;
+        gap: 8px;
         .scene{
-          width: calc(50% - 10px);
-          height: calc(50% - 10px);
+          width: calc(50% - 8px);
+          height: calc(50% - 8px);
         }
       }
       .progresses{
         width: 100%;
         height: 15%;
         display: flex;
-        padding: 10px;
-        gap: 10px;
+        padding: 8px;
+        gap: 8px;
         .progress{
           width: 70px;
           height: 70px;

@@ -32,12 +32,12 @@ export default {
 .bankroll_area{
   width: 100%;
   height: 100%;
-  padding: 10px;
+  padding: 4px;
   .enemy{
     border-bottom: 1px dotted $white;
   }
   .bankroll{
-    padding: 10px;
+    padding: 8px;
     display: flex;
     justify-content: space-around;
     height: 50%;

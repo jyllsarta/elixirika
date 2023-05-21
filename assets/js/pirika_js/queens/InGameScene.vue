@@ -55,8 +55,8 @@ export default {
 
   .floating_menu{
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 8px;
+    left: 8px;
     width: 80px;
     height: 80px;
   }

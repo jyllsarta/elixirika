@@ -33,7 +33,7 @@ export default {
 .right_main_area_frame{
   height: 100%;
   width: 100%;
-  padding: 10px;
+  padding: 8px;
   .content{
     border: 1px dotted $white;
     height: 100%;
@@ -42,7 +42,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     .enemy_status{
       width: 80%;
       height: 20%;
