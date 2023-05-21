@@ -25,14 +25,14 @@ export default {
   .hands{
     height: 100%;
     width: 100%;
-    padding: 10px;
+    padding: 4px;
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    gap: 10px;
+    gap: 8px;
     .hand{
       flex: 1;
-      height: 80%;
+      height: 100%;
       max-width: 200px;
     }
   }

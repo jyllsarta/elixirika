@@ -2,9 +2,7 @@
   <div class="table_area">
     <bank-roll-vue class="bankroll" />
     <target-area-vue class="target_area" />
-    <div class="cards_area tentative_panel">
-      カードs
-    </div>
+    <card-area-vue class="card_area" />
     <div class="decide_area tentative_panel">
       OKボタン
     </div>
@@ -15,12 +13,14 @@
 import store from "../packs/store";
 import BankRollVue from './BankRoll.vue';
 import TargetAreaVue from './TargetArea.vue';
+import CardAreaVue from './CardArea.vue';
 
 export default {
   store, 
   components: {
     BankRollVue,
-    TargetAreaVue
+    TargetAreaVue,
+    CardAreaVue
   }
 }
 </script>
@@ -41,7 +41,7 @@ export default {
     width: 20%;
     height: 100%;
   }
-  .cards_area{
+  .card_area{
     width: 40%;
     height: 100%;
   }

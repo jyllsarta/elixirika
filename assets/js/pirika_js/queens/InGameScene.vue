@@ -69,13 +69,13 @@ export default {
       height: 100%;
       width: 70%;
       .character_area{
-        height: 50%;
+        height: 45%;
       }
       .table_area{
-        height: 30%;
+        height: 40%;
       }
       .player_hand{
-        height: 20%;
+        height: 15%;
       }
     }
     .right_area{
