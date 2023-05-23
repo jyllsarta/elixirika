@@ -11,6 +11,8 @@
       </div>
         <right-area-vue class="right_area"/>
     </div>
+    <debug-state-vue :state="state" :controller="controller"/>
+    <phase-mover-vue :state="state" :controller="controller"/>
   </div>
 </template>
 
@@ -21,13 +23,17 @@ import TableAreaVue from './in_game/TableArea.vue';
 import RightAreaVue from './in_game/RightArea.vue';
 import State from "./packs/model/state";
 import Controller from "./packs/service/controller";
+import DebugStateVue from './DebugState.vue';
+import PhaseMoverVue from './PhaseMover.vue';
 
 export default {
   components: {
     CharacterAreaVue,
     PlayerHandVue,
     TableAreaVue,
-    RightAreaVue
+    RightAreaVue,
+    DebugStateVue,
+    PhaseMoverVue,
   },
   data(){
     return {
