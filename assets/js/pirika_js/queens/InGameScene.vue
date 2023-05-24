@@ -1,8 +1,6 @@
 <template>
   <div class="in_game_scene">
-    <div class="floating_menu tentative_button disabled">
-      三
-    </div>
+    <floating-menu-vue class="floating_menu"/>
     <div class="content">
       <div class="main_area">
         <character-area-vue class="character_area"/>
@@ -25,6 +23,7 @@ import State from "./packs/model/state";
 import Controller from "./packs/service/controller";
 import DebugStateVue from './DebugState.vue';
 import PhaseMoverVue from './PhaseMover.vue';
+import FloatingMenuVue from "./in_game/FloatingMenu.vue";
 
 export default {
   components: {
@@ -34,6 +33,7 @@ export default {
     RightAreaVue,
     DebugStateVue,
     PhaseMoverVue,
+    FloatingMenuVue,
   },
   data(){
     return {
@@ -64,7 +64,7 @@ export default {
     top: 8px;
     left: 8px;
     width: 80px;
-    height: 80px;
+    height: 200px;
   }
 
   .content{
