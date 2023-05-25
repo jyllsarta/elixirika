@@ -1,6 +1,6 @@
 <template>
   <div class="table_area">
-    <bank-roll-vue class="bankroll" />
+    <bank-roll-vue class="bankroll" :state="state"/>
     <target-area-vue class="target_area" />
     <card-area-vue class="card_area" />
     <decide-area-vue class="decide_area" />
@@ -21,7 +21,11 @@ export default {
     TargetAreaVue,
     CardAreaVue,
     DecideAreaVue
-  }
+  },
+  props: {
+    state: Object,
+    controller: Object,
+  },
 }
 </script>
 

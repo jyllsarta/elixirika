@@ -1,11 +1,11 @@
 <template>
-  <div class="bankroll_area">
+  <div class="bankroll_area" v-if="state">
     <div class="enemy bankroll">
       <div class="coins tentative_panel">
         コイン
       </div>
       <div class="amount tentative_panel">
-        192
+        {{state.persistentData.enemyBankroll}}
       </div>
     </div>
     <div class="player bankroll">
@@ -13,9 +13,9 @@
         コイン
       </div>
       <div class="amount tentative_panel">
-        192
+        {{state.persistentData.playerBankroll}}
       </div>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -23,7 +23,10 @@
 import store from "../packs/store";
 
 export default {
-  store, 
+  store,
+  props: {
+    state: Object,
+  },
 }
 </script>
 
