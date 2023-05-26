@@ -1,5 +1,5 @@
 <template>
-  <div class="target_area">
+  <div class="target_area" v-if="state">
     <div class="description">
       目標値: この値に近いほうが勝ち
     </div>
@@ -8,7 +8,7 @@
         Target:
       </div>
       <div class="value">
-        16
+        {{state.board.targetValue()}}
       </div>
     </div>
     <div class="next">
@@ -16,7 +16,7 @@
         next:
       </div>
       <div class="value">
-        7
+        {{state.boardNext.targetValue()}}
       </div>
     </div>
   </div>
@@ -27,6 +27,9 @@ import store from "../packs/store";
 
 export default {
   store, 
+  props: {
+    state: Object,
+  },
 }
 </script>
 

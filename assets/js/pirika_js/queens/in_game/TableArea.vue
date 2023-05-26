@@ -1,7 +1,7 @@
 <template>
   <div class="table_area">
     <bank-roll-vue class="bankroll" :state="state"/>
-    <target-area-vue class="target_area" />
+    <target-area-vue class="target_area" :state="state" />
     <card-area-vue class="card_area" />
     <decide-area-vue class="decide_area" />
   </div>
