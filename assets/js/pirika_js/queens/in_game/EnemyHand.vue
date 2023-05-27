@@ -1,10 +1,6 @@
 <template>
-  <div class="cards">
-    <div class="card tentative_panel">?</div>
-    <div class="card tentative_panel">?</div>
-    <div class="card tentative_panel">?</div>
-    <div class="card tentative_panel">?</div>
-    <div class="card tentative_panel">?</div>
+  <div class="cards" v-if="state">
+    <div class="card tentative_panel" v-for="(i, index) in new Array(state.enemy.hand.cards.length)" :key="index">?</div>
   </div>
 </template>
 
@@ -13,6 +9,9 @@ import store from "../packs/store";
 
 export default {
   store, 
+  props: {
+    state: Object,
+  },
 }
 </script>
 

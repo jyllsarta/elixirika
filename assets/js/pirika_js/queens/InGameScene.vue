@@ -3,7 +3,7 @@
     <floating-menu-vue class="floating_menu"/>
     <div class="content">
       <div class="main_area">
-        <character-area-vue class="character_area"/>
+        <character-area-vue class="character_area" :state="state"/>
         <table-area-vue class="table_area" :state="state" :controller="controller"/>
         <player-hand-vue class="player_hand" :state="state" :controller="controller"/>
       </div>

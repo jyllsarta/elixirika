@@ -1,7 +1,7 @@
 <template>
   <div class="character_area">
     <character-image-vue class="character_image" />
-    <enemy-hand-vue class="enemy_hand" />
+    <enemy-hand-vue class="enemy_hand" :state="state"/>
     <baloon-vue class="baloon" />
     <challenge-board-vue class="challenge-board" />
   </div>
@@ -21,7 +21,10 @@ export default {
     EnemyHandVue,
     BaloonVue,
     ChallengeBoardVue
-  }
+  },
+  props: {
+    state: Object,
+  },
 }
 </script>
 
