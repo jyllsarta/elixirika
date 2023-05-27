@@ -4,7 +4,7 @@
       <div class="skill tentative_panel">敵スキル1</div>
       <div class="skill tentative_panel">敵スキル2</div>
     </div>
-    <right-main-area-vue class="right_main_area"/>
+    <right-main-area-vue class="right_main_area" :state="state" :controller="controller"/>
     <div class="skills">
       <div class="skill tentative_panel">プレイヤースキル1</div>
       <div class="skill tentative_panel">プレイヤースキル2</div>
@@ -20,7 +20,11 @@ export default {
   store, 
   components: {
     RightMainAreaVue,
-  }
+  },
+  props: {
+    state: Object,
+    controller: Object,
+  },
 }
 </script>
 

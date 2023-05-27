@@ -5,8 +5,8 @@ export class PhasePlayerSelect {
 
   nextPhase(state){
     // FIXME: ポチポチで進まないとだるいので、カードを選択していない状態だったら適当に端っこから切っていく
-    while(state.playerBoard.cards.length < 2){
-      state.playerBoard.add(state.playerHand.draw());
+    while(state.player.board.cards.length < 2){
+      state.player.board.add(state.player.hand.draw());
     }
     state.phase = "showdown";
   }

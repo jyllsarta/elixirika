@@ -36,6 +36,13 @@ import store from "../packs/store";
 
 export default {
   store, 
+  props: {
+    state: Object,
+    isPlayerSide: Boolean,
+  },
+  components: {
+    
+  },
 }
 </script>
 

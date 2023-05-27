@@ -1,10 +1,10 @@
 export class PhaseTurnStart {
   enter(state){
     state.boardNext.sendAllCardsTo(state.board);
-    state.enemyHand.add(state.deck.draw());
-    state.enemyHand.add(state.deck.draw());
-    state.playerHand.add(state.deck.draw());
-    state.playerHand.add(state.deck.draw());
+    state.enemy.hand.add(state.deck.draw());
+    state.enemy.hand.add(state.deck.draw());
+    state.player.hand.add(state.deck.draw());
+    state.player.hand.add(state.deck.draw());
     state.boardNext.add(state.deck.draw());
     state.boardNext.add(state.deck.draw());
 

@@ -33,10 +33,6 @@ export default {
       fieldNames: [
         "deck",
         "discard",
-        "enemyHand",
-        "enemyBoard",
-        "playerHand",
-        "playerBoard",
         "board",
         "boardNext",
       ]

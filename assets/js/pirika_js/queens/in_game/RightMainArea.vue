@@ -3,11 +3,11 @@
     <div class="content">
       <div class="enemy_status">
         <div class="description">相手のキャパシティ: 8以上で勝利</div>
-        <character-status-vue class="character_status"/>
+        <character-status-vue class="character_status" :state="state" :isPlayerSide="false"/>
       </div>
-      <round-status-vue class="round_status"/>
+      <round-status-vue class="round_status" :state="state"/>
       <div class="player_status">
-        <character-status-vue class="character_status"/>
+        <character-status-vue class="character_status" :state="state" :isPlayerSide="true"/>
         <div class="description">プレイヤーのキャパシティ: 8以上で敗北</div>
       </div>
     </div>
@@ -24,7 +24,11 @@ export default {
   components: {
     CharacterStatusVue,
     RoundStatusVue
-  }
+  },
+  props: {
+    state: Object,
+    controller: Object,
+  },
 }
 </script>
 

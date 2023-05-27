@@ -7,7 +7,7 @@
         <table-area-vue class="table_area" :state="state" :controller="controller"/>
         <player-hand-vue class="player_hand" :state="state" :controller="controller"/>
       </div>
-        <right-area-vue class="right_area"/>
+        <right-area-vue class="right_area" :state="state" :controller="controller"/>
     </div>
     <debug-state-vue :state="state" :controller="controller"/>
     <phase-mover-vue :state="state" :controller="controller"/>

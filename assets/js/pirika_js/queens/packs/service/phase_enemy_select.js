@@ -4,8 +4,8 @@ export class PhaseEnemySelect {
   enter(state){
     const ai = new EnemyAiGreedy();
     const cardIds = ai.select(state);
-    state.enemyBoard.add(state.enemyHand.pickByCardId(cardIds[0]));
-    state.enemyBoard.add(state.enemyHand.pickByCardId(cardIds[1]));
+    state.enemy.board.add(state.enemy.hand.pickByCardId(cardIds[0]));
+    state.enemy.board.add(state.enemy.hand.pickByCardId(cardIds[1]));
   }
 
   nextPhase(state){

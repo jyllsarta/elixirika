@@ -18,13 +18,13 @@ export class Controller {
   }
 
   sendToBoard(index){
-    if(this.state.playerBoard.cards.length >= 2){
+    if(this.state.player.board.cards.length >= 2){
       console.warn("already picked 2 cards");
       return;
     }
-    const card = this.state.playerHand.pick(index);
+    const card = this.state.player.hand.pick(index);
     if(card){
-      this.state.playerBoard.add(card);
+      this.state.player.board.add(card);
     }
   }
 
@@ -38,55 +38,55 @@ export class Controller {
   }
 
   _doSendToBoard(cardId){
-    if(this.state.playerBoard.cards.length >= 2){
+    if(this.state.player.board.cards.length >= 2){
       console.warn("already picked 2 cards");
       return;
     }
-    const card = this.state.playerHand.pickByCardId(cardId);
+    const card = this.state.player.hand.pickByCardId(cardId);
     if(card){
-      this.state.playerBoard.add(card);
+      this.state.player.board.add(card);
     }
   }
 
   _doUseSkillPlayer(cardId){
-    if(this.state.playerSpecialPoint < 2){
+    if(this.state.player.specialPoint < 2){
       console.warn("insufficient sp");
       this.state.uiState.selectSkillTarget = false;
       return;
     }
-    const card = this.state.playerHand.pickByCardId(cardId);
+    const card = this.state.player.hand.pickByCardId(cardId);
     if(card){
       this.state.discard.add(card);
-      this.state.playerHand.add(this.state.deck.draw());
-      this.state.playerSpecialPoint -= 2;
+      this.state.player.hand.add(this.state.deck.draw());
+      this.state.player.specialPoint -= 2;
     }
     this.state.uiState.selectSkillTarget = false;
   }
 
   useRejectDuplicateSkillPlayer(){
-    if(this.state.playerSpecialPoint < 1){
+    if(this.state.player.specialPoint < 1){
       console.warn("insufficient sp");
       return;
     }
-    this.state.playerBoard.sendAllCardsTo(state.playerHand);
-    const duplications = this.state.playerHand.cards.filter(card => this.state.playerHand.cards.some(anotherCard => anotherCard.n == card.n && card.id !== anotherCard.id));
+    this.state.player.board.sendAllCardsTo(state.player.hand);
+    const duplications = this.state.player.hand.cards.filter(card => this.state.player.hand.cards.some(anotherCard => anotherCard.n == card.n && card.id !== anotherCard.id));
     if(duplications.length === 0){
       console.warn("no duplications");
       return;
     }
     for(let card of duplications){
-      this.state.discard.add(this.state.playerHand.pickByCardId(card.id));
+      this.state.discard.add(this.state.player.hand.pickByCardId(card.id));
     }
     for(let i = 0; i < duplications.length; i++){
-      state.playerHand.add(state.deck.draw());
+      state.player.hand.add(state.deck.draw());
     }
-    this.state.playerSpecialPoint -= 1;
+    this.state.player.specialPoint -= 1;
   }
 
   unstage(cardId){
-    const card = this.state.playerBoard.pickByCardId(cardId);
+    const card = this.state.player.board.pickByCardId(cardId);
     if(card){
-      this.state.playerHand.add(card);
+      this.state.player.hand.add(card);
     }
     else{
       console.warn("couldn't find card");
@@ -94,20 +94,20 @@ export class Controller {
   }
 
   changeCard(index){
-    if(this.state.playerScore < 2){
+    if(this.state.player.score < 2){
       console.warn("insufficient MP");
       return;
     }
-    const card = this.state.playerHand.pick(index);
+    const card = this.state.player.hand.pick(index);
     if(card){
       this.state.discard.add(card);
-      this.state.playerHand.add(this.state.deck.draw());
-      this.state.playerScore -= 2;
+      this.state.player.hand.add(this.state.deck.draw());
+      this.state.player.score -= 2;
     }
   }
 
   toSkillSelectMode(){
-    if(this.state.playerSpecialPoint < 2){
+    if(this.state.player.specialPoint < 2){
       console.warn("insufficient sp");
       this.state.uiState.selectSkillTarget = false;
       return;

@@ -2,7 +2,7 @@ import Field from "../model/field";
 
 export class EnemyAiGreedy {
   select(state){
-    const cards = state.enemyHand.cards;
+    const cards = state.enemy.hand.cards;
     const target = state.board.targetValue();
 
     return this.search(cards, target);

@@ -13,16 +13,16 @@ export class PhaseSetup {
     state.deck.overwriteCards(cards);
     state.deck.shuffle();
 
-    state.enemyHand.add(state.deck.draw());
-    state.enemyHand.add(state.deck.draw());
-    state.enemyHand.add(state.deck.draw());
-    state.enemyHand.add(state.deck.draw());
-    state.enemyHand.add(state.deck.draw());
-    state.playerHand.add(state.deck.draw());
-    state.playerHand.add(state.deck.draw());
-    state.playerHand.add(state.deck.draw());
-    state.playerHand.add(state.deck.draw());
-    state.playerHand.add(state.deck.draw());
+    state.enemy.hand.add(state.deck.draw());
+    state.enemy.hand.add(state.deck.draw());
+    state.enemy.hand.add(state.deck.draw());
+    state.enemy.hand.add(state.deck.draw());
+    state.enemy.hand.add(state.deck.draw());
+    state.player.hand.add(state.deck.draw());
+    state.player.hand.add(state.deck.draw());
+    state.player.hand.add(state.deck.draw());
+    state.player.hand.add(state.deck.draw());
+    state.player.hand.add(state.deck.draw());
     state.boardNext.add(state.deck.draw());
     state.boardNext.add(state.deck.draw());
   }
