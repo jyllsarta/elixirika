@@ -72,12 +72,15 @@ export default {
     left: 8px;
     width: 80px;
     height: 200px;
+    z-index: 2000;
   }
 
   .content{
     width: 100%;
     height: 100%;
     display: flex;
+    z-index: 1000;
+
     .main_area{
       height: 100%;
       width: 70%;
@@ -97,10 +100,12 @@ export default {
     }
   }
   .dialog{
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 3000;
   }
 }
 </style>
