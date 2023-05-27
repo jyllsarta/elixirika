@@ -3,7 +3,7 @@
     <bank-roll-vue class="bankroll" :state="state"/>
     <target-area-vue class="target_area" :state="state" />
     <card-area-vue class="card_area" :state="state" :controller="controller"/>
-    <decide-area-vue class="decide_area" />
+    <decide-area-vue class="decide_area" :state="state" :controller="controller"/>
   </div>
 </template>
 
