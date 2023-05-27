@@ -6,18 +6,11 @@
           CAPACITY
         </div>
         <div class="value">
-          2 / 8
+          {{member.score}} / 8
         </div>
       </div>
       <div class="dots">
-        <div class="dot">◯</div>
-        <div class="dot">◯</div>
-        <div class="dot">◯</div>
-        <div class="dot">◯</div>
-        <div class="dot">◯</div>
-        <div class="dot">◯</div>
-        <div class="dot">◯</div>
-        <div class="dot">◯</div>
+        <div class="dot" v-for="i in [1,2,3,4,5,6,7,8]" :key="i">{{(i <= member.score) ? "●" : "◯"}}</div>
       </div>
     </div>
     <div class="mp_area">
@@ -25,7 +18,7 @@
         MP
       </div>
       <div class="value">
-        7
+        {{member.specialPoint}}
       </div>
     </div>
   </div>
@@ -37,8 +30,7 @@ import store from "../packs/store";
 export default {
   store, 
   props: {
-    state: Object,
-    isPlayerSide: Boolean,
+    member: Object,
   },
   components: {
     

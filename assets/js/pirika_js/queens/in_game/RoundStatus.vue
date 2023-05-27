@@ -2,15 +2,10 @@
   <div class="round_status">
     <div class="pot_area">
       <div class="label">
-        POT: 6
+        POT: {{state.pot}}
       </div>
       <div class="dots">
-        <div class="dot">●</div>
-        <div class="dot">●</div>
-        <div class="dot">●</div>
-        <div class="dot">●</div>
-        <div class="dot">●</div>
-        <div class="dot">●</div>
+        <div class="dot" v-for="(i, index) in new Array(state.pot)" :key="index">●</div>
       </div>
       <div class="description">
         キャパシティへのダメージ量
@@ -21,13 +16,10 @@
         Round
       </div>
       <div class="value">
-        4
+        {{state.round}}
       </div>
       <div class="dots">
-        <div class="dot">◯</div>
-        <div class="dot">◯</div>
-        <div class="dot">◯</div>
-        <div class="dot">◯</div>
+        <div class="dot" v-for="(i, index) in new Array(state.round)" :key="index">◯</div>
       </div>
       <div class="description">
         ポット増加量
@@ -41,6 +33,9 @@ import store from "../packs/store";
 
 export default {
   store, 
+  props: {
+    state: Object,
+  },
 }
 </script>
 

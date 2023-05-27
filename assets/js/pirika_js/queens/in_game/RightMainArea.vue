@@ -1,13 +1,13 @@
 <template>
-  <div class="right_main_area_frame">
+  <div class="right_main_area_frame" v-if="state">
     <div class="content">
       <div class="enemy_status">
         <div class="description">相手のキャパシティ: 8以上で勝利</div>
-        <character-status-vue class="character_status" :state="state" :isPlayerSide="false"/>
+        <character-status-vue class="character_status" :member="state.enemy"/>
       </div>
       <round-status-vue class="round_status" :state="state"/>
       <div class="player_status">
-        <character-status-vue class="character_status" :state="state" :isPlayerSide="true"/>
+        <character-status-vue class="character_status" :member="state.player"/>
         <div class="description">プレイヤーのキャパシティ: 8以上で敗北</div>
       </div>
     </div>
