@@ -2,7 +2,7 @@
   <div class="player_hand" v-if="state">
     <div class="hands">
       <div class="hand tentative_button" v-for="card in state.player.hand.cards" :key="card.id" @click="onCardClick(card.id)">
-        {{card.n}}
+        {{card.stringRepresentation()}}
       </div>
     </div>
   </div>

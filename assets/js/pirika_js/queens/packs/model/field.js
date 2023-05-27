@@ -47,6 +47,15 @@ export class Field {
     return this.cards.reduce((acc, card)=>acc + card.n, 0);
   }
 
+  stringRepresentation(){
+    if(this.cards.every(card => card.revealed)){
+      return this.targetValue();
+    }
+    else{
+      return "?";
+    }
+  }
+
   pick(index){
     const picked = this.cards.splice(index, 1);
     return picked[0];

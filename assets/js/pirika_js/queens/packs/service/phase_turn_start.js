@@ -8,6 +8,8 @@ export class PhaseTurnStart {
     state.boardNext.add(state.deck.draw());
     state.boardNext.add(state.deck.draw());
 
+    state.player.hand.cards.forEach(card => card.reveal());
+
     state.round++;
     state.pot += state.round;
   }

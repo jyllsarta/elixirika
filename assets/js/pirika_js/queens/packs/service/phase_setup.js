@@ -25,6 +25,8 @@ export class PhaseSetup {
     state.player.hand.add(state.deck.draw());
     state.boardNext.add(state.deck.draw());
     state.boardNext.add(state.deck.draw());
+
+    state.player.hand.cards.forEach(card => card.reveal());
   }
 
   nextPhase(state){

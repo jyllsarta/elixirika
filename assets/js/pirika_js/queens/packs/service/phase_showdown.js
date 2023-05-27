@@ -3,6 +3,7 @@ import { Judgement } from "./judgement";
 export class PhaseShowdown {
   enter(state){
     const turnResult = Judgement.judge(state.board, state.player.board, state.enemy.board);
+    state.enemy.board.cards.forEach(card => card.reveal());
     state.lastRoundResult = turnResult;
   }
 
@@ -28,6 +29,7 @@ export class PhaseShowdown {
     if(state.deck.cards.length < 15){
       state.discard.sendAllCardsTo(state.deck);
       state.deck.shuffle();
+      state.deck.cards.forEach(card => card.hide());
     }
 
     if(state.player.score >= 8 || state.enemy.score >= 8){

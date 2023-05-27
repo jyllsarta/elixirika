@@ -3,14 +3,18 @@
     <div class="card_panel">
       <div class="cards">
         <div class="card_frame" >
-          <div class="card" v-if="state.enemy.board.cards[0]">?</div>
+          <div class="card" v-if="state.enemy.board.cards[0]">
+            {{state.enemy.board.cards[0].stringRepresentation()}}
+          </div>
         </div>
         <div class="card_frame">
-          <div class="card" v-if="state.enemy.board.cards[1]">?</div>
+          <div class="card" v-if="state.enemy.board.cards[1]">
+            {{state.enemy.board.cards[0].stringRepresentation()}}
+          </div>
         </div>
       </div>
       <div class="value">
-        {{state.enemy.board.cards.length === 0 ? "-" : "?"}}
+        {{state.enemy.board.stringRepresentation()}}
       </div>
     </div>
     <div class="card_panel">
@@ -19,17 +23,17 @@
           <div class="card" 
             v-if="state.player.board.cards[0]"
             @click="onCardClick(state.player.board.cards[0].id)"
-          >{{state.player.board.cards[0].n}}</div>
+          >{{state.player.board.cards[0].stringRepresentation()}}</div>
         </div>
         <div class="card_frame">
           <div class="card" 
             v-if="state.player.board.cards[1]"
             @click="onCardClick(state.player.board.cards[1].id)"
-          >{{state.player.board.cards[1].n}}</div>
+          >{{state.player.board.cards[1].stringRepresentation()}}</div>
         </div>
       </div>
       <div class="value">
-        {{state.player.board.targetValue()}}
+        {{state.player.board.stringRepresentation()}}
       </div>
     </div>
   </div>
