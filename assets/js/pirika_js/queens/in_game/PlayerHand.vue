@@ -47,6 +47,7 @@ export default {
       flex: 1;
       height: 100%;
       max-width: 200px;
+      font-size: $font_size_xlarge;
       &.selectSkillTarget{
         background-color: $accent1;
       }
