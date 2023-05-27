@@ -30,7 +30,7 @@ export class PhaseShowdown {
       state.deck.shuffle();
     }
 
-    if(state.playerScore >= 8 || state.enemyScore >= 8){
+    if(state.player.score >= 8 || state.enemy.score >= 8){
       state.phase = "game_end";
       return;
     }

@@ -2,14 +2,14 @@ export class PhaseGameEnd {
   enter(state){
     state.uiState.prevPersistentData = {...state.persistentData};
     // 負け
-    if(state.playerScore >= 8){
-      state.persistentData.playerBankroll -= state.playerScore;
-      state.persistentData.enemyBankroll += state.playerScore;
+    if(state.player.score >= 8){
+      state.persistentData.playerBankroll -= state.player.score;
+      state.persistentData.enemyBankroll += state.player.score;
     }
     // 勝ち
     else{
-      state.persistentData.playerBankroll += state.enemyScore;
-      state.persistentData.enemyBankroll -= state.enemyScore;
+      state.persistentData.playerBankroll += state.enemy.score;
+      state.persistentData.enemyBankroll -= state.enemy.score;
     }
   }
 

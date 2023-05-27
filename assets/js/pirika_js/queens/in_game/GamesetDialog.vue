@@ -5,9 +5,9 @@
       <div class="result">
         <div class="score_row">
           <div class="name">プレイヤー</div>
-          <div class="score">{{state.playerScore}}</div>
+          <div class="score">{{state.player.score}}</div>
           <div class="tie">-</div>
-          <div class="score">{{state.enemyScore}}</div>
+          <div class="score">{{state.enemy.score}}</div>
           <div class="name">トローズ</div>
         </div>
         <div class="row">
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import State from "./packs/model/state";
+import State from "../packs/model/state";
 
 export default {
   props: {
@@ -41,6 +41,7 @@ export default {
   },
   methods: {
     closeMenu() {
+      console.log("close");
       this.$emit("close");
     },
   },
@@ -48,7 +49,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "stylesheets/global_settings";
+@import "../stylesheets/global_settings";
 .dialog{
   ._back {
     position: absolute;

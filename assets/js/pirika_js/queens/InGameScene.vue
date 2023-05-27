@@ -9,6 +9,7 @@
       </div>
         <right-area-vue class="right_area" :state="state" :controller="controller"/>
     </div>
+    <gameset-dialog class="dialog component" v-if="state?.phase == 'game_end'" @close="nextPhase" :state="state" />
     <debug-state-vue :state="state" :controller="controller"/>
     <phase-mover-vue :state="state" :controller="controller"/>
   </div>
@@ -24,6 +25,7 @@ import Controller from "./packs/service/controller";
 import DebugStateVue from './DebugState.vue';
 import PhaseMoverVue from './PhaseMover.vue';
 import FloatingMenuVue from "./in_game/FloatingMenu.vue";
+import GamesetDialog from "./in_game/GamesetDialog.vue";
 
 export default {
   components: {
@@ -34,6 +36,7 @@ export default {
     DebugStateVue,
     PhaseMoverVue,
     FloatingMenuVue,
+    GamesetDialog,
   },
   data(){
     return {
@@ -41,13 +44,17 @@ export default {
       controller: null,
     }
   },
+  methods: {
+    nextPhase(){
+      console.log("nextPhase");
+      this.controller.nextPhase();
+    }
+  },
   mounted(){
     this.state = new State();
     window.state = this.state;
     this.controller = new Controller(state);
     window.controller = this.controller;
-  },
-  methods: {
   },
 }
 </script>
@@ -88,6 +95,12 @@ export default {
       height: 100%;
       width: 30%;
     }
+  }
+  .dialog{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>
