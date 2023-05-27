@@ -1,8 +1,8 @@
 <template>
   <div class="table_area">
     <bank-roll-vue class="bankroll" :state="state"/>
-    <target-area-vue class="target_area" :state="state" />
     <card-area-vue class="card_area" :state="state" :controller="controller"/>
+    <target-area-vue class="target_area" :state="state" />
     <decide-area-vue class="decide_area" :state="state" :controller="controller"/>
   </div>
 </template>
@@ -41,12 +41,12 @@ export default {
     width: 20%;
     height: 100%;
   }
-  .target_area{
-    width: 20%;
-    height: 100%;
-  }
   .card_area{
     width: 40%;
+    height: 100%;
+  }
+  .target_area{
+    width: 20%;
     height: 100%;
   }
   .decide_area{

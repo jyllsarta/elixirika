@@ -46,6 +46,7 @@ export default {
   .description{
     width: 100%;
     font-size: $font-size-mini;
+    text-align: center;
   }
   .target{
     width: 100%;
