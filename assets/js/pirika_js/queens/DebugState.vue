@@ -55,6 +55,8 @@ export default {
 .debug_state{
   font-size: 12px;
   line-height: 110%;
+  height: 140px;
+  overflow-y: scroll;
   button{
     width: 100px;
     height: 80px;

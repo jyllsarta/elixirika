@@ -1,6 +1,7 @@
 <template>
   <div class="in_game_scene">
     <floating-menu-vue class="floating_menu"/>
+    <background-vue class="background"/>
     <div class="content">
       <div class="main_area">
         <character-area-vue class="character_area" :state="state"/>
@@ -10,7 +11,7 @@
         <right-area-vue class="right_area" :state="state" :controller="controller"/>
     </div>
     <gameset-dialog class="dialog component" v-if="state?.phase == 'game_end'" @close="nextPhase" :state="state" />
-    <debug-state-vue :state="state" :controller="controller"/>
+    <debug-state-vue :state="state" :controller="controller" v-if="false"/>
     <phase-mover-vue :state="state" :controller="controller"/>
   </div>
 </template>
@@ -26,6 +27,7 @@ import DebugStateVue from './DebugState.vue';
 import PhaseMoverVue from './PhaseMover.vue';
 import FloatingMenuVue from "./in_game/FloatingMenu.vue";
 import GamesetDialog from "./in_game/GamesetDialog.vue";
+import BackgroundVue from './in_game/Background.vue';
 
 export default {
   components: {
@@ -37,6 +39,7 @@ export default {
     PhaseMoverVue,
     FloatingMenuVue,
     GamesetDialog,
+    BackgroundVue,
   },
   data(){
     return {
@@ -75,7 +78,17 @@ export default {
     z-index: 2000;
   }
 
+  .background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
   .content{
+    position: relative;
     width: 100%;
     height: 100%;
     display: flex;
@@ -85,13 +98,21 @@ export default {
       height: 100%;
       width: 70%;
       .character_area{
-        height: 45%;
+        height: 50%;
+        z-index: 100;
       }
       .table_area{
+        position: relative;
         height: 40%;
+        z-index: 200;
+        border: 3px solid $accent1;
+        // transforms to trapezoid
+        transform: perspective(100px) rotateX(2deg) translateY(-10px);
       }
       .player_hand{
-        height: 15%;
+        position: relative;
+        z-index: 300;
+        height: 10%;
       }
     }
     .right_area{

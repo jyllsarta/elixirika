@@ -1,6 +1,6 @@
 <template>
   <div class="character_area">
-    <character-image-vue class="character_image" />
+    <character-image-vue class="character_image" :state="state" />
     <enemy-hand-vue class="enemy_hand" :state="state"/>
     <baloon-vue class="baloon" />
     <challenge-board-vue class="challenge-board" />
@@ -38,9 +38,9 @@ export default {
 
   .character_image{
     position: absolute;
-    width: 50%;
+    width: 55%;
     height: 100%;
-    left: 5%;
+    left: 15%;
     z-index: 100;
   }
   .enemy_hand{
@@ -54,14 +54,14 @@ export default {
   .baloon{
     position: absolute;
     width: 30%;
-    height: 30%;
-    top: 30%;
-    right: 32%;
+    height: 15%;
+    top: 8px;
+    right: 25%;
     z-index: 400;
   }
   .challenge_board{
     position: absolute;
-    width: 30%;
+    width: 20%;
     height: 80%;
     right: 0;
     z-index: 400;

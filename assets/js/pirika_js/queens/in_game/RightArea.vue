@@ -43,6 +43,8 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+  //set background left to right, transparent to black
+  background: linear-gradient(to right, rgba(0,0,0, 0.2), rgba(0,0,0, 0.9));
   .skills{
     width: 100%;
     height: 15%;

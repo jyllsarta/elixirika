@@ -39,7 +39,6 @@ export default {
   width: 100%;
   padding: 8px;
   .content{
-    border: 1px dotted $white;
     height: 100%;
     width: 100%;
     display: flex;

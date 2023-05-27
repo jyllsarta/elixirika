@@ -45,7 +45,7 @@ export default {
     gap: 8px;
     .hand{
       flex: 1;
-      height: 100%;
+      height: min(120px, 150%);
       max-width: 200px;
       font-size: $font_size_xlarge;
       &.selectSkillTarget{

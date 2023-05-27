@@ -1,9 +1,12 @@
 <template>
   <div class="table_area">
-    <bank-roll-vue class="bankroll" :state="state"/>
-    <card-area-vue class="card_area" :state="state" :controller="controller"/>
-    <target-area-vue class="target_area" :state="state" />
-    <decide-area-vue class="decide_area" :state="state" :controller="controller"/>
+    <div class="bg"/>
+    <div class="content">
+      <bank-roll-vue class="bankroll" :state="state"/>
+      <card-area-vue class="card_area" :state="state" :controller="controller"/>
+      <target-area-vue class="target_area" :state="state" />
+      <decide-area-vue class="decide_area" :state="state" :controller="controller"/>
+    </div>
   </div>
 </template>
 
@@ -34,24 +37,36 @@ export default {
 .table_area{
   height: 100%;
   width: 100%;
-  display: flex;
   border-top: 1px dotted $white;
-
-  .bankroll_area{
-    width: 20%;
+  position: relative;
+  .bg{
+    position: absolute;
+    width: 100%;
     height: 100%;
+    background-color: $bg3;
+    opacity: 0.7;
   }
-  .card_area{
-    width: 40%;
+  .content{
+    position: relative;
+    width: 100%;
     height: 100%;
-  }
-  .target_area{
-    width: 20%;
-    height: 100%;
-  }
-  .decide_area{
-    width: 20%;
-    height: 100%;
+    display: flex;
+    .bankroll_area{
+      width: 20%;
+      height: 100%;
+    }
+    .card_area{
+      width: 40%;
+      height: 100%;
+    }
+    .target_area{
+      width: 20%;
+      height: 100%;
+    }
+    .decide_area{
+      width: 20%;
+      height: 100%;
+    }
   }
 }
 </style>

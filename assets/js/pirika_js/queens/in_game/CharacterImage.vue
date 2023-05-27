@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper">
-    <img src="images/queens/characters/queens1.png" class="character_image">
+  <div class="wrapper" v-if="state">
+    <img :src="`/images/queens/characters/queens${faceId}.png`" class="character_image">
   </div>
 </template>
 
@@ -9,6 +9,25 @@ import store from "../packs/store";
 
 export default {
   store, 
+  props: {
+    state: Object,
+  },
+  computed: {
+    faceId(){
+      const target = this.state.board.targetValue();
+      const distance = target - this.state.enemy.board.targetValue(target);
+      if(distance === 0){
+        return 1;
+      }
+      if(distance < 0){
+        return 4;
+      } 
+      if(distance <= 2){
+        return 2;
+      }
+      return 3;
+    }
+  }
 }
 </script>
 
@@ -19,9 +38,21 @@ export default {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
+  overflow: hidden;
   .character_image{
-    height: 100%;
+    padding-top: 60px;
+    width: 120%;
+    animation: move 7s linear infinite alternate;
+  }
+
+  @keyframes move {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(5px);
+    }
   }
 }
 </style>
