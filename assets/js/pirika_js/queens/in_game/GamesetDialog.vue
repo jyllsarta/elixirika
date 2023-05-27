@@ -1,6 +1,6 @@
 <template>
   <div class="dialog" v-if="state">
-    <div class="_back" @click="closeMenu"/>
+    <div class="_back" @click="proceed"/>
     <div class="content">
       <div class="result">
         <div class="score_row">
@@ -24,8 +24,11 @@
         </div>
       </div>
       <div class="close">
-        <div class="button" @click="closeMenu">
-          とじる
+        <div class="button" @click="proceed" v-if="!state.persistentData.isGameEnd()">
+          次のマッチへ
+        </div>
+        <div class="button" @click="proceed" v-if="state.persistentData.isGameEnd()">
+          メニューに戻る
         </div>
       </div>
     </div>
@@ -34,16 +37,29 @@
 
 <script>
 import State from "../packs/model/state";
+import store from '../packs/store';
 
 export default {
+  store,
   props: {
     state: State,
   },
   methods: {
-    closeMenu() {
+    proceed() {
+      if(this.state.persistentData.isGameEnd()){
+        this.backToMenu();
+      }
+      else{
+        this.nextGame();
+      }
+    },
+    nextGame() {
       console.log("close");
       this.$emit("close");
     },
+    backToMenu(){
+      this.$store.commit("loadScene", {name: "menu"});
+    }
   },
 };
 </script>

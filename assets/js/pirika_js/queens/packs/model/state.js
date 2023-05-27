@@ -1,11 +1,12 @@
 import Field from "./field";
 import Member from "./member";
+import PersistentData from "./persistentData";
 
 export class State {
   constructor(){
     this.phase = "unstarted";
     this.reset();
-    this.persistentData = this.initializePersistentData();
+    this.persistentData = new PersistentData();
   }
 
   reset(){
@@ -20,16 +21,8 @@ export class State {
     this.lastRoundResult = "-";
     this.uiState = {
       selectSkillTarget: false,
-      prevPersistentData: this.initializePersistentData(),
+      prevPersistentData: new PersistentData(),
     };
-  }
-
-  initializePersistentData(){
-    return {
-      enemyBankroll: 10,
-      playerBankroll: 10,
-      winCount: 0,
-    }
   }
 };
 export default State;
