@@ -1,10 +1,9 @@
 <template>
-  <div class="player_hand">
+  <div class="player_hand" v-if="state">
     <div class="hands">
-      <div class="hand tentative_button disabled">1</div>
-      <div class="hand tentative_button disabled">2</div>
-      <div class="hand tentative_button disabled">3</div>
-      <div class="hand tentative_button disabled">7</div>
+      <div class="hand tentative_button" v-for="card in state.playerHand.cards" :key="card.id" @click="onCardClick(card.id)">
+        {{card.n}}
+      </div>
     </div>
   </div>
 </template>
@@ -14,6 +13,15 @@ import store from "../packs/store";
 
 export default {
   store, 
+  props: {
+    state: Object,
+    controller: Object,
+  },
+  methods: {
+    onCardClick(cardId){
+      this.controller.selectCardByCardId(cardId);
+    }
+  }
 }
 </script>
 

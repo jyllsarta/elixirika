@@ -1,21 +1,35 @@
 <template>
-  <div class="card_area">
+  <div class="card_area" v-if="state">
     <div class="card_panel">
       <div class="cards">
-        <div class="card">?</div>
-        <div class="card">?</div>
+        <div class="card_frame" >
+          <div class="card" v-if="state.enemyBoard.cards[0]">?</div>
+        </div>
+        <div class="card_frame">
+          <div class="card" v-if="state.enemyBoard.cards[1]">?</div>
+        </div>
       </div>
       <div class="value">
-        ?
+        {{state.enemyBoard.cards.length === 0 ? "-" : "?"}}
       </div>
     </div>
     <div class="card_panel">
       <div class="cards">
-        <div class="card">7</div>
-        <div class="card">8</div>
+        <div class="card_frame">
+          <div class="card" 
+            v-if="state.playerBoard.cards[0]"
+            @click="onCardClick(state.playerBoard.cards[0].id)"
+          >{{state.playerBoard.cards[0].n}}</div>
+        </div>
+        <div class="card_frame">
+          <div class="card" 
+            v-if="state.playerBoard.cards[1]"
+            @click="onCardClick(state.playerBoard.cards[1].id)"
+          >{{state.playerBoard.cards[1].n}}</div>
+        </div>
       </div>
       <div class="value">
-        15
+        {{state.playerBoard.targetValue()}}
       </div>
     </div>
   </div>
@@ -26,6 +40,15 @@ import store from "../packs/store";
 
 export default {
   store, 
+  props: {
+    state: Object,
+    controller: Object,
+  },
+  methods: {
+    onCardClick(cardId){
+      this.controller.unstage(cardId);
+    }
+  }
 }
 </script>
 
@@ -54,13 +77,21 @@ export default {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      .card{
+      .card_frame{
         width: 70px;
         height: 70px;
         display: flex;
         justify-content: center;
         align-items: center;
         border: 1px dotted $white;
+        .card{
+          width: 60px;
+          height: 60px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px dotted $white;
+        }
       }
     }
     .value{

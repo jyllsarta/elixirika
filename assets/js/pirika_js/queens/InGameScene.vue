@@ -5,7 +5,7 @@
       <div class="main_area">
         <character-area-vue class="character_area"/>
         <table-area-vue class="table_area" :state="state" :controller="controller"/>
-        <player-hand-vue class="player_hand"/>
+        <player-hand-vue class="player_hand" :state="state" :controller="controller"/>
       </div>
         <right-area-vue class="right_area"/>
     </div>
