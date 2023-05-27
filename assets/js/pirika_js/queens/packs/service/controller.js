@@ -58,13 +58,14 @@ export class Controller {
     if(card){
       this.state.discard.add(card);
       this.state.player.hand.add(this.state.deck.draw());
+      this.state.player.hand.cards.forEach(card => card.reveal());
       this.state.player.specialPoint -= 2;
     }
     this.state.uiState.selectSkillTarget = false;
   }
 
   useRejectDuplicateSkillPlayer(){
-    if(this.state.player.specialPoint < 1){
+    if(this.state.player.specialPoint < 2){
       console.warn("insufficient sp");
       return;
     }
@@ -78,9 +79,10 @@ export class Controller {
       this.state.discard.add(this.state.player.hand.pickByCardId(card.id));
     }
     for(let i = 0; i < duplications.length; i++){
-      state.player.hand.add(state.deck.draw());
+      this.state.player.hand.add(state.deck.draw());
+      this.state.player.hand.cards.forEach(card => card.reveal());
     }
-    this.state.player.specialPoint -= 1;
+    this.state.player.specialPoint -= 2;
   }
 
   unstage(cardId){
@@ -93,26 +95,13 @@ export class Controller {
     }
   }
 
-  changeCard(index){
-    if(this.state.player.score < 2){
-      console.warn("insufficient MP");
-      return;
-    }
-    const card = this.state.player.hand.pick(index);
-    if(card){
-      this.state.discard.add(card);
-      this.state.player.hand.add(this.state.deck.draw());
-      this.state.player.score -= 2;
-    }
-  }
-
-  toSkillSelectMode(){
+  toggleSkillSelectMode(){
     if(this.state.player.specialPoint < 2){
       console.warn("insufficient sp");
       this.state.uiState.selectSkillTarget = false;
       return;
     }
-    this.state.uiState.selectSkillTarget = true;
+    this.state.uiState.selectSkillTarget = !this.state.uiState.selectSkillTarget;
   }
 };
 export default Controller;

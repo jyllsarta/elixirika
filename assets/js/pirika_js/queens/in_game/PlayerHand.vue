@@ -1,7 +1,7 @@
 <template>
   <div class="player_hand" v-if="state">
     <div class="hands">
-      <div class="hand tentative_button" v-for="card in state.player.hand.cards" :key="card.id" @click="onCardClick(card.id)">
+      <div class="hand tentative_button" v-for="card in state.player.hand.cards" :key="card.id" @click="onCardClick(card.id)" :class="{selectSkillTarget: selectSkillTarget}">
         {{card.stringRepresentation()}}
       </div>
     </div>
@@ -20,6 +20,11 @@ export default {
   methods: {
     onCardClick(cardId){
       this.controller.selectCardByCardId(cardId);
+    }
+  },
+  computed: {
+    selectSkillTarget(){
+      return this.state.uiState.selectSkillTarget;
     }
   }
 }
@@ -42,6 +47,9 @@ export default {
       flex: 1;
       height: 100%;
       max-width: 200px;
+      &.selectSkillTarget{
+        background-color: $accent1;
+      }
     }
   }
 }
