@@ -9,7 +9,7 @@
         </div>
         <div class="card_frame">
           <div class="card" v-if="state.enemy.board.cards[1]">
-            {{state.enemy.board.cards[0].stringRepresentation()}}
+            {{state.enemy.board.cards[1].stringRepresentation()}}
           </div>
         </div>
       </div>
