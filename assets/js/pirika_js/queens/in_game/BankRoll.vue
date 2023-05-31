@@ -1,31 +1,21 @@
 <template>
   <div class="bankroll_area" v-if="state">
-    <div class="enemy bankroll">
-      <div class="coins tentative_panel">
-        コイン
-      </div>
-      <div class="amount tentative_panel">
-        {{state.persistentData.enemyBankroll}}
-      </div>
-    </div>
-    <div class="player bankroll">
-      <div class="coins tentative_panel">
-        コイン
-      </div>
-      <div class="amount tentative_panel">
-        {{state.persistentData.playerBankroll}}
-      </div>
-    </div>
+    <stack-vue class="enemy" :amount="state.persistentData.enemyBankroll"></stack-vue>
+    <stack-vue :amount="state.persistentData.playerBankroll"></stack-vue>
   </div>
 </template>
 
 <script>
 import store from "../packs/store";
+import StackVue from "./Stack.vue";
 
 export default {
   store,
   props: {
     state: Object,
+  },
+  components: {
+    StackVue
   },
 }
 </script>
@@ -38,18 +28,6 @@ export default {
   padding: 4px;
   .enemy{
     border-bottom: 1px dotted $white;
-  }
-  .bankroll{
-    padding: 8px;
-    display: flex;
-    justify-content: space-around;
-    height: 50%;
-    .coins{
-      width: 40%;
-    }
-    .amount{
-      width: 50%;
-    }
   }
 }
 </style>
