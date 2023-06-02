@@ -5,7 +5,8 @@
         POT: {{state.pot}}
       </div>
       <div class="dots">
-        <div class="dot" v-for="(i, index) in new Array(state.pot)" :key="index">●</div>
+        <div class="dot quarter" v-for="(i, index) in new Array(quarterDots(state.pot))" :key="index" />
+        <div class="dot" v-for="(i, index) in new Array(normalDots(state.pot))" :key="index" />
       </div>
       <div class="description">
         キャパシティへのダメージ量
@@ -19,7 +20,8 @@
         {{state.round}}
       </div>
       <div class="dots">
-        <div class="dot" v-for="(i, index) in new Array(state.round)" :key="index">◯</div>
+        <div class="dot quarter" v-for="(i, index) in new Array(quarterDots(state.round))" :key="index" />
+        <div class="dot" v-for="(i, index) in new Array(normalDots(state.round))" :key="index" />
       </div>
       <div class="description">
         ポット増加量
@@ -36,6 +38,14 @@ export default {
   props: {
     state: Object,
   },
+  methods: {
+    quarterDots(amount){
+      return Math.floor(amount / 25);
+    },
+    normalDots(amount){
+      return amount % 25;
+    }
+  }
 }
 </script>
 
@@ -61,8 +71,19 @@ export default {
     }
     .dots{
       display: flex;
-      gap: 8px;
+      gap: 6px;
       justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      .dot{
+        width: 12px;
+        height: 12px;
+        background-color: $white;
+        border-radius: 10px;
+        &.quarter{
+          background-color: $accent1;
+        }
+      }
     }
     .description{
       width: 100%;
@@ -89,8 +110,19 @@ export default {
     }
     .dots{
       display: flex;
-      gap: 8px;
+      gap: 6px;
       justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      .dot{
+        width: 12px;
+        height: 12px;
+        background-color: $white;
+        border-radius: 10px;
+        &.quarter{
+          background-color: $accent1;
+        }
+      }
     }
     .description{
       width: 100%;
