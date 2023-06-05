@@ -48,10 +48,31 @@ git clone git@github.com:jyllsarta/elixirika_assets.git
 cd ~/elixirika/assets/
 ln -s ~/elixirika_assets/static static
 ```
+## (queens ゲームアセット用) 秘匿データのリンク
 
+queens というゲームの一部アセットは static 以下の特定ディレクトリに秘匿データを置いています。
+秘匿データはgit管理されていないため、手元に該当ファイルを含むディレクトリを確保した上で、アセットディレクトリ内でシンボリックリンクを張ります。
+
+```
+cd ~/path/to/scenes/
+ln -s ~/elixirika_assets/static/images/queens/scenes scenes
+```
+
+## (queens ゲーム用) マスターデータのリンク
+
+queens というゲームは https://github.com/jyllsarta/elixirika_masterdata を利用しています。
+マスターデータのディレクトリを参照できるようにシンボリックリンクを張ります。
+以下はelixirika, elixirika_masterdata ともにホームディレクトリにある前提のサンプルです。
+
+```
+cd ~
+git clone git@github.com:jyllsarta/elixirika_masterdata.git
+cd ~/elixirika/assets/js/pirika_js/queens
+ln -s ~/elixirika_masterdata/queens masterdata
+```
 ## (Square ゲーム用) マスターデータのリンク
 
-Square というゲームが https://github.com/jyllsarta/elixirika_masterdata を利用しています。
+Square というゲームは https://github.com/jyllsarta/elixirika_masterdata を利用しています。
 マスターデータのディレクトリを参照できるようにシンボリックリンクを張ります。
 以下はelixirika, elixirika_masterdata ともにホームディレクトリにある前提のサンプルです。
 
@@ -62,18 +83,6 @@ cd ~/elixirika/assets/js/pirika_js/square
 ln -s ~/elixirika_masterdata/square masterdata
 ```
 
-## (queens ゲーム用) マスターデータのリンク
-
-queens というゲームも https://github.com/jyllsarta/elixirika_masterdata を利用しています。
-マスターデータのディレクトリを参照できるようにシンボリックリンクを張ります。
-以下はelixirika, elixirika_masterdata ともにホームディレクトリにある前提のサンプルです。
-
-```
-cd ~
-git clone git@github.com:jyllsarta/elixirika_masterdata.git
-cd ~/elixirika/assets/js/pirika_js/queens
-ln -s ~/elixirika_masterdata/queens masterdata
-```
 ## アセットの構築
 
 ```
