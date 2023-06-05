@@ -3,7 +3,7 @@
     <div class="_back" @click="closeMenu"/>
     <div class="content">
       <div class="main_image">
-        <img class="image" :src="`images/queens/scene2_${currentSay.main_image_id}.png`" alt="">
+        <img class="image" :src="`images/queens/scenes/scene2_${currentSay.main_image_id}.png`" alt="">
       </div>
       <div class="skit_area">
         <div class="left_character">

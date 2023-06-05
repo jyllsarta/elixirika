@@ -70,17 +70,20 @@
       </div>
     </div>
     <character-detail-dialog v-if="showingDetail" @close="showingDetail = false"/>
+    <second-break-dialog-vue class="second_break" v-if="false"/>
   </div>
 </template>
 
 <script>
 import CharacterDetailDialog from './CharacterDetailDialog.vue';
+import SecondBreakDialogVue from './SecondBreakDialog.vue';
 import store from "./packs/store";
 
 export default {
   store,
   components: {
-    CharacterDetailDialog
+    CharacterDetailDialog,
+    SecondBreakDialogVue,
   },
   data(){
     return {
@@ -105,6 +108,13 @@ export default {
   height: 100%;
   background-color: $bg4;
   position: relative;
+  .second_break{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
   .floating_menu{
     position: absolute;
     display: flex;
