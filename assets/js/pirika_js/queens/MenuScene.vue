@@ -15,38 +15,10 @@
     </div>
     <div class="content">
       <div class="characters">
-        <div class="character" @click="showDetail(1)">
-          <div class="tentative_button floating_image">
-            キャラ1
-          </div>
-          <div class="tentative_panel panel">
-            色々と説明するよ！
-          </div>
-        </div>
-        <div class="character" @click="showDetail(2)">
-          <div class="tentative_button floating_image">
-            キャラ2
-          </div>
-          <div class="tentative_panel panel">
-            色々と説明するよ！
-          </div>
-        </div>
-        <div class="character" @click="showDetail(3)">
-          <div class="tentative_button floating_image">
-            キャラ3
-          </div>
-          <div class="tentative_panel panel">
-            色々と説明するよ！
-          </div>
-        </div>
-        <div class="character" @click="showDetail(4)">
-          <div class="tentative_button floating_image">
-            キャラ4
-          </div>
-          <div class="tentative_panel panel">
-            色々と説明するよ！
-          </div>
-        </div>
+        <character-vue @select="showDetail(1)"/>
+        <character-vue @select="showDetail(1)"/>
+        <character-vue @select="showDetail(1)"/>
+        <character-vue @select="showDetail(1)"/>
       </div>
       <div class="footer">
         <div class="tentative_panel coin">
@@ -77,6 +49,7 @@
 <script>
 import CharacterDetailDialog from './CharacterDetailDialog.vue';
 import SecondBreakDialogVue from './SecondBreakDialog.vue';
+import CharacterVue from "./menu/Character.vue";
 import store from "./packs/store";
 
 export default {
@@ -84,6 +57,7 @@ export default {
   components: {
     CharacterDetailDialog,
     SecondBreakDialogVue,
+    CharacterVue
   },
   data(){
     return {
@@ -151,22 +125,6 @@ export default {
       align-items: center;
       justify-content: space-around;
       gap: 8px;
-      .character{
-        width: 200px;
-        height: 400px;
-        position: relative;
-        .floating_image{
-          position: absolute;
-          width: 100%;
-          height: 100%;
-        }
-        .panel{
-          width: 100%;
-          height: 100px;
-          position: absolute;
-          bottom: 0;
-        }
-      }
     }
     .footer{
       height: 20%;
