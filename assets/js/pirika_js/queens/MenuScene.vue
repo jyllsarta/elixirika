@@ -9,20 +9,20 @@
           メニュー
         </div>
       </div>
-      <div class="title tentative_panel disabled">
+      <div class="title">
         メインメニュー
       </div>
     </div>
     <div class="content">
       <div class="characters">
-        <character-vue @select="showDetail(1)"/>
-        <character-vue @select="showDetail(1)"/>
-        <character-vue @select="showDetail(1)"/>
-        <character-vue @select="showDetail(1)"/>
+        <character-vue @select="showDetail(1)" :characterId="1"/>
+        <character-vue @select="showDetail(2)" :characterId="2"/>
+        <character-vue @select="showDetail(3)" :characterId="3"/>
+        <character-vue @select="showDetail(4)" :characterId="4"/>
       </div>
       <div class="footer">
         <div class="tentative_panel coin">
-          所持コイン: 150
+          所持コイン: {{saveData().coin}}
         </div>
         <div class="tentative_panel skill">
           スキル1
@@ -51,6 +51,7 @@ import CharacterDetailDialog from './CharacterDetailDialog.vue';
 import SecondBreakDialogVue from './SecondBreakDialog.vue';
 import CharacterVue from "./menu/Character.vue";
 import store from "./packs/store";
+import Savedata from './packs/savedata';
 
 export default {
   store,
@@ -70,8 +71,13 @@ export default {
     },
     showDetail(id){
       this.showingDetail = true;
+    },
+    saveData(){
+      return new Savedata().get();
     }
   },
+  computed: {
+  }
 }
 </script>
 
@@ -109,6 +115,9 @@ export default {
       font-size: 30px;
       width: 300px;
       height: 60px;
+      padding-top: 15px;
+      line-height: 100%;
+      border-bottom: 1px dotted $white;
     }
   }
   .content{
@@ -119,7 +128,7 @@ export default {
     flex-direction: column;
     z-index: 5;
     .characters{
-      height: 80%;
+      height: 85%;
       position: relative;
       display: flex;
       align-items: center;
@@ -127,7 +136,7 @@ export default {
       gap: 8px;
     }
     .footer{
-      height: 20%;
+      height: 15%;
       display: flex;
       justify-content: space-around;
       gap: 8px;

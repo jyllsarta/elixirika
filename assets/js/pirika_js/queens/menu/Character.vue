@@ -6,10 +6,10 @@
     <div class="panel">
       <div class="name">トローズ</div>
       <div class="quests">
-        <div class="quest tentative_panel">1</div>
-        <div class="quest tentative_panel">2</div>
-        <div class="quest tentative_panel">3</div>
-        <div class="quest tentative_panel">4</div>
+        <div class="quest tentative_panel" :class="{won: saveData().stages[1].win > 0}">1</div>
+        <div class="quest tentative_panel" :class="{won: saveData().stages[2].win > 0}">2</div>
+        <div class="quest tentative_panel" :class="{won: saveData().stages[3].win > 0}">3</div>
+        <div class="quest tentative_panel" :class="{won: saveData().stages[4].win > 0}">4</div>
       </div>
     </div>
   </div>
@@ -17,16 +17,24 @@
 
 <script>
 import store from "../packs/store";
+import Savedata from '../packs/savedata';
 
 export default {
   store, 
   props: {
+    characterId: {
+      type: Number,
+      default: 1
+    }
   },  
   computed: {
   },
   methods: {
     showDetail(){
       this.$emit("select");
+    },
+    saveData(){
+      return new Savedata().get();
     }
   }
 }
@@ -44,6 +52,7 @@ export default {
     height: 100%;
     overflow: hidden;
     .image{
+      padding-top: 20%;
       width: 100%;
     }
   }
@@ -60,6 +69,7 @@ export default {
       text-align: center;
       margin-bottom: 10px;
       background-color: $bg3;
+      line-height: 100%;
     }
     .quests{
       display: flex;
@@ -67,6 +77,9 @@ export default {
       .quest{
         width: 50px;
         height: 50px;
+        &.won{
+          background-color: $accent2;
+        }
       }
     }
   }
