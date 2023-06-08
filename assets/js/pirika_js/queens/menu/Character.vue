@@ -1,4 +1,5 @@
 <template>
+<div class="container">
   <div class="character" @click="showDetail()">
     <div class="character_image">
       <img src="images/queens/characters/character1_1.png" class="image">
@@ -13,6 +14,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -42,18 +44,32 @@ export default {
 
 <style lang="scss" scoped>
 @import "../stylesheets/global_settings";
-.character{
+.container{
+  padding: 8px;
   width: 20%;
   height: 80%;
+  background-color: $bg3;
+}
+.character{
+  width: 100%;
+  height: 100%;
   position: relative;
   .character_image{
     position: absolute;
     width: 100%;
     height: 100%;
     overflow: hidden;
+    transition: all 0.06s;
     .image{
       padding-top: 20%;
       width: 100%;
+      transition: all 0.06s;
+    }
+    &:hover{
+      filter: brightness(1.2);
+      .image{
+        transform: scale(1.1);
+      }
     }
   }
   .panel{

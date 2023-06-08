@@ -20,7 +20,7 @@ export class Savedata {
         3: {win: 0, lose: 0},
         4: {win: 0, lose: 0},
       },
-      coin: 0,
+      coin: 100,
     }
   }
 };

@@ -13,6 +13,7 @@
         メインメニュー
       </div>
     </div>
+    <menu-background-vue class="background"/>
     <div class="content">
       <div class="characters">
         <character-vue @select="showDetail(1)" :characterId="1"/>
@@ -21,15 +22,9 @@
         <character-vue @select="showDetail(4)" :characterId="4"/>
       </div>
       <div class="footer">
-        <div class="tentative_panel coin">
-          所持コイン: {{saveData().coin}}
-        </div>
-        <div class="tentative_panel skill">
-          スキル1
-        </div>
-        <div class="tentative_panel skill">
-          スキル2
-        </div>
+        <coin-vue/>
+        <skill-vue :index="1"/>
+        <skill-vue :index="2"/>
         <div class="tentative_button button" @click="loadScene('shop')">
           ショップへ
         </div>
@@ -41,7 +36,7 @@
         </div>
       </div>
     </div>
-    <character-detail-dialog v-if="showingDetail" @close="showingDetail = false"/>
+    <character-detail-dialog class="character_detail" v-if="showingDetail" @close="showingDetail = false"/>
     <second-break-dialog-vue class="second_break" v-if="false"/>
   </div>
 </template>
@@ -50,15 +45,21 @@
 import CharacterDetailDialog from './CharacterDetailDialog.vue';
 import SecondBreakDialogVue from './SecondBreakDialog.vue';
 import CharacterVue from "./menu/Character.vue";
+import CoinVue from './menu/Coin.vue';
 import store from "./packs/store";
 import Savedata from './packs/savedata';
+import SkillVue from './menu/Skill.vue';
+import MenuBackgroundVue from './MenuBackground.vue';
 
 export default {
   store,
   components: {
     CharacterDetailDialog,
     SecondBreakDialogVue,
-    CharacterVue
+    CharacterVue,
+    CoinVue,
+    SkillVue,
+    MenuBackgroundVue,
   },
   data(){
     return {
@@ -120,12 +121,19 @@ export default {
       border-bottom: 1px dotted $white;
     }
   }
+  .background{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
   .content{
     width: 100%;
     height: 100%;
     display: flex;
     gap: 8px;
     flex-direction: column;
+    position: absolute;
     z-index: 5;
     .characters{
       height: 85%;
@@ -141,19 +149,17 @@ export default {
       justify-content: space-around;
       gap: 8px;
       padding: 8px;
-      .coin{
-        width: 100px;
-        height: 100px;
-      }
-      .skill{
-        width: 150px;
-        height: 100px;
-      }
       .button{
         width: 250px;
         height: 100px;
       }
     }
+  }
+  .character_detail{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
   }
 }
 </style>
