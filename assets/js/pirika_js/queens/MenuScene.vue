@@ -145,6 +145,7 @@ export default {
     }
     .footer{
       height: 15%;
+      min-height: 120px;
       display: flex;
       justify-content: space-around;
       gap: 8px;

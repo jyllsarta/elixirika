@@ -47,7 +47,7 @@ export default {
 .container{
   padding: 8px;
   width: 20%;
-  height: 80%;
+  height: 90%;
   background-color: $bg3;
 }
 .character{
