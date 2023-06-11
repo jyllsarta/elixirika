@@ -11,8 +11,8 @@
       <div class="characters">
         <character-vue @select="showDetail(1)" :characterId="1"/>
         <character-vue @select="showDetail(2)" :characterId="2"/>
-        <character-vue @select="showDetail(3)" :characterId="3"/>
-        <character-vue @select="showDetail(4)" :characterId="4"/>
+        <character-vue @select="showDetail(1)" :characterId="1"/>
+        <character-vue @select="showDetail(1)" :characterId="1"/>
       </div>
       <div class="footer">
         <coin-vue/>

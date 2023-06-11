@@ -2,10 +2,10 @@
 <div class="container">
   <div class="character" @click="showDetail()">
     <div class="character_image">
-      <img src="images/queens/characters/character1_1.png" class="image">
+      <img :src="`images/queens/characters/character${characterId}_1.png`" class="image">
     </div>
     <div class="panel">
-      <div class="name">トローズ</div>
+      <div class="name">{{character().name}}</div>
       <div class="quests">
         <div class="quest tentative_panel" :class="{won: saveData().stages[1].win > 0}">1</div>
         <div class="quest tentative_panel" :class="{won: saveData().stages[2].win > 0}">2</div>
@@ -20,15 +20,13 @@
 <script>
 import store from "../packs/store";
 import Savedata from '../packs/savedata';
+import Masterdata from '../packs/masterdata';
 
 export default {
   store, 
   props: {
-    characterId: {
-      type: Number,
-      default: 1
-    }
-  },  
+    characterId: Number
+  },
   computed: {
   },
   methods: {
@@ -37,6 +35,9 @@ export default {
     },
     saveData(){
       return new Savedata().get();
+    },
+    character(){
+      return Masterdata.idTables.characters[this.characterId];
     }
   }
 }
@@ -64,11 +65,12 @@ export default {
       padding-top: 20%;
       width: 100%;
       transition: all 0.06s;
+      transform: scale(1.3) translateY(10%);
     }
     &:hover{
       filter: brightness(1.2);
       .image{
-        transform: scale(1.1);
+        transform: scale(1.4) translateY(8%);
       }
     }
   }
