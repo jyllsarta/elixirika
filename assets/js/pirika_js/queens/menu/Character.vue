@@ -80,6 +80,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    pointer-events: none;
     .name{
       font-size: 20px;
       text-align: center;
