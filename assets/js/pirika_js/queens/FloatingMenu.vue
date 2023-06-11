@@ -8,14 +8,14 @@
         キャンセル
       </div>
       <div class="back_to_menu button tentative_button" @click="loadMenu">
-        メニューに戻る
+        タイトルに戻る
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import store from "../packs/store";
+import store from "./packs/store";
 
 export default {
   store,
@@ -26,14 +26,14 @@ export default {
   },
   methods: {
     loadMenu(){
-      this.$store.commit("loadScene", {name: "menu"});
+      this.$store.commit("loadScene", {name: "title"});
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../stylesheets/global_settings";
+@import "./stylesheets/global_settings";
 .floating_menu{
   width: 100%;
   height: 100%;
@@ -43,6 +43,9 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 8px;    
+  }
+  &.open{
+    height: 200%;
   }
   .button{
     width: 70px;

@@ -1,14 +1,7 @@
 <template>
   <div class="game_window">
-    <div class="floating_menu">
-      <div class="buttons">
-        <div class="tentative_button button disabled">
-          戻る
-        </div>
-        <div class="tentative_button button disabled">
-          メニュー
-        </div>
-      </div>
+    <div class="header">
+      <floating-menu-vue class="floating_menu"/>
       <div class="title">
         メインメニュー
       </div>
@@ -50,6 +43,7 @@ import store from "./packs/store";
 import Savedata from './packs/savedata';
 import SkillVue from './menu/Skill.vue';
 import MenuBackgroundVue from './MenuBackground.vue';
+import FloatingMenuVue from './FloatingMenu.vue';
 
 export default {
   store,
@@ -60,6 +54,7 @@ export default {
     CoinVue,
     SkillVue,
     MenuBackgroundVue,
+    FloatingMenuVue
   },
   data(){
     return {
@@ -96,21 +91,14 @@ export default {
     width: 100%;
     height: 100%;
   }
-  .floating_menu{
+  .header{
     position: absolute;
     display: flex;
     padding: 8px;
     gap: 8px;
     z-index: 10;
-    .buttons{
-      height: 140px;
-      gap: 8px;
-      display: flex;
-      flex-direction: column;
-      .button{
-        width: 60px;
-        height: 60px;
-      }
+    .floating_menu{
+      width: 70px;
     }
     .title{
       font-size: 30px;
