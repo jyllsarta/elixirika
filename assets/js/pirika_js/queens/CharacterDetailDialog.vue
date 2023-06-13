@@ -3,20 +3,17 @@
     <div class="_back" @click="closeMenu"/>
     <div class="content">
       <div class="character">
-        <img src="images/queens/characters/character1_1.png" class="character_image">
+        <img :src="`images/queens/characters/character${characterId}_1.png`" class="character_image">
       </div>
       <div class="profile">
         <div class="name">
-          トローズ
+          {{character().name}}
         </div>
-        <div class="description1">
-          クイーンズで最近目立って勝ち越している少女。かなり直感で動くタイプで、顔に考えていることが出やすい。<br>
-          [ひみつ1] 出しているカードがピッタリの場合、1以上足りない場合、少しでもバーストしている場合、それぞれで異なる表情となる。<br>
-          [ひみつ2] 今のラウンドに対し、最も勝率の高いカードを選ぶ。どんなに調子が良くとも、7ラウンド目には必ずバーストする。<br>
-        </div>
+        <div class="description1" v-html="profile()"/>
         <div class="description2">
           [フィールドエフェクト] 等価交換<br>
           1ターンに一度、手札を1枚捨てて1枚引くことができる。捨てた手札が5以上の場合、MP+1。<br>
+          フィールドエフェクトの実装時、このテキストはリアクティブになる。<br>
         </div>
       </div>
       <div class="controls">
@@ -55,16 +52,27 @@
 </template>
 
 <script>
+import Masterdata from '../queens/packs/masterdata';
 import store from "./packs/store";
 
 export default {
   store, 
+  props: {
+    characterId: Number,
+  },
   methods: {
     closeMenu(){
       this.$emit("close");
     },
     loadScene(name){
       this.$store.commit("loadScene", {name: name});
+    },
+    character(){
+      return Masterdata.idTables.characters[this.characterId];
+    },
+    profile(){
+      const character = this.character();
+      return [character.profile1, character.profile2, character.profile3].filter(text => text !== "").join("<br>");
     }
   },
 }

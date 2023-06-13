@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <character-detail-dialog class="character_detail" v-if="showingDetail" @close="showingDetail = false"/>
+    <character-detail-dialog class="character_detail" v-if="showingDetail" @close="showingDetail = false" :characterId="showingCharacterId"/>
     <second-break-dialog-vue class="second_break" v-if="false"/>
   </div>
 </template>
@@ -58,7 +58,8 @@ export default {
   },
   data(){
     return {
-      showingDetail: false
+      showingDetail: true,
+      showingCharacterId: 1,
     }
   },
   methods: {
@@ -67,6 +68,7 @@ export default {
     },
     showDetail(id){
       this.showingDetail = true;
+      this.showingCharacterId = id;
     },
     saveData(){
       return new Savedata().get();
