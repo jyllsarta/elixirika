@@ -3,10 +3,11 @@ import Member from "./member";
 import PersistentData from "./persistentData";
 
 export class State {
-  constructor(){
+  constructor(questId){
     this.phase = "unstarted";
+    this.questId = questId;
+    this.persistentData = new PersistentData(questId);
     this.reset();
-    this.persistentData = new PersistentData();
   }
 
   reset(){
@@ -21,7 +22,8 @@ export class State {
     this.lastRoundResult = "-";
     this.uiState = {
       selectSkillTarget: false,
-      prevPersistentData: new PersistentData(),
+      // 実際にはphase_game_end で代入されるのでここで適当なものが入っていてもOK
+      prevPersistentData: new PersistentData(this.questId),
     };
   }
 };

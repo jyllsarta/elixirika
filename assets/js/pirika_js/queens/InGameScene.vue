@@ -54,7 +54,8 @@ export default {
     }
   },
   mounted(){
-    this.state = new State();
+    const questId = this.$store.state.scene.params.questId;
+    this.state = new State(questId);
     window.state = this.state;
     this.controller = new Controller(state);
     window.controller = this.controller;

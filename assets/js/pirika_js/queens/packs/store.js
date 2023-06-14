@@ -10,7 +10,8 @@ export const store = createStore({
   getters: {},
   mutations: {
     loadScene(state, params) {
-      state.scene = params;
+      state.scene.name = params.name;
+      state.scene.params = params;
     },
   },
 });

@@ -43,7 +43,7 @@
             4
           </div>
         </div>
-        <div class="tentative_button start" @click="loadScene('in_game')">
+        <div class="tentative_button start" @click="startQuest(201)">
           START
         </div>
       </div>
@@ -64,8 +64,9 @@ export default {
     closeMenu(){
       this.$emit("close");
     },
-    loadScene(name){
-      this.$store.commit("loadScene", {name: name});
+    startQuest(questId){
+      console.log("startQuest", questId)
+      this.$store.commit("loadScene", {name: "in_game", questId: questId});
     },
     character(){
       return Masterdata.idTables.characters[this.characterId];
