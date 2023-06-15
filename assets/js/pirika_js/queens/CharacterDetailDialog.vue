@@ -11,9 +11,7 @@
         </div>
         <div class="description1" v-html="profile()"/>
         <div class="description2">
-          [フィールドエフェクト] 等価交換<br>
-          1ターンに一度、手札を1枚捨てて1枚引くことができる。捨てた手札が5以上の場合、MP+1。<br>
-          フィールドエフェクトの実装時、このテキストはリアクティブになる。<br>
+          {{currentQuest().description}}
         </div>
       </div>
       <div class="controls">
@@ -29,21 +27,12 @@
         <div class="header">
           チャプター
         </div>
-        <div class="progresses">
-          <div class="tentative_panel progress">
-            1
-          </div>
-          <div class="tentative_panel progress">
-            2
-          </div>
-          <div class="tentative_panel progress">
-            3
-          </div>
-          <div class="tentative_panel progress">
-            4
+        <div class="quests">
+          <div class="tentative_panel quest" v-for="quest in quests()" :key="quest.id" @click="selectQuest(quest.id)" :class="{selected: questId == quest.id}">
+            {{quest.order}}
           </div>
         </div>
-        <div class="tentative_button start" @click="startQuest(201)">
+        <div class="tentative_button start" @click="startQuest">
           START
         </div>
       </div>
@@ -60,22 +49,42 @@ export default {
   props: {
     characterId: Number,
   },
+  data(){
+    return {
+      questId: null
+    }
+  },
   methods: {
     closeMenu(){
       this.$emit("close");
     },
-    startQuest(questId){
-      console.log("startQuest", questId)
-      this.$store.commit("loadScene", {name: "in_game", questId: questId});
+    startQuest(){
+      this.$store.commit("loadScene", {name: "in_game", questId: this.questId});
     },
     character(){
       return Masterdata.idTables.characters[this.characterId];
     },
+    quests(){
+      return Masterdata.getBy("quests", "character_id", [this.characterId]);
+    },
     profile(){
       const character = this.character();
       return [character.profile1, character.profile2, character.profile3].filter(text => text !== "").join("<br>");
+    },
+    selectQuest(questId){
+      this.questId = questId;
+    },
+    currentQuest(){
+      if(!this.questId){
+        return {};
+      }
+      return this.quests().find(quest => quest.id == this.questId);
     }
   },
+  mounted(){
+    // TODO: 未クリアの次を自動選択
+    this.questId = this.quests()[0].id;
+  }
 }
 </script>
 
@@ -161,12 +170,13 @@ export default {
         padding: 8px;
         gap: 8px;
         .scene{
+          // TODO: すごい横幅のとき若干崩れるのを直す
           width: calc(50% - 4px);
           object-fit: cover;
           filter: blur(3px);
         }
       }
-      .progresses{
+      .quests{
         width: 100%;
         height: 15%;
         display: flex;
@@ -174,9 +184,12 @@ export default {
         align-items: center;
         padding: 8px;
         gap: 8px;
-        .progress{
+        .quest{
           width: 70px;
           height: 70px;
+          &.selected{
+            background-color: $accent1;
+          }
         }
       }
       .start{
