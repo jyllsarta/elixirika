@@ -40,7 +40,6 @@ import SecondBreakDialogVue from './SecondBreakDialog.vue';
 import CharacterVue from "./menu/Character.vue";
 import CoinVue from './menu/Coin.vue';
 import store from "./packs/store";
-import Savedata from './packs/savedata';
 import SkillVue from './menu/Skill.vue';
 import MenuBackgroundVue from './MenuBackground.vue';
 import FloatingMenuVue from './FloatingMenu.vue';
@@ -70,9 +69,6 @@ export default {
       this.showingDetail = true;
       this.showingCharacterId = id;
     },
-    saveData(){
-      return new Savedata().get();
-    }
   },
   computed: {
   }

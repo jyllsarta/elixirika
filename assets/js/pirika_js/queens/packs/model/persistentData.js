@@ -12,5 +12,13 @@ export class PersistentData {
   isGameEnd(){
     return this.enemyBankroll <= 0 || this.playerBankroll <= 0;
   }
+
+  isWin(){
+    return this.enemyBankroll <= 0 && this.playerBankroll > 0;
+  }
+
+  isLose(){
+    return this.enemyBankroll > 0 && this.playerBankroll <= 0;
+  }
 };
 export default PersistentData;

@@ -12,13 +12,22 @@ export class Savedata {
     this.write(this.init());
   }
 
+  static writeQuestResult(questId, isWin){
+    let save = new this().get();
+    let questStatus = save.quests[questId] || {win: 0, lose: 0};
+    if(isWin){
+      questStatus.win++;
+    }
+    else{
+      questStatus.lose++;
+    }
+    save.quests[questId] = questStatus;
+    new this().write(save);
+  }
+
   init(){
     return {
-      stages: {
-        1: {win: 0, lose: 0},
-        2: {win: 0, lose: 0},
-        3: {win: 0, lose: 0},
-        4: {win: 0, lose: 0},
+      quests: {
       },
       coin: 100,
     }

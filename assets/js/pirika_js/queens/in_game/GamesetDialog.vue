@@ -37,6 +37,7 @@
 
 <script>
 import State from "../packs/model/state";
+import Savedata from '../packs/savedata';
 import store from '../packs/store';
 
 export default {
@@ -58,6 +59,7 @@ export default {
       this.$emit("close");
     },
     backToMenu(){
+      Savedata.writeQuestResult(this.state.questId, this.state.persistentData.isWin())
       this.$store.commit("loadScene", {name: "menu"});
     }
   },

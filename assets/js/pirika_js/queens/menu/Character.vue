@@ -7,10 +7,10 @@
     <div class="panel">
       <div class="name">{{character().name}}</div>
       <div class="quests">
-        <div class="quest tentative_panel" :class="{won: saveData().stages[1].win > 0}">1</div>
-        <div class="quest tentative_panel" :class="{won: saveData().stages[2].win > 0}">2</div>
-        <div class="quest tentative_panel" :class="{won: saveData().stages[3].win > 0}">3</div>
-        <div class="quest tentative_panel" :class="{won: saveData().stages[4].win > 0}">4</div>
+        <div class="quest tentative_panel" :class="{won: saveData().quests[1]?.win > 0}">1</div>
+        <div class="quest tentative_panel" :class="{won: saveData().quests[2]?.win > 0}">2</div>
+        <div class="quest tentative_panel" :class="{won: saveData().quests[3]?.win > 0}">3</div>
+        <div class="quest tentative_panel" :class="{won: saveData().quests[4]?.win > 0}">4</div>
       </div>
     </div>
   </div>
