@@ -12,6 +12,15 @@ export class Savedata {
     this.write(this.init());
   }
 
+  static isWin(questId){
+    let save = new this().get();
+    let questStatus = save.quests[questId];
+    if(!questStatus){
+      return false;
+    }
+    return questStatus.win > 0;
+  }
+
   static writeQuestResult(questId, isWin){
     let save = new this().get();
     let questStatus = save.quests[questId] || {win: 0, lose: 0};

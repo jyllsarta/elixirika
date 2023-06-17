@@ -27,11 +27,7 @@
         <div class="header">
           チャプター
         </div>
-        <div class="quests">
-          <div class="tentative_panel quest" v-for="quest in quests()" :key="quest.id" @click="selectQuest(quest.id)" :class="{selected: questId == quest.id}">
-            {{quest.order}}
-          </div>
-        </div>
+        <quest-list-vue :class="quests" :characterId="characterId" :selectedQuestId="questId" @selectQuest="selectQuest"/>
         <div class="tentative_button start" @click="startQuest">
           START
         </div>
@@ -43,9 +39,13 @@
 <script>
 import Masterdata from '../queens/packs/masterdata';
 import store from "./packs/store";
+import QuestListVue from './QuestList.vue';
 
 export default {
   store, 
+  components: {
+    QuestListVue
+  },
   props: {
     characterId: Number,
   },
@@ -79,7 +79,7 @@ export default {
         return {};
       }
       return this.quests().find(quest => quest.id == this.questId);
-    }
+    },
   },
   mounted(){
     // TODO: 未クリアの次を自動選択
@@ -179,18 +179,7 @@ export default {
       .quests{
         width: 100%;
         height: 15%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         padding: 8px;
-        gap: 8px;
-        .quest{
-          width: 70px;
-          height: 70px;
-          &.selected{
-            background-color: $accent1;
-          }
-        }
       }
       .start{
         flex: 1;

@@ -6,12 +6,7 @@
     </div>
     <div class="panel">
       <div class="name">{{character().name}}</div>
-      <div class="quests">
-        <div class="quest tentative_panel" :class="{won: saveData().quests[1]?.win > 0}">1</div>
-        <div class="quest tentative_panel" :class="{won: saveData().quests[2]?.win > 0}">2</div>
-        <div class="quest tentative_panel" :class="{won: saveData().quests[3]?.win > 0}">3</div>
-        <div class="quest tentative_panel" :class="{won: saveData().quests[4]?.win > 0}">4</div>
-      </div>
+      <quest-list-vue :class="quests" :characterId="characterId"/>
     </div>
   </div>
 </div>
@@ -21,9 +16,13 @@
 import store from "../packs/store";
 import Savedata from '../packs/savedata';
 import Masterdata from '../packs/masterdata';
+import QuestListVue from '../QuestList.vue';
 
 export default {
   store, 
+  components: {
+    QuestListVue
+  },
   props: {
     characterId: Number
   },
@@ -93,13 +92,6 @@ export default {
     .quests{
       display: flex;
       justify-content: space-around;
-      .quest{
-        width: 50px;
-        height: 50px;
-        &.won{
-          background-color: $accent2;
-        }
-      }
     }
   }
 }
