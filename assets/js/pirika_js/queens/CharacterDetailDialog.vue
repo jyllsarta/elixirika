@@ -18,16 +18,11 @@
         <div class="header">
           記録
         </div>
-        <div class="scenes">
-          <img src="images/queens/scenes/scene1_1.png" class="scene">
-          <img src="images/queens/scenes/scene1_1.png" class="scene">
-          <img src="images/queens/scenes/scene1_1.png" class="scene">
-          <img src="images/queens/scenes/scene1_1.png" class="scene">
-        </div>
+        <scene-list-vue class="scenes" :characterId="characterId" @openScene="openScene"/>
         <div class="header">
           チャプター
         </div>
-        <quest-list-vue :class="quests" :characterId="characterId" :selectedQuestId="questId" @selectQuest="selectQuest"/>
+        <quest-list-vue class="quests" :characterId="characterId" :selectedQuestId="questId" @selectQuest="selectQuest"/>
         <div class="tentative_button start" @click="startQuest">
           START
         </div>
@@ -40,11 +35,13 @@
 import Masterdata from '../queens/packs/masterdata';
 import store from "./packs/store";
 import QuestListVue from './QuestList.vue';
+import SceneListVue from './SceneList.vue';
 
 export default {
   store, 
   components: {
-    QuestListVue
+    QuestListVue,
+    SceneListVue
   },
   props: {
     characterId: Number,
@@ -60,6 +57,9 @@ export default {
     },
     startQuest(){
       this.$store.commit("loadScene", {name: "in_game", questId: this.questId});
+    },
+    openScene(){
+      console.log("openScene");
     },
     character(){
       return Masterdata.idTables.characters[this.characterId];
@@ -165,16 +165,7 @@ export default {
       .scenes{
         width: 100%;
         height: 45%;
-        display: flex;
-        flex-wrap: wrap;
         padding: 8px;
-        gap: 8px;
-        .scene{
-          // TODO: すごい横幅のとき若干崩れるのを直す
-          width: calc(50% - 4px);
-          object-fit: cover;
-          filter: blur(3px);
-        }
       }
       .quests{
         width: 100%;

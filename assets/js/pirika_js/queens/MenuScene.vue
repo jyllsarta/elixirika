@@ -57,7 +57,7 @@ export default {
   },
   data(){
     return {
-      showingDetail: true,
+      showingDetail: false,
       showingCharacterId: 1,
     }
   },

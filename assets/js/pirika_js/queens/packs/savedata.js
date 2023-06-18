@@ -21,6 +21,11 @@ export class Savedata {
     return questStatus.win > 0;
   }
 
+  static loseCount(questIds){
+    let save = new this().get();
+    return questIds.filter((questId) => save.quests[questId]?.lose > 0).length;
+  }
+
   static writeQuestResult(questId, isWin){
     let save = new this().get();
     let questStatus = save.quests[questId] || {win: 0, lose: 0};

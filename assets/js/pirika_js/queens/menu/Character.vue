@@ -6,7 +6,7 @@
     </div>
     <div class="panel">
       <div class="name">{{character().name}}</div>
-      <quest-list-vue :class="quests" :characterId="characterId"/>
+      <quest-list-vue class="quests" :characterId="characterId"/>
     </div>
   </div>
 </div>
@@ -36,7 +36,7 @@ export default {
       return new Savedata().get();
     },
     character(){
-      return Masterdata.idTables.characters[this.characterId];
+      return Masterdata.get("characters", this.characterId);
     }
   }
 }
