@@ -3,11 +3,11 @@
     <div class="_back" @click="closeMenu"/>
     <div class="content">
       <div class="main_image">
-        <img class="image" :src="`images/queens/scenes/scene2_${currentSay.main_image_id}.png`" alt="">
+        <img class="image" :src="`images/queens/scenes/scene${sceneId}_${currentSay.main_image_id}.png`">
       </div>
       <div class="skit_area">
         <div class="left_character">
-          <img :src="`images/queens/characters/face-queens${currentSay.face_id}.png`" alt="" class="character">
+          <img :src="`images/queens/characters/face-queens${currentSay.face_id}.png`" class="character">
         </div>
         <div class="skit">
           <div class="covers">
@@ -27,6 +27,9 @@
 import masterdata from "./packs/masterdata";
 
 export default {
+  props:{
+    sceneId: Number,
+  },
   data(){
     return {
       currentSay: null,
@@ -34,7 +37,7 @@ export default {
     };
   },
   mounted(){
-    this.says = masterdata.getAll("scripts").filter(s => s.scene_id === 3);
+    this.says = masterdata.getAll("scripts").filter(s => s.scene_id === this.sceneId);
     this.currentSay = this.says[0];
   },
   methods: {

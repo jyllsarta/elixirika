@@ -29,14 +29,14 @@
         </div>
       </div>
     </div>
-    <character-detail-dialog class="character_detail" v-if="showingDetail" @close="showingDetail = false" :characterId="showingCharacterId"/>
-    <second-break-dialog-vue class="second_break" v-if="false"/>
+    <character-detail-dialog class="character_detail" v-if="showingDetail" @close="showingDetail = false" @showScene="showScene" :characterId="showingCharacterId"/>
+    <scene-dialog-vue class="scene" v-if="showingScene" @close="showingScene = false" :sceneId="sceneId"/>
   </div>
 </template>
 
 <script>
 import CharacterDetailDialog from './CharacterDetailDialog.vue';
-import SecondBreakDialogVue from './SecondBreakDialog.vue';
+import SceneDialogVue from './SceneDialog.vue';
 import CharacterVue from "./menu/Character.vue";
 import CoinVue from './menu/Coin.vue';
 import store from "./packs/store";
@@ -48,7 +48,7 @@ export default {
   store,
   components: {
     CharacterDetailDialog,
-    SecondBreakDialogVue,
+    SceneDialogVue,
     CharacterVue,
     CoinVue,
     SkillVue,
@@ -59,6 +59,8 @@ export default {
     return {
       showingDetail: false,
       showingCharacterId: 1,
+      showingScene: false,
+      sceneId: 0,
     }
   },
   methods: {
@@ -69,6 +71,10 @@ export default {
       this.showingDetail = true;
       this.showingCharacterId = id;
     },
+    showScene(sceneId){
+      this.showingScene = true;
+      this.sceneId = sceneId;
+    }
   },
   computed: {
   }
@@ -82,12 +88,13 @@ export default {
   height: 100%;
   background-color: $bg4;
   position: relative;
-  .second_break{
+  .scene{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 1000;
   }
   .header{
     position: absolute;

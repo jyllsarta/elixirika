@@ -58,8 +58,8 @@ export default {
     startQuest(){
       this.$store.commit("loadScene", {name: "in_game", questId: this.questId});
     },
-    openScene(){
-      console.log("openScene");
+    openScene(sceneId){
+      this.$emit("showScene", sceneId);
     },
     character(){
       return Masterdata.idTables.characters[this.characterId];
