@@ -1,6 +1,13 @@
 <template>
 <div class="scenes">
-  <img :src="`/images/queens/scenes/scene${scene.id}_1.png`" class="tentative_panel scene" v-for="scene in scenes()" :key="scene.id" @click="openScene(scene)" :class="{open: isOpen(scene)}">
+  <div class="scene" v-for="scene in scenes()" :key="scene.id" >
+    <img :src="`/images/queens/scenes/scene${scene.id}_1.png`" class="scene_image" @click="openScene(scene)" :class="{open: isOpen(scene)}">
+    <div class="control_text_area" v-if="!isOpen(scene)">
+      <div class="text">
+        {{lockText(scene)}}
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -19,17 +26,23 @@ export default {
       return Masterdata.getBy("scenes", "character_id", [this.characterId]);
     },
     isOpen(scene){
-      if(scene.quest_id && Savedata.isWin(scene.quest_id)){
+      if(scene.quest_id && this.isQuestCleared(scene)){
         return true;
       }
-      const questIds = Masterdata.getBy("quests", "character_id", [this.characterId]).map(quest => quest.id);
-      if(scene.lose_character_id && Savedata.loseCount(questIds) > 0){
+      if(scene.lose_character_id && this.isLosed()){
         return true;
       }
       if(!scene.quest_id && !scene.lose_character_id){
         return true;
       }
       return false;
+    },
+    isQuestCleared(scene){
+      return Savedata.isWin(scene.quest_id);
+    },
+    isLosed(){
+      const questIds = Masterdata.getBy("quests", "character_id", [this.characterId]).map(quest => quest.id);
+      return Savedata.loseCount(questIds) > 0;
     },
     openScene(scene){
       if(!this.isOpen(scene)){
@@ -38,6 +51,22 @@ export default {
       }
       this.$emit("openScene", scene.id);
     },
+    lockText(scene){
+      let texts = [];
+      if(scene.quest_id){
+        if(!this.isQuestCleared(scene)){
+          const quest = Masterdata.get("quests", scene.quest_id);
+          texts.push(`${quest.name}をクリア`);
+        }
+      }
+      if(scene.lose_character_id){
+        if(!this.isLosed()){
+          const character = Masterdata.get("characters", scene.lose_character_id);
+          texts.push(`${character.name}に負ける`);
+        }
+      }
+      return texts.join("\nまたは\n");
+    }
   },
 }
 </script>
@@ -51,10 +80,31 @@ export default {
   .scene{
     // TODO: すごい横幅のとき若干崩れるのを直す
     width: calc(50% - 4px);
-    object-fit: cover;
-    filter: blur(3px);
-    &.open{
-      filter: none;
+    height: calc(50% - 4px);
+    position: relative;
+    .scene_image{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(3px);
+      &.open{
+        filter: none;
+      }
+    }
+    .control_text_area{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .text{
+        background-color: $bg3;
+        line-height: 100%;
+        white-space: pre;
+        text-align: center;
+      }
     }
   }
 }
