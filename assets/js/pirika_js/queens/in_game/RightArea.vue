@@ -6,8 +6,8 @@
     </div>
     <right-main-area-vue class="right_main_area" :state="state" :controller="controller"/>
     <div class="skills">
-      <div class="skill tentative_panel" @click="onSkillClick" :class="{disabled: state.player.specialPoint < 2}">イレカエ(2)</div>
-      <div class="skill tentative_panel" @click="onSkillClickDuplication" :class="{disabled: state.player.specialPoint < 2}">重複排除(2)</div>
+      <div class="skill tentative_panel" @click="onSkillClick(1)" :class="{disabled: state.player.specialPoint < 2}">イレカエ(2)</div>
+      <div class="skill tentative_panel" @click="onSkillClick(2)" :class="{disabled: state.player.specialPoint < 2}">重複排除(2)</div>
     </div>
   </div>
 </template>
@@ -26,11 +26,8 @@ export default {
     controller: Object,
   },
   methods: {
-    onSkillClick(){
-      this.controller.toggleSkillSelectMode();
-    },
-    onSkillClickDuplication(){
-      this.controller.useRejectDuplicateSkillPlayer();
+    onSkillClick(skillId){
+      this.controller.invokeSkill(skillId);
     }
   }
 }

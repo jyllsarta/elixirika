@@ -1,6 +1,6 @@
 class Masterdata {
   constructor() {
-    const titles = ["scripts", "characters", "field_effects", "quests", "scenes"];
+    const titles = ["scripts", "characters", "field_effects", "quests", "scenes", "skills"];
     this.master = this.loadMasterData(titles);
     this.idTables = this.constructIdTables(titles, this.master);
     this.ready = true;
