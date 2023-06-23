@@ -51,10 +51,9 @@ export class SkillFacade {
 
   resolveSkillEffect(state, member, skill, maybeCardId, effectKey, effectValue){
     if(!effectKey){
-      return false;
+      return;
     }
     this[effectKey](state, member, skill, maybeCardId, effectValue);
-    return true;
   }
 
   // 以下 skill effect
@@ -77,6 +76,7 @@ export class SkillFacade {
   }
 
   validate_sweep(state, member, skill, maybeCardId, effectValue){
+    // ボードのカードを一旦戻してるの注意
     state.player.board.sendAllCardsTo(state.player.hand);
     const duplications = state.player.hand.cards.filter(card => state.player.hand.cards.some(anotherCard => anotherCard.n == card.n && card.id !== anotherCard.id));
     if(duplications.length === 0){
