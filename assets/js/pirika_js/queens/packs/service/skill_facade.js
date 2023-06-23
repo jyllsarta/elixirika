@@ -2,28 +2,55 @@ import Masterdata from '../masterdata.js';
 
 export class SkillFacade {
   invoke(state, member, skillId, maybeCardId){
+    if(!this.canInvoke(state, member, skillId, maybeCardId)){
+      console.warn("couldn't invoke skill");
+      return;
+    }
     const skill = Masterdata.get("skills", skillId);
-    console.log(skill);
-    if(state.phase !== "player_select"){
-      console.warn("invalid phase");
-      return;
+    this.resolveSkillEffect(state, member, skill, maybeCardId, skill.effect_key1, skill.effect_value1);
+    this.resolveSkillEffect(state, member, skill, maybeCardId, skill.effect_key2, skill.effect_value2);
+    member.specialPoint -= skill.cost;
+  }
+
+  canInvoke(state, member, skillId, maybeCardId){
+    const skill = Masterdata.get("skills", skillId);
+    if(!this.validatePhase(state)){
+      return false;
     }
-    if(member.specialPoint < skill.cost){
-      console.warn("insufficient sp");
-      return;
+    if(!this.validateSp(member, skill)){
+      return false;
     }
-    const result1 = this.resolveSkillEffect(state, member, skill, maybeCardId, skill.effect_key1, skill.effect_value1);
-    const result2 = this.resolveSkillEffect(state, member, skill, maybeCardId, skill.effect_key2, skill.effect_value2);
-    if(result1 || result2){
-      member.specialPoint -= skill.cost;
+    const result1 = this.validateSkillEffect(state, member, skill, maybeCardId, skill.effect_key1, skill.effect_value1);
+    const result2 = this.validateSkillEffect(state, member, skill, maybeCardId, skill.effect_key2, skill.effect_value2);
+    // 効果が全部発動しない場合のみ失敗
+    if(!result1 && !result2){
+      return false;
     }
+    return true;
+  }
+
+  validatePhase(state){
+    return state.phase === "player_select";
+  }
+
+  validateSp(member, skill){
+    return member.specialPoint >= skill.cost;
+  }
+
+  validateSkillEffect(state, member, skill, maybeCardId, effectKey, effectValue){
+    if(!effectKey){
+      return false;
+    }
+    // バリデーションがないならOK
+    if(!this["validate_" + effectKey]){
+      return true;
+    }
+    // バリデーションがあるならその結果次第
+    return this["validate_" + effectKey](state, member, skill, maybeCardId, effectValue)
   }
 
   resolveSkillEffect(state, member, skill, maybeCardId, effectKey, effectValue){
     if(!effectKey){
-      return false;
-    }
-    if(this["validate_" + effectKey] && !this["validate_" + effectKey](state, member, skill, maybeCardId, effectValue)){
       return false;
     }
     this[effectKey](state, member, skill, maybeCardId, effectValue);
