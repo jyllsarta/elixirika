@@ -22,6 +22,7 @@ export class State {
     this.lastRoundResult = "-";
     this.uiState = {
       selectSkillTarget: false,
+      selectingSkillId: null,
       // 実際にはphase_game_end で代入されるのでここで適当なものが入っていてもOK
       prevPersistentData: new PersistentData(this.questId),
     };

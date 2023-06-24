@@ -31,7 +31,8 @@ export class Controller {
 
   selectCardByCardId(cardId){
     if(this.state.uiState.selectSkillTarget){
-      this._doUseSkillPlayer(cardId);
+      this.invokeSkill(this.state.uiState.selectingSkillId, cardId);
+      this.toggleSkillSelectMode(null);
     }
     else{
       this._doSendToBoard(cardId);
@@ -63,12 +64,8 @@ export class Controller {
     }
   }
 
-  toggleSkillSelectMode(){
-    if(this.state.player.specialPoint < 2){
-      console.warn("insufficient sp");
-      this.state.uiState.selectSkillTarget = false;
-      return;
-    }
+  toggleSkillSelectMode(skillId){
+    this.state.uiState.selectingSkillId = skillId;
     this.state.uiState.selectSkillTarget = !this.state.uiState.selectSkillTarget;
   }
 };
