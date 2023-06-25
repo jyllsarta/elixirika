@@ -6,8 +6,14 @@
     </div>
     <right-main-area-vue class="right_main_area" :state="state" :controller="controller"/>
     <div class="skills">
-      <div class="skill tentative_panel" @click="onSkillClick(1)" :class="{disabled: !canInvokeSkill(1)}">{{skill(1).name}}({{skill(1).cost}})</div>
-      <div class="skill tentative_panel" @click="onSkillClick(2)" :class="{disabled: !canInvokeSkill(2)}">{{skill(2).name}}({{skill(2).cost}})</div>
+      <div class="skill tentative_panel"
+        @click="onSkillClick(skillId)"
+        :class="{disabled: !canInvokeSkill(skillId)}"
+        v-for="skillId in playerSkillIds()"
+        :key="skillId"
+      >
+        {{skill(skillId).name}}({{skill(skillId).cost}})
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +55,9 @@ export default {
     },
     canInvokeSkill(skillId){
       return this.skill(skillId).cost <= this.state.player.specialPoint && this.skillFacade.canInvoke(this.state, this.state.player, skillId, null);
+    },
+    playerSkillIds(){
+      return this.state.player.skillIds;
     }
   },
 }
