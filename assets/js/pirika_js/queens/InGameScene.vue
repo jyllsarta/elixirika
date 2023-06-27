@@ -10,6 +10,7 @@
       </div>
         <right-area-vue class="right_area" :state="state" :controller="controller"/>
     </div>
+    <fragment-vue class="fragments" :state="state"/>
     <gameset-dialog class="dialog component" v-if="state?.phase == 'game_end'" @close="nextPhase" :state="state" />
     <debug-state-vue :state="state" :controller="controller" v-if="false"/>
     <phase-mover-vue :state="state" :controller="controller"/>
@@ -28,6 +29,7 @@ import PhaseMoverVue from './PhaseMover.vue';
 import FloatingMenuVue from "./in_game/FloatingMenu.vue";
 import GamesetDialog from "./in_game/GamesetDialog.vue";
 import BackgroundVue from './in_game/Background.vue';
+import FragmentVue from './in_game/Fragments.vue';
 
 export default {
   components: {
@@ -40,6 +42,7 @@ export default {
     FloatingMenuVue,
     GamesetDialog,
     BackgroundVue,
+    FragmentVue,
   },
   data(){
     return {
@@ -59,6 +62,10 @@ export default {
     window.state = this.state;
     this.controller = new Controller(state);
     window.controller = this.controller;
+    
+    setTimeout(() => {
+      this.$store.commit("showFragment", {name: "skill_activation"});
+    }, 1000);
   },
 }
 </script>
@@ -89,7 +96,7 @@ export default {
   }
 
   .content{
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 100%;
     display: flex;
@@ -120,6 +127,12 @@ export default {
       height: 100%;
       width: 30%;
     }
+  }
+  .fragments{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
   }
   .dialog{
     position: absolute;

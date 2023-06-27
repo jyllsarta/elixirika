@@ -6,6 +6,9 @@ export const store = createStore({
       name: "title",
       params: {},
     },
+    fragments: {
+      skill_activation: false,
+    }
   },
   getters: {},
   mutations: {
@@ -13,6 +16,12 @@ export const store = createStore({
       state.scene.name = params.name;
       state.scene.params = params;
     },
+    showFragment(state, params) {
+      state.fragments[params.name] = true;
+    },
+    hideFragment(state, params) {
+      state.fragments[params.name] = false;
+    }
   },
 });
 export default store;
