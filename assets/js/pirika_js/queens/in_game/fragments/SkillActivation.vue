@@ -1,10 +1,11 @@
 <template>
   <div class="flg">
-    スキル発動
+    スキル発動: {{skill().name}}
   </div>
 </template>
 
 <script>
+import Masterdata from '../../packs/masterdata';
 import State from "../../packs/model/state";
 import store from '../../packs/store';
 
@@ -19,6 +20,10 @@ export default {
     }, 1000);
   },
   methods: {
+    skill(){
+      const skillId = this.$store.state.fragments_extra.skill_activation.skillId;
+      return Masterdata.get("skills", skillId);
+    }
   }
 };
 </script>

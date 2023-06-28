@@ -49,6 +49,7 @@ export default {
         return;
       }
       this.controller.invokeSkill(skillId);
+      this.$store.commit("showFragment", {name: "skill_activation", extra: {skillId: skillId}});
     },
     skill(skillId){
       return Masterdata.get("skills", skillId);

@@ -8,6 +8,11 @@ export const store = createStore({
     },
     fragments: {
       skill_activation: false,
+    },
+    fragments_extra: {
+      skill_activation: {
+        skillId: 0,
+      }
     }
   },
   getters: {},
@@ -18,6 +23,7 @@ export const store = createStore({
     },
     showFragment(state, params) {
       state.fragments[params.name] = true;
+      state.fragments_extra[params.name] = params.extra;
     },
     hideFragment(state, params) {
       state.fragments[params.name] = false;

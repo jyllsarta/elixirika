@@ -62,10 +62,6 @@ export default {
     window.state = this.state;
     this.controller = new Controller(state);
     window.controller = this.controller;
-    
-    setTimeout(() => {
-      this.$store.commit("showFragment", {name: "skill_activation"});
-    }, 1000);
   },
 }
 </script>

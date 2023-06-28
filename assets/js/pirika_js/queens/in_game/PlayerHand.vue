@@ -19,6 +19,10 @@ export default {
   },
   methods: {
     onCardClick(cardId){
+      if(this.state.uiState.selectSkillTarget){
+        const skillId = this.state.uiState.selectingSkillId;
+        this.$store.commit("showFragment", {name: "skill_activation", extra: {skillId: skillId}});
+      }
       this.controller.selectCardByCardId(cardId);
     }
   },
