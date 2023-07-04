@@ -8,7 +8,7 @@ export class PhasePlayerSelect {
     while(state.player.board.cards.length < 2){
       state.player.board.add(state.player.hand.draw());
     }
-    state.phase = "showdown";
+    state.phase = "enemy_select";
   }
 };
 export default PhasePlayerSelect;
