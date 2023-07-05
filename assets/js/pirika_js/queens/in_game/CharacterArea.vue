@@ -3,7 +3,6 @@
     <character-image-vue class="character_image" :state="state" />
     <enemy-hand-vue class="enemy_hand" :state="state"/>
     <baloon-vue class="baloon" />
-    <challenge-board-vue class="challenge-board" />
   </div>
 </template>
 
@@ -11,7 +10,6 @@
 import store from "../packs/store";
 import BaloonVue from './Baloon.vue';
 import CharacterImageVue from "./CharacterImage.vue";
-import ChallengeBoardVue from "./ChallengeBoard.vue";
 import EnemyHandVue from "./EnemyHand.vue";
 
 export default {
@@ -20,7 +18,6 @@ export default {
     CharacterImageVue,
     EnemyHandVue,
     BaloonVue,
-    ChallengeBoardVue
   },
   props: {
     state: Object,
@@ -57,13 +54,6 @@ export default {
     height: 15%;
     top: 8px;
     right: 25%;
-    z-index: 400;
-  }
-  .challenge_board{
-    position: absolute;
-    width: 20%;
-    height: 80%;
-    right: 0;
     z-index: 400;
   }
 }

@@ -1,6 +1,6 @@
 <template>
-  <div class="card_area" v-if="state">
-    カードエリア
+  <div class="status">
+    効果なし
   </div>
 </template>
 
@@ -11,11 +11,13 @@ export default {
   store, 
   props: {
     state: Object,
-    controller: Object,
   },
   methods: {
-    onCardClick(cardId){
-      this.controller.unstage(cardId);
+    quarterDots(amount){
+      return Math.floor(amount / 25);
+    },
+    normalDots(amount){
+      return amount % 25;
     }
   }
 }
@@ -23,13 +25,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "../stylesheets/global_settings";
-.card_area{
+.status{
   width: 100%;
   height: 100%;
-  padding: 8px;
+  max-height: 170px;
+  padding: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 }
 </style>

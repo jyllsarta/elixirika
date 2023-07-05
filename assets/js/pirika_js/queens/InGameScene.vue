@@ -4,11 +4,16 @@
     <background-vue class="background"/>
     <div class="content">
       <div class="main_area">
-        <character-area-vue class="character_area" :state="state"/>
-        <table-area-vue class="table_area" :state="state" :controller="controller"/>
+        <div class="field">
+          <left-area-vue class="left_area" :state="state" :controller="controller"/>
+          <div class="character_and_table">
+            <character-area-vue class="character_area" :state="state"/>
+            <table-area-vue class="table_area" :state="state" :controller="controller"/>
+          </div>
+        </div>
         <player-hand-vue class="player_hand" :state="state" :controller="controller"/>
       </div>
-        <right-area-vue class="right_area" :state="state" :controller="controller"/>
+      <right-area-vue class="right_area" :state="state" :controller="controller"/>
     </div>
     <fragment-vue class="fragments" :state="state"/>
     <gameset-dialog class="dialog component" v-if="state?.phase == 'game_end'" @close="nextPhase" :state="state" />
@@ -22,6 +27,7 @@ import PlayerHandVue from './in_game/PlayerHand.vue';
 import CharacterAreaVue from './in_game/CharacterArea.vue';
 import TableAreaVue from './in_game/TableArea.vue';
 import RightAreaVue from './in_game/RightArea.vue';
+import LeftAreaVue from './in_game/LeftArea.vue';
 import State from "./packs/model/state";
 import Controller from "./packs/service/controller";
 import DebugStateVue from './DebugState.vue';
@@ -37,6 +43,7 @@ export default {
     PlayerHandVue,
     TableAreaVue,
     RightAreaVue,
+    LeftAreaVue,
     DebugStateVue,
     PhaseMoverVue,
     FloatingMenuVue,
@@ -97,21 +104,33 @@ export default {
     height: 100%;
     display: flex;
     z-index: 1000;
-
     .main_area{
       height: 100%;
-      width: 70%;
-      .character_area{
-        height: 50%;
-        z-index: 100;
-      }
-      .table_area{
-        position: relative;
-        height: 40%;
-        z-index: 200;
-        border: 3px solid $accent1;
-        // transforms to trapezoid
-        transform: perspective(100px) rotateX(2deg) translateY(-10px);
+      width: 100%;
+      .field{
+        height: 90%;
+        width: 100%;
+        display: flex;
+        .left_area{
+          height: 100%;
+          width: 20%;
+        }
+        .character_and_table{
+          height: 100%;
+          width: 80%;
+          .character_area{
+            height: 50%;
+            z-index: 100;
+          }
+          .table_area{
+            position: relative;
+            height: 40%;
+            z-index: 200;
+            border: 3px solid $accent1;
+            // transforms to trapezoid
+            transform: perspective(100px) rotateX(2deg) translateY(-10px);
+          }
+        }
       }
       .player_hand{
         position: relative;
