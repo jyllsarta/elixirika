@@ -1,6 +1,14 @@
 <template>
   <div class="card_area" v-if="state">
-    カードエリア
+    <div class="cards">
+      <div class="card tentative_panel">1s</div>
+      <div class="card tentative_panel">1s</div>
+      <div class="card tentative_panel">1s</div>
+      <div class="card tentative_panel">1s</div>
+      <div class="card tentative_panel">1s</div>
+      <div class="card tentative_panel">1s</div>
+      <div class="card tentative_panel">1s</div>
+    </div>
   </div>
 </template>
 
@@ -14,9 +22,6 @@ export default {
     controller: Object,
   },
   methods: {
-    onCardClick(cardId){
-      this.controller.unstage(cardId);
-    }
   }
 }
 </script>
@@ -31,5 +36,24 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  .cards{
+    width: 100%;
+    height: 100%;
+    border: 1px solid $white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    .card{
+      width: 100px;
+      height: 100px;
+      border: 1px solid $white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: $font-size-large;
+    }
+  }
 }
 </style>

@@ -46,11 +46,7 @@ export default {
     height: 100%;
     display: flex;
     .card_area{
-      width: 40%;
-      height: 100%;
-    }
-    .target_area{
-      width: 20%;
+      width: 80%;
       height: 100%;
     }
     .decide_area{
