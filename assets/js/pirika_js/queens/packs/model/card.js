@@ -1,8 +1,9 @@
 export class Card {
-  constructor(n, revealed = false){
+  constructor(n, suits, revealed = false){
     this.n = n;
     this.id = Math.floor(Math.random() * 1000000000);
     this.revealed = revealed;
+    this.suits = suits;
   }
 
   reveal(){
@@ -15,7 +16,7 @@ export class Card {
 
   stringRepresentation(){
     if(this.revealed){
-      return this.n;
+      return this.n + this.suits.join(" ");
     }
     else{
       return "?";
