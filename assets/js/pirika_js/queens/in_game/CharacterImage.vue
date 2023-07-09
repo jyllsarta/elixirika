@@ -14,18 +14,7 @@ export default {
   },
   computed: {
     faceId(){
-      const target = this.state.board.targetValue();
-      const distance = target - this.state.enemy.board.targetValue(target);
-      if(distance === 0){
-        return 1;
-      }
-      if(distance < 0){
-        return 4;
-      } 
-      if(distance <= 2){
-        return 2;
-      }
-      return 3;
+      return 1;
     }
   }
 }

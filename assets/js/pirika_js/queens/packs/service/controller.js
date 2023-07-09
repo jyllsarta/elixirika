@@ -19,13 +19,9 @@ export class Controller {
   }
 
   sendToBoard(index){
-    if(this.state.player.board.cards.length >= 2){
-      console.warn("already picked 2 cards");
-      return;
-    }
     const card = this.state.player.hand.pick(index);
     if(card){
-      this.state.player.board.add(card);
+      this.state.board.add(card);
     }
   }
 
@@ -44,18 +40,14 @@ export class Controller {
   }
 
   _doSendToBoard(cardId){
-    if(this.state.player.board.cards.length >= 2){
-      console.warn("already picked 2 cards");
-      return;
-    }
     const card = this.state.player.hand.pickByCardId(cardId);
     if(card){
-      this.state.player.board.add(card);
+      this.state.board.add(card);
     }
   }
 
   unstage(cardId){
-    const card = this.state.player.board.pickByCardId(cardId);
+    const card = this.state.board.pickByCardId(cardId);
     if(card){
       this.state.player.hand.add(card);
     }

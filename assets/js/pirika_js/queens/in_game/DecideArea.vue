@@ -17,7 +17,7 @@ export default {
   },  
   computed: {
     available(){
-      return this.state.phase == "unstarted" || this.state.player.board.cards.length == 2;
+      return this.state.phase == "unstarted" || this.state.phase == "player_select";
     }
   },
   methods: {

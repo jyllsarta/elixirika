@@ -1,6 +1,5 @@
 export class PhaseTurnStart {
   enter(state){
-    state.round++;
   }
 
   nextPhase(state){

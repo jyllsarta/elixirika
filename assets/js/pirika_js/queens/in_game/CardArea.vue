@@ -1,13 +1,13 @@
 <template>
   <div class="card_area" v-if="state">
     <div class="cards">
-      <div class="card tentative_panel">1s</div>
-      <div class="card tentative_panel">1s</div>
-      <div class="card tentative_panel">1s</div>
-      <div class="card tentative_panel">1s</div>
-      <div class="card tentative_panel">1s</div>
-      <div class="card tentative_panel">1s</div>
-      <div class="card tentative_panel">1s</div>
+      <div 
+        v-for="card in state.board.cards"
+        :key="card.id"
+        class="card tentative_panel"
+      >
+        {{ card.stringRepresentation() }}
+      </div>
     </div>
   </div>
 </template>
