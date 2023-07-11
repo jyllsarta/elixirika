@@ -1,4 +1,5 @@
 import Card from "../model/card";
+import BreakCondition from "../model/break_condition";
 
 export class PhaseSetup {
   enter(state){
@@ -23,6 +24,20 @@ export class PhaseSetup {
     state.player.hand.add(state.deck.draw());
     state.player.hand.add(state.deck.draw());
     state.player.hand.add(state.deck.draw());
+
+    state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
+    state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
+    state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
+    state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
+    state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
+    state.enemy.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
+    state.enemy.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
+    state.enemy.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
+    state.enemy.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
+    state.enemy.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
+
+    state.enemy.breakConditions.forEach(condition => condition.card.reveal());
+    state.player.breakConditions.forEach(condition => condition.card.reveal());
 
     state.player.hand.cards.forEach(card => card.reveal());
   }

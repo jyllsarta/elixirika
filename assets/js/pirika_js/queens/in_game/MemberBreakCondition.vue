@@ -9,16 +9,11 @@
       </div>
     </div>
     <div class="conditions">
-      <div class="condition tentative_panel">5↓</div>
-      <div class="condition tentative_panel">5↓</div>
-      <div class="condition tentative_panel">5↓</div>
-      <div class="condition tentative_panel">5↓</div>
-      <div class="condition tentative_panel">5↓</div>
-      <div class="condition tentative_panel">5↓</div>
+      <div v-for="condition in restOfConditions" :key="condition.id" class="condition tentative_panel">{{ condition.stringRepresentation() }}</div>
     </div>
     <div class="next_condition_area">
-      <div class="next_condition tentative_panel">
-        7s
+      <div class="next_condition tentative_panel" v-if="headOfCondition">
+        {{ headOfCondition.stringRepresentation() }}
       </div>
     </div>
   </div>
@@ -32,6 +27,18 @@ export default {
   props: {
     state: Object,
     controller: Object,
+    breakConditions: Array,
+  },
+  computed: {
+    headOfCondition(){
+      return this.breakConditions[0];
+    },
+    restOfConditions(){
+      if(!this.breakConditions){
+        return [];
+      }
+      return this.breakConditions.slice(1);
+    },
   },
 }
 </script>
