@@ -14,17 +14,6 @@ export class PhaseSetup {
     state.deck.overwriteCards(cards);
     state.deck.shuffle();
 
-    state.enemy.hand.add(state.deck.draw());
-    state.enemy.hand.add(state.deck.draw());
-    state.enemy.hand.add(state.deck.draw());
-    state.enemy.hand.add(state.deck.draw());
-    state.enemy.hand.add(state.deck.draw());
-    state.player.hand.add(state.deck.draw());
-    state.player.hand.add(state.deck.draw());
-    state.player.hand.add(state.deck.draw());
-    state.player.hand.add(state.deck.draw());
-    state.player.hand.add(state.deck.draw());
-
     state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
     state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
     state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
@@ -38,8 +27,6 @@ export class PhaseSetup {
 
     state.enemy.breakConditions.forEach(condition => condition.card.reveal());
     state.player.breakConditions.forEach(condition => condition.card.reveal());
-
-    state.player.hand.cards.forEach(card => card.reveal());
   }
 
   nextPhase(state){

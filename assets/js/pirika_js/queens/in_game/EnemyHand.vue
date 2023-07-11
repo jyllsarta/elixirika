@@ -1,6 +1,6 @@
 <template>
   <div class="cards" v-if="state">
-    <div class="card tentative_panel" v-for="(i, index) in new Array(state.enemy.hand.cards.length)" :key="index">?</div>
+    <div class="card tentative_panel" v-for="card in state.enemy.hand.cards" :key="card.id">{{ card.stringRepresentation() }}</div>
   </div>
 </template>
 
