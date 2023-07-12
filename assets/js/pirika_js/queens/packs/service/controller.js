@@ -25,7 +25,7 @@ export class Controller {
       this.toggleSkillSelectMode(null);
     }
     else{
-      this.doSendToBoard(cardId);
+      this._doSendToBoard(cardId);
     }
   }
 
@@ -33,21 +33,14 @@ export class Controller {
     new SkillFacade().invoke(this.state, this.state.player, skillId, maybeCardId);
   }
 
-  doSendToBoard(cardId){
+  _doSendToBoard(cardId){
     const card = this.state.player.hand.pickByCardId(cardId);
     if(!card){
       console.warn("couldn't find card");
       return;
     }
     this.state.board.add(card);
-
-    const nextCondition = this.state.enemy.breakConditions[0];
-    if(nextCondition && new Break().isValid(this.state, this.state.board, nextCondition)){
-      if(nextCondition.card){
-        this.state.discard.add(nextCondition.card);
-      }
-      this.state.enemy.breakConditions.shift(0);
-    }
+    this._judgeAndBreak(this.state.enemy);
   }
 
   toggleSkillSelectMode(skillId){
@@ -59,15 +52,18 @@ export class Controller {
     if(this.state.enemy.hand.cards.length === 0){
       return;
     }
-    // TODO: コード重複の解消
     const card = this.state.enemy.hand.cards.pop();
-    const nextCondition = this.state.player.breakConditions[0];
     this.state.board.add(card);
+    this._judgeAndBreak(this.state.player);
+  }
+
+  _judgeAndBreak(target){
+    const nextCondition = target.breakConditions[0];
     if(nextCondition && new Break().isValid(this.state, this.state.board, nextCondition)){
       if(nextCondition.card){
         this.state.discard.add(nextCondition.card);
       }
-      this.state.player.breakConditions.shift(0);
+      target.breakConditions.shift(0);
     }
   }
 };
