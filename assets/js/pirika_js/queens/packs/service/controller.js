@@ -41,6 +41,7 @@ export class Controller {
     }
     this.state.board.add(card);
     this._judgeAndBreak(this.state.enemy);
+    this._judgeAndBreakHand(this.state.enemy);
   }
 
   toggleSkillSelectMode(skillId){
@@ -57,13 +58,35 @@ export class Controller {
     this._judgeAndBreak(this.state.player);
   }
 
-  _judgeAndBreak(target){
-    const nextCondition = target.breakConditions[0];
-    if(nextCondition && new Break().isValid(this.state, this.state.board, nextCondition)){
+  _judgeAndBreak(member){
+    if(member.breakConditions.length === 0){
+      console.warn("breakConditions is empty");
+      return;
+    }
+
+    const nextCondition = member.breakConditions[0];
+
+    if(new Break().isValid(this.state, this.state.board, nextCondition)){
       if(nextCondition.card){
         this.state.discard.add(nextCondition.card);
       }
-      target.breakConditions.shift(0);
+      member.breakConditions.shift(0);
+    }
+  }
+
+  _judgeAndBreakHand(member){
+    if(member.hand.cards.length === 0){
+      console.warn("hand is empty");
+      return;
+    }
+
+    const conditions = member.hand.asBreakConditions();
+    const nextCondition = conditions.slice(-1)[0];
+
+    if(new Break().isValid(this.state, this.state.board, nextCondition)){
+      const card = member.hand.cards.pop();
+      this.state.discard.add(card);
+      member.hand.cards.slice(-1)[0]?.reveal();
     }
   }
 };

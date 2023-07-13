@@ -16,6 +16,7 @@ export class PhaseTurnStart {
     state.player.hand.add(state.deck.draw());
 
     state.player.hand.cards.forEach(card => card.reveal());
+    state.enemy.hand.cards.slice(-1)[0].reveal();
   }
 
   nextPhase(state){

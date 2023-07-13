@@ -7,7 +7,7 @@
 
       <h2>state:</h2>
       <div v-for="fieldName in fieldNames" :key="fieldName">
-        {{fieldName}}({{state[fieldName].cards.length}} / {{state[fieldName].targetValue()}}): {{state[fieldName].cards}}
+        {{fieldName}}({{state[fieldName].cards.length}}): {{state[fieldName].cards}}
       </div>
       <div>
         phase: {{state.phase}}

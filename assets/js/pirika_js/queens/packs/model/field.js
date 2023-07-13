@@ -1,3 +1,5 @@
+import BreakCondition from "./break_condition";
+
 export class Field {
   constructor(cards = []){
     this.cards = cards;
@@ -40,22 +42,6 @@ export class Field {
     this.cards = [];
   }
 
-  // referenceTargetValue を超えない範囲で、フィールドのカードのなるべく大きく解釈する
-  // ゲームの実用上問題ない範囲でデフォルト値を決めておく
-  // 現在はまだカードに多態性を持たせていないので、素朴に総和を取るだけでOK
-  targetValue(referenceTargetValue = 999999){
-    return this.cards.reduce((acc, card)=>acc + card.n, 0);
-  }
-
-  stringRepresentation(){
-    if(this.cards.every(card => card.revealed)){
-      return this.targetValue();
-    }
-    else{
-      return "?";
-    }
-  }
-
   pick(index){
     const picked = this.cards.splice(index, 1);
     return picked[0];
@@ -68,6 +54,10 @@ export class Field {
       return null;
     }
     return this.pick(cardIndex);
+  }
+
+  asBreakConditions(){
+    return this.cards.map(card=>new BreakCondition("card", 1, true, card));
   }
 };
 export default Field;
