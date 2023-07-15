@@ -1,20 +1,20 @@
 <template>
   <div class="left_area" v-if="state">
     <div class="content">
-      <member-break-condition-vue class="member_break_condition" :state="state" :controller="controller" :breakConditions="state.enemy.breakConditions"/>
-      <member-break-condition-vue class="member_break_condition" :state="state" :controller="controller" :breakConditions="state.player.breakConditions"/>
+      <member-break-conditions-vue class="member_break_conditions" :state="state" :controller="controller" :breakConditions="state.enemy.breakConditions"/>
+      <member-break-conditions-vue class="member_break_conditions" :state="state" :controller="controller" :breakConditions="state.player.breakConditions"/>
     </div>
   </div>
 </template>
 
 <script>
 import store from "../packs/store";
-import MemberBreakConditionVue from './MemberBreakCondition.vue';
+import MemberBreakConditionsVue from './MemberBreakConditions.vue';
 
 export default {
   store, 
   components: {
-    MemberBreakConditionVue,
+    MemberBreakConditionsVue,
   },
   props: {
     state: Object,

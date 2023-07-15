@@ -9,21 +9,32 @@
       </div>
     </div>
     <div class="conditions">
-      <div v-for="condition in restOfConditions" :key="condition.id" class="condition tentative_panel">{{ condition.stringRepresentation() }}</div>
+      <break-condition 
+        v-for="condition in restOfConditions"
+        :key="condition.id"
+        :condition="condition"
+        class="condition"
+      />
     </div>
     <div class="next_condition_area">
-      <div class="next_condition tentative_panel" v-if="headOfCondition">
-        {{ headOfCondition.stringRepresentation() }}
-      </div>
+      <break-condition 
+        class="next_condition"
+        :condition="headOfCondition"
+        v-if="headOfCondition"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import store from "../packs/store";
+import BreakCondition from "./BreakCondition.vue";
 
 export default {
   store, 
+  components: {
+    BreakCondition,
+  },
   props: {
     state: Object,
     controller: Object,

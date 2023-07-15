@@ -1,22 +1,26 @@
 <template>
   <div class="card_area" v-if="state">
     <div class="cards">
-      <div 
+      <card-vue
         v-for="card in state.board.cards"
         :key="card.id"
-        class="card tentative_panel"
-      >
-        {{ card.stringRepresentation() }}
-      </div>
+        :card="card"
+        :state="state"
+        class="card"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import store from "../packs/store";
+import CardVue from "./Card.vue";
 
 export default {
   store, 
+  components: {
+    CardVue
+  },
   props: {
     state: Object,
     controller: Object,
@@ -48,11 +52,6 @@ export default {
     .card{
       width: 100px;
       height: 100px;
-      border: 1px solid $white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: $font-size-large;
     }
   }
 }

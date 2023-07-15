@@ -1,14 +1,18 @@
 <template>
   <div class="cards" v-if="state">
-    <div class="card tentative_panel" v-for="card in state.enemy.hand.cards" :key="card.id">{{ card.stringRepresentation() }}</div>
+    <card-vue class="card" v-for="card in state.enemy.hand.cards" :key="card.id" :card="card" :state="state"/>
   </div>
 </template>
 
 <script>
 import store from "../packs/store";
+import CardVue from './Card.vue';
 
 export default {
-  store, 
+  store,
+  components: {
+    CardVue
+  }, 
   props: {
     state: Object,
   },

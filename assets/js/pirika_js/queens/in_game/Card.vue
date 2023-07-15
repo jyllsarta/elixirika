@@ -30,6 +30,9 @@ export default {
       if(this.card.suits.length !== 1){
         return {};
       }
+      if(!this.card.revealed){
+        return {};
+      }
       const suit = this.card.suits[0];
       const style = {
         backgroundColor: `var(--color-${suit}3)`,
@@ -48,7 +51,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid $accent1;
+  background-color: var(--color-u3);
+  border: 2px solid var(--color-u1);
+  font-size: $font-size-large;
 
   &.selectSkillTarget{
     background-color: $accent1;
