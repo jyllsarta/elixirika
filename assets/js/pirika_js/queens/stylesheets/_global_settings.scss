@@ -22,6 +22,24 @@ $font-size-mini: 10px;
 $font-size-large: 24px;
 $font-size-xlarge: 32px;
 
+// キャラごとのカラースキーム系はjsから制御したいのでネイティブのCSS変数として扱う
+:root {
+  --color-s1: #b2cbed;
+  --color-s2: #587bac;
+  --color-s3: #335484;
+  --color-d1: #e9b4ec;
+  --color-d2: #a958ac;
+  --color-d3: #803283;
+  --color-c1: #bde79a;
+  --color-c2: #578332;
+  --color-c3: #3b641a;
+  --color-h1: #efc2a7;
+  --color-h2: #ac7858;
+  --color-h3: #79492c;
+  --color-u1: #ebecee;
+  --color-u2: #adaeb1;
+  --color-u3: #2a2b2b;
+}
 .tentative_button{
   display: flex;
   justify-content: center;

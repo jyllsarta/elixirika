@@ -1,18 +1,26 @@
 <template>
   <div class="player_hand" v-if="state">
-    <div class="hands">
-      <div class="hand tentative_button" v-for="card in state.player.hand.cards" :key="card.id" @click="onCardClick(card.id)" :class="{selectSkillTarget: selectSkillTarget}">
-        {{card.stringRepresentation()}}
-      </div>
+    <div class="cards">
+      <card-vue
+        v-for="card in state.player.hand.cards"
+        :key="card.id"
+        @card-click="onCardClick"
+        :card="card"
+        :state="state"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import store from "../packs/store";
+import CardVue from "./Card.vue";
 
 export default {
   store, 
+  components: {
+    CardVue
+  },
   props: {
     state: Object,
     controller: Object,
@@ -26,11 +34,6 @@ export default {
       this.controller.selectCardByCardId(cardId);
     }
   },
-  computed: {
-    selectSkillTarget(){
-      return this.state.uiState.selectSkillTarget;
-    }
-  }
 }
 </script>
 
@@ -39,7 +42,7 @@ export default {
 .player_hand{
   height: 100%;
   width: 100%;
-  .hands{
+  .cards{
     height: 100%;
     width: 100%;
     padding: 4px;
@@ -47,14 +50,10 @@ export default {
     justify-content: space-around;
     align-items: flex-end;
     gap: 8px;
-    .hand{
+    .card{
       flex: 1;
       height: min(120px, 150%);
       max-width: 200px;
-      font-size: $font_size_xlarge;
-      &.selectSkillTarget{
-        background-color: $accent1;
-      }
     }
   }
 }
