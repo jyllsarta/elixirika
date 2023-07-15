@@ -46,8 +46,9 @@ export default {
 @import "../stylesheets/global_settings";
 .container{
   padding: 8px;
-  width: 20%;
+  width: 25%;
   height: 90%;
+  max-width: 360px;
   background-color: $bg3;
 }
 .character{
