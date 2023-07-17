@@ -1,6 +1,7 @@
 import { PhaseStateMachine } from "./phase_state_machine";
 import { SkillFacade } from "./skill_facade";
 import { Break } from "./break";
+import { Stack } from "./stack";
 
 // コントローラーを通った操作は将来的に履歴を残せるようにする
 export class Controller {
@@ -25,7 +26,7 @@ export class Controller {
       this.toggleSkillSelectMode(null);
     }
     else{
-      this._doSendToBoard(cardId);
+      this._sendToBoard(cardId);
     }
   }
 
@@ -33,12 +34,25 @@ export class Controller {
     new SkillFacade().invoke(this.state, this.state.player, skillId, maybeCardId);
   }
 
-  _doSendToBoard(cardId){
-    const card = this.state.player.hand.pickByCardId(cardId);
+  _sendToBoard(cardId){
+    const card = this.state.player.hand.findByCardId(cardId);
     if(!card){
       console.warn("couldn't find card");
       return;
     }
+
+    //stack条件を満たさない場合は何もしない
+    if(!new Stack().isValid(this.state, this.state.board, card)){
+      console.warn("stack condition is not satisfied");
+      return;
+    }
+
+    this._doSendToBoard(card);
+  }
+
+  _doSendToBoard(card){
+    // pick して移動元フィールドから消す
+    this.state.player.hand.pickByCardId(card.id);
     this.state.board.add(card);
     this._judgeAndBreak(this.state.enemy);
     this._judgeAndBreakHand(this.state.enemy);

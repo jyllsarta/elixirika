@@ -47,6 +47,7 @@ export class Field {
     return picked[0];
   }
   
+  // pick はカードを取り出してフィールドからは削除される
   pickByCardId(cardId){
     const cardIndex = this.cards.findIndex(card=>card.id == cardId);
     if(cardIndex === -1){
@@ -54,6 +55,11 @@ export class Field {
       return null;
     }
     return this.pick(cardIndex);
+  }
+
+  // find はカードを取り出さずにフィールドに残す
+  findByCardId(cardId){
+    return this.cards.find(card=>card.id == cardId);
   }
 
   asBreakConditions(){
