@@ -33,8 +33,22 @@ export class Field {
     return this.cards.shift();
   }
 
+  drawMany(amount){
+    if(this.cards.length < amount){
+      console.warn(`drawing ${amount} cards from field, but only ${this.cards.length} cards left`);
+      return null;
+    }
+    const cards = this.cards.slice(0, amount);
+    this.cards = this.cards.slice(amount);
+    return cards;
+  }
+
   add(card){
     this.cards.push(card);
+  }
+
+  addMany(cards){
+    this.cards = this.cards.concat(cards);
   }
 
   sendAllCardsTo(field){

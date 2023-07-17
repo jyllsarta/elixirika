@@ -2,6 +2,7 @@ import { PhaseStateMachine } from "./phase_state_machine";
 import { SkillFacade } from "./skill_facade";
 import { Break } from "./break";
 import { Stack } from "./stack";
+import { AdditionalCard } from "./additional_card";
 
 // コントローラーを通った操作は将来的に履歴を残せるようにする
 export class Controller {
@@ -47,7 +48,16 @@ export class Controller {
       return;
     }
 
+    const amount = new AdditionalCard().amount(this.state, this.state.board, card);
+
     this._doSendToBoard(card);
+
+    // 追加カードを引く
+    const cards = this.state.deck.drawMany(amount);
+    cards.map(card=>card.reveal());
+    if(cards){
+      this.state.player.hand.addMany(cards);
+    }
   }
 
   _doSendToBoard(card){
