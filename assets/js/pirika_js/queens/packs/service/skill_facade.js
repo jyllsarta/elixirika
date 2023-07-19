@@ -76,7 +76,7 @@ export class SkillFacade {
   }
 
   validate_sweep(state, member, skill, maybeCardId, effectValue){
-    const cards = state.player.hand.cards.concat(state.player.board.cards);
+    const cards = state.player.hand.cards;
     const duplications = cards.filter(card => cards.some(anotherCard => anotherCard.n == card.n && card.id !== anotherCard.id));
     if(duplications.length === 0){
       console.warn("no duplications");
@@ -85,8 +85,8 @@ export class SkillFacade {
     return true;
   }
 
+  //TODO: stateから引いてplayer専用スキルになってしまっているのをmember参照へ変更
   sweep(state, member, skill, maybeCardId, effectValue){
-    state.player.board.sendAllCardsTo(state.player.hand);
     const duplications = state.player.hand.cards.filter(card => state.player.hand.cards.some(anotherCard => anotherCard.n == card.n && card.id !== anotherCard.id));
     for(let card of duplications){
       state.discard.add(state.player.hand.pickByCardId(card.id));

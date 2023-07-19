@@ -8,5 +8,9 @@ export class Member {
     this.isPlayer = isPlayer;
     this.skillIds = [1, 2];
   }
+
+  addSpecialPoint(amount){
+    this.specialPoint += amount;
+  }
 };
 export default Member;

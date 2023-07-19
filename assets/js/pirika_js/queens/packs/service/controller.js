@@ -58,6 +58,9 @@ export class Controller {
     if(cards){
       this.state.player.hand.addMany(cards);
     }
+
+    // MPを1点付与
+    this.state.player.addSpecialPoint(1);
   }
 
   _doSendToBoard(card){
