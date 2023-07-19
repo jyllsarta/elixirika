@@ -4,7 +4,8 @@ import { Break } from "./break";
 import { Stack } from "./stack";
 import { AdditionalCard } from "./additional_card";
 
-// コントローラーを通った操作は将来的に履歴を残せるようにする
+// TOOD: コントローラーを通った操作は将来的に履歴を残せるようにする
+// TODO: isGameEndなら何もしないようにする
 export class Controller {
   constructor(state){
     this.state = state;

@@ -19,5 +19,20 @@ export class State {
       selectingSkillId: null,
     };
   }
+
+  isGameEnd(){
+    if(this.phase === "unstarted"){
+      return false;
+    }
+    return this.isWin() || this.isLose();
+  }
+
+  isWin(){
+    return this.enemy.breakConditions.length === 0;
+  }
+
+  isLose(){
+    return this.player.breakConditions.length === 0;
+  }
 };
 export default State;

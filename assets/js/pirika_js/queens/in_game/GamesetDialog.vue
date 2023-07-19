@@ -23,8 +23,8 @@ export default {
   },
   methods: {
     backToMenu(){
-      // TODO: 勝敗判定
-      Savedata.writeQuestResult(this.state.questId, true);
+      const result = this.state.isWin();
+      Savedata.writeQuestResult(this.state.questId, result);
       this.$store.commit("loadScene", {name: "menu"});
     }
   },

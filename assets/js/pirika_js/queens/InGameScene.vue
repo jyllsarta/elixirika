@@ -16,7 +16,7 @@
       <right-area-vue class="right_area" :state="state" :controller="controller"/>
     </div>
     <fragment-vue class="fragments" :state="state"/>
-    <gameset-dialog class="dialog component" v-if="state?.phase == 'game_end'" @close="nextPhase" :state="state" />
+    <gameset-dialog class="dialog component" v-if="state?.isGameEnd()" :state="state" />
     <debug-state-vue :state="state" :controller="controller" v-if="false"/>
     <phase-mover-vue :state="state" :controller="controller"/>
   </div>
@@ -55,12 +55,6 @@ export default {
     return {
       state: null,
       controller: null,
-    }
-  },
-  methods: {
-    nextPhase(){
-      console.log("nextPhase");
-      this.controller.nextPhase();
     }
   },
   mounted(){
