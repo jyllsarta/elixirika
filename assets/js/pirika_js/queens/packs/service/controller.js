@@ -93,8 +93,8 @@ export class Controller {
     }
 
     const nextCondition = member.breakConditions[0];
-
-    if(new Break().isValid(this.state, this.state.board, nextCondition)){
+    const breakResult = new Break().execute(this.state, this.state.board, member, nextCondition);
+    if(breakResult){
       if(nextCondition.card){
         this.state.discard.add(nextCondition.card);
       }
@@ -110,8 +110,9 @@ export class Controller {
 
     const conditions = member.hand.asBreakConditions();
     const nextCondition = conditions.slice(-1)[0];
+    const breakResult = new Break().execute(this.state, this.state.board, member, nextCondition);
 
-    if(new Break().isValid(this.state, this.state.board, nextCondition)){
+    if(breakResult){
       const card = member.hand.cards.pop();
       this.state.discard.add(card);
       member.hand.cards.slice(-1)[0]?.reveal();

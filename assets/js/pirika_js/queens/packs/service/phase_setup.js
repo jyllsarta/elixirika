@@ -14,19 +14,19 @@ export class PhaseSetup {
     state.deck.overwriteCards(cards);
     state.deck.shuffle();
 
+    state.player.breakConditions.push(new BreakCondition("count", 10, true, null));
     state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
     state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
     state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
     state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
-    state.player.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
-    state.enemy.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
+    state.enemy.breakConditions.push(new BreakCondition("count", 10, true, null));
     state.enemy.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
     state.enemy.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
     state.enemy.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
     state.enemy.breakConditions.push(new BreakCondition("card", 1, true, state.deck.draw()));
 
-    state.enemy.breakConditions.forEach(condition => condition.card.reveal());
-    state.player.breakConditions.forEach(condition => condition.card.reveal());
+    state.enemy.breakConditions.forEach(condition => condition.card?.reveal());
+    state.player.breakConditions.forEach(condition => condition.card?.reveal());
   }
 
   nextPhase(state){

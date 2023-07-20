@@ -1,22 +1,22 @@
-import CardBreakCondition from "./break_condition/card_break_condition.js";
-
 export class Break {
-  isValid(state, board, condition){
+  // getCountReductionの結果分conditionのremainCountを減らし、0になったらtrueを返す
+  execute(state, board, member, condition){
+    const reduction = this._getCountReduction(state, board, condition);
+    if(reduction === 0){
+      return false;
+    }
+
+    condition.remainCount -= reduction;
+    return condition.remainCount <= 0;
+  }
+
+  _getCountReduction(state, board, condition){
     const card = board.cards.slice(-1)[0];
     if(!card){
       return false;
     }
 
-    const conditionModule = this.findConditionModule(condition.type);
-
-    return new conditionModule().isValid(state, board, card, condition);
-  }
-
-  findConditionModule(type){
-    const conditionModules = {
-      "card": CardBreakCondition,
-    };
-    return conditionModules[type];
+    return condition.asConditionModule().getCountReduction(state, board, card, condition);
   }
 };
 export default Break;

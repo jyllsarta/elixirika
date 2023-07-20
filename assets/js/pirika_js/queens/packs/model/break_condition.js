@@ -1,10 +1,14 @@
+import CardBreakCondition from "../service/break_condition/card_break_condition.js";
+import CountBreakCondition from "../service/break_condition/count_break_condition.js";
+
 export class BreakCondition {
-  constructor(type, value, revealed, maybeCard){
+  constructor(type, count, revealed, maybeCard){
     this.id = Math.floor(Math.random() * 1000000000);
     this.revealed = revealed;
     this.type = type;
-    this.value = value;
     this.card = maybeCard;
+    this.maxCount = count;
+    this.remainCount = count;
   }
 
   reveal(){
@@ -16,11 +20,18 @@ export class BreakCondition {
   }
 
   stringRepresentation(){
-    if(this.card && this.revealed){
-      return this.card.stringRepresentation();
-    }
-    else{
-      return "?";
+    return this.asConditionModule().stringRepresentation(this);
+  }
+  
+  asConditionModule(){
+    switch(this.type){
+      case "count":
+        return new CountBreakCondition();
+      case "card":
+        return new CardBreakCondition();
+      default:
+        console.warn("unknown type: ", this.type);
+        return null;
     }
   }
 };
