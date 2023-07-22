@@ -2,11 +2,11 @@ import CardBreakCondition from "../service/break_condition/card_break_condition.
 import CountBreakCondition from "../service/break_condition/count_break_condition.js";
 
 export class BreakCondition {
-  constructor(type, count, revealed, maybeCard){
+  constructor(type, count, revealed, card){
     this.id = Math.floor(Math.random() * 1000000000);
     this.revealed = revealed;
     this.type = type;
-    this.card = maybeCard;
+    this.card = card;
     this.maxCount = count;
     this.remainCount = count;
   }
@@ -33,6 +33,10 @@ export class BreakCondition {
         console.warn("unknown type: ", this.type);
         return null;
     }
+  }
+
+  static needsCard(type){
+    return type === "card";
   }
 };
 export default BreakCondition;

@@ -13,7 +13,7 @@ export class State {
     this.discard = new Field();
     this.board = new Field();
     this.player = new Member(true);
-    this.enemy = new Member(false);    
+    this.enemy = new Member(false, this.questId);    
     this.uiState = {
       selectSkillTarget: false,
       selectingSkillId: null,
