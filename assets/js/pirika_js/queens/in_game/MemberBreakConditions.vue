@@ -10,15 +10,22 @@
     </div>
     <div class="conditions">
       <break-condition 
-        v-for="condition in restOfConditions"
+        v-for="condition in restConditions"
         :key="condition.id"
         :condition="condition"
-        class="condition"
+        class="condition normal"
+      />
+      <break-condition 
+        v-for="condition in condencedConditions"
+        :key="condition.id"
+        :condition="condition"
+        :condenced="true"
+        class="condition condenced"
       />
     </div>
     <div class="next_condition_area">
       <break-condition 
-        class="next_condition"
+        class="condition next_condition"
         :condition="headOfCondition"
         v-if="headOfCondition"
       />
@@ -44,11 +51,19 @@ export default {
     headOfCondition(){
       return this.breakConditions[0];
     },
-    restOfConditions(){
+    // 2~4番目の条件
+    restConditions(){
       if(!this.breakConditions){
         return [];
       }
-      return this.breakConditions.slice(1);
+      return this.breakConditions.slice(1, 4);
+    },
+    // 5番目以降の条件
+    condencedConditions(){
+      if(!this.breakConditions){
+        return [];
+      }
+      return this.breakConditions.slice(4);
     },
   },
 }
@@ -66,7 +81,7 @@ export default {
   border: 1px solid $white;
   .label_area{
     width: 100%;
-    height: 10%;
+    height: 20%;
     padding: 8px;
     .label{
       width: 100%;
@@ -83,23 +98,28 @@ export default {
     width: 100%;
     height: 50%;
     display: flex;
-    justify-content: space-evenly;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    align-content: flex-end;
+    flex-direction: column-reverse;
+    padding: 8px 8px 0 8px;
     gap: 8px;
+    
     .condition{
-      width: 40px;
-      height: 40px;
       display: flex;
       justify-content: center;
       align-items: center;
       color: $white;
     }
+    .normal{
+      width: 100%;
+      height: 40px;
+    }
+    .condenced{
+      width: 100%;
+      height: 4px;
+    }
   }
   .next_condition_area{
     width: 100%;
-    height: 40%;
+    height: 30%;
     display: flex;
     justify-content: center;
     align-items: center;

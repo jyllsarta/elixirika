@@ -1,6 +1,6 @@
 <template>
   <div class="condition" :style="computedStyle">
-    {{ condition.stringRepresentation() }}
+    {{ condenced ? "" : condition.stringRepresentation() }}
   </div>
 </template>
 
@@ -11,6 +11,7 @@ export default {
   store, 
   props: {
     condition: Object,
+    condenced: Boolean,
   },
   computed: {
     computedStyle(){
@@ -36,13 +37,13 @@ export default {
 <style lang="scss" scoped>
 @import "../stylesheets/global_settings";
 .condition{
-  width: 40px;
-  height: 40px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   color: $white;
   background-color: var(--color-u3);
   border: 1px solid var(--color-u1);
+  line-height: 100%;
 }
 </style>
