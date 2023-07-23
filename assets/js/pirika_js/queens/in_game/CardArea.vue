@@ -1,13 +1,26 @@
 <template>
   <div class="card_area" v-if="state">
-    <div class="cards">
-      <card-vue
-        v-for="card in state.board.cards"
-        :key="card.id"
-        :card="card"
-        :state="state"
-        class="card"
-      />
+    <div class="container">
+      <div class="cards" v-if="condencedCards.length > 0">
+        <card-vue
+          v-for="card in condencedCards"
+          :key="card.id"
+          :card="card"
+          :state="state"
+          :condenced="true"
+          class="condenced_card"
+        />
+      </div>
+      <div class="cards flex">
+        <card-vue
+          v-for="card in normalCards"
+          :key="card.id"
+          :card="card"
+          :state="state"
+          :condenced="false"
+          class="normal_card"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -25,8 +38,21 @@ export default {
     state: Object,
     controller: Object,
   },
-  methods: {
-  }
+  computed: {
+    // cardsのうち、最新10枚は通常サイズで表示する
+    normalCards(){
+      if(!this.state.board.cards){
+        return [];
+      }
+      return this.state.board.cards.slice(-8);
+    },
+    condencedCards(){
+      if(!this.state.board.cards){
+        return [];
+      }
+      return this.state.board.cards.slice(0, -8);
+    },
+  },
 }
 </script>
 
@@ -40,19 +66,31 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  .cards{
+  .container{
     width: 100%;
     height: 100%;
     border: 1px solid $white;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    .card{
-      width: 100px;
-      height: 100px;
+    flex-direction: column;
+    .cards{
+      padding: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      .condenced_card{
+        width: 10px;
+        height: 10px;
+      }
+      .normal_card{
+        width: 100px;
+        height: 80px;
+      }
     }
+  }
+  .flex{
+    flex: 1;
   }
 }
 </style>

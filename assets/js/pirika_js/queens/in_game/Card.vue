@@ -4,7 +4,7 @@
     :class="{selectSkillTarget: selectSkillTarget}"
     :style="computedStyle"
   >
-    {{card.stringRepresentation()}}
+    {{condenced ? "" : card.stringRepresentation()}}
   </div>
 </template>
 
@@ -15,7 +15,8 @@ export default {
   store, 
   props: {
     card: Object,
-    state: Object
+    state: Object,
+    condenced: Boolean,
   },
   methods: {
     onCardClick(cardId){
