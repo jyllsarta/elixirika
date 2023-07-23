@@ -1,6 +1,6 @@
 export class CardBreakCondition {
   // このカードでいくら減るかを返す
-  getCountReduction(state, board, card, condition){
+  getCountReduction(state, board, condition, card){
     if(!condition.card){
       console.warn("condition.card is null");
       return 0;
@@ -18,8 +18,8 @@ export class CardBreakCondition {
       return 1;
     }
 
-    // コンボ数がカードの数値以上か
-    if(board.cards.length >= condition.card.n){
+    // コンボ数がカードの数値以上か(break判定時はboardにはまだcardが入っていないので+1する)
+    if(board.cards.length + 1 >= condition.card.n){
       console.log("combo matched");
       return 1;
     }

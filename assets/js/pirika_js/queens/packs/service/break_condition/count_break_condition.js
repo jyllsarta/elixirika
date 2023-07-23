@@ -1,5 +1,5 @@
 export class CountBreakCondition {
-  getCountReduction(state, board, card, condition){
+  getCountReduction(state, board, condition, card){
     return card.n;
   }
 

@@ -67,9 +67,9 @@ export class Controller {
   _doSendToBoard(card){
     // pick して移動元フィールドから消す
     this.state.player.hand.pickByCardId(card.id);
+    this._judgeAndBreak(this.state.enemy, card);
+    this._judgeAndBreakHand(this.state.enemy, card);
     this.state.board.add(card);
-    this._judgeAndBreak(this.state.enemy);
-    this._judgeAndBreakHand(this.state.enemy);
   }
 
   toggleSkillSelectMode(skillId){
@@ -82,18 +82,18 @@ export class Controller {
       return;
     }
     const card = this.state.enemy.hand.cards.pop();
+    this._judgeAndBreak(this.state.player, card);
     this.state.board.add(card);
-    this._judgeAndBreak(this.state.player);
   }
 
-  _judgeAndBreak(member){
+  _judgeAndBreak(member, card){
     if(member.breakConditions.length === 0){
       console.warn("breakConditions is empty");
       return;
     }
 
     const nextCondition = member.breakConditions[0];
-    const breakResult = new Break().execute(this.state, this.state.board, member, nextCondition);
+    const breakResult = new Break().execute(this.state, this.state.board, member, nextCondition, card);
     if(breakResult){
       if(nextCondition.card){
         this.state.discard.add(nextCondition.card);
@@ -102,7 +102,7 @@ export class Controller {
     }
   }
 
-  _judgeAndBreakHand(member){
+  _judgeAndBreakHand(member, card){
     if(member.hand.cards.length === 0){
       console.warn("hand is empty");
       return;
@@ -110,7 +110,7 @@ export class Controller {
 
     const conditions = member.hand.asBreakConditions();
     const nextCondition = conditions.slice(-1)[0];
-    const breakResult = new Break().execute(this.state, this.state.board, member, nextCondition);
+    const breakResult = new Break().execute(this.state, this.state.board, member, nextCondition, card);
 
     if(breakResult){
       const card = member.hand.cards.pop();

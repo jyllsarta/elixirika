@@ -8,6 +8,8 @@
         :card="card"
         :state="state"
         :highlights-on-skill-target="true"
+        :disabled="!canStackCard(card)"
+        :is-effective="isEffectiveCard(card)"
       />
     </div>
   </div>
@@ -16,6 +18,8 @@
 <script>
 import store from "../packs/store";
 import CardVue from "./Card.vue";
+import Stack from "../packs/service/stack";
+import Break from "../packs/service/break";
 
 export default {
   store, 
@@ -33,6 +37,26 @@ export default {
         this.$store.commit("showFragment", {name: "skill_activation", extra: {skillId: skillId}});
       }
       this.controller.selectCardByCardId(cardId);
+    },
+    canStackCard(card){
+      return new Stack().isValid(this.state, this.state.board, card);
+    },
+    isEffectiveCard(card){
+      return this.canBreakNextCondition(card) || this.canBreakNextHand(card);
+    },
+    canBreakNextCondition(card){
+      if(this.state.enemy.breakConditions.length === 0){
+        return false;
+      }
+      const nextCondition = this.state.enemy.breakConditions[0];
+      return new Break().getCountReduction(this.state, this.state.board, nextCondition, card) > 0;
+    },
+    canBreakNextHand(card){
+      const nextHandCondition = this.state.enemy.hand.asBreakConditions().slice(-1)[0];
+      if(!nextHandCondition){
+        return false;
+      }
+      return new Break().getCountReduction(this.state, this.state.board, nextHandCondition, card) > 0;
     }
   },
 }

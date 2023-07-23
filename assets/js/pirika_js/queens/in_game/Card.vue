@@ -19,6 +19,8 @@ export default {
     state: Object,
     condenced: Boolean,
     highlightsOnSkillTarget: Boolean,
+    disabled: Boolean,
+    isEffective: Boolean,
   },
   methods: {
     onCardClick(cardId){
@@ -40,6 +42,8 @@ export default {
       const style = {
         backgroundColor: `var(--color-${suit}3)`,
         border: `2px solid var(--color-${suit}1)`,
+        opacity: this.disabled ? 0.3 : 1,
+        filter: this.isEffective ? "brightness(2)" : "brightness(1)",
       };
       return style;
     },
