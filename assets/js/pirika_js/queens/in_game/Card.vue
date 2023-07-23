@@ -1,10 +1,11 @@
 <template>
-  <div class="card"
-    @click="onCardClick(card.id)"
-    :class="{selectSkillTarget: selectSkillTarget}"
-    :style="computedStyle"
-  >
-    {{condenced ? "" : card.stringRepresentation()}}
+  <div class="card" :style="frameStyle">
+    <div class="content"
+      @click="onCardClick(card.id)"
+      :style="computedStyle"
+    >
+      {{condenced ? "" : card.stringRepresentation()}}
+    </div>
   </div>
 </template>
 
@@ -17,6 +18,7 @@ export default {
     card: Object,
     state: Object,
     condenced: Boolean,
+    highlightsOnSkillTarget: Boolean,
   },
   methods: {
     onCardClick(cardId){
@@ -41,7 +43,18 @@ export default {
       };
       return style;
     },
-
+    frameStyle(){
+      const style = {
+        borderColor: this.frameColor,
+      };
+      return style;
+    },
+    frameColor(){
+      if(this.selectSkillTarget && this.highlightsOnSkillTarget){
+        return "var(--color-u1)";
+      }
+      return "transparent";
+    },
   }
 }
 </script>
@@ -52,12 +65,17 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-u3);
-  border: 2px solid var(--color-u1);
-  font-size: $font-size-large;
-
-  &.selectSkillTarget{
-    background-color: $accent1;
+  padding: 2px;
+  border: 4px solid transparent;
+  .content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-u3);
+    border: 2px solid var(--color-u1);
+    font-size: $font-size-large;
   }
 }
 </style>

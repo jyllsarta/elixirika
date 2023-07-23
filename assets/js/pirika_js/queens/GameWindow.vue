@@ -26,7 +26,7 @@ export default {
     EquipmentScene,
   },
   mounted(){
-    this.$store.commit("loadScene", {name: "menu"});
+    this.$store.commit("loadScene", {name: "in_game", questId: 201});
   },
   methods: {
   },

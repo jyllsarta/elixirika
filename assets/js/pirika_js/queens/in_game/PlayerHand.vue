@@ -7,6 +7,7 @@
         @card-click="onCardClick"
         :card="card"
         :state="state"
+        :highlights-on-skill-target="true"
       />
     </div>
   </div>
