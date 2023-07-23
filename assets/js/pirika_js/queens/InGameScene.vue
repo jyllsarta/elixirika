@@ -118,7 +118,7 @@ export default {
           }
           .table_area{
             position: relative;
-            height: 40%;
+            height: 50%;
             z-index: 200;
             border: 3px solid $accent1;
             // transforms to trapezoid

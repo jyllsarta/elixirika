@@ -1,7 +1,7 @@
 <template>
   <div class="card_area" v-if="state">
     <div class="container">
-      <div class="cards" v-if="condencedCards.length > 0">
+      <div class="cards condenced" v-if="condencedCards.length > 0">
         <card-vue
           v-for="card in condencedCards"
           :key="card.id"
@@ -73,19 +73,24 @@ export default {
     display: flex;
     flex-direction: column;
     .cards{
-      padding: 8px;
+      padding: 4px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      gap: 8px;
+      gap: 4px;
+      &.condenced{
+        padding: 4px 4px 0 4px;
+      }
       .condenced_card{
-        width: 10px;
-        height: 10px;
+        width: 20px;
+        height: 20px;
       }
       .normal_card{
-        width: 100px;
-        height: 80px;
+        width: 22%;
+        height: 35%;
+        min-width: 100px;
+        min-height: 80px;
       }
     }
   }
