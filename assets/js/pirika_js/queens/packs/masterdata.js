@@ -8,6 +8,8 @@ class Masterdata {
       "scenes",
       "skills",
       "break_conditions",
+      "shop_items",
+      "equipments",
     ];
     this.master = this.loadMasterData(titles);
     this.idTables = this.constructIdTables(titles, this.master);
