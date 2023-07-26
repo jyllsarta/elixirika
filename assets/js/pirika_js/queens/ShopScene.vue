@@ -9,19 +9,19 @@
       </div>
     </div>
     <div class="content_area">
-      <div class="content tentative_panel">
+      <div class="content">
         <div class="character tentative_panel">キャラ</div>
         <div class="main">
           <div class="information_area">
-            <div class="baloon tentative_panel">もってってー</div>
+            <div class="baloon tentative_panel">誰でも持ってる50シールドですね～。大したことないんですが、それでも2手くらいは耐えるので最低限の仕事はしますよね。</div>
             <div class="coin tentative_panel">コイン: 1111</div>
           </div>
           <div class="items">
-            <div class="item tentative_panel">1</div>
-            <div class="item tentative_panel">2</div>
-            <div class="item tentative_panel">3</div>
-            <div class="item tentative_panel">4</div>
-            <div class="item tentative_panel">5</div>
+            <shop-item-vue class="item"/>
+            <shop-item-vue class="item"/>
+            <shop-item-vue class="item"/>
+            <shop-item-vue class="item"/>
+            <shop-item-vue class="item"/>
           </div>
         </div>
       </div>
@@ -31,9 +31,13 @@
 
 <script>
 import store from "./packs/store";
+import ShopItemVue from "./ShopItem.vue";
 
 export default {
-  store, 
+  store,
+  components: {
+    ShopItemVue,
+  },
   methods: {
     loadMenu(){
       this.$store.commit("loadScene", {name: "menu"});
@@ -79,6 +83,7 @@ export default {
       max-height: 600px;
       padding: 8px;
       display: flex;
+      border: 1px dotted $white;
       .character{
         width: 30%;
         height: 100%;
