@@ -4,8 +4,8 @@
       <div class="icon tentative_panel"></div>
     </div>
     <div class="main">
-      <div class="name">50シールド</div>
-      <div class="description">数値合計50まで耐えられるシールド。</div>
+      <div class="name">{{equipment.title}}</div>
+      <div class="description">{{ equipment.description }}</div>
     </div>
     <div class="price_area">
       <div class="coin_icon tentative_panel"></div>
@@ -21,7 +21,11 @@
 import store from "./packs/store";
 
 export default {
-  store, 
+  store,
+  props: {
+    shopItem: Object,
+    equipment: Object,
+  },
 }
 </script>
 

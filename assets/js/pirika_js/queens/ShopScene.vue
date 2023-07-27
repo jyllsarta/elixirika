@@ -13,15 +13,18 @@
         <div class="character tentative_panel">キャラ</div>
         <div class="main">
           <div class="information_area">
-            <div class="baloon tentative_panel">誰でも持ってる50シールドですね～。大したことないんですが、それでも2手くらいは耐えるので最低限の仕事はしますよね。</div>
+            <div class="baloon tentative_panel">{{ currentMessage }}</div>
             <div class="coin tentative_panel">コイン: 1111</div>
           </div>
           <div class="items">
-            <shop-item-vue class="item"/>
-            <shop-item-vue class="item"/>
-            <shop-item-vue class="item"/>
-            <shop-item-vue class="item"/>
-            <shop-item-vue class="item"/>
+            <shop-item-vue
+              v-for="shopItem in shopItems"
+              :key="shopItem.id"
+              :shop-item="shopItem"
+              :equipment="equipment(shopItem.id)"
+              @mouseenter="updateCurrentShopItemId(shopItem.id)"
+              class="item"
+            />
           </div>
         </div>
       </div>
@@ -32,17 +35,39 @@
 <script>
 import store from "./packs/store";
 import ShopItemVue from "./ShopItem.vue";
+import Masterdata from "./packs/masterdata";
 
 export default {
   store,
+  data(){
+    return {
+      currentShopItemId: null,
+    }
+  },
   components: {
     ShopItemVue,
   },
   methods: {
     loadMenu(){
       this.$store.commit("loadScene", {name: "menu"});
+    },
+    equipment(shopItemId){
+      return Masterdata.getBy("equipments", "shop_id", [shopItemId])[0];
+    },
+    updateCurrentShopItemId(id){
+      console.log(id);
+      this.currentShopItemId = id;
     }
   },
+  computed: {
+    shopItems(){
+      return Masterdata.getAll("shop_items");
+    },
+    currentMessage(){
+      if(!this.currentShopItemId) return "-";
+      return Masterdata.getBy("equipments", "shop_id", [this.currentShopItemId])[0]?.message;
+    },
+  }
 }
 </script>
 
