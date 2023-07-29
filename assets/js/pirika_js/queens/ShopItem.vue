@@ -1,5 +1,5 @@
 <template>
-  <div class="item">
+  <div class="item" :class="{disabled: disabled()}">
     <div class="icon_area">
       <shop-item-icon
         :shop-item="shopItem"
@@ -15,12 +15,19 @@
       <div class="price">{{ shopItem.price }}</div>
     </div>
     <div class="buy_area">
-      <div class="buy_button tentative_button">買う</div>
+      <div 
+        class="buy_button tentative_button"
+        @click="buy"
+        :class="{disabled: !canBuy()}"
+      >
+        買う
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Savedata from './packs/savedata';
 import store from "./packs/store";
 import ShopItemIcon from "./ShopItemIcon.vue";
 
@@ -33,6 +40,29 @@ export default {
     shopItem: Object,
     equipment: Object,
   },
+  methods: {
+    canBuy(){
+      //お金足りてるか
+      if(Savedata.coin() < this.shopItem.price){
+        return false;
+      }
+      //すでに所持済みか
+      if(Savedata.hasShopItem(this.shopItem.id)){
+        return false;
+      }
+      return true;
+    },
+    buy(){
+      if(!this.canBuy()){
+        return;
+      }
+      Savedata.buyShopItem(this.shopItem.price, this.shopItem.id);
+      this.$emit("buy");
+    },
+    disabled(){
+      return !this.canBuy();
+    },
+  },
 }
 </script>
 
@@ -41,6 +71,9 @@ export default {
 .item{
   display: flex;
   border: 1px dotted $white;
+  &.disabled{
+    opacity: 0.5;
+  }
   .icon_area{
     width: 20%;
     display: flex;

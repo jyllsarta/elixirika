@@ -12,6 +12,24 @@ export class Savedata {
     this.write(this.init());
   }
 
+  static coin(){
+    return new this().get().coin;
+  }
+
+  static hasShopItem(shopItemId){
+    return new this().get().shopItems?.[shopItemId];
+  }
+
+  static buyShopItem(coin, shopItemId){
+    let save = new this().get();
+    save.coin -= coin;
+    if(!save.shopItems){
+      save.shopItems = {};
+    }
+    save.shopItems[shopItemId] = true;
+    new this().write(save);
+  }
+
   static isWin(questId){
     let save = new this().get();
     let questStatus = save.quests[questId];
@@ -44,6 +62,8 @@ export class Savedata {
       quests: {
       },
       coin: 100,
+      shopItems: {        
+      }
     }
   }
 };

@@ -16,7 +16,7 @@
         <div class="main">
           <div class="information_area">
             <div class="baloon tentative_panel">{{ currentScript }}</div>
-            <div class="coin tentative_panel">コイン: 1111</div>
+            <div class="coin tentative_panel">コイン: {{ coin() }}</div>
           </div>
           <div class="items">
             <shop-item-vue
@@ -25,6 +25,7 @@
               :shop-item="shopItem"
               :equipment="equipment(shopItem.id)"
               @mouseenter="updateCurrentShopItemId(shopItem.id)"
+              @buy="onBuy(shopItem.id)"
               class="item"
             />
           </div>
@@ -38,6 +39,7 @@
 import store from "./packs/store";
 import ShopItemVue from "./ShopItem.vue";
 import Masterdata from "./packs/masterdata";
+import Savedata from "./packs/savedata";
 
 export default {
   store,
@@ -68,11 +70,26 @@ export default {
     },
     onCharacterClick(){
       const characterId = 90;
-      const scripts = Masterdata.getBy("character_scripts", "character_id", [characterId]).sort((a, b) => a.order - b.order);
+      const scripts = Masterdata
+                        .getBy("character_scripts", "character_id", [characterId])
+                        .filter(script => script.when == "click")
+                        .sort((a, b) => a.order - b.order);
       const script = scripts[this.clickCount % scripts.length];
       this.currentScript = script.message;
       this.clickCount++;
-    }
+    },
+    onBuy(shopItemId){
+      // NOTE: 地味にこのcurrentScriptの更新による再計算によって、ShopItemのdisabledが更新される
+      // ここで再計算が走らないと、買った後になにかupdateCurrentShopItemIdが呼ばれる用事が発生するまでdisabledが更新されない
+      const characterId = 90;
+      const script = Masterdata
+                      .getBy("character_scripts", "character_id", [characterId])
+                      .filter(script => script.when == "buy")[0];
+      this.currentScript = script.message;
+    },
+    coin(){
+      return Savedata.coin();
+    },
   },
   computed: {
     shopItems(){
