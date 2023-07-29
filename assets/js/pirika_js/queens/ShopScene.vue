@@ -56,7 +56,11 @@ export default {
       this.$store.commit("loadScene", {name: "menu"});
     },
     equipment(shopItemId){
-      return Masterdata.getBy("equipments", "shop_id", [shopItemId])[0];
+      const equipment = Masterdata.getBy("equipments", "shop_id", [shopItemId])[0];
+      if(!equipment){
+        console.warn("equipment not found", shopItemId);
+      }
+      return equipment;
     },
     updateCurrentShopItemId(id){
       this.currentShopItemId = id;

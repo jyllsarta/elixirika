@@ -6,14 +6,13 @@
     </div>
     <right-main-area-vue class="right_main_area" :state="state" :controller="controller"/>
     <div class="skills">
-      <div class="skill tentative_panel"
-        @click="onSkillClick(skillId)"
-        :class="{disabled: !canInvokeSkill(skillId)}"
+      <skill-icon-vue 
         v-for="skillId in playerSkillIds()"
         :key="skillId"
-      >
-        {{skill(skillId).name}}({{skill(skillId).cost}})
-      </div>
+        :skill="skill(skillId)"
+        :disabled="!canInvokeSkill(skillId)"
+        @click="onSkillClick(skillId)"
+      />
     </div>
   </div>
 </template>
@@ -23,11 +22,13 @@ import Masterdata from '../packs/masterdata';
 import SkillFacade from '../packs/service/skill_facade';
 import store from "../packs/store";
 import RightMainAreaVue from './RightMainArea.vue';
+import SkillIconVue from './SkillIcon.vue';
 
 export default {
   store, 
   components: {
     RightMainAreaVue,
+    SkillIconVue,
   },
   props: {
     state: Object,
@@ -83,9 +84,6 @@ export default {
     .skill{
       width: 150px;
       height: 80px;
-      &.disabled{
-        opacity: 0.5;
-      }
     }
   }
   .right_main_area{

@@ -1,7 +1,10 @@
 <template>
   <div class="item">
     <div class="icon_area">
-      <div class="icon tentative_panel"></div>
+      <shop-item-icon
+        :shop-item="shopItem"
+        :equipment="equipment"
+      />
     </div>
     <div class="main">
       <div class="name">{{equipment.title}}</div>
@@ -9,7 +12,7 @@
     </div>
     <div class="price_area">
       <div class="coin_icon tentative_panel"></div>
-      <div class="price">5</div>
+      <div class="price">{{ shopItem.price }}</div>
     </div>
     <div class="buy_area">
       <div class="buy_button tentative_button">買う</div>
@@ -19,9 +22,13 @@
 
 <script>
 import store from "./packs/store";
+import ShopItemIcon from "./ShopItemIcon.vue";
 
 export default {
   store,
+  components: {
+    ShopItemIcon,
+  },
   props: {
     shopItem: Object,
     equipment: Object,
@@ -35,13 +42,13 @@ export default {
   display: flex;
   border: 1px dotted $white;
   .icon_area{
-    width: 15%;
+    width: 20%;
     display: flex;
     align-items: center;
     justify-content: center;
     .icon{
-      width: 64px;
-      height: 64px;
+      width: 120px;
+      height: 80px;
     }
   }
   .main{
@@ -66,8 +73,8 @@ export default {
     gap: 8px;
     align-items: center;
     .coin_icon{
-      width: 64px;
-      height: 64px;
+      width: 48px;
+      height: 48px;
     }
     .price{
       font-size: $font-size-large;
