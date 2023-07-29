@@ -1,5 +1,12 @@
+import Masterdata from "./masterdata.js"
+
 export class Savedata {
   get(){
+    // 開発環境なら自身をwindow.saveに入れる
+    if(process.env.NODE_ENV === "development"){
+      window.save = this;
+    }
+        
     const save = localStorage.queens_savedata;
     return save ? JSON.parse(save) : this.init();
   }
@@ -10,6 +17,25 @@ export class Savedata {
 
   reset(){
     this.write(this.init());
+  }
+
+  unlockAll(){
+    let save = this.get();
+    const shopItems = Masterdata.getAll("shop_items");
+    save.shopItems = {};
+    for(let shopItem of shopItems){
+      save.shopItems[shopItem.id] = true;
+    }
+
+    save.quests = {};
+    const quests = Masterdata.getAll("quests");
+    for(let quest of quests){
+      save.quests[quest.id] = {win: 1, lose: 1};
+    }
+
+    save.coin = 9999;
+
+    this.write(save);
   }
 
   static coin(){
