@@ -10,7 +10,9 @@
     </div>
     <div class="content_area">
       <div class="content">
-        <div class="character tentative_panel">キャラ</div>
+        <div class="character">
+          <img src="images/queens/characters/character90_1.png" class="character_image">
+        </div>
         <div class="main">
           <div class="information_area">
             <div class="baloon tentative_panel">{{ currentMessage }}</div>
@@ -112,6 +114,11 @@ export default {
       .character{
         width: 30%;
         height: 100%;
+        overflow: hidden;
+        .character_image{
+          width: 130%;
+          transform: translateX(-10%);
+        }
       }
       .main{
         width: 70%;
