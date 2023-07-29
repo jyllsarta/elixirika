@@ -10,12 +10,12 @@
     </div>
     <div class="content_area">
       <div class="content">
-        <div class="character">
+        <div class="character" @click="onCharacterClick">
           <img src="images/queens/characters/character90_1.png" class="character_image">
         </div>
         <div class="main">
           <div class="information_area">
-            <div class="baloon tentative_panel">{{ currentMessage }}</div>
+            <div class="baloon tentative_panel">{{ currentScript }}</div>
             <div class="coin tentative_panel">コイン: 1111</div>
           </div>
           <div class="items">
@@ -44,6 +44,8 @@ export default {
   data(){
     return {
       currentShopItemId: null,
+      currentScript: "-",
+      clickCount: 0,
     }
   },
   components: {
@@ -57,17 +59,20 @@ export default {
       return Masterdata.getBy("equipments", "shop_id", [shopItemId])[0];
     },
     updateCurrentShopItemId(id){
-      console.log(id);
       this.currentShopItemId = id;
+      this.currentScript = Masterdata.getBy("equipments", "shop_id", [this.currentShopItemId])[0]?.message;
+    },
+    onCharacterClick(){
+      const characterId = 90;
+      const scripts = Masterdata.getBy("character_scripts", "character_id", [characterId]).sort((a, b) => a.order - b.order);
+      const script = scripts[this.clickCount % scripts.length];
+      this.currentScript = script.message;
+      this.clickCount++;
     }
   },
   computed: {
     shopItems(){
       return Masterdata.getAll("shop_items");
-    },
-    currentMessage(){
-      if(!this.currentShopItemId) return "-";
-      return Masterdata.getBy("equipments", "shop_id", [this.currentShopItemId])[0]?.message;
     },
   }
 }

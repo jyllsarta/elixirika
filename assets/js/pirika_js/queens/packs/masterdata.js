@@ -10,6 +10,7 @@ class Masterdata {
       "break_conditions",
       "shop_items",
       "equipments",
+      "character_scripts",
     ];
     this.master = this.loadMasterData(titles);
     this.idTables = this.constructIdTables(titles, this.master);
