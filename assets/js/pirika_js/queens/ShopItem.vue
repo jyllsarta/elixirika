@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import Masterdata from './packs/masterdata';
 import Savedata from './packs/savedata';
 import store from "./packs/store";
 import ShopItemIcon from "./ShopItemIcon.vue";
@@ -60,6 +61,10 @@ export default {
       if(Savedata.hasShopItem(this.shopItem.id)){
         return false;
       }
+      //前提クエストをクリアしているか
+      if(this.shopItem.quest_id && !Savedata.isWin(this.shopItem.quest_id)){
+        return false;
+      }
       return true;
     },
     buy(){
@@ -78,6 +83,11 @@ export default {
       }
       if(Savedata.coin() < this.shopItem.price){
         return "お金が足りません";
+      }
+      if(this.shopItem.quest_id && !Savedata.isWin(this.shopItem.quest_id)){
+        const quest = Masterdata.get("quests", this.shopItem.quest_id);
+        const characterName = Masterdata.get("characters", quest.character_id).name;
+        return `${characterName} の ${quest.name} をクリアで入荷`;
       }
       return "";
     }
