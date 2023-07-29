@@ -1,6 +1,8 @@
 <template>
   <div class="coin">
-    <div class="outer_rhombus" />
+    <div class="border">
+      <div class="outer_rhombus" />
+    </div>
     <div class="inner_rhombus" />
     <div class="cross">
       <div class="line1">
@@ -31,22 +33,25 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-  //outer_rhombusは縦に長いひし形に変形し、30度傾くようにtransform指定されてる
-  .outer_rhombus{
+  .border{
     width: 100%;
     height: 100%;
     position: absolute;
-    transform: skewY(-30deg) scale(0.7);
-    background-color: rgb(88, 232, 174);
-    border: 2px solid rgb(255, 252, 70);
-    border-radius: 4px;
+    border: 2px solid rgb(253, 255, 187);
+    transform: skewY(-30deg) scale(0.75);
+    .outer_rhombus{
+      width: 100%;
+      height: 100%;
+      background-color: rgb(0, 200, 159);
+      border: 2px solid rgb(0, 0, 0);
+    }
   }
   .inner_rhombus{
     width: 100%;
     height: 100%;
     position: absolute;
     transform: skewY(-30deg) scale(0.5);
-    background-color: rgb(45, 126, 93);
+    background-color: rgb(0, 101, 87);
   }
   .cross{
     width: 100%;
@@ -64,7 +69,7 @@ export default {
       .line{
         width: 100%;
         height: 1px;
-        background-color: rgb(255, 255, 255);
+        background-color: rgb(0, 0, 0);
       }
     }
     .line2{
@@ -78,7 +83,7 @@ export default {
       .line{
         width: 100%;
         height: 2px;
-        background-color: rgb(255, 255, 255);
+        background-color: rgb(0, 0, 0);
       }
     }
   }
