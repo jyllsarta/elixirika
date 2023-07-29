@@ -12,7 +12,7 @@
         <div class="description">{{ equipment.description }}</div>
       </div>
       <div class="price_area">
-        <div class="coin_icon tentative_panel"></div>
+        <coin-icon-vue class="coin_icon"/>
         <div class="price">{{ shopItem.price }}</div>
       </div>
       <div class="buy_area">
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import CoinIconVue from './CoinIcon.vue';
 import Masterdata from './packs/masterdata';
 import Savedata from './packs/savedata';
 import store from "./packs/store";
@@ -46,6 +47,7 @@ export default {
   store,
   components: {
     ShopItemIcon,
+    CoinIconVue,
   },
   props: {
     shopItem: Object,

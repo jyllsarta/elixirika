@@ -16,7 +16,11 @@
         <div class="main">
           <div class="information_area">
             <div class="baloon tentative_panel">{{ currentScript }}</div>
-            <div class="coin tentative_panel">コイン: {{ coin() }}</div>
+            <div class="coin_area">
+              <div class="label">所持</div>
+              <coin-icon-vue class="coin_icon"/>
+              <div class="coin"> : {{ coin() }}</div>
+            </div>
           </div>
           <div class="items">
             <shop-item-vue
@@ -40,6 +44,7 @@ import store from "./packs/store";
 import ShopItemVue from "./ShopItem.vue";
 import Masterdata from "./packs/masterdata";
 import Savedata from "./packs/savedata";
+import CoinIconVue from "./CoinIcon.vue";
 
 export default {
   store,
@@ -52,6 +57,7 @@ export default {
   },
   components: {
     ShopItemVue,
+    CoinIconVue,
   },
   methods: {
     loadMenu(){
@@ -161,9 +167,23 @@ export default {
             width: 50%;
             height: 100%;
           }
-          .coin{
+          .coin_area{
             width: 50%;
             height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            .label{
+              line-height: 100%;
+            }
+            .coin_icon{
+              width: 40px;
+              height: 40px;
+            }
+            .coin{
+              line-height: 100%;
+            }
           }
         }
         .items{

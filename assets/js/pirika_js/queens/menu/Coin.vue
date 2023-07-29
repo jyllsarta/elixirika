@@ -1,8 +1,6 @@
 <template>
-  <div class="coin">
-    <div class="label">
-      所持コイン
-    </div>
+  <div class="coin_area">
+    <coin-icon-vue class="coin_icon"/>
     <div class="value">
       {{saveData().coin}}
     </div>
@@ -12,9 +10,13 @@
 <script>
 import store from "../packs/store";
 import Savedata from '../packs/savedata';
+import CoinIconVue from '../CoinIcon.vue';
 
 export default {
   store, 
+  components: {
+    CoinIconVue,
+  },
   methods: {
     saveData(){
       return new Savedata().get();
@@ -25,18 +27,18 @@ export default {
 
 <style lang="scss" scoped>
 @import "../stylesheets/global_settings";
-.coin{
+.coin_area{
   width: 100px;
   height: 100px;
   border: 1px dotted $white;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
   line-height: 100%;
-  .label{
-    font-size: $font-size-mini;
+  .coin_icon{
+    width: 40px;
+    height: 40px;
   }
   .value{
     font-size: $font-size-large;
