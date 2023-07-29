@@ -96,5 +96,21 @@ export class SkillFacade {
       state.player.hand.cards.forEach(card => card.reveal());
     }
   }
+
+  validate_flush(state, member, skill, maybeCardId, effectValue){
+    if(state.player.hand.cards.length === 0){
+      return false;
+    }
+    return true;
+  }
+
+  flush(state, member, skill, maybeCardId, effectValue){
+    //memberの手札をすべて捨て、山札から同じ枚数だけ引く
+    const cardCount = member.hand.cards.length;
+    member.hand.sendAllCardsTo(state.discard);
+    const drawnCards = state.deck.drawMany(cardCount);
+    member.hand.addMany(drawnCards);
+    member.hand.cards.forEach(card => card.reveal());
+  }
 };
 export default SkillFacade;
