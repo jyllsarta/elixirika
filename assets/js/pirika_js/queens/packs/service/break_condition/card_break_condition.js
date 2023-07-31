@@ -29,8 +29,7 @@ export class CardBreakCondition {
 
   stringRepresentation(condition){
     if(!condition.card){
-      console.warn("condition.card is null");
-      return "";
+      return "X";
     }
     return condition.card.stringRepresentation();
   }

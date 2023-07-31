@@ -9,9 +9,22 @@
         <div class="name">
           {{character().name}}
         </div>
-        <div class="description1" v-html="profile()"/>
+        <div class="description1" v-html="character().profile"/>
         <div class="description2">
           {{currentQuest().description}}
+        </div>
+        <div class="break_conditions">
+          <div class="header">
+            クエスト条件
+          </div>
+          <div class="conditions">
+            <break-condition-vue 
+              v-for="breakCondition in currentBreakConditions()"
+              :condition="breakCondition"
+              :key="breakCondition.id"
+              class="condition"
+            />
+          </div>
         </div>
       </div>
       <div class="controls">
@@ -24,7 +37,29 @@
         </div>
         <quest-list-vue class="quests" :characterId="characterId" :selectedQuestId="questId" @selectQuest="selectQuest"/>
         <div class="tentative_button start" @click="startQuest">
-          START
+          <div class="text">
+            START
+          </div>
+          <div class="rewards">
+            <div class="reward win">
+              <div class="label">
+                WIN: 
+              </div>
+              <coin-icon-vue class="coin_icon"/>
+              <div class="value">
+                +{{currentQuest().win_coin}}
+              </div>
+            </div>
+            <div class="reward lose">
+              <div class="label">
+                LOSE: 
+              </div>
+              <coin-icon-vue class="coin_icon"/>
+              <div class="value">
+                -{{currentQuest().lose_coin}}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -36,12 +71,17 @@ import Masterdata from '../queens/packs/masterdata';
 import store from "./packs/store";
 import QuestListVue from './QuestList.vue';
 import SceneListVue from './SceneList.vue';
+import CoinIconVue from './CoinIcon.vue';
+import BreakConditionVue from "./in_game/BreakCondition.vue";
+import BreakCondition from './packs/model/break_condition';
 
 export default {
   store, 
   components: {
     QuestListVue,
-    SceneListVue
+    SceneListVue,
+    CoinIconVue,
+    BreakConditionVue,
   },
   props: {
     characterId: Number,
@@ -79,6 +119,13 @@ export default {
         return {};
       }
       return this.quests().find(quest => quest.id == this.questId);
+    },
+    currentBreakConditions(){
+      const quest = this.currentQuest();
+      const breakConditionMasters = Masterdata.getBy("break_conditions", "quest_id", [quest.id]).sort((a, b) => a.order - b.order);
+      return breakConditionMasters.map(breakConditionMaster => {
+        return new BreakCondition(breakConditionMaster.type, breakConditionMaster.count, true, null);
+      });
     },
   },
   mounted(){
@@ -147,21 +194,45 @@ export default {
         width: 100%;
         padding: 4px;
       };
+      .break_conditions{
+        flex: 1;
+        width: 100%;
+        height: 20%;
+        .conditions{
+          width: 100%;
+          height: 80%;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          padding: 8px;
+          gap: 4px;
+          flex-wrap: wrap;
+          .condition{
+            width: calc(20% - 4px);
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
     }
-    .controls{
-      width: 35%;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding: 8px;
-      .header{
+    .header{
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         border-bottom: 1px dotted $white;
         padding: 4px;
-      }
+    }
+
+    .controls{
+      width: 35%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 8px;
+
       .scenes{
         width: 100%;
         height: 45%;
@@ -175,6 +246,31 @@ export default {
       .start{
         flex: 1;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        .rewards{
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          width: 100%;
+          .reward{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            .coin_icon{
+              width: 40px;
+              height: 40px;
+            }
+            &.win{
+              color: $plus;
+            }
+            &.lose{
+              color: $minus;
+            }
+          }
+        }
       }
     }
   }
