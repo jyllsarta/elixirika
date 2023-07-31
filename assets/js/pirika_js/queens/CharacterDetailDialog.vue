@@ -15,7 +15,7 @@
         </div>
         <div class="break_conditions">
           <div class="header">
-            クエスト条件
+            チャプター条件
           </div>
           <div class="conditions">
             <break-condition-vue 
