@@ -20,10 +20,6 @@ import store from "./packs/store";
 
 export default {
   store, 
-  props: {
-    disabled: Boolean,
-    skill: Object,
-  },
 }
 </script>
 
