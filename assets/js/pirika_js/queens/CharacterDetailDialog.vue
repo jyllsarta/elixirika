@@ -36,9 +36,15 @@
           チャプター
         </div>
         <quest-list-vue class="quests" :characterId="characterId" :selectedQuestId="questId" @selectQuest="selectQuest"/>
-        <div class="tentative_button start" @click="startQuest">
+        <div class="tentative_button start" @click="startQuest" :class="{disabled: !canStartQuest()}">
           <div class="text">
-            START
+            <div class="label">
+              START
+            </div>
+            <coin-icon-vue class="coin_icon"/>
+            <div class="value">
+              -{{currentQuest().lose_coin}}
+            </div>
           </div>
           <div class="rewards">
             <div class="reward win">
@@ -50,15 +56,6 @@
                 +{{currentQuest().win_coin}}
               </div>
             </div>
-            <div class="reward lose">
-              <div class="label">
-                LOSE: 
-              </div>
-              <coin-icon-vue class="coin_icon"/>
-              <div class="value">
-                -{{currentQuest().lose_coin}}
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -67,7 +64,8 @@
 </template>
 
 <script>
-import Masterdata from '../queens/packs/masterdata';
+import Masterdata from './packs/masterdata';
+import Savedata from './packs/savedata';
 import store from "./packs/store";
 import QuestListVue from './QuestList.vue';
 import SceneListVue from './SceneList.vue';
@@ -96,6 +94,7 @@ export default {
       this.$emit("close");
     },
     startQuest(){
+      Savedata.consumeCoin(this.currentQuest().lose_coin);
       this.$store.commit("loadScene", {name: "in_game", questId: this.questId});
     },
     openScene(sceneId){
@@ -127,6 +126,10 @@ export default {
         return new BreakCondition(breakConditionMaster.type, breakConditionMaster.count, true, null);
       });
     },
+    canStartQuest(){
+      const quest = this.currentQuest();
+      return Savedata.coin() >= quest.lose_coin;
+    }
   },
   mounted(){
     // TODO: 未クリアの次を自動選択
@@ -250,6 +253,17 @@ export default {
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+        .text{
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 8px;
+          .coin_icon{
+            width: 40px;
+            height: 40px;
+          }
+        }
         .rewards{
           display: flex;
           justify-content: space-around;
@@ -265,9 +279,6 @@ export default {
             }
             &.win{
               color: $plus;
-            }
-            &.lose{
-              color: $minus;
             }
           }
         }

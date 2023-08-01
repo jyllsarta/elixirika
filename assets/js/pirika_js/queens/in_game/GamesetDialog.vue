@@ -11,6 +11,12 @@
       <div class="script">
         {{ state.isWin() ? quest?.win_script : quest?.lose_script }}
       </div>
+      <div class="reward">
+        <coin-icon-vue class="coin_icon"/>
+        <div class="value">
+          +{{ quest?.win_coin }}
+        </div>
+      </div>
       <div class="close">
         <div class="button" @click="backToMenu">
           メニューに戻る
@@ -25,16 +31,22 @@ import State from "../packs/model/state";
 import Savedata from '../packs/savedata';
 import store from '../packs/store';
 import Masterdata from '../packs/masterdata';
+import CoinIconVue from '../CoinIcon.vue';
 
 export default {
   store,
+  components: {
+    CoinIconVue,
+  },
   props: {
     state: State,
   },
   methods: {
     backToMenu(){
       const result = this.state.isWin();
-      Savedata.writeQuestResult(this.state.questId, result);
+      // 勝利時には入場料も返却される
+      const rewardCoin = this.quest.win_coin + this.quest.lose_coin;
+      Savedata.writeQuestResult(this.state.questId, result, rewardCoin);
       this.$store.commit("loadScene", {name: "menu"});
     }
   },
@@ -58,17 +70,17 @@ export default {
 
   .content{
     position: absolute;
-    top: 20%;
-    left: 20%;
-    height: 60%;
-    width: 60%;
+    top: 15%;
+    left: 15%;
+    height: 70%;
+    width: 70%;
     background-color: $bg3;
     border: 2px solid $base2;
     .title{
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 20%;
+      height: 15%;
       font-size: $font-size-large;
     }
     .character{
@@ -87,11 +99,25 @@ export default {
       width: 100%;
       text-align: center;
     }
+
+    .reward{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 10%;
+      .coin_icon{
+        width: 40px;
+        height: 40px;
+      }
+      .value{
+        font-size: $font-size-large;
+      }
+    }
     .close{
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 20%;
+      height: 15%;
       .button{
         border: 1px solid $base2;
         padding: 20px;

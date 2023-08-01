@@ -38,8 +38,20 @@ export class Savedata {
     this.write(save);
   }
 
+  set(afterObject){
+    let save = this.get();
+    Object.assign(save, afterObject);
+    this.write(save);
+  }
+
   static coin(){
     return new this().get().coin;
+  }
+
+  static consumeCoin(coin){
+    let save = new this().get();
+    save.coin -= coin;
+    new this().write(save);
   }
 
   static hasShopItem(shopItemId){
@@ -70,14 +82,16 @@ export class Savedata {
     return questIds.filter((questId) => save.quests[questId]?.lose > 0).length;
   }
 
-  static writeQuestResult(questId, isWin){
+  static writeQuestResult(questId, isWin, rewardCoin){
     let save = new this().get();
     let questStatus = save.quests[questId] || {win: 0, lose: 0};
     if(isWin){
       questStatus.win++;
+      save.coin += rewardCoin;
     }
     else{
       questStatus.lose++;
+      // 敗北時のコインは入場タイミングで支払済
     }
     save.quests[questId] = questStatus;
     new this().write(save);
