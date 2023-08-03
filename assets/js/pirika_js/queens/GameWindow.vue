@@ -26,7 +26,7 @@ export default {
     EquipmentScene,
   },
   mounted(){
-    this.$store.commit("loadScene", {name: "shop"});
+    this.$store.commit("loadScene", {name: "equipment"});
   },
   methods: {
   },

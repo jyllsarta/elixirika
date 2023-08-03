@@ -1,6 +1,6 @@
 <template>
   <div class="skill tentative_button" :class="{disabled: disabled}">
-    {{skill.name}}({{skill.cost}})
+    {{ stringRepresentation }}
   </div>
 </template>
 
@@ -13,6 +13,14 @@ export default {
     disabled: Boolean,
     skill: Object,
   },
+  computed: {
+    stringRepresentation(){
+      if(this.skill.is_instant){
+        return this.skill.name;
+      }
+      return this.skill.name + "(" + this.skill.cost + ")";
+    }
+  }
 }
 </script>
 

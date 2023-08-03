@@ -18,14 +18,14 @@
             <div class="baloon tentative_panel">せりふー</div>
             <div class="detail">
               <div class="item_area">
-                <div class="item tentative_panel">[20]</div>
+                <item-icon-vue class="equipment_icon" :equipment="currentEquipment" />
               </div>
               <div class="description_area">
                 <div class="name">
-                  高級70シールド
+                  {{ currentEquipment.title }}
                 </div>
                 <div class="description">
-                  ターゲット / 数値合計70まで耐えられるシールド。高級。
+                  {{ currentEquipment.description }}
                 </div>
               </div>
             </div>
@@ -80,11 +80,12 @@
                 </div>
               </div>
               <div class="stocks">
-                <div class="stock">[44]</div>
-                <div class="stock">[44]</div>
-                <div class="stock">[44]</div>
-                <div class="stock">[44]</div>
-                <div class="stock">[44]</div>
+                <item-icon-vue
+                  class="equipment_icon"
+                  v-for="equipment in stockEquipments"
+                  :key="equipment.id"
+                  :equipment="equipment"
+                />
               </div>
             </div>
           </div>
@@ -98,9 +99,26 @@
 import store from "./packs/store";
 import Masterdata from "./packs/masterdata";
 import Savedata from "./packs/savedata";
+import ItemIconVue from "./ItemIcon.vue";
 
 export default {
   store,
+  components: {
+    ItemIconVue,
+  },
+  data(){
+    return {
+      currentEquipmentId: 1,
+    }
+  },
+  computed: {
+    currentEquipment(){
+      return Masterdata.get("equipments", this.currentEquipmentId);
+    },
+    stockEquipments(){
+      return Masterdata.getAll("equipments");
+    },
+  },
   methods: {
     loadMenu(){
       this.$store.commit("loadScene", {name: "menu"});
@@ -178,14 +196,12 @@ export default {
             .item_area{
               width: 30%;
               height: 100%;
-              border-right: 1px dotted $white;
               display: flex;
               justify-content: center;
               align-items: center;
-              .item{
-                width: 80%;
-                height: 80%;
-                border: 1px dotted $white;
+              .equipment_icon{
+                width: 120px;
+                height: 80px;
               }
             }
             .description_area{
@@ -194,6 +210,7 @@ export default {
               display: flex;
               flex-direction: column;
               justify-content: space-evenly;
+              padding: 8px;
               .name{
                 width: 100%;
                 font-size: $font-size-large;
@@ -286,10 +303,9 @@ export default {
             align-content: flex-start;
             gap: 8px;
             padding: 8px;
-            .stock{
+            .equipment_icon{
               width: calc(50% - 4px);
               height: 84px;
-              border: 1px dotted $white;
             }
           }
         }

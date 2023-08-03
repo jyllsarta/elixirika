@@ -1,7 +1,8 @@
 <template>
-  <div class="icon tentative_panel">
+  <div class="icon">
     <break-condition-vue :condition="breakCondition" class="content" v-if="equipment.type == 'break_condition'" />
     <skill-icon-vue :skill="skill" class="content" v-if="equipment.type == 'skill'" />
+    <skill-icon-vue :skill="skill" class="content" v-if="equipment.type == 'instant'" />
   </div>
 </template>
 

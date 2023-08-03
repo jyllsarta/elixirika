@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="item">
       <div class="icon_area">
-        <shop-item-icon
+        <item-icon
           :shop-item="shopItem"
           :equipment="equipment"
         />
@@ -41,12 +41,12 @@ import CoinIconVue from './CoinIcon.vue';
 import Masterdata from './packs/masterdata';
 import Savedata from './packs/savedata';
 import store from "./packs/store";
-import ShopItemIcon from "./ShopItemIcon.vue";
+import ItemIcon from "./ItemIcon.vue";
 
 export default {
   store,
   components: {
-    ShopItemIcon,
+    ItemIcon,
     CoinIconVue,
   },
   props: {
