@@ -44,9 +44,13 @@
                     <div class="description">メイン盾</div>
                   </div>
                   <div class="equipments">
-                    <div class="equipment tentative_panel">[20]</div>
-                    <div class="equipment tentative_panel">[20]</div>
-                    <div class="equipment tentative_panel">[20]</div>
+                    <item-icon-vue
+                      class="equipment"
+                      v-for="equipment in targets"
+                      :key="equipment.id"
+                      :equipment="equipment"
+                      @mouseenter="currentEquipmentId = equipment.id"
+                    />
                   </div>
                 </div>
                 <div class="equipment_part">
@@ -55,9 +59,13 @@
                     <div class="description">バトル中にMPを使って発動</div>
                   </div>
                   <div class="equipments">
-                    <div class="equipment tentative_panel">[20]</div>
-                    <div class="equipment tentative_panel">[20]</div>
-                    <div class="equipment tentative_panel">[20]</div>
+                    <item-icon-vue
+                      class="equipment"
+                      v-for="equipment in skills"
+                      :key="equipment.id"
+                      :equipment="equipment"
+                      @mouseenter="currentEquipmentId = equipment.id"
+                    />
                   </div>
                 </div>
                 <div class="equipment_part">
@@ -66,9 +74,13 @@
                     <div class="description">パッシブ効果</div>
                   </div>
                   <div class="equipments">
-                    <div class="equipment tentative_panel">[20]</div>
-                    <div class="equipment tentative_panel">[20]</div>
-                    <div class="equipment tentative_panel">[20]</div>
+                    <item-icon-vue
+                      class="equipment"
+                      v-for="equipment in instants"
+                      :key="equipment.id"
+                      :equipment="equipment"
+                      @mouseenter="currentEquipmentId = equipment.id"
+                    />
                   </div>
                 </div>
               </div>
@@ -82,9 +94,10 @@
               <div class="stocks">
                 <item-icon-vue
                   class="equipment_icon"
-                  v-for="equipment in stockEquipments"
+                  v-for="equipment in stocks"
                   :key="equipment.id"
                   :equipment="equipment"
+                  @mouseenter="currentEquipmentId = equipment.id"
                 />
               </div>
             </div>
@@ -109,14 +122,30 @@ export default {
   data(){
     return {
       currentEquipmentId: 1,
+      maxSlot: 3,
     }
   },
   computed: {
     currentEquipment(){
       return Masterdata.get("equipments", this.currentEquipmentId);
     },
-    stockEquipments(){
+    allEquipments(){
       return Masterdata.getAll("equipments");
+    },
+    stocks(){
+      return this.allEquipments.filter(equip=> !this.targets.includes(equip) && !this.skills.includes(equip) && !this.instants.includes(equip));
+    },
+    targets(){
+      const save = new Savedata().get().equipments.targets;
+      return this.allEquipments.filter(equip=> save.includes(equip.id));
+    },
+    skills(){
+      const save = new Savedata().get().equipments.skills;
+      return this.allEquipments.filter(equip=> save.includes(equip.id));
+    },
+    instants(){
+      const save = new Savedata().get().equipments.instants;
+      return this.allEquipments.filter(equip=> save.includes(equip.id));
     },
   },
   methods: {
