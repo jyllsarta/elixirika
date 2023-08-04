@@ -103,6 +103,11 @@ export class Savedata {
       },
       coin: 100,
       shopItems: {        
+      },
+      equipments: {
+        targets: [1, 4],
+        skills: [2, 6],
+        instants: [3],
       }
     }
   }
