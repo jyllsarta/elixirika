@@ -126,7 +126,7 @@ export default {
   data(){
     return {
       currentEquipmentId: 1,
-      maxSlot: 2,
+      maxSlot: 3,
       dataWatcher: 1,
     }
   },
@@ -137,19 +137,33 @@ export default {
     allEquipmentsMap(){
       // dataWatcherに依存していることにして、セーブデータの変更を検知する
       this.dataWatcher++;
-      // TODO: 未所持の装備を除外する
       return Masterdata.getAllMap("equipments");
     },
     stocks(){
       // stocks は すべての装備から targets, skills, instants を除いたもの
       const save = new Savedata().get().equipments;
       const allEquipments = Object.values(this.allEquipmentsMap);
+
+      // すでに装備しているものは除外する
       const alreadyEquipedIds = [
         ...save.targets,
         ...save.skills,
         ...save.instants,
       ];
-      return allEquipments.filter(equipment=> !alreadyEquipedIds.includes(equipment.id));
+
+      // 未所持の装備(equipment.shop_id が save.shopItems に含まれない)も除外する
+      const shopItems = Object.keys(new Savedata().get().shopItems).map(id=> parseInt(id));
+      const unownedIds = allEquipments
+        .filter(equipment=> equipment.shop_id && !shopItems.includes(equipment.shop_id))
+        .map(equipment=> equipment.id);
+
+      const invisibleIds = [
+        ...alreadyEquipedIds,
+        ...unownedIds,
+      ];
+
+
+      return allEquipments.filter(equipment=> !invisibleIds.includes(equipment.id));
     },
     targets(){
       const save = new Savedata().get().equipments.targets;
