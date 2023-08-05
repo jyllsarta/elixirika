@@ -41,7 +41,7 @@
                 <div class="equipment_part">
                   <div class="label_area">
                     <div class="label">ターゲット</div>
-                    <div class="description">メイン盾</div>
+                    <div class="description">メイン盾。必ずひとつ以上必要</div>
                   </div>
                   <div class="equipments">
                     <item-icon-vue
@@ -153,14 +153,20 @@ export default {
     },
     targets(){
       const save = new Savedata().get().equipments.targets;
+      // dataWatcherと同様、allEquipmentsMapへの依存を明示する
+      this.allEquipmentsMap;
       return save.map(id=> this.allEquipmentsMap[id]);
     },
     skills(){
       const save = new Savedata().get().equipments.skills;
+      // dataWatcherと同様、allEquipmentsMapへの依存を明示する
+      this.allEquipmentsMap;
       return save.map(id=> this.allEquipmentsMap[id]);
     },
     instants(){
       const save = new Savedata().get().equipments.instants;
+      // dataWatcherと同様、allEquipmentsMapへの依存を明示する
+      this.allEquipmentsMap;
       return save.map(id=> this.allEquipmentsMap[id]);
     },
   },
