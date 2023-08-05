@@ -50,6 +50,7 @@
                       :key="equipment.id"
                       :equipment="equipment"
                       @mouseenter="currentEquipmentId = equipment.id"
+                      @click="removeEquipment(equipment)"
                     />
                   </div>
                 </div>
@@ -65,6 +66,7 @@
                       :key="equipment.id"
                       :equipment="equipment"
                       @mouseenter="currentEquipmentId = equipment.id"
+                      @click="removeEquipment(equipment)"
                     />
                   </div>
                 </div>
@@ -80,6 +82,7 @@
                       :key="equipment.id"
                       :equipment="equipment"
                       @mouseenter="currentEquipmentId = equipment.id"
+                      @click="removeEquipment(equipment)"
                     />
                   </div>
                 </div>
@@ -98,6 +101,7 @@
                   :key="equipment.id"
                   :equipment="equipment"
                   @mouseenter="currentEquipmentId = equipment.id"
+                  @click="equip(equipment)"
                 />
               </div>
             </div>
@@ -122,35 +126,74 @@ export default {
   data(){
     return {
       currentEquipmentId: 1,
-      maxSlot: 3,
+      maxSlot: 2,
+      dataWatcher: 1,
     }
   },
   computed: {
     currentEquipment(){
       return Masterdata.get("equipments", this.currentEquipmentId);
     },
-    allEquipments(){
-      return Masterdata.getAll("equipments");
+    allEquipmentsMap(){
+      // dataWatcherに依存していることにして、セーブデータの変更を検知する
+      this.dataWatcher++;
+      // TODO: 未所持の装備を除外する
+      return Masterdata.getAllMap("equipments");
     },
     stocks(){
-      return this.allEquipments.filter(equip=> !this.targets.includes(equip) && !this.skills.includes(equip) && !this.instants.includes(equip));
+      // stocks は すべての装備から targets, skills, instants を除いたもの
+      const save = new Savedata().get().equipments;
+      const allEquipments = Object.values(this.allEquipmentsMap);
+      const alreadyEquipedIds = [
+        ...save.targets,
+        ...save.skills,
+        ...save.instants,
+      ];
+      return allEquipments.filter(equipment=> !alreadyEquipedIds.includes(equipment.id));
     },
     targets(){
       const save = new Savedata().get().equipments.targets;
-      return this.allEquipments.filter(equip=> save.includes(equip.id));
+      return save.map(id=> this.allEquipmentsMap[id]);
     },
     skills(){
       const save = new Savedata().get().equipments.skills;
-      return this.allEquipments.filter(equip=> save.includes(equip.id));
+      return save.map(id=> this.allEquipmentsMap[id]);
     },
     instants(){
       const save = new Savedata().get().equipments.instants;
-      return this.allEquipments.filter(equip=> save.includes(equip.id));
+      return save.map(id=> this.allEquipmentsMap[id]);
     },
   },
   methods: {
     loadMenu(){
       this.$store.commit("loadScene", {name: "menu"});
+    },
+    equip(equipment){
+      let save = new Savedata().get();
+      const toFieldName = equipment.type + "s";
+      if(save.equipments[toFieldName].length >= this.maxSlot){
+        console.warn("exceed max slot");
+        return;
+      }
+      save.equipments[toFieldName].push(equipment.id);
+      new Savedata().write(save);
+      // 不要な処理だが、allEquipmentsにセーブデータの変更を検知させる
+      this.dataWatcher++;
+    },
+    removeEquipment(equipment){
+      let save = new Savedata().get();
+      const toFieldName = equipment.type + "s";
+      save.equipments[toFieldName] = save.equipments[toFieldName].filter(id=> id !== equipment.id);
+
+      //targetsに限り、最後の一つを外すことはできない
+      if(toFieldName === "targets" && save.equipments[toFieldName].length === 0){
+        console.warn("cannot remove last target");
+        return;
+      }
+
+      new Savedata().write(save);
+      // 不要な処理だが、allEquipmentsにセーブデータの変更を検知させる
+      this.dataWatcher++;
     },
   }
 }

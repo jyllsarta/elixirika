@@ -25,6 +25,10 @@ class Masterdata {
     return this.master[title];
   }
 
+  getAllMap(title) {
+    return this.idTables[title];
+  }
+
   getBy(title, key, ids) {
     return this.master[title].filter((record) => ids.includes(record[key]));
   }
