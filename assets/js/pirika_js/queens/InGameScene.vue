@@ -36,6 +36,7 @@ import FloatingMenuVue from "./in_game/FloatingMenu.vue";
 import GamesetDialog from "./in_game/GamesetDialog.vue";
 import BackgroundVue from './in_game/Background.vue';
 import FragmentVue from './in_game/Fragments.vue';
+import Savedata from './packs/savedata';
 
 export default {
   components: {
@@ -59,7 +60,8 @@ export default {
   },
   mounted(){
     const questId = this.$store.state.scene.params.questId;
-    this.state = new State(questId);
+    const playerParams = Savedata.playerParams();
+    this.state = new State(questId, playerParams);
     window.state = this.state;
     this.controller = new Controller(state);
     window.controller = this.controller;

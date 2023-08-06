@@ -6,7 +6,7 @@ export class Member {
     this.breakConditions = [];
     this.specialPoint = 0;
     this.isPlayer = isPlayer;
-    this.skillIds = [1, 2];
+    this.skillIds = [];
   }
 
   addSpecialPoint(amount){

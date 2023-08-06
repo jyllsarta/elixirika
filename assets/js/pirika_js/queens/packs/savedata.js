@@ -44,6 +44,16 @@ export class Savedata {
     this.write(save);
   }
 
+  static playerParams(){
+    const raw = new this().get().equipments;
+    // targets, skills, instants それぞれ配列の要素が文字列なので、数値に変換する
+    let playerParams = {};
+    for(let key in raw){
+      playerParams[key] = raw[key].map((value) => parseInt(value));
+    }
+    return playerParams;
+  }
+
   static coin(){
     return new this().get().coin;
   }

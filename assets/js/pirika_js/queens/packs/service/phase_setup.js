@@ -1,6 +1,7 @@
 import Card from "../model/card";
 import BreakCondition from "../model/break_condition";
 import Masterdata from "../masterdata";
+import SkillFacade from "./skill_facade";
 
 export class PhaseSetup {
   enter(state){
@@ -15,11 +16,19 @@ export class PhaseSetup {
     state.deck.overwriteCards(cards);
     state.deck.shuffle();
 
-    state.player.breakConditions.push(new BreakCondition("count", 50, true, null));
+    state.player.breakConditions = this._fetchPlayerBreakConditions(state.playerParams, state);
     state.enemy.breakConditions = this._fetchEnemyBreakConditions(state.questId, state);
 
     state.enemy.breakConditions.forEach(condition => condition.card?.reveal());
     state.player.breakConditions.forEach(condition => condition.card?.reveal());
+
+    state.player.skillIds = this._toSkillIds(state.playerParams.skills);
+
+    // インスタントスキルをすべて発動する
+    const instantSkillIds = this._toSkillIds(state.playerParams.instants);
+    instantSkillIds.forEach((skillId) => {
+      new SkillFacade().invoke(state, state.player, skillId, null);
+    });
   }
 
   nextPhase(state){
@@ -31,6 +40,22 @@ export class PhaseSetup {
     return breakConditionMasters.map((master) => {
       const maybeCard = BreakCondition.needsCard(master.type) ? state.deck.draw() : null;
       return new BreakCondition(master.type, master.count, true, maybeCard);
+    });
+  }
+
+  _fetchPlayerBreakConditions(playerParams, state){
+    const breakConditionMasters = Masterdata.getBy("equipments", "id", playerParams.targets);
+    return breakConditionMasters.map((master) => {
+      const maybeCard = BreakCondition.needsCard(master.type) ? state.deck.draw() : null;
+      return new BreakCondition(master.effect_key1, master.effect_value1, true, maybeCard);
+    });
+  }
+
+  _toSkillIds(equipmentids){
+    // equipment_id から skill_id を取得する
+    return equipmentids.map((id) => {
+      const equipment = Masterdata.get("equipments", id);
+      return equipment.effect_value1;
     });
   }
 };

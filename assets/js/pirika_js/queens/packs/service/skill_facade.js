@@ -30,7 +30,8 @@ export class SkillFacade {
   }
 
   validatePhase(state){
-    return state.phase === "player_select";
+    // phase が player_select, setup のいずれでもない場合は失敗
+    return state.phase === "player_select" || state.phase === "setup";
   }
 
   validateSp(member, skill){
@@ -111,6 +112,10 @@ export class SkillFacade {
     const drawnCards = state.deck.drawMany(cardCount);
     member.hand.addMany(drawnCards);
     member.hand.cards.forEach(card => card.reveal());
+  }
+
+  addMp(state, member, skill, maybeCardId, effectValue){
+    member.specialPoint += effectValue;
   }
 };
 export default SkillFacade;
