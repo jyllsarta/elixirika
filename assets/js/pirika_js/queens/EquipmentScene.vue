@@ -52,6 +52,19 @@
                       @mouseenter="currentEquipmentId = equipment.id"
                       @click="removeEquipment(equipment)"
                     />
+                    <item-icon-blank-vue
+                      class="equipment"
+                      v-for="i in maxSlot - targets.length"
+                      :key="i"
+                      :message="'-'"
+                    />
+                    <item-icon-blank-vue
+                      class="equipment"
+                      v-for="i in maxSlotCompleted - maxSlot"
+                      :key="i"
+                      :message="'ショップで枠を拡張可能'"
+                      :disabled="true"
+                    />
                   </div>
                 </div>
                 <div class="equipment_part">
@@ -68,6 +81,19 @@
                       @mouseenter="currentEquipmentId = equipment.id"
                       @click="removeEquipment(equipment)"
                     />
+                    <item-icon-blank-vue
+                      class="equipment"
+                      v-for="i in maxSlot - skills.length"
+                      :key="i"
+                      :message="'-'"
+                    />
+                    <item-icon-blank-vue
+                      class="equipment"
+                      v-for="i in maxSlotCompleted - maxSlot"
+                      :key="i"
+                      :message="'ショップで枠を拡張可能'"
+                      :disabled="true"
+                    />
                   </div>
                 </div>
                 <div class="equipment_part">
@@ -83,6 +109,19 @@
                       :equipment="equipment"
                       @mouseenter="currentEquipmentId = equipment.id"
                       @click="removeEquipment(equipment)"
+                    />
+                    <item-icon-blank-vue
+                      class="equipment"
+                      v-for="i in maxSlot - instants.length"
+                      :key="i"
+                      :message="'-'"
+                    />
+                    <item-icon-blank-vue
+                      class="equipment"
+                      v-for="i in maxSlotCompleted - maxSlot"
+                      :key="i"
+                      :message="'ショップで枠を拡張可能'"
+                      :disabled="true"
                     />
                   </div>
                 </div>
@@ -117,16 +156,19 @@ import store from "./packs/store";
 import Masterdata from "./packs/masterdata";
 import Savedata from "./packs/savedata";
 import ItemIconVue from "./ItemIcon.vue";
+import ItemIconBlankVue from './ItemIconBlank.vue';
 
 export default {
   store,
   components: {
     ItemIconVue,
+    ItemIconBlankVue,
   },
   data(){
     return {
       currentEquipmentId: 1,
-      maxSlot: 3,
+      maxSlot: 2,
+      maxSlotCompleted: 3,
       dataWatcher: 1,
     }
   },
