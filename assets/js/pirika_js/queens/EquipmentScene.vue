@@ -437,6 +437,7 @@ export default {
             align-content: flex-start;
             gap: 8px;
             padding: 8px;
+            overflow-y: scroll;
             .equipment_icon{
               width: calc(50% - 4px);
               height: 84px;
