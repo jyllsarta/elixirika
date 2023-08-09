@@ -11,11 +11,11 @@
     <div class="content_area">
       <div class="content">
         <div class="character" @click="onCharacterClick">
-          <img src="images/queens/characters/character90_1.png" class="character_image">
+          <img src="images/queens/characters/character91_2.png" class="character_image">
         </div>
         <div class="informations">
           <div class="header">
-            <div class="baloon tentative_panel">せりふー</div>
+            <div class="baloon tentative_panel">{{currentScript}}</div>
             <div class="detail">
               <div class="item_area">
                 <item-icon-vue class="equipment_icon" :equipment="currentEquipment" />
@@ -170,7 +170,11 @@ export default {
       maxSlot: 2,
       maxSlotCompleted: 3,
       dataWatcher: 1,
+      currentScript: "",
     }
+  },
+  mounted(){
+    this.welcome();
   },
   computed: {
     currentEquipment(){
@@ -239,6 +243,7 @@ export default {
       }
       save.equipments[toFieldName].push(equipment.id);
       new Savedata().write(save);
+      this.currentScript = Masterdata.getOne("character_scripts", "when", "equip").message;
       // 不要な処理だが、allEquipmentsにセーブデータの変更を検知させる
       this.dataWatcher++;
     },
@@ -249,13 +254,18 @@ export default {
 
       //targetsに限り、最後の一つを外すことはできない
       if(toFieldName === "targets" && save.equipments[toFieldName].length === 0){
+        this.currentScript = Masterdata.getOne("character_scripts", "when", "cannotRemoveLastTarget").message;
         console.warn("cannot remove last target");
         return;
       }
 
       new Savedata().write(save);
+      this.currentScript = Masterdata.getOne("character_scripts", "when", "remove").message;
       // 不要な処理だが、allEquipmentsにセーブデータの変更を検知させる
       this.dataWatcher++;
+    },
+    welcome(){
+      this.currentScript = Masterdata.getOne("character_scripts", "when", "welcome").message;
     },
   }
 }
@@ -304,8 +314,8 @@ export default {
         height: 100%;
         overflow: hidden;
         .character_image{
-          width: 130%;
-          transform: translateX(-10%);
+          width: 140%;
+          transform: translate(-10%, 5%);
         }
       }
       .informations{
