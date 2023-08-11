@@ -18,7 +18,8 @@ $white: #ebe9f0;
 $plus: #90b9ff;
 $minus: #ff88cd;
 
-$window-width: clamp(1200px, 100vw, 1920px);
+$max-window-width: 2048px;
+$window-width: clamp(1200px, 100vw, $max-window-width);
 $window-height: clamp(540px, 100vh, 800px);
 
 $font-size-mini: 10px;

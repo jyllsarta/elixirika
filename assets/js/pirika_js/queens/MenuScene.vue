@@ -88,7 +88,7 @@ export default {
   background-color: $bg4;
   position: relative;
   .scene{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;

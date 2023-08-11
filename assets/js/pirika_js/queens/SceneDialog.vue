@@ -82,19 +82,26 @@ export default {
     background-color: $bg3;
     .main_image{
       position: absolute;
-      height: 90%;
+      height: calc(100% - 130px);
       width: 100%;
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
+      overflow: hidden;
       .image{
+        max-width: $max-window-width;
         width: 100%;
+        transform: translateY(calc(100px - 9vw));
+      }
+      @media screen and (max-width: 1800px){
+        .image{
+          height: 100%;
+          object-fit: cover;
+          transform: none;
+        }
       }
     }
     .bottom_area{
       position: absolute;
       width: 100%;
-      height: 200px;
+      height: 150px;
       bottom: 0;
       .upper_graduation{
         position: absolute;
@@ -106,7 +113,7 @@ export default {
       .skit_area{
         position: absolute;
         width: 100%;
-        height: 180px;
+        height: 130px;
         bottom: 0;
         .background{
           position: absolute;
@@ -133,10 +140,10 @@ export default {
             padding: 6px 6px 60px 6px;
             .say{
               border: 1px solid $gray2;
-              padding: 8px 40px 8px 40px;
+              padding: 8px 30px 8px 30px;
               min-height: 90px;
               width: 100%;
-              font-size: 18px;
+              font-size: 24px;
               &.center{
                 display: flex;
                 justify-content: center;
