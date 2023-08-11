@@ -26,7 +26,7 @@ export default {
     EquipmentScene,
   },
   mounted(){
-    this.$store.commit("loadScene", {name: "equipment"});
+    this.$store.commit("loadScene", {name: "menu"});
   },
   methods: {
   },
@@ -40,6 +40,7 @@ export default {
 .game_frame{
   width: $window-width;
   height: $window-height;
+  margin-top: calc((100vh - #{$window-height})/2);
   position: relative;
   background-color: $bg4;
   color: $white;
