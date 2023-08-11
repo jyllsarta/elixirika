@@ -1,21 +1,18 @@
 <template>
   <div class="dialog" v-if="says.length > 0">
-    <div class="_back" @click="closeMenu"/>
+    <div class="back" @click="closeMenu">←</div>
     <div class="content">
       <div class="main_image">
         <img class="image" :src="`images/queens/scenes/scene${sceneId}_${currentSay.main_image_id}.png`">
       </div>
-      <div class="skit_area">
-        <div class="left_character">
-          <img :src="`images/queens/characters/face-queens${currentSay.face_id}.png`" class="character">
-        </div>
-        <div class="skit">
-          <div class="covers">
-            <div class="upper"/>
-            <div class="downer"/>
-          </div>
-          <div class="says" ref="says" @scroll="updateFace">
-            <div :class="['say', say.side]" v-for="say in says" :key="say.id" @mousedown="nextSay(say.order)">{{say.text}}</div>
+      <div class="bottom_area">
+        <div class="upper_graduation" />
+        <div class="skit_area">
+          <div class="background" />
+          <div class="skit">
+            <div class="says" ref="says" @scroll="updateFace">
+              <div :class="['say', say.side]" v-for="say in says" :key="say.id" @mousedown="nextSay(say.order)">{{say.text}}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -66,24 +63,26 @@ export default {
 <style lang="scss" scoped>
 @import "stylesheets/global_settings";
 .dialog{
-  ._back {
+  .back {
     position: absolute;
-    right: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
+    left: 8px;
+    top: 8px;
+    width: 60px;
+    height: 60px;
+    border: 1px solid $white;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.7;
   }
   .content{
-    position: absolute;
     height: 100%;
-    width: 94%;
-    left: 3%;
+    width: 100%;
     background-color: $bg3;
     .main_image{
       position: absolute;
-      overflow: hidden;
-      top: calc(280px - 24vw);
-      height: 100%;
+      height: 90%;
       width: 100%;
       display: flex;
       justify-content: flex-start;
@@ -92,97 +91,80 @@ export default {
         width: 100%;
       }
     }
-    .skit_area{
+    .bottom_area{
       position: absolute;
-      display: flex;
       width: 100%;
-      height: 20%;
+      height: 200px;
       bottom: 0;
-      background-color: $bg3;
-      opacity: 0.9;
-      .left_character{
-        padding: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;        
-        .character{
-          width: 128px;
-          height: 128px;
-          transform: scale(-1,1);
-        }
+      .upper_graduation{
+        position: absolute;
+        width: 100%;
+        height: 20px;
+        background: linear-gradient(to bottom, transparent, $bg3);
+        opacity: 0.7;
       }
-      .skit{
-        height: 100%;
-        position: relative;
-        .covers{
+      .skit_area{
+        position: absolute;
+        width: 100%;
+        height: 180px;
+        bottom: 0;
+        .background{
           position: absolute;
-          pointer-events: none;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
           width: 100%;
           height: 100%;
-          .downer{
-            width: 100%;
-            height: 40px;
-            background: linear-gradient(to top, $bg3 20%, transparent 100%);
-          }
+          background-color: $bg3;
+          opacity: 0.7;
         }
-        .says{
-          display: flex;
-          flex-direction: column;
-          overflow-y: scroll;
-          gap: 30px;
+        .skit{
+          position: absolute;
           height: 100%;
-          padding: 10px 10px 60px 10px;
-          &::-webkit-scrollbar {
-            width: 10px;
-          }
-          &::-webkit-scrollbar-track {
-            background: transparent;
-            border: none;
-            border-radius: 4px;
-            box-shadow: inset 0 0 2px $gray3;
-          }
-          &::-webkit-scrollbar-thumb {
-            background: $base2;
-            border-radius: 4px;
-            box-shadow: none;
-          }
-          .say{
-            border: 1px solid $gray2;
-            padding: 10px;
-            min-height: 90px;
-          }
-          .center{
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .says{
             display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 25px;
-            margin-left: 25px;
-            background-color: $bg2;
-            opacity: 0.8;
+            flex-direction: column;
+            overflow-y: scroll;
+            gap: 30px;
+            height: 100%;
+            width: 100%;
+            max-width: 1000px;
+            padding: 6px 6px 60px 6px;
+            .say{
+              border: 1px solid $gray2;
+              padding: 8px 40px 8px 40px;
+              min-height: 90px;
+              width: 100%;
+              font-size: 18px;
+              &.center{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $bg2;
+              }
+              &.left{
+                background-color: $bg3;
+              }
+              &.right{
+                background-color: $bg3;
+              }
+            }
+            &::-webkit-scrollbar {
+              width: 10px;
+            }
+            &::-webkit-scrollbar-track {
+              background: transparent;
+              border: none;
+              border-radius: 4px;
+              box-shadow: inset 0 0 2px $gray3;
+            }
+            &::-webkit-scrollbar-thumb {
+              background: $base2;
+              border-radius: 4px;
+              box-shadow: none;
+            }
           }
-          .left{
-            margin-right: 50px;
-            background-color: $bg3;
-            opacity: 0.8;
-          }
-          .right{
-            margin-left: 50px;
-            background-color: $bg3;
-            opacity: 0.8;
-          }
-        }
-      }
-      .right_character{
-        padding: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;        
-        .character{
-          width: 128px;
-          height: 128px;
         }
       }
     }
