@@ -54,13 +54,13 @@
                     />
                     <item-icon-blank-vue
                       class="equipment"
-                      v-for="i in maxSlot - targets.length"
+                      v-for="i in totalSlot('target') - targets.length"
                       :key="i"
                       :message="'-'"
                     />
                     <item-icon-blank-vue
                       class="equipment"
-                      v-for="i in maxSlotCompleted - maxSlot"
+                      v-for="i in maxSlotCompleted - totalSlot('target')"
                       :key="i"
                       :message="'ショップで枠を拡張可能'"
                       :disabled="true"
@@ -83,13 +83,13 @@
                     />
                     <item-icon-blank-vue
                       class="equipment"
-                      v-for="i in maxSlot - skills.length"
+                      v-for="i in totalSlot('skill') - skills.length"
                       :key="i"
                       :message="'-'"
                     />
                     <item-icon-blank-vue
                       class="equipment"
-                      v-for="i in maxSlotCompleted - maxSlot"
+                      v-for="i in maxSlotCompleted - totalSlot('skill')"
                       :key="i"
                       :message="'ショップで枠を拡張可能'"
                       :disabled="true"
@@ -112,13 +112,13 @@
                     />
                     <item-icon-blank-vue
                       class="equipment"
-                      v-for="i in maxSlot - instants.length"
+                      v-for="i in totalSlot('instant') - instants.length"
                       :key="i"
                       :message="'-'"
                     />
                     <item-icon-blank-vue
                       class="equipment"
-                      v-for="i in maxSlotCompleted - maxSlot"
+                      v-for="i in maxSlotCompleted - totalSlot('instant')"
                       :key="i"
                       :message="'ショップで枠を拡張可能'"
                       :disabled="true"
@@ -229,15 +229,26 @@ export default {
       this.allEquipmentsMap;
       return save.map(id=> this.allEquipmentsMap[id]);
     },
+    additionalSlots(){
+      const allItems = Object.keys(new Savedata().get().shopItems).map(id=> this.allEquipmentsMap[id]);
+      return {
+        target: allItems.filter(item=> item.type === "additionalTargetSlot").length,
+        skill: allItems.filter(item=> item.type === "additionalSkillSlot").length,
+        instant: allItems.filter(item=> item.type === "additionalInstantSlot").length,
+      }
+    }
   },
   methods: {
     loadMenu(){
       this.$store.commit("loadScene", {name: "menu"});
     },
+    totalSlot(slotName){
+      return this.maxSlot + this.additionalSlots[slotName];
+    },
     equip(equipment){
       let save = new Savedata().get();
       const toFieldName = equipment.type + "s";
-      if(save.equipments[toFieldName].length >= this.maxSlot){
+      if(save.equipments[toFieldName].length >= this.totalSlot(equipment.type)){
         console.warn("exceed max slot");
         return;
       }
