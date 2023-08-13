@@ -154,9 +154,10 @@ export default {
   .content{
     position: absolute;
     top: 10%;
-    left: 10%;
+    left: max(10%, calc((100% - 1400px) / 2));
     height: 80%;
     width: 80%;
+    max-width: 1400px;
     background-color: $bg3;
     border: 2px solid $base2;
     padding: 8px;
@@ -168,7 +169,8 @@ export default {
       overflow: hidden;
       .character_image{
         height: 180%;
-        transform: translateX(calc(50px - 22vh));
+        $offset: min(22vh, 250px);
+        transform: translateX(calc(50px - #{$offset}));
       }
     }
     .profile{

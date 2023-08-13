@@ -135,11 +135,13 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: calc(100% - 80px);
+    padding-bottom: 8px;
     .content{
       width: 100%;
       height: 100%;
       max-width: 1200px;
-      max-height: 600px;
+      max-height: 800px;
       padding: 8px;
       display: flex;
       border: 1px dotted $white;
