@@ -3,6 +3,7 @@
     <break-condition-vue :condition="breakCondition" class="content" v-if="equipment.type == 'target'" />
     <skill-icon-vue :skill="skill" class="content" v-if="equipment.type == 'skill'" />
     <skill-icon-vue :skill="skill" class="content" v-if="equipment.type == 'instant'" />
+    <general-icon-vue :text="equipment.title" class="content" v-if="equipment.type.startsWith('additional')" />
   </div>
 </template>
 
@@ -12,12 +13,14 @@ import BreakConditionVue from "./in_game/BreakCondition.vue";
 import BreakCondition from './packs/model/break_condition';
 import SkillIconVue from "./in_game/SkillIcon.vue";
 import Masterdata from "./packs/masterdata";
+import GeneralIconVue from './in_game/GeneralIcon.vue';
 
 export default {
   store,
   components: {
     BreakConditionVue,
     SkillIconVue,
+    GeneralIconVue,
   },
   props: {
     shopItem: Object,
