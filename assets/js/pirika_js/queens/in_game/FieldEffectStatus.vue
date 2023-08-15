@@ -1,6 +1,6 @@
 <template>
   <div class="status">
-    効果なし
+    {{state.fieldEffect?.master.description}}
   </div>
 </template>
 
@@ -33,5 +33,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: pre-wrap;
 }
 </style>

@@ -2,6 +2,7 @@ import Card from "../model/card";
 import BreakCondition from "../model/break_condition";
 import Masterdata from "../masterdata";
 import SkillFacade from "./skill_facade";
+import FieldEffect from "../model/field_effect";
 
 export class PhaseSetup {
   enter(state){
@@ -23,6 +24,9 @@ export class PhaseSetup {
     state.player.breakConditions.forEach(condition => condition.card?.reveal());
 
     state.player.skillIds = this._toSkillIds(state.playerParams.skills);
+
+    const quest = Masterdata.get("quests", state.questId);
+    state.fieldEffect = new FieldEffect(quest.field_effect_id);
 
     // インスタントスキルをすべて発動する
     const instantSkillIds = this._toSkillIds(state.playerParams.instants);
