@@ -1,4 +1,5 @@
 import Masterdata from '../masterdata.js';
+import Card from '../model/card.js';
 
 export class SkillFacade {
   invoke(state, member, skillId, maybeCardId){
@@ -117,5 +118,30 @@ export class SkillFacade {
   addMp(state, member, skill, maybeCardId, effectValue){
     member.specialPoint += effectValue;
   }
+
+  validate_split(state, member, skill, maybeCardId, effectValue){
+    if(state.player.hand.cards.length === 0){
+      return false;
+    }
+    return true;
+  }
+
+  split(state, member, skill, maybeCardId, effectValue){
+    const card = state.player.hand.pickByCardId(maybeCardId);
+    // card.n が 1 なら, 1を2枚生成して手札に加える
+    if(card.n === 1){
+      const cards = [new Card(1, card.suits), new Card(1, card.suits)];
+      cards.map(card=>card.reveal());
+      state.player.hand.addMany(cards);
+    }
+    // card.n が 2 以上なら, ランダムにxを選び, xと(card.n - x)を生成して手札に加える
+    else{
+      const x = Math.floor(Math.random() * (card.n - 1)) + 1;
+      const cards = [new Card(x, card.suits), new Card(card.n - x, card.suits)];
+      cards.map(card=>card.reveal());
+      state.player.hand.addMany(cards);
+    }
+  }
+
 };
 export default SkillFacade;

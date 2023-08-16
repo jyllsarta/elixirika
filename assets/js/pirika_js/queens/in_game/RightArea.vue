@@ -46,7 +46,7 @@ export default {
         return;
       }
       if(skill.has_reference){
-        this.controller.toggleSkillSelectMode(skillId);
+        this.controller.toggleSkillSelectMode(skillId, false);
         return;
       }
       this.controller.invokeSkill(skillId);

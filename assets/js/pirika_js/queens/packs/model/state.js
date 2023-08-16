@@ -16,9 +16,11 @@ export class State {
     this.player = new Member(true);
     this.enemy = new Member(false);
     this.fieldEffect = null;
+    this.fieldEffectActivateCount = 0;
     this.uiState = {
       selectSkillTarget: false,
       selectingSkillId: null,
+      isFieldEffect: false,
     };
   }
 

@@ -22,9 +22,13 @@ export class Controller {
   }
 
   selectCardByCardId(cardId){
-    if(this.state.uiState.selectSkillTarget){
+    if(this.state.uiState.selectSkillTarget && this.state.uiState.isFieldEffect){
+      this.invokeFieldEffect(this.state.uiState.selectingSkillId, cardId);
+      this.toggleSkillSelectMode(null, false);
+    }
+    else if(this.state.uiState.selectSkillTarget){
       this.invokeSkill(this.state.uiState.selectingSkillId, cardId);
-      this.toggleSkillSelectMode(null);
+      this.toggleSkillSelectMode(null, false);
     }
     else{
       this._sendToBoard(cardId);
@@ -33,6 +37,11 @@ export class Controller {
 
   invokeSkill(skillId, maybeCardId){
     new SkillFacade().invoke(this.state, this.state.player, skillId, maybeCardId);
+  }
+
+  invokeFieldEffect(skillId, maybeCardId){
+    new SkillFacade().invoke(this.state, this.state.player, skillId, maybeCardId);
+    this.state.fieldEffectActivateCount += 1;
   }
 
   _sendToBoard(cardId){
@@ -65,9 +74,10 @@ export class Controller {
     this.state.board.add(card);
   }
 
-  toggleSkillSelectMode(skillId){
+  toggleSkillSelectMode(skillId, isFieldEffect){
     this.state.uiState.selectingSkillId = skillId;
     this.state.uiState.selectSkillTarget = !this.state.uiState.selectSkillTarget;
+    this.state.uiState.isFieldEffect = isFieldEffect;
   }
 
   processEnemySelectPhase(){

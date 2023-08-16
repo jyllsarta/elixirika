@@ -17,6 +17,8 @@ export class PhaseTurnStart {
 
     state.player.hand.cards.forEach(card => card.reveal());
     state.enemy.hand.cards.slice(-1)[0].reveal();
+
+    state.fieldEffectActivateCount = 0;
   }
 
   nextPhase(state){

@@ -4,7 +4,7 @@
       <div class="enemy_status">
         <character-status-vue class="character_status" :member="state.enemy"/>
       </div>
-      <field-effect-status-vue class="field_effect_status" :state="state"/>
+      <field-effect-status-vue class="field_effect_status" :state="state" :controller="controller"/>
       <div class="player_status">
         <character-status-vue class="character_status" :member="state.player"/>
       </div>
