@@ -43,7 +43,7 @@ export class PhaseSetup {
     const breakConditionMasters = Masterdata.getBy("break_conditions", "quest_id", [questId]).sort((a, b) => a.order - b.order);
     return breakConditionMasters.map((master) => {
       const maybeCard = BreakCondition.needsCard(master.type) ? state.deck.draw() : null;
-      return new BreakCondition(master.type, master.count, true, maybeCard);
+      return new BreakCondition(master.type, master.count, master.param1, true, maybeCard);
     });
   }
 
@@ -51,7 +51,7 @@ export class PhaseSetup {
     const breakConditionMasters = Masterdata.getBy("equipments", "id", playerParams.targets);
     return breakConditionMasters.map((master) => {
       const maybeCard = BreakCondition.needsCard(master.type) ? state.deck.draw() : null;
-      return new BreakCondition(master.effect_key1, master.effect_value1, true, maybeCard);
+      return new BreakCondition(master.effect_key1, master.effect_value1, master.effect_value2, true, maybeCard);
     });
   }
 

@@ -77,7 +77,7 @@ export class Field {
   }
 
   asBreakConditions(){
-    return this.cards.map(card=>new BreakCondition("card", 1, true, card));
+    return this.cards.map(card=>new BreakCondition("card", 1, null, true, card));
   }
 };
 export default Field;

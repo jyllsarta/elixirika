@@ -122,8 +122,8 @@ export default {
     currentBreakConditions(){
       const quest = this.currentQuest();
       const breakConditionMasters = Masterdata.getBy("break_conditions", "quest_id", [quest.id]).sort((a, b) => a.order - b.order);
-      return breakConditionMasters.map(breakConditionMaster => {
-        return new BreakCondition(breakConditionMaster.type, breakConditionMaster.count, true, null);
+      return breakConditionMasters.map(master => {
+        return new BreakCondition(master.type, master.count, master.param1, true, null);
       });
     },
     canStartQuest(){

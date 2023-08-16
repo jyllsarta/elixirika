@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     breakCondition(){
-      return new BreakCondition(this.equipment.effect_key1, this.equipment.effect_value1, true, null);
+      return new BreakCondition(this.equipment.effect_key1, this.equipment.effect_value1, null, true, null);
     },
     skill(){
       return Masterdata.get("skills", this.equipment.effect_value1);
