@@ -1,6 +1,10 @@
 import CardBreakCondition from "../service/break_condition/card_break_condition.js";
 import CountBreakCondition from "../service/break_condition/count_break_condition.js";
 import ExactBreakCondition from "../service/break_condition/exact_break_condition.js";
+import NearBreakCondition from "../service/break_condition/near_break_condition.js";
+import DistanceBreakCondition from "../service/break_condition/distance_break_condition.js";
+import DiffBreakCondition from "../service/break_condition/diff_break_condition.js";
+import ComboBreakCondition from "../service/break_condition/combo_break_condition.js";
 
 export class BreakCondition {
   constructor(type, count, param1, revealed, card){
@@ -33,7 +37,15 @@ export class BreakCondition {
         return new CardBreakCondition();
       case "exact":
         return new ExactBreakCondition();
-        default:
+      case "near":
+        return new NearBreakCondition();
+      case "distance":
+        return new DistanceBreakCondition();
+      case "diff":
+        return new DiffBreakCondition();
+      case "combo":
+        return new ComboBreakCondition();
+      default:
         console.warn("unknown type: ", this.type);
         return null;
     }
