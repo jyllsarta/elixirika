@@ -94,6 +94,9 @@ export default {
       this.$emit("close");
     },
     startQuest(){
+      if(!this.canStartQuest()){
+        return;
+      }
       Savedata.consumeCoin(this.currentQuest().lose_coin);
       this.$store.commit("loadScene", {name: "in_game", questId: this.questId});
     },
