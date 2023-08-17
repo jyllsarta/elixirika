@@ -38,6 +38,12 @@ export class Savedata {
     this.write(save);
   }
 
+  update(key, value){
+    let save = this.get();
+    save[key] = value;
+    this.write(save);
+  }
+
   set(afterObject){
     let save = this.get();
     Object.assign(save, afterObject);
@@ -115,9 +121,9 @@ export class Savedata {
       shopItems: {        
       },
       equipments: {
-        targets: [1, 4],
-        skills: [2, 6],
-        instants: [3],
+        targets: [1],
+        skills: [2],
+        instants: [],
       }
     }
   }
