@@ -156,10 +156,10 @@ export default {
 
   .content{
     position: absolute;
-    top: 10%;
-    left: max(10%, calc((100% - 1400px) / 2));
-    height: 80%;
-    width: 80%;
+    top: 5%;
+    left: max(5%, calc((100% - 1400px) / 2));
+    height: 90%;
+    width: 90%;
     max-width: 1400px;
     background-color: $bg3;
     border: 2px solid $base2;
@@ -183,7 +183,7 @@ export default {
       padding: 8px;
       background-color: $bg3;
       .name{
-        height: 100px;
+        height: 80px;
         width: 100%;
         display: flex;  
         justify-content: center;
@@ -215,9 +215,11 @@ export default {
           padding: 8px;
           gap: 4px;
           flex-wrap: wrap;
+          overflow-y: scroll;
           .condition{
             width: calc(20% - 4px);
-            height: 50%;
+            min-width: 80px;
+            height: calc(50% - 4px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -235,11 +237,11 @@ export default {
     }
 
     .controls{
-      width: 35%;
+      width: 40%;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      padding: 8px;
+      gap: 4px;
+      padding: 4px;
 
       .scenes{
         width: 100%;
