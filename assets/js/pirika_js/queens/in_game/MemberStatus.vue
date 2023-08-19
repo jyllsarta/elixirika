@@ -1,16 +1,16 @@
 <template>
-  <div class="character_status">
+  <div class="member_status">
     <div class="capacity_area">
       <div class="text_area">
         <div class="label">
           MP
         </div>
         <div class="value">
-          {{member.specialPoint}} / 8
+          {{member.specialPoint}}
         </div>
       </div>
-      <div class="dots">
-        <div class="dot" v-for="i in [1,2,3,4,5,6,7,8]" :key="i">{{(i <= member.score) ? "●" : "◯"}}</div>
+      <div class="buffs">
+        <buff-icon-vue v-for="buff in member.buffState.buffs" :buff="buff" :key="buff.id"/>
       </div>
     </div>
   </div>
@@ -18,6 +18,7 @@
 
 <script>
 import store from "../packs/store";
+import BuffIconVue from "./BuffIcon.vue";
 
 export default {
   store, 
@@ -25,14 +26,14 @@ export default {
     member: Object,
   },
   components: {
-    
+    BuffIconVue,    
   },
 }
 </script>
 
 <style lang="scss" scoped>
 @import "../stylesheets/global_settings";
-.character_status{
+.member_status{
   width: 100%;
   height: 100%;
   display: flex;
@@ -52,7 +53,7 @@ export default {
       justify-content: space-around;
       line-height: 100%;
     }
-    .dots{
+    .buffs{
       width: 100%;
       display: flex;
       justify-content: center;

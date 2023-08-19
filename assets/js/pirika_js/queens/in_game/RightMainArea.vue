@@ -2,11 +2,11 @@
   <div class="right_main_area_frame" v-if="state">
     <div class="content">
       <div class="enemy_status">
-        <character-status-vue class="character_status" :member="state.enemy"/>
+        <member-status-vue class="member_status" :member="state.enemy"/>
       </div>
       <field-effect-status-vue class="field_effect_status" :state="state" :controller="controller"/>
       <div class="player_status">
-        <character-status-vue class="character_status" :member="state.player"/>
+        <member-status-vue class="member_status" :member="state.player"/>
       </div>
     </div>
   </div>
@@ -14,13 +14,13 @@
 
 <script>
 import store from "../packs/store";
-import CharacterStatusVue from "./CharacterStatus.vue";
+import MemberStatusVue from "./MemberStatus.vue";
 import FieldEffectStatusVue from "./FieldEffectStatus.vue";
 
 export default {
   store,
   components: {
-    CharacterStatusVue,
+    MemberStatusVue,
     FieldEffectStatusVue
   },
   props: {
