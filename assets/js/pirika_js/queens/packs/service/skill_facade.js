@@ -8,8 +8,13 @@ export class SkillFacade {
       return;
     }
     const skill = Masterdata.get("skills", skillId);
-    this.resolveSkillEffect(state, member, skill, maybeCardId, skill.effect_key1, skill.effect_value1);
-    this.resolveSkillEffect(state, member, skill, maybeCardId, skill.effect_key2, skill.effect_value2);
+
+    const target1 = this._target(state, member, skill.effect_to_self1);
+    this.resolveSkillEffect(state, target1, skill, maybeCardId, skill.effect_key1, skill.effect_value1);
+
+    const target2 = this._target(state, member, skill.effect_to_self2);
+    this.resolveSkillEffect(state, target2, skill, maybeCardId, skill.effect_key2, skill.effect_value2);
+
     member.specialPoint -= skill.cost;
   }
 
@@ -56,6 +61,24 @@ export class SkillFacade {
       return;
     }
     this[effectKey](state, member, skill, maybeCardId, effectValue);
+  }
+
+  _target(state, member, toSelf){
+    if(toSelf){
+      return member;
+    }
+    else{
+      return this._opponent(state, member);
+    }
+  }
+
+  _opponent(state, member){
+    if(member === state.player){
+      return state.enemy;
+    }
+    else{
+      return state.player;
+    }
   }
 
   // 以下 skill effect
