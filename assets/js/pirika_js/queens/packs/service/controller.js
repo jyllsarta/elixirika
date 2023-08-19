@@ -69,8 +69,8 @@ export class Controller {
   _doSendToBoard(card){
     // pick して移動元フィールドから消す
     this.state.player.hand.pickByCardId(card.id);
-    this._judgeAndBreak(this.state.enemy, card);
-    this._judgeAndBreakHand(this.state.enemy, card);
+    this._judgeAndBreak(this.state.player, this.state.enemy, card);
+    this._judgeAndBreakHand(this.state.player, this.state.enemy, card);
     this.state.board.add(card);
   }
 
@@ -85,40 +85,40 @@ export class Controller {
       return;
     }
     const card = this.state.enemy.hand.cards.pop();
-    this._judgeAndBreak(this.state.player, card);
+    this._judgeAndBreak(this.state.enemy, this.state.player, card);
     this.state.board.add(card);
   }
 
-  _judgeAndBreak(member, card){
-    if(member.breakConditions.length === 0){
+  _judgeAndBreak(actor, target, card){
+    if(target.breakConditions.length === 0){
       console.warn("breakConditions is empty");
       return;
     }
 
-    const nextCondition = member.breakConditions[0];
-    const breakResult = new Break().execute(this.state, this.state.board, member, nextCondition, card);
+    const nextCondition = target.breakConditions[0];
+    const breakResult = new Break().execute(this.state, this.state.board, actor, target, nextCondition, card);
     if(breakResult){
       if(nextCondition.card){
         this.state.discard.add(nextCondition.card);
       }
-      member.breakConditions.shift(0);
+      target.breakConditions.shift(0);
     }
   }
 
-  _judgeAndBreakHand(member, card){
-    if(member.hand.cards.length === 0){
+  _judgeAndBreakHand(actor, target, card){
+    if(target.hand.cards.length === 0){
       console.warn("hand is empty");
       return;
     }
 
-    const conditions = member.hand.asBreakConditions();
+    const conditions = target.hand.asBreakConditions();
     const nextCondition = conditions.slice(-1)[0];
-    const breakResult = new Break().execute(this.state, this.state.board, member, nextCondition, card);
+    const breakResult = new Break().execute(this.state, this.state.board, actor, target, nextCondition, card);
 
     if(breakResult){
-      const card = member.hand.cards.pop();
+      const card = target.hand.cards.pop();
       this.state.discard.add(card);
-      member.hand.cards.slice(-1)[0]?.reveal();
+      target.hand.cards.slice(-1)[0]?.reveal();
     }
   }
 };

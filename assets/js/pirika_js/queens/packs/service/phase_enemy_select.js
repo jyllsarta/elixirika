@@ -9,6 +9,8 @@ export class PhaseEnemySelect {
 
   nextPhase(state){
     state.board.sendAllCardsTo(state.discard);
+    state.enemy.buffState.turnDecay();
+    state.player.buffState.turnDecay();
     state.phase = "turn_start";
   }
 };

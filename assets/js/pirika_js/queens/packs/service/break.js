@@ -1,10 +1,15 @@
 export class Break {
   // getCountReductionの結果分conditionのremainCountを減らし、0になったらtrueを返す
-  execute(state, board, member, condition, card){
-    const reduction = this.getCountReduction(state, board, condition, card);
-    if(reduction === 0){
+  execute(state, board, actor, target, condition, card){
+    const baseReduction = this.getCountReduction(state, board, condition, card);
+    if(baseReduction === 0){
       return false;
     }
+
+    // damageRate は 100分率
+    const attackDamageRate = (actor.buffState.getBuffValue("attackDamageRate") + 100) / 100;
+    const receiveDamageRate = (target.buffState.getBuffValue("receiveDamageRate") + 100) / 100;
+    const reduction = Math.floor(baseReduction * attackDamageRate * receiveDamageRate);
 
     condition.remainCount -= reduction;
     return condition.remainCount <= 0;

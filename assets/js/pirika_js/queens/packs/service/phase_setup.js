@@ -23,7 +23,7 @@ export class PhaseSetup {
     state.enemy.breakConditions.forEach(condition => condition.card?.reveal());
     state.player.breakConditions.forEach(condition => condition.card?.reveal());
 
-    state.player.skillIds = this._toSkillIds(state.playerParams.skills);
+    state.player.skillIds = this._toSkillIds(state.playerParams.skills).concat([402]);
 
     const quest = Masterdata.get("quests", state.questId);
     state.fieldEffect = new FieldEffect(quest.field_effect_id);

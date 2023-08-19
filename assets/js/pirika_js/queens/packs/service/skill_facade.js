@@ -143,5 +143,8 @@ export class SkillFacade {
     }
   }
 
+  buff(state, member, skill, maybeCardId, effectValue){
+    member.buffState.addBuff(effectValue);
+  }
 };
 export default SkillFacade;
