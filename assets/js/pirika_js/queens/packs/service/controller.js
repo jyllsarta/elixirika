@@ -70,7 +70,10 @@ export class Controller {
     // pick して移動元フィールドから消す
     this.state.player.hand.pickByCardId(card.id);
     this._judgeAndBreak(this.state.player, this.state.enemy, card);
-    this._judgeAndBreakHand(this.state.player, this.state.enemy, card);
+    const enemyHandBreakResult = this._judgeAndBreakHand(this.state.player, this.state.enemy, card);
+    if(enemyHandBreakResult){
+      this.state.enemy.addSpecialPoint(2);
+    }
     this.state.board.add(card);
   }
 
@@ -84,6 +87,7 @@ export class Controller {
     const card = this.state.enemy.hand.cards.pop();
     this._judgeAndBreak(this.state.enemy, this.state.player, card);
     this.state.board.add(card);
+    this.state.enemy.addSpecialPoint(1);
   }
 
   _judgeAndBreak(actor, target, card){
@@ -100,6 +104,7 @@ export class Controller {
       }
       target.breakConditions.shift(0);
     }
+    return breakResult;
   }
 
   _judgeAndBreakHand(actor, target, card){
@@ -117,6 +122,7 @@ export class Controller {
       this.state.discard.add(card);
       target.hand.cards.slice(-1)[0]?.reveal();
     }
+    return breakResult;
   }
 };
 export default Controller;

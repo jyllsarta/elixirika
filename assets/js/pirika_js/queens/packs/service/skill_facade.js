@@ -36,8 +36,12 @@ export class SkillFacade {
   }
 
   validatePhase(state){
-    // phase が player_select, setup のいずれでもない場合は失敗
-    return state.phase === "player_select" || state.phase === "setup";
+    // phase が player_select, setup, enemy_skillのいずれでもない場合は失敗
+    const allowedPhases = ["player_select", "setup", "enemy_skill"];
+    if(!allowedPhases.includes(state.phase)){
+      return false;
+    }
+    return true;
   }
 
   validateSp(member, skill){

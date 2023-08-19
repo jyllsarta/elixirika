@@ -25,17 +25,29 @@ export default {
         this.controller.nextPhase();
       }
     },
+    // model の continue によってUIに表示依頼されたものを受け取って処理する
+    reactToContinueResult(continueResult){
+      if(!continueResult){
+        return;
+      }
+      if(continueResult.invokedSkillId){
+        this.$store.commit("showFragment", {name: "skill_activation", extra: {skillId: continueResult.invokedSkillId}});
+      }
+    },
     continue(){
       // フェーズオブジェクトのcontinueを叩き、needContinueなら500ms後にもう一度continueを叩く
       const psm = new PhaseStateMachine();
       const newPhase = psm.getPhaseModule(this.state.phase);
-      newPhase.continue(this.state, this.controller);
+      const continueResult = newPhase.continue(this.state, this.controller);
+      this.reactToContinueResult(continueResult);
       if(newPhase.needsContinue(this.state)){
         const delay = 500;
         setTimeout(()=>{this.continue()}, delay);
       }
       else{
-        this.proceedPhaseIfNotChanged(this.state.phase);
+        //500ms後にproceedPhase
+        const delay = 500;
+        setTimeout(()=>{this.proceedPhaseIfNotChanged(this.state.phase)}, delay);
       }
     },
     onUpdatePhase(phase){
@@ -46,7 +58,6 @@ export default {
       // フェーズオブジェクトにneedsContinueが生えていてtrueを返してくるなら500ms後にcontinueを叩いてあげる
       const psm = new PhaseStateMachine();
       const newPhase = psm.getPhaseModule(phase);
-      console.log(newPhase.needsContinue && newPhase.needsContinue(this.state));
       if(newPhase.needsContinue && newPhase.needsContinue(this.state)){
         const delay = 500;
         setTimeout(()=>{this.continue()}, delay);
