@@ -2,16 +2,18 @@ export class PhaseEnemySelect {
   enter(state){
     state.enemy.hand.cards.forEach(card => card.reveal());
   }
+  
+  needsContinue(state){
+    return state.enemy.hand.cards.length > 0;
+  }
 
-  proceed(state){
-
+  continue(state, controller){
+    console.log("enemy select phase");
+    controller.processEnemySelectPhase();
   }
 
   nextPhase(state){
-    state.board.sendAllCardsTo(state.discard);
-    state.enemy.buffState.turnDecay();
-    state.player.buffState.turnDecay();
-    state.phase = "turn_start";
+    state.phase = "enemy_skill";
   }
 };
 export default PhaseEnemySelect;

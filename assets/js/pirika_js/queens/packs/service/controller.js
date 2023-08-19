@@ -81,9 +81,6 @@ export class Controller {
   }
 
   processEnemySelectPhase(){
-    if(this.state.enemy.hand.cards.length === 0){
-      return;
-    }
     const card = this.state.enemy.hand.cards.pop();
     this._judgeAndBreak(this.state.enemy, this.state.player, card);
     this.state.board.add(card);
