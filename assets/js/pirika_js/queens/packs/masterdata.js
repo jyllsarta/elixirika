@@ -7,6 +7,7 @@ class Masterdata {
       "quests",
       "scenes",
       "skills",
+      "buffs",
       "break_conditions",
       "shop_items",
       "equipments",
