@@ -2,8 +2,8 @@ import Masterdata from '../masterdata.js';
 import Card from '../model/card.js';
 
 export class SkillFacade {
-  invoke(state, member, skillId, maybeCardId){
-    if(!this.canInvoke(state, member, skillId, maybeCardId)){
+  invoke(state, member, skillId, maybeCardId, validatesPhase = true){
+    if(!this.canInvoke(state, member, skillId, maybeCardId, validatesPhase)){
       console.warn("couldn't invoke skill");
       return;
     }
@@ -18,9 +18,9 @@ export class SkillFacade {
     member.specialPoint -= skill.cost;
   }
 
-  canInvoke(state, member, skillId, maybeCardId){
+  canInvoke(state, member, skillId, maybeCardId, validatesPhase = true){
     const skill = Masterdata.get("skills", skillId);
-    if(!this.validatePhase(state)){
+    if(validatesPhase && !this.validatePhase(state)){
       return false;
     }
     if(!this.validateSp(member, skill)){
