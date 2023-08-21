@@ -56,7 +56,7 @@ export default {
       if(scene.quest_id){
         if(!this.isQuestCleared(scene)){
           const quest = Masterdata.get("quests", scene.quest_id);
-          texts.push(`${quest.name}をクリア`);
+          texts.push(`${quest.order}.${quest.name}をクリア`);
         }
       }
       if(scene.lose_character_id){
@@ -99,10 +99,11 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 4px;
       .text{
         background-color: $bg3;
         line-height: 100%;
-        white-space: pre;
+        white-space: pre-wrap;
         text-align: center;
       }
     }
