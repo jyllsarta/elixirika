@@ -11,7 +11,12 @@
         </div>
         <div class="description1" v-html="character().profile"/>
         <div class="description2">
-          {{currentQuest().description}}
+          <div class="quest_name">
+            {{ currentQuest().name }}
+          </div>
+          <div class="description">
+            {{currentQuest().description}}
+          </div>
         </div>
         <div class="break_conditions">
           <div class="header">
@@ -201,6 +206,21 @@ export default {
         flex: 1;
         width: 100%;
         padding: 4px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        .quest_name{
+          width: 100%;
+          height: 20%;
+          text-align: center;
+          padding-bottom: 4px;
+        };
+        .description{
+          width: 100%;
+          height: 80%;
+          overflow-y: scroll;
+        };
       };
       .break_conditions{
         flex: 1;
