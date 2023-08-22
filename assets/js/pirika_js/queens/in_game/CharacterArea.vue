@@ -1,8 +1,8 @@
 <template>
   <div class="character_area">
     <character-image-vue class="character_image" :state="state" />
-    <enemy-hand-vue class="enemy_hand" :state="state"/>
-    <baloon-vue class="baloon" />
+    <enemy-hand-vue class="enemy_hand" :state="state" />
+    <baloon-vue class="baloon" :state="state" />
   </div>
 </template>
 

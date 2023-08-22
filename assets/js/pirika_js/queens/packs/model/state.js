@@ -1,10 +1,12 @@
 import Field from "./field";
 import Member from "./member";
+import Masterdata from "../masterdata";
 
 export class State {
   constructor(questId, playerParams){
     this.phase = "unstarted";
     this.questId = questId;
+    this.quest = Masterdata.get("quests", questId);
     this.playerParams = playerParams;
     this.reset();
   }
@@ -18,10 +20,12 @@ export class State {
     this.fieldEffect = null;
     this.fieldEffectActivateCount = 0;
     this.enemySkillActivateCount = 0;
+    this.turn = 0;
     this.uiState = {
       selectSkillTarget: false,
       selectingSkillId: null,
       isFieldEffect: false,
+      currentScript: "",
     };
   }
 
@@ -38,6 +42,10 @@ export class State {
 
   isLose(){
     return this.player.breakConditions.length === 0;
+  }
+
+  updateScript(script){
+    this.uiState.currentScript = script;
   }
 };
 export default State;

@@ -1,3 +1,5 @@
+import Masterdata from "../masterdata.js";
+
 export class PhaseTurnStart {
   enter(state){
     state.discard.sendAllCardsTo(state.deck);
@@ -23,10 +25,19 @@ export class PhaseTurnStart {
     state.enemy.hand.cards.slice(-1)[0].reveal();
 
     state.fieldEffectActivateCount = 0;
+
+    this._updateScript(state);
   }
 
   nextPhase(state){
     state.phase = "player_select";
+  }
+
+  _updateScript(state){
+    // 1ターン目ならwelcome, それ以外ならturnStart
+    const messageKey = state.turn === 0 ? "welcome" : "turnStart";
+    const message = Masterdata.getByCondition("character_scripts", {when: messageKey, character_id: state.quest.character_id, order: state.quest.order})[0].message;
+    state.updateScript(message);
   }
 };
 export default PhaseTurnStart;

@@ -1,6 +1,6 @@
 <template>
-  <div class="baloon tentative_panel">
-    フムー
+  <div class="baloon tentative_panel" v-if="state">
+    {{ state.uiState.currentScript }}
   </div>
 </template>
 
@@ -9,6 +9,9 @@ import store from "../packs/store";
 
 export default {
   store, 
+  props: {
+    state: Object,
+  },
 }
 </script>
 

@@ -34,6 +34,18 @@ class Masterdata {
     return this.master[title].filter((record) => ids.includes(record[key]));
   }
 
+  // condition: {key: value}
+  getByCondition(title, condition) {
+    return this.master[title].filter((record) => {
+      for (let key in condition) {
+        if (record[key] !== condition[key]) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }
+
   getOne(title, key, id) {
     return this.master[title].find((record) => record[key] === id);
   }

@@ -28,6 +28,7 @@ export class PhaseEnemySkill {
     state.enemy.buffState.turnDecay();
     state.player.buffState.turnDecay();
     state.enemySkillActivateCount = 0;
+    state.turn += 1;
     state.phase = "turn_start";
   }
 
