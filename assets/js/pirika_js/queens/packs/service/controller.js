@@ -3,12 +3,20 @@ import { SkillFacade } from "./skill_facade";
 import { Break } from "./break";
 import { Stack } from "./stack";
 
-// TOOD: コントローラーを通った操作は将来的に履歴を残せるようにする
-// TODO: isGameEndなら何もしないようにする
 export class Controller {
   constructor(state){
     this.state = state;
   }
+
+  operate(method, ...args){
+    if(this.state.isGameEnd()){
+      return;
+    }
+    this.state.actionCount += 1;
+    this[method](...args);
+  }
+
+  // public
 
   setup(){
     this.state.phase = "unstarted";
@@ -43,6 +51,8 @@ export class Controller {
     new SkillFacade().invoke(this.state, this.state.player, skillId, maybeCardId);
     this.state.fieldEffectActivateCount += 1;
   }
+
+  //private
 
   _sendToBoard(cardId){
     const card = this.state.player.hand.findByCardId(cardId);

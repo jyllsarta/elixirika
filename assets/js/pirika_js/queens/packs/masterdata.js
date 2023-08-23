@@ -12,6 +12,7 @@ class Masterdata {
       "shop_items",
       "equipments",
       "character_scripts",
+      "character_script_priorities",
     ];
     this.master = this.loadMasterData(titles);
     this.idTables = this.constructIdTables(titles, this.master);

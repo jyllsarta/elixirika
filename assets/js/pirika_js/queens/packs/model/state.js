@@ -21,11 +21,14 @@ export class State {
     this.fieldEffectActivateCount = 0;
     this.enemySkillActivateCount = 0;
     this.turn = 0;
+    this.actionCount = 0;
     this.uiState = {
       selectSkillTarget: false,
       selectingSkillId: null,
       isFieldEffect: false,
       currentScript: "",
+      markedActionCount: 0,
+      currentScriptPriority: 0,
     };
   }
 
@@ -44,8 +47,18 @@ export class State {
     return this.player.breakConditions.length === 0;
   }
 
-  updateScript(script){
+  updateScript(script, when){
+    const priority = Masterdata.getOne("character_script_priorities", "key", when).priority;
+    console.log("priority", priority);
+    console.log("currentScriptPriority", this.uiState.currentScriptPriority);
+    console.log("actionCount", this.actionCount);
+    console.log("markedActionCount", this.uiState.markedActionCount);
+    if(this.actionCount === this.uiState.markedActionCount && priority < this.uiState.currentScriptPriority){
+      return;
+    }
     this.uiState.currentScript = script;
+    this.uiState.markedActionCount = this.actionCount;
+    this.uiState.currentScriptPriority = priority;
   }
 };
 export default State;

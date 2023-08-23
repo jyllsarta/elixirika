@@ -22,7 +22,7 @@ export default {
   methods: {
     proceedPhaseIfNotChanged(current_phase){
       if(current_phase === this.state.phase){
-        this.controller.nextPhase();
+        this.controller.operate("nextPhase");
       }
     },
     // model の continue によってUIに表示依頼されたものを受け取って処理する

@@ -40,10 +40,10 @@ export default {
         return;
       }
       if(skill.has_reference){
-        this.controller.toggleSkillSelectMode(skillId, true);
+        this.controller.operate("toggleSkillSelectMode", skillId, true);
         return;
       }
-      this.controller.invokeFieldEffect(skillId);
+      this.controller.operate("invokeFieldEffect", skillId);
       this.$store.commit("showFragment", {name: "skill_activation", extra: {skillId: skillId}});
     },
     skill(skillId){

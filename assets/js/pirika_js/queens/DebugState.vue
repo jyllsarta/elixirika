@@ -40,10 +40,10 @@ export default {
   },
   methods: {
     setup(){
-      this.controller.setup();
+      this.controller.operate("setup");
     },
     nextPhase(){
-      this.controller.nextPhase();
+      this.controller.operate("nextPhase");
     }
   }
 

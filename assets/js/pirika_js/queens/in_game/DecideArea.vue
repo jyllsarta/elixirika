@@ -26,7 +26,7 @@ export default {
         console.warn("not ready");
         return;
       }
-      this.controller.nextPhase();
+      this.controller.operate("nextPhase");
     }
   }
 }

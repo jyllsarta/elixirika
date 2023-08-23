@@ -9,7 +9,7 @@ export class PhaseEnemySelect {
 
   continue(state, controller){
     console.log("enemy select phase");
-    controller.processEnemySelectPhase();
+    controller.operate("processEnemySelectPhase");
   }
 
   nextPhase(state){

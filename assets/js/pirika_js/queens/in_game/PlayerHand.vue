@@ -36,7 +36,7 @@ export default {
         const skillId = this.state.uiState.selectingSkillId;
         this.$store.commit("showFragment", {name: "skill_activation", extra: {skillId: skillId}});
       }
-      this.controller.selectCardByCardId(cardId);
+      this.controller.operate("selectCardByCardId", cardId);
     },
     canStackCard(card){
       return new Stack().isValid(this.state, this.state.board, card);
