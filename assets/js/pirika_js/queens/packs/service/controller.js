@@ -52,6 +52,11 @@ export class Controller {
     this.state.fieldEffectActivateCount += 1;
   }
 
+  clickCharacter(){
+    this.state.uiState.clickCount = Math.min(this.state.uiState.clickCount + 1, 3);
+    this.state.updateScript("click", this.state.uiState.clickCount);
+  }
+
   //private
 
   _sendToBoard(cardId){

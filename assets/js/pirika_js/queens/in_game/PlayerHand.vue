@@ -79,6 +79,9 @@ export default {
       flex: 1;
       height: min(120px, 150%);
       max-width: 200px;
+      &:hover{
+        transform: scale(1.1) translate(0, -10px);
+      }
     }
   }
 }

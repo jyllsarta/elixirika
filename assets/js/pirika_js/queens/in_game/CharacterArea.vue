@@ -1,6 +1,6 @@
 <template>
   <div class="character_area">
-    <character-image-vue class="character_image" :state="state" />
+    <character-image-vue class="character_image" :state="state" @click="onCharacterClick"/>
     <enemy-hand-vue class="enemy_hand" :state="state" />
     <baloon-vue class="baloon" :state="state" />
   </div>
@@ -21,7 +21,13 @@ export default {
   },
   props: {
     state: Object,
+    controller: Object,
   },
+  methods: {
+    onCharacterClick(){
+      this.controller.operate("clickCharacter", this.state.uiState.clickCount);
+    },
+  }
 }
 </script>
 
@@ -31,7 +37,6 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
-  pointer-events: none;
 
   .character_image{
     position: absolute;

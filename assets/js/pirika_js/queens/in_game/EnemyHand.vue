@@ -31,6 +31,9 @@ export default {
   .card{
     width: 60px;
     height: 60px;
+    &:hover{
+      transform: scale(1.1);
+    }
   }
 }
 </style>

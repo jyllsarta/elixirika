@@ -7,7 +7,7 @@
         <div class="field">
           <left-area-vue class="left_area" :state="state" :controller="controller"/>
           <div class="character_and_table">
-            <character-area-vue class="character_area" :state="state"/>
+            <character-area-vue class="character_area" :state="state" :controller="controller"/>
             <table-area-vue class="table_area" :state="state" :controller="controller"/>
           </div>
         </div>
