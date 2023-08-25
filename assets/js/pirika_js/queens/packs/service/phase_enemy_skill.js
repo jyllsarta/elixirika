@@ -20,6 +20,7 @@ export class PhaseEnemySkill {
     }
     sf.invoke(state, state.enemy, skill.id, null);
     state.enemySkillActivateCount += 1;
+    state.updateScript("enemySkill");
     return {invokedSkillId: skill.id}
   }
 
@@ -28,6 +29,7 @@ export class PhaseEnemySkill {
     state.enemy.buffState.turnDecay();
     state.player.buffState.turnDecay();
     state.enemySkillActivateCount = 0;
+    state.uiState.enemyComboCount = 0;
     state.turn += 1;
     state.phase = "turn_start";
   }

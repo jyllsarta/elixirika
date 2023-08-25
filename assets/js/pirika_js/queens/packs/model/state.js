@@ -30,6 +30,7 @@ export class State {
       markedActionCount: 0,
       currentScriptPriority: 0,
       clickCount: 0,
+      enemyComboCount: 0,
     };
   }
 

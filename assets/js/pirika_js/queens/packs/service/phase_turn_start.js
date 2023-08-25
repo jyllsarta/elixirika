@@ -36,7 +36,8 @@ export class PhaseTurnStart {
   _updateScript(state){
     // 1ターン目ならwelcome, それ以外ならturnStart
     const when = state.turn === 0 ? "welcome" : "turnStart";
-    state.updateScript(when, state.quest.order);
+    const order = when === "welcome" ? state.quest.order : 1;
+    state.updateScript(when, order);
   }
 };
 export default PhaseTurnStart;

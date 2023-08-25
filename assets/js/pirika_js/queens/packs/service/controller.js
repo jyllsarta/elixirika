@@ -2,6 +2,7 @@ import { PhaseStateMachine } from "./phase_state_machine";
 import { SkillFacade } from "./skill_facade";
 import { Break } from "./break";
 import { Stack } from "./stack";
+import Member from "../model/member";
 
 export class Controller {
   constructor(state){
@@ -45,11 +46,13 @@ export class Controller {
 
   invokeSkill(skillId, maybeCardId){
     new SkillFacade().invoke(this.state, this.state.player, skillId, maybeCardId);
+    this.state.updateScript("skill");
   }
 
   invokeFieldEffect(skillId, maybeCardId){
     new SkillFacade().invoke(this.state, this.state.player, skillId, maybeCardId);
     this.state.fieldEffectActivateCount += 1;
+    this.state.updateScript("fieldEffect");
   }
 
   clickCharacter(){
@@ -79,6 +82,8 @@ export class Controller {
 
     // MPを1点付与
     this.state.player.addSpecialPoint(1);
+
+    this.state.updateScript("combo", Math.min(this.state.board.cards.length, 9));
   }
 
   _doSendToBoard(card){
@@ -103,6 +108,8 @@ export class Controller {
     this._judgeAndBreak(this.state.enemy, this.state.player, card);
     this.state.board.add(card);
     this.state.enemy.addSpecialPoint(1);
+    this.state.uiState.enemyComboCount += 1;
+    this.state.updateScript("enemyCombo", this.state.uiState.enemyComboCount);
   }
 
   _judgeAndBreak(actor, target, card){
@@ -118,6 +125,12 @@ export class Controller {
         this.state.discard.add(nextCondition.card);
       }
       target.breakConditions.shift(0);
+
+      if(actor.isPlayer){
+        this.state.updateScript("break");
+      }
+
+      this._updateGameEndScript();
     }
     return breakResult;
   }
@@ -136,8 +149,20 @@ export class Controller {
       const card = target.hand.cards.pop();
       this.state.discard.add(card);
       target.hand.cards.slice(-1)[0]?.reveal();
+
+      if(actor.isPlayer){
+        this.state.updateScript("breakHand");
+      }
     }
     return breakResult;
+  }
+
+  _updateGameEndScript(){
+    if(!this.state.isGameEnd()){
+      return;
+    }
+    // プレイヤーが勝つとキャラ目線での負けセリフが出てくるため勝ってるとloseを表示する
+    this.state.isWin() ? this.state.updateScript("lose") : this.state.updateScript("win");
   }
 };
 export default Controller;
