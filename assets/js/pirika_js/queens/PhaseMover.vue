@@ -21,6 +21,9 @@ export default {
   },
   methods: {
     proceedPhaseIfNotChanged(current_phase){
+      if(this.state.isGameEnd()){
+        return;
+      }
       if(current_phase === this.state.phase){
         this.controller.operate("nextPhase");
       }
@@ -35,6 +38,9 @@ export default {
       }
     },
     continue(){
+      if(this.state.isGameEnd()){
+        return;
+      }
       // フェーズオブジェクトのcontinueを叩き、needContinueなら500ms後にもう一度continueを叩く
       const psm = new PhaseStateMachine();
       const newPhase = psm.getPhaseModule(this.state.phase);
