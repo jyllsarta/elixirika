@@ -79,5 +79,11 @@ export class Field {
   asBreakConditions(){
     return this.cards.map(card=>new BreakCondition("card", 1, null, true, card));
   }
+
+  // 後ろからcount枚revealする
+  revealRange(count){
+    const revealed = this.cards.slice(-count);
+    revealed.forEach(card => card.reveal());
+  }
 };
 export default Field;

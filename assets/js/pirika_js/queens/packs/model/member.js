@@ -9,10 +9,17 @@ export class Member {
     this.specialPoint = 0;
     this.isPlayer = isPlayer;
     this.skillIds = [];
+    this.handRevealCount = 2;
   }
 
   addSpecialPoint(amount){
     this.specialPoint += amount;
+  }
+
+  // handRevealCount枚数分だけ手札を公開する
+  revealHandMustShow(){
+    // TODO: バフの適用
+    this.hand.revealRange(this.handRevealCount);
   }
 };
 export default Member;

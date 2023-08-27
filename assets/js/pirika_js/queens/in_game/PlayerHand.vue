@@ -42,7 +42,7 @@ export default {
       return new Stack().isValid(this.state, this.state.board, card);
     },
     isEffectiveCard(card){
-      return this.canBreakNextCondition(card) || this.canBreakNextHand(card);
+      return this.canBreakNextCondition(card) || this.canBreakRevealedHand(card);
     },
     canBreakNextCondition(card){
       if(this.state.enemy.breakConditions.length === 0){
@@ -51,12 +51,12 @@ export default {
       const nextCondition = this.state.enemy.breakConditions[0];
       return new Break().getCountReduction(this.state, this.state.board, nextCondition, card) > 0;
     },
-    canBreakNextHand(card){
-      const nextHandCondition = this.state.enemy.hand.asBreakConditions().slice(-1)[0];
-      if(!nextHandCondition){
+    canBreakRevealedHand(card){
+      const revealedHandConditions = this.state.enemy.hand.asBreakConditions().filter(c => c.card.revealed);
+      if(revealedHandConditions.length === 0){
         return false;
       }
-      return new Break().getCountReduction(this.state, this.state.board, nextHandCondition, card) > 0;
+      return revealedHandConditions.some(c => new Break().getCountReduction(this.state, this.state.board, c, card) > 0);
     }
   },
 }

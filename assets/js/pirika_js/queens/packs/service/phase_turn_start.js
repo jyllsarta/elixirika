@@ -22,7 +22,7 @@ export class PhaseTurnStart {
     }
 
     state.player.hand.cards.forEach(card => card.reveal());
-    state.enemy.hand.cards.slice(-1)[0].reveal();
+    state.enemy.revealHandMustShow();
 
     state.fieldEffectActivateCount = 0;
 
