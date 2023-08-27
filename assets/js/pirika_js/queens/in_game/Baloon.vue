@@ -1,5 +1,5 @@
 <template>
-  <div class="baloon tentative_panel" v-if="state">
+  <div class="baloon" v-if="state">
     {{ state.uiState.currentScript }}
   </div>
 </template>
@@ -20,5 +20,11 @@ export default {
 .baloon{
   width: 100%;
   height: 100%;
+  background-color: $bg2;
+  border: 1px solid $white;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

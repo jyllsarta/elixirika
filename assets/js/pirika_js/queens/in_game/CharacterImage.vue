@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper" v-if="state">
-    <img :src="`/images/queens/characters/character${state.quest.character_id}_${faceId}.png`" class="character_image">
+    <div class="offset">
+      <img :src="`/images/queens/characters/character${state.quest.character_id}_${faceId}.png`" class="character_image">
+    </div>
   </div>
 </template>
 
@@ -29,10 +31,14 @@ export default {
   justify-content: center;
   align-items: flex-start;
   overflow: hidden;
-  .character_image{
-    padding-top: 30px;
+  .offset{
     width: 100%;
-    animation: move 7s linear infinite alternate;
+    height: 100%;
+    transform: translateY(calc((100% - 530px)/3));
+    .character_image{
+      width: 100%;
+      animation: move 7s linear infinite alternate;
+    }
   }
 
   @keyframes move {

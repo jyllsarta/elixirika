@@ -40,9 +40,10 @@ export default {
 
   .character_image{
     position: absolute;
+    max-width: 750px;
     width: 75%;
     height: 100%;
-    left: 0;
+    left: 5%;
     z-index: 100;
   }
   .enemy_hand{
@@ -55,10 +56,10 @@ export default {
   }
   .baloon{
     position: absolute;
-    width: 30%;
-    height: 15%;
+    width: 40%;
+    height: 25%;
     top: 8px;
-    right: 25%;
+    right: 8px;
     z-index: 400;
   }
 }
