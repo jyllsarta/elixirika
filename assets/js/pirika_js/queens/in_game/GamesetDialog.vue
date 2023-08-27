@@ -6,12 +6,12 @@
         {{ state.isWin() ? "勝利！" : "まけ" }}
       </div>
       <div class="character">
-        <img :src="`images/queens/characters/character${quest?.character_id}_1.png`" class="image">
+        <img :src="`images/queens/characters/character${quest?.character_id}_${faceId}.png`" class="image">
       </div>
       <div class="script">
         {{ state.isWin() ? quest?.win_script : quest?.lose_script }}
       </div>
-      <div class="reward">
+      <div class="reward" v-if="state.isWin()">
         <coin-icon-vue class="coin_icon"/>
         <div class="value">
           +{{ quest?.win_coin }}
@@ -53,6 +53,9 @@ export default {
   computed: {
     quest(){
       return Masterdata.get("quests", this.state.questId);
+    },
+    faceId(){
+      return this.state.isWin() ? 8 : 7;
     }
   }
 };
