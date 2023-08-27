@@ -36,6 +36,10 @@ export class PhaseSetup {
     });
   }
 
+  defaultDelay(){
+    return 100;
+  }
+
   nextPhase(state){
     state.phase = "turn_start";
   }

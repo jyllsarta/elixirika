@@ -6,6 +6,10 @@ export class PhaseEnemySkill {
 
   }
 
+  defaultDelay(){
+    return 100;
+  }
+
   needsContinue(state){
     return this._canInvokeEnemySkill(state) && state.enemySkillActivateCount < 1;
   }

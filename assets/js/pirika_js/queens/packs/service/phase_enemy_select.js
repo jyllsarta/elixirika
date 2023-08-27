@@ -10,6 +10,7 @@ export class PhaseEnemySelect {
   continue(state, controller){
     console.log("enemy select phase");
     controller.operate("processEnemySelectPhase");
+    return {delay: 200};
   }
 
   nextPhase(state){

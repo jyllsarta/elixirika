@@ -29,6 +29,10 @@ export class PhaseTurnStart {
     this._updateScript(state);
   }
 
+  defaultDelay(){
+    return 100;
+  }
+
   nextPhase(state){
     state.phase = "player_select";
   }
