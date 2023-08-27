@@ -51,7 +51,7 @@ export default {
         setTimeout(()=>{this.continue()}, delay);
       }
       else{
-        const delay = 500;
+        const delay = continueResult.delay || 500;
         setTimeout(()=>{this.proceedPhaseIfNotChanged(this.state.phase)}, delay);
       }
     },

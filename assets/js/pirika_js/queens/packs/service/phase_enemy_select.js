@@ -10,7 +10,8 @@ export class PhaseEnemySelect {
   continue(state, controller){
     console.log("enemy select phase");
     controller.operate("processEnemySelectPhase");
-    return {delay: 200};
+    const delay = state.enemy.hand.cards.length === 0 ? 700 : 200;
+    return {delay: delay};
   }
 
   nextPhase(state){
