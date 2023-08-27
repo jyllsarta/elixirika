@@ -31,6 +31,7 @@ export class State {
       currentScriptPriority: 0,
       clickCount: 0,
       enemyComboCount: 0,
+      faceId: 1,
     };
   }
 
@@ -55,11 +56,12 @@ export class State {
       return;
     }
 
-    const message = Masterdata.getByCondition("character_scripts", {when: when, character_id: this.quest.character_id, order: maybeOrder})[0].message;
+    const script = Masterdata.getByCondition("character_scripts", {when: when, character_id: this.quest.character_id, order: maybeOrder})[0];
 
-    this.uiState.currentScript = message;
+    this.uiState.currentScript = script.message;
     this.uiState.markedActionCount = this.actionCount;
     this.uiState.currentScriptPriority = priority;
+    this.uiState.faceId = script.face_id;
   }
 };
 export default State;

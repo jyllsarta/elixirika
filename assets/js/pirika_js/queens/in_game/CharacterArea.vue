@@ -40,9 +40,9 @@ export default {
 
   .character_image{
     position: absolute;
-    width: 55%;
+    width: 75%;
     height: 100%;
-    left: 15%;
+    left: 0;
     z-index: 100;
   }
   .enemy_hand{
