@@ -23,6 +23,7 @@ export default {
   background-color: $bg2;
   border: 1px solid $white;
   border-radius: 8px;
+  padding: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
