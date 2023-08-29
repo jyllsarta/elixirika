@@ -1,6 +1,17 @@
 <template>
 <div class="quests">
-  <div class="tentative_panel quest" v-for="quest in quests()" :key="quest.id" @click="selectQuest(quest.id)" :class="{disabled: !canStartQuest(quest), selected: selectedQuestId == quest.id, win: isWin(quest.id)}">
+  <div 
+    class="tentative_panel quest"
+    v-for="quest in quests()"
+    :key="quest.id"
+    @click="selectQuest(quest.id)"
+    :class="{
+      disabled: !canStartQuest(quest), 
+      selected: selectedQuestId == quest.id, 
+      win: isWin(quest.id),
+      hard: quest.is_hard,
+    }"
+  >
     {{quest.order}}
   </div>
 </div> 
@@ -59,6 +70,9 @@ export default {
     }
     &.disabled{
       opacity: 0.5;
+    }
+    &.hard{
+      background-color: $special1;
     }
   }
 }
