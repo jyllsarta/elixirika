@@ -171,6 +171,7 @@ export default {
       maxSlotCompleted: 3,
       dataWatcher: 1,
       currentScript: "",
+      clickCount: 0,
     }
   },
   mounted(){
@@ -207,8 +208,6 @@ export default {
         ...alreadyEquipedIds,
         ...unownedIds,
       ];
-
-
       return allEquipments.filter(equipment=> !invisibleIds.includes(equipment.id));
     },
     targets(){
@@ -278,6 +277,16 @@ export default {
     welcome(){
       this.currentScript = Masterdata.getOne("character_scripts", "when", "welcome").message;
     },
+    onCharacterClick(){
+      const characterId = 91;
+      const scripts = Masterdata
+                        .getBy("character_scripts", "character_id", [characterId])
+                        .filter(script => script.when == "click")
+                        .sort((a, b) => a.order - b.order);
+      const script = scripts[this.clickCount % scripts.length];
+      this.currentScript = script.message;
+      this.clickCount++;
+    },  
   }
 }
 </script>
