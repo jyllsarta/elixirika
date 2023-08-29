@@ -53,7 +53,7 @@ export class PhaseSetup {
   }
 
   _fetchPlayerBreakConditions(playerParams, state){
-    const breakConditionMasters = Masterdata.getBy("equipments", "id", playerParams.targets);
+    const breakConditionMasters = playerParams.targets.map((target) => Masterdata.get("equipments", target));
     return breakConditionMasters.map((master) => {
       const maybeCard = BreakCondition.needsCard(master.type) ? state.deck.draw() : null;
       return new BreakCondition(master.effect_key1, master.effect_value1, master.effect_value2, true, maybeCard);
