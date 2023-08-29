@@ -136,7 +136,13 @@ export default {
     },
     canStartQuest(){
       const quest = this.currentQuest();
-      return Savedata.coin() >= quest.lose_coin;
+      if(Savedata.coin() < quest.lose_coin){
+        return false;
+      }
+      if(quest.prev_quest_id && !Savedata.isWin(quest.prev_quest_id)){
+        return false;
+      }
+      return true;
     }
   },
   mounted(){

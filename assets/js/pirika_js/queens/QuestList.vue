@@ -1,6 +1,6 @@
 <template>
 <div class="quests">
-  <div class="tentative_panel quest" v-for="quest in quests()" :key="quest.id" @click="selectQuest(quest.id)" :class="{selected: selectedQuestId == quest.id, win: isWin(quest.id)}">
+  <div class="tentative_panel quest" v-for="quest in quests()" :key="quest.id" @click="selectQuest(quest.id)" :class="{disabled: !canStartQuest(quest), selected: selectedQuestId == quest.id, win: isWin(quest.id)}">
     {{quest.order}}
   </div>
 </div> 
@@ -27,6 +27,15 @@ export default {
     selectQuest(questId){
       this.$emit("selectQuest", questId);
     },
+    canStartQuest(quest){
+      if(Savedata.coin() < quest.lose_coin){
+        return false;
+      }
+      if(quest.prev_quest_id && !Savedata.isWin(quest.prev_quest_id)){
+        return false;
+      }
+      return true;
+    }
   },
 }
 </script>
@@ -47,6 +56,9 @@ export default {
     }
     &.selected{
       background-color: $accent1;
+    }
+    &.disabled{
+      opacity: 0.5;
     }
   }
 }
