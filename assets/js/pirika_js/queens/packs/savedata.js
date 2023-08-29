@@ -121,8 +121,8 @@ export class Savedata {
       shopItems: {        
       },
       equipments: {
-        targets: [1],
-        skills: [2],
+        targets: [2001],
+        skills: [],
         instants: [],
       }
     }

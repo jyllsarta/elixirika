@@ -166,7 +166,7 @@ export default {
   },
   data(){
     return {
-      currentEquipmentId: 1,
+      currentEquipmentId: 2001,
       maxSlot: 2,
       maxSlotCompleted: 3,
       dataWatcher: 1,

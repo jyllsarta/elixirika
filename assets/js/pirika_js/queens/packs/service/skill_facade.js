@@ -108,7 +108,6 @@ export class SkillFacade {
     const cards = state.player.hand.cards;
     const duplications = cards.filter(card => cards.some(anotherCard => anotherCard.n == card.n && card.id !== anotherCard.id));
     if(duplications.length === 0){
-      console.warn("no duplications");
       return false;
     }
     return true;
