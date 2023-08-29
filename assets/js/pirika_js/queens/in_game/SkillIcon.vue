@@ -18,6 +18,10 @@ export default {
       if(this.skill.is_instant){
         return this.skill.name;
       }
+      if(this.skill.is_field_effect){
+        return this.skill.name;
+      }
+
       return this.skill.name + "(" + this.skill.cost + ")";
     }
   }
