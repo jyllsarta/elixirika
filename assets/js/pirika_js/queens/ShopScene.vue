@@ -99,7 +99,12 @@ export default {
   },
   computed: {
     shopItems(){
-      return Masterdata.getAll("shop_items");
+      // セーブデータがVue管轄のオブジェクトじゃないことによって購入後にownedのステータスが更新されなかったりするが、逆に直感的な挙動なのでそのままにしておく
+      const items = Masterdata.getAll("shop_items");
+      const owned = Object.keys(new Savedata().get().shopItems).map(id => parseInt(id));
+      const ownedItems = items.filter(item => owned.includes(item.id)).sort((a, b) => a.order - b.order);
+      const notOwnedItems = items.filter(item => !owned.includes(item.id)).sort((a, b) => a.order - b.order);
+      return notOwnedItems.concat(ownedItems);
     },
   }
 }
