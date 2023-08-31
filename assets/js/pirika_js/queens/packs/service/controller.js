@@ -130,7 +130,7 @@ export class Controller {
         this.state.updateScript("break");
       }
 
-      this._updateGameEndScript();
+      this.state.checkGameEndScript();
     }
     return breakResult;
   }
@@ -161,12 +161,5 @@ export class Controller {
     return brokenCardIds.length;
   }
 
-  _updateGameEndScript(){
-    if(!this.state.isGameEnd()){
-      return;
-    }
-    // プレイヤーが勝つとキャラ目線での負けセリフが出てくるため勝ってるとloseを表示する
-    this.state.isWin() ? this.state.updateScript("lose") : this.state.updateScript("win");
-  }
 };
 export default Controller;

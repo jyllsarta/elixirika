@@ -85,5 +85,10 @@ export class Field {
     const revealed = this.cards.slice(-count);
     revealed.forEach(card => card.reveal());
   }
+
+  currentComboCount(member){
+    const additionalComboCount = member.buffState.getBuffValue("additionalCombo");
+    return this.cards.length + additionalComboCount;
+  }
 };
 export default Field;

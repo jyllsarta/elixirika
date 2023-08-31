@@ -64,6 +64,10 @@ export class SkillFacade {
     if(!effectKey){
       return;
     }
+    if(!this[effectKey]){
+      console.warn(`couldn't find effectKey: ${effectKey}`);
+      return;
+    }
     this[effectKey](state, member, skill, maybeCardId, effectValue);
   }
 
@@ -105,7 +109,7 @@ export class SkillFacade {
   }
 
   validate_sweep(state, member, skill, maybeCardId, effectValue){
-    const cards = state.player.hand.cards;
+    const cards = member.hand.cards;
     const duplications = cards.filter(card => cards.some(anotherCard => anotherCard.n == card.n && card.id !== anotherCard.id));
     if(duplications.length === 0){
       return false;
@@ -113,23 +117,19 @@ export class SkillFacade {
     return true;
   }
 
-  //TODO: stateから引いてplayer専用スキルになってしまっているのをmember参照へ変更
   sweep(state, member, skill, maybeCardId, effectValue){
-    const duplications = state.player.hand.cards.filter(card => state.player.hand.cards.some(anotherCard => anotherCard.n == card.n && card.id !== anotherCard.id));
+    const duplications = member.hand.cards.filter(card => member.hand.cards.some(anotherCard => anotherCard.n == card.n && card.id !== anotherCard.id));
     for(let card of duplications){
-      state.discard.add(state.player.hand.pickByCardId(card.id));
+      state.discard.add(member.hand.pickByCardId(card.id));
     }
     for(let i = 0; i < duplications.length; i++){
-      state.player.hand.add(state.deck.draw());
-      state.player.hand.cards.forEach(card => card.reveal());
+      member.hand.add(state.deck.draw());
+      member.hand.cards.forEach(card => card.reveal());
     }
   }
 
   validate_flush(state, member, skill, maybeCardId, effectValue){
-    if(state.player.hand.cards.length === 0){
-      return false;
-    }
-    return true;
+    return this._validateAtLeastOneHand(member);
   }
 
   flush(state, member, skill, maybeCardId, effectValue){
@@ -146,31 +146,75 @@ export class SkillFacade {
   }
 
   validate_split(state, member, skill, maybeCardId, effectValue){
-    if(state.player.hand.cards.length === 0){
-      return false;
-    }
-    return true;
+    return this._validateAtLeastOneHand(member);
   }
 
   split(state, member, skill, maybeCardId, effectValue){
-    const card = state.player.hand.pickByCardId(maybeCardId);
+    const card = member.hand.pickByCardId(maybeCardId);
     // card.n が 1 なら, 1を2枚生成して手札に加える
     if(card.n === 1){
       const cards = [new Card(1, card.suits), new Card(1, card.suits)];
       cards.map(card=>card.reveal());
-      state.player.hand.addMany(cards);
+      member.hand.addMany(cards);
     }
     // card.n が 2 以上なら, ランダムにxを選び, xと(card.n - x)を生成して手札に加える
     else{
       const x = Math.floor(Math.random() * (card.n - 1)) + 1;
       const cards = [new Card(x, card.suits), new Card(card.n - x, card.suits)];
       cards.map(card=>card.reveal());
-      state.player.hand.addMany(cards);
+      member.hand.addMany(cards);
     }
+  }
+
+  validate_multiple(state, member, skill, maybeCardId, effectValue){
+    return this._validateAtLeastOneHand(member);
+  }
+
+  // maybeCardIdで指定されたカードの数値を2倍にし、手札に戻す。10を超えた場合は、超えた差分のカードを新たに生成して手札に加える
+  multiple(state, member, skill, maybeCardId, effectValue){
+    const card = member.hand.pickByCardId(maybeCardId);
+    const newN = card.n * 2;
+    const newCard = new Card(Math.min(newN, 10), card.suits);
+    newCard.reveal();
+    member.hand.add(newCard);
+    if(newN > 10){
+      const card = new Card(newN - 10, newCard.suits);
+      card.reveal();
+      member.hand.add(card);
+    }
+  }
+
+  validate_monotone(state, member, skill, maybeCardId, effectValue){
+    return this._validateAtLeastOneHand(member);
+  }
+
+  // 手札をすべてmaybeCardIdで指定されたカードのスートにする
+  monotone(state, member, skill, maybeCardId, effectValue){
+    const card = member.hand.findByCardId(maybeCardId);
+    member.hand.cards.forEach(c => c.suits = card.suits);
   }
 
   buff(state, member, skill, maybeCardId, effectValue){
     member.buffState.addBuff(effectValue);
+  }
+
+  // member のbreakConditionsをeffectValue個削除する
+  forceBreak(state, member, skill, maybeCardId, effectValue){
+    const brokenConditions = member.breakConditions.splice(0, effectValue);
+    // conditionsの中にcardがあればdiscardに送る
+    brokenConditions.forEach(condition => {
+      if(condition.card){
+        state.discard.add(condition.card);
+      }
+    });
+    state.checkGameEndScript();
+  }
+
+  _validateAtLeastOneHand(member){
+    if(member.hand.cards.length === 0){
+      return false;
+    }
+    return true;
   }
 };
 export default SkillFacade;

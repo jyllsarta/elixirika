@@ -63,5 +63,14 @@ export class State {
     this.uiState.currentScriptPriority = priority;
     this.uiState.faceId = script.face_id;
   }
+
+  checkGameEndScript(){
+    if(!this.isGameEnd()){
+      return;
+    }
+    // プレイヤーが勝つとキャラ目線での負けセリフが出てくるため勝ってるとloseを表示する
+    this.isWin() ? this.updateScript("lose") : this.updateScript("win");
+  }
+
 };
 export default State;

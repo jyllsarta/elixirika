@@ -10,7 +10,7 @@
     </div>
     <div class="combo">
       <div class="combo_number">
-        {{state.board.cards.length}}
+        {{state.board.currentComboCount(turnActor())}}
       </div>
     </div>
   </div>
@@ -22,6 +22,10 @@ export default {
     state: Object,
   },
   methods: {
+    turnActor(){
+      // enemyが含まれるphaseの場合のみstate.enemy, そうでない場合はstate.playerを返す
+      return this.state.phase.includes("enemy") ? this.state.enemy : this.state.player;
+    }
   }
 }
 </script>
