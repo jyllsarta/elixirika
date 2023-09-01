@@ -11,8 +11,8 @@
         </div>
         <div class="description1" v-html="character().profile"/>
         <div class="description2">
-          <div class="quest_name">
-            {{ currentQuest().name }}
+          <div class="quest_name" :class="{is_hard: currentQuest().is_hard}">
+            {{currentQuest().order}}.{{ currentQuest().name }}
           </div>
           <div class="description">
             {{currentQuest().description}}
@@ -221,6 +221,10 @@ export default {
           height: 20%;
           text-align: center;
           padding-bottom: 4px;
+          &.is_hard{
+            color: $special1;
+            font-weight: bold;
+          }
         };
         .description{
           width: 100%;
