@@ -143,11 +143,19 @@ export default {
         return false;
       }
       return true;
-    }
+    },
+    nextQuest(){
+      // 未クリアで最もorderが小さいクエスト || 最後のクエスト
+      const quests = this.quests();
+      const unclearedQuests = quests.filter(quest => !Savedata.isWin(quest.id));
+      if(unclearedQuests.length > 0){
+        return unclearedQuests.sort((a, b) => a.order - b.order)[0];
+      }
+      return quests.sort((a, b) => b.order - a.order)[0];      
+    },
   },
   mounted(){
-    // TODO: 未クリアの次を自動選択
-    this.questId = this.quests()[0].id;
+    this.questId = this.nextQuest().id;
   }
 }
 </script>
