@@ -41,9 +41,10 @@ export default {
       const suit = this.card.suits[0];
       const style = {
         backgroundColor: `var(--color-${suit}3)`,
+        backgroundImage: `url("images/queens/suits/suit_${suit}_d.png")`,
         border: `2px solid var(--color-${suit}1)`,
         opacity: this.disabled ? 0.3 : 1,
-        filter: this.isEffective ? "brightness(2)" : "brightness(1)",
+        filter: this.isEffective ? "brightness(180%)" : "brightness(1)",
       };
       return style;
     },
@@ -80,6 +81,9 @@ export default {
     background-color: var(--color-u3);
     border: 2px solid var(--color-u1);
     font-size: $font-size-large;
+    background-size: auto 80%;
+    background-repeat: no-repeat;
+    background-position: right bottom;
   }
 }
 </style>
