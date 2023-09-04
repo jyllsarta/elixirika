@@ -11,7 +11,7 @@
     <div class="content_area">
       <div class="content">
         <div class="character" @click="onCharacterClick">
-          <img src="images/queens/characters/character91_2.png" class="character_image">
+          <img :src="`images/queens/characters/character91_${faceId}.png`" class="character_image">
         </div>
         <div class="informations">
           <div class="header">
@@ -171,6 +171,7 @@ export default {
       maxSlotCompleted: 3,
       dataWatcher: 1,
       currentScript: "",
+      faceId: 1,
       clickCount: 0,
     }
   },
@@ -248,12 +249,12 @@ export default {
       let save = new Savedata().get();
       const toFieldName = equipment.type + "s";
       if(save.equipments[toFieldName].length >= this.totalSlot(equipment.type)){
-        console.warn("exceed max slot");
+        this.updateScript("alreadyMaxEquipSlot");
         return;
       }
       save.equipments[toFieldName].push(equipment.id);
       new Savedata().write(save);
-      this.currentScript = Masterdata.getOne("character_scripts", "when", "equip").message;
+      this.updateScript("equip");
       // 不要な処理だが、allEquipmentsにセーブデータの変更を検知させる
       this.dataWatcher++;
     },
@@ -264,18 +265,18 @@ export default {
 
       //targetsに限り、最後の一つを外すことはできない
       if(toFieldName === "targets" && save.equipments[toFieldName].length === 0){
-        this.currentScript = Masterdata.getOne("character_scripts", "when", "cannotRemoveLastTarget").message;
+        this.updateScript("cannotRemoveLastTarget");
         console.warn("cannot remove last target");
         return;
       }
 
       new Savedata().write(save);
-      this.currentScript = Masterdata.getOne("character_scripts", "when", "remove").message;
+      this.updateScript("remove");
       // 不要な処理だが、allEquipmentsにセーブデータの変更を検知させる
       this.dataWatcher++;
     },
     welcome(){
-      this.currentScript = Masterdata.getOne("character_scripts", "when", "welcome").message;
+      this.updateScript("welcome");
     },
     onCharacterClick(){
       const characterId = 91;
@@ -285,8 +286,14 @@ export default {
                         .sort((a, b) => a.order - b.order);
       const script = scripts[this.clickCount % scripts.length];
       this.currentScript = script.message;
+      this.faceId = script.face_id;
       this.clickCount++;
-    },  
+    },
+    updateScript(when){
+      const script = Masterdata.getOne("character_scripts", "when", when);
+      this.currentScript = script.message;
+      this.faceId = script.face_id;
+    }
   }
 }
 </script>
