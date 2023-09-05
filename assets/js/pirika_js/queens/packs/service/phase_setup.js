@@ -28,6 +28,8 @@ export class PhaseSetup {
 
     state.player.skillIds = this._toSkillIds(state.playerParams.skills);
     state.enemy.skillIds = quest.skill_ids;
+    state.enemy.originalAtk = quest.atk;
+    state.enemy.reduceAtkPerCombo = quest.reduce_atk_per_combo;
 
     // インスタントスキルをすべて発動する
     const instantSkillIds = this._toSkillIds(state.playerParams.instants);

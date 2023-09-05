@@ -83,6 +83,9 @@ export class Controller {
     // MPを1点付与
     this.state.player.addSpecialPoint(1);
 
+    this.state.enemy.reduceAtk(this.state.enemy.reduceAtkPerCombo);
+    console.log(this.state.enemy.currentAtk);
+
     this.state.updateScript("combo", Math.min(this.state.board.cards.length, 9));
   }
 
@@ -90,10 +93,6 @@ export class Controller {
     // pick して移動元フィールドから消す
     this.state.player.hand.pickByCardId(card.id);
     this._judgeAndBreak(this.state.player, this.state.enemy, card);
-    const enemyHandBreakCount = this._judgeAndBreakHand(this.state.player, this.state.enemy, card);
-    if(enemyHandBreakCount > 0){
-      this.state.enemy.addSpecialPoint(enemyHandBreakCount * 2);
-    }
     this.state.board.add(card);
   }
 
@@ -101,15 +100,6 @@ export class Controller {
     this.state.uiState.selectingSkillId = skillId;
     this.state.uiState.selectSkillTarget = !this.state.uiState.selectSkillTarget;
     this.state.uiState.isFieldEffect = isFieldEffect;
-  }
-
-  processEnemySelectPhase(){
-    const card = this.state.enemy.hand.cards.pop();
-    this._judgeAndBreak(this.state.enemy, this.state.player, card);
-    this.state.board.add(card);
-    this.state.enemy.addSpecialPoint(1);
-    this.state.uiState.enemyComboCount += 1;
-    this.state.updateScript("enemyCombo", this.state.uiState.enemyComboCount);
   }
 
   _judgeAndBreak(actor, target, card){
@@ -133,32 +123,6 @@ export class Controller {
       this.state.checkGameEndScript();
     }
     return breakResult;
-  }
-
-  _judgeAndBreakHand(actor, target, card){
-    if(target.hand.cards.length === 0){
-      console.warn("hand is empty");
-      return;
-    }
-
-    const conditions = target.hand.asBreakConditions();
-
-    const brokenCardIds = conditions
-    .filter(condition => condition.card.revealed)
-    .filter(condition => new Break().execute(this.state, this.state.board, actor, target, condition, card))
-    .map(condition => condition.card.id);
-    
-    if(brokenCardIds.length > 0){
-      const removedCards = target.hand.cards.filter(card => brokenCardIds.includes(card.id));
-      target.hand.cards = target.hand.cards.filter(card => !brokenCardIds.includes(card.id));
-      this.state.discard.addMany(removedCards);
-      this.state.enemy.revealHandMustShow();
-
-      if(actor.isPlayer){
-        this.state.updateScript("breakHand");
-      }
-    }
-    return brokenCardIds.length;
   }
 
 };

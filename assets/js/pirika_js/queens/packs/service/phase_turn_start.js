@@ -17,12 +17,8 @@ export class PhaseTurnStart {
       state.player.hand.add(state.deck.draw());
     }
 
-    for(let i = 0; i < enemyDrawCount; i++){
-      state.enemy.hand.add(state.deck.draw());
-    }
-
     state.player.hand.cards.forEach(card => card.reveal());
-    state.enemy.revealHandMustShow();
+    state.enemy.currentAtk = state.enemy.originalAtk;
 
     state.fieldEffectActivateCount = 0;
 

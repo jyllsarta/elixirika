@@ -9,17 +9,21 @@ export class Member {
     this.specialPoint = 0;
     this.isPlayer = isPlayer;
     this.skillIds = [];
-    this.handRevealCount = 2;
+    this.currentAtk = 0;
+    this.originalAtk = 0;
+    this.reduceAtkPerCombo = 0;
+  }
+
+  setAtk(atk){
+    this.currentAtk = atk;
+  }
+
+  reduceAtk(amount){
+    this.currentAtk = Math.max(0, this.currentAtk - amount);
   }
 
   addSpecialPoint(amount){
     this.specialPoint += amount;
-  }
-
-  // handRevealCount枚数分だけ手札を公開する
-  revealHandMustShow(){
-    // TODO: バフの適用
-    this.hand.revealRange(this.handRevealCount);
   }
 };
 export default Member;

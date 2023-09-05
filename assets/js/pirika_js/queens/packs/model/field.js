@@ -80,12 +80,6 @@ export class Field {
     return this.cards.map(card=>new BreakCondition("card", 1, null, true, card));
   }
 
-  // 後ろからcount枚revealする
-  revealRange(count){
-    const revealed = this.cards.slice(-count);
-    revealed.forEach(card => card.reveal());
-  }
-
   currentComboCount(member){
     const additionalComboCount = member.buffState.getBuffValue("additionalCombo");
     return this.cards.length + additionalComboCount;
