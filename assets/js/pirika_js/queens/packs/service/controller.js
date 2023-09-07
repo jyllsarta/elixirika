@@ -120,6 +120,8 @@ export class Controller {
         this.state.updateScript("break");
       }
 
+      this.state.enemy.applyBreak();
+
       this.state.checkGameEndScript();
     }
     return breakResult;

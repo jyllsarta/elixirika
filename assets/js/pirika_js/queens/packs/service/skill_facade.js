@@ -207,6 +207,10 @@ export class SkillFacade {
         state.discard.add(condition.card);
       }
     });
+    //applyBreakをeffectValue回呼び出す
+    for(let i = 0; i < effectValue; i++){
+      member.applyBreak();
+    }
     state.checkGameEndScript();
   }
 

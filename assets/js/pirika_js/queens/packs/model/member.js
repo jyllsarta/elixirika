@@ -12,10 +12,16 @@ export class Member {
     this.currentAtk = 0;
     this.originalAtk = 0;
     this.reduceAtkPerCombo = 0;
+    this.brokeCount = 0;
+    this.stunTurn = 0;
   }
 
-  setAtk(atk){
-    this.currentAtk = atk;
+  applyBreak(){
+    console.log("applyBreak");
+    this.brokeCount++;
+    if(this.brokeCount === 1 || this.brokeCount === 3){
+      this.stunTurn++;
+    }
   }
 
   reduceAtk(amount){

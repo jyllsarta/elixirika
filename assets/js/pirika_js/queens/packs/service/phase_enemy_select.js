@@ -1,9 +1,15 @@
 export class PhaseEnemySelect {
   enter(state){
     if(state.player.breakConditions.length === 0){
+      console.warn("player breakConditions is empty");
       return;
     }
     if(state.enemy.currentAtk === 0){
+      console.log("enemy currentAtk is 0");
+      return;
+    }
+    if(state.enemy.stunTurn > 0){
+      console.log(`enemy stunTurn is ${state.enemy.stunTurn}`);
       return;
     }
     const condition = state.player.breakConditions[0];
