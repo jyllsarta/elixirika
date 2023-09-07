@@ -3,12 +3,14 @@
     <character-image-vue class="character_image" :state="state" @click="onCharacterClick"/>
     <enemy-hand-vue class="enemy_hand" :state="state" />
     <baloon-vue class="baloon" :state="state" />
+    <attack-info-vue class="attack_info" :state="state" />
   </div>
 </template>
 
 <script>
 import store from "../packs/store";
 import BaloonVue from './Baloon.vue';
+import AttackInfoVue from './AttackInfo.vue';
 import CharacterImageVue from "./CharacterImage.vue";
 import EnemyHandVue from "./EnemyHand.vue";
 
@@ -18,6 +20,7 @@ export default {
     CharacterImageVue,
     EnemyHandVue,
     BaloonVue,
+    AttackInfoVue,
   },
   props: {
     state: Object,
@@ -59,6 +62,14 @@ export default {
     width: 40%;
     height: 25%;
     top: 8px;
+    right: 8px;
+    z-index: 400;
+  }
+  .attack_info{
+    position: absolute;
+    width: 40%;
+    height: 40%;
+    bottom: 8px;
     right: 8px;
     z-index: 400;
   }

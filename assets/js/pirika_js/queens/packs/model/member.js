@@ -31,5 +31,13 @@ export class Member {
   addSpecialPoint(amount){
     this.specialPoint += amount;
   }
+
+  estimatedAtk(){
+    // スタン中なら0
+    if(this.stunTurn > 0){
+      return 0;
+    }
+    return this.currentAtk;
+  }
 };
 export default Member;
