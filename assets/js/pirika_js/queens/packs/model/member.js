@@ -39,7 +39,10 @@ export class Member {
     if(this.stunTurn > 0){
       return 0;
     }
-    return this.currentAtk;
+    // damageRate は 100分率
+    // TODO: receiveDamageRateの考慮が必要ならここに追加
+    const attackDamageRate = (this.buffState.getBuffValue("attackDamageRate") + 100) / 100;
+    return Math.floor(this.currentAtk * attackDamageRate);
   }
 };
 export default Member;

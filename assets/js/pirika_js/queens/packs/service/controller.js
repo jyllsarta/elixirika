@@ -84,7 +84,6 @@ export class Controller {
     this.state.player.addSpecialPoint(1);
 
     this.state.enemy.reduceAtk(this.state.enemy.reduceAtkPerCombo);
-    console.log(this.state.enemy.currentAtk);
 
     this.state.updateScript("combo", Math.min(this.state.board.cards.length, 9));
   }
