@@ -199,6 +199,11 @@ export default {
         ...save.instants,
       ];
 
+      // 所持枠系の装備(additional...)も除外する
+      const additionalIds = allEquipments
+        .filter(equipment=> equipment.type.includes("additional"))
+        .map(equipment=> equipment.id);
+
       // 未所持の装備(equipment.shop_id が save.shopItems に含まれない)も除外する
       const shopItems = Object.keys(new Savedata().get().shopItems).map(id=> parseInt(id));
       const unownedIds = allEquipments
@@ -208,6 +213,7 @@ export default {
       const invisibleIds = [
         ...alreadyEquipedIds,
         ...unownedIds,
+        ...additionalIds,
       ];
       return allEquipments.filter(equipment=> !invisibleIds.includes(equipment.id));
     },
