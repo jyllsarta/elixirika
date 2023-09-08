@@ -13,7 +13,7 @@ export class PhaseEnemySelect {
       return;
     }
     const condition = state.player.breakConditions[0];
-    condition.remainCount -= state.enemy.estimatedAtk();
+    condition.remainCount -= state.enemy.estimatedAtk(state.player);
     if(condition.remainCount <= 0){
       state.player.breakConditions.shift();
     }

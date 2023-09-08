@@ -35,15 +35,15 @@ export class Member {
     this.specialPoint += amount;
   }
 
-  estimatedAtk(){
+  estimatedAtk(opponent){
     // スタン中なら0
     if(this.stunTurn > 0){
       return 0;
     }
     // damageRate は 100分率
-    // TODO: receiveDamageRateの考慮が必要ならここに追加
     const attackDamageRate = (this.buffState.getBuffValue("attackDamageRate") + 100) / 100;
-    return Math.floor(this.currentAtk * attackDamageRate);
+    const receiveDamageRate = (opponent.buffState.getBuffValue("receiveDamageRate") + 100) / 100; 
+    return Math.floor(this.currentAtk * attackDamageRate * receiveDamageRate);
   }
 };
 export default Member;

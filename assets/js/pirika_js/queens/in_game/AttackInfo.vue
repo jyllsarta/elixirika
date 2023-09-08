@@ -4,7 +4,7 @@
       <div class="line">
         <div class="item">
           <div class="label">このターンのカウントへのダメージ</div>
-          <div class="big_value">{{state.enemy.estimatedAtk()}}</div>
+          <div class="big_value">{{state.enemy.estimatedAtk(state.player)}}</div>
         </div>
       </div>
       <div class="line">
