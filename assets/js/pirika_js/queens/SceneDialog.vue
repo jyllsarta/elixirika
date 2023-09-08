@@ -2,16 +2,20 @@
   <div class="dialog" v-if="says.length > 0">
     <div class="back" @click="closeMenu">←</div>
     <div class="content">
-      <div class="main_image">
-        <img class="image" :src="`images/queens/scenes/scene${sceneId}_${currentSay.main_image_id}.png`">
+      <div class="main_image" @click="next()">
+        <img class="image" :src="`images/queens/scenes/scene${sceneId}_${currentSay?.main_image_id}.png`">
       </div>
-      <div class="bottom_area">
+      <div class="bottom_area" :style="{visibility: showText ? 'visible' : 'hidden'}">
         <div class="upper_graduation" />
         <div class="skit_area">
           <div class="background" />
+          <div class="close" @click="closeText">×</div>
           <div class="skit">
             <div class="says" ref="says" @scroll="updateFace">
-              <div :class="['say', say.side]" v-for="say in says" :key="say.id" @mousedown="nextSay(say.order)">{{say.text}}</div>
+              <div :class="['say', say.side]" v-for="say in says" :key="say.id" @mousedown="nextSay(say.order)">
+                <div class="bg" />
+                <div class="text">{{say.text}}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -31,6 +35,7 @@ export default {
     return {
       currentSay: null,
       says: [],
+      showText: true,
     };
   },
   mounted(){
@@ -42,19 +47,31 @@ export default {
       this.$emit("close");
     },
     updateFace(){
-      // 要素90px + gap30px
+      // 要素140px + gap30px
       const scroll = Math.max(this.$refs.says.scrollTop + 40, 0);
-      const index = Math.floor(scroll / 120);
-      console.log(index);
-      this.currentSay = this.says[index];
+      const index = Math.floor(scroll / 170);
+      this.currentSay = this.says[index] || this.currentSay;
     },
     nextSay(id){
       if(id >= this.says.length){
-        console.log("this is last");
         return;
       }
-      this.currentSay = this.says.find(say => say.order == id + 1);
-      this.$refs.says.scrollTop = 120 * id;
+      this.currentSay = this.says.find(say => say.order == this.currentSay.order + 1) || this.currentSay;
+      this.$refs.says.scrollTop = 170 * id;
+    },
+    next(){
+      if(!this.showText){
+        this.showText = true;
+        return;
+      }
+      if(!this.currentSay){
+        return;
+      }
+      this.nextSay(this.currentSay.order);
+    },
+    closeText(){
+      console.log("close");
+      this.showText = false;
     },
   },
 };
@@ -82,45 +99,53 @@ export default {
     background-color: $bg3;
     .main_image{
       position: absolute;
-      height: calc(100% - 130px);
+      height: 100%;
       width: 100%;
       overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       .image{
-        max-width: $max-window-width;
-        width: 100%;
-        transform: translateY(calc(100px - 9vw));
-      }
-      @media screen and (max-width: 1800px){
-        .image{
-          height: 100%;
-          object-fit: cover;
-          transform: none;
-        }
+        position: absolute;
+        height: 100%;
+        object-fit: cover;
       }
     }
     .bottom_area{
       position: absolute;
       width: 100%;
-      height: 150px;
+      height: 200px;
       bottom: 0;
       .upper_graduation{
         position: absolute;
         width: 100%;
         height: 20px;
         background: linear-gradient(to bottom, transparent, $bg3);
-        opacity: 0.7;
+        opacity: 0.3;
       }
       .skit_area{
         position: absolute;
         width: 100%;
-        height: 130px;
+        height: 180px;
         bottom: 0;
         .background{
           position: absolute;
           width: 100%;
           height: 100%;
           background-color: $bg3;
-          opacity: 0.7;
+          opacity: 0.3;
+        }
+        .close{
+          position: absolute;
+          width: 50px;
+          height: 50px;
+          border: 1px solid $white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          right: 8px;
+          top: 8px;
+          z-index: 100;
         }
         .skit{
           position: absolute;
@@ -129,6 +154,7 @@ export default {
           display: flex;
           justify-content: center;
           align-items: center;
+          z-index: 10;
           .says{
             display: flex;
             flex-direction: column;
@@ -140,21 +166,25 @@ export default {
             padding: 6px 6px 60px 6px;
             .say{
               border: 1px solid $gray2;
-              padding: 8px 30px 8px 30px;
-              min-height: 90px;
+              min-height: 140px;
               width: 100%;
-              font-size: 24px;
-              &.center{
+              position: relative;
+              .bg{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: $bg3;
+                opacity: 0.4;
+              }
+              .text{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                padding: 8px 30px 8px 30px;
+                font-size: 24px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: $bg2;
-              }
-              &.left{
-                background-color: $bg3;
-              }
-              &.right{
-                background-color: $bg3;
               }
             }
             &::-webkit-scrollbar {
