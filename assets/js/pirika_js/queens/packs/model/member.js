@@ -14,6 +14,7 @@ export class Member {
     this.reduceAtkPerCombo = 0;
     this.breakCount = 0;
     this.stunTurn = 0;
+    this.usedSkillCountMap = {};
   }
 
   applyBreak(){

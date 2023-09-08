@@ -16,6 +16,7 @@ export class SkillFacade {
     this.resolveSkillEffect(state, target2, skill, maybeCardId, skill.effect_key2, skill.effect_value2);
 
     member.specialPoint -= skill.cost;
+    member.usedSkillCountMap[skillId] = (member.usedSkillCountMap[skillId] || 0) + 1;
   }
 
   canInvoke(state, member, skillId, maybeCardId, validatesPhase = true){
@@ -24,6 +25,9 @@ export class SkillFacade {
       return false;
     }
     if(!this.validateSp(member, skill)){
+      return false;
+    }
+    if(!skill.is_field_effect && member.usedSkillCountMap[skillId] >= 1){
       return false;
     }
     const result1 = this.validateSkillEffect(state, member, skill, maybeCardId, skill.effect_key1, skill.effect_value1);
