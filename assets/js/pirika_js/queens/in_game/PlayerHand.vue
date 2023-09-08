@@ -70,11 +70,11 @@ export default {
   .cards{
     height: 100%;
     width: 100%;
-    padding: 4px;
+    padding: 2px;
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    gap: 8px;
+    gap: 2px;
     .card{
       flex: 1;
       height: min(120px, 150%);

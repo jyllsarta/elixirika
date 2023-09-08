@@ -59,7 +59,7 @@ export default {
   .main{
     width: 100%;
     height: 100%;
-    background-color: $bg2;
+    background-color: $bg2-opacity;
     padding: 8px;
     display: flex;
     justify-content: center;

@@ -20,7 +20,7 @@ export default {
 .baloon{
   width: 100%;
   height: 100%;
-  background-color: $bg2;
+  background-color: $bg2-opacity;
   border: 1px solid $white;
   border-radius: 8px;
   padding: 8px;

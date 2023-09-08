@@ -71,7 +71,7 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 2px;
-  border: 4px solid transparent;
+  border: 2px solid transparent;
   .content{
     width: 100%;
     height: 100%;
@@ -80,7 +80,7 @@ export default {
     align-items: center;
     background-color: var(--color-u3);
     border: 2px solid var(--color-u1);
-    font-size: $font-size-large;
+    font-size: $font-size-xlarge;
     background-size: auto 80%;
     background-repeat: no-repeat;
     background-position: right bottom;

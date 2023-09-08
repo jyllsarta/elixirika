@@ -38,10 +38,10 @@ export default {
     align-items: center;
     gap: 8px;
     .enemy{
-      height: 60%;
+      height: 55%;
     }
     .player{
-      height: 40%;
+      height: 45%;
     }
   }
 }
