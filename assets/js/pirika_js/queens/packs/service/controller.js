@@ -82,6 +82,7 @@ export class Controller {
 
     // MPを1点付与
     this.state.player.addSpecialPoint(1);
+    this.state.enemy.addSpecialPoint(2);
 
     this.state.enemy.reduceAtk(this.state.enemy.reduceAtkPerCombo);
 
@@ -118,6 +119,8 @@ export class Controller {
       if(actor.isPlayer){
         this.state.updateScript("break");
       }
+
+      this.state.enemy.reduceSpecialPoint(5);
 
       const stunned = this.state.enemy.applyBreak();
       if(stunned){

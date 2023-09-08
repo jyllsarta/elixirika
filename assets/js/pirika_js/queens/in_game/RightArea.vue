@@ -82,24 +82,25 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   //set background left to right, transparent to black
   background: linear-gradient(to right, rgba(0,0,0, 0.2), rgba(0,0,0, 0.9));
   .skills{
     width: 100%;
-    height: 15%;
-    max-height: 100px;
+    height: 25%;
+    max-height: 140px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
     .skill{
-      width: 150px;
-      height: 80px;
+      width: 120px;
+      height: 60px;
     }
   }
   .right_main_area{
     width: 100%;
-    height: 70%;
-    flex: 1;
+    height: 50%;
   }
 }
 </style>

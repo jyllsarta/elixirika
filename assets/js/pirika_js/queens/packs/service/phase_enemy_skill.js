@@ -25,7 +25,7 @@ export class PhaseEnemySkill {
     sf.invoke(state, state.enemy, skill.id, null);
     state.enemySkillActivateCount += 1;
     state.updateScript("enemySkill");
-    return {invokedSkillId: skill.id, delay: 1000}
+    return {invokedSkillId: skill.id, delay: 1000};
   }
 
   nextPhase(state){

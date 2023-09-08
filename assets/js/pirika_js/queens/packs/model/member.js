@@ -7,6 +7,7 @@ export class Member {
     this.buffState = new BuffState();
     this.breakConditions = [];
     this.specialPoint = 0;
+    this.maxSpecialPoint = 50;
     this.isPlayer = isPlayer;
     this.skillIds = [];
     this.currentAtk = 0;
@@ -33,6 +34,12 @@ export class Member {
 
   addSpecialPoint(amount){
     this.specialPoint += amount;
+    this.specialPoint = Math.min(this.specialPoint, this.maxSpecialPoint);
+  }
+
+  reduceSpecialPoint(amount){
+    this.specialPoint -= amount;
+    this.specialPoint = Math.max(this.specialPoint, 0);
   }
 
   estimatedAtk(opponent){
