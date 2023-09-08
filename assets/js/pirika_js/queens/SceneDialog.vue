@@ -92,6 +92,24 @@ export default {
     justify-content: center;
     align-items: center;
     opacity: 0.7;
+    animation: back 1s;
+    transition: background-color 0.2s;
+    &:hover{
+      background-color: $bg2-opacity;
+      color: $white;
+    }
+  }
+  @keyframes back {
+    0% {
+      background-color: $bg1;
+      color: $plus;
+      scale: 1.5;
+    }
+    100% {
+      background-color: transparent;
+      color: $white;
+      scale: 1;
+    }
   }
   .content{
     height: 100%;
