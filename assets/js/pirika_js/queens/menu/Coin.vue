@@ -28,7 +28,7 @@ export default {
 <style lang="scss" scoped>
 @import "../stylesheets/global_settings";
 .coin_area{
-  width: 100px;
+  width: 200px;
   height: 100px;
   border: 1px dotted $white;
   display: flex;

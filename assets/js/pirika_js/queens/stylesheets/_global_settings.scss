@@ -7,7 +7,9 @@ $accent3: darken($accent1, 40%);
 $special1: #b48669;
 
 $bg1: #0d3751;
+$bg1-opacity: rgba($bg1, 0.8);
 $bg2: darken($bg1, 10%);
+$bg2-opacity: rgba($bg2, 0.8);
 $bg3: darken($bg1, 20%);
 $bg4: darken($bg1, 30%);
 $global-bg: #302f35;

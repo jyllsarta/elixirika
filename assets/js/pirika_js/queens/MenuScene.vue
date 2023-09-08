@@ -15,8 +15,6 @@
       </div>
       <div class="footer">
         <coin-vue/>
-        <skill-vue :index="1"/>
-        <skill-vue :index="2"/>
         <div class="tentative_button button" @click="loadScene('shop')">
           ショップへ
         </div>
@@ -140,10 +138,10 @@ export default {
       min-height: 120px;
       display: flex;
       justify-content: space-around;
-      gap: 8px;
+      gap: 16px;
       padding: 8px;
       .button{
-        width: 250px;
+        flex: 1;
         height: 100px;
       }
     }

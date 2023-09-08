@@ -49,7 +49,7 @@ export default {
   width: 25%;
   height: 90%;
   max-width: 360px;
-  background-color: $bg3;
+  background: linear-gradient(to bottom, transparent, $bg3);
 }
 .character{
   width: 100%;
@@ -86,13 +86,16 @@ export default {
     .name{
       font-size: 20px;
       text-align: center;
-      margin-bottom: 10px;
-      background-color: $bg3;
+      margin-bottom: 4px;
+      background-color: $bg2-opacity;
       line-height: 100%;
     }
     .quests{
       display: flex;
       justify-content: space-around;
+      background-color: $bg2-opacity;
+      padding-top: 8px;
+      padding-bottom: 8px;
     }
   }
 }
