@@ -56,14 +56,14 @@ export default {
       if(!this.breakConditions){
         return [];
       }
-      return this.breakConditions.slice(1, 4);
+      return this.breakConditions.slice(1, 3);
     },
     // 5番目以降の条件
     condencedConditions(){
       if(!this.breakConditions){
         return [];
       }
-      return this.breakConditions.slice(4);
+      return this.breakConditions.slice(3);
     },
   },
 }
@@ -81,8 +81,9 @@ export default {
   border: 1px solid $white;
   .label_area{
     width: 100%;
-    height: 20%;
-    padding: 8px;
+    height: 15%;
+    padding-left: 4px;
+    padding-right: 4px;
     .label{
       width: 100%;
       text-align: center;
@@ -96,11 +97,11 @@ export default {
   }
   .conditions{
     width: 100%;
-    height: 50%;
+    height: 55%;
     display: flex;
     flex-direction: column-reverse;
-    padding: 8px 8px 0 8px;
-    gap: 8px;
+    padding: 4px 4px 0 4px;
+    gap: 4px;
     
     .condition{
       display: flex;
@@ -110,7 +111,7 @@ export default {
     }
     .normal{
       width: 100%;
-      height: 40px;
+      height: 50px;
     }
     .condenced{
       width: 100%;
@@ -123,7 +124,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px;
+    padding: 4px;
     .next_condition{
       width: 100%;
       height: 100%;

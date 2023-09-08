@@ -1,8 +1,8 @@
 <template>
   <div class="left_area" v-if="state">
     <div class="content">
-      <member-break-conditions-vue class="member_break_conditions" :state="state" :controller="controller" :breakConditions="state.enemy.breakConditions"/>
-      <member-break-conditions-vue class="member_break_conditions" :state="state" :controller="controller" :breakConditions="state.player.breakConditions"/>
+      <member-break-conditions-vue class="member_break_conditions enemy" :state="state" :controller="controller" :breakConditions="state.enemy.breakConditions"/>
+      <member-break-conditions-vue class="member_break_conditions player" :state="state" :controller="controller" :breakConditions="state.player.breakConditions"/>
     </div>
   </div>
 </template>
@@ -37,6 +37,12 @@ export default {
     justify-content: center;
     align-items: center;
     gap: 8px;
+    .enemy{
+      height: 60%;
+    }
+    .player{
+      height: 40%;
+    }
   }
 }
 </style>

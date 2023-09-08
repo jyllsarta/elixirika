@@ -1,6 +1,17 @@
 <template>
-  <div class="condition" :style="computedStyle">
-    {{ condenced ? "" : condition.stringRepresentation() }}
+  <div class="condition">
+    <div class="condenced_condition condition_content" v-if="condenced" :style="computedStyle"/>
+    <div class="condition_content" v-else :style="computedStyle">
+      <div class="label">
+        {{ condition.type.toUpperCase() }}
+      </div>
+      <div class="value">
+        <div class="gauge" :style="{width: countRatioPercent}"/>
+        <div class="text">
+          {{ condition.stringRepresentation() }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -29,6 +40,12 @@ export default {
         border: `1px solid var(--color-${suit}1)`,
       };
       return style;
+    },
+    countRatioPercent(){
+      if(this.condition.maxCount === 1){
+        return "0%";
+      }
+      return `${(this.condition.remainCount / this.condition.maxCount * 100)}%`;
     }
   },
 }
@@ -38,12 +55,44 @@ export default {
 @import "../stylesheets/global_settings";
 .condition{
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: $white;
-  background-color: var(--color-u3);
-  border: 1px solid var(--color-u1);
-  line-height: 100%;
+  height: 100%;
+  .condition_content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: $white;
+    background-color: var(--color-u3);
+    border: 1px solid var(--color-u1);
+    line-height: 100%;
+    .label{
+      width: 80%;
+      font-size: $font-size-mini;
+      text-align: center;
+      border-bottom: 1px dotted $white;
+    }
+    .value{
+      flex: 1;
+      width: 100%;
+      position: relative;
+      .gauge{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        opacity: 0.15;
+      }
+      .text{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
 }
 </style>
