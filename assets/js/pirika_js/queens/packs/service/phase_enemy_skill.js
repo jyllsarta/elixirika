@@ -35,7 +35,7 @@ export class PhaseEnemySkill {
     state.enemySkillActivateCount = 0;
     state.uiState.enemyComboCount = 0;
     state.enemy.stunTurn > 0 && state.enemy.stunTurn--;
-    state.enemy.brokeCount = 0;
+    state.enemy.breakCount = 0;
     state.turn += 1;
     state.phase = "turn_start";
   }

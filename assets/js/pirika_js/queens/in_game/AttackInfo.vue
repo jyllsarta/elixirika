@@ -1,14 +1,22 @@
 <template>
   <div class="attack_info" v-if="state">
     <div class="main">
-      <div class="item target">
-        <div class="label">このターンのカウントへのダメージ</div>
-        <div class="big_value">{{state.enemy.estimatedAtk()}}</div>
+      <div class="line">
+        <div class="item">
+          <div class="label">このターンのカウントへのダメージ</div>
+          <div class="big_value">{{state.enemy.estimatedAtk()}}</div>
+        </div>
       </div>
-      <div class="item reduce">
-        <div class="label">1コンボごとの減衰量</div>
-        <div class="value">{{state.enemy.reduceAtkPerCombo}}</div>
-      </div>
+      <div class="line">
+        <div class="item">
+          <div class="label">1コンボごとの減衰量</div>
+          <div class="value">{{state.enemy.reduceAtkPerCombo}}</div>
+        </div>
+        <div class="item">
+          <div class="label">ブレイク</div>
+          <div class="value">{{breakCount}}</div>
+        </div>
+      </div>      
     </div>
     <div class="stun_cover" v-if="state.enemy.stunTurn > 0">
       <div class="bg" />
@@ -29,6 +37,14 @@ export default {
   store, 
   props: {
     state: Object,
+  },
+  computed: {
+    breakCount(){
+      const count = this.state.enemy.breakCount;
+      const filled_square = "◆".repeat(Math.min(count, 2));
+      const empty_square = "◇".repeat(Math.max(2 - count, 0));
+      return filled_square + empty_square;
+    }
   },
 }
 </script>
@@ -51,23 +67,29 @@ export default {
     flex-direction: column;
     gap: 4px;
 
-    .item{
+    .line{
       display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
       width: 100%;
+      flex: 1;
       gap: 2px;
-      .label{
-        font-size: $font-size-mini;
-        border-bottom: 1px solid $white;
-        text-align: center;
-        width: 80%;
-        line-height: 100%;
-      }
-      .big_value{
-        font-size: $font-size-xlarge;
-        line-height: 100%;
+      .item{
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .label{
+          font-size: $font-size-mini;
+          border-bottom: 1px solid $white;
+          text-align: center;
+          width: 90%;
+          line-height: 100%;
+          padding-bottom: 2px;
+        }
+        .big_value{
+          font-size: $font-size-xlarge;
+          line-height: 100%;
+        }
       }
     }
   }
