@@ -180,7 +180,7 @@ export default {
     height: 90%;
     width: 90%;
     max-width: 1400px;
-    background-color: $bg3;
+    background: linear-gradient(to bottom, $bg2, $bg3);
     border: 2px solid $base2;
     padding: 8px;
     display: flex;
@@ -200,7 +200,6 @@ export default {
       display: flex;
       flex-direction: column;
       padding: 8px;
-      background-color: $bg3;
       .name{
         height: 80px;
         width: 100%;
