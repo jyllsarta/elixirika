@@ -209,7 +209,10 @@ export class SkillFacade {
     });
     //applyBreakをeffectValue回呼び出す
     for(let i = 0; i < effectValue; i++){
-      member.applyBreak();
+      const stunned = member.applyBreak();
+      if(stunned){
+        state.updateScript("stun");
+      }
     }
     state.checkGameEndScript();
   }

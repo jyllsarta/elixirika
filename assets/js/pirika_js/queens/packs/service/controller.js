@@ -120,7 +120,10 @@ export class Controller {
         this.state.updateScript("break");
       }
 
-      this.state.enemy.applyBreak();
+      const stunned = this.state.enemy.applyBreak();
+      if(stunned){
+        this.state.updateScript("stun");
+      }
 
       this.state.checkGameEndScript();
     }

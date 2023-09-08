@@ -21,7 +21,9 @@ export class Member {
     this.breakCount++;
     if(this.breakCount === 2){
       this.stunTurn++;
+      return true;
     }
+    return false;
   }
 
   reduceAtk(amount){
