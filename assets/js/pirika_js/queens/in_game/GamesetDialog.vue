@@ -55,7 +55,8 @@ export default {
       return Masterdata.get("quests", this.state.questId);
     },
     faceId(){
-      return this.state.isWin() ? 8 : 7;
+      const key = this.state.isWin() ? "win_face_id" : "lose_face_id";
+      return this.quest[key];
     }
   }
 };
