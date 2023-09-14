@@ -13,6 +13,12 @@ export const store = createStore({
       skill_activation: {
         skillId: 0,
       }
+    },
+    global_detail: {
+      show: false,
+      type: "",
+      params: {
+      }
     }
   },
   getters: {},
@@ -27,6 +33,14 @@ export const store = createStore({
     },
     hideFragment(state, params) {
       state.fragments[params.name] = false;
+    },
+    showGlobalDetail(state, params) {
+      state.global_detail.show = true;
+      state.global_detail.type = params.type;
+      state.global_detail.params = params.params;
+    },
+    hideGlobalDetail(state, params) {
+      state.global_detail.show = false;
     }
   },
 });

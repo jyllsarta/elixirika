@@ -1,5 +1,5 @@
 <template>
-  <div class="condition">
+  <div class="condition" @click.right.prevent="showDetail">
     <div class="condenced_condition condition_content" v-if="condenced" :style="computedStyle"/>
     <div class="condition_content" v-else :style="computedStyle">
       <div class="label">
@@ -48,6 +48,11 @@ export default {
       return `${(this.condition.remainCount / this.condition.maxCount * 100)}%`;
     }
   },
+  methods: {
+    showDetail(){
+      this.$store.commit("showGlobalDetail", {type: "break_condition", params: this.condition});
+    }
+  }
 }
 </script>
 

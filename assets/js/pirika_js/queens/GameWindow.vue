@@ -5,6 +5,7 @@
     <in-game-scene v-if="$store.state.scene.name === 'in_game'"/>
     <equipment-scene v-if="$store.state.scene.name === 'equipment'"/>
     <shop-scene v-if="$store.state.scene.name === 'shop'"/>
+    <global-detail-dialog v-if="$store.state.global_detail.show" class="global_detail"/>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import MenuScene from './MenuScene.vue';
 import InGameScene from './InGameScene.vue';
 import EquipmentScene from './EquipmentScene.vue';
 import ShopScene from './ShopScene.vue';
+import GlobalDetailDialog from './GlobalDetailDialog.vue';
 import store from "./packs/store";
 
 export default {
@@ -24,6 +26,7 @@ export default {
     InGameScene,
     ShopScene,
     EquipmentScene,
+    GlobalDetailDialog,
   },
   mounted(){
     //this.$store.commit("loadScene", {name: "in_game", questId: 201});
@@ -45,5 +48,13 @@ export default {
   position: relative;
   background-color: $bg4;
   color: $white;
+  .global_detail{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $window-width;
+    height: $window-height;
+    z-index: 1000000;
+  }
 }
 </style>
