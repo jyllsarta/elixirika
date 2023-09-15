@@ -8,7 +8,12 @@
           v-if="type === 'break_condition'"
           :condition="params"
           :condenced="false"
-          class="break_condition main_content"
+          class="main_content"
+        />
+        <skill-icon-vue
+          v-if="type === 'skill'"
+          :skill="params"
+          class="main_content"
         />
         <div class="description">{{ fetchDetails().description }}</div>
       </div>
@@ -19,12 +24,14 @@
 <script>
 import store from "./packs/store";
 import BreakConditionVue from "./in_game/BreakCondition.vue";
+import SkillIconVue from "./in_game/SkillIcon.vue";
 import Masterdata from "./packs/masterdata";
 
 export default {
   store,
   components: {
     BreakConditionVue,
+    SkillIconVue,
   },
   methods: {
     close(){
@@ -34,6 +41,8 @@ export default {
       switch(this.type){
         case "break_condition":
           return this.fetchBreakCondition();
+        case "skill":
+          return this.fetchSkill();
       }      
     },
     fetchBreakCondition(){
@@ -41,6 +50,12 @@ export default {
       return {
         title: description.title,
         description: description.description,
+      }
+    },
+    fetchSkill(){
+      return {
+        title: this.params.name,
+        description: this.params.description,
       }
     }
   },
@@ -81,7 +96,7 @@ export default {
       align-items: center;
       width: 400px;
       height: 300px;
-      gap: 8px;
+      gap: 16px;
       .title{
         font-size: $font-size-large;
         width: 80%;

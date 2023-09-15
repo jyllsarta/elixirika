@@ -1,5 +1,9 @@
 <template>
-  <div class="skill tentative_button" :class="{disabled: disabled}">
+  <div 
+    class="skill tentative_button"
+    :class="{disabled: disabled}"
+    @click.right.prevent="disabled || onClick()"
+  >
     {{ stringRepresentation }}
   </div>
 </template>
@@ -23,6 +27,11 @@ export default {
       }
 
       return this.skill.name + "(" + this.skill.cost + ")";
+    }
+  },
+  methods: {
+    onClick(){
+      this.$store.commit("showGlobalDetail", {type: "skill", params: this.skill});
     }
   }
 }
