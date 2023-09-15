@@ -3,12 +3,14 @@
     <div class="bg" @click="close" />
     <div class="content_area">
       <div class="content">
+        <div class="title">{{ fetchDetails().title }}</div>
         <break-condition-vue 
           v-if="type === 'break_condition'"
           :condition="params"
           :condenced="false"
-          class="break_condition"
+          class="break_condition main_content"
         />
+        <div class="description">{{ fetchDetails().description }}</div>
       </div>
     </div>
   </div>
@@ -17,6 +19,7 @@
 <script>
 import store from "./packs/store";
 import BreakConditionVue from "./in_game/BreakCondition.vue";
+import Masterdata from "./packs/masterdata";
 
 export default {
   store,
@@ -26,6 +29,19 @@ export default {
   methods: {
     close(){
       this.$store.commit("hideGlobalDetail");
+    },
+    fetchDetails(){
+      switch(this.type){
+        case "break_condition":
+          return this.fetchBreakCondition();
+      }      
+    },
+    fetchBreakCondition(){
+      const description = Masterdata.getOne("break_condition_descriptions", "type", this.params.type);
+      return {
+        title: description.title,
+        description: description.description,
+      }
     }
   },
   computed: {
@@ -59,11 +75,26 @@ export default {
     align-items: center;
     pointer-events: none;
     .content{
-      width: 300px;
-      height: 100px;
-      .break_condition{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 400px;
+      height: 300px;
+      gap: 8px;
+      .title{
+        font-size: $font-size-large;
         width: 80%;
-        height: 80%;
+        text-align: center;
+        border-bottom: 1px solid $white;
+      }
+      .main_content{
+        width: 200px;
+        height: 100px;
+      }
+      .description{
+        width: 80%;
+        white-space: pre-wrap;
       }
     }
   }
