@@ -16,7 +16,8 @@
       <right-area-vue class="right_area" :state="state" :controller="controller"/>
     </div>
     <fragment-vue class="fragments" :state="state"/>
-    <gameset-dialog class="dialog component" v-if="state?.isGameEnd()" :state="state" />
+    <gameset-dialog-vue class="dialog component" v-if="state?.isGameEnd()" :state="state" />
+    <game-start-dialog-vue class="dialog component" v-if="state?.phase === 'unstarted'" :quest="quest" @start-game="startGame"/>
     <debug-state-vue :state="state" :controller="controller" v-if="false"/>
     <phase-mover-vue :state="state" :controller="controller"/>
   </div>
@@ -33,10 +34,12 @@ import Controller from "./packs/service/controller";
 import DebugStateVue from './DebugState.vue';
 import PhaseMoverVue from './PhaseMover.vue';
 import FloatingMenuVue from "./in_game/FloatingMenu.vue";
-import GamesetDialog from "./in_game/GamesetDialog.vue";
+import GamesetDialogVue from "./in_game/GamesetDialog.vue";
+import GameStartDialogVue from "./in_game/GameStartDialog.vue";
 import BackgroundVue from './in_game/Background.vue';
 import FragmentVue from './in_game/Fragments.vue';
 import Savedata from './packs/savedata';
+import Masterdata from './packs/masterdata';
 
 export default {
   components: {
@@ -48,7 +51,8 @@ export default {
     DebugStateVue,
     PhaseMoverVue,
     FloatingMenuVue,
-    GamesetDialog,
+    GamesetDialogVue,
+    GameStartDialogVue,
     BackgroundVue,
     FragmentVue,
   },
@@ -56,15 +60,22 @@ export default {
     return {
       state: null,
       controller: null,
+      quest: null,
     }
   },
   mounted(){
     const questId = this.$store.state.scene.params.questId;
     const playerParams = Savedata.playerParams();
+    this.quest = Masterdata.get("quests", questId);
     this.state = new State(questId, playerParams);
     window.state = this.state;
     this.controller = new Controller(state);
     window.controller = this.controller;
+  },
+  methods: {
+    startGame(){
+      this.controller.operate("nextPhase");
+    }
   },
 }
 </script>
