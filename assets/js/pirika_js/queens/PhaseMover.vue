@@ -1,4 +1,5 @@
 <template>
+  <div />
 </template>
 
 <script>
@@ -20,11 +21,11 @@ export default {
     controller: Object,
   },
   methods: {
-    proceedPhaseIfNotChanged(current_phase) {
+    proceedPhaseIfNotChanged(currentPhase) {
       if (this.state.isGameEnd()) {
         return;
       }
-      if (current_phase === this.state.phase) {
+      if (currentPhase === this.state.phase) {
         this.controller.operate("nextPhase");
       }
     },

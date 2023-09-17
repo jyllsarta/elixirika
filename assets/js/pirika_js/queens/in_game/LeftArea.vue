@@ -1,8 +1,18 @@
 <template>
   <div class="left_area" v-if="state">
     <div class="content">
-      <member-break-conditions-vue class="member_break_conditions enemy" :state="state" :controller="controller" :breakConditions="state.enemy.breakConditions"/>
-      <member-break-conditions-vue class="member_break_conditions player" :state="state" :controller="controller" :breakConditions="state.player.breakConditions"/>
+      <member-break-conditions-vue
+        class="member_break_conditions enemy"
+        :state="state"
+        :controller="controller"
+        :breakConditions="state.enemy.breakConditions"
+      />
+      <member-break-conditions-vue
+        class="member_break_conditions player"
+        :state="state"
+        :controller="controller"
+        :breakConditions="state.player.breakConditions"
+      />
     </div>
   </div>
 </template>

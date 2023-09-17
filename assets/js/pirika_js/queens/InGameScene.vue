@@ -69,7 +69,7 @@ export default {
     this.quest = Masterdata.get("quests", questId);
     this.state = new State(questId, playerParams);
     window.state = this.state;
-    this.controller = new Controller(state);
+    this.controller = new Controller(this.state);
     window.controller = this.controller;
   },
   methods: {

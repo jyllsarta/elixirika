@@ -26,7 +26,13 @@
         </div>
       </div>
     </div>
-    <character-detail-dialog class="character_detail" v-if="showingDetail" @close="showingDetail = false" @showScene="showScene" :characterId="showingCharacterId"/>
+    <character-detail-dialog
+      class="character_detail"
+      v-if="showingDetail"
+      @close="showingDetail = false"
+      @showScene="showScene"
+      :characterId="showingCharacterId"
+    />
     <scene-dialog-vue class="scene" v-if="showingScene" @close="showingScene = false" :sceneId="sceneId"/>
   </div>
 </template>
@@ -37,7 +43,6 @@ import SceneDialogVue from "./SceneDialog.vue";
 import CharacterVue from "./menu/Character.vue";
 import CoinVue from "./menu/Coin.vue";
 import store from "./packs/store";
-import SkillVue from "./menu/Skill.vue";
 import MenuBackgroundVue from "./MenuBackground.vue";
 import FloatingMenuVue from "./FloatingMenu.vue";
 
@@ -48,7 +53,6 @@ export default {
     SceneDialogVue,
     CharacterVue,
     CoinVue,
-    SkillVue,
     MenuBackgroundVue,
     FloatingMenuVue,
   },

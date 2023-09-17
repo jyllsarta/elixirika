@@ -41,9 +41,9 @@ export default {
   computed: {
     breakCount() {
       const count = this.state.enemy.breakCount;
-      const filled_square = "◆".repeat(Math.min(count, 2));
-      const empty_square = "◇".repeat(Math.max(2 - count, 0));
-      return filled_square + empty_square;
+      const filledSquare = "◆".repeat(Math.min(count, 2));
+      const emptySquare = "◇".repeat(Math.max(2 - count, 0));
+      return filledSquare + emptySquare;
     },
   },
 };

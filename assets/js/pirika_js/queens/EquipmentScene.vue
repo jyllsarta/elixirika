@@ -184,6 +184,7 @@ export default {
     },
     allEquipmentsMap() {
       // dataWatcherに依存していることにして、セーブデータの変更を検知する
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.dataWatcher++;
       return Masterdata.getAllMap("equipments");
     },
