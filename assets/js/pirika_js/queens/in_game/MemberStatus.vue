@@ -29,14 +29,14 @@ import store from "../packs/store";
 import BuffIconVue from "./BuffIcon.vue";
 
 export default {
-  store, 
+  store,
   props: {
     member: Object,
   },
   components: {
-    BuffIconVue,    
+    BuffIconVue,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

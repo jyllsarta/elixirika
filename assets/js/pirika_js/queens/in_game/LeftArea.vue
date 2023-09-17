@@ -9,10 +9,10 @@
 
 <script>
 import store from "../packs/store";
-import MemberBreakConditionsVue from './MemberBreakConditions.vue';
+import MemberBreakConditionsVue from "./MemberBreakConditions.vue";
 
 export default {
-  store, 
+  store,
   components: {
     MemberBreakConditionsVue,
   },
@@ -20,7 +20,7 @@ export default {
     state: Object,
     controller: Object,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

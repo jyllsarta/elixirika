@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import TitleScene from './TitleScene.vue';
-import MenuScene from './MenuScene.vue';
-import InGameScene from './InGameScene.vue';
-import EquipmentScene from './EquipmentScene.vue';
-import ShopScene from './ShopScene.vue';
-import GlobalDetailDialog from './GlobalDetailDialog.vue';
+import TitleScene from "./TitleScene.vue";
+import MenuScene from "./MenuScene.vue";
+import InGameScene from "./InGameScene.vue";
+import EquipmentScene from "./EquipmentScene.vue";
+import ShopScene from "./ShopScene.vue";
+import GlobalDetailDialog from "./GlobalDetailDialog.vue";
 import store from "./packs/store";
 
 export default {
@@ -28,15 +28,15 @@ export default {
     EquipmentScene,
     GlobalDetailDialog,
   },
-  mounted(){
-    //this.$store.commit("loadScene", {name: "in_game", questId: 201});
-    this.$store.commit("loadScene", {name: "menu"});
+  mounted() {
+    // this.$store.commit("loadScene", {name: "in_game", questId: 201});
+    this.$store.commit("loadScene", { name: "menu" });
   },
   methods: {
   },
   computed: {
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

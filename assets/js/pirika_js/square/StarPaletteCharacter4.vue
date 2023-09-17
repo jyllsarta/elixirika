@@ -229,7 +229,7 @@ export default {
     // HPあがる ID変化あり: 攻撃で倒したに違いない もしくはリセット
     // HPさがる ID変化なし: 攻撃で削ったに違いない
     // HPあがる ID変化なし: リセット
-    "foregroundEnemy.id": function (newId, prevId) {
+    "foregroundEnemy.id": function(newId, prevId) {
       const newEnemy = this.model.character.uniqueParameters.enemies.find(
         (enemy) => enemy.id === newId,
       );
@@ -248,7 +248,7 @@ export default {
         this.$store.commit("playSound", { key: "defeat" });
       }, 1000);
     },
-    "foregroundEnemy.hp": function (newHp, prevHp) {
+    "foregroundEnemy.hp": function(newHp, prevHp) {
       // リセット検出 ヒストリーが空なら演出しない
       if (this.foregroundEnemy.damageHistory?.length === 0) {
         this.syncCurrentHp();
@@ -268,7 +268,7 @@ export default {
         }, 1000);
       }
     },
-    "foregroundEnemy.shield": function (after, before) {
+    "foregroundEnemy.shield": function(after, before) {
       if (before > 0) {
         // シールドが削れたタイミングではHPは減らない
         this.onAttack(false);

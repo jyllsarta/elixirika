@@ -48,66 +48,66 @@ import CoinIconVue from "./CoinIcon.vue";
 
 export default {
   store,
-  data(){
+  data() {
     return {
       currentShopItemId: null,
       currentScript: "-",
       clickCount: 0,
-    }
+    };
   },
   components: {
     ShopItemVue,
     CoinIconVue,
   },
   methods: {
-    loadMenu(){
-      this.$store.commit("loadScene", {name: "menu"});
+    loadMenu() {
+      this.$store.commit("loadScene", { name: "menu" });
     },
-    equipment(shopItemId){
+    equipment(shopItemId) {
       const equipment = Masterdata.getBy("equipments", "shop_id", [shopItemId])[0];
-      if(!equipment){
+      if (!equipment) {
         console.warn("equipment not found", shopItemId);
       }
       return equipment;
     },
-    updateCurrentShopItemId(id){
+    updateCurrentShopItemId(id) {
       this.currentShopItemId = id;
       this.currentScript = Masterdata.getBy("equipments", "shop_id", [this.currentShopItemId])[0]?.message;
     },
-    onCharacterClick(){
+    onCharacterClick() {
       const characterId = 90;
       const scripts = Masterdata
-                        .getBy("character_scripts", "character_id", [characterId])
-                        .filter(script => script.when == "click")
-                        .sort((a, b) => a.order - b.order);
+        .getBy("character_scripts", "character_id", [characterId])
+        .filter((script) => script.when == "click")
+        .sort((a, b) => a.order - b.order);
       const script = scripts[this.clickCount % scripts.length];
       this.currentScript = script.message;
       this.clickCount++;
     },
-    onBuy(shopItemId){
+    onBuy(shopItemId) {
       // NOTE: 地味にこのcurrentScriptの更新による再計算によって、ShopItemのdisabledが更新される
       // ここで再計算が走らないと、買った後になにかupdateCurrentShopItemIdが呼ばれる用事が発生するまでdisabledが更新されない
       const characterId = 90;
       const script = Masterdata
-                      .getBy("character_scripts", "character_id", [characterId])
-                      .filter(script => script.when == "buy")[0];
+        .getBy("character_scripts", "character_id", [characterId])
+        .filter((script) => script.when == "buy")[0];
       this.currentScript = script.message;
     },
-    coin(){
+    coin() {
       return Savedata.coin();
     },
   },
   computed: {
-    shopItems(){
+    shopItems() {
       // セーブデータがVue管轄のオブジェクトじゃないことによって購入後にownedのステータスが更新されなかったりするが、逆に直感的な挙動なのでそのままにしておく
       const items = Masterdata.getAll("shop_items");
-      const owned = Object.keys(new Savedata().get().shopItems).map(id => parseInt(id));
-      const ownedItems = items.filter(item => owned.includes(item.id)).sort((a, b) => a.order - b.order);
-      const notOwnedItems = items.filter(item => !owned.includes(item.id)).sort((a, b) => a.order - b.order);
+      const owned = Object.keys(new Savedata().get().shopItems).map((id) => parseInt(id));
+      const ownedItems = items.filter((item) => owned.includes(item.id)).sort((a, b) => a.order - b.order);
+      const notOwnedItems = items.filter((item) => !owned.includes(item.id)).sort((a, b) => a.order - b.order);
       return notOwnedItems.concat(ownedItems);
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

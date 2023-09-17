@@ -246,9 +246,9 @@ export default {
       }, {});
       // chapter_id: [challenge_ids(NOT sorted)] の形にしちゃう
       const challengeIdTable = challengeRecords.reduce((iter, x) => {
-        iter[x.chapter_id] = iter[x.chapter_id]
-          ? iter[x.chapter_id].concat(x.challenge_id)
-          : [x.challenge_id];
+        iter[x.chapter_id] = iter[x.chapter_id] ?
+          iter[x.chapter_id].concat(x.challenge_id) :
+          [x.challenge_id];
         return iter;
       }, {});
       return {
@@ -278,10 +278,10 @@ export default {
     },
     isClearedImage(clearImageId) {
       switch (clearImageId) {
-        case 1:
-          return this.finalScore() >= 5000;
-        case 2:
-          return this.userStatus.challengeClearCount >= 64;
+      case 1:
+        return this.finalScore() >= 5000;
+      case 2:
+        return this.userStatus.challengeClearCount >= 64;
       }
       return false;
     },

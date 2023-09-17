@@ -28,10 +28,10 @@
 
 <script>
 import State from "../packs/model/state";
-import Savedata from '../packs/savedata';
-import store from '../packs/store';
-import Masterdata from '../packs/masterdata';
-import CoinIconVue from '../CoinIcon.vue';
+import Savedata from "../packs/savedata";
+import store from "../packs/store";
+import Masterdata from "../packs/masterdata";
+import CoinIconVue from "../CoinIcon.vue";
 
 export default {
   store,
@@ -42,23 +42,23 @@ export default {
     state: State,
   },
   methods: {
-    backToMenu(){
+    backToMenu() {
       const result = this.state.isWin();
       // 勝利時には入場料も返却される
       const rewardCoin = this.quest.win_coin + this.quest.lose_coin;
       Savedata.writeQuestResult(this.state.questId, result, rewardCoin);
-      this.$store.commit("loadScene", {name: "menu"});
-    }
+      this.$store.commit("loadScene", { name: "menu" });
+    },
   },
   computed: {
-    quest(){
+    quest() {
       return Masterdata.get("quests", this.state.questId);
     },
-    faceId(){
+    faceId() {
       const key = this.state.isWin() ? "win_face_id" : "lose_face_id";
       return this.quest[key];
-    }
-  }
+    },
+  },
 };
 </script>
 

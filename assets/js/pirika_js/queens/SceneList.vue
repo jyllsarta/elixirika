@@ -12,63 +12,63 @@
 </template>
 
 <script>
-import Masterdata from '../queens/packs/masterdata';
-import Savedata from './packs/savedata';
+import Masterdata from "../queens/packs/masterdata";
+import Savedata from "./packs/savedata";
 import store from "./packs/store";
 
 export default {
-  store, 
+  store,
   props: {
     characterId: Number,
   },
   methods: {
-    scenes(){
+    scenes() {
       return Masterdata.getBy("scenes", "character_id", [this.characterId]);
     },
-    isOpen(scene){
-      if(scene.quest_id && this.isQuestCleared(scene)){
+    isOpen(scene) {
+      if (scene.quest_id && this.isQuestCleared(scene)) {
         return true;
       }
-      if(scene.lose_character_id && this.isLosed()){
+      if (scene.lose_character_id && this.isLosed()) {
         return true;
       }
-      if(!scene.quest_id && !scene.lose_character_id){
+      if (!scene.quest_id && !scene.lose_character_id) {
         return true;
       }
       return false;
     },
-    isQuestCleared(scene){
+    isQuestCleared(scene) {
       return Savedata.isWin(scene.quest_id);
     },
-    isLosed(){
-      const questIds = Masterdata.getBy("quests", "character_id", [this.characterId]).map(quest => quest.id);
+    isLosed() {
+      const questIds = Masterdata.getBy("quests", "character_id", [this.characterId]).map((quest) => quest.id);
       return Savedata.loseCount(questIds) > 0;
     },
-    openScene(scene){
-      if(!this.isOpen(scene)){
+    openScene(scene) {
+      if (!this.isOpen(scene)) {
         console.log("not open");
         return;
       }
       this.$emit("openScene", scene.id);
     },
-    lockText(scene){
-      let texts = [];
-      if(scene.quest_id){
-        if(!this.isQuestCleared(scene)){
+    lockText(scene) {
+      const texts = [];
+      if (scene.quest_id) {
+        if (!this.isQuestCleared(scene)) {
           const quest = Masterdata.get("quests", scene.quest_id);
           texts.push(`${quest.order}.${quest.name}をクリア`);
         }
       }
-      if(scene.lose_character_id){
-        if(!this.isLosed()){
+      if (scene.lose_character_id) {
+        if (!this.isLosed()) {
           const character = Masterdata.get("characters", scene.lose_character_id);
           texts.push(`${character.name}に負ける`);
         }
       }
       return texts.join("\nまたは\n");
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

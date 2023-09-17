@@ -59,9 +59,9 @@ export default {
     classByCost(ability) {
       // MP制の世界
       if (this.character.hasSufficientMp) {
-        return this.character.hasSufficientMp(ability.cost)
-          ? "enabled"
-          : "disabled";
+        return this.character.hasSufficientMp(ability.cost) ?
+          "enabled" :
+          "disabled";
       }
       // シャッフルはカウント制の世界
       if (ability.category === "shuffle") {
@@ -113,7 +113,7 @@ export default {
     },
   },
   watch: {
-    "ability.card": function (after, before) {
+    "ability.card": function(after, before) {
       if (after !== null && before === null) {
         this.animate();
       }

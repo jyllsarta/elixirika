@@ -8,12 +8,12 @@
 import store from "../packs/store";
 
 export default {
-  store, 
+  store,
   props: {
     disabled: Boolean,
     text: String,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

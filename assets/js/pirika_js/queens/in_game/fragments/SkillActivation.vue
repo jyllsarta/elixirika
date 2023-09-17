@@ -5,26 +5,26 @@
 </template>
 
 <script>
-import Masterdata from '../../packs/masterdata';
+import Masterdata from "../../packs/masterdata";
 import State from "../../packs/model/state";
-import store from '../../packs/store';
+import store from "../../packs/store";
 
 export default {
   store,
   props: {
     state: State,
   },
-  mounted(){
+  mounted() {
     setTimeout(() => {
-      this.$store.commit("hideFragment", {name: "skill_activation"});
+      this.$store.commit("hideFragment", { name: "skill_activation" });
     }, 1000);
   },
   methods: {
-    skill(){
+    skill() {
       const skillId = this.$store.state.fragments_extra.skill_activation.skillId;
       return Masterdata.get("skills", skillId);
-    }
-  }
+    },
+  },
 };
 </script>
 

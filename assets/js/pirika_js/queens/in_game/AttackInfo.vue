@@ -16,7 +16,7 @@
           <div class="label">ブレイク</div>
           <div class="value">{{breakCount}}</div>
         </div>
-      </div>      
+      </div>
     </div>
     <div class="stun_cover" v-if="state.enemy.stunTurn > 0">
       <div class="bg" />
@@ -34,19 +34,19 @@
 import store from "../packs/store";
 
 export default {
-  store, 
+  store,
   props: {
     state: Object,
   },
   computed: {
-    breakCount(){
+    breakCount() {
       const count = this.state.enemy.breakCount;
       const filled_square = "◆".repeat(Math.min(count, 2));
       const empty_square = "◇".repeat(Math.max(2 - count, 0));
       return filled_square + empty_square;
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

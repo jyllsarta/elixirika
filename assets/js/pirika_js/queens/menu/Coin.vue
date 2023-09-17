@@ -9,20 +9,20 @@
 
 <script>
 import store from "../packs/store";
-import Savedata from '../packs/savedata';
-import CoinIconVue from '../CoinIcon.vue';
+import Savedata from "../packs/savedata";
+import CoinIconVue from "../CoinIcon.vue";
 
 export default {
-  store, 
+  store,
   components: {
     CoinIconVue,
   },
   methods: {
-    saveData(){
+    saveData() {
       return new Savedata().get();
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

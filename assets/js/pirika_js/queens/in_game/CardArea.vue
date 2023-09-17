@@ -30,9 +30,9 @@ import store from "../packs/store";
 import CardVue from "./Card.vue";
 
 export default {
-  store, 
+  store,
   components: {
-    CardVue
+    CardVue,
   },
   props: {
     state: Object,
@@ -40,20 +40,20 @@ export default {
   },
   computed: {
     // cardsのうち、最新10枚は通常サイズで表示する
-    normalCards(){
-      if(!this.state.board.cards){
+    normalCards() {
+      if (!this.state.board.cards) {
         return [];
       }
       return this.state.board.cards.slice(-8);
     },
-    condencedCards(){
-      if(!this.state.board.cards){
+    condencedCards() {
+      if (!this.state.board.cards) {
         return [];
       }
       return this.state.board.cards.slice(0, -8);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

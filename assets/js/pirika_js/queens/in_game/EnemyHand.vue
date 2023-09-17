@@ -6,17 +6,17 @@
 
 <script>
 import store from "../packs/store";
-import CardVue from './Card.vue';
+import CardVue from "./Card.vue";
 
 export default {
   store,
   components: {
-    CardVue
-  }, 
+    CardVue,
+  },
   props: {
     state: Object,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

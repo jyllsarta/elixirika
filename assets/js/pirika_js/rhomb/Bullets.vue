@@ -68,7 +68,7 @@ export default {
     },
   },
   watch: {
-    "model.turn": function () {
+    "model.turn": function() {
       this.drawLines();
     },
   },

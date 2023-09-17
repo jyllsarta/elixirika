@@ -1,7 +1,7 @@
 <template>
   <div class="right_area" v-if="state">
     <div class="skills">
-      <skill-icon-vue 
+      <skill-icon-vue
         v-for="skillId in enemySkillIds()"
         :key="skillId"
         :skill="skill(skillId)"
@@ -10,7 +10,7 @@
     </div>
     <right-main-area-vue class="right_main_area" :state="state" :controller="controller"/>
     <div class="skills">
-      <skill-icon-vue 
+      <skill-icon-vue
         v-for="skillId in playerSkillIds()"
         :key="skillId"
         :skill="skill(skillId)"
@@ -22,14 +22,14 @@
 </template>
 
 <script>
-import Masterdata from '../packs/masterdata';
-import SkillFacade from '../packs/service/skill_facade';
+import Masterdata from "../packs/masterdata";
+import SkillFacade from "../packs/service/skill_facade";
 import store from "../packs/store";
-import RightMainAreaVue from './RightMainArea.vue';
-import SkillIconVue from './SkillIcon.vue';
+import RightMainAreaVue from "./RightMainArea.vue";
+import SkillIconVue from "./SkillIcon.vue";
 
 export default {
-  store, 
+  store,
   components: {
     RightMainAreaVue,
     SkillIconVue,
@@ -38,41 +38,41 @@ export default {
     state: Object,
     controller: Object,
   },
-  data(){
+  data() {
     return {
       skillFacade: new SkillFacade(),
-    }
+    };
   },
   methods: {
-    onSkillClick(skillId){
+    onSkillClick(skillId) {
       const skill = this.skill(skillId);
-      if(!this.canInvokeSkill(skillId)){
+      if (!this.canInvokeSkill(skillId)) {
         return;
       }
-      if(skill.has_reference){
+      if (skill.has_reference) {
         this.controller.operate("toggleSkillSelectMode", skillId, false);
         return;
       }
       this.controller.operate("invokeSkill", skillId);
-      this.$store.commit("showFragment", {name: "skill_activation", extra: {skillId: skillId}});
+      this.$store.commit("showFragment", { name: "skill_activation", extra: { skillId: skillId } });
     },
-    skill(skillId){
+    skill(skillId) {
       return Masterdata.get("skills", skillId);
     },
-    canInvokeSkill(skillId){
+    canInvokeSkill(skillId) {
       return this.skillFacade.canInvoke(this.state, this.state.player, skillId, null);
     },
-    playerSkillIds(){
+    playerSkillIds() {
       return this.state.player.skillIds;
     },
-    enemySkillIds(){
+    enemySkillIds() {
       return this.state.enemy.skillIds;
     },
-    canInvokeEnemySkill(skillId){
+    canInvokeEnemySkill(skillId) {
       return this.skillFacade.canInvoke(this.state, this.state.enemy, skillId, null, false);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

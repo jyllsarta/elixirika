@@ -13,11 +13,11 @@
 import store from "../packs/store";
 
 export default {
-  store, 
+  store,
   props: {
     index: Number,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

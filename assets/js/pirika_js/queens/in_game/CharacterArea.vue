@@ -9,8 +9,8 @@
 
 <script>
 import store from "../packs/store";
-import BaloonVue from './Baloon.vue';
-import AttackInfoVue from './AttackInfo.vue';
+import BaloonVue from "./Baloon.vue";
+import AttackInfoVue from "./AttackInfo.vue";
 import CharacterImageVue from "./CharacterImage.vue";
 import EnemyHandVue from "./EnemyHand.vue";
 
@@ -27,11 +27,11 @@ export default {
     controller: Object,
   },
   methods: {
-    onCharacterClick(){
+    onCharacterClick() {
       this.controller.operate("clickCharacter", this.state.uiState.clickCount);
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

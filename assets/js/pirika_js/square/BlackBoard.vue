@@ -79,7 +79,7 @@ export default {
     },
   },
   watch: {
-    "model.score": function (after, before) {
+    "model.score": function(after, before) {
       this.delta = after - before;
       this.animateDelta();
     },

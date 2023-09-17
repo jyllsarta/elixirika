@@ -23,7 +23,7 @@
             チャプター条件
           </div>
           <div class="conditions">
-            <break-condition-vue 
+            <break-condition-vue
               v-for="breakCondition in currentBreakConditions()"
               :condition="breakCondition"
               :key="breakCondition.id"
@@ -54,7 +54,7 @@
           <div class="rewards">
             <div class="reward win">
               <div class="label">
-                WIN: 
+                WIN:
               </div>
               <coin-icon-vue class="coin_icon"/>
               <div class="value">
@@ -69,17 +69,17 @@
 </template>
 
 <script>
-import Masterdata from './packs/masterdata';
-import Savedata from './packs/savedata';
+import Masterdata from "./packs/masterdata";
+import Savedata from "./packs/savedata";
 import store from "./packs/store";
-import QuestListVue from './QuestList.vue';
-import SceneListVue from './SceneList.vue';
-import CoinIconVue from './CoinIcon.vue';
+import QuestListVue from "./QuestList.vue";
+import SceneListVue from "./SceneList.vue";
+import CoinIconVue from "./CoinIcon.vue";
 import BreakConditionVue from "./in_game/BreakCondition.vue";
-import BreakCondition from './packs/model/break_condition';
+import BreakCondition from "./packs/model/break_condition";
 
 export default {
-  store, 
+  store,
   components: {
     QuestListVue,
     SceneListVue,
@@ -89,75 +89,75 @@ export default {
   props: {
     characterId: Number,
   },
-  data(){
+  data() {
     return {
-      questId: null
-    }
+      questId: null,
+    };
   },
   methods: {
-    closeMenu(){
+    closeMenu() {
       this.$emit("close");
     },
-    startQuest(){
-      if(!this.canStartQuest()){
+    startQuest() {
+      if (!this.canStartQuest()) {
         return;
       }
       Savedata.consumeCoin(this.currentQuest().lose_coin);
-      this.$store.commit("loadScene", {name: "in_game", questId: this.questId});
+      this.$store.commit("loadScene", { name: "in_game", questId: this.questId });
     },
-    openScene(sceneId){
+    openScene(sceneId) {
       this.$emit("showScene", sceneId);
     },
-    character(){
+    character() {
       return Masterdata.idTables.characters[this.characterId];
     },
-    quests(){
+    quests() {
       return Masterdata.getBy("quests", "character_id", [this.characterId]);
     },
-    profile(){
+    profile() {
       const character = this.character();
-      return [character.profile1, character.profile2, character.profile3].filter(text => text !== "").join("<br>");
+      return [character.profile1, character.profile2, character.profile3].filter((text) => text !== "").join("<br>");
     },
-    selectQuest(questId){
+    selectQuest(questId) {
       this.questId = questId;
     },
-    currentQuest(){
-      if(!this.questId){
+    currentQuest() {
+      if (!this.questId) {
         return {};
       }
-      return this.quests().find(quest => quest.id == this.questId);
+      return this.quests().find((quest) => quest.id == this.questId);
     },
-    currentBreakConditions(){
+    currentBreakConditions() {
       const quest = this.currentQuest();
       const breakConditionMasters = Masterdata.getBy("break_conditions", "quest_id", [quest.id]).sort((a, b) => a.order - b.order);
-      return breakConditionMasters.map(master => {
+      return breakConditionMasters.map((master) => {
         return new BreakCondition(master.type, master.count, master.param1, true, null);
       });
     },
-    canStartQuest(){
+    canStartQuest() {
       const quest = this.currentQuest();
-      if(Savedata.coin() < quest.lose_coin){
+      if (Savedata.coin() < quest.lose_coin) {
         return false;
       }
-      if(quest.prev_quest_id && !Savedata.isWin(quest.prev_quest_id)){
+      if (quest.prev_quest_id && !Savedata.isWin(quest.prev_quest_id)) {
         return false;
       }
       return true;
     },
-    nextQuest(){
+    nextQuest() {
       // 未クリアで最もorderが小さいクエスト || 最後のクエスト
       const quests = this.quests();
-      const unclearedQuests = quests.filter(quest => !Savedata.isWin(quest.id));
-      if(unclearedQuests.length > 0){
+      const unclearedQuests = quests.filter((quest) => !Savedata.isWin(quest.id));
+      if (unclearedQuests.length > 0) {
         return unclearedQuests.sort((a, b) => a.order - b.order)[0];
       }
-      return quests.sort((a, b) => b.order - a.order)[0];      
+      return quests.sort((a, b) => b.order - a.order)[0];
     },
   },
-  mounted(){
+  mounted() {
     this.questId = this.nextQuest().id;
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -203,7 +203,7 @@ export default {
       .name{
         height: 80px;
         width: 100%;
-        display: flex;  
+        display: flex;
         justify-content: center;
         align-items: center;
         font-size: $font-size-xlarge;

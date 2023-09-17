@@ -156,7 +156,7 @@ import store from "./packs/store";
 import Masterdata from "./packs/masterdata";
 import Savedata from "./packs/savedata";
 import ItemIconVue from "./ItemIcon.vue";
-import ItemIconBlankVue from './ItemIconBlank.vue';
+import ItemIconBlankVue from "./ItemIconBlank.vue";
 
 export default {
   store,
@@ -164,7 +164,7 @@ export default {
     ItemIconVue,
     ItemIconBlankVue,
   },
-  data(){
+  data() {
     return {
       currentEquipmentId: 2001,
       maxSlot: 2,
@@ -173,21 +173,21 @@ export default {
       currentScript: "",
       faceId: 1,
       clickCount: 0,
-    }
+    };
   },
-  mounted(){
+  mounted() {
     this.welcome();
   },
   computed: {
-    currentEquipment(){
+    currentEquipment() {
       return Masterdata.get("equipments", this.currentEquipmentId);
     },
-    allEquipmentsMap(){
+    allEquipmentsMap() {
       // dataWatcherに依存していることにして、セーブデータの変更を検知する
       this.dataWatcher++;
       return Masterdata.getAllMap("equipments");
     },
-    stocks(){
+    stocks() {
       // stocks は すべての装備から targets, skills, instants を除いたもの
       const save = new Savedata().get().equipments;
       const allEquipments = Object.values(this.allEquipmentsMap);
@@ -201,60 +201,60 @@ export default {
 
       // 所持枠系の装備(additional...)も除外する
       const additionalIds = allEquipments
-        .filter(equipment=> equipment.type.includes("additional"))
-        .map(equipment=> equipment.id);
+        .filter((equipment)=> equipment.type.includes("additional"))
+        .map((equipment)=> equipment.id);
 
       // 未所持の装備(equipment.shop_id が save.shopItems に含まれない)も除外する
-      const shopItems = Object.keys(new Savedata().get().shopItems).map(id=> parseInt(id));
+      const shopItems = Object.keys(new Savedata().get().shopItems).map((id)=> parseInt(id));
       const unownedIds = allEquipments
-        .filter(equipment=> equipment.shop_id && !shopItems.includes(equipment.shop_id))
-        .map(equipment=> equipment.id);
+        .filter((equipment)=> equipment.shop_id && !shopItems.includes(equipment.shop_id))
+        .map((equipment)=> equipment.id);
 
       const invisibleIds = [
         ...alreadyEquipedIds,
         ...unownedIds,
         ...additionalIds,
       ];
-      return allEquipments.filter(equipment=> !invisibleIds.includes(equipment.id));
+      return allEquipments.filter((equipment)=> !invisibleIds.includes(equipment.id));
     },
-    targets(){
+    targets() {
       const save = new Savedata().get().equipments.targets;
       // dataWatcherと同様、allEquipmentsMapへの依存を明示する
       this.allEquipmentsMap;
-      return save.map(id=> this.allEquipmentsMap[id]);
+      return save.map((id)=> this.allEquipmentsMap[id]);
     },
-    skills(){
+    skills() {
       const save = new Savedata().get().equipments.skills;
       // dataWatcherと同様、allEquipmentsMapへの依存を明示する
       this.allEquipmentsMap;
-      return save.map(id=> this.allEquipmentsMap[id]);
+      return save.map((id)=> this.allEquipmentsMap[id]);
     },
-    instants(){
+    instants() {
       const save = new Savedata().get().equipments.instants;
       // dataWatcherと同様、allEquipmentsMapへの依存を明示する
       this.allEquipmentsMap;
-      return save.map(id=> this.allEquipmentsMap[id]);
+      return save.map((id)=> this.allEquipmentsMap[id]);
     },
-    additionalSlots(){
-      const allItems = Object.keys(new Savedata().get().shopItems).map(id=> this.allEquipmentsMap[id]);
+    additionalSlots() {
+      const allItems = Object.keys(new Savedata().get().shopItems).map((id)=> this.allEquipmentsMap[id]);
       return {
-        target: allItems.filter(item=> item.type === "additionalTargetSlot").length,
-        skill: allItems.filter(item=> item.type === "additionalSkillSlot").length,
-        instant: allItems.filter(item=> item.type === "additionalInstantSlot").length,
-      }
-    }
+        target: allItems.filter((item)=> item.type === "additionalTargetSlot").length,
+        skill: allItems.filter((item)=> item.type === "additionalSkillSlot").length,
+        instant: allItems.filter((item)=> item.type === "additionalInstantSlot").length,
+      };
+    },
   },
   methods: {
-    loadMenu(){
-      this.$store.commit("loadScene", {name: "menu"});
+    loadMenu() {
+      this.$store.commit("loadScene", { name: "menu" });
     },
-    totalSlot(slotName){
+    totalSlot(slotName) {
       return this.maxSlot + this.additionalSlots[slotName];
     },
-    equip(equipment){
-      let save = new Savedata().get();
+    equip(equipment) {
+      const save = new Savedata().get();
       const toFieldName = equipment.type + "s";
-      if(save.equipments[toFieldName].length >= this.totalSlot(equipment.type)){
+      if (save.equipments[toFieldName].length >= this.totalSlot(equipment.type)) {
         this.updateScript("alreadyMaxEquipSlot");
         return;
       }
@@ -264,13 +264,13 @@ export default {
       // 不要な処理だが、allEquipmentsにセーブデータの変更を検知させる
       this.dataWatcher++;
     },
-    removeEquipment(equipment){
-      let save = new Savedata().get();
+    removeEquipment(equipment) {
+      const save = new Savedata().get();
       const toFieldName = equipment.type + "s";
-      save.equipments[toFieldName] = save.equipments[toFieldName].filter(id=> id !== equipment.id);
+      save.equipments[toFieldName] = save.equipments[toFieldName].filter((id)=> id !== equipment.id);
 
-      //targetsに限り、最後の一つを外すことはできない
-      if(toFieldName === "targets" && save.equipments[toFieldName].length === 0){
+      // targetsに限り、最後の一つを外すことはできない
+      if (toFieldName === "targets" && save.equipments[toFieldName].length === 0) {
         this.updateScript("cannotRemoveLastTarget");
         console.warn("cannot remove last target");
         return;
@@ -281,27 +281,27 @@ export default {
       // 不要な処理だが、allEquipmentsにセーブデータの変更を検知させる
       this.dataWatcher++;
     },
-    welcome(){
+    welcome() {
       this.updateScript("welcome");
     },
-    onCharacterClick(){
+    onCharacterClick() {
       const characterId = 91;
       const scripts = Masterdata
-                        .getBy("character_scripts", "character_id", [characterId])
-                        .filter(script => script.when == "click")
-                        .sort((a, b) => a.order - b.order);
+        .getBy("character_scripts", "character_id", [characterId])
+        .filter((script) => script.when == "click")
+        .sort((a, b) => a.order - b.order);
       const script = scripts[this.clickCount % scripts.length];
       this.currentScript = script.message;
       this.faceId = script.face_id;
       this.clickCount++;
     },
-    updateScript(when){
+    updateScript(when) {
       const script = Masterdata.getOne("character_scripts", "when", when);
       this.currentScript = script.message;
       this.faceId = script.face_id;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -6,13 +6,13 @@
 
 <script>
 import store from "./packs/store";
-import GameWindow from "./GameWindow.vue"
+import GameWindow from "./GameWindow.vue";
 
 export default {
   store,
   components: {
     GameWindow,
-  }
+  },
 };
 </script>
 

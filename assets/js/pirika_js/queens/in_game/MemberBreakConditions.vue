@@ -9,13 +9,13 @@
       </div>
     </div>
     <div class="conditions">
-      <break-condition 
+      <break-condition
         v-for="condition in restConditions"
         :key="condition.id"
         :condition="condition"
         class="condition normal"
       />
-      <break-condition 
+      <break-condition
         v-for="condition in condencedConditions"
         :key="condition.id"
         :condition="condition"
@@ -24,7 +24,7 @@
       />
     </div>
     <div class="next_condition_area">
-      <break-condition 
+      <break-condition
         class="condition next_condition"
         :condition="headOfCondition"
         v-if="headOfCondition"
@@ -38,7 +38,7 @@ import store from "../packs/store";
 import BreakCondition from "./BreakCondition.vue";
 
 export default {
-  store, 
+  store,
   components: {
     BreakCondition,
   },
@@ -48,25 +48,25 @@ export default {
     breakConditions: Array,
   },
   computed: {
-    headOfCondition(){
+    headOfCondition() {
       return this.breakConditions[0];
     },
     // 2~4番目の条件
-    restConditions(){
-      if(!this.breakConditions){
+    restConditions() {
+      if (!this.breakConditions) {
         return [];
       }
       return this.breakConditions.slice(1, 3);
     },
     // 5番目以降の条件
-    condencedConditions(){
-      if(!this.breakConditions){
+    condencedConditions() {
+      if (!this.breakConditions) {
         return [];
       }
       return this.breakConditions.slice(3);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -102,7 +102,7 @@ export default {
     flex-direction: column-reverse;
     padding: 4px 4px 0 4px;
     gap: 4px;
-    
+
     .condition{
       display: flex;
       justify-content: center;

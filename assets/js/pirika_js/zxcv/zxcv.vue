@@ -230,18 +230,18 @@ export default {
     invokeUpdate() {
       this.updateTime();
       switch (this.gameState) {
-        case Constants.gameStates.title:
-          break;
-        case Constants.gameStates.inGame:
-          this.updateInGame();
-          break;
-        case Constants.gameStates.gameOver:
-          break;
-        case Constants.gameStates.cleared:
-          break;
-        default:
-          console.error(`undefined game mode set: ${this.gameState} on update`);
-          break;
+      case Constants.gameStates.title:
+        break;
+      case Constants.gameStates.inGame:
+        this.updateInGame();
+        break;
+      case Constants.gameStates.gameOver:
+        break;
+      case Constants.gameStates.cleared:
+        break;
+      default:
+        console.error(`undefined game mode set: ${this.gameState} on update`);
+        break;
       }
       requestAnimationFrame(this.invokeUpdate);
     },
@@ -279,23 +279,23 @@ export default {
 
     triggerKeyboardEvents() {
       switch (this.gameState) {
-        case Constants.gameStates.title:
-          this.handleKeyTitle();
-          break;
-        case Constants.gameStates.inGame:
-          this.handleKeyInGame();
-          break;
-        case Constants.gameStates.gameOver:
-          this.handleKeyGameOver();
-          break;
-        case Constants.gameStates.cleared:
-          this.handleKeyCleared();
-          break;
-        default:
-          console.error(
-            `undefined game mode set: ${this.gameState} on trigger Key Event`,
-          );
-          break;
+      case Constants.gameStates.title:
+        this.handleKeyTitle();
+        break;
+      case Constants.gameStates.inGame:
+        this.handleKeyInGame();
+        break;
+      case Constants.gameStates.gameOver:
+        this.handleKeyGameOver();
+        break;
+      case Constants.gameStates.cleared:
+        this.handleKeyCleared();
+        break;
+      default:
+        console.error(
+          `undefined game mode set: ${this.gameState} on trigger Key Event`,
+        );
+        break;
       }
     },
 

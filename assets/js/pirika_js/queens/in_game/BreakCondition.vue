@@ -19,18 +19,18 @@
 import store from "../packs/store";
 
 export default {
-  store, 
+  store,
   props: {
     condition: Object,
     condenced: Boolean,
   },
   computed: {
-    computedStyle(){
-      if(!this.condition?.card){
+    computedStyle() {
+      if (!this.condition?.card) {
         return {};
       }
       // TODO: マルチカラーのカードが出たら対応
-      if(this.condition.card.suits.length !== 1){
+      if (this.condition.card.suits.length !== 1) {
         return {};
       }
       const suit = this.condition.card.suits[0];
@@ -41,19 +41,19 @@ export default {
       };
       return style;
     },
-    countRatioPercent(){
-      if(this.condition.maxCount === 1){
+    countRatioPercent() {
+      if (this.condition.maxCount === 1) {
         return "0%";
       }
       return `${(this.condition.remainCount / this.condition.maxCount * 100)}%`;
-    }
+    },
   },
   methods: {
-    showDetail(){
-      this.$store.commit("showGlobalDetail", {type: "break_condition", params: this.condition});
-    }
-  }
-}
+    showDetail() {
+      this.$store.commit("showGlobalDetail", { type: "break_condition", params: this.condition });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

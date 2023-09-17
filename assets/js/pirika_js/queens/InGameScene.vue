@@ -24,22 +24,22 @@
 </template>
 
 <script>
-import PlayerHandVue from './in_game/PlayerHand.vue';
-import CharacterAreaVue from './in_game/CharacterArea.vue';
-import TableAreaVue from './in_game/TableArea.vue';
-import RightAreaVue from './in_game/RightArea.vue';
-import LeftAreaVue from './in_game/LeftArea.vue';
+import PlayerHandVue from "./in_game/PlayerHand.vue";
+import CharacterAreaVue from "./in_game/CharacterArea.vue";
+import TableAreaVue from "./in_game/TableArea.vue";
+import RightAreaVue from "./in_game/RightArea.vue";
+import LeftAreaVue from "./in_game/LeftArea.vue";
 import State from "./packs/model/state";
 import Controller from "./packs/service/controller";
-import DebugStateVue from './DebugState.vue';
-import PhaseMoverVue from './PhaseMover.vue';
+import DebugStateVue from "./DebugState.vue";
+import PhaseMoverVue from "./PhaseMover.vue";
 import FloatingMenuVue from "./in_game/FloatingMenu.vue";
 import GamesetDialogVue from "./in_game/GamesetDialog.vue";
 import GameStartDialogVue from "./in_game/GameStartDialog.vue";
-import BackgroundVue from './in_game/Background.vue';
-import FragmentVue from './in_game/Fragments.vue';
-import Savedata from './packs/savedata';
-import Masterdata from './packs/masterdata';
+import BackgroundVue from "./in_game/Background.vue";
+import FragmentVue from "./in_game/Fragments.vue";
+import Savedata from "./packs/savedata";
+import Masterdata from "./packs/masterdata";
 
 export default {
   components: {
@@ -56,14 +56,14 @@ export default {
     BackgroundVue,
     FragmentVue,
   },
-  data(){
+  data() {
     return {
       state: null,
       controller: null,
       quest: null,
-    }
+    };
   },
-  mounted(){
+  mounted() {
     const questId = this.$store.state.scene.params.questId;
     const playerParams = Savedata.playerParams();
     this.quest = Masterdata.get("quests", questId);
@@ -73,11 +73,11 @@ export default {
     window.controller = this.controller;
   },
   methods: {
-    startGame(){
+    startGame() {
       this.controller.operate("nextPhase");
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -26,26 +26,26 @@
 export default {
   props: {
     state: Object,
-    controller: Object
+    controller: Object,
   },
-  data(){
+  data() {
     return {
       fieldNames: [
         "deck",
         "discard",
         "board",
         "boardNext",
-      ]
-    }
+      ],
+    };
   },
   methods: {
-    setup(){
+    setup() {
       this.controller.operate("setup");
     },
-    nextPhase(){
+    nextPhase() {
       this.controller.operate("nextPhase");
-    }
-  }
+    },
+  },
 
 };
 </script>

@@ -8,11 +8,11 @@
 import store from "../packs/store";
 
 export default {
-  store, 
+  store,
   props: {
     state: Object,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

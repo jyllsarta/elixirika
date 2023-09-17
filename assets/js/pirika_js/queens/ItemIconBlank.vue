@@ -13,7 +13,7 @@ export default {
     message: String,
     disabled: Boolean,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

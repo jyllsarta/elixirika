@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import Masterdata from '../packs/masterdata';
+import Masterdata from "../packs/masterdata";
 import store from "../packs/store";
-import SkillIconVue from './SkillIcon.vue';
-import SkillFacade from '../packs/service/skill_facade';
+import SkillIconVue from "./SkillIcon.vue";
+import SkillFacade from "../packs/service/skill_facade";
 
 export default {
   store,
@@ -28,41 +28,41 @@ export default {
     state: Object,
     controller: Object,
   },
-  data(){
+  data() {
     return {
       skillFacade: new SkillFacade(),
-    }
+    };
   },
   methods: {
-    onSkillClick(skillId){
+    onSkillClick(skillId) {
       const skill = this.skill(skillId);
-      if(!this.canInvokeSkill(skillId)){
+      if (!this.canInvokeSkill(skillId)) {
         return;
       }
-      if(skill.has_reference){
+      if (skill.has_reference) {
         this.controller.operate("toggleSkillSelectMode", skillId, true);
         return;
       }
       this.controller.operate("invokeFieldEffect", skillId);
-      this.$store.commit("showFragment", {name: "skill_activation", extra: {skillId: skillId}});
+      this.$store.commit("showFragment", { name: "skill_activation", extra: { skillId: skillId } });
     },
-    skill(skillId){
+    skill(skillId) {
       return Masterdata.get("skills", skillId);
     },
-    canInvokeSkill(skillId){
-      if(!this.state.fieldEffect){
+    canInvokeSkill(skillId) {
+      if (!this.state.fieldEffect) {
         return false;
       }
-      if(this.state.fieldEffectActivateCount > 0){
+      if (this.state.fieldEffectActivateCount > 0) {
         return false;
       }
       return this.skill(skillId).cost <= this.state.player.specialPoint && this.skillFacade.canInvoke(this.state, this.state.player, skillId, null);
     },
-    playerSkillIds(){
+    playerSkillIds() {
       return this.state.player.skillIds;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

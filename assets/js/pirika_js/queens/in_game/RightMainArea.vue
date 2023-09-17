@@ -21,13 +21,13 @@ export default {
   store,
   components: {
     MemberStatusVue,
-    FieldEffectStatusVue
+    FieldEffectStatusVue,
   },
   props: {
     state: Object,
     controller: Object,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

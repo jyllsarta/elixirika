@@ -16,7 +16,7 @@
         <div class="price">{{ shopItem.price }}</div>
       </div>
       <div class="buy_area">
-        <div 
+        <div
           class="buy_button tentative_button"
           @click="buy"
           :class="{disabled: !canBuy()}"
@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import CoinIconVue from './CoinIcon.vue';
-import Masterdata from './packs/masterdata';
-import Savedata from './packs/savedata';
+import CoinIconVue from "./CoinIcon.vue";
+import Masterdata from "./packs/masterdata";
+import Savedata from "./packs/savedata";
 import store from "./packs/store";
 import ItemIcon from "./ItemIcon.vue";
 
@@ -54,47 +54,47 @@ export default {
     equipment: Object,
   },
   methods: {
-    canBuy(){
-      //お金足りてるか
-      if(Savedata.coin() < this.shopItem.price){
+    canBuy() {
+      // お金足りてるか
+      if (Savedata.coin() < this.shopItem.price) {
         return false;
       }
-      //すでに所持済みか
-      if(Savedata.hasShopItem(this.shopItem.id)){
+      // すでに所持済みか
+      if (Savedata.hasShopItem(this.shopItem.id)) {
         return false;
       }
-      //前提クエストをクリアしているか
-      if(this.shopItem.quest_id && !Savedata.isWin(this.shopItem.quest_id)){
+      // 前提クエストをクリアしているか
+      if (this.shopItem.quest_id && !Savedata.isWin(this.shopItem.quest_id)) {
         return false;
       }
       return true;
     },
-    buy(){
-      if(!this.canBuy()){
+    buy() {
+      if (!this.canBuy()) {
         return;
       }
       Savedata.buyShopItem(this.shopItem.price, this.shopItem.id);
       this.$emit("buy");
     },
-    disabled(){
+    disabled() {
       return !this.canBuy();
     },
-    lockText(){
-      if(Savedata.hasShopItem(this.shopItem.id)){
+    lockText() {
+      if (Savedata.hasShopItem(this.shopItem.id)) {
         return "購入済";
       }
-      if(Savedata.coin() < this.shopItem.price){
+      if (Savedata.coin() < this.shopItem.price) {
         return "お金が足りません";
       }
-      if(this.shopItem.quest_id && !Savedata.isWin(this.shopItem.quest_id)){
+      if (this.shopItem.quest_id && !Savedata.isWin(this.shopItem.quest_id)) {
         const quest = Masterdata.get("quests", this.shopItem.quest_id);
         const characterName = Masterdata.get("characters", quest.character_id).name;
         return `${characterName} の ${quest.name} をクリアで入荷`;
       }
       return "";
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

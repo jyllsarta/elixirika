@@ -13,7 +13,7 @@
           チャプター条件
         </div>
         <div class="break_conditions">
-          <break-condition-vue 
+          <break-condition-vue
             v-for="breakCondition in currentBreakConditions"
             :condition="breakCondition"
             :key="breakCondition.id"
@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import Masterdata from '../packs/masterdata';
-import BreakConditionVue from './BreakCondition.vue';
-import BreakCondition from '../packs/model/break_condition';
+import Masterdata from "../packs/masterdata";
+import BreakConditionVue from "./BreakCondition.vue";
+import BreakCondition from "../packs/model/break_condition";
 
 export default {
   props: {
@@ -43,20 +43,20 @@ export default {
     BreakConditionVue,
   },
   methods: {
-    startGame(){
+    startGame() {
       console.log("startGame");
-      this.$emit('start-game');
-    }
+      this.$emit("start-game");
+    },
   },
   computed: {
-    currentBreakConditions(){
+    currentBreakConditions() {
       const quest = this.quest;
       const breakConditionMasters = Masterdata.getBy("break_conditions", "quest_id", [quest.id]).sort((a, b) => a.order - b.order);
-      return breakConditionMasters.map(master => {
+      return breakConditionMasters.map((master) => {
         return new BreakCondition(master.type, master.count, master.param1, true, null);
       });
     },
-  }
+  },
 };
 </script>
 
@@ -90,7 +90,7 @@ export default {
     }
     .description{
       width: 60%;
-      text-align: center;   
+      text-align: center;
     }
     .conditions{
       width: 100%;

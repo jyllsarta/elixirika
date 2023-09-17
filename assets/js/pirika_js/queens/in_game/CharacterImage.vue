@@ -10,16 +10,16 @@
 import store from "../packs/store";
 
 export default {
-  store, 
+  store,
   props: {
     state: Object,
   },
   computed: {
-    faceId(){
+    faceId() {
       return this.state.uiState.faceId;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

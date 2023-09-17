@@ -10,10 +10,10 @@
 <script>
 import store from "./packs/store";
 import BreakConditionVue from "./in_game/BreakCondition.vue";
-import BreakCondition from './packs/model/break_condition';
+import BreakCondition from "./packs/model/break_condition";
 import SkillIconVue from "./in_game/SkillIcon.vue";
 import Masterdata from "./packs/masterdata";
-import GeneralIconVue from './in_game/GeneralIcon.vue';
+import GeneralIconVue from "./in_game/GeneralIcon.vue";
 
 export default {
   store,
@@ -27,14 +27,14 @@ export default {
     equipment: Object,
   },
   computed: {
-    breakCondition(){
+    breakCondition() {
       return new BreakCondition(this.equipment.effect_key1, this.equipment.effect_value1, null, true, null);
     },
-    skill(){
+    skill() {
       return Masterdata.get("skills", this.equipment.effect_value1);
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

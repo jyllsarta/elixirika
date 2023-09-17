@@ -130,7 +130,7 @@ export default {
     },
   },
   watch: {
-    "model.starPalette.fields.length": function (after, before) {
+    "model.starPalette.fields.length": function(after, before) {
       const afterProgress = this.currentProgress;
       if (afterProgress - this.currentProgressCache === 3) {
         this.$store.commit("playSound", { key: "special4" });

@@ -1,54 +1,54 @@
 <template>
 <div class="quests">
-  <div 
+  <div
     class="tentative_panel quest"
     v-for="quest in quests()"
     :key="quest.id"
     @click="selectQuest(quest.id)"
     :class="{
-      disabled: !canStartQuest(quest), 
-      selected: selectedQuestId == quest.id, 
+      disabled: !canStartQuest(quest),
+      selected: selectedQuestId == quest.id,
       win: isWin(quest.id),
       hard: quest.is_hard,
     }"
   >
     {{quest.order}}
   </div>
-</div> 
+</div>
 </template>
 
 <script>
-import Masterdata from '../queens/packs/masterdata';
-import Savedata from './packs/savedata';
+import Masterdata from "../queens/packs/masterdata";
+import Savedata from "./packs/savedata";
 import store from "./packs/store";
 
 export default {
-  store, 
+  store,
   props: {
     characterId: Number,
     selectedQuestId: Number,
   },
   methods: {
-    quests(){
+    quests() {
       return Masterdata.getBy("quests", "character_id", [this.characterId]);
     },
-    isWin(questId){
+    isWin(questId) {
       return Savedata.isWin(questId);
     },
-    selectQuest(questId){
+    selectQuest(questId) {
       this.$emit("selectQuest", questId);
     },
-    canStartQuest(quest){
-      if(Savedata.coin() < quest.lose_coin){
+    canStartQuest(quest) {
+      if (Savedata.coin() < quest.lose_coin) {
         return false;
       }
-      if(quest.prev_quest_id && !Savedata.isWin(quest.prev_quest_id)){
+      if (quest.prev_quest_id && !Savedata.isWin(quest.prev_quest_id)) {
         return false;
       }
       return true;
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -19,17 +19,17 @@ import store from "./packs/store";
 
 export default {
   store,
-  data(){
+  data() {
     return {
       opening: false,
-    }
+    };
   },
   methods: {
-    loadMenu(){
-      this.$store.commit("loadScene", {name: "title"});
-    }
-  }
-}
+    loadMenu() {
+      this.$store.commit("loadScene", { name: "title" });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -42,7 +42,7 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 8px;    
+    gap: 8px;
   }
   &.open{
     height: 200%;

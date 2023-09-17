@@ -22,12 +22,12 @@ export default {
     state: Object,
   },
   methods: {
-    turnActor(){
+    turnActor() {
       // enemyが含まれるphaseの場合のみstate.enemy, そうでない場合はstate.playerを返す
       return this.state.phase.includes("enemy") ? this.state.enemy : this.state.player;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

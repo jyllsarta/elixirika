@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     class="skill tentative_button"
     :class="{disabled: disabled}"
     @click.right.prevent="disabled || onClick()"
@@ -12,29 +12,29 @@
 import store from "../packs/store";
 
 export default {
-  store, 
+  store,
   props: {
     disabled: Boolean,
     skill: Object,
   },
   computed: {
-    stringRepresentation(){
-      if(this.skill.is_instant){
+    stringRepresentation() {
+      if (this.skill.is_instant) {
         return this.skill.name;
       }
-      if(this.skill.is_field_effect){
+      if (this.skill.is_field_effect) {
         return this.skill.name;
       }
 
       return this.skill.name + "(" + this.skill.cost + ")";
-    }
+    },
   },
   methods: {
-    onClick(){
-      this.$store.commit("showGlobalDetail", {type: "skill", params: this.skill});
-    }
-  }
-}
+    onClick() {
+      this.$store.commit("showGlobalDetail", { type: "skill", params: this.skill });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

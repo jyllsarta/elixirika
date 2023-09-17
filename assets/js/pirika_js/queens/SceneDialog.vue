@@ -28,48 +28,48 @@
 import masterdata from "./packs/masterdata";
 
 export default {
-  props:{
+  props: {
     sceneId: Number,
   },
-  data(){
+  data() {
     return {
       currentSay: null,
       says: [],
       showText: true,
     };
   },
-  mounted(){
-    this.says = masterdata.getAll("scripts").filter(s => s.scene_id === this.sceneId);
+  mounted() {
+    this.says = masterdata.getAll("scripts").filter((s) => s.scene_id === this.sceneId);
     this.currentSay = this.says[0];
   },
   methods: {
     closeMenu() {
       this.$emit("close");
     },
-    updateFace(){
+    updateFace() {
       // 要素140px + gap30px
       const scroll = Math.max(this.$refs.says.scrollTop + 40, 0);
       const index = Math.floor(scroll / 170);
       this.currentSay = this.says[index] || this.currentSay;
     },
-    nextSay(id){
-      if(id >= this.says.length){
+    nextSay(id) {
+      if (id >= this.says.length) {
         return;
       }
-      this.currentSay = this.says.find(say => say.order == this.currentSay.order + 1) || this.currentSay;
+      this.currentSay = this.says.find((say) => say.order == this.currentSay.order + 1) || this.currentSay;
       this.$refs.says.scrollTop = 170 * id;
     },
-    next(){
-      if(!this.showText){
+    next() {
+      if (!this.showText) {
         this.showText = true;
         return;
       }
-      if(!this.currentSay){
+      if (!this.currentSay) {
         return;
       }
       this.nextSay(this.currentSay.order);
     },
-    closeText(){
+    closeText() {
       console.log("close");
       this.showText = false;
     },

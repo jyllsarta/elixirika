@@ -11,12 +11,12 @@
 
 <script>
 import store from "../packs/store";
-import CardAreaVue from './CardArea.vue';
-import DecideAreaVue from './DecideArea.vue';
-import ComboAreaVue from './ComboArea.vue';
+import CardAreaVue from "./CardArea.vue";
+import DecideAreaVue from "./DecideArea.vue";
+import ComboAreaVue from "./ComboArea.vue";
 
 export default {
-  store, 
+  store,
   components: {
     CardAreaVue,
     DecideAreaVue,
@@ -26,7 +26,7 @@ export default {
     state: Object,
     controller: Object,
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

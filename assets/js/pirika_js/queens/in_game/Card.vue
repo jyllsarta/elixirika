@@ -13,7 +13,7 @@
 import store from "../packs/store";
 
 export default {
-  store, 
+  store,
   props: {
     card: Object,
     state: Object,
@@ -23,19 +23,19 @@ export default {
     isEffective: Boolean,
   },
   methods: {
-    onCardClick(cardId){
-      this.$emit('cardClick', cardId);
-    }
+    onCardClick(cardId) {
+      this.$emit("cardClick", cardId);
+    },
   },
   computed: {
-    selectSkillTarget(){
+    selectSkillTarget() {
       return this.state.uiState.selectSkillTarget;
     },
     computedStyle() {
-      if(this.card.suits.length !== 1){
+      if (this.card.suits.length !== 1) {
         return {};
       }
-      if(!this.card.revealed){
+      if (!this.card.revealed) {
         return {};
       }
       const suit = this.card.suits[0];
@@ -48,20 +48,20 @@ export default {
       };
       return style;
     },
-    frameStyle(){
+    frameStyle() {
       const style = {
         borderColor: this.frameColor,
       };
       return style;
     },
-    frameColor(){
-      if(this.selectSkillTarget && this.highlightsOnSkillTarget){
+    frameColor() {
+      if (this.selectSkillTarget && this.highlightsOnSkillTarget) {
         return "var(--color-u1)";
       }
       return "transparent";
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

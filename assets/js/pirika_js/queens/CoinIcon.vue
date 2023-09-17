@@ -19,8 +19,8 @@
 import store from "./packs/store";
 
 export default {
-  store, 
-}
+  store,
+};
 </script>
 
 <style lang="scss" scoped>

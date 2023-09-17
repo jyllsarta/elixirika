@@ -75,15 +75,15 @@ export default {
     starClass(starPaletteParam) {
       const satisfiedClass = this.model.starPalette.isSatisfied(
         starPaletteParam,
-      )
-        ? "enabled"
-        : "disabled";
+      ) ?
+        "enabled" :
+        "disabled";
       const expectedClass = this.model.starPalette.willBeSatisfiedWith(
         starPaletteParam,
         this.expectedCardLength(),
-      )
-        ? "will_be"
-        : "";
+      ) ?
+        "will_be" :
+        "";
       return [satisfiedClass, expectedClass].join(" ");
     },
   },
@@ -104,7 +104,7 @@ export default {
     },
   },
   watch: {
-    "model.starPalette.fields.length": function (after, before) {
+    "model.starPalette.fields.length": function(after, before) {
       const afterProgress = this.currentProgress;
       if (afterProgress > this.currentProgressCache) {
         this.$store.commit("playSound", { key: "special1" });

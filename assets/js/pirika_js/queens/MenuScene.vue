@@ -32,14 +32,14 @@
 </template>
 
 <script>
-import CharacterDetailDialog from './CharacterDetailDialog.vue';
-import SceneDialogVue from './SceneDialog.vue';
+import CharacterDetailDialog from "./CharacterDetailDialog.vue";
+import SceneDialogVue from "./SceneDialog.vue";
 import CharacterVue from "./menu/Character.vue";
-import CoinVue from './menu/Coin.vue';
+import CoinVue from "./menu/Coin.vue";
 import store from "./packs/store";
-import SkillVue from './menu/Skill.vue';
-import MenuBackgroundVue from './MenuBackground.vue';
-import FloatingMenuVue from './FloatingMenu.vue';
+import SkillVue from "./menu/Skill.vue";
+import MenuBackgroundVue from "./MenuBackground.vue";
+import FloatingMenuVue from "./FloatingMenu.vue";
 
 export default {
   store,
@@ -50,32 +50,32 @@ export default {
     CoinVue,
     SkillVue,
     MenuBackgroundVue,
-    FloatingMenuVue
+    FloatingMenuVue,
   },
-  data(){
+  data() {
     return {
       showingDetail: false,
       showingCharacterId: 1,
       showingScene: false,
       sceneId: 0,
-    }
+    };
   },
   methods: {
-    loadScene(name){
-      this.$store.commit("loadScene", {name: name});
+    loadScene(name) {
+      this.$store.commit("loadScene", { name: name });
     },
-    showDetail(id){
+    showDetail(id) {
       this.showingDetail = true;
       this.showingCharacterId = id;
     },
-    showScene(sceneId){
+    showScene(sceneId) {
       this.showingScene = true;
       this.sceneId = sceneId;
-    }
+    },
   },
   computed: {
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

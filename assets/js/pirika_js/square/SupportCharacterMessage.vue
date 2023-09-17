@@ -34,7 +34,7 @@ export default {
     },
   },
   watch: {
-    "model.messageManager.id": function () {
+    "model.messageManager.id": function() {
       this.receiveAnimation();
     },
   },

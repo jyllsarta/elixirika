@@ -10,26 +10,26 @@
 import store from "../packs/store";
 
 export default {
-  store, 
+  store,
   props: {
     state: Object,
     controller: Object,
-  },  
+  },
   computed: {
-    available(){
+    available() {
       return this.state.phase == "unstarted" || this.state.phase == "player_select";
-    }
+    },
   },
   methods: {
-    ok(){
-      if(!this.available){
+    ok() {
+      if (!this.available) {
         console.warn("not ready");
         return;
       }
       this.controller.operate("nextPhase");
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

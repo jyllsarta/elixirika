@@ -4,7 +4,7 @@
     <div class="content_area">
       <div class="content">
         <div class="title">{{ fetchDetails().title }}</div>
-        <break-condition-vue 
+        <break-condition-vue
           v-if="type === 'break_condition'"
           :condition="params"
           :condenced="false"
@@ -34,40 +34,40 @@ export default {
     SkillIconVue,
   },
   methods: {
-    close(){
+    close() {
       this.$store.commit("hideGlobalDetail");
     },
-    fetchDetails(){
-      switch(this.type){
-        case "break_condition":
-          return this.fetchBreakCondition();
-        case "skill":
-          return this.fetchSkill();
-      }      
+    fetchDetails() {
+      switch (this.type) {
+      case "break_condition":
+        return this.fetchBreakCondition();
+      case "skill":
+        return this.fetchSkill();
+      }
     },
-    fetchBreakCondition(){
+    fetchBreakCondition() {
       const description = Masterdata.getOne("break_condition_descriptions", "type", this.params.type);
       return {
         title: description.title,
         description: description.description,
-      }
+      };
     },
-    fetchSkill(){
+    fetchSkill() {
       return {
         title: this.params.name,
         description: this.params.description,
-      }
-    }
+      };
+    },
   },
   computed: {
-    type(){
+    type() {
       return this.$store.state.global_detail.type;
     },
-    params(){
+    params() {
       return this.$store.state.global_detail.params;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

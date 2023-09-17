@@ -14,32 +14,32 @@
 
 <script>
 import store from "../packs/store";
-import Savedata from '../packs/savedata';
-import Masterdata from '../packs/masterdata';
-import QuestListVue from '../QuestList.vue';
+import Savedata from "../packs/savedata";
+import Masterdata from "../packs/masterdata";
+import QuestListVue from "../QuestList.vue";
 
 export default {
-  store, 
+  store,
   components: {
-    QuestListVue
+    QuestListVue,
   },
   props: {
-    characterId: Number
+    characterId: Number,
   },
   computed: {
   },
   methods: {
-    showDetail(){
+    showDetail() {
       this.$emit("select");
     },
-    saveData(){
+    saveData() {
       return new Savedata().get();
     },
-    character(){
+    character() {
       return Masterdata.get("characters", this.characterId);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -10,14 +10,14 @@
 import store from "./packs/store";
 
 export default {
-  store, 
+  store,
 
   methods: {
-    loadMenu(){
-      this.$store.commit("loadScene", {name: "menu"});
-    }
+    loadMenu() {
+      this.$store.commit("loadScene", { name: "menu" });
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

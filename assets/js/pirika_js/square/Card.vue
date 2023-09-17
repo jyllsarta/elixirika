@@ -136,19 +136,19 @@ export default {
     },
     doSend(target, cardId) {
       switch (target) {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-          this.sendToBoard(target, cardId);
-          break;
-        case "ability":
-          this.sendToAbility(cardId);
-          break;
-        case -1:
-          console.warn("no drag target!");
-          this.cancelDrag();
-          break;
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        this.sendToBoard(target, cardId);
+        break;
+      case "ability":
+        this.sendToAbility(cardId);
+        break;
+      case -1:
+        console.warn("no drag target!");
+        this.cancelDrag();
+        break;
       }
     },
     cancelDrag() {

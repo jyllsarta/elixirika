@@ -22,44 +22,44 @@ import Stack from "../packs/service/stack";
 import Break from "../packs/service/break";
 
 export default {
-  store, 
+  store,
   components: {
-    CardVue
+    CardVue,
   },
   props: {
     state: Object,
     controller: Object,
   },
   methods: {
-    onCardClick(cardId){
-      if(this.state.uiState.selectSkillTarget){
+    onCardClick(cardId) {
+      if (this.state.uiState.selectSkillTarget) {
         const skillId = this.state.uiState.selectingSkillId;
-        this.$store.commit("showFragment", {name: "skill_activation", extra: {skillId: skillId}});
+        this.$store.commit("showFragment", { name: "skill_activation", extra: { skillId: skillId } });
       }
       this.controller.operate("selectCardByCardId", cardId);
     },
-    canStackCard(card){
+    canStackCard(card) {
       return new Stack().isValid(this.state, this.state.board, card);
     },
-    isEffectiveCard(card){
+    isEffectiveCard(card) {
       return this.canBreakNextCondition(card) || this.canBreakRevealedHand(card);
     },
-    canBreakNextCondition(card){
-      if(this.state.enemy.breakConditions.length === 0){
+    canBreakNextCondition(card) {
+      if (this.state.enemy.breakConditions.length === 0) {
         return false;
       }
       const nextCondition = this.state.enemy.breakConditions[0];
       return new Break().getCountReduction(this.state, this.state.board, nextCondition, card) > 0;
     },
-    canBreakRevealedHand(card){
-      const revealedHandConditions = this.state.enemy.hand.asBreakConditions().filter(c => c.card.revealed);
-      if(revealedHandConditions.length === 0){
+    canBreakRevealedHand(card) {
+      const revealedHandConditions = this.state.enemy.hand.asBreakConditions().filter((c) => c.card.revealed);
+      if (revealedHandConditions.length === 0) {
         return false;
       }
-      return revealedHandConditions.some(c => new Break().getCountReduction(this.state, this.state.board, c, card) > 0);
-    }
+      return revealedHandConditions.some((c) => new Break().getCountReduction(this.state, this.state.board, c, card) > 0);
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

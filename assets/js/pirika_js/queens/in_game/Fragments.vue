@@ -6,8 +6,8 @@
 
 <script>
 import State from "../packs/model/state";
-import store from '../packs/store';
-import SkillActivationVue from './fragments/SkillActivation.vue';
+import store from "../packs/store";
+import SkillActivationVue from "./fragments/SkillActivation.vue";
 
 export default {
   store,
@@ -18,7 +18,7 @@ export default {
     SkillActivationVue,
   },
   methods: {
-  }
+  },
 };
 </script>
 
