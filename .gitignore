@@ -39,7 +39,6 @@ npm-debug.log
 # game masterdata directory
 
 /assets/js/pirika_js/square/masterdata
-/assets/js/pirika_js/queens/masterdata
 /assets/static
 
 # VSCodeの "esLint.WorkingDirectories" に何を指定しても /assets/.eslintrc.js を読んでくれない

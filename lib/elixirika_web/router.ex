@@ -74,8 +74,6 @@ defmodule ElixirikaWeb.Router do
     # Rhomb
     get "/rhomb", RhombController, :index
 
-    # queens
-    get "/queens", QueensController, :index
   end
 
   # Other scopes may use custom stacks.
